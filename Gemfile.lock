@@ -44,7 +44,7 @@ GEM
     ffi (1.15.1)
     forwardable-extended (2.6.0)
     gemoji (3.0.1)
-    github-linguist (7.14.0)
+    github-linguist (7.15.0)
       charlock_holmes (~> 0.7.7)
       escape_utils (~> 1.2.0)
       mini_mime (~> 1.0)
