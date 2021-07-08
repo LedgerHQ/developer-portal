@@ -1,5 +1,5 @@
 ---
-title: Speculos documentation
+title: Introduction
 subtitle:
 tags: []
 author:
@@ -11,43 +11,72 @@ layout: doc_sp
 * TOC
 {:toc}
 
-[Source code](https://github.com/LedgerHQ/speculos)
+After having [installed the requirements and built](../linux-installation) speculos:
 
-## Users
+```sh
+./speculos.py apps/btc.elf
+```
 
-### Installation and basic usage
+The docker image can also be used directly, as detailed in the specific [docker documentation page](../docker-image).
 
-- Linux users: [Requirements and build](../linux-installation)
-- Mac OS (and Linux) users: [How to use the Docker image](../docker-image) with VNC
-- Windows users: [Using speculos from WSL 2](../windows-installation)
-- [Usage](../usage)
+The Nano S is the default model; the Nano X and Blue can be specified on the command-line:
 
-### Interaction with an app
+```sh
+./speculos.py --model nanox apps/nanox#btc#1.2#57272a0f.elf
+./speculos.py --model blue --sdk 1.5 apps/blue#btc#1.5#00000000.elf
+```
 
-- [How to send APDUs to an app (and more)](../send-apdu)
-- [How to use gdb to debug an app](../debug)
+The last SDK version is automatically selected. However, a specific version be specified if the target app is not build against the last version of the SDK, thanks to the `-k`/`--sdk` argument. For instance, to launch an app built against the SDK `1.5` on the Nano S:
 
-### For advanced users
+```sh
+./speculos.py --sdk 1.5 --model nanos apps/btc.elf
+```
 
-- [Automation: press buttons automatically](../automation)
-- [Semihosting as an additional debug mechanism](../semihosting)
-- Mac OS (and Linux) users: [How to use the Docker image](../docker-image) with VNC
-- Windows users: [Using speculos from WSL 2](../windows-installation)
-- [Usage](../usage)
+Supported SDK values for the `-k`/`--sdk` argument are:
 
-### Interaction with an app
+|     | Nano S        | Nano X  | Blue            |
+|-----|---------------|---------|-----------------|
+| SDK | 1.5, 1.6, 2.0 | 1.2     | 1.5, blue-2.2.5 |
 
-- [How to send APDUs to an app (and more)](../send-apdu)
-- [How to use gdb to debug an app](../debug)
+For more options, pass the `-h` or `--help` flag.
 
-### For advanced users
+## Keyboard control
 
-- [Automation: press buttons automatically](../automation)
-- [Semihosting as an additional debug mechanism](../semihosting)
+- The keyboard left and right arrow keys are used instead of the Nano buttons.
+  The down arrow can also be used as a more convenient shortcut.
+- The `Q` key exits the application.
 
+## Display
 
-## Speculos developers
+Several display options are available through the `--display` parameter:
 
-- [How to run tests](../tests)
-- [CI (Continuous Integration)](../continuous-integration)
-- [Internals](../internals)
+- `qt`: default, requires a X server
+- `headless`: nothing is displayed
+- `text`: the UI is displayed in the console (handy on Windows)
+
+These options can be used along `--vnc-port` which spawns a VNC server on the specified port. macOS users should also add `--vnc-password <password>` if using the built-in VNC client because unauthenticated sessions doesn't seem to be supported (issue #34).
+
+## App name and version
+
+On a real device, some parameters specific to the app to be installed (name and version, icon, allowed derivation paths, etc.) are given during the installation. This information isn't embedded in the .elf file itself and thus cannot be retrieved by speculos.
+
+The default app name and version are respectively `app` `1.33.7`, but these values can be set through the `SPECULOS_APPNAME` environment variable. For instance:
+
+```
+$ SPECULOS_APPNAME=blah:1.2.3.4 ./speculos.py ./apps/btc.elf &
+$ echo 'b0 01 00 00 00' \
+  | LEDGER_PROXY_ADDRESS=127.0.0.1 LEDGER_PROXY_PORT=9999 ledgerctl send - \
+  | xxd -r -ps \
+  | hd
+00000000  01 04 62 6c 61 68 07 31  2e 32 2e 33 2e 34 01 00  |..blah.1.2.3.4..|
+00000010  90 00                                             |..|
+00000012
+```
+
+## Bitcoin Testnet app
+
+Launch the Bitcoin Testnet app, which requires the Bitcoin app:
+
+```sh
+./speculos.py ./apps/btc-test.elf -l Bitcoin:./apps/btc.elf
+```

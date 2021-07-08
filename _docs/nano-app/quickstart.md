@@ -45,7 +45,7 @@ The [app-boilerplate](https://github.com/LedgerHQ/app-boilerplate.git) is a thor
 ```bash
 git clone https://github.com/LedgerHQ/app-boilerplate.git
 ```
-## 3 - Making
+## 3 - Building the app
 
 Now you can let the Makefile do all the work. The `load` target will build the app if necessary and load it onto your device over USB.
 

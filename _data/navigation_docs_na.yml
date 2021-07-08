@@ -11,10 +11,6 @@
   docs:
   - nano-app/security-requirements
 
-- title: Documentation Requirements
-  docs:
-  - nano-app/documentation-requirements
-
 - title: Functional Requirements
   subfolderitems:
     - title: Display
@@ -31,6 +27,10 @@
       docs:
       - nano-app/interaction-bolos-apps
       - nano-app/application-structure
+
+- title: Documentation Requirements
+  docs:
+  - nano-app/documentation-requirements
 
 - title: Debug
   docs:

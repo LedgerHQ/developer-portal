@@ -38,9 +38,25 @@ We encourage all written code to be peer-reviewed. Importantly, the review shoul
 
 We encourage third-party security reviews. Note, however, that solid review takes time and a short review might yield a false sense of security (especially if the reviewing party does not have an extensive knowledge of Ledger code specifics).
 
-### Developing your first App
+### Best practices
 
-Apart from reading developer documentation <!--at <https://ledger.readthedocs.io/en/latest/> REMOVED by CF 07.06.2021--> we recommend looking at Sia app <https://github.com/LedgerHQ/ledger-app-sia> which provides a nice starting point for an app, including lots of explanatory comments. A sample of security-wise overly-paranoid app is <https://github.com/LedgerHQ/ledger-app-cardano>.
+In order to ease security reviews and maintenance, the Ledger Security Team requires these development best practices to be met:
+
+- The app must build with no warnings using the container image intended for that purpose, [Ledger App Builder](https://github.com/LedgerHQ/ledger-app-builder).
+- The scan-build utility from clang must be used to analyze the whole project and produce no errors.
+- Units tests must be present, preferably in the `tests/` folder and relying on the [cmocka](https://cmocka.org/) unit testing framework.
+- Functional tests must be present. They should allow APDU testing thanks to the speculos emulator (or a real device). We recommend using [pytest](https://pytest.org) as a testing framework if tests are written in Python.
+
+These best practices must be automated using GitHub actions to achieve continuous integration. The [GitHub workflow](https://github.com/LedgerHQ/app-xrp/blob/master/.github/workflows/ci-workflow.yml) of the XRP app acts as a reference.
+
+On top of that, we also encourage the following practices:
+
+- Linting helps improving code quality and ensuring consistent coding style and resolving basic coding errors.
+- Developing a fuzzer thanks to [libFuzzer](https://llvm.org/docs/LibFuzzer.html).
+- Integration with the Coverity static code analysis tool helps finding security issues and software defects.
+
+They should also be included in the GitHub workflow.
+
 
 ## Cryptography
 
@@ -578,13 +594,13 @@ unsigned int io_seproxyhal_touch_tx_cancel() {
 }
 ```
 
-But such a solution is needed only if `tx\_ok` or `tx\_cancel` modify context/global variables before calling `ui\_idle()`.
+But such a solution is needed only if `tx_ok` or `tx_cancel` modify context/global variables before calling `ui_idle()`.
 
-As a side note, if your `\_\_ok()`/`\_\_cancel()` handler both :
+As a side note, if your `__ok()`/`__cancel()` handler both :
 1. do not check whether the memory is cleared, but :
 2. clear the memory inside the handler
 
-make sure that memclear happens after calling `ui\_idle()`.
+make sure that memclear happens after calling `ui_idle()`.
 
 
 Note: If not guarded properly, an attacker might try a following line of attack:

@@ -1,12 +1,12 @@
 ---
-title: Windows (with WSL 2)
+title: Windows installation (with WSL 2)
 subtitle:
 tags: []
 author:
 layout: doc_sp
 ---
 
-Building in WSL 2 (Windows Subsystem for Linux 2) is identical to the procedure in [building](../linux-installation).
+Building in WSL 2 (Windows Subsystem for Linux 2) is identical to the procedure in [building](build.md).
 
 Using Speculos with display features requires correctly exporting the X display.
 

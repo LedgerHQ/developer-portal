@@ -1,26 +1,16 @@
-- title:
-  docs:
-  - speculos/introduction
-
 - title: Installation
   docs:
   - speculos/start-here
   - speculos/linux-installation
   - speculos/windows-installation
 
-- title: User
+- title: Usage
   docs:
-  - speculos/usage
+  - speculos/introduction
   - speculos/docker-image
   - speculos/send-apdu
   - speculos/debug
+  - speculos/rest-api
   - speculos/automation
   - speculos/semihosting
-
-- title: Developer Documentation
-  docs:
-  - speculos/clang-format
-  - speculos/tests
-  - speculos/continuous-integration
-  - speculos/internals
 

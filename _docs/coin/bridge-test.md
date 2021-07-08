@@ -44,7 +44,7 @@ By doing so we can ensure that the account synchronisation and the transaction s
 {% include alert.html style="warning" text="<b>Prerequisite</b> - Your computer is expected to have been set up accordingly. Please follow the following guides for this purpose:<br>
 <div> <ul>
 <li><a href='https://ledgerhq.atlassian.net/wiki/spaces/WALLETCO/pages/2610659678/Ledger+Live+Common#ledger-live-cli-setup' class='alert-link'>ledger-live CLI</a></li>
-<li>Physical Nano device or an <a href='https://developers.ledger.com/docs/speculos/introduction/' class='alert-link'>emulated device with Speculos</a></li>
+<li>Physical Nano device or an <a href='https://developers.ledger.com/docs/speculos/start-here/' class='alert-link'>emulated device with Speculos</a></li>
 </ul></div> " %}
 <!--  -->
 

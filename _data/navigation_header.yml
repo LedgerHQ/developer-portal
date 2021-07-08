@@ -18,7 +18,7 @@ left:
     dropdown:
 
     - title: Speculos
-      url: /docs/speculos/introduction
+      url: /docs/speculos/start-here
 
   - title: Contribution
     url: /contribution

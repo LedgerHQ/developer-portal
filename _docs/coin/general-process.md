@@ -55,7 +55,7 @@ In most cases however, you will want to have your blockchain officially supporte
 <!-- --------------------------------- -->
 Assuming you are on course for a **Participant Integration**, here is how we suggest working together.
 
-To set up a Launch meeting please make a request to Fabrice Dautriat (@Fabrice-ledger), on the [Ledger Dev Slack](https://join.slack.com/t/ledger-dev/shared_invite/zt-iskfi3kl-CXw9Uz2dOOYSLKe_e4tcmw).
+To set up a Launch meeting please make a request to Fabrice Dautriat (@Fabrice-ledger), on the Ledger Dev Slack. If you're not sign in yet, please make a request using [this form](https://developers.ledger.com/contact/).
 
 The aim of the Launch meeting is to present and discuss together your project objective, and a high-level roadmap.
 

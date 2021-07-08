@@ -19,7 +19,7 @@ layout: doc_na
 {% include alert.html style="warning" text="This article only concerns about 1% of users who wish to get a deeper understanding and/or design more advanced flows. Feel free to skip it." %}
 <!--  -->
 
-## BAGLs and BOLOSS
+## BAGLs and BOLOS
 
 The BOLOS SDKs contain a toolkit for building GUIs called the **BOLOS Application Graphics Library (BAGL)**. BAGL defines a few useful types, most notably `bagl_element_t`. This type defines a single display element, such as a rectangle or a line of text, etc. Therefore, a GUI consists of an entire array of such elements. As the device hardware, including the screen, is managed by the MCU, the BAGL elements need to be transported to the MCU over SEPROXYHAL in order to display them. This is done using a **Display Status**.
 
