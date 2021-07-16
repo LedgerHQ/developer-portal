@@ -10,7 +10,7 @@
   icon: coin
   doc: coin/general-process
 
-- title: ERC-20
+- title: Token Integration
   desc: How to include your favourite token in Ledger Live
   icon: token
   doc: token/introduction

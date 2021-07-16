@@ -1,3 +1,6 @@
-- title: Contents
+- title: Integrating tokens
   docs:
   - token/introduction
+  - token/erc20
+  - token/asa
+  - token/trc

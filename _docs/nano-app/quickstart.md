@@ -55,6 +55,10 @@ make
 make load
 ```
 
+<!--  -->
+{% include alert.html style="primary" text="The <b>Nano X</b> does not support side loading, therefore you must use the device emulator Speculos for loading to work." %}
+<!--  -->
+
 This video shows the loading and the public key verification (00:25") and the application hash verification (00:44").
 It ends showing the Boilerplate app is correctly installed on the Nano.
 
