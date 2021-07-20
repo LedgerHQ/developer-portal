@@ -1,5 +1,5 @@
 ---
-title: Writing documentation for Nano Apps
+title: Documentation requirements
 subtitle: Ensuring your documentation is well documented
 tags: []
 toc: true

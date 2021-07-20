@@ -21,7 +21,7 @@ First, make sure your token isn’t already listed by checking the [repository](
 
 ### 2. How to get my token listed ?
 
-Then, make a request to our [customer success team](https://support.ledger.com/hc/en-us/requests/new) and select Ledger Products - Technical Inquiries. Please make sure to share with us the details of your ERC20 token, and a link to Etherscan to allow us to double check the information.
+Then, fill in [this form](https://developers.ledger.com/contact/). Please make sure to share with us the details of your ERC20 token, and a link to Etherscan to allow us to double check the information.
 
 ### 3. How do I add my token icon ?
 

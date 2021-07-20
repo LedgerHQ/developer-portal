@@ -1,6 +1,6 @@
 ---
 title: Common Pitfalls and Troubleshooting
-subtitle: When it doesn't quite Work
+subtitle:
 tags: []
 toc: true
 toc_sticky: true

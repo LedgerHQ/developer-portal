@@ -10,9 +10,9 @@
   - nano-app/quickstart
   - nano-app/deepdive
 
-- title: Security Requirements
+- title: Security best practices
   docs:
-  - nano-app/security-requirements
+  - nano-app/secure-app
 
 - title: Display
   docs:
@@ -31,18 +31,19 @@
   - nano-app/interaction-bolos-apps
   - nano-app/application-structure
 
-- title: Documentation Requirements
-  docs:
-  - nano-app/documentation-requirements
-
 - title: Debug
   docs:
   - nano-app/troubleshooting
   - nano-app/debug
 
-- title: Publishing
+- title: Publishing an application
   docs:
-  - nano-app/publish-app
+  - nano-app/publish-introduction
+  - nano-app/functional-requirements
+  - nano-app/documentation-requirements
+  - nano-app/marketing-requirements
+  - nano-app/design-requirements
+  - nano-app/support-maintenance-requirements
 
 - title: Appendix A - Personal security devices
   docs:

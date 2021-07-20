@@ -167,7 +167,7 @@ As part of a Ledger Live integration, you should provide a indexing service allo
     [later](../cryptoassets-library). It is used to define the list of currencies that will be visible on the
     front end of the application.
 
--   the [countervalue API](https://github.com/LedgerHQ/ledger-api-countervalue) is used
+-   the [countervalue API](https://github.com/LedgerHQ/countervalue-service) is used
     to display the actual price and market cap to sort the information
     and accounts inside the application.
 
