@@ -218,7 +218,7 @@ Transaction broadcast is an exception, it is tested differently, by a tool that 
 Requirement :
 
 - Docker
-- [github.com/LedgerHQ/coin-apps](https://github.com/LedgerHQ/coin-apps) or an elf of the nano app for LNS (create a empty folder with like : `<device>/<firmware version>/<appName>` example `nanos/1.6.1/mycoin`)
+- [github.com/LedgerHQ/coin-apps](https://github.com/LedgerHQ/coin-apps) or an elf of the Nano app for LNS (create a empty folder with like : `<device>/<firmware version>/<appName>` example `nanos/1.6.1/mycoin`. The build of your Nano app must have the following format: `app_VERSION.elf`, for example `app_1.2.3.elf`)
 - Some currencies of the coin
 
 ## What is this testing ?
