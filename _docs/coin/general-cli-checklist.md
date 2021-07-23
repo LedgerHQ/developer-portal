@@ -19,7 +19,7 @@ layout: doc_ci
 - Handle all user-level errors
 - Synchronize account
 - Retrieve operations
-- Performance test. E.g., Synch acoount holding 1000 operations in less than 30s
+- Performance test. E.g., Synch account holding 1000 operations in less than 30s
 - Display the details of an operation, RX TX addresses, Hash, Date and Time, Fees.
 
 ---
