@@ -17,7 +17,7 @@ layout: doc_et
 
 ### 1. Is my TRC10/20 token listed ?
 
-First, make sure your token isn’t already listed by checking the [repository](https://github.com/LedgerHQ/ledgerjs/tree/master/packages/cryptoassets/data).
+First, make sure your token isn’t already listed by checking this table of the [supported crypto-assets](https://github.com/LedgerHQ/ledger-live-desktop/blob/develop/cryptoassets.md).
 
 ### 2. How to get my token listed ?
 

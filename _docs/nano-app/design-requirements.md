@@ -34,13 +34,17 @@ Below are the Adobe Illustrator templates for such icons, please respect their g
 <!-- ------------- Image ------------- -->
 <!-- --------------------------------- -->
 <figure>
+<a href="https://drive.google.com/a/ledger.fr/file/d/1FVUWDGYPvLuyiwDFgGYiwfwk7YGsxzJ0/view?usp=sharing" title="Device template">
 <img src="../images/device_template.png" class="align-center" alt="Device icon template (click to access Illustrator file)" /><figcaption aria-hidden="true">Device icon template (click to access Illustrator file)</figcaption>
+</a>
 </figure>
 
 <!-- ------------- Image ------------- -->
 <!-- --------------------------------- -->
 <figure>
+<a href="https://drive.google.com/a/ledger.fr/file/d/1OOAZWlnLlBSpScPnF5NGJ4AfczB3D591/view?usp=sharing" title="Manager template">
 <img src="../images/manager_template.png" class="align-center" alt="Manager icon template (click to access Illustrator file)" /><figcaption aria-hidden="true">Manager icon template (click to access Illustrator file)</figcaption>
+</a>
 </figure>
 
 The Device icon must be displayed on the first welcome screen.

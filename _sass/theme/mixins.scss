@@ -542,6 +542,32 @@
     //     }
     // }
 
+
+
+    .anchorjs-link {
+      color: inherit !important;
+      text-decoration: none !important; /* do not underline */
+      border-bottom: none !important;
+      opacity: .75;
+    }
+
+    @media (max-width: 768px) {
+      /* Do not display AnchorJS icon on less than 768px view point */
+      .anchorjs-link {
+        display: none;
+      }
+    }
+
+    *:hover > .anchorjs-link {
+      opacity: .75;
+    }
+
+    *:hover > .anchorjs-link:hover,
+    .anchorjs-link:focus {
+      text-decoration: none !important; /* do not underline */
+      opacity: 1;
+    }
+
     ul.doc-nav {
         padding-left: 14px;
         margin-top: 5px;

@@ -1,11 +1,35 @@
 # repo include content
 
+- title: Ledger Boilerplate App
+  desc: Boilerplate for a Nano S/X apps
+  url: https://github.com/LedgerHQ/app-boilerplate
+
+- title: Nano X Secure SDK
+  desc: SDK for ST33 applications development
+  url: https://github.com/LedgerHQ/nanox-secure-sdk
+
+- title: Nano S Secure SDK
+  desc: SDK for ST31 applications development
+  url: https://github.com/LedgerHQ/nanos-secure-sdk
+
+- title: Ledger Sample Apps
+  desc: Sample applications for Ledger Blue and Ledger Nano S
+  url: https://github.com/LedgerHQ/blue-sample-apps
+
+- title: Speculos Nano Emulator
+  desc: Emulate Ledger devices on your computer
+  url: https://github.com/LedgerHQ/speculos
+
+- title: App Passwords
+  desc: Password Manager app
+  url: https://github.com/LedgerHQ/blue-app-password-manager
+
 - title: Ledger JS
   desc: Communicate with the hardware wallet
   url: https://github.com/LedgerHQ/ledgerjs
 
 - title: Ledger Live Common
-  desc: JavaScript library
+  desc: Common library of Ledger Live compatible with both desktop and mobile versions
   url: https://github.com/LedgerHQ/ledger-live-common
 
 - title: Ledger Live Desktop
@@ -16,34 +40,9 @@
   desc: Mobile front end
   url: https://github.com/LedgerHQ/ledger-live-mobile
 
-- title: Ledger Boilerplate App
-  desc: Boilerplate for a Nano S/X apps
-  url: https://github.com/LedgerHQ/app-boilerplate
 
-- title: App Sia
-  desc: Sia wallet app for the Ledger Nano S
-  url: https://github.com/LedgerHQ/app-sia
 
-- title: Nano X Secure SDK
-  desc: SDK for ST33 applications development
-  url: https://github.com/LedgerHQ/nanox-secure-sdk
 
-- title: Nano S Secure SDK
-  desc: SDK for ST31 applications development
-  url: https://github.com/LedgerHQ/nanos-secure-sdk
 
-- title: Countervalue service
-  desc: A REST API which relies on 3rd party provider to serve Countervalues
-  url: https://github.com/LedgerHQ/countervalue-service
 
-- title: App Passwords
-  desc: Password Manager app
-  url: https://github.com/LedgerHQ/blue-app-password-manager
 
-- title: Ledger Sample Apps
-  desc: Sample applications for Ledger Blue and Ledger Nano S
-  url: https://github.com/LedgerHQ/blue-sample-apps
-
-- title: Speculos Nano Emulator
-  desc: Emulate Ledger devices on your computer
-  url: https://github.com/LedgerHQ/speculos

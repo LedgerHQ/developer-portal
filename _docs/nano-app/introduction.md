@@ -59,7 +59,7 @@ Click the links to see [security requirements](../security-requirements), [docum
 #### Submission
 Once your app is ready and you have made sure it follows our guidelines, you can submit it by completing a form. Make sure you thoroughly complete it as it will impact the speed of the release process.
 
-Go to the submission form [here](https://docs.google.com/forms/d/1Akhm7wWVISRxH4s9yScGdnuSsfRxSxg27yuIp4ufCts/viewform?edit_requested=true).
+Go to the submission form [here](https://ledger.typeform.com/to/qQSf7CVh).
 
 
 ## Things to do

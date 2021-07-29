@@ -17,8 +17,7 @@ This page explains how to install the Ledger Live dev app for iOS on macOS.
 
 ## Prerequisites
 
-1.  Xcode (download [here](https://developer.apple.com/download/more/),
-    latest version 11.7 at the time of writing)
+1.  Xcode (Download [here](https://developer.apple.com/download/more/). An Apple ID is needed)
 
 2.  [Brew](https://brew.sh/)
 
