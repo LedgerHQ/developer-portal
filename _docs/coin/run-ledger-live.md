@@ -34,9 +34,9 @@ yarn install
 
 This file allows us to simulate some transactions of our implementation.
 
-First, create a `test-dataset.js` file and fill it with this empty template :
+First, create a `test-dataset.ts` file and fill it with this empty template :
 
-```js
+```ts
 import type { DatasetTest } from "../../types";
 import type { Transaction } from "./types";
 
@@ -56,9 +56,7 @@ Then connect your nano with a seed that you want to freeze (that means you don't
 
 The expected output is:
 
-```js
-// @flow
-
+```ts
 import type { CurrenciesData } from "../../../types";
 import type { Transaction } from "../types";
 
@@ -86,8 +84,7 @@ export default dataset;
 
 Just keep the part with the scanAccounts and put it the `mycoin` part :
 
-```js
-// @flow
+```ts
 
 import type { DatasetTest } from "../../types";
 import type { Transaction } from "./types";
@@ -122,8 +119,7 @@ export default dataset;
 Then, get info on the accounts that you want to freeze, they will be used as references for our tests.
 It should look something like this:
 
-```js
-// @flow
+```ts
 
 import type { DatasetTest } from "../../types";
 import type { Transaction } from "./types";
@@ -183,13 +179,12 @@ export default dataset;
 
 The test-dataset simulates an object `Transaction` that we have as input, and a `TransactionStatus` as an output that we compare with an expected status.
 
-There's some generic tests that are already made in `src/__tests__/test-helpers/bridge.js` that are mandatory to pass.
+There's some generic tests that are already made in `src/__tests__/test-helpers/bridge.ts` that are mandatory to pass.
 
-To implement your own test in `test-dataset.js`, add an Object typed like this in the array of `transactions`:
+To implement your own test in `test-dataset.ts`, add an Object typed like this in the array of `transactions`:
 
-```js
-// @flow
-import Transaction from "./types.js"
+```ts
+import Transaction from "./types"
 
 type TestTransaction =
     {
@@ -209,7 +204,7 @@ This `TestTransaction` uses as mainAccount the account that we have set before a
 
 We tried to cover as many cases as possible that are in `getTransactionStatus`.
 
-You can also check `test-specifics.js` if you want to mock some specific part that is not covered by transactionStatus.
+You can also check `test-specifics.ts` if you want to mock some specific part that is not covered by transactionStatus.
 
 Transaction broadcast is an exception, it is tested differently, by a tool that we call "the bot". See below.
 
@@ -235,15 +230,15 @@ ledger-live cleanSpeculos && SEED="generate a seed for testing" COINAPPS="/path/
 
 - The bot will execute each scenario if it met the requirement, then it will wait until the sync find the broadcasted transaction
 
-- You also need to specify how the bot will react when he encounter certain screen, create `speculos-deviceActions.js`
+- You also need to specify how the bot will react when he encounter certain screen, create `speculos-deviceActions.ts`
 
 ## How to define a test
 
-`speculos-deviceActions.js`
+`speculos-deviceActions.ts`
 
 It is required to know every screen that your nano app contains, it will use the `title` of the screen then optionally check if the `expectedValue` of that screen is what it expects, then eventually execute the `button` action.
 
-```js
+```ts
 title : name of the screen title
 button: "Rr" for the bot to push the Right button of the nano || "Ll" same for left || "LRlr" same but for both
 expectedValue: string of what we want to compare
@@ -251,8 +246,7 @@ expectedValue: string of what we want to compare
 
 You can use the following example to help you start to write how the bot will react :
 
-```js
-// @flow
+```ts
 
 import type { DeviceAction } from "../../bot/types";
 import type { Transaction } from "./types";
@@ -299,7 +293,7 @@ const acceptTransaction: DeviceAction<Transaction, *> = deviceActionFlow({
 export default { acceptTransaction };
 ```
 
-`specs.js`
+`specs.ts`
 
 You can check the following example to help you write your specs.
 
@@ -307,12 +301,11 @@ The bot will execute all the `mutations` if it doesn't encounter an invariant.
 
 Then it will execute all the `updates` of the `Transaction` object.
 
-The bot will try to sign the transaction using instructions that you provided in `speculos-deviceActions.js`
+The bot will try to sign the transaction using instructions that you provided in `speculos-deviceActions.ts`
 
 Eventually it will broadcast the transaction in the blockchain and wait for the `sync` to find the operation and its optimisic version.
 
-```js
-// @flow
+```ts
 import expect from "expect";
 import invariant from "invariant";
 import type { AppSpec } from "../../bot/types";

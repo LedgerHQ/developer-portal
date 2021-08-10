@@ -15,18 +15,18 @@ layout: doc_ci
 
 Ledger Live Common is the shared core library used by Ledger Live Desktop and Mobile, that also includes a CLI for testing purpose or for using Ledger Live features directly from a terminal (in a limited way).
 
-This library is built upon a pretty standard ES6 + FlowType stack and relies on a bunch of [ledgerjs](https://github.com/LedgerHQ/ledgerjs) packages, [RxJS 6.x](https://github.com/ReactiveX/rxjs/tree/6.x), [bignumber.js](https://github.com/MikeMcl/bignumber.js) and [React](https://github.com/facebook/react/) + [Redux](https://github.com/reduxjs/redux) for some front-end utilities and hooks.
+This library is built upon a pretty standard ES6 + Typescript stack and relies on a bunch of [ledgerjs](https://github.com/LedgerHQ/ledgerjs) packages, [RxJS 6.x](https://github.com/ReactiveX/rxjs/tree/6.x), [bignumber.js](https://github.com/MikeMcl/bignumber.js) and [React](https://github.com/facebook/react/) + [Redux](https://github.com/reduxjs/redux) for some front-end utilities and hooks.
 
 It is designed to have very generic models and mechanics (for currencies, accounts, storage, synchronisation, events...) that also facilitates new coin integrations through flexibility.
 All integrated coins are implemented in a `src/families` dedicated folder which contains the specifics of a coin family - that can be shared by multiple crypto-assets that use the same implementation (i.e. Bitcoin-like coins share the same `bitcoin` family).
 
-**This document only concerns new coin integrations using JavaScript - we will use an imaginary coin named `MyCoin` as a walkthrough.**
+**This document only concerns new coin integrations using Typecript - we will use an imaginary coin named `MyCoin` as a walkthrough.**
 
 ## Setup
 
 ### Requirements
 
-- [NodeJS LTS/Erbium (Node 12.x)](https://nodejs.org/)
+- [NodeJS LTS/Fermium (Node 14.x)](https://nodejs.org/)
 - [Yarn](https://classic.yarnpkg.com/lang/en/) 1.x (Classic)
 - Python 2.7 or 3.5+
 - A C/C++ toolchain (see node-gyp documentation)
@@ -36,7 +36,7 @@ All integrated coins are implemented in a `src/families` dedicated folder which 
 - [yalc](https://github.com/wclr/yalc) for locally linking live-common with other projects
 - [eslint](https://github.com/eslint/eslint) - ensure it's working in your IDE ([vscode plugin](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint))
 - [prettier](https://github.com/prettier/prettier) - through an eslint-plugin
-- [flowtype](https://flow.org/) - ensure it works fine with your IDE ([vscode plugin](https://marketplace.visualstudio.com/items?itemName=flowtype.flow-for-vscode))
+- [typescript](https://www.typescriptlang.org/) - ensure it works fine with your IDE
 
 ### Hardware prerequisites
 
@@ -53,31 +53,31 @@ All integrated coins are implemented in a `src/families` dedicated folder which 
 
 Your whole implementation of <i>MyCoin</i> must reside in a `mycoin` folder in `src/families/`, with the exception of some changes to apply in shared code.
 
-Here is a typical family folder structure (JS integration):
+Here is a typical family folder structure (TS integration):
 
 ```plaintext
 ./src/families/mycoin
 ├── bridge
-│   └── js.js
+│   └── js.ts
 ├── hw-app-mycoin
-│   └── MyCoin.js
-├── api.js
-├── hw-getAddress.js
-├── errors.js
-├── deviceTransactionConfig.js
-├── account.js
-├── transaction.js
-├── serialization.js
-├── cli-transaction.js
-├── logic.js
-├── cache.js
-├── preload.js
-├── react.js
-├── specs.js
-├── speculos-deviceActions.js
-├── test-dataset.js
-├── test-specifics.js
-└── types.js
+│   └── MyCoin.ts
+├── api.ts
+├── hw-getAddress.ts
+├── errors.ts
+├── deviceTransactionConfig.ts
+├── account.ts
+├── transaction.ts
+├── serialization.ts
+├── cli-transaction.ts
+├── logic.ts
+├── cache.ts
+├── preload.ts
+├── react.ts
+├── specs.ts
+├── speculos-deviceActions.ts
+├── test-dataset.ts
+├── test-specifics.ts
+└── types.ts
 ```
 
 <!--  -->
@@ -130,13 +130,13 @@ The one you will use the most before releasing you integration is:
 EXPERIMENTAL_CURRENCIES=mycoin
 ```
 
-It will consider `mycoin` as supported (you can also add it to the supported currencies in `cli/src/live-common-setup-base.js`).
+It will consider `mycoin` as supported (you can also add it to the supported currencies in `cli/src/live-common-setup-base.ts`).
 
 **For clarity, we will omit this environment variable in this document.**
 
-If needed, you can add your own in `src/env.js` (always try to add a MYCOIN\_ prefix to avoid collisions):
+If needed, you can add your own in `src/env.ts` (always try to add a MYCOIN\_ prefix to avoid collisions):
 
-```js
+```ts
 // const envDefinitions = { ...
   MYCOIN_API_ENDPOINT: {
     def: "https://mycoin.coin.ledger.com",
@@ -155,7 +155,7 @@ Ensure the `.yalc` directory is included then in the package.json:
 
 `package.json`:
 
-```js
+```ts
   "files": [
     ...,
     ".yalc"
@@ -176,13 +176,11 @@ We will consider that <i>MyCoin</i> is already in [@ledgerhq/cryptoassets](https
 
 If your app JS bindings (See [\*My Coin\* App JS Bindings](../js-bindings)) are not yet published in [LedgerJS](https://github.com/LedgerHQ/ledgerjs), you can put them in `src/families/mycoin/hw-app-mycoin`.
 
-First and easiest step is to get an address from the device for <i>MyCoin</i>, by creating the `hw-getAddress.js` Resolver:
+First and easiest step is to get an address from the device for <i>MyCoin</i>, by creating the `hw-getAddress.ts` Resolver:
 
 `src/families/mycoin/hw-getAddress.js`:
 
-```js
-// @flow
-
+```ts
 import type { Resolver } from "../../hw/getAddress/types";
 import MyCoin from "./hw-app-mycoin/MyCoin";
 
@@ -214,11 +212,11 @@ If <i>MyCoin</i> has a conventional derivation path (BIP44), Ledger Live should 
 
 **If you need to use another derivation mode:**
 
-Make changes to [`src/derivation.js`](https://github.com/LedgerHQ/ledger-live-common/tree/master/src/derivation.js):
+Make changes to [`src/derivation.ts`](https://github.com/LedgerHQ/ledger-live-common/tree/master/src/derivation.ts):
 
 1. Add a new derivation mode with `overridesDerivation`:
 
-```js
+```ts
 // const modes = Object.freeze({
 // ...
   mycoinbip44h: { // Hardened BIP44 for MyCoin
@@ -229,7 +227,7 @@ Make changes to [`src/derivation.js`](https://github.com/LedgerHQ/ledger-live-co
 
 2. add the mode to family in `legacyDerivations`:
 
-```js
+```ts
 // const legacyDerivations: $Shape<CryptoCurrencyConfig<DerivationMode[]>> = {
 // ...
   mycoin: ["mycoinbip44h"],
@@ -238,7 +236,7 @@ Make changes to [`src/derivation.js`](https://github.com/LedgerHQ/ledger-live-co
 
 3. disable the default use of BIP44 in `disableBIP44`:
 
-```js
+```ts
 // const disableBIP44 = {
 // ...
   mycoin: true,
@@ -324,7 +322,7 @@ All main accounts share a common ground:
 
 But if needed by the blockchain, an account can also contain coin-specific resources related to a single account, like its "nonce" or additional balances (e.g. for staking), or anything that may be displayed or used in your implementation. It's generally an additional field like `myCoinResources`. See [Family-specific types](#family-specific-types) below.
 
-For further details, see [Account documentation](https://github.com/LedgerHQ/ledger-live-common/blob/master/docs/account.md) and [src/types/account.js](https://github.com/Ledger-Coin-Integration-team/ledger-live-common/blob/master/src/types/account.js)
+For further details, see [Account documentation](https://github.com/LedgerHQ/ledger-live-common/blob/master/docs/account.md) and [src/types/account.ts](https://github.com/Ledger-Coin-Integration-team/ledger-live-common/blob/master/src/types/account.ts)
 
 #### Operation
 
@@ -353,7 +351,7 @@ If <i>MyCoin</i> has specific operation fields (like `additionalField` we added 
 
 If <i>MyCoin</i> uses a "nonce", then `transactionSequenceNumber` must be filled correctly, as it will be necessary for signing new transactions (and will interpreted to clear pending operations). Only outgoing transaction must have this value though. See [Optimistic Operation](#optimistic-operation).
 
-See [src/types/operation.js](https://github.com/Ledger-Coin-Integration-team/ledger-live-common/blob/master/src/types/operation.js) for better understanding of all fields.
+See [src/types/operation.ts](https://github.com/Ledger-Coin-Integration-team/ledger-live-common/blob/master/src/types/operation.ts) for better understanding of all fields.
 
 #### Operation Type
 
@@ -367,9 +365,9 @@ As said above, an `Operation` has a `type` which is generic string typed as `Ope
 - `REWARD_PAYOUT`: A received reward (as an incoming transaction)
 - `SLASH`: A staking slash (with slashed amount generally)
 
-There are more types available, existing one will have predefined icons, translations and behaviours (i.e. `getOperationAmountNumber()` in [src/operation.js](https://github.com/Ledger-Coin-Integration-team/ledger-live-common/blob/master/src/operation.js)).
+There are more types available, existing one will have predefined icons, translations and behaviours (i.e. `getOperationAmountNumber()` in [src/operation.ts](https://github.com/Ledger-Coin-Integration-team/ledger-live-common/blob/master/src/operation.ts)).
 
-<i>MyCoin</i> could have also specific operation types, if you need to add a type that is not yet implemented, add them in `src/types/operation.js`. You will later need to implement some specific code for the Ledger Live Desktop and Mobile to display them correctly.
+<i>MyCoin</i> could have also specific operation types, if you need to add a type that is not yet implemented, add them in `src/types/operation.ts`. You will later need to implement some specific code for the Ledger Live Desktop and Mobile to display them correctly.
 
 #### Transaction
 
@@ -393,75 +391,71 @@ Although some fields are required, they can be emptied (recipent = "" and amount
 
 You should add any fields that would be required by <i>MyCoin</i> to be correctly broadcasted - respecting as much as possible its protocol's lexicon.
 
-See existing implementations for inspiration: [Polkadot types](https://github.com/LedgerHQ/ledger-live-common/blob/master/src/families/polkadot/types.js), [Cosmos types](https://github.com/LedgerHQ/ledger-live-common/blob/master/src/families/cosmos/types.js)
+See existing implementations for inspiration: [Polkadot types](https://github.com/LedgerHQ/ledger-live-common/blob/master/src/families/polkadot/types.ts), [Cosmos types](https://github.com/LedgerHQ/ledger-live-common/blob/master/src/families/cosmos/types.ts)
 
 #### Family-specific types
 
 You will be implementing the flow types that will be used in your integration, like the Transaction type or the additional data needed to be added to the Account shared type, but also any other types that you will need (remember to always type your functions with flow types).
 
-`src/families/mycoin/types.js`:
+`src/families/mycoin/types.ts`:
 
-```js
-// @flow
+```ts
 import type { BigNumber } from "bignumber.js";
-s;
 import type {
   TransactionCommon,
   TransactionCommonRaw,
 } from "../../types/transaction";
 
 // for legacy
-export type CoreStatics = {};
-export type CoreAccountSpecifics = {};
-export type CoreOperationSpecifics = {};
-export type CoreCurrencySpecifics = {};
+export type CoreStatics = Record<any,any>;
+export type CoreAccountSpecifics = Record<any,any>;
+export type CoreOperationSpecifics = Record<any,any>;
+export type CoreCurrencySpecifics = Record<any,any>;
 
 /**
  * MyCoin account resources
  */
-export type MyCoinResources = {|
-  nonce: number,
-  additionalBalance: BigNumber,
-|};
+export type MyCoinResources = {
+  nonce: number;
+  additionalBalance: BigNumber;
+};
 
 /**
  * MyCoin account resources from raw JSON
  */
-export type MyCoinResourcesRaw = {|
-  nonce: number,
-  additionalBalance: string,
-|};
+export type MyCoinResourcesRaw = {
+  nonce: number;
+  additionalBalance: string;
+};
 
 /**
  * MyCoin transaction
  */
-export type Transaction = {|
-  ...TransactionCommon,
-  mode: string,
-  family: "mycoin",
-  fees: ?BigNumber,
+export type Transaction = TransactionCommon & {
+  mode: string;
+  family: "mycoin";
+  fees?: BigNumber;
   // add here all transaction-specific fields if you implement other modes than "send"
-|};
+};
 
 /**
  * MyCoin transaction from a raw JSON
  */
-export type TransactionRaw = {|
-  ...TransactionCommonRaw,
-  family: "mycoin",
-  mode: string,
-  fees: ?string,
+export type TransactionRaw =TransactionCommonRaw & {
+  family: "mycoin";
+  mode: string;
+  fees?: string;
   // also the transaction fields as raw JSON data
-|};
+};
 
 /**
  * MyCoin currency data that will be preloaded.
  * You can for instance add a list of validators for Proof-of-Stake blockchains,
  * or any volatile data that could not be set as constants in the code (staking progress, fee estimation variables, etc.)
  */
-export type MyCoinPreloadData = {|
-  somePreloadedData: Object,
-|};
+export type MyCoinPreloadData = {
+  somePreloadedData: Record<any, any>,
+};
 
 export const reflect = (_declare: *) => {};
 ```
@@ -473,10 +467,9 @@ export const reflect = (_declare: *) => {};
 
 Since some of thoses types will be serialized when stored or cached, you may need to define serialize/deserialize functions for those:
 
-`src/families/mycoin/serialization.js`:
+`src/families/mycoin/serialization.ts`:
 
-```js
-// @flow
+```ts
 import { BigNumber } from "bignumber.js";
 import type { MyCoinResourcesRaw, MyCoinResources } from "./types";
 
@@ -497,9 +490,9 @@ export function fromMyCoinResourcesRaw(r: MyCoinResourcesRaw): MyCoinResources {
 }
 ```
 
-Because of Account being generic, you may need to add your specific resources to `src/types/account.js`...
+Because of Account being generic, you may need to add your specific resources to `src/types/account.ts`...
 
-```js
+```ts
 // ...
 import type {
   MyCoinResources,
@@ -509,17 +502,17 @@ import type {
 // export type Account = {
 // ...
 // // On some blockchain, an account can have resources (gained, delegated, ...)
-  myCoinResources?: MyCoinResources,
+  myCoinResources?: MyCoinResources;
 // };
 
 // export type AccountRaw = {
-  myCoinResources?: MyCoinResourcesRaw,
+  myCoinResources?: MyCoinResourcesRawp;
 // };
 ```
 
-...and handle the associated serialization in `src/account/serialization.js`:
+...and handle the associated serialization in `src/account/serialization.ts`:
 
-```js
+```ts
 // ...
 import {
   toMyCoinResourcesRaw,
@@ -564,11 +557,9 @@ Since `Operation` will be stored as JSON, you will need to implement specific se
 
 We also would like the `Operation` and `Account` to be displayed in CLI with their specifics, so you must provide formatters to display them.
 
-`src/families/mycoin/account.js`:
+`src/families/mycoin/account.ts`:
 
-```js
-// @flow
-import invariant from "invariant";
+```ts
 import { BigNumber } from "bignumber.js";
 import type { Account, Operation, Unit } from "../../types";
 import { getAccountUnit } from "../../account";
@@ -576,7 +567,10 @@ import { formatCurrencyUnit } from "../../currencies";
 
 function formatAccountSpecifics(account: Account): string {
   const { myCoinResources } = account;
-  invariant(myCoinResources, "mycoin account expected");
+  if (!myCoinResources) {
+    throw new Error("mycoin account expected")
+  }
+ 
   const unit = getAccountUnit(account);
   const formatConfig = {
     disableRounding: true,
@@ -663,10 +657,9 @@ export default {
 
 The same idea applies also to the `Transaction` type which needs to be serialized and formatted for CLI:
 
-`src/families/mycoin/transaction.js`:
+`src/families/mycoin/transaction.ts`:
 
-```js
-// @flow
+```ts
 import type { Transaction, TransactionRaw } from "./types";
 import { BigNumber } from "bignumber.js";
 import {
@@ -728,9 +721,9 @@ The best way to implement your API in Live Common is to create a dedicated `api`
 ```plaintext
 ./src/families/mycoin
 └── api
-  ├── index.js
-  ├── sdk.js
-  └── sdk.types.js
+  ├── index.ts
+  ├── sdk.ts
+  └── sdk.types.ts
 ```
 <!--  -->
 {% include alert.html style="success" text="Try to separate as much as possible your different APIs (if you use multiple providers) and use typings to ensure you map correctly API responses to Ledger Live types" %}
@@ -738,9 +731,9 @@ The best way to implement your API in Live Common is to create a dedicated `api`
 
 You will likely need to export thoses functions, but implemention is up-to-developer:
 
-`src/families/mycoin/api/index.js`:
+`src/families/mycoin/api/index.ts`:
 
-```js
+```ts
 export {
   getAccount,
   getOperations,
@@ -763,8 +756,7 @@ Here is an example of a <i>MyCoin</i> API implementation using a fictive SDK tha
 {% include alert.html style="success" text="We don't recommend using WebSocket as it could have drawbacks and is more difficult to scale up and put behind a reverse proxy. If possible, use HTTPS requests as much as possible." %}
 <!--  -->
 
-```js
-// @flow
+```ts
 import MyCoinApi from "my-coin-sdk";
 import type { MyCoinTransaction } from "my-coin-sdk";
 import { BigNumber } from "bignumber.js";
@@ -945,11 +937,11 @@ export const submit = async (blob: string) =>
   });
 ```
 
-If you need to disconnect from your API after using it, update `src/api/index.js` to add your api disconnect in the `disconnectAll` function, it will avoid tests and CLI to hang.
+If you need to disconnect from your API after using it, update `src/api/index.ts` to add your api disconnect in the `disconnectAll` function, it will avoid tests and CLI to hang.
 
 ### JS Bridge
 
-`bridge/js.js` is the entry point of a coin integration. It must export two bridges:
+`bridge/js.ts` is the entry point of a coin integration. It must export two bridges:
 
 - a CurrencyBridge
 - an AccountBridge
@@ -958,8 +950,7 @@ If you need to disconnect from your API after using it, update `src/api/index.js
 
 TO BE WRITTEN
 
-```js
-// @flow
+```ts
 import { BigNumber } from "bignumber.js";
 import {
   NotEnoughBalance,
@@ -1065,10 +1056,9 @@ export default { currencyBridge, accountBridge };
 
 You can now start to implement the JS bridge for <i>MyCoin</i>. It may need some changes back and forth between the types, your api wrapper, and the differente files.
 
-The skeleton of `src/families/mycoin/bridge/js.js` should look something like this:
+The skeleton of `src/families/mycoin/bridge/js.ts` should look something like this:
 
-```js
-// @flow
+```ts
 import type { AccountBridge, CurrencyBridge } from "../../../types";
 import type { Transaction } from "../types";
 import { makeAccountBridgeReceive } from "../../../bridge/jsHelpers";
@@ -1127,16 +1117,15 @@ It is designed for the end user frontend interface and is agnostic of the way it
 #### Receive
 
 The `receive` method allows to derivate address of an account with a Nano device but also display it on the device if verify is passed in.
-As you may see in `src/families/mycoin/bridge.js`, Live Common provides a helper to implement it easily with `makeAccountBridgeReceive()`, and there is a very few reason to implement your own.
+As you may see in `src/families/mycoin/bridge.ts`, Live Common provides a helper to implement it easily with `makeAccountBridgeReceive()`, and there is a very few reason to implement your own.
 
 #### Synchronization
 
-We usually group the `scanAccounts` and `sync` into the same file `js-synchronisation.js` as they both use similar logic as a `getAccountShape` function passed to helpers.
+We usually group the `scanAccounts` and `sync` into the same file `js-synchronisation.ts` as they both use similar logic as a `getAccountShape` function passed to helpers.
 
-`src/families/mycoin/js-synchronisation.js`:
+`src/families/mycoin/js-synchronisation.ts`:
 
-```js
-//@flow
+```ts
 import type { Account } from "../../types";
 import type { GetAccountShape } from "../../bridge/jsHelpers";
 import { makeSync, makeScanAccounts, mergeOps } from "../../bridge/jsHelpers";
@@ -1202,13 +1191,13 @@ In some cases, you might need to do a `postSync` patch to add some update logic 
 #### Reconciliation
 
 Currently, Ledger Live Desktop executes this bridge in a separate thread. Thus, the "avoid race condition" aspect of sync might not be respected since the UI renderer thread does not share the same objects.
-This may be improved in the future, but for updates to be reflected during sync, we implemented reconciliation in [src/reconciliation.js](https://github.com/Ledger-Coin-Integration-team/ledger-live-common/blob/master/src/reconciliation.js), between the account that is in the renderer and the new account produced after sync.
+This may be improved in the future, but for updates to be reflected during sync, we implemented reconciliation in [src/reconciliation.js](https://github.com/Ledger-Coin-Integration-team/ledger-live-common/blob/master/src/reconciliation.ts), between the account that is in the renderer and the new account produced after sync.
 
 Since we might have added some coin-specific data in `Account`, we must also reconciliate it:
 
 `src/reconciliation`:
 
-```js
+```ts
 // import {
 // ...
   fromMyCoinResourcesRaw,
@@ -1242,10 +1231,9 @@ Everytime the transaction is updated through a patch (`updateTransaction`), its 
 
 In some cases, this transaction will need to be prepared to correctly check status (`prepareTransaction`), like fetching the network fees, transforming some parameters, or setting default values, ...
 
-`src/families/mycoin/js-transaction.js`:
+`src/families/mycoin/js-transaction.ts`:
 
-```js
-// @flow
+```ts
 import { BigNumber } from "bignumber.js";
 import type { Account } from "../../types";
 import type { Transaction } from "./types";
@@ -1326,10 +1314,9 @@ This validation is done everytime the user updates the transaction (any input ch
 
 `errors` and `warnings` are key - value (error) objects that would have for each input (in the user perspective) the eventual error or notice that has been detected. To each key then it is expected that an input in Ledger Live Desktop and Mobile will exists to display the error.
 
-`src/families/mycoin/js-getTransactionStatus.js`:
+`src/families/mycoin/js-getTransactionStatus.ts`:
 
-```js
-// @flow
+```ts
 import { BigNumber } from "bignumber.js";
 import {
   NotEnoughBalance,
@@ -1397,12 +1384,11 @@ export default getTransactionStatus;
 As seen in the previous section, `getTransactionStatus` deals with errors in a Transaction, because of a wrong user input not meeting the coin logic.
 Those are user-dependent errors handled in the UI for each input displayed, and are expected to happen from time to time - we are not throwing them.
 
-But some errors can occur in a different context, and not be caused by user. Try as much as possible to handle all failing cases and throw coin-specific errors (if not generic error already exist), that you may define in an `errors.js` file (for reusablity).
+But some errors can occur in a different context, and not be caused by user. Try as much as possible to handle all failing cases and throw coin-specific errors (if not generic error already exist), that you may define in an `errors.ts` file (for reusablity).
 
-`src/families/mycoin/errors.js`:
+`src/families/mycoin/errors.ts`:
 
-```js
-// @flow
+```ts
 import { createCustomErrorClass } from "@ledgerhq/errors";
 
 /**
@@ -1413,19 +1399,18 @@ export const MyCoinSpecificError = createCustomErrorClass(
 );
 ```
 
-Add all exports to `src/errors.js`:
+Add all exports to `src/errors.ts`:
 
-```js
+```ts
 // ...
 export * from "./families/mycoin/errors";
 ```
 
 Also, to avoid repeating code and facilitate usage of checks and constants, gather all your coin-specific logic functions in a single file (calculations, getters, boolean checks...). This will also ease maintenance, for instance when the blockchain's logic changes (constants or additional checks added).
 
-`src/families/mycoin/logic.js`:
+`src/families/mycoin/logic.ts`:
 
-```js
-// @flow
+```ts
 import { BigNumber } from "bignumber.js";
 import type { Account } from "../../types";
 
@@ -1474,10 +1459,9 @@ export const getNonce = (a: Account): number => {
 
 The `Transaction` object is not exactly the transaction in the shape of the blockchain's protocol (which is generally serialized into a blob of bytes). So for convenience, you may implement a `buildTransaction` method to serialized it using <i>MyCoin</i> SDK, that could be reused for instance for estimating fees through the API.
 
-`src/families/mycoin/js-buildTransaction.js`:
+`src/families/mycoin/js-buildTransaction.ts`:
 
-```js
-// @flow
+```ts
 import type { Transaction } from "./types";
 import type { Account } from "../../types";
 
@@ -1528,10 +1512,9 @@ export const buildTransaction = async (a: Account, t: Transaction) => {
 
 This `buildTransaction` function would return an unsigned transaction blob that would be signed with the <i>MyCoin</i> App on device:
 
-`src/families/mycoin/js-signOperation.js`:
+`src/families/mycoin/js-signOperation.ts`:
 
-```js
-// @flow
+```ts
 import { BigNumber } from "bignumber.js";
 import { Observable } from "rxjs";
 import { FeeNotLoaded } from "@ledgerhq/errors";
@@ -1593,7 +1576,7 @@ const signOperation = ({
   deviceId: *,
   transaction: Transaction,
 }): Observable<SignOperationEvent> =>
-  Observable.create((o) => {
+  new Observable((o) => {
     async function main() {
       const transport = await open(deviceId);
       try {
@@ -1652,10 +1635,9 @@ This operation is an optimistic version of the `Operation` that would be display
 
 Once the transaction is signed, it must be broadcasted to MyCoin network. This is pretty easy if you correctly wrapped your API.
 
-`src/families/mycoin/js-broadcast.js`
+`src/families/mycoin/js-broadcast.ts`
 
-```js
-// @flow
+```ts
 import type { Operation, SignedOperation } from "../../types";
 import { patchOperationWithHash } from "../../operation";
 
@@ -1691,10 +1673,9 @@ The maximum spendable amount is the total balance in an account that is availabl
 
 See [https://support.ledger.com/hc/en-us/articles/360012960679-Maximum-spendable-amount](https://support.ledger.com/hc/en-us/articles/360012960679-Maximum-spendable-amount)
 
-`src/families/mycoin/js-estimateMaxSpendable.js`
+`src/families/mycoin/js-estimateMaxSpendable.ts`
 
-```js
-// @flow
+```ts
 import { BigNumber } from "bignumber.js";
 
 import type { AccountLike, Account } from "../../types";
@@ -1716,8 +1697,8 @@ const estimateMaxSpendable = async ({
   transaction,
 }: {
   account: AccountLike,
-  parentAccount: ?Account,
-  transaction: ?Transaction,
+  parentAccount?: Account,
+  transaction?: Transaction,
 }): Promise<BigNumber> => {
   const a = getMainAccount(account, parentAccount);
   const t = {
@@ -1734,12 +1715,11 @@ const estimateMaxSpendable = async ({
 export default estimateMaxSpendable;
 ```
 
-Here, we only return the spendableBalance, but without the fees. Since Fee estimation can be used elsewhere (like in the `prepareTransaction`), you can put it's logic in a dedicated `js-getFeesForTransaction.js` file. Here is an example for a fee fetched from network from an unsigned transaction (a bit like Polkadot), but you can also have specific calculation, with fee-per-byte value provided by the blockchain.
+Here, we only return the spendableBalance, but without the fees. Since Fee estimation can be used elsewhere (like in the `prepareTransaction`), you can put it's logic in a dedicated `js-getFeesForTransaction.ts` file. Here is an example for a fee fetched from network from an unsigned transaction (a bit like Polkadot), but you can also have specific calculation, with fee-per-byte value provided by the blockchain.
 
-`src/families/mycoin/js-getFeesForTransaction.js`:
+`src/families/mycoin/js-getFeesForTransaction.ts`:
 
-```js
-// @flow
+```ts
 import { BigNumber } from "bignumber.js";
 
 import type { Account } from "../../types";
@@ -1774,11 +1754,9 @@ export default getEstimatedFees;
 
 Before being able to test a `send` operation with CLI you will need to bind arguments and infer a transaction from it. Since we defined a "mode" field in the transaction, this will be the only argument that will be necessary to test a send.
 
-`src/families/mycoin/cli-transaction.js`:
+`src/families/mycoin/cli-transaction.ts`:
 
-```js
-// @flow
-import invariant from "invariant";
+```ts
 import flatMap from "lodash/flatMap";
 import type { Transaction, AccountLike } from "../../types";
 
@@ -1795,10 +1773,12 @@ function inferTransactions(
   opts: Object
 ): Transaction[] {
   return flatMap(transactions, ({ transaction, account }) => {
-    invariant(transaction.family === "mycoin", "mycoin family");
+    if (!transaction.family !== "mycoin") {
+      throw new Error("transaction is not of type mycoin");
+    }
 
-    if (account.type === "Account") {
-      invariant(account.myCoinResources, "unactivated account");
+    if (account.type === "Account" && !account.myCoinResources) {
+      throw new Error("unactivated account");
     }
 
     return {
@@ -1815,7 +1795,7 @@ export default {
 };
 ```
 
-Of course if <i>MyCoin</i> has more complex transactions, you can add many arguments to CLI. You can also define you own cli commands for any specific data you would like to fetch. See [Polkadot CLI commands](https://github.com/Ledger-Coin-Integration-team/ledger-live-common/blob/master/src/families/polkadot/cli-transaction.js).
+Of course if <i>MyCoin</i> has more complex transactions, you can add many arguments to CLI. You can also define you own cli commands for any specific data you would like to fetch. See [Polkadot CLI commands](https://github.com/Ledger-Coin-Integration-team/ledger-live-common/blob/master/src/families/polkadot/cli-transaction.ts).
 
 Now you can try a `getTransactionStatus` or a `send`:
 
@@ -1851,7 +1831,7 @@ It is responsible for scanning accounts for a crypto family, but also preloading
 
 #### Scanning accounts
 
-As we have seen [Synchronization](#synchronization), the `scanAccounts`, which is part of the CurrencyBridge, share common logic with the sync function, that's why we preferably put them in a `js-synchronisation.js` file.
+As we have seen [Synchronization](#synchronization), the `scanAccounts`, which is part of the CurrencyBridge, share common logic with the sync function, that's why we preferably put them in a `js-synchronisation.ts` file.
 
 The `makeScanAccounts` helper will automatically execute the default address derivation logic, but for some reason if you need to have a completely new way to scan account, you could then implement your own strategy.
 
@@ -1865,9 +1845,8 @@ This cache contains the JSON serialized response from `preload` which is then hy
 
 Live-Common features will then be able to reuse those data anywhere (e.g. validating transactions) with `getCurrentMyCoinPreloadData`, or by subscribing to `getMyCoinPreloadDataUpdates` observable.
 
-`src/families/mycoin/preload.js`:
-```js
-// @flow
+`src/families/mycoin/preload.ts`:
+```ts
 import { Observable, Subject } from "rxjs";
 import { log } from "@ledgerhq/logs";
 
@@ -1880,7 +1859,7 @@ let currentPreloadedData: MyCoinPreloadData = {
   somePreloadedData: {},
 };
 
-function fromHydratePreloadData(data: mixed): MyCoinPreloadData {
+function fromHydratePreloadData(data: any): MyCoinPreloadData {
   let foo = null;
 
   if (typeof data === "object" && data) {
@@ -1924,7 +1903,7 @@ export const preload = async (): Promise<MyCoinPreloadData> => {
   return { somePreloadedData };
 };
 
-export const hydrate = (data: mixed) => {
+export const hydrate = (data: any) => {
   const hydrated = fromHydratePreloadData(data);
 
   log("mycoin/preload", `hydrated foo with ${hydrated.somePreloadedData.foo}`);
@@ -1941,11 +1920,11 @@ It is important to keep in mind that all currencies work independently and that 
 
 Hence, the more cryptocurrencies Ledger Live is using, the more requests and calculations are executed, which can take time.
 
-To avoid making the same requests several times, we recommend using a local cache in your implementation (e.g. fees estimations, some currency data to preload, etc in a `src/families/mycoin/cache.js` file.
+To avoid making the same requests several times, we recommend using a local cache in your implementation (e.g. fees estimations, some currency data to preload, etc in a `src/families/mycoin/cache.ts` file.
 
-We have a [`src/cache.js`](https://github.com/LedgerHQ/ledger-live-common/blob/master/src/cache.js) helper for creating Least-Recently-Used caches anywhere if needed.
+We have a [`src/cache.ts`](https://github.com/LedgerHQ/ledger-live-common/blob/master/src/cache.ts) helper for creating Least-Recently-Used caches anywhere if needed.
 
-See for example the [Polkadot's cache implementation](https://github.com/LedgerHQ/ledger-live-common/blob/master/src/families/polkadot/cache.js).
+See for example the [Polkadot's cache implementation](https://github.com/LedgerHQ/ledger-live-common/blob/master/src/families/polkadot/cache.ts).
 
 
 ### Front-End helpers
@@ -1958,9 +1937,8 @@ When signing a transaction, the user is shown on his device all the parameters o
 
 The list of all displayed fields on device are provided by the `getDeviceTransactionConfig` function, which must return all transaction fields for a given transaction.
 
-`src/families/mycoin/getDeviceTransactionConfig.js`:
-```js
-// @flow
+`src/families/mycoin/getDeviceTransactionConfig.ts`:
+```ts
 import type { AccountLike, Account, TransactionStatus } from "../../types";
 import type { Transaction } from "./types";
 import type { DeviceTransactionField } from "../../transaction";
@@ -1969,12 +1947,12 @@ function getDeviceTransactionConfig({
   transaction,
   status: { estimatedFees },
 }: {
-  account: AccountLike,
-  parentAccount: ?Account,
-  transaction: Transaction,
-  status: TransactionStatus,
+  account: AccountLike;
+  parentAccount?: Account;
+  transaction: Transaction;
+  status: TransactionStatus;
 }): Array<DeviceTransactionField> {
-  const fields = [];
+  const fields: Array<DeviceTransactionField> = [];
 
   if (transaction.useAllAmount) {
     fields.push({
@@ -2014,9 +1992,9 @@ export default getDeviceTransactionConfig;
 
 If you are adding specific features to Ledger Live (like staking), you may need to access data through React hooks, that could provide common logic reusable for React components.
 
-You are then free to add them in a `src/families/mycoin/react.js` file.
+You are then free to add them in a `src/families/mycoin/react.ts` file.
 
-See examples like sorting and filtering validators, subscribing to preloaded data observable, or waiting for a transaction to be reflected in account, in the [Polkadot React hooks](https://github.com/LedgerHQ/ledger-live-common/blob/master/src/families/polkadot/react.js).
+See examples like sorting and filtering validators, subscribing to preloaded data observable, or waiting for a transaction to be reflected in account, in the [Polkadot React hooks](https://github.com/LedgerHQ/ledger-live-common/blob/master/src/families/polkadot/react.ts).
 
 ### Icon
 

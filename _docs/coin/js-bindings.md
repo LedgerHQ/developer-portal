@@ -30,8 +30,7 @@ Any features provided by the Nano App should be provided through these JS bindin
 
 You can find many implementations (`hw-app-*`) in [LedgerJS](https://github.com/LedgerHQ/ledgerjs/blob/master/packages/)
 
-```js
-//@flow
+```ts
 
 import type Transport from "@ledgerhq/hw-transport";
 import BIPPath from "bip32-path";
@@ -56,9 +55,9 @@ const SW_CANCEL = 0x6986;
  * MyCoin App API
  */
 export default class MyCoin {
-  transport: Transport<*>;
+  transport: Transport;
 
-  constructor(transport: Transport<*>, scrambleKey: string = "MYC") {
+  constructor(transport: Transport, scrambleKey: string = "MYC") {
     this.transport = transport;
     transport.decorateAppAPIMethods(
       this,
@@ -237,7 +236,7 @@ export default class MyCoin {
 
 ### Usage Example
 
-```js
+```ts
  import MyCoinSdk from "my-coin-sdk"; // Your coin js sdk
  import Transport from "@ledgerhq/hw-transport-node-hid";
  // import Transport from "@ledgerhq/hw-transport-u2f"; // for browser
