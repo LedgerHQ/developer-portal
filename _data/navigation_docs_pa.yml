@@ -1,6 +1,10 @@
-- title: Contents
+- title: How to
   docs:
-  - platform-app/context
+  - platform-app/introduction
+  - platform-app/developer-mode
+  - platform-app/manifest
+  - platform-app/develop-test
+  - platform-app/release
 
 - title: Ledger Live Platform SDK
   docs:
