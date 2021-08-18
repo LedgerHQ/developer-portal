@@ -1,0 +1,11 @@
+- title: Contents
+  docs:
+  - platform-app/context
+
+- title: Ledger Live Platform SDK
+  docs:
+  - platform-app/classes
+  - platform-app/modules
+  - platform-app/exchange-type
+  - platform-app/fees-level
+  - platform-app/transport

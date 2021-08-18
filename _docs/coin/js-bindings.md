@@ -14,7 +14,7 @@ layout: doc_ci
 You will need to provide a JS implementation to interact with your coin Nano app on the Ledger Nano.
 These bindings can either be implemented directly into live-common (as a folder in your coin family folder), or published in [LedgerJS/packages](https://github.com/LedgerHQ/ledgerjs) as a package - i.e. `hw-app-mycoin`.
 
-## Minimal Implementationn
+## Minimal Implementation
 
 The app implementation should provide at least 2 methods:
 * `getAddress(path: string, display?: bool)`: derive an address providing the BIP32 path
@@ -30,8 +30,7 @@ Any features provided by the Nano App should be provided through these JS bindin
 
 You can find many implementations (`hw-app-*`) in [LedgerJS](https://github.com/LedgerHQ/ledgerjs/blob/master/packages/)
 
-```js
-//@flow
+```ts
 
 import type Transport from "@ledgerhq/hw-transport";
 import BIPPath from "bip32-path";
@@ -56,9 +55,9 @@ const SW_CANCEL = 0x6986;
  * MyCoin App API
  */
 export default class MyCoin {
-  transport: Transport<*>;
+  transport: Transport;
 
-  constructor(transport: Transport<*>, scrambleKey: string = "MYC") {
+  constructor(transport: Transport, scrambleKey: string = "MYC") {
     this.transport = transport;
     transport.decorateAppAPIMethods(
       this,
@@ -237,7 +236,7 @@ export default class MyCoin {
 
 ### Usage Example
 
-```js
+```ts
  import MyCoinSdk from "my-coin-sdk"; // Your coin js sdk
  import Transport from "@ledgerhq/hw-transport-node-hid";
  // import Transport from "@ledgerhq/hw-transport-u2f"; // for browser

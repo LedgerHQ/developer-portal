@@ -11,6 +11,8 @@
   {% assign docs = site.data.navigation_docs_sp | map: 'docs' | join: ',' | split: ',' %}
 {% elsif category == "token"  %}
   {% assign docs = site.data.navigation_docs_et | map: 'docs' | join: ',' | split: ',' %}
+{% elsif category == "platform-app"  %}
+  {% assign docs = site.data.navigation_docs_pa | map: 'docs' | join: ',' | split: ',' %}
 {% endif %}
 
 
