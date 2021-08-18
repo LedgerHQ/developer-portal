@@ -61,7 +61,7 @@ layout: default
             </div>
             <div class="uk-width-medium uk-nav-default link-primary uk-visible@l">
               <div class="sidebar-toc">
-                {% toc %}
+                {{ content | toc_only }}
               </div>
             </div>
         </div>
