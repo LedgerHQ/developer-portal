@@ -531,6 +531,13 @@
       > ul li {list-style: none;}
     }
 
+    .sidebar-toc ul li.active {
+    background-color: crimson;
+    transition: 0.3s ease background-color;
+    }
+    .sidebar-toc ul li.active a {
+      color: rgb(255, 255, 255);
+    }
 
     // @media (min-width: $breakpoint-large) {
     //     .sidebar-fixed-width {
