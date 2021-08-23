@@ -16,7 +16,22 @@ In order to develop an application compatible with Ledger Live Platform, we prov
 
 To develop the web version of your application, you need to use the Ledger Live Platform SDK. According to the services and features you want to provide, you may have to use some specific APIs in order to interact with Ledger Live. An example would be account registration, or signing transactions.
 
-(TBD) API Doc and code samples
+### Import and instantiate the SDK
+
+Use the following code to import and instantiate the Ledger Live SDK: 
+
+```json
+import LedgerLiveApi from "ledger-live-platform-sdk";
+import { WindowMessageTransport } from "ledger-live-platform-sdk";
+
+---
+
+const llapi = new LedgerLiveApi(new WindowMessageTransport());
+```
+<!--  -->
+{% include alert.html style="success" text="The package name for the import is not definitive yet." %}
+<!--  -->
+
 (TBD) Demo repo
 
 ## Test your Platform App in Ledger Live

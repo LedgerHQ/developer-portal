@@ -5,13 +5,18 @@ tags: []
 layout: doc_pa
 ---
 
+#### Sections in this article
+{:.no_toc}
+* TOC
+{:toc}
+
 ## Type aliases
 
 ### Account
 
 Ƭ **Account**: `Object`
 
-#### Type declaration
+**Type declaration**
 
 | Name | Type |
 | :------ | :------ |
@@ -24,7 +29,7 @@ layout: doc_pa
 | `name` | `string` |
 | `spendableBalance` | `BigNumber` |
 
-#### Defined in
+**Defined in**
 
 [types.ts:139](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L139)
 
@@ -36,14 +41,14 @@ ___
 
 Informations about a device application
 
-#### Type declaration
+**Type declaration**
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `name` | `string` | Name of the application |
 | `version` | `string` | Version of the application (SemVer) |
 
-#### Defined in
+**Defined in**
 
 [types.ts:153](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L153)
 
@@ -53,7 +58,7 @@ ___
 
 Ƭ **Currency**: `Object`
 
-#### Type declaration
+**Type declaration**
 
 | Name | Type |
 | :------ | :------ |
@@ -63,9 +68,9 @@ ___
 | `name` | `string` |
 | `ticker` | `string` |
 | `type` | `string` |
-| `units` | [`Unit`](modules.md#unit)[] |
+| `units` | <code><a href='#unit'>Unit</a></code>[] |
 
-#### Defined in
+**Defined in**
 
 [types.ts:170](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L170)
 
@@ -77,14 +82,14 @@ ___
 
 Information about a device
 
-#### Type declaration
+**Type declaration**
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `modelId` | [`DeviceModel`](enums/DeviceModel.md) | The model of the device (Nano S, Nano X...) |
+| `modelId` | <code><a href='enums/DeviceModel'>DeviceModel</a></code> | The model of the device (Nano S, Nano X...) |
 | `version` | `string` | The version of the firmware |
 
-#### Defined in
+**Defined in**
 
 [types.ts:119](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L119)
 
@@ -94,14 +99,14 @@ ___
 
 Ƭ **EcdsaSignature**: `Object`
 
-#### Type declaration
+**Type declaration**
 
 | Name | Type |
 | :------ | :------ |
 | `r` | `Buffer` |
 | `s` | `Buffer` |
 
-#### Defined in
+**Defined in**
 
 [types.ts:76](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L76)
 
@@ -111,7 +116,7 @@ ___
 
 Ƭ **EstimatedFees**: `Object`
 
-#### Type declaration
+**Type declaration**
 
 | Name | Type |
 | :------ | :------ |
@@ -119,7 +124,7 @@ ___
 | `low` | `number` |
 | `standard` | `number` |
 
-#### Defined in
+**Defined in**
 
 [types.ts:104](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L104)
 
@@ -132,7 +137,7 @@ ___
 Metadata used to describe a secure exchange between a Ledger device
 and a partner (for sell, swap and funding)
 
-#### Type declaration
+**Type declaration**
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
@@ -146,33 +151,9 @@ and a partner (for sell, swap and funding)
 | `outAmount?` | `string` | The amount the user gets back |
 | `outCurrency?` | `string` | Ticker of the currency the user gets back |
 
-#### Defined in
+**Defined in**
 
 [types.ts:36](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L36)
-
-___
-
-### MessageHandler
-
-Ƭ **MessageHandler**: (`payload`: `unknown`) => `Promise`<`void`\>
-
-#### Type declaration
-
-▸ (`payload`): `Promise`<`void`\>
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `payload` | `unknown` |
-
-##### Returns
-
-`Promise`<`void`\>
-
-#### Defined in
-
-[types.ts:13](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L13)
 
 ___
 
@@ -180,61 +161,9 @@ ___
 
 Ƭ **Operation**: `unknown`
 
-#### Defined in
+**Defined in**
 
 [types.ts:23](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L23)
-
-___
-
-### RawAccount
-
-Ƭ **RawAccount**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `address` | `string` |
-| `balance` | `string` |
-| `blockHeight` | `number` |
-| `currency` | `string` |
-| `id` | `string` |
-| `lastSyncDate` | `string` |
-| `name` | `string` |
-| `spendableBalance` | `string` |
-
-#### Defined in
-
-[rawTypes.ts:12](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/rawTypes.ts#L12)
-
-___
-
-### RawSignedTransaction
-
-Ƭ **RawSignedTransaction**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `expirationDate` | `string` \| ``null`` |
-| `operation` | `unknown` |
-| `signature` | `string` |
-| `signatureRaw?` | `unknown` |
-
-#### Defined in
-
-[rawTypes.ts:41](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/rawTypes.ts#L41)
-
-___
-
-### RawTransaction
-
-Ƭ **RawTransaction**: [`RawEthereumTransaction`](interfaces/RawEthereumTransaction.md) \| [`RawBitcoinTransaction`](interfaces/RawBitcoinTransaction.md) \| `RawAlgorandTransaction` \| `RawCryptoOrgTransaction` \| `RawRippleTransaction` \| `RawCosmosTransaction` \| `RawTezosTransaction` \| `RawPolkadotTransaction` \| `RawStellarTransaction` \| `RawTronTransaction`
-
-#### Defined in
-
-[rawTypes.ts:29](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/rawTypes.ts#L29)
 
 ___
 
@@ -242,16 +171,16 @@ ___
 
 Ƭ **SignedTransaction**: `Object`
 
-#### Type declaration
+**Type declaration**
 
 | Name | Type |
 | :------ | :------ |
 | `expirationDate` | `Date` \| ``null`` |
-| `operation` | [`Operation`](modules.md#operation) |
+| `operation` | <code><a href='#operation'>Operation</a></code> |
 | `signature` | `string` |
 | `signatureRaw?` | `unknown` |
 
-#### Defined in
+**Defined in**
 
 [types.ts:25](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L25)
 
@@ -259,9 +188,9 @@ ___
 
 ### Transaction
 
-Ƭ **Transaction**: [`EthereumTransaction`](interfaces/EthereumTransaction.md) \| [`BitcoinTransaction`](interfaces/BitcoinTransaction.md) \| `AlgorandTransaction` \| `CryptoOrgTransaction` \| `RippleTransaction` \| `CosmosTransaction` \| `TezosTransaction` \| `PolkadotTransaction` \| `StellarTransaction` \| `TronTransaction`
+Ƭ **Transaction**: <code><a href='interfaces/EthereumTransaction'>EthereumTransaction</a></code> \| <code><a href='interfaces/BitcoinTransaction'>BitcoinTransaction</a></code> \| `AlgorandTransaction` \| `CryptoOrgTransaction` \| `RippleTransaction` \| `CosmosTransaction` \| `TezosTransaction` \| `PolkadotTransaction` \| `StellarTransaction` \| `TronTransaction`
 
-#### Defined in
+**Defined in**
 
 [types.ts:92](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L92)
 
@@ -271,7 +200,7 @@ ___
 
 Ƭ **Unit**: `Object`
 
-#### Type declaration
+**Type declaration**
 
 | Name | Type |
 | :------ | :------ |
@@ -279,126 +208,6 @@ ___
 | `magnitude` | `number` |
 | `name` | `string` |
 
-#### Defined in
+**Defined in**
 
 [types.ts:164](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L164)
-
-## Functions
-
-### deserializeAccount
-
-▸ **deserializeAccount**(`__namedParameters`): [`Account`](modules.md#account)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `__namedParameters` | [`RawAccount`](modules.md#rawaccount) |
-
-#### Returns
-
-[`Account`](modules.md#account)
-
-#### Defined in
-
-[serializers.ts:73](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/serializers.ts#L73)
-
-___
-
-### deserializeSignedTransaction
-
-▸ **deserializeSignedTransaction**(`__namedParameters`): [`SignedTransaction`](modules.md#signedtransaction)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `__namedParameters` | [`RawSignedTransaction`](modules.md#rawsignedtransaction) |
-
-#### Returns
-
-[`SignedTransaction`](modules.md#signedtransaction)
-
-#### Defined in
-
-[serializers.ts:165](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/serializers.ts#L165)
-
-___
-
-### deserializeTransaction
-
-▸ **deserializeTransaction**(`rawTransaction`): [`Transaction`](modules.md#transaction)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `rawTransaction` | [`RawTransaction`](modules.md#rawtransaction) |
-
-#### Returns
-
-[`Transaction`](modules.md#transaction)
-
-#### Defined in
-
-[serializers.ts:122](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/serializers.ts#L122)
-
-___
-
-### serializeAccount
-
-▸ **serializeAccount**(`__namedParameters`): [`RawAccount`](modules.md#rawaccount)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `__namedParameters` | [`Account`](modules.md#account) |
-
-#### Returns
-
-[`RawAccount`](modules.md#rawaccount)
-
-#### Defined in
-
-[serializers.ts:51](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/serializers.ts#L51)
-
-___
-
-### serializeSignedTransaction
-
-▸ **serializeSignedTransaction**(`__namedParameters`): [`RawSignedTransaction`](modules.md#rawsignedtransaction)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `__namedParameters` | [`SignedTransaction`](modules.md#signedtransaction) |
-
-#### Returns
-
-[`RawSignedTransaction`](modules.md#rawsignedtransaction)
-
-#### Defined in
-
-[serializers.ts:151](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/serializers.ts#L151)
-
-___
-
-### serializeTransaction
-
-▸ **serializeTransaction**(`transaction`): [`RawTransaction`](modules.md#rawtransaction)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `transaction` | [`Transaction`](modules.md#transaction) |
-
-#### Returns
-
-[`RawTransaction`](modules.md#rawtransaction)
-
-#### Defined in
-
-[serializers.ts:95](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/serializers.ts#L95)
