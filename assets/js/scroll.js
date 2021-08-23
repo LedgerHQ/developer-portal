@@ -1,5 +1,5 @@
 const sections = document.querySelectorAll("h2, h3, h4");
-const navLi = document.querySelectorAll(".sidebar-toc ul li");
+const tocLinks = document.querySelectorAll(".sidebar-toc a");
   window.addEventListener("scroll", () => {
     let current = "";
     sections.forEach((section) => {
@@ -9,11 +9,11 @@ const navLi = document.querySelectorAll(".sidebar-toc ul li");
       }
     });
 
-    navLi.forEach((li) => {
-      li.classList.remove("active");
-      formatedLi = li.innerText.toUpperCase().replaceAll(" ", "-").replaceAll(",", "").replaceAll("(", "").replaceAll(")", "");
-      if (formatedLi.split('\n')[0] == current.toUpperCase()) {
-        li.classList.add("active");
+    tocLinks.forEach((link) => {
+      link.classList.remove("active");
+      linkTitle = link.innerText.toUpperCase().replaceAll(" ", "-").replaceAll(",", "").replaceAll(".", "").replaceAll("?", "").replaceAll("/", "").replaceAll("(", "").replaceAll(")", "");
+      if (linkTitle == current.toUpperCase()) {
+        link.classList.add("active");
       }
     });
   });

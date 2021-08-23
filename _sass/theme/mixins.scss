@@ -530,9 +530,11 @@
       > ul li {list-style: none;}
     }
 
-    .sidebar-toc ul li.active {
+    .sidebar-toc a.active {
       font-weight: bold;
+      color: black;
     }
+
 
     // @media (min-width: $breakpoint-large) {
     //     .sidebar-fixed-width {
