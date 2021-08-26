@@ -1,0 +1,20 @@
+- title: How to
+  docs:
+  - platform-app/introduction
+  - platform-app/developer-mode
+  - platform-app/manifest
+  - platform-app/develop-test
+  - platform-app/release
+
+- title: Ledger Live Platform SDK
+  docs:
+  - platform-app/modules
+  - platform-app/classes
+  - platform-app/device-model
+  - platform-app/exchange-type
+  - platform-app/families
+  - platform-app/fees-level
+  - platform-app/transport
+  - platform-app/transaction-common
+  - platform-app/bitcoin-transaction
+  - platform-app/ethereum-transaction

@@ -4,19 +4,35 @@ layout: default
 
 <div class="uk-section">
     <div class="uk-container">
-        <div class="uk-grid-large" data-uk-grid>
+        <div class="uk-grid-small" data-uk-grid>
 
             <div class="sidebar-fixed-width uk-visible@m">
                 <div class="sidebar-docs uk-position-fixed uk-margin-top">
                     {% for section in site.data.navigation_docs_pa %}
                     <h5>{{ section.title }}</h5>
-                    <ul class="uk-nav uk-nav-default doc-nav">
-                    {% for doc in section.docs %}
-                      {% assign doc_url = doc | prepend:"/docs/" | append:"/" %}
-                      {% assign p = site.docs | where:"url", doc_url | first %}
-                      <li class="{% if doc_url == page.url %}uk-active{% endif %}"><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
-                    {% endfor %}
-                    </ul>
+                    <!-- The following condition exists because of "subfolderitems in navigation_docs_na" -->
+                        <ul class="uk-nav uk-nav-default doc-nav">
+                        {% for doc in section.docs %}
+                          {% assign doc_url = doc | prepend:"/docs/" | append:"/" %}
+                          {% assign p = site.docs | where:"url", doc_url | first %}
+                          <li class="{% if doc_url == page.url %}uk-active{% endif %}"><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
+                        {% endfor %}
+                        </ul>
+                      {% if section.subfolderitems %}
+                        <ul class="uk-nav uk-nav-default doc-nav">
+                          {% for entry in section.subfolderitems %}
+                          <li>{{entry.title}}</li>
+                            <ul class="uk-nav uk-nav-default doc-nav">
+                              {% for doc in entry.docs %}
+                                {% assign doc_url = doc | prepend:"/docs/" | append:"/" %}
+                                {% assign p = site.docs | where:"url", doc_url | first %}
+                                <li class="{% if doc_url == page.url %}uk-active{% endif %}"><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
+                              {% endfor %}
+                            </ul>
+                          {% endfor %}
+                        </ul>
+
+                      {% endif %}
                     {% endfor %}
                 </div>
             </div>
@@ -28,7 +44,6 @@ layout: default
                     <h1 class="uk-article-title">{{ page.title | escape }}</h1>
 
                     {% if page.subtitle %}<p class="uk-text-lead uk-text-muted">{{ page.subtitle }}</p>{% endif %}
-
                     <div class="article-content link-primary">
                         {{ content }}
                         {% if site.share.doc %}
@@ -60,7 +75,7 @@ layout: default
                 </script>
 
             </div>
-
+        </div>
     </div>
 </div>
 

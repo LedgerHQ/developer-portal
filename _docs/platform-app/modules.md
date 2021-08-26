@@ -86,7 +86,7 @@ Information about a device
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `modelId` | <code><a href='enums/DeviceModel'>DeviceModel</a></code> | The model of the device (Nano S, Nano X...) |
+| `modelId` | <code><a href='../device-model'>DeviceModel</a></code> | The model of the device (Nano S, Nano X...) |
 | `version` | `string` | The version of the firmware |
 
 **Defined in**
@@ -188,7 +188,7 @@ ___
 
 ### Transaction
 
-Ƭ **Transaction**: <code><a href='interfaces/EthereumTransaction'>EthereumTransaction</a></code> \| <code><a href='interfaces/BitcoinTransaction'>BitcoinTransaction</a></code> \| `AlgorandTransaction` \| `CryptoOrgTransaction` \| `RippleTransaction` \| `CosmosTransaction` \| `TezosTransaction` \| `PolkadotTransaction` \| `StellarTransaction` \| `TronTransaction`
+Ƭ **Transaction**: <code><a href='../ethereum-transaction'>EthereumTransaction</a></code> \| <code><a href='../bitcoin-transaction'>BitcoinTransaction</a></code> \| `AlgorandTransaction` \| `CryptoOrgTransaction` \| `RippleTransaction` \| `CosmosTransaction` \| `TezosTransaction` \| `PolkadotTransaction` \| `StellarTransaction` \| `TronTransaction`
 
 **Defined in**
 

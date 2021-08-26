@@ -17,7 +17,7 @@ layout: doc_pa
 
 • **onMessage**: `undefined` \| [`MessageHandler`](../modules#messagehandler)
 
-#### Defined in
+**Defined in**
 
 [types.ts:18](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L18)
 
@@ -27,11 +27,11 @@ layout: doc_pa
 
 ▸ **connect**(): `void`
 
-#### Returns
+**Returns**
 
 `void`
 
-#### Defined in
+**Defined in**
 
 [types.ts:16](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L16)
 
@@ -41,11 +41,11 @@ ___
 
 ▸ **disconnect**(): `void`
 
-#### Returns
+**Returns**
 
 `void`
 
-#### Defined in
+**Defined in**
 
 [types.ts:17](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L17)
 
@@ -55,16 +55,16 @@ ___
 
 ▸ **send**(`payload`): `Promise`<`void`\>
 
-#### Parameters
+**Parameters**
 
 | Name | Type |
 | :------ | :------ |
 | `payload` | `unknown` |
 
-#### Returns
+**Returns**
 
 `Promise`<`void`\>
 
-#### Defined in
+**Defined in**
 
 [types.ts:19](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L19)

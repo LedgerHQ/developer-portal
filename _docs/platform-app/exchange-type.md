@@ -16,7 +16,7 @@ layout: doc_pa
 
 • **Buy** = `"buy"`
 
-#### Defined in
+**Defined in**
 
 [types.ts:135](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L135)
 
@@ -26,7 +26,7 @@ ___
 
 • **Fund** = `"fund"`
 
-#### Defined in
+**Defined in**
 
 [types.ts:136](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L136)
 
@@ -36,6 +36,6 @@ ___
 
 • **Swap** = `"swap"`
 
-#### Defined in
+**Defined in**
 
 [types.ts:134](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L134)

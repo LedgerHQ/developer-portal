@@ -8,8 +8,20 @@
 
 - title: Ledger Live Platform SDK
   docs:
-  - platform-app/classes
   - platform-app/modules
-  - platform-app/exchange-type
-  - platform-app/fees-level
-  - platform-app/transport
+  subfolderitems:
+    - title: Classes
+      docs:
+      - platform-app/classes
+    - title: Enums
+      docs:
+      - platform-app/device-model
+      - platform-app/exchange-type
+      - platform-app/families
+      - platform-app/fees-level
+    - title: Interfaces
+      docs:
+      - platform-app/transport
+      - platform-app/transaction-common
+      - platform-app/bitcoin-transaction
+      - platform-app/ethereum-transaction

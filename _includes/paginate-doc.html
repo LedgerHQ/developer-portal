@@ -12,7 +12,7 @@
 {% elsif category == "token"  %}
   {% assign docs = site.data.navigation_docs_et | map: 'docs' | join: ',' | split: ',' %}
 {% elsif category == "platform-app"  %}
-  {% assign docs = site.data.navigation_docs_pa | map: 'docs' | join: ',' | split: ',' %}
+  {% assign docs = site.data.navigation_docs_pa_linear | map: 'docs' | join: ',' | split: ',' %}
 {% endif %}
 
 

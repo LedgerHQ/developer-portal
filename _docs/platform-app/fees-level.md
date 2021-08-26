@@ -17,7 +17,7 @@ layout: doc_pa
 
 • **High** = `"high"`
 
-#### Defined in
+**Defined in**
 
 [types.ts:84](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L84)
 
@@ -27,7 +27,7 @@ ___
 
 • **Low** = `"low"`
 
-#### Defined in
+**Defined in**
 
 [types.ts:82](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L82)
 
@@ -37,6 +37,6 @@ ___
 
 • **Standard** = `"standard"`
 
-#### Defined in
+**Defined in**
 
 [types.ts:83](https://github.com/LedgerHQ/ledger-live-platform-sdk/blob/248c4d7/src/types.ts#L83)
