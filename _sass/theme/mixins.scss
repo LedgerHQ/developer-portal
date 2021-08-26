@@ -494,6 +494,7 @@
     .sidebar-docs {
         width: $docs-sidebar-width - $global-medium-gutter;
         padding-right: $global-medium-gutter;
+        line-height: 1.1;
         top: 112px;
         bottom: 70px;
         overflow-y: scroll;
@@ -521,18 +522,33 @@
     }
 
     .sidebar-toc {
-      position: fixed;
       top: 160px;
-      width:300px;
+      width:250px;
       background: white;
       padding-top:20px;
       padding-right:18px;
+      text-decoration: none;
       > ul li {list-style: none;}
+    }
+
+    .sidebar-sticky {
+      position: fixed;
+    }
+
+    .sidebar-toc a {
+      border-bottom: none !important;
     }
 
     .sidebar-toc a.active {
       font-weight: bold;
-      color: black;
+    }
+
+    .content-toc {
+      border-left: solid 2px #d9dde0;
+      width:300px;
+      padding-top:20px;
+      padding-right:18px;
+      > ul li {list-style: none;}
     }
 
 

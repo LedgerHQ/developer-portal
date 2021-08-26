@@ -6,7 +6,7 @@ layout: default
     <div class="uk-container">
         <div class="uk-grid-large" data-uk-grid>
 
-            <div class="sidebar-fixed-width uk-visible@m">
+            <div class="sidebar-fixed-width uk-visible@l">
                 <div class="sidebar-docs uk-position-fixed uk-margin-top">
                     {% for section in site.data.navigation_docs_ci %}
                     <h5>{{ section.title }}</h5>
@@ -27,9 +27,16 @@ layout: default
 
                     <h1 class="uk-article-title">{{ page.title | escape }}</h1>
 
-                    {% if page.subtitle %}<p class="uk-text-lead uk-text-muted">{{ page.subtitle }}</p>{% endif %}
+                    {% if page.subtitle %}<p class="uk-text-lead uk-text-muted">{{ page.subtitle }}</p> <br>{% endif %}
+
 
                     <div class="article-content link-primary">
+                      <div class="uk-hidden@m">
+                        <h4>Sections in this article</h4>
+                        <div class="content-toc">
+                          {% toc %}
+                        </div>
+                      </div>
                         {{ content }}
                         {% if site.share.doc %}
                             <!-- FC
@@ -59,8 +66,8 @@ layout: default
                     });
                 </script>
             </div>
-            <div class="uk-width-medium uk-nav-default link-primary uk-visible@l">
-              <div class="sidebar-toc">
+            <div class="uk-width-medium uk-nav-default link-primary uk-visible@m">
+              <div class="sidebar-toc sidebar-sticky">
                 {% toc %}
               </div>
             </div>
@@ -70,4 +77,5 @@ layout: default
 
 {% include anchor_support.html %}
 {% include scroll.html %}
+{% include stop-toc.html %}
 
