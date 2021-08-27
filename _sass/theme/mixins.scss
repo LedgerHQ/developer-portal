@@ -526,9 +526,10 @@
       width:250px;
       background: white;
       padding-top:20px;
-      padding-right:18px;
       text-decoration: none;
+      > ul {padding-left: 20px;}
       > ul li {list-style: none;}
+      > h5 {padding-left: 20px; color:$global-primary-background;}
     }
 
     .sidebar-sticky {
@@ -541,6 +542,7 @@
 
     .sidebar-toc a.active {
       font-weight: bold;
+      background-color: lighten( $global-primary-background, 45% );
     }
 
     .content-toc {
