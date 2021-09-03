@@ -20,10 +20,12 @@ You can check the Makefile of a targeted Nano App to find this information. For 
 
 ## Test the communication with Ledger REPL
 
-You can use the [Ledger REPL](https://repl.ledger.tools/) to test if the communication can be established between a Nano App and a web browser.
+The [Ledger REPL](https://repl.ledger.tools/) web browser is a Nano terminal to exchange binary messages with the device. it has a set of different communication channels (transports), and so it is useful to test webusb and even web bluetooth for Nano X.
+
+For example, if you just want to verify communication is properly established with a Nano App:
 
 1. Chose your transport in the dropdown menu
 2. Plug your Ledger Nano S or X
 3. Send a basic ADPU (for example `B001000000` which gives you the App's name and version)
 
-If you get a response, this means the connexion and communication is working.
+If you get a response, this means the connexion and communication work.
