@@ -6,7 +6,6 @@ import { useConfig } from 'nextra-theme-docs'
 
 
 const config: DocsThemeConfig = {
-  logo: <span>My Project</span>,
   project: {
     link: 'https://github.com/LedgerHQ/developer-portal-v2',
   },
