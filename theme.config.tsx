@@ -8,10 +8,10 @@ import { useConfig } from 'nextra-theme-docs'
 const config: DocsThemeConfig = {
   logo: <span>My Project</span>,
   project: {
-    link: 'https://github.com/shuding/nextra-docs-template',
+    link: 'https://github.com/LedgerHQ/developer-portal-v2',
   },
   chat: {
-    link: 'https://discord.com',
+    link: 'https://ledgeropen.herokuapp.com/pro',
   },
   docsRepositoryBase: 'https://github.com/LedgerHQ/developer-portal-v2/blob/main',
   footer: {
@@ -48,8 +48,7 @@ const config: DocsThemeConfig = {
       </span>
     </>
   ),
-  faviconGlyph: '💻',
-  font: false
+  faviconGlyph: '💻'
 }
 
 export default config

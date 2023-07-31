@@ -1,15 +1,38 @@
 {
-  "index": "Introduction",
-  "another": "Another Page",
-  "advanced": "Advanced (A Folder)",
-  "about": {
-    "title": "About",
+  "index": {
+    "title": "Home",
+    "display": "hidden",
+    "theme": {
+      "breadcrumb": false,
+      "footer": true,
+      "sidebar": false,
+      "toc": true,
+      "pagination": false,
+      "layout": "full"
+    }
+  },
+  "device": {
+    "title": "Signing device",
     "type": "page"
   },
-  "contact": {
-    "title": "Contact ↗",
-    "type": "page",
-    "href": "https://twitter.com/shuding_",
-    "newWindow": true
+  "connectivity": {
+    "title": "Connectivity",
+    "type": "page"
+  },
+  "live": {
+    "title": "Ledger Live support",
+    "type": "page"
+  },
+  "tokens": {
+    "title": "Tokens",
+    "type": "page"
+  },
+  "discover": {
+    "title": "Discover",
+    "type": "page"
+  },
+  "overview": {
+    "title": "Overview",
+    "type": "page"
   }
 }
