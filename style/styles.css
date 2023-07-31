@@ -1,0 +1,10 @@
+@import "./system-fonts.css";
+
+body {
+  font-family: 'InterRegular';
+}
+
+h1, h2, nav {
+  font-family: 'HMAlphaMono';
+}
+

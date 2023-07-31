@@ -1,0 +1,13 @@
+@font-face {
+	font-family: HMAlphaMono;
+	font-style: normal;
+	font-weight: 500;
+	src: url("./font/HMAlphaMono-Medium.otf");
+}
+
+@font-face {
+  font-family: InterRegular;
+  font-style: normal;
+  font-weight: 500;
+  src: url("./font/Inter-Regular.otf"); 
+}
