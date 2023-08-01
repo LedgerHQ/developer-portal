@@ -1,0 +1,49 @@
+1. Fork [github.com/LedgerHQ/ledger-live](https://github.com/LedgerHQ/ledger-live)
+2. Clone the repo
+
+## Ledger Live Desktop
+
+### Adding the crypto in LLD
+
+1. In  `live-common-set-supported-currencies.js` add the name you gave in the table. E.g., `mycoin`
+2. Add the error translation keys in `static/i18n/en`.
+
+### Running the Desktop project
+
+```sh
+cd ledger-live
+pnpm dev:lld
+```
+
+## Ledger Live Mobile
+
+### Adding the crypto in LLM
+
+1. Similarly step as for instructions for LLD, except it is in file `live-common-setup.js`.
+2. Add the error translation keys in  `src/locales/en/common.json`
+
+### Running the Mobile project on iOS (Mac only)
+
+The prerequisites to running the project are found in the README file.
+
+```sh
+cd ledger-live
+pnpm dev:llm
+```
+
+### Running the Mobile project on Android or iOS
+
+#### Android
+
+```sh
+pnpm mobile android
+```
+or open `android/` in Android Studio.
+
+#### iOS
+
+```sh
+pnpm mobile ios
+```
+or open `ios/ledgerlivemobile.xcworkspace`
+

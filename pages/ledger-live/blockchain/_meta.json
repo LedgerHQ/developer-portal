@@ -1,0 +1,12 @@
+{  
+	"index": {
+    "display": "hidden"
+  },
+	"getting-started": "Getting Started", 
+	"setup-build": "Setup and build",
+	"guidelines": "Guidelines",
+	"coding": "Coding",
+	"testing": "Testing",
+	"faq": "FAQ and common bugs",
+	"legal": "Legal"
+}

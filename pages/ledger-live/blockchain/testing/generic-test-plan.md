@@ -1,0 +1,100 @@
+## Account management  
+
+### Test #1 : Add new account  
+**Given** I’ve no _currency_ account on my portfolio  
+**When** I add a new account  
+**Then** a new _currency_ account is added on the account list  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**And** the first derived address index is **0**  
+
+
+### Test #2 : Add more accounts  
+**Given** I have already added a _currency_ account on my portfolio  
+**When** I add a new account  
+**Then** a new _currency_ account is added on the account list  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**And** a second derived address index is incremented  
+
+
+### Test #3 : Delete account  
+**Given** I already have a _currency_ account on my portfolio  
+**When** I delete an account  
+**Then** it deletes all data related to that account  
+
+
+## Synchronization  
+
+
+### Test #1 : Transaction History  
+**Given** I added my _currency_ account  
+**When** I am on my account page  
+**Then** it retrieves the **full** transaction history  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**And** it includes every transaction types supported by the blockchain (Tokens, if it exists)  
+
+
+### Test #2 : Balance  
+**Given** I have a _currency_ account with a balance  
+**When** I am on my account page  
+**Then** the account balance is correct according to how the balance is defined in the currency whether excluding or including staking amounts  
+
+
+### Test #3 : Different derivation path  
+**Given** I have a currency account with different derivation paths (Kepler VS Native; e.g. other wallets)  
+**Then** the account is retrieved when synchronizing  
+
+
+### Test #4 : Graph  
+**Given** I have a _currency_ account with a history  
+**When** I am on my account page  
+**Then** the graph data is correct  
+
+
+## Receive  
+
+### Test #1 : GUI  
+**Given** I have a _currency_ account on my portfolio  
+**When** I do _Receive_ flow  
+**Then** the address displayed on the GUI is correct  
+
+
+### Test #2 : Device  
+**Given** I have a _currency_ account on my portfolio  
+**When** I do _Receive_ flow  
+**Then** the address displayed on the device is correct  
+
+
+## Send  
+
+### Test #1 : Bad amount  
+**Given** I have a positive _balance_  
+**When** I send _balance + 1_ to a _recipient address_  
+**Then** it displays the “Insufficient funds” error  
+
+
+### Test #2 : No fees  
+**Given** I have a positive _balance_  
+**When** I send all my _balance_ to a _recipient address_  
+**Then** it displays the “Insufficient funds” error  
+
+
+### Test #3 : Bad recipient address  
+**Given** I have a positive _balance_  
+**When** I send an _amount_ to a **bad** _recipient address_  
+**Then** it displays the “Invalid address” error  
+
+
+### Test #4 : Send max  
+**Given** I have a positive _balance_  
+**When** I do a _send max_  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**And** toggle “Send Max”  
+**Then** the maximum spendable amount is (_balance_ - _fees_)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**And** it auto-fills the amount field with the maximum spendable amount  
+
+
+### Test #5 : Self send  
+**Given** I have a positive _balance_  
+**When** I do a _self send_  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**And** send _amount_ to the same account address  
+**Then**  it (or does not*) displays the“Recipient address is the same as the sender” error  
+
+\* according to the Technical Assessment specification  
+
+

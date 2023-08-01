@@ -1,0 +1,3 @@
+## Testing Ledger Live Desktop
+
+You can test the desktop interface with Playwright, following [the process on the Ledger Live repository](https://github.com/LedgerHQ/ledger-live/wiki/LLD:Testing).
