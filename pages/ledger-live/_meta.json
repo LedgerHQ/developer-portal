@@ -1,0 +1,11 @@
+{
+	"blockchain": {
+	"title": "Blockchain Support"
+	},
+	"tokens": {
+    "title": "Token Support"
+	},
+  "discover": {
+    "title": "Discover"
+	}
+}

@@ -11,24 +11,12 @@
       "layout": "full"
     }
   },
-  "device": {
-    "title": "Signing device",
+  "signing-devices": {
+    "title": "Signing devices",
     "type": "page"
   },
-  "connectivity": {
-    "title": "Connectivity",
-    "type": "page"
-  },
-  "live": {
-    "title": "Ledger Live support",
-    "type": "page"
-  },
-  "tokens": {
-    "title": "Tokens",
-    "type": "page"
-  },
-  "discover": {
-    "title": "Discover",
+  "ledger-live": {
+    "title": "Ledger Live",
     "type": "page"
   },
   "overview": {
