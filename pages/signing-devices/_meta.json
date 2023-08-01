@@ -1,0 +1,11 @@
+{
+	"device-app": {
+	"title": "Device App"
+	},
+	"plugin": {
+    "title": "EVMs Plugins"
+	},
+  "connectivity": {
+    "title": "Connectivity"
+	}
+}
