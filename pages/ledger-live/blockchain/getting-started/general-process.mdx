@@ -1,3 +1,5 @@
+import { Callout } from 'nextra/components'
+
 <div class="uk-text-center">
     <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/zEYnDHh5NRM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
@@ -24,11 +26,6 @@ To be officially released by Ledger, your protocol must be included on all five 
 
 ## Open source, but not Open bar
 
-<!-- ------------- Image ------------- -->
-<img align="left" width="132" src="../images/open_bar.png">
-<!-- --------------------------------- -->
-
-
 The Ledger Live code is Open source under MIT license. As such, you are free to copy/fork and modify it at will.
 
 In some rare cases, you may want to go it alone, and do your own Solo Integration, where there is virtually no interaction with Ledger, nor code review, nor supported communication by Ledger to your blockchain community. You are free to use this documentation in that way.
@@ -37,9 +34,7 @@ In most cases however, you will want to have your blockchain officially supporte
 
 
 ## Agreeing on a Framework
-<!-- ------------- Image ------------- -->
-<img align="right" width="156"  src="../images/agreement.png" >
-<!-- --------------------------------- -->
+
 Assuming you are on course for a Participant Integration, here is how we suggest working together.
 
 ### Phase 1 - You contact us on Discord
@@ -57,20 +52,21 @@ In this questionnaire, you will answer a set of questions that will help our tea
 - Connectivity to Third Party Services
 - Scope of the desired integration
 
-<!--  -->
-{% include alert.html style="important" text="<ul>
-    <li>The validation of the scope AND of the technical feasibility of the integration are required before starting the development phase.</li>
-    <li>Do not start the development phase before getting an official GO from the Ledger team.</li>
-    <li>We will not provide any technical support and/or code review to teams who did not get vetted by Ledger team upfront</li>
-</ul>" %}
-<!--  -->
+<Callout type="warning" emoji="⚠️">
+    <ul>
+        <li>- The validation of the scope AND of the technical feasibility of the integration are required before starting the development phase.</li>
+        <li>- Do not start the development phase before getting an official GO from the Ledger team.</li>
+        <li>- We will not provide any technical support and/or code review to teams who did not get vetted by Ledger team upfront</li>
+    </ul>
+</Callout>
 
-{% include alert.html style="disclaimer" text="<ul>
-    <li>Please be mindful when filling in this questionnaire, any unanswered or unclear question will delay the review process.</li>
-    <li>Ledger keeps the right to refuse and/or cancel any Participant Integration at any time without further notice or explanation.
-</li>
-</ul>
-" %}
+
+<Callout type="info" emoji="👉">
+    <ul>
+        <li>- Please be mindful when filling in this questionnaire, any unanswered or unclear question will delay the review process.</li>
+        <li>- Ledger keeps the right to refuse and/or cancel any Participant Integration at any time without further notice or explanation.</li>
+    </ul>
+</Callout>
 
 ### Phase 3 - Ledger reviews your project candidature
 

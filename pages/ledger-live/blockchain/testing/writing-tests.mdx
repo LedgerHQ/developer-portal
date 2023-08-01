@@ -1,3 +1,6 @@
+import { Callout } from 'nextra/components'
+
+
 ## Introduction
 
 The technical description of the bot in the Ledger Live repo, [here](https://github.com/LedgerHQ/ledger-live/wiki/LLC:bot).  
@@ -371,9 +374,9 @@ For instance you can customize the embedded app version using the `appQuery` obj
   };
 ```
 
-<!--  -->
-{% include alert.html style="important" text="You should force a specific Nano version only if mandatory, in general it is always better to let the bot target the latest version." %}
-<!--  -->
+<Callout type="warning" emoji="⚠️">
+  You should force a specific Nano version only if mandatory, in general it is always better to let the bot target the latest version.
+</Callout>
 
 You can find the full list of available parameters [here](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/ledger-live-common/src/bot/types.ts) for AppSpec and MutationSpec.
 

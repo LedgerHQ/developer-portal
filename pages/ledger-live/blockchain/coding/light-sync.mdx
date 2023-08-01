@@ -1,3 +1,5 @@
+import { Callout } from 'nextra/components'
+
 ## Types
 
 Generic types can be found in [ledgerjs/packages/types-live](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/types-live), with some documentation.
@@ -28,7 +30,9 @@ If needed by the blockchain, an account can also contain coin-specific resources
 
 ### Operation
 
-{% include alert.html style="note" text="This type is not required at light sync step and will soon be removed from this section" %}
+<Callout type="info" emoji="👉">
+  This type is not required at light sync step and will soon be removed from this section
+</Callout>
 
 Note the wording "Operation" is used instead of "Transaction". An account does not have transactions, it has **operations**.
 
@@ -77,7 +81,9 @@ src/icons/OperationStatusIcon/index.js
 
 ### Transaction
 
-{% include alert.html style="note" text="This type may not be required at light sync step." %}
+<Callout type="info" emoji="👉">
+  This type may not be required at light sync step.
+</Callout>
 
 In Ledger Live, the "Transaction" is the data model that is created and updated in order to build the final blob to be signed by the device, and then broadcasted to the blockchain.
 
@@ -244,11 +250,9 @@ export function assignFromAccountRaw(accountRaw: AccountRaw, account: Account) {
 }
 ```
 
-<!--  -->
-
-{% include alert.html style="success" text="If your integration of <i>MyCoin</i> does not require coin-specific data in an account, you will not need to define <code>MyCoinResources</code>." %}
-
-<!--  -->
+<Callout>
+  If your integration of <i>MyCoin</i> does not require coin-specific data in an account, you will not need to define <code>MyCoinResources</code>.
+</Callout>
 
 ### Display Format
 
@@ -256,7 +260,9 @@ Since `Operation` will be stored as JSON, you will need to implement specific se
 
 We also would like the `Operation` and `Account` to be displayed in CLI with their specifics, so you must provide formatters to display them.
 
-{% include alert.html style="note" text="In this code sample, all references to operations are not needed at light sync step. They are currently necessary but will soon be removed from this section" %}
+<Callout type="info" emoji="👉">
+  In this code sample, all references to operations are not needed at light sync step. They are currently necessary but will soon be removed from this section.
+</Callout>
 
 `libs/coin-mycoin/src/account.ts`:
 
@@ -353,15 +359,15 @@ export default {
 };
 ```
 
-<!--  -->
-
-{% include alert.html style="success" text="<code>formatOperationSpecifics()</code> and <code>formatAccountSpecifics()</code> are used in the CLI to display account-specific fields and extras of the transaction history, useful for debugging." %}
-
-<!--  -->
+<Callout type="info" emoji="👉">
+  <code>formatOperationSpecifics()</code> and <code>formatAccountSpecifics()</code> are used in the CLI to display account-specific fields and extras of the transaction history, useful for debugging.
+</Callout>
 
 The same idea applies also to the `Transaction` type which needs to be serialized and formatted for CLI:
 
-{% include alert.html style="note" text="This part may not be required if you don't need transactions for light sync." %}
+<Callout>
+  This part may not be required if you don't need transactions for light sync.
+</Callout>
 
 `libs/ledger-live-common/src/families/mycoin/transaction.ts`:
 
@@ -418,7 +424,9 @@ export default { formatTransaction, fromTransactionRaw, toTransactionRaw };
 
 ## Wrap your API
 
-{% include alert.html style="note" text="In the code samples below, all references to operations are not needed at light sync step. They are currently necessary but will soon be removed from this section" %}
+<Callout type="info" emoji="👉">
+  In the code samples below, all references to operations are not needed at light sync step. They are currently necessary but will soon be removed from this section.
+</Callout>
 
 Before this part, you will need a node/explorer to get the state of an account on the blockchain, such as balances, nonce (if your blockchain uses something similar), and any data relevant to show or fetch in Ledger Live.
 
@@ -434,11 +442,9 @@ The best way to implement your API in Live Common is to create a dedicated `api`
   └── sdk.types.ts
 ```
 
-<!--  -->
-
-{% include alert.html style="tip" text="Try to separate as much as possible your different APIs (if you use multiple providers) and use typings to ensure you map correctly API responses to Ledger Live types" %}
-
-<!--  -->
+<Callout>
+  Try to separate as much as possible your different APIs (if you use multiple providers) and use typings to ensure you map correctly API responses to Ledger Live types.
+</Callout>
 
 You will likely need to export thoses functions, but implemention is up-to-developer:
 
@@ -463,11 +469,9 @@ See [Polkadot Coin Integration's api](https://github.com/LedgerHQ/ledger-live/tr
 
 Here is an example of a <i>MyCoin</i> API implementation using a fictive SDK that uses something like WebSocket to fetch data.
 
-<!--  -->
-
-{% include alert.html style="tip" text="We don't recommend using WebSocket as it could have drawbacks and is more difficult to scale up and put behind a reverse proxy. If possible, use HTTPS requests as much as possible." %}
-
-<!--  -->
+<Callout>
+  We don't recommend using WebSocket as it could have drawbacks and is more difficult to scale up and put behind a reverse proxy. If possible, use HTTPS requests as much as possible.
+</Callout>
 
 ```ts
 import MyCoinApi from "my-coin-sdk";
@@ -638,9 +642,6 @@ If you need to disconnect from your API after using it, update `src/api/index.ts
 AccountBridge offers a generic abstraction to synchronize accounts and perform transactions.
 
 It is designed for the end user frontend interface and is agnostic of the way it runs, has multiple implementations and does not know how the data is even stored: in fact **it's just a set of stateless functions**.
-
-<!-- ------------- Image ------------- -->
-<!-- --------------------------------- -->
 
 ![account bridge flow](../images/account-bridge-flow.png)
 
@@ -932,11 +933,10 @@ const accountBridge: AccountBridge<Transaction> = {
 export default { currencyBridge, accountBridge };
 ```
 
-<!--  -->
+<Callout>
+  You could implement all the methods in a single file, but for better readability and maintainability, you should split your code into multiple files.
+</Callout>
 
-{% include alert.html style="tip" text="You could implement all the methods in a single file, but for better readability and maintainability, you should split your code into multiple files." %}
-
-<!--  -->
 
 ## Cache and performance (optional)
 

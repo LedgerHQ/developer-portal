@@ -1,15 +1,14 @@
+import { Callout } from 'nextra/components'
+
 ## Account Bridge
 
 AccountBridge offers a generic abstraction to synchronize accounts and perform transactions.
 
 It is designed for the end user frontend interface and is agnostic of the way it runs, has multiple implementations and does not know how the data is even stored: in fact **it's just a set of stateless functions**.
 
-<!-- ------------- Image ------------- -->
-<!-- --------------------------------- -->
-
-<!--  -->
-  {% include alert.html style="important" text="If any of your operations takes longer than the times stated below, get in touch with us on Discord." %}
-<!--  -->
+<Callout type="warning" emoji="⚠️">
+  If any of your operations takes longer than the times stated below, get in touch with us on Discord.
+</Callout>
 
 ![account bridge flow](../images/account-bridge-flow.png)
 
@@ -366,7 +365,7 @@ const accountBridge: AccountBridge<Transaction> = {
 export default { currencyBridge, accountBridge };
 ```
 
-<!--  -->
-
-{% include alert.html style="tip" text="You could implement all the methods in a single file, but for better readability and maintainability, you should split your code into multiple files." %}
+<Callout >
+  You could implement all the methods in a single file, but for better readability and maintainability, you should split your code into multiple files.
+</Callout>
 
