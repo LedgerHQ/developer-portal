@@ -1,12 +1,4 @@
----
-title: Building the CLI for development
-subtitle:
-tags: [clone ledger live]
-category: Blockchain Support
-author:
-toc: true
-layout: doc
----
+import { Callout } from 'nextra/components'
 
 Using a local version of Ledger Live to test your integration can be time consuming. If you would rather have a faster process, you can use the CLI.
 
@@ -49,10 +41,9 @@ pnpm run:cli getAddress -c bitcoin --path "84'/0'/0'/0/0" --derivationMode ''
 pnpm run:cli send -i 0 -s segwit --recipient 13LcRWZyZnZu1xrABuAK9Ayftg4kfVs1AA --amount 0.00056 --feePerByte 5
 ```
 
-<!--  -->
-{% include alert.html style="note" text="Be aware that the CLI has some limitations compared to Ledger Live. For example, every sync with the CLI will sync the entire account history." %}
-<!--  -->
- 
+<Callout type="info" emoji="👉">
+  Be aware that the CLI has some limitations compared to Ledger Live. For example, every sync with the CLI will sync the entire account history.
+</Callout>
 
 You will find a complete list of commands [here](https://github.com/LedgerHQ/ledger-live/tree/develop/apps/cli#documentation).
 

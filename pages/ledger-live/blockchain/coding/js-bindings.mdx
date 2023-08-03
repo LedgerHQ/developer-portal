@@ -1,3 +1,5 @@
+import { Callout } from 'nextra/components'
+
 You will need to provide a JS implementation to interact with your coin embedded app on a Ledger.
 These bindings can either be implemented directly into live-common (as a folder in your coin family folder), or published in [LedgerJS/packages](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs) as a package - i.e. `hw-app-mycoin`.
 
@@ -7,13 +9,13 @@ The app implementation should provide at least 2 methods:
 * `getAddress(path: string, display?: bool)`: derive an address providing the BIP32 path
 * `signTransaction(path: string, message: string)`: sign a raw message for provided BIP32 path
 
-<!--  -->
-{% include alert.html style="important" text="If the <code>display</code> argument in <code>getAddress</code> doesn't work, get in touch with us - a necessary change may need to be made to the Ledger embedded app." %}
-<!--  -->
+<Callout type="warning" emoji="⚠️">
+  If the <code>display</code> argument in <code>getAddress</code> doesn't work, get in touch with us - a necessary change may need to be made to the Ledger embedded app.
+</Callout>
 
-<!--  -->
-{% include alert.html style="tip" text="Arguments are provided as example, but try to follow as much as possible other implementations for easy integration. If stuck, find and read your coin's embedded app documentation (<code>doc/api.asc</code>)." %}
-<!--  -->
+<Callout>
+  Arguments are provided as example, but try to follow as much as possible other implementations for easy integration. If stuck, find and read your coin's embedded app documentation (<code>doc/api.asc</code>).
+</Callout>
 
 Any features provided by the embedded app should be provided through these JS bindings, such as `getAppConfiguration` or any blockchain-specific capabilities.
 

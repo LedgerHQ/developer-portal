@@ -1,3 +1,5 @@
+import { Callout } from 'nextra/components'
+
 The [@ledgerhq/cryptoassets](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/cryptoassets) package contains all definitions of cryptoassets that could be useful to Ledger Live.
 
 Ledger Live deals with different kinds of currencies and assets: fiat currencies, cryptocurrencies, and tokens.
@@ -116,9 +118,10 @@ type CryptoCurrency = CurrencyCommon & {
   }
 };
 ```
-<!--  -->
-{% include alert.html style="tip" text="CoinType is generally found in <a href='https://github.com/satoshilabs/slips/blob/master/slip-0044.md'>github.com/satoshilabs/slips/blob/master/slip-0044.md</a>, although unicity is not quaranteed across networks (testnets, etc...)." %}
-<!--  -->
+
+<Callout>
+  CoinType is generally found in <a href='https://github.com/satoshilabs/slips/blob/master/slip-0044.md'>github.com/satoshilabs/slips/blob/master/slip-0044.md</a>, although unicity is not quaranteed across networks (testnets, etc...).
+</Callout>
 
 ### ExplorerView
 
@@ -135,9 +138,9 @@ type ExplorerView = {
 };
 ```
 
-<!--  -->
-{% include alert.html style="tip" text="Find a reliable explorer. If you find more than one explorer, list them from most to less popular. Ledger Live will likely use the first explorer as default." %}
-<!--  -->
+<Callout>
+  Find a reliable explorer. If you find more than one explorer, list them from most to less popular. Ledger Live will likely use the first explorer as default.
+</Callout>
 
 ### TokenCurrency specific fields
 

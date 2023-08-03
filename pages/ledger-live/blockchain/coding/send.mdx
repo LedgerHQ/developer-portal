@@ -1,3 +1,5 @@
+import { Callout } from 'nextra/components'
+
 ## Starting with a mock
 
 A mock will help you test different UI flows on Desktop and Mobile.
@@ -114,8 +116,6 @@ AccountBridge offers a generic abstraction to synchronize accounts and perform t
 
 It is designed for the end user frontend interface and is agnostic of the way it runs, has multiple implementations and does not know how the data is even stored: in fact **it's just a set of stateless functions**.
 
-<!-- ------------- Image ------------- -->
-<!-- --------------------------------- -->
 ![account bridge flow](../images/account-bridge-flow.png)
 
 
@@ -584,13 +584,14 @@ function getDeviceTransactionConfig({
 
 export default getDeviceTransactionConfig;
 ```
-<!--  -->
-{% include alert.html style="important" text="Since a not-well-informed user could be tricked to sign transaction with wrong recipients, we never show the <code>destination</code> fields in Ledger Live applications, in order for users to get used to always verify it externally." %}
-<!--  -->
 
-<!--  -->
-{% include alert.html style="tip" text="If extra values are being calculated, make sure they match what appears on the device (i.e. numerical precision)." %}
-<!--  -->
+<Callout type="warning" emoji="⚠️">
+  Since a not-well-informed user could be tricked to sign transaction with wrong recipients, we never show the <code>destination</code> fields in Ledger Live applications, in order for users to get used to always verify it externally.
+</Callout>
+
+<Callout>
+  If extra values are being calculated, make sure they match what appears on the device (i.e. numerical precision).
+</Callout>
 
 ### Broadcast
 
@@ -624,14 +625,15 @@ export default broadcast;
 This function must return the optimistic operation, patched with the `hash` generally provided by the network.
 Once the operation is synced from <i>MyCoin</i> API, the AccountBridge will remove this optimistic operation from the `pendingOperations`.
 
-<!--  -->
-{% include alert.html style="tip" text="When there are some pending operations, synchronization will occur every minutes." %}
+<Callout>
+  When there are some pending operations, synchronization will occur every minutes.
+</Callout>
 
 ### Estimate Max Spendable
 
 The maximum spendable amount is the total balance in an account that is available to send in a transaction. This amount is specific to <i>MyCoin</i>, so you will need to provide this value depending on the transaction the user want to send.
 
-See [https://support.ledger.com/hc/en-us/articles/360012960679-Maximum-spendable-amount](https://support.ledger.com/hc/en-us/articles/360012960679-Maximum-spendable-amount)
+See this [support article about Maximum Spendable Amount](https://support.ledger.com/hc/en-us/articles/360012960679-Maximum-spendable-amount).
 
 `libs/coin-mycoin/src/js-estimateMaxSpendable.ts`
 
@@ -675,9 +677,9 @@ const estimateMaxSpendable = async ({
 export default estimateMaxSpendable;
 ```
 
-<!--  -->
-{% include alert.html style="tip" text="If it takes a long time for transactions to be confirmed on-chain and included in a sync, you might need to include the pending operations in this calculation." %}
-<!--  -->
+<Callout>
+  If it takes a long time for transactions to be confirmed on-chain and included in a sync, you might need to include the pending operations in this calculation.
+</Callout>
 
 Here, we only return the spendableBalance, but without the fees. Since Fee estimation can be used elsewhere (like in the `prepareTransaction`), you can put it's logic in a dedicated `js-getFeesForTransaction.ts` file. Here is an example for a fee fetched from network from an unsigned transaction (a bit like Polkadot), but you can also have specific calculation, with fee-per-byte value provided by the blockchain.
 

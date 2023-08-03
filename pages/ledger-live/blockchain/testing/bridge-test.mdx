@@ -1,5 +1,4 @@
-<!-- 2021-03-30 based on 1809613975 in Confluence -->
-<!-- Updated on the 2022-06-24 -->
+import { Callout } from 'nextra/components'
 
 This page describes how tests are implemented in order to test live-common bridge.
 
@@ -14,15 +13,13 @@ For a specific currency, the seed used needs to be frozen, it’s mean that no n
 
 By doing so we can ensure that the account synchronisation and the transaction status will always provide the same results.
 
-<!--  -->
-
-{% include alert.html style="important" text="<b>Prerequisite</b> - Your computer is expected to have been set up accordingly. Please follow the following guides for this purpose:<br>
-
-<div> <ul>
-<li><a href='https://ledgerhq.atlassian.net/wiki/spaces/WALLETCO/pages/2610659678/Ledger+Live+Common#ledger-live-cli' class='alert-link'>ledger-live CLI</a></li>
-<li>Physical Ledger device or an <a href='https://developers.ledger.com/docs/speculos/installation/build' class='alert-link'>emulated device with Speculos</a></li>
-</ul></div> " %}
-<!--  -->
+<Callout type="warning" emoji="⚠️">
+  <b>Prerequisite</b> - Your computer is expected to have been set up accordingly. Please follow the following guides for this purpose:
+  <ul>
+    <li>- <a href='https://ledgerhq.atlassian.net/wiki/spaces/WALLETCO/pages/2610659678/Ledger+Live+Common#ledger-live-cli'>ledger-live CLI</a></li>
+    <li>- Physical Ledger device or an <a href='https://developers.ledger.com/docs/speculos/installation/build'>emulated device with Speculos</a></li>
+  </ul>
+</Callout>
 
 ## Currency / Account bridge
 

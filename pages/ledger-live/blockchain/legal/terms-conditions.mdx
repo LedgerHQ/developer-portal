@@ -1,18 +1,19 @@
-<!--  -->
-{% include alert.html style="note" text="Before any application to integrate a Blockchain Service:<br>
-<ul>
-	<li>You must already have a public Embedded App, available for download on Ledger Manager.</li>
-	<li>Your Blockchain must already be live on mainnet; no integration is possible for testnet Blockchains.</li>
-	<li>Your Blockchain must be fully functional, with all features, user interface and back-end services being complete.</li>
-</ul>
-Before any development phase regarding a Blockchain Service:<br>
-<ul>	
-	<li>You must wait for the approval to develop the Blockchain Service from Ledger.</li>
-	<li>You must provide clear written answers to any Ledger questions or requests for clarification.</li>
-	<li>You must adhere to any Ledger requirements or requests regarding the Blockchain Service.</li>
-</ul>
-" %}
-<!--  -->
+import { Callout } from 'nextra/components'
+
+<Callout type="info" emoji="👉">
+	Before any application to integrate a Blockchain Service:
+	<ul>
+		<li>- You must already have a public Embedded App, available for download on Ledger Manager.</li>
+		<li>- Your Blockchain must already be live on mainnet; no integration is possible for testnet Blockchains.</li>
+		<li>- Your Blockchain must be fully functional, with all features, user interface and back-end services being complete.</li>
+	</ul>
+	Before any development phase regarding a Blockchain Service:
+	<ul>	
+		<li>- You must wait for the approval to develop the Blockchain Service from Ledger.</li>
+		<li>- You must provide clear written answers to any Ledger questions or requests for clarification.</li>
+		<li>- You must adhere to any Ledger requirements or requests regarding the Blockchain Service.</li>
+	</ul>
+</Callout>
 
 The integration of a third party developed blockchain (the “Blockchain Service”) within Ledger products and Ledger Live via Ledger Manager, including its functionality, features, user interface, and back-end services, is provided by Ledger on an “as-is” and “as-available” basis. Ledger does not warrant that the integration will be accurate, error-free or uninterrupted. Ledger disclaims all warranties, express or implied, including warranties of accuracy, non-infringement, merchantability and fitness for a particular purpose in respect of the integration. To the extent not prohibited by applicable law, in no event will Ledger be liable for any direct, indirect, incidental, special, consequential or punitive damages, including but not limited to, loss of profits, data, business or goodwill or business interruption. 
 

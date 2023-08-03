@@ -1,12 +1,4 @@
----
-title: Requirements and installation
-subtitle:
-tags: [Ledger Live Common, typescript, environment variables, local packages]
-category: Blockchain Support
-author:
-toc: true
-layout: doc
----
+import { Callout } from 'nextra/components'
 
 ## Introduction
 
@@ -93,13 +85,10 @@ Here is a typical family folder structure (TS integration):
     └── MyCoin.ts
 ```
 
-<!--  -->
+<Callout type="info" emoji="👉">
+    You can refer to existing implementations to complete given examples, like <a href='https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledger-live-common/src/families/polkadot'>Polkadot integration</a>.
+</Callout>
 
-{% include alert.html style="note" text="You can refer to existing implementations to complete given examples, like <a href='https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledger-live-common/src/families/polkadot'>Polkadot integration</a>" %}
-
-<!--  -->
-
-### Explanation
 #### Coin-module
  * `src/api` directory: Contains all the logic to send requests to the explorer.
  * `src/bridge/js.ts` file: Entry point of Ledger Live integration of the coin-module. This file lists `BridgeCurrency` and `BridgeAccount` implementation.
