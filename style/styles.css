@@ -8,3 +8,6 @@ h1, h2, nav {
   font-family: 'HMAlphaMono';
 }
 
+a[target='_blank']:after {
+    content: '\21aa';
+}
