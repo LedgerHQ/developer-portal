@@ -54,10 +54,7 @@ const config: DocsThemeConfig = {
       </span>
     </>
   ),
-  faviconGlyph: '💻',
-  feedback: {
-    content: 'Question? Give us feedback '
-  }
+  faviconGlyph: '💻'
 }
 
 export default config
