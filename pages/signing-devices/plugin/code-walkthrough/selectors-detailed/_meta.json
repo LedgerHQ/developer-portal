@@ -1,0 +1,8 @@
+{  
+	"init-contract": "Init Contract", 
+	"provide-parameter": "Provide Parameter",
+	"finalize": "Finalize",
+	"provide-token": "Provide Token",
+	"query-contract-id": "Query Contract ID",
+	"query-contract-ui": "Query Contract UI"
+}
