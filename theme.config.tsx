@@ -38,6 +38,11 @@ const config: DocsThemeConfig = {
       </>
     )
   },
+  useNextSeoProps() {
+    return {
+      titleTemplate: '%s – Ledger'
+    }
+  },
   primaryHue: { dark: 120, light: 270 },
   logo: (
     <>
