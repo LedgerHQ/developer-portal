@@ -1,0 +1,126 @@
+The previous section showed how to display a single screen. This section shows how to display the rest of the screens. Similarly to the section before, the display itself is handled by the Ethereum App. The only thing the plugin needs to do is determine what strings need to be displayed.
+
+Each screen has a screen number (also called `screenIndex`). When the Ethereum App needs to display a screen, it just calls the plugin and gives it the `screenIndex`. The plugin fills `msg->title` and `msg->msg` accordingly. The Ethereum App then displays the strings. If the user presses the right button or the left button, the Ethereum App increments or decrements `screenIndex` and calls the plugin with the updated `screenIndex`. Here is the flow:
+
+```mermaid 
+sequenceDiagram 
+    Eth App -> Plugin: We're on screen 1 
+    Note right of Plugin: Determine what <br>needs to be displayed
+    Plugin --> Eth App:  
+    Note left of Eth App: User sees screen 
+    Note left of Eth App: User presses<br>right button 
+    Eth App -> Plugin: We're on screen 2 
+    Note right of Plugin: Determine what <br>needs to be displayed 
+    Plugin --> Eth App: 
+    Note left of Eth App: User sees screen 
+    Note left of Eth App: User presses<br>*left* screen 
+    Eth App -> Plugin: We're on-screen *1* 
+    Note right of Plugin: Determine what <br>needs to be displayed 
+    Plugin --> Eth App: 
+    Note left of Eth App: etc 
+```
+
+We will use `msg->title` to fill the upper line and `msg->msg` to fill the bottom one.
+```
+|  Ledger  |  <- msg->title
+|   Rocks   |  <- msg->msg
+```
+
+In our boilerplate example, this is what we want to display for a swap:
+
+```
+         0                    1                         2                <- screenIndex
+|   Send     | Receive Min.|  Beneficiary |
+| ETH 0.1  | USDT 300.12  | 0x37abc...  |
+```
+
+Let's dive right into `handle_query_contract_ui.c`:
+
+```c
+// Switch on `screenIndex`, and call some (yet-to-be-written) function
+// to set the UI accordingly.
+switch (msg->screenIndex) {
+    case 0:
+        set_send_ui(msg, context);
+        break;
+    case 1:
+        set_receive_ui(msg, context);
+        break;
+    case 2:
+        set_beneficiary_ui(msg, context);
+        break;
+    default:
+        PRINTF("Received an invalid screenIndex\n");
+        msg->result = ETH_PLUGIN_RESULT_ERROR;
+        return;
+}
+```
+
+Let's start by writing `set_send_ui`.
+```c
+static void set_send_ui(ethQueryContractUI_t *msg, context_t *context) {
+    // Copy the "Send" in the upper line.
+    strlcpy(msg->title, "Send", msg->titleLength);
+    
+    // The amount of ETH associated with this transaction is
+    // located in `msg->pluginSharedRO->txContent->value.
+    uint8_t *eth_amount = msg->pluginSharedRO->txContent->value.value;
+    uint8_t eth_amount_size = msg->pluginSharedRO->txContent->value.length;
+
+    // `amountToString` is a utility function that converts 
+    //  a `uin256_t` to a string. Also, `18` and `ETH` refer
+    //  to the number of decimals and to the ticker respectively.
+    amountToString(eth_amount,
+                eth_amount_size,
+                18,
+                "ETH",
+                msg->msg,
+                msg->msgLength);
+}
+```
+
+We can write a similar function for `set_receive_ui`:
+```c
+static void set_receive_ui(ethQueryContractUI_t *msg, context_t *context) {
+    // Set the title
+    strlcpy(msg->title, "Receive Min.", msg->titleLength);
+
+    // This time use amountToString with the data stored in our context!
+    amountToString(context->amount_received,
+                   sizeof(context->amount_received),
+                   context->decimals,
+                   context->ticker,
+                   msg->msg,
+                   msg->msgLength);
+}
+```
+
+And finally, we need to write `set_beneficiary_ui`. Remember, this screen is only shown if the recipient's address doesn't match the user's address. This was done in `handle_plugin_finalize`, where we incremented `numScreens` if the addresses were different.
+
+```c
+static void set_beneficiary_ui(ethQueryContractUI_t *msg, context_t *context) {
+    // Set the upper line
+    strlcpy(msg->title, "Beneficiary", msg->titleLength);
+
+    // Prefix the address with `0x`.
+    msg->msg[0] = '0';
+    msg->msg[1] = 'x';
+
+    // We need a random chainID for legacy reasons with `getEthAddressStringFromBinary`.
+    // Setting it to `0` means it works with any chainID :)
+    uint64_t chainid = 0;
+
+    // Get the string format of the address stored in `context->beneficiary`. Store it in
+    // `msg->msg`.
+    getEthAddressStringFromBinary(
+        context->beneficiary,
+        (uint8_t *) msg->msg + 2,  // +2 because we've already prefixed with '0x'.
+        msg->pluginSharedRW->sha3, // Used by the function to calculate the hash
+        chainid);
+}
+```
+
+And that's it for your plugin. Now you have coded everything, it is time to test!
+
+
+

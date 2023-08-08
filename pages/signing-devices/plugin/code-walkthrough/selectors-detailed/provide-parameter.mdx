@@ -1,0 +1,259 @@
+import { Callout } from 'nextra/components'
+
+The `handle_provider_parameter` function dispatches `msg` according to the value of `selectorIndex`. 
+Let's add our selector:
+
+```c
+switch (context->selectorIndex) {
+    case SWAP_EXACT_ETH_FOR_TOKENS:
+        handle_swap_exact_eth_for_tokens(msg, context);
+        break;
+    default:
+        PRINTF("Selector Index %d not supported\n", context->selectorIndex);
+        msg->result = ETH_PLUGIN_RESULT_ERROR;
+        break;
+}
+```
+Now let's write `handle_swap_exact_eth_for_tokens()`. 
+Parsing these handlers is simple: just look at `next_param` to be parsed and copy the data to your context.
+
+<Callout>
+    You will see <code>context</code> used frequently throughout the code. It is defined in the <code>boilerplate.h</code> header file.
+    Since the execution toggles between the Ethereum App and the Plugin, the plugin needs somewhere to store the data (such as the contract address or the amount of tokens swapped) as it goes along. This is done in <code>context</code>. Make sure you change the definition of <code>context</code> in <code>boilerplate.h</code> to suit your plugin.
+</Callout>
+
+
+
+Set `next_param` to be `MIN_AMOUNT_RECEIVED` in `handle_init_contract` because it is the first parameter to parse. Let's write the code to handle it.
+
+We want to store `amountOutMin` to be displayed later. This is what `context` is for: just copy `amountOutMin` to our context. Since `amountOutMin` is an amount, it is a `uint256` which are 32 bytes long. This is the size of `PARAMETER_LENGTH`. Use `copy_parameter`, which is designed for this purpose.
+
+```c
+switch (context->next_param) {
+    case MIN_AMOUNT_RECEIVED:  // amountOutMin
+        copy_parameter(context->amount_received,
+                       sizeof(context->amount_received),
+                       msg->parameter);
+        context->next_param = PATH_OFFSET;
+        break;
+```
+
+
+
+Notice we also need to set the next parameter to parse. We set it to `PATH_OFFSET`. Here is why.
+
+<Callout>
+    Arrays (and structs) are special kinds of parameters. They are \"dynamic\", meaning their size is fixed because <code>path</code> has any number of elements. Dynamic parameters are parsed using an offset to the array, and by looking up the array size.
+    Let's work with an example. <a href='https://etherscan.io/tx/0xdf6ea6b4e45d53416713f72e6ab36f6979ad59839b9c83e0bc64b12b460bfc81'>Here is the data</a> for an actual <code>swapExactEthForTokens</code>  
+    <code> [0]:  0000000000000000000000000000000000000000000000000000000001ced03f </code>  
+    <code> [1]:  0000000000000000000000000000000000000000000000000000000000000080 </code>  
+    <code> [2]:  000000000000000000000000871732ce9ae62f065c6c787b600c1c44ceb873b8 </code>  
+    <code> [3]:  00000000000000000000000000000000000000000000000000000000611e293d </code>  
+    <code> [4]:  0000000000000000000000000000000000000000000000000000000000000002 </code>  
+    <code> [5]:  000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2 </code>  
+    <code> [6]:  000000000000000000000000dac17f958d2ee523a2206206994597c13d831ec7 </code>  
+
+    As we said:
+    <ul>
+        <li><code>[0]</code> is <code>amountOutMin</code></li>
+        <li><code>[1]</code> is the path offset (more later)</li>
+        <li><code>[2]</code> is <code>to</code></li>
+        <li><code>[3]</code> is <code>deadline</code></li>
+    </ul>
+
+    But what are <code>[4]</code>, <code>[5]</code>, <code>[6]</code>?  
+    It is easy: <code>[4]</code> is the number of elements in the array, and <code>[5]</code> and <code>[6]</code> are the actual elements. Indeed, you can see <code>[4]</code> is <code>2</code> (because there are two elements in the array). <code>path[0]</code> is <code>[5]</code> and <code>path[1]</code> is <code>[6]</code>. 
+    If we read the address at <code>[5]</code>, we see <a href='https://etherscan.io/address/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' class='alert-link'> the WETH token</a>, and if we look for the address at <code>[6]</code>, we get <a href='https://etherscan.io/address/0xdac17f958d2ee523a2206206994597c13d831ec7' class='alert-link'> the USDT token </a>). Remember the initial transaction swapped ETH to USDT (via WETH), so it all makes sense.
+    And how do we know that <code>[4]</code> is the start of the array? This information is held in <code>[1]</code> (the offset). See, <code>[1]</code> contains <code>0x80</code> in hexadecimal or <code>128</code> in decimal. 
+
+    Since each parameter is <code>32</code> bytes long, let's have a look at the offsets of the data:
+    <ul>
+        <li><code>[0]</code> is at offset <code>0</code></li>
+        <li><code>[1]</code> is at offset <code>32</code></li>
+        <li><code>[2]</code> is at <code>64</code></li>
+        <li><code>[3]</code> at <code>96</code></li>
+        <li><code>[4]</code> at <code>128</code> </li>
+    </ul>
+    There we have it. The array starts at <code>0x80</code>, which is exactly the offset given by <code>[1]</code>.
+</Callout>
+
+
+With this in mind, let's continue writing the parser.
+
+But first let's add a parameter `offset` to our `context` (in `boilerplate_plugin.h`):
+```c
+typedef struct context_t {
+    // other code...
+    uint16_t offset;
+}
+```
+
+We use `uint16_t` because we don't expect the offset to be bigger than 65535, but we could probably use `uint8_t`). Maybe your plugin needs `uint32_t` if you need to handle bigger offsets.
+
+Now let's add a case condition to store the offset:
+```c
+case PATH_OFFSET:
+    context->offset = U2BE(msg->parameter,
+                            PARAMETER_LENGTH - sizeof(context->offset));
+    context->next_param = BENEFICIARY;
+    break;
+```
+
+<Callout>
+    We are using <code>PATH_OFFSET</code> even though it is not declared. We will add it at the end of the section, in the enum <code>parameter</code> declared in <code>boilerplate_plugin.h</code>.
+</Callout>
+
+We use `U2BE`, which stands for `Unsigned 2-Bytes Big Endian`. Indeed `offset` is a `uint16_t`, so it is two bytes long. We need it to parse the two last bytes, so we pass the offset `30` (`PARAMETER_LENGTH - 2`) to it.
+
+We have stored the offset in our context, but the next parameter to parse is `to` (which we named `BENEFICIARY`).
+Let's write the case condition for `BENEFICIARY`:
+
+```c
+// The `to` address is copied to `context->beneficiary`, using `copy_address()`.
+// Indeed, since the beneficiary is an Ethereum address, we use `copy_address()`
+// which only copies 20 bytes compared to `copy_parameter()` which
+// would have copied 32 bytes.
+case BENEFICIARY:
+    copy_address(context->beneficiary,
+                sizeof(context->beneficiary),
+                msg->parameter);
+    context->next_param = PATH_LENGTH; // See comments below
+    context->go_to_offset = true; // See comments below
+    break;
+```
+
+The next parameter to parse would be `deadline`, but we said earlier that we won't show this. Next, we have `context->offset`, which is where `PATH_LENGTH` is. One way to do this is to use a boolean `go_to_offset`, and write the function to:
+1. Check if `go_to_offset` is true
+2. If it is, check whether we have reached `context->offset`.
+3. If we have not -> early return (so we continue parsing)
+4. If we have, proceed to case condition.
+
+So first modify the `context` structure (`boilerplate_plugin.h`):
+```c
+typedef struct context {
+    // other code...
+    bool go_to_offset;
+}
+```
+
+Then add a condition before the `switch` in the parsing code:
+```c
+// Hint: We add `SELECTOR_SIZE` because `msg->parameterOffset` also contains
+// the `SELECTOR` (4 bytes ID of the method) data.
+if (context->go_to_offset) {
+    if (msg->parameterOffset != context->offset + SELECTOR_SIZE) {
+        // We still haven't reached the offset...
+        return;
+    }
+    context->go_to_offset = false;
+}
+switch (context->next_param) {
+    // previous code...
+}
+```
+
+<Callout>
+    <code>msg->parameterOffset</code> is the offset of the transaction data. It is updated by the Ethereum App every time it parses data. It is useful for parsing.
+</Callout>
+
+The next case condition is for `PATH_LENGTH`:
+```c
+// We are now at the parameter `PATH_LENGTH` (`2` in our example).
+// Remember we want to access `path[1]`,  which is located two parameters 
+// away from the length. Hence we set `context->offset` to be the current 
+// offset (*minus SELECTOR_SIZE because it contains the selector*)
+// plus two chunks (`PARAMETER_LENGTH * 2`).
+case PATH_LENGTH:
+    context->offset = msg->parameterOffset - SELECTOR_SIZE
+                        + PARAMETER_LENGTH * 2;
+    context->go_to_offset = true;
+    context->next_param = TOKEN_RECEIVED;
+```
+
+<Callout>
+    We could calculate the offset in the case condition of <code>PATH_OFFSET</code> since we don't use the path length. However, see above to see how to get the path length.
+</Callout>
+
+And then we parse the last chunk of data which contains the token address the user receives:
+```c
+// We simply copy the address in `context->token_received`.
+// Notice we set `context->next_param` to `UNEXPECTED_PARAMETER`.
+// This is because we don't expect any other parameters.
+// The default must set `msg->result` 
+// to `ETH_PLUGIN_RESULT_ERROR` to
+// tell the Ethereum app if something goes wrong.
+`
+case TOKEN_RECEIVED:
+    copy_address(context->token_received,
+                sizeof(context->token_received),
+                msg->parameter);
+    context->next_param = UNEXPECTED_PARAMETER;
+    break;
+default:
+    PRINTF("Unexpected parameter: %d\n", context->next_param);
+    msg->result = ETH_PLUGIN_RESULT_ERROR;
+    break
+```
+
+To summarize, the complete code looks something like this:
+```c
+static void handle_swap_exact_eth_for_tokens(ethPluginProvideParameter_t *msg,
+                                                context_t *context) {
+    if (context->go_to_offset) {
+        if (msg->parameterOffset != context->offset + SELECTOR_SIZE) {
+            return;
+        }
+        context->go_to_offset = false;
+    }
+    switch (context->next_param) {
+        case MIN_AMOUNT_RECEIVED:  // amountOutMin
+            copy_parameter(context->amount_received,
+                           sizeof(context->amount_received),
+                           msg->parameter);
+            context->next_param = PATH_OFFSET;
+            break;
+        case PATH_OFFSET:  // path
+            context->offset = U2BE(msg->parameter, PARAMETER_LENGTH - 2);
+            context->next_param = BENEFICIARY;
+            break;
+        case BENEFICIARY:  // to
+            copy_address(context->beneficiary,
+                        sizeof(context->beneficiary),
+                        msg->parameter);
+            context->next_param = PATH_LENGTH;
+            context->go_to_offset = true;
+            break;
+        case PATH_LENGTH:
+            context->offset = msg->parameterOffset - SELECTOR_SIZE + PARAMETER_LENGTH * 2;
+            context->go_to_offset = true;
+            context->next_param = TOKEN_RECEIVED;
+            break;
+        case TOKEN_RECEIVED:  // path[1] -> contract address of token received
+            copy_address(context->token_received,
+                        sizeof(context->token_received),
+                        msg->parameter);
+            context->next_param = UNEXPECTED_PARAMETER;
+            break;
+        default:
+            PRINTF("Param not supported: %d\n", context->next_param);
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+```
+We have added a few enums, so let's add them to the enum definition in `boilerplate_plugin.h`:
+```c
+typedef enum {
+    // other code...
+    PATH_OFFSET,
+    PATH_LENGTH,
+    UNEXPECTED_PARAMETER,
+} parameter;
+```
+
+Congratulations, we have just written a parser for our first method!
+
+Now let's move on to `handle_finalize`.
+
+
+

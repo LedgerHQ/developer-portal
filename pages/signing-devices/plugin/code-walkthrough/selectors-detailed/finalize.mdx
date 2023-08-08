@@ -1,0 +1,35 @@
+import { Callout } from 'nextra/components'
+
+There are two easy steps:
+1. Decide how many screens we need to display.
+2. Tell the Eth App if more information is needed for a specific token.
+
+To address **1**, let's think about what we want to display.
+As we are simply swapping tokens, the useful information is the amount of ETH sent, the amount of tokens received, and the beneficiary.  
+It looks something like this:
+```
+| Swap     | Receive Min | Beneficiary |
+| ETH xx  | USDT xx         | 0x...           |
+```
+
+<Callout>
+The Eth App adds screens to \"Accept\" or \"Reject\" the transaction.
+</Callout>
+
+So, the answer to **1** is 3.
+
+Now to answer **2**: we need information about the token the user receives. We already have the information for Ethereum: The ticker is "ETH", and the number of decimals is 18.
+
+The code you need to change in `handle_finalize` would look something like this:
+```c
+msg->numScreens = 2;
+msg->tokenLookup1 = context->token_received;
+```
+
+<Callout type="warning" emoji="⚠️">
+  You can only request the information of two ERC20 tokens, using <code>tokenLookup1</code> and <code>tokenLookup2</code>. There is no <code>tokenLookup3</code>.
+</Callout>
+
+This part is now done. The next is where the Ethereum App returns the requested information about the tokens.
+
+
