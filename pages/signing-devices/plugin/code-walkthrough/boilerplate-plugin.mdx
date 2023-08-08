@@ -1,13 +1,4 @@
----
-title: Boilerplate plugin
-subtitle:
-tags: [dapp, DApp plugin]
-category: "Live App: Dapp integration"
-redirect_from: /docs/dapp/nano-plugin/boilerplate-plugin
-author:
-toc: true
-layout: doc
----
+import { Callout } from 'nextra/components'
 
 Here is a boilerplate plugin to help you write your own. This guide walks you through the plugin.
 
@@ -25,12 +16,9 @@ cd app-plugin-boilerplate/
 git clone https://github.com/LedgerHQ/ethereum-plugin-sdk
 ```
 
-<!--  -->
-{% include alert.html style="important" text="The SDK repository defaults on branch \"master\", which is synchronized with the Ethereum application latest stable version.
-
-If your want to work on a newer but unstable version, checkout the \"develop\" branch.
-" %}
-<!--  -->
+<Callout type="warning" emoji="⚠️">
+  The SDK repository defaults on branch "master", which is synchronized with the Ethereum application latest stable version. If your want to work on a newer but unstable version, checkout the "develop" branch.
+</Callout>
 
 ## What's what
 

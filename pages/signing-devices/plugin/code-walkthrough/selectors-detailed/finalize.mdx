@@ -1,13 +1,4 @@
----
-title: Finalize
-subtitle:
-tags: [dapp, DApp plugin]
-category: "Live App: Dapp integration"
-redirect_from: /docs/dapp/nano-plugin/finalize
-author:
-toc: 
-layout: doc
----
+import { Callout } from 'nextra/components'
 
 There are two easy steps:
 1. Decide how many screens we need to display.
@@ -20,11 +11,10 @@ It looks something like this:
 | Swap     | Receive Min | Beneficiary |
 | ETH xx  | USDT xx         | 0x...           |
 ```
-<!--  -->
-{% include alert.html style="tip" text="
+
+<Callout>
 The Eth App adds screens to \"Accept\" or \"Reject\" the transaction.
-" %}
-<!--  -->
+</Callout>
 
 So, the answer to **1** is 3.
 
@@ -36,11 +26,9 @@ msg->numScreens = 2;
 msg->tokenLookup1 = context->token_received;
 ```
 
-<!--  -->
-{% include alert.html style="important" text="
-You can only request the information of two ERC20 tokens, using <code>tokenLookup1</code> and <code>tokenLookup2</code>. There is no <code>tokenLookup3</code>.
-" %}
-<!--  -->
+<Callout type="warning" emoji="⚠️">
+  You can only request the information of two ERC20 tokens, using <code>tokenLookup1</code> and <code>tokenLookup2</code>. There is no <code>tokenLookup3</code>.
+</Callout>
 
 This part is now done. The next is where the Ethereum App returns the requested information about the tokens.
 

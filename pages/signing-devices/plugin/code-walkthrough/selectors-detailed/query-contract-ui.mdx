@@ -1,19 +1,8 @@
----
-title: Query Contract UI
-subtitle:
-tags: [dapp, DApp plugin]
-category: "Live App: Dapp integration"
-redirect_from: /docs/dapp/nano-plugin/query-contract-ui
-author:
-toc: 
-layout: doc
----
-
 The previous section showed how to display a single screen. This section shows how to display the rest of the screens. Similarly to the section before, the display itself is handled by the Ethereum App. The only thing the plugin needs to do is determine what strings need to be displayed.
 
 Each screen has a screen number (also called `screenIndex`). When the Ethereum App needs to display a screen, it just calls the plugin and gives it the `screenIndex`. The plugin fills `msg->title` and `msg->msg` accordingly. The Ethereum App then displays the strings. If the user presses the right button or the left button, the Ethereum App increments or decrements `screenIndex` and calls the plugin with the updated `screenIndex`. Here is the flow:
 
-<div class="mermaid"> 
+```mermaid 
 sequenceDiagram 
     Eth App -> Plugin: We're on screen 1 
     Note right of Plugin: Determine what <br>needs to be displayed
@@ -29,8 +18,7 @@ sequenceDiagram
     Note right of Plugin: Determine what <br>needs to be displayed 
     Plugin --> Eth App: 
     Note left of Eth App: etc 
-</div> 
-<script async src="https://unpkg.com/mermaid@8.2.3/dist/mermaid.min.js"></script> 
+```
 
 We will use `msg->title` to fill the upper line and `msg->msg` to fill the bottom one.
 ```

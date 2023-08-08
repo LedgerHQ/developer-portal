@@ -1,13 +1,4 @@
----
-title: Init contract
-subtitle:
-tags: [dapp, DApp plugin]
-category: "Live App: Dapp integration"
-redirect_from: /docs/dapp/nano-plugin/init-contract
-author:
-toc:
-layout: doc
----
+import { Callout } from 'nextra/components'
 
 The first case condition is `handle_init_contract`.  
 In the corresponding `handle_init_contract.c`, `selectorIndex` is set as the first parameter to parse. Let's dive deeper into the parameters.
@@ -46,11 +37,9 @@ switch (context->selectorIndex) {
         return;
 }
 ```
-
-<!--  -->
-{% include alert.html style="tip" text="To trap errors in the plugin <code>msg->result</code> is set to <code>ETH_PLUGIN_RESULT_ERROR</code>
-." %}
-<!--  -->
+<Callout>
+  To trap errors in the plugin <code>msg->result</code> is set to <code>ETH_PLUGIN_RESULT_ERROR</code>
+</Callout>
 
 Now let's not forget to add this name to `parameter` in `boilerplate_plugin.h`.
 

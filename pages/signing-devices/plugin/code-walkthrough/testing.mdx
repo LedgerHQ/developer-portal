@@ -1,31 +1,20 @@
----
-title: Testing
-subtitle:
-tags: [dapp, DApp plugin]
-category: "Live App: Dapp integration"
-redirect_from: /docs/dapp/nano-plugin/testing
-author:
-toc: true
-layout: doc
----
+import { Callout } from 'nextra/components'
 
-<!--  -->
-{% include alert.html style="important" text="Our team is working on adapting the <a href='../../../embedded-app/framework/'>Ledger Framework</a> for Plugin development and testing. Until the framework is ready for plugins, follow the documentation below. This page will be updated when the framework is ready." %}
-<!--  -->
+<Callout type="warning" emoji="⚠️">
+  Our team is working on adapting the <a href='../../../embedded-app/framework/'>Ledger Framework</a> for Plugin development and testing. Until the framework is ready for plugins, follow the documentation below. This page will be updated when the framework is ready.
+</Callout>
 
 To test the code, we will use the [Zondax Zemu Testing Framework](https://github.com/Zondax/zemu). Tests can quickly be added and run on the emulator [Speculos](https://github.com/LedgerHQ/speculos) and take and compare snapshots to confirm they are correct.
 
-<!--  -->
-{% include alert.html style="important" text="The tests provided in the boilerplate plugin are only available for Nano S and X for the moment." %}
-<!--  -->
+<Callout type="warning" emoji="⚠️">
+  The tests provided in the boilerplate plugin are only available for Nano S and X for the moment.
+</Callout>
 
 We won't be using a docker image for this one. Instead, install `yarn` and the dependencies on your machine. So let's open a new terminal window.
 
-<!--  -->
-{% include alert.html style="important" text="
-Make sure you don't use the previously launched docker container to run/install this.
-" %}
-<!--  -->
+<Callout type="warning" emoji="⚠️">
+  Make sure you don't use the previously launched docker container to run/install this.
+</Callout>
 
 You need:
 1. NodeJS and npm: [instructions here](https://nodejs.org/en/download/package-manager/)

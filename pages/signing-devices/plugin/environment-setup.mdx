@@ -1,13 +1,4 @@
----
-title: Setup
-subtitle:
-tags: [dapp, DApp plugin]
-category: "Live App: Dapp integration"
-redirect_from: /docs/dapp/nano-plugin/environment-setup
-author:
-toc: true
-layout: doc
----
+import { Callout } from 'nextra/components'
 
 This step is getting the plugin to compile. But first, we need to set up the working environment.
 
@@ -44,10 +35,10 @@ You need to install these if you don’t already have them:
 1. Docker: [instructions here](https://docs.docker.com/get-docker/)
 2. Docker-compose: [instructions here](https://docs.docker.com/compose/install/)
 
-<!--  -->
-{% include alert.html style="important" text="Make sure you have correctly installed the tools above.
-" %}
-<!--  -->
+
+<Callout type="warning" emoji="⚠️">
+  Make sure you have correctly installed the tools above.
+</Callout>
 
 There is no need to launch Docker because `docker-compose` (in the `plugin-tools` repository) does all the magic. 
 
@@ -58,14 +49,14 @@ cd plugin-tools
 ./start.sh
 ```
 
-<!--  -->
-{% include alert.html style="tip" text="If you get this error:<br>
-<code>ERROR: Couldn't connect to Docker daemon at http+docker://localhost - is it running? </code><br>
-This means you either:<br>
-- Failed to install <code>docker</code>.<br>
-- Need to add <code>sudo</code> in front of <code>sudo ./start.sh</code><br>
-" %}
-<!--  -->
+<Callout>
+ 	If you get this error: <code>ERROR: Couldn't connect to Docker daemon at http+docker://localhost - is it running? </code>, this means you either:
+ 	<ul>
+ 		<li>- Failed to install <code>docker</code>, or</li>
+ 		<li>- Need to add <code>sudo</code> in front of <code>sudo ./start.sh</code></li>
+ 	</ul>
+</Callout>
+
 
 You are now connected to the container. The `plugin_dev` directory you see in the container is the one created in the steps above. (They are shared using `volume` in docker-compose.)
 
