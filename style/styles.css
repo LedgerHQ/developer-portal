@@ -11,3 +11,9 @@ h1, h2, nav {
 article a[target='_blank']:after {
     content: ' \21aa';
 }
+
+.center {
+  display: block;
+  width: 30%;
+  margin: auto;
+}

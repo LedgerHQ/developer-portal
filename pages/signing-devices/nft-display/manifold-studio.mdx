@@ -1,0 +1,94 @@
+import { Callout } from 'nextra/components'
+
+This guide will walk you through step-by-step instructions on how to add the Ledger Stax Metadata to your NFTs with Manifold Studio.
+
+<Callout type="info" emoji="👉">
+	<ul>
+		<li><a href='../metadata-tool/'>Ledger Stax Metadata</a></li>
+		<li><a href='../image-requirements/'>Ledger Stax image requirements</a></li>
+		<li><a href='https://docs.ipfs.tech/concepts/what-is-ipfs/'>IPFS</a></li>
+	</ul>
+</Callout>
+
+This guide consists of four parts:
+
+1. Load your Ledger Stax images to IPFS via Pinata.
+2. Create your own smart contract on Manifold studio.
+3. Mint your token on Manifold studio.
+4. Add the Ledger Stax Metadata to your NFTs.
+
+## Upload your Ledger Stax images to IPFS via Pinata
+
+While NFT assets can be stored on a centralized (S3, Google Cloud) or decentralized (IPFS) storage systems, the latter approach is the most commonly used due to its [immutable](https://adlrocha.medium.com/ipfs-for-storage-the-blockchain-for-verified-immutability-59c1917d2141) nature (data cannot be altered unless you change the URL of the asset). 
+
+We’ll be using Pinata to upload (“pin”) the images to IPFS. Pinata is a cloud service that makes it easy to pin data to IPFS.
+
+<Callout type="info" emoji="👉">
+	Note that <a href='https://nft.storage/#getting-started'>NFT.Storage</a> is another storage service option to upload data easily to IPFS.
+</Callout>
+
+Let’s get started: 
+
+1. First, create a free account on [pinata.cloud](https://www.pinata.cloud/)
+2. Once the account is created, go to the [Pin Manager](https://app.pinata.cloud/pinmanager).
+3. Click the “Upload” button, choose your Ledger Stax image, and upload the file. 
+
+
+![Upload a file on Pinata](/manifold-01.png)
+*Upload a file on Pinata*
+
+
+When the upload is complete, you'll see your file in the grid and can copy the IPFS URL by clicking on the eye icon. You'll need this URL later, so keep it handy. You can also come back to the Pin Manage page and copy it again at any time.
+
+![Link of your IPFS asset](/manifold-02.png)
+*Link of your IPFS asset*
+
+<Callout type="info" emoji="👉">
+	IPFS link of your Ledger Stax image:  <a href='https://gateway.pinata.cloud/ipfs/QmPEZxVrRkZXapmi6sK7m8XKpxRCiFULXfTjABZZnbCt5D'>https://gateway.pinata.cloud/ipfs/QmPEZxVrRkZXapmi6sK7m8XKpxRCiFULXfTjABZZnbCt5D</a>
+</Callout>
+
+Now that our Ledger Stax image is uploaded to the IPFS network, let’s move on to the Manifold studio part. 
+
+
+## What is Manifold studio?
+
+Manifold is an open-source platform that allows NFT creators to write their own bespoke NFT smart contracts and mint their tokens through a seamless user interface (zero coding required). 
+
+The platform allows creators to retain true ownership of their smart contracts in contrast to the “shared contract” model that offers less customization and put creators at the mercy of NFT marketplaces (who are the ones owning and controlling the contracts used to mint and edit these tokens). 
+
+### Create your own smart contract on Manifold Studio
+
+Let’s get started by creating your own smart contract through Manifold studio:
+
+1. Go to [studio.manifold.xyz](https://studio.manifold.xyz/) and connect to your wallet.
+2. Click the “New contract” button.
+3. Fill in the contact fields including name, type (ERC721 or ERC1155), symbol, and ASCII MARK.
+	![Contract deployment flow on Manifold Studio](/manifold-03.png)
+	*Contract deployment flow on Manifold Studio*
+4. Once your contract is deployed, click on “Go to dashboard”, then “Mint a token” and “Create”.
+5. Select the type of token you wish to create (Single token, Edition, or Batch)
+6. After filling in the token information (title, created by, description, etc), Manifold allows you to add custom metadata to your NFT called “properties”. Properties can be of different types, such as text, number, boost number, or hidden. To add your Ledger Stax Metadata, follow the below instructions:
+	- <u>Area 1</u>: select the **“Hidden”** property from the dropdown list.
+	- <u>Area 2</u>: enter `ledger_metadata` (name of the metadata attribute)
+	- <u>Area 3</u>: enter the value of the metadata that points to the IPFS asset URL that we previously uploaded via Pinata: 
+	```json
+	{"ledger_stax_image": "https://gateway.pinata.cloud/ipfs/QmPEZxVrRkZXapmi6sK7m8XKpxRCiFULXfTjABZZnbCt5D"}
+	```
+
+![Set your custom metadata on Manifold](/manifold-04.png)
+*Set your custom metadata on Manifold*
+
+
+In the end, Manifold will automatically generate a metadata file (JSON) that will look like this: 
+
+```json
+{
+    "name": "Ledger Market",
+    "description": "Ledger Market on Manifold", 
+    "ledger_metadata": {
+        "ledger_stax_image": "https://gateway.pinata.cloud/ipfs/QmPEZxVrRkZXapmi6sK7m8XKpxRCiFULXfTjABZZnbCt5D" // Location of the Ledger Stax image
+     }
+}
+```
+
+**You’re all set! Your NFT token (powered by Manifold studio) is now designed for an optimal display on Ledger Stax.**
