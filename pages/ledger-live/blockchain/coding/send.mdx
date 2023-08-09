@@ -1,5 +1,7 @@
 import { Callout } from 'nextra/components'
 
+# 6 - Send
+
 ## Starting with a mock
 
 A mock will help you test different UI flows on Desktop and Mobile.
@@ -7,7 +9,7 @@ It's connected to any indexer / explorer and gives you a rough idea on how it wi
 
 For example you can use it by doing `MOCK=1 pnpm dev:lld` on `ledger-live-desktop`
 
-```ts
+```ts copy
 import { BigNumber } from "bignumber.js";
 import {
   NotEnoughBalance,
@@ -129,7 +131,7 @@ In some cases, this transaction will need to be prepared to correctly check stat
 
 `libs/coin-mycoin/src/js-transaction.ts`:
 
-```ts
+```ts copy
 import { BigNumber } from "bignumber.js";
 import type { Account } from "@ledgerhq/types-live";
 import type { Transaction } from "./types";
@@ -212,7 +214,7 @@ This validation is done everytime the user updates the transaction (any input ch
 
 `libs/coin-mycoin/src/js-getTransactionStatus.ts`:
 
-```ts
+```ts copy
 import { BigNumber } from "bignumber.js";
 import {
   NotEnoughBalance,
@@ -284,7 +286,7 @@ But some errors can occur in a different context, and not be caused by user. Try
 
 `libs/coin-mycoin/src/errors.ts`:
 
-```ts
+```ts copy
 import { createCustomErrorClass } from "@ledgerhq/errors";
 
 /**
@@ -297,7 +299,7 @@ export const MyCoinSpecificError = createCustomErrorClass(
 
 Add all exports to `src/errors.ts`:
 
-```ts
+```ts copy
 // ...
 export * from "./families/mycoin/errors";
 ```
@@ -306,7 +308,7 @@ Also, to avoid repeating code and facilitate usage of checks and constants, gath
 
 `libs/coin-mycoin/src/logic.ts`:
 
-```ts
+```ts copy
 import { BigNumber } from "bignumber.js";
 import type { Account } from "@ledgerhq/types-live";
 
@@ -357,7 +359,7 @@ The `Transaction` object is not exactly the transaction in the shape of the bloc
 
 `libs/coin-mycoin/src/js-buildTransaction.ts`:
 
-```ts
+```ts copy
 import type { Transaction } from "./types";
 import type { Account } from "@ledgerhq/types-live";
 
@@ -410,7 +412,7 @@ This `buildTransaction` function would return an unsigned transaction blob that 
 
 `libs/ledger-live-common/src/families/mycoin/js-signOperation.ts`:
 
-```ts
+```ts copy
 import { BigNumber } from "bignumber.js";
 import { Observable } from "rxjs";
 import { FeeNotLoaded } from "@ledgerhq/errors";
@@ -538,7 +540,7 @@ When signing a transaction, the user is shown on his device all the parameters o
 The list of all displayed fields on device are provided by the `getDeviceTransactionConfig` function, which must return all transaction fields for a given transaction.
 
 `libs/coin-mycoin/src/deviceTransactionConfig.ts`:
-```ts
+```ts copy
 import type { AccountLike, Account, TransactionStatus } from "@ledgerhq/types-live";
 import type { Transaction } from "./types";
 import type { DeviceTransactionField } from "../../transaction";
@@ -599,7 +601,7 @@ Once the transaction is signed, it must be broadcasted to MyCoin network. This i
 
 `libs/coin-mycoin/src/js-broadcast.ts`
 
-```ts
+```ts copy
 import type { Operation, SignedOperation } from "@ledgerhq/types-live";
 import { patchOperationWithHash } from "../../operation";
 
@@ -637,7 +639,7 @@ See this [support article about Maximum Spendable Amount](https://support.ledger
 
 `libs/coin-mycoin/src/js-estimateMaxSpendable.ts`
 
-```ts
+```ts copy
 import { BigNumber } from "bignumber.js";
 
 import type { AccountLike, Account } from ".@ledgerhq/types-live";
@@ -685,7 +687,7 @@ Here, we only return the spendableBalance, but without the fees. Since Fee estim
 
 `libs/coin-mycoin/src/js-getFeesForTransaction.ts`:
 
-```ts
+```ts copy
 import { BigNumber } from "bignumber.js";
 
 import type { Account } from "@ledgerhq/types-live";
@@ -722,7 +724,7 @@ Before being able to test a `send` operation with CLI you will need to bind argu
 
 `libs/coin-mycoin/src/cli-transaction.ts`:
 
-```ts
+```ts copy
 import flatMap from "lodash/flatMap";
 import type { Transaction, AccountLike } from "@ledgerhq/types-live";
 
@@ -765,7 +767,7 @@ Of course if <i>MyCoin</i> has more complex transactions, you can add many argum
 
 Now you can try a `getTransactionStatus` or a `send`:
 
-```sh
+```sh copy
 ledger-live getTransactionStatus -c mycoin -i 0 --amount 0.002 --recipient 8b2d58d4a7638e9ce8a0423bff5a2de0
 
 # TRANSACTION

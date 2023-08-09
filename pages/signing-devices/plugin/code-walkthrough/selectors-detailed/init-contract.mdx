@@ -1,11 +1,13 @@
 import { Callout } from 'nextra/components'
 
+# Init Contract
+
 The first case condition is `handle_init_contract`.  
 In the corresponding `handle_init_contract.c`, `selectorIndex` is set as the first parameter to parse. Let's dive deeper into the parameters.
 
 Methods in a smart contract have parameters (or arguments). For example, `swapExactEthforTokens` has this format:
 
-```js
+```js copy
 swapExactETHForTokens(uint256 amountOutMin,
                                                            address[] path,
                                                            address to,
@@ -43,7 +45,7 @@ switch (context->selectorIndex) {
 
 Now let's not forget to add this name to `parameter` in `boilerplate_plugin.h`.
 
-```c
+```c copy
 typedef enum {
     MIN_AMOUNT_RECEIVED = 0, // Min amount of tokens the user will get
     TOKEN_RECEIVED, // Address of the tokens the user is swapping to

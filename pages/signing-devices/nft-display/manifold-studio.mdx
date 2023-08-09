@@ -1,5 +1,7 @@
 import { Callout } from 'nextra/components'
 
+# How-to add Ledger Stax Metadata to your NFTs with Manifold Studio
+
 This guide will walk you through step-by-step instructions on how to add the Ledger Stax Metadata to your NFTs with Manifold Studio.
 
 <Callout type="info" emoji="👉">
@@ -71,7 +73,7 @@ Let’s get started by creating your own smart contract through Manifold studio:
 	- <u>Area 1</u>: select the **“Hidden”** property from the dropdown list.
 	- <u>Area 2</u>: enter `ledger_metadata` (name of the metadata attribute)
 	- <u>Area 3</u>: enter the value of the metadata that points to the IPFS asset URL that we previously uploaded via Pinata: 
-	```json
+	```json copy
 	{"ledger_stax_image": "https://gateway.pinata.cloud/ipfs/QmPEZxVrRkZXapmi6sK7m8XKpxRCiFULXfTjABZZnbCt5D"}
 	```
 
@@ -81,7 +83,7 @@ Let’s get started by creating your own smart contract through Manifold studio:
 
 In the end, Manifold will automatically generate a metadata file (JSON) that will look like this: 
 
-```json
+```json copy
 {
     "name": "Ledger Market",
     "description": "Ledger Market on Manifold", 

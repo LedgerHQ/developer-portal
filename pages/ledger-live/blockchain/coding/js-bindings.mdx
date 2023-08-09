@@ -1,5 +1,7 @@
 import { Callout } from 'nextra/components'
 
+# 2 - Embedded App JS Bindings
+
 You will need to provide a JS implementation to interact with your coin embedded app on a Ledger.
 These bindings can either be implemented directly into live-common (as a folder in your coin family folder), or published in [LedgerJS/packages](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs) as a package - i.e. `hw-app-mycoin`.
 
@@ -23,7 +25,7 @@ Any features provided by the embedded app should be provided through these JS bi
 
 You can find many implementations (`hw-app-*`) in [LedgerJS](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages)
 
-```ts
+```ts copy
 
 import type Transport from "@ledgerhq/hw-transport";
 import BIPPath from "bip32-path";
@@ -229,7 +231,7 @@ export default class MyCoin {
 
 ### Usage Example
 
-```ts
+```ts copy
  import MyCoinSdk from "my-coin-sdk"; // Your coin js sdk
  import Transport from "@ledgerhq/hw-transport-node-hid";
  // import Transport from "@ledgerhq/hw-transport-u2f"; // for browser

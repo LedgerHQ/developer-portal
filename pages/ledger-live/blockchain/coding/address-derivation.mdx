@@ -1,3 +1,5 @@
+# 3 - Address derivation
+
 From step 3 to step 6, you work will be implemented in the [Ledger Live repository](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledger-live-common).
 
 ### Derive Address from device
@@ -6,7 +8,7 @@ Before starting this step, make sure [you have setup your environment](../setup-
 
 First define the signer interface, which will reflect your [embedded app js binding](./js-bindings):
 
-```ts
+```ts copy
 export type MyCoinAddress = {
   address: string,
   publicKey: string,
@@ -26,7 +28,7 @@ Then get an address from the device for <i>MyCoin</i>, by creating the `hw-getAd
 
 `libs/coin-mycoin/src/hw-getAddress.js`:
 
-```ts
+```ts copy
 import type { GetAddressFn } from "@ledgerhq/coin-framework/bridge/getAddressWrapper";
 import type { SignerContext } from "@ledgerhq/coin-framework/signer";
 import type { GetAddressOptions } from "@ledgerhq/coin-framework/derivation";
@@ -66,7 +68,7 @@ If <i>MyCoin</i> has a conventional derivation path (BIP44), Ledger Live should 
 Make changes to [`libs/ledger-live-common/src/derivation.ts`](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledger-live-common/src/derivation.ts):
 
 1. Add a new derivation mode with `overridesDerivation`:
-  ```ts
+  ```ts copy
   // const modes = Object.freeze({
   // ...
     mycoinbip44h: { // Hardened BIP44 for MyCoin
@@ -75,21 +77,21 @@ Make changes to [`libs/ledger-live-common/src/derivation.ts`](https://github.com
   // });
   ```
 2. Add the mode to family in `legacyDerivations`:
-  ```ts
+  ```ts copy
   // const legacyDerivations: $Shape<CryptoCurrencyConfig<DerivationMode[]>> = {
   // ...
     mycoin: ["mycoinbip44h"],
   // };
   ```
 3. Disable the default use of BIP44 in `disableBIP44`:
-  ```ts
+  ```ts copy
   // const disableBIP44 = {
   // ...
     mycoin: true,
   // };
   ```
 4. Add the coin to `seedIdentifierPath`:
-  ```ts
+  ```ts copy
   // const seedIdentifierPath = {
   // ...
     mycoin: `${purpose}'/${coinType}'/0'/0'/0'`,
@@ -100,7 +102,7 @@ See [Derivation documentation](https://github.com/LedgerHQ/ledger-live/wiki/LLC:
 
 You can check that the derivationMode is correct by executing:
 
-```sh
+```sh copy
 pnpm build:cli
 pnpm run:cli  getAddress --currency=mycoin --path="44'/8008'/0'/0/0" --derivationMode=""
 ```

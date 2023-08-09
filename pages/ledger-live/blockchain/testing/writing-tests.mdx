@@ -1,5 +1,6 @@
 import { Callout } from 'nextra/components'
 
+# Writing Tests
 
 ## Introduction
 
@@ -19,7 +20,7 @@ The `testBridge` utility takes a "DatasetTest" as a parameter which will conduct
 
 First, create a `bridge.integration.test.ts` file and fill it with this empty template:
 
-```ts
+```ts copy
 import "../../__tests__/test-helpers/setup";
 import { testBridge } from "../../__tests__/test-helpers/bridge";
 import type { DatasetTest } from "../../types";
@@ -35,13 +36,13 @@ const dataset: DatasetTest<Transaction> = {
 
 You can also generate it with a Ledger device, with a seed that you want to freeze (meaning you don't want to do anymore transaction with that seed, or you will need to regenerate the snapshot everytime) and execute in the CLI the command:
 
-```sh
+```sh copy
 pnpm run:cli generateTestScanAccounts -c mycoin
 ```
 
 The expected output is:
 
-```ts
+```ts copy
 import "../../__tests__/test-helpers/setup";
 import { testBridge } from "../../__tests__/test-helpers/bridge";
 import type { CurrenciesData } from "../../../types";
@@ -71,7 +72,7 @@ testBridge(dataset);
 
 Just keep the part with the scanAccounts and put it the `mycoin` part :
 
-```ts
+```ts copy
 import "../../__tests__/test-helpers/setup";
 import { testBridge } from "../../__tests__/test-helpers/bridge";
 import type { DatasetTest } from "../../types";
@@ -107,7 +108,7 @@ testBridge(dataset);
 Then, get info on the accounts that you want to freeze, they will be used as references for our tests.
 It should look something like this:
 
-```ts
+```ts copy
 import "../../__tests__/test-helpers/setup";
 import { testBridge } from "../../__tests__/test-helpers/bridge";
 import type { DatasetTest } from "../../types";
@@ -174,7 +175,7 @@ There's some generic tests that are already made in `src/__tests__/test-helpers/
 
 To implement your own test in `test-dataset.ts`, add an Object typed like this in the array of `transactions`:
 
-```ts
+```ts copy
 import Transaction from "./types";
 
 type TestTransaction = {
@@ -212,7 +213,7 @@ We are testing the broadcast part and sync part.
 
 ### How it works
 
-```sh
+```sh copy
 pnpm run:cli cleanSpeculos; SEED="generate a seed for testing" COINAPPS="/path/to/coin/apps/folder" pnpm run:cli bot -c mycoin
 ```
 
@@ -228,7 +229,7 @@ pnpm run:cli cleanSpeculos; SEED="generate a seed for testing" COINAPPS="/path/t
 
 It is required to know every screen that your embedded app contains, it will use the `title` of the screen then optionally check if the `expectedValue` of that screen is what it expects, then eventually execute the `button` action.
 
-```ts
+```ts copy
 title : name of the screen title
 button: "Rr" for the bot to push the Right button of the nano || "Ll" same for left || "LRlr" same but for both
 expectedValue: string of what we want to compare
@@ -236,7 +237,7 @@ expectedValue: string of what we want to compare
 
 You can use the following example to help you start to write how the bot will react :
 
-```ts
+```ts copy
 import type { DeviceAction } from "../../bot/types";
 import type { Transaction } from "./types";
 import { formatCurrencyUnit } from "../../currencies";
@@ -294,7 +295,7 @@ The bot will try to sign the transaction using instructions that you provided in
 
 Eventually it will broadcast the transaction in the blockchain and wait for the `sync` to find the operation and its optimisic version.
 
-```ts
+```ts copy
 import expect from "expect";
 import invariant from "invariant";
 import type { AppSpec } from "../../bot/types";
@@ -364,7 +365,7 @@ Some optional parameters can be configured in the bot spec.
 
 For instance you can customize the embedded app version using the `appQuery` object:
 
-```ts
+```ts copy
   // a query to select one embedded app. the most up to date version is selected when fields aren't set.
   appQuery: {
     model?: DeviceModelId;
@@ -384,7 +385,7 @@ You can find the full list of available parameters [here](https://github.com/Led
 
 To launch the test do:
 
-```bash
+```bash copy
 pnpm common jest --runTestsByPath src/families/<mycoin>/bridge.integration.test.ts 
 ```
 

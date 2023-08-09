@@ -1,9 +1,11 @@
 import { Callout } from 'nextra/components'
 
+# Provide Parameter
+
 The `handle_provider_parameter` function dispatches `msg` according to the value of `selectorIndex`. 
 Let's add our selector:
 
-```c
+```c copy
 switch (context->selectorIndex) {
     case SWAP_EXACT_ETH_FOR_TOKENS:
         handle_swap_exact_eth_for_tokens(msg, context);
@@ -28,7 +30,7 @@ Set `next_param` to be `MIN_AMOUNT_RECEIVED` in `handle_init_contract` because i
 
 We want to store `amountOutMin` to be displayed later. This is what `context` is for: just copy `amountOutMin` to our context. Since `amountOutMin` is an amount, it is a `uint256` which are 32 bytes long. This is the size of `PARAMETER_LENGTH`. Use `copy_parameter`, which is designed for this purpose.
 
-```c
+```c copy
 switch (context->next_param) {
     case MIN_AMOUNT_RECEIVED:  // amountOutMin
         copy_parameter(context->amount_received,
@@ -81,7 +83,7 @@ Notice we also need to set the next parameter to parse. We set it to `PATH_OFFSE
 With this in mind, let's continue writing the parser.
 
 But first let's add a parameter `offset` to our `context` (in `boilerplate_plugin.h`):
-```c
+```c copy
 typedef struct context_t {
     // other code...
     uint16_t offset;
@@ -91,7 +93,7 @@ typedef struct context_t {
 We use `uint16_t` because we don't expect the offset to be bigger than 65535, but we could probably use `uint8_t`). Maybe your plugin needs `uint32_t` if you need to handle bigger offsets.
 
 Now let's add a case condition to store the offset:
-```c
+```c copy
 case PATH_OFFSET:
     context->offset = U2BE(msg->parameter,
                             PARAMETER_LENGTH - sizeof(context->offset));
@@ -108,7 +110,7 @@ We use `U2BE`, which stands for `Unsigned 2-Bytes Big Endian`. Indeed `offset` i
 We have stored the offset in our context, but the next parameter to parse is `to` (which we named `BENEFICIARY`).
 Let's write the case condition for `BENEFICIARY`:
 
-```c
+```c copy
 // The `to` address is copied to `context->beneficiary`, using `copy_address()`.
 // Indeed, since the beneficiary is an Ethereum address, we use `copy_address()`
 // which only copies 20 bytes compared to `copy_parameter()` which
@@ -129,7 +131,7 @@ The next parameter to parse would be `deadline`, but we said earlier that we won
 4. If we have, proceed to case condition.
 
 So first modify the `context` structure (`boilerplate_plugin.h`):
-```c
+```c copy
 typedef struct context {
     // other code...
     bool go_to_offset;
@@ -137,7 +139,7 @@ typedef struct context {
 ```
 
 Then add a condition before the `switch` in the parsing code:
-```c
+```c copy
 // Hint: We add `SELECTOR_SIZE` because `msg->parameterOffset` also contains
 // the `SELECTOR` (4 bytes ID of the method) data.
 if (context->go_to_offset) {
@@ -157,7 +159,7 @@ switch (context->next_param) {
 </Callout>
 
 The next case condition is for `PATH_LENGTH`:
-```c
+```c copy
 // We are now at the parameter `PATH_LENGTH` (`2` in our example).
 // Remember we want to access `path[1]`,  which is located two parameters 
 // away from the length. Hence we set `context->offset` to be the current 
@@ -175,7 +177,7 @@ case PATH_LENGTH:
 </Callout>
 
 And then we parse the last chunk of data which contains the token address the user receives:
-```c
+```c copy
 // We simply copy the address in `context->token_received`.
 // Notice we set `context->next_param` to `UNEXPECTED_PARAMETER`.
 // This is because we don't expect any other parameters.
@@ -196,7 +198,7 @@ default:
 ```
 
 To summarize, the complete code looks something like this:
-```c
+```c copy
 static void handle_swap_exact_eth_for_tokens(ethPluginProvideParameter_t *msg,
                                                 context_t *context) {
     if (context->go_to_offset) {
@@ -242,7 +244,7 @@ static void handle_swap_exact_eth_for_tokens(ethPluginProvideParameter_t *msg,
 }
 ```
 We have added a few enums, so let's add them to the enum definition in `boilerplate_plugin.h`:
-```c
+```c copy
 typedef enum {
     // other code...
     PATH_OFFSET,

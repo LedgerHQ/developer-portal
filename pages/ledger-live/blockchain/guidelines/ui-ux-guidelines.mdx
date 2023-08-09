@@ -1,5 +1,7 @@
 import { Callout } from 'nextra/components'
 
+# UI/UX Guidelines
+
 ## Introduction
 
 These guidelines will help you to use existing UI/UX Flows for Ledger Live Desktop. In addition, it contains instructions to create new Flows, where existing ones are similar so that they can be used as a template. If you have any questions or comments please feel free to contact us on Discord.
@@ -80,7 +82,7 @@ You need to **declare** it there by adding the definition of the type of the Com
 Then you need to **integrate** the custom Component at the right place in Ledger Live code. Add a Link to the common code, in the corresponding section.
 For example with `apps/ledger-live-desktop/src/renderer/screens/account/AccountStakeBanner.tsx`, find an appropriate place in renderer:
 
-```ts
+```ts copy
 import { getLLDCoinFamily } from "~/renderer/families";
    const Comp = getLLDCoinFamily(account.currency.family)?.MyComponent;
    if (Comp) return <Comp account={account} />;

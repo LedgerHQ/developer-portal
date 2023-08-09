@@ -1,5 +1,7 @@
 import { Callout } from 'nextra/components'
 
+# Setup
+
 This step is getting the plugin to compile. But first, we need to set up the working environment.
 
 ## Base-path
@@ -7,20 +9,20 @@ This step is getting the plugin to compile. But first, we need to set up the wor
 Let’s now create a new directory to contain everything that is plugin related.  
 In a terminal:
 
-```sh
+```sh copy
 mkdir plugin_dev
 cd plugin_dev
 ```
 ## Clone repositories
 
 In the `plugin_dev/` folder, clone the Ethereum-app:
-```sh
+```sh copy
 git clone https://github.com/LedgerHQ/app-ethereum
 cd app-ethereum
 git checkout master
 ```
 And the Plugin-tools (`cd` back to the `plugin_dev/` first):
-```sh
+```sh copy
 cd ..
 git clone https://github.com/LedgerHQ/plugin-tools
 ```
@@ -44,7 +46,7 @@ There is no need to launch Docker because `docker-compose` (in the `plugin-tools
 
 In the same terminal, simply type:
 
-```sh
+```sh copy
 cd plugin-tools
 ./start.sh
 ```
@@ -61,13 +63,13 @@ cd plugin-tools
 You are now connected to the container. The `plugin_dev` directory you see in the container is the one created in the steps above. (They are shared using `volume` in docker-compose.)
 
 At the prompt, `ls` gives
-```sh
+```sh copy
 app-ethereum    plugin-tools
 ```
 ## Compile the Ethereum app
 
 Still in the terminal, compile the Ethereum app:
-```sh
+```sh copy
 cd app-ethereum
 make
 ```
@@ -78,7 +80,7 @@ In the first compilation, you may come across:
 3. a few `gcc` or `clang` warnings about the C code. This is (unfortunately) expected.
 
 If everything goes well, you should end with:
-```sh
+```sh copy
 ...
 [LINK] bin/app.elf
 ```

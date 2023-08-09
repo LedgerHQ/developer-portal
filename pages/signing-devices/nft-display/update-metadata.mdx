@@ -2,6 +2,8 @@ import { Callout } from 'nextra/components'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 
+# Update mutable metadata (in-depth guide)
+
 This guide will walk you through step-by-step instructions on how to update the JSON Metadata files of your NFTs to include the location (URL) of the Ledger Stax optimized image.
 
 <Callout type="info" emoji="👉">
@@ -28,7 +30,7 @@ You can update the metadata of your NFT(s) for a single file or in batch.
 	- a. A wrapper `ledger_metadata` meant to include all Ledger specific metadata.
 	- b. JSON attribute `ledger_stax_image` that points to the location (URL) of your Ledger Stax image: 
 
-		```json
+		```json copy
 		{
 			"ledger_metadata": {
 				"ledger_stax_image": "https://mystorage.com/25.jpeg" // Location of your Ledger Stax Image
@@ -42,7 +44,7 @@ You can update the metadata of your NFT(s) for a single file or in batch.
 
 3\. Your JSON Metadata file contains now a reference to the Ledger Stax image:
 
-```json
+```json copy
 {
 	"name": "Sample NFT Title",
 	"description": "Learn how add the Ledger Stax image URL in the metadata file.", 
@@ -82,7 +84,7 @@ Below is a JS code snippet that will do the following operations:
 2. Verifiy if there is a Ledger Stax image available for this token.
 3. If yes, append the attribute `ledger_stax_image` to the JSON.
 
-```js
+```js copy
 const fs = require('fs');
 const path = require("path");
 const localMetadataFolder = __dirname + '/metadata'; // folder where the JSON metadata files are stored locally

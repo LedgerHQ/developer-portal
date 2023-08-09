@@ -1,5 +1,7 @@
 import { Callout } from 'nextra/components'
 
+# 4 - Add accounts: light sync
+
 ## Types
 
 Generic types can be found in [ledgerjs/packages/types-live](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/types-live), with some documentation.
@@ -68,14 +70,14 @@ You will be asked to add an svg for the icon of your type and a label to be tran
 
 In LLD :
 
-```
+``` copy
 src/renderer/components/OperationsList/ConfirmationCheck.js
 ```
 
 In LLM :
 (You will need to check SVG is wrapped into our component)
 
-```
+``` copy
 src/icons/OperationStatusIcon/index.js
 ```
 
@@ -119,7 +121,7 @@ You will be implementing typescript types that will be used in your integration,
 
 `libs/coin-mycoin/src/types.ts`:
 
-```ts
+```ts copy
 import type { BigNumber } from "bignumber.js";
 import type {
   TransactionCommon,
@@ -176,7 +178,7 @@ Since some of thoses types will be serialized when stored or cached, you may nee
 
 `libs/coin-mycoin/src/serialization.ts`:
 
-```ts
+```ts copy
 import { BigNumber } from "bignumber.js";
 import type { MyCoinResourcesRaw, MyCoinResources } from "./types";
 
@@ -218,7 +220,7 @@ export type AccountRaw = {
 
 ...and handle the associated serialization in `libs/coin-mycoin/src/serialization.ts` (if you use BigInt you will need to make it raw by changing it to string for example):
 
-```ts
+```ts copy
 import { Account, AccountRaw } from "@ledgerhq/types-live";
 import {
   toMyCoinResourcesRaw,
@@ -266,7 +268,7 @@ We also would like the `Operation` and `Account` to be displayed in CLI with the
 
 `libs/coin-mycoin/src/account.ts`:
 
-```ts
+```ts copy
 import type { Unit } from "@ledgerhq/types-cryptoassets";
 import type { Account, Operation } from "@ledgerhq/types-live";
 import { getAccountUnit } from "@ledgerhq/coin-framework/account/index";
@@ -371,7 +373,7 @@ The same idea applies also to the `Transaction` type which needs to be serialize
 
 `libs/ledger-live-common/src/families/mycoin/transaction.ts`:
 
-```ts
+```ts copy
 import type { Account } from "@ledgerhq/types-live";
 import { getAccountUnit } from "@ledgerhq/coin-framework/account/index";
 import { formatCurrencyUnit } from "@ledgerhq/coin-framework/currencies";
@@ -450,7 +452,7 @@ You will likely need to export thoses functions, but implemention is up-to-devel
 
 `libs/coin-mycoin/src/api/index.ts`:
 
-```ts
+```ts copy
 export {
   getAccount,
   getOperations,
@@ -473,7 +475,7 @@ Here is an example of a <i>MyCoin</i> API implementation using a fictive SDK tha
   We don't recommend using WebSocket as it could have drawbacks and is more difficult to scale up and put behind a reverse proxy. If possible, use HTTPS requests as much as possible.
 </Callout>
 
-```ts
+```ts copy 
 import MyCoinApi from "my-coin-sdk";
 import type { MyCoinTransaction } from "my-coin-sdk";
 import { BigNumber } from "bignumber.js";
@@ -656,7 +658,7 @@ We usually group the `scanAccounts` and `sync` into the same file `js-synchronis
 
 `coin-mycoin/src/js-synchronisation.ts`:
 
-```ts
+```ts copy
 import type { Account } from "@ledgerhq/types-live";
 import type { GetAccountShape } from "@ledgerhq/coin-framework/bridge/jsHelpers";
 import { makeSync, makeScanAccounts, mergeOps } from "@ledgerhq/coin-framework/bridge/jsHelpers";
@@ -764,7 +766,7 @@ It's connected to any indexer / explorer and gives you a rough idea on how it wi
 
 For example you can use it by doing `MOCK=1 pnpm dev:lld` on `ledger-live-desktop`
 
-```ts
+```ts copy
 import { BigNumber } from "bignumber.js";
 import {
   NotEnoughBalance,
@@ -872,7 +874,7 @@ You can now start to implement the JS bridge for <i>MyCoin</i>. It may need some
 
 The skeleton of `libs/ledger-live-common/src/families/mycoin/bridge/js.ts` should look something like this:
 
-```ts
+```ts copy
 import type { AccountBridge, CurrencyBridge } from "@ledgerhq/types-live";
 import type { Transaction } from "../types";
 import { makeAccountBridgeReceive } from "@ledgerhq/coin-framework/bridge/jsHelpers";
