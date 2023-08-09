@@ -1,5 +1,7 @@
 import { Callout } from 'nextra/components'
 
+# Live Common Bridge Test
+
 This page describes how tests are implemented in order to test live-common bridge.
 
 - Transaction status
@@ -31,7 +33,7 @@ Dataset location: `ledger-live/libs/ledger-live-common/src/families/{currency}`
 
 Generate sync dataset (needs a Ledger device connected with the corresponding app opened).
 
-```sh
+```sh copy
 pnpm run:cli generateTestScanAccounts -c <currency>    #Record the APDUs exchanged with the device
 ```
 
@@ -47,7 +49,7 @@ Test cases: [TestRail](https://ledger.testrail.io/index.php?/suites/overview/9)
 
 Generate account data:
 
-```sh
+```sh copy
 pnpm run:cli generateTestTransaction -c bitcoin -i 1 -s 'native_segwit' --recipient 13LcRWZyZnZu1xrABuAK9Ayftg4kfVs1AA --amount 0.002
 ```
 
@@ -55,7 +57,7 @@ Then copy the result in:
 
 `ledger-live/libs/ledger-live-common/src/families/<currency>/datasets/<currency>.ts` or `ledger-live/libs/ledger-live-common/src/families/<currency>/bridge.integration.test.ts`
 
-```js
+```js copy
 const dataset: CurrenciesData<Transaction> = {
   scanAccounts: [scanAccounts1],
   accounts: [
@@ -117,7 +119,7 @@ More specific tests can be written in `ledger-live/libs/ledger-live-common/src/f
 
 After adding or modify a test you must run from the root of `ledger-live`:
 
-```sh
+```sh copy
 pnpm common build
 ```
 
@@ -125,6 +127,6 @@ pnpm common build
 
 When running the integration tests, new snapshots will be generated that you can commit as expected results for the tests.
 
-```sh
+```sh copy
 pnpm common ci-test-integration <family>
 ```

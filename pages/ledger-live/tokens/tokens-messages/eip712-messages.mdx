@@ -1,3 +1,5 @@
+# EIP-712 messages
+
 ## What to do to clear-sign EIP-712 messages for your DApp?
 
 It is possible to clear-sign EIP-712 messages with a Ledger device. The clear-signing is possible on the contracts that are whitelisted in the [Ledger Dapps asset repository](https://github.com/LedgerHQ/ledger-asset-dapps). 
@@ -15,7 +17,7 @@ When interacting with a contract, the Ethereum app will be able to retrieve the 
 
 For this simple input data:
 
-```json
+```json copy
 {
 	"domain": {
 		"chainId": 5,
@@ -63,7 +65,7 @@ For this simple input data:
 
 A filter for it would look like this :
 
-```json
+```json copy
 {
 	"0x41a5d506423e27a67a733454cd597b7fcb65c4d8": {
 		"0b1da74afa6dd11245e6bdec1357b737cd7c6c0a": {
@@ -84,7 +86,7 @@ A filter for it would look like this :
 
 An identifier corresponds to the sha224 sum of the value (stripped of all spaces and newlines) of all the types in the input JSON which would look like this :
 
-```json
+```json copy
 {"EIP712Domain":[{"name":"name","type":"string"},{"name":"version","type":"string"},{"name":"chainId","type":"uint256"},{"name":"verifyingContract","type":"address"}],"Mail":[{"name":"from","type":"Person"},{"name":"to","type":"Person[]"},{"name":"contents","type":"string"}],"Person":[{"name":"name","type":"string"},{"name":"wallets","type":"address"}]}
 ```
 

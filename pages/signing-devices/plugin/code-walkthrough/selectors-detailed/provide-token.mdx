@@ -1,9 +1,11 @@
+# Provide Token
+
 If the Ethereum App finds information on the requested tokens, it will be in `msg->item1` and `msg->item2`.
 
 In our plugin, we need to account for when the Ethereum App does NOT find the token.
 
 Here is the code for our plugin, with comments:
-```c
+```c copy
     if (msg->item1) {
         // The Ethereum App found the information for the requested token!
         // Store its decimals.

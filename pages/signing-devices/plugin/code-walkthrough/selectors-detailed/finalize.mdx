@@ -1,5 +1,7 @@
 import { Callout } from 'nextra/components'
 
+# Finalize
+
 There are two easy steps:
 1. Decide how many screens we need to display.
 2. Tell the Eth App if more information is needed for a specific token.
@@ -21,7 +23,7 @@ So, the answer to **1** is 3.
 Now to answer **2**: we need information about the token the user receives. We already have the information for Ethereum: The ticker is "ETH", and the number of decimals is 18.
 
 The code you need to change in `handle_finalize` would look something like this:
-```c
+```c copy
 msg->numScreens = 2;
 msg->tokenLookup1 = context->token_received;
 ```

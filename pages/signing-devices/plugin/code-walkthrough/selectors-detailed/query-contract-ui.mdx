@@ -1,3 +1,5 @@
+# Query Contract UI
+
 The previous section showed how to display a single screen. This section shows how to display the rest of the screens. Similarly to the section before, the display itself is handled by the Ethereum App. The only thing the plugin needs to do is determine what strings need to be displayed.
 
 Each screen has a screen number (also called `screenIndex`). When the Ethereum App needs to display a screen, it just calls the plugin and gives it the `screenIndex`. The plugin fills `msg->title` and `msg->msg` accordingly. The Ethereum App then displays the strings. If the user presses the right button or the left button, the Ethereum App increments or decrements `screenIndex` and calls the plugin with the updated `screenIndex`. Here is the flow:
@@ -36,7 +38,7 @@ In our boilerplate example, this is what we want to display for a swap:
 
 Let's dive right into `handle_query_contract_ui.c`:
 
-```c
+```c copy
 // Switch on `screenIndex`, and call some (yet-to-be-written) function
 // to set the UI accordingly.
 switch (msg->screenIndex) {
@@ -57,7 +59,7 @@ switch (msg->screenIndex) {
 ```
 
 Let's start by writing `set_send_ui`.
-```c
+```c copy
 static void set_send_ui(ethQueryContractUI_t *msg, context_t *context) {
     // Copy the "Send" in the upper line.
     strlcpy(msg->title, "Send", msg->titleLength);
@@ -80,7 +82,7 @@ static void set_send_ui(ethQueryContractUI_t *msg, context_t *context) {
 ```
 
 We can write a similar function for `set_receive_ui`:
-```c
+```c copy
 static void set_receive_ui(ethQueryContractUI_t *msg, context_t *context) {
     // Set the title
     strlcpy(msg->title, "Receive Min.", msg->titleLength);
@@ -97,7 +99,7 @@ static void set_receive_ui(ethQueryContractUI_t *msg, context_t *context) {
 
 And finally, we need to write `set_beneficiary_ui`. Remember, this screen is only shown if the recipient's address doesn't match the user's address. This was done in `handle_plugin_finalize`, where we incremented `numScreens` if the addresses were different.
 
-```c
+```c copy
 static void set_beneficiary_ui(ethQueryContractUI_t *msg, context_t *context) {
     // Set the upper line
     strlcpy(msg->title, "Beneficiary", msg->titleLength);

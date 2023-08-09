@@ -1,8 +1,10 @@
+# Ledger Live common bugs
+
 ## Dependency missing when installing the application
 
 ### How does it manifest? 
 
-```bash
+```bash copy
  ERR_PNPM_LOCKFILE_MISSING_DEPENDENCY  Broken lockfile: no entry for 'some_package' in pnpm-lock.yaml
 ```
 
@@ -18,7 +20,7 @@ This bug may appear if you have an older version of the Ledger Live application,
 
 ### How does it manifest? 
 
-```bash
+```bash copy
 FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memory
 ```
 
@@ -36,7 +38,7 @@ This generally occurs on larger projects where the default amount of memory allo
 
 ### How does it manifest? 
 
-```bash
+```bash copy
 Error: Cannot find module 'node: path'
 ```
 

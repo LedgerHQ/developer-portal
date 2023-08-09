@@ -1,5 +1,7 @@
 import { Callout } from 'nextra/components'
 
+# 5 - Add accounts: full sync
+
 ## Account Bridge
 
 AccountBridge offers a generic abstraction to synchronize accounts and perform transactions.
@@ -24,7 +26,7 @@ We usually group the `scanAccounts` and `sync` into the same file `js-synchronis
 
 `libs/coin-mycoin/src/js-synchronisation.ts`:
 
-```ts
+```ts copy
 import type { Account } from "@ledgerhq/types-live";
 import type { GetAccountShape } from "@ledgerhq/coin-framework/bridge/jsHelpers";
 import { makeSync, makeScanAccounts, mergeOps } from "@ledgerhq/coin-framework/bridge/jsHelpers";
@@ -120,7 +122,7 @@ Live-Common features will then be able to reuse those data anywhere (e.g. valida
 
 `libs/coin-mycoin/src/preload.ts`:
 
-```ts
+```ts copy
 import { Observable, Subject } from "rxjs";
 import { log } from "@ledgerhq/logs";
 
@@ -196,7 +198,7 @@ It's connected to any indexer / explorer and gives you a rough idea on how it wi
 
 For example you can use it by doing `MOCK=1 pnpm dev:lld` on `ledger-live-desktop`
 
-```ts
+```ts copy
 import { BigNumber } from "bignumber.js";
 import {
   NotEnoughBalance,
@@ -304,7 +306,7 @@ You can now start to implement the JS bridge for <i>MyCoin</i>. It may need some
 
 The skeleton of `src/families/mycoin/bridge/js.ts` should look something like this:
 
-```ts
+```ts copy
 import type { AccountBridge, CurrencyBridge } from "@ledgerhq/types-live";
 import type { Transaction } from "../types";
 import { makeAccountBridgeReceive } from "@ledgerhq/coin-framework/bridge/jsHelpers";

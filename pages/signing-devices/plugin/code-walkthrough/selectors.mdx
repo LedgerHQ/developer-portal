@@ -1,3 +1,5 @@
+# Selector Setup
+
 ## main.c
 
 Let’s go to the first `EDIT THIS` comment in `app-plugin-boilerplate/src/main.c`. We start by implementing just a single selector because others are added later.
@@ -19,7 +21,7 @@ Just a few lines below, the selectors are grouped in an array, in which there is
 
 You can also change the name of `BOILERPLATE_SELECTORS` throughout the project code.
 
-```c
+```c copy
 // Array of all the different boilerplate selectors. 
 // Make sure this follows the same order as the
 // enum defined in `boilerplate_plugin.h`
@@ -32,18 +34,18 @@ const uint32_t BOILERPLATE_SELECTORS[NUM_SELECTORS] = {
 Let's have a look at `boilerplate_plugin.h` mentioned in the code comments.
 
 Start by checking the value of `NUM_SELECTORS`. Indeed, for the moment we only have two selectors.
-```c
+```c copy
 #define NUM_SELECTORS 1
 ```
 
 Here `PLUGIN_NAME` is `Boilerplate`. Your plugin must be named appropriately here, and changed throughout the code
 
-```c
+```c copy
 #define PLUGIN_NAME "Boilerplate"
 ```
 
 Now let's look for the selector mentioned in the comments. Since it is an enum let's change it in our selector:
-```c
+```c copy
 typedef enum {
     SWAP_EXACT_ETH_FOR_TOKENS,
 } selector_t;

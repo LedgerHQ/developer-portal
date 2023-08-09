@@ -1,5 +1,7 @@
 import { Callout } from 'nextra/components'
 
+# Testing
+
 <Callout type="warning" emoji="⚠️">
   Our team is working on adapting the <a href='../../../embedded-app/framework/'>Ledger Framework</a> for Plugin development and testing. Until the framework is ready for plugins, follow the documentation below. This page will be updated when the framework is ready.
 </Callout>
@@ -33,7 +35,7 @@ Ok now for an overview of what needs to be done:
 
 This part is easy. Simply run:
 
-```sh
+```sh copy
 cd tests && yarn install
 ```
 
@@ -53,7 +55,7 @@ You can add as many contracts as you like here. They must be named appropriately
 
 Plugin and selector declarations are in `b2c.json`.
 
-```js
+```js copy
 {
     "chainId": 1, // chainID, no need to change
     "contracts": [
@@ -94,7 +96,7 @@ Open a new terminal window, and in the `plugin-tools/` folder, run`./start.sh`.
 
 In the container, go to the plugin repository, then to the `tests/` folder.
 
-```sh
+```sh copy
 cd app-plugin-boilerplate/tests
 ```
 
@@ -117,14 +119,14 @@ As you might expect, we will mainly work in the `src/` folder.
 
 The first thing is to change `src/generate_plugin_config.js` in line 5:
 
-```js
+```js copy
 const pluginFolder = "boilerplate";
 ```
 
 Change `boilerplate` to the folder name created earlier, containing `abis/` and `b2c.json`.
 
 Next, change `test.fixture.js`: 
-```js
+```js copy
 const NANOS_PLUGIN = { "Boilerplate": NANOS_PLUGIN_PATH };
 const NANOSP_PLUGIN = { "Boilerplate": NANOSP_PLUGIN_PATH };
 const NANOX_PLUGIN = { "Boilerplate": NANOX_PLUGIN_PATH };

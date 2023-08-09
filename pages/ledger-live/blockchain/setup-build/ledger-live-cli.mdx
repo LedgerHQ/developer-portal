@@ -1,30 +1,32 @@
 import { Callout } from 'nextra/components'
 
+# Building the CLI for development
+
 Using a local version of Ledger Live to test your integration can be time consuming. If you would rather have a faster process, you can use the CLI.
 
 ## Set up
 
 To install the CLI do:
 
-```sh
+```sh copy
 pnpm i
 ```
 
 To publish:
 
-```sh
+```sh copy
 # build the cli for publishing
 pnpm build:cli
 ```
 
 To use it:
-```sh
+```sh copy
 pnpm run:cli <command> args
 ```
 
 You can test that your local Live Common and your device works correctly by executing a CLI command like:
 
-```sh
+```sh copy
 pnpm run:cli version      # should print live-common version
 pnpm run:cli deviceInfo   # should display information about connected device
 ```
@@ -34,7 +36,7 @@ If everything is fine, you are ready to start integrating your blockchain!
 
 ## Ledger Live CLI cmd example
 
-```sh
+```sh copy 
 pnpm run:cli sync -c bitcoin -i 0 -s native_segwit   # using device
 pnpm run:cli sync -c bitcoin --xpub 'xpub......'    # using xpub
 pnpm run:cli getAddress -c bitcoin --path "84'/0'/0'/0/0" --derivationMode ''
@@ -53,23 +55,23 @@ Ledger Live provides a lot of flexibility through ENV variables. You can export 
 
 To list them all, you can execute:
 
-```sh
+```sh copy
 pnpm run:cli envs
 ```
 
 The one you will use the most before releasing you integration is:
 
-```sh
+```sh copy
 EXPERIMENTAL_CURRENCIES=mycoin
 ```
 
 to use them:
-```sh
+```sh copy
 EXPERIMENTAL_CURRENCIES=mycoin pnpm run:cli -c mycoin --amount 0.1 ---recipient mycoinaddr -i 0
 ```
 
 or for LLD:
-```sh
+```sh copy
 EXPERIMENTAL_CURRENCIES=mycoin pnpm dev:lld
 ```
 
@@ -79,7 +81,7 @@ It will consider `mycoin` as supported (you can also add it to the supported cur
 
 If needed, you can add your own in `src/env.ts` (always try to add a MYCOIN\_ prefix to avoid collisions):
 
-```ts
+```ts copy
 // const envDefinitions = { ...
   MYCOIN_API_ENDPOINT: {
     def: "https://mycoin.coin.ledger.com",

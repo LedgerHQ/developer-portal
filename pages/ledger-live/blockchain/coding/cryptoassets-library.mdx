@@ -1,5 +1,7 @@
 import { Callout } from 'nextra/components'
 
+# 1 - Cryptoassets Library
+
 The [@ledgerhq/cryptoassets](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/cryptoassets) package contains all definitions of cryptoassets that could be useful to Ledger Live.
 
 Ledger Live deals with different kinds of currencies and assets: fiat currencies, cryptocurrencies, and tokens.
@@ -21,7 +23,7 @@ Essentially all currencies share this common ground:
 
 ### Unit
 
-```js
+```js copy
 type Unit = {
   // display name of a given unit (example: satoshi)
   name: string,
@@ -43,7 +45,7 @@ There are however two essential properties we must respect:
 
 Here is an example of Bitcoin units:
 
-```js
+```js copy
 [
   {
     name: "bitcoin",
@@ -80,7 +82,7 @@ In live-common, our formatter is implemented by [`formatCurrencyUnit`](https://g
 
 The crypto currency level introduces many fields that are exclusively specific to crypto currency.
 
-```js
+```js copy
 type CryptoCurrency = CurrencyCommon & {
   type: "CryptoCurrency",
   // unique internal id of a crypto currency
@@ -127,7 +129,7 @@ type CryptoCurrency = CurrencyCommon & {
 
 You can define one or many explorers with urls, which will be used for external links in Ledger Live.
 
-```js
+```js copy
 type ExplorerView = {
   // url for transaction with $hash param
   tx?: string,
@@ -146,7 +148,7 @@ type ExplorerView = {
 
 Tokens are also available through the cryptoassets package. ERC20, TRC10 and TRC20 tokens are automatically maintained on a regular basis. But if your blockchain supports tokens and you would like to add them, feel free to contact us.
 
-```js
+```js copy
 type TokenCurrency = CurrencyCommon & {
   type: "TokenCurrency",
   id: string,
@@ -164,7 +166,7 @@ type TokenCurrency = CurrencyCommon & {
 Ensure that before integrating your coin to Ledger Live, your coin is well defined in [`@ledgerhq/cryptoassets/src/currencies.js`](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/ledgerjs/packages/cryptoassets/src/currencies.ts)
 
 
-```js
+```js copy
  mycoin: {
    type: "CryptoCurrency",
    id: "mycoin",
