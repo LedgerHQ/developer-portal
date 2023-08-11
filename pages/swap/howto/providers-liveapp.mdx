@@ -1,0 +1,17 @@
+# Provider's Live App
+
+The LiveApp needs to respond to a deeplink with some parameters.
+
+The deeplink format is already fixed and will depend on the information you provided inside your [LiveApp manifest](../../ledger-live/discover/non-dapp/wallet-api) (ex: `ledgerlive://discover/swapprovidername`).
+The query params for this deeplink are:
+* `quoteId`: The id retrieved by Ledger's backend during a quote request.
+* `fromAmount`: The amount of currency.
+* `fromAddressId`: The user's address id in Ledger Live repository.
+* `toAddressId`: The user's address id in Ledger Live repository.
+* `feeStrategy`: `SLOW`, `MEDIUM` or `FAST`.
+
+__Example__:
+```
+ledgerlive://discover/swapprovidername?quoteId=1234&fromAmount=12.3&&feeStrategy=SLOW
+fromAddressId=07AB5930-C73A-433F-A2FA-920640AF3A02&toAddressId=76A239EB-1C2A-4237-B942-CA87472106EB
+```

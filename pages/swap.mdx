@@ -1,0 +1,31 @@
+import { Card, Cards } from 'nextra/components'
+
+# Being integrated as a swap provider
+
+As a swap provider, it is possible to integrate your service to Ledger Live and appear under the “Swap” section. By becoming a swap provider in Ledger Live, you offer security, ease and accessibility to millions of users!
+
+There are two types of integration:
+- On-chain providers can develop a Ledger Live App and are integrated for now in the “Discover” section (like [Paraswap](https://www.ledger.com/blog/more-swapping-freedom-access-paraswap-directly-through-ledger-live)). 
+- Off-chain providers, on the other hand, are integrated in the “Swap” section, powered by Ledger Live backend and must provide us with a specific API.
+
+In this article, you will find: 
+- [Flow](../flow): to understand the different flows, the architecture, and how the trade is secured between the three parties (the user’s nano device, the Ledger Live back-end and the provider). 
+- [How-to](../howto): to find out what needs to be done from the provider’s side in order to be integrated in Ledger Live, in the “Swap” section. It also provides detailled information about the different endpoints needed, as well as how to develop and test your LiveApp.
+
+
+<Cards num={2}>
+  <Card 
+    image
+    arrow
+    title="Flows" 
+    href="/swap/flow">
+    <>![Cryptoassets Library](/blockchain-cover.jpg)</> 
+  </Card>
+  <Card 
+    image
+    arrow
+    title="How to" 
+    href="/swap/howto">
+    <>![Cryptoassets Library](/crypto-cover.jpg)</> 
+  </Card>
+</Cards>
