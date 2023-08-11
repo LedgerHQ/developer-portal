@@ -17,5 +17,11 @@
   "overview": {
     "title": "Overview",
     "type": "page"
+  },
+  "swap": {
+    "display": "hidden"
+  },
+  "swap-live-app": {
+    "display": "hidden" 
   }
 }
