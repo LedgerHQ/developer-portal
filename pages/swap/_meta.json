@@ -1,4 +1,4 @@
 {
-	"flow": "Flows",
-	"howto": "How to"
+	"native-integration": "Native Integration", 
+	"embedded-app": "Embedded App Integration"
 }
