@@ -19,9 +19,8 @@
     "type": "page"
   },
   "swap": {
+    "type": "page",
+    "title": "Swap Provider",
     "display": "hidden"
-  },
-  "swap-live-app": {
-    "display": "hidden" 
   }
 }
