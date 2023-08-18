@@ -16,7 +16,10 @@
   },
   "overview": {
     "title": "Overview",
-    "type": "page"
+    "type": "page",
+    "theme": {
+      "layout": "raw"
+    }
   },
   "swap": {
     "type": "page",
