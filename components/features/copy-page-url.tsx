@@ -7,7 +7,7 @@ export function Copy() {
     async function copyToClip() {
         await navigator.clipboard.writeText(location.href);
         setButtonText("Copied to clipboard");
-        setTimeout(() => setButtonText("Copy page URL"), [2000])
+        setTimeout(() => setButtonText("Copy page URL"), "2000")
 
     }
 
