@@ -3,6 +3,7 @@ import { DocsThemeConfig } from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
 import { useConfig } from 'nextra-theme-docs'
 import { Copy } from './components/features/copy-page-url'
+import DocslyClient from "./components/DocslyClient";
 
 
 
@@ -17,6 +18,12 @@ const config: DocsThemeConfig = {
   docsRepositoryBase: 'https://github.com/LedgerHQ/developer-portal-v2/blob/main',
   footer: {
     text: 'Ledger Developer Portal',
+    component: () => (
+      <>
+        {/* Your footer code */}
+        <DocslyClient />
+      </>
+    ),
   },
   sidebar: {
     autoCollapse: true,
