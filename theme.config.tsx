@@ -55,8 +55,16 @@ const config: DocsThemeConfig = {
     )
   },
   useNextSeoProps() {
-    return {
-      titleTemplate: '%s – Ledger'
+    const { asPath } = useRouter()
+    if (asPath !== '/') {
+      return {
+        titleTemplate: '%s – Ledger Developer Portal'
+      }
+    }
+    else {
+      return {
+        titleTemplate: 'Ledger Developer Portal'
+      }
     }
   },
   primaryHue: { dark: 120, light: 270 },
