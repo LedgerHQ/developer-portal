@@ -1,0 +1,424 @@
+import { Callout } from 'nextra/components'
+
+# Implementation
+
+## Before you start
+
+### Types: Custom or Standard Library
+
+To get started integrating a Ledger button into your DApp choose either:
+
+- **Custom:** Install [@ledgerhq/connect-kit-loader](https://www.npmjs.com/package/@ledgerhq/connect-kit-loader) using `Yarn` or `NPM` to use the DApp Connect Kit API
+
+- **Library:** Use a popular wrapper library such as, Web3Modal, wagmi, or (COMING SOON) Web3-react, Web3-Onboard, or RainbowKit to easily integrate multiple wallets.
+
+### UX Guidelines
+
+- If you already have a ["Connect your App" implementation](https://developers.ledger.com/docs/transport/overview/) or a WalletConnect Ledger button, remove them so there is only one Ledger button
+- Label the connection as “Ledger” for clarity to the users
+- [In this folder](https://drive.google.com/drive/folders/1KWQwTQJTnBMESyrpt17Cn0hT1HmQ_8BH?usp=sharing) you will find Ledger’s icon to display in your app
+- Have Ledger appear above the fold for users to discover without clicking on “Show More”
+
+## Custom Integration
+
+### Setup
+
+You just have to add the `@ledgerhq/connect-kit-loader` package as a dependency using your preferred package manager. 
+
+Using yarn as an example
+
+```bash
+yarn add @ledgerhq/connect-kit-loader
+```
+
+and use it as below
+
+```javascript
+import { loadConnectKit } from '@ledgerhq/connect-kit-loader'
+
+// ...
+const connectKit = await loadConnectKit()
+```
+
+If you are using classes you can get the promise on the class constructor and its value where you need it
+
+```javascript
+import { loadConnectKit } from '@ledgerhq/connect-kit-loader'
+
+export class LedgerConnector {
+  private provider: any
+  private connectKitPromise: Promise<LedgerConnectKit>
+
+  constructor() {
+    super()
+
+    this.connectKitPromise = loadConnectKit()
+  }
+
+  public async connect(): Promise<Connector> {
+    if (!this.provider) {
+      // load Connect Kit, check support and show a UI modal if not supported
+      const connectKit = await this.connectKitPromise
+```
+
+### API functions
+
+Connect Kit provides three functions, `enableDebugLogs`, `checkSupport` and `getProvider`.
+
+#### enableDebugLogs
+
+##### Description
+
+Enables debug messages on the console in case you need to diagnose a possible problem.
+
+Once Connect Kit is loaded you can call it from the browser's developer tools console with `window.ledgerConnectKit.enableDebugLogs()` and call the other Connect Kit functions to see the messages. Just reload the DApp to disable them.
+
+#### checkSupport
+
+##### Description
+
+Returns the level of support for **Ledger Extension** on the user's platform, and shows a UI to guide the user.
+
+- **Case A** - If the **Ledger Extension** is Compatible & Installed & Enabled (by the user, once and for all), you will just get the response and no UI will be shown.
+
+Otherwise (when the Ledger Extension is not Compatible/Installed/Enabled), one of these modals will be shown on the user's platform:
+- **Case B** - if the user's platform supports the Ledger Extension but it is not Installed or Enabled; a link will be shown to guide the user to Install and Enable the Ledger Extension;
+- **Cases C/D** - Connect with Ledger Live option. When the user's platform does not support Ledger Extension you will connect via Ledger Live Mobile or Desktop. 
+
+##### Parameters
+
+```typescript
+type CheckSupportOptions = {
+  providerType: SupportedProviders;
+  walletConnectVersion?: number;
+
+  // WalletConnect v2 init parameters
+  projectId?: string;              // REQUIRED WC v2 project id
+  chains?: number[];               // REQUIRED ethereum chains
+  optionalChains?: number[];       // OPTIONAL ethereum chains
+  methods?: string[];              // REQUIRED ethereum methods
+  optionalMethods?: string[];      // OPTIONAL ethereum methods
+  events?: string[];               // REQUIRED ethereum events
+  optionalEvents?: string[];       // OPTIONAL ethereum events
+  rpcMap?: { [chainId: string]: string; };  // OPTIONAL rpc urls for each chain
+
+}
+```
+
+WalletConnect version 2 will be used if `walletConnectVersion` and `projectId` are set, WalletConnect version 1 will be used otherwise. Note that the WalletConnect version 1 servers will be shutdown on the 28th of June, so you should migrate your DApp as soon as possible. You can register for a WalletConnect project id on the [WalletConnect Cloud](https://cloud.walletconnect.com/).
+
+The values specified for `chains`, `methods` and `events` must all be supported by the wallet the user will connect with, or the connection will not be possible. Only specify the minimum values required for your DApp to work as expected, and specify optional values using `optionalChains`, `optionalMethods` and `optionalEvents`. Beware not to unintentionally exclude some users by specifying more required values than the needed ones.
+
+##### Returns
+
+```typescript
+type ConnectSupport = type CheckSupportResult = {
+  isLedgerConnectSupported?: boolean;
+  isLedgerConnectEnabled?: boolean;
+  isChainIdSupported?: boolean;
+  providerImplementation: 'LedgerConnect' | 'WalletConnect';
+}
+```
+
+
+#### getProvider
+
+##### Description
+
+Based on the options passed to `checkSupport` it returns a promise to a `Ledger Extension` Ethereum provider or a WalletConnect provider.
+
+##### Returns
+
+```typescript
+Promise<EthereumProvider>
+```
+
+##### Example
+
+An example function using the **Ledger Connect Kit**, WalletConnect v2, *ethers.js* and React, called when pressing the connect button.
+
+`setProvider`, `setLibrary`, `setAccount`, `setChainId` and `setError` are just simple React `useState` functions to store the app state.
+
+```js
+// JSX code
+<Button onClick={() => connectWallet()}>Connect With Ledger</Button>
+```
+
+```js
+// click handler function
+const connectWallet = async () => {
+  try {
+    const connectKit = await loadConnectKit();
+    const checkSupportResult = connectKit.checkSupport({
+      providerType: SupportedProviders.Ethereum,
+      walletConnectVersion: 2,
+      projectId: "id",   // register a project id with WalletConnect Cloud
+      chains: [1, 137],  // set MainNet and Polygon as required chains
+      rpcMap: {
+        1: "https://cloudflare-eth.com/", // Mainnet
+        137: "https://polygon-rpc.com/", // Polygon
+      }
+    });
+    console.log('checkSupportResult is', checkSupportResult);
+
+    const provider = await connectKit.getProvider();
+    setProvider(provider);
+
+    const accounts = await provider.request({ method: 'eth_requestAccounts' });
+    if (accounts) setAccount(accounts[0]);
+
+    const library = new ethers.providers.Web3Provider(provider);
+    setLibrary(library);
+
+
+    const network = await library.getNetwork();
+    setChainId(network.chainId);
+  } catch (error) {
+    setError(error);
+  }
+}
+```
+
+Have a look at the full list of options below.
+
+<Callout type="info" emoji="👉">
+  If you want a working example application that you can try by yourself you can find it on the <a href='https://github.com/LedgerHQ/connect-kit/tree/main/examples/direct-integration'>Connect Kit GitHub repository</a>
+</Callout>
+
+### WalletConnect v2 migration guide
+
+If you are currently using WalletConnect version 1 you should migrate to version 2 as soon as possible, as the servers for version 1 are going to be shutdown on the 28th of June. Follow theses steps to migrate:
+
+- Get a project id from the [WalletConnect Cloud](https://cloud.walletconnect.com/), it's free
+- Update the Connect Kit loader package to the latest version
+- Add `walletConnectVersion: 2, projectId: 'id from step 1'` and rename `rpc` to `rpcMap` on your `checkSupport` options
+
+## Standard library Integration
+
+### Web3-Onboard
+
+You just have to add the packages using your preferred package manager. 
+Using yarn as an example:
+
+```bash
+yarn add @web3-onboard/core @web3-onboard/ledger
+```
+
+Use it as shown below:
+
+```js
+import { useState } from "react";
+import Onboard from "@web3-onboard/core";
+import ledgerModule from '@web3-onboard/ledger';
+ 
+const ledger = ledgerModule({
+  chainId: 1,
+  rpc: {
+    1: `https://cloudflare-eth.com/`, // Mainnet
+    5: 'https://goerli.optimism.io',  // Goerli
+    137: "https://polygon-rpc.com/",  // Polygon
+  }
+});
+ 
+const onboard = Onboard({
+  Wallets: [ledger],
+  Chains: [ /*...*/ ],
+});
+ 
+export default function App() {
+  const [provider, setProvider] = useState();
+  const [account, setAccount] = useState();
+  const [error, setError] = useState();
+ 
+  const connectWallet = async () => {
+    try {
+      const wallets = await onboard.connectWallet();
+ 
+      if (wallets.length) {
+        const { accounts, provider } = wallets[0];
+ 
+        if (accounts.length) {
+          setAccount(accounts[0].address);
+        }
+        setProvider(provider);
+      };
+    } catch(err) {
+      setError(err?.message || err);
+    }
+  };
+ 
+  const switchAccount = (accounts) => {
+    setAccount(accounts[0]);
+  };
+ 
+  const disconnectWallet = async () => {
+    try {
+      const [primaryWallet] = onboard.state.get().wallets;
+      if (!primaryWallet) return;
+ 
+      await onboard.disconnectWallet({ label: primaryWallet.label });
+      setAccount();
+      setProvider();
+    } catch (err) {
+      setError(err?.message || err);
+    }
+  };
+ 
+  useEffect(() => {
+    if (provider?.on) {
+      provider.on("disconnect", disconnectWallet);
+      provider.on("accountsChanged", switchAccount);
+ 
+      return () => {
+        if (provider.removeListener) {
+          provider.removeListener("disconnect", disconnectWallet);
+          provider.removeListener("accountsChanged", switchAccount);
+        }
+      };
+    }
+  }, [provider]);
+ 
+  return (
+    <>
+      <div>Status: {account
+        ? (<span>Connected</span>)
+        : (<span>Not connected</span>)
+      }</div>
+ 
+      {!account ? (
+        <Button onClick={connectWallet}>Connect Wallet</Button>
+      ) : (
+        <Button onClick={disconnectWallet}>Disconnect</Button>
+      )}
+ 
+      <div>{error ? error.message : null}</div>
+    </>
+  );
+}
+```
+
+For more information take a look at the [web3-onboard](https://onboard.blocknative.com/docs/overview/introduction) documentation.
+
+
+### wagmi
+
+To add the Ledger button to your wagmi DApp, use the latest version of wagmi and wagmi/connectors packages using your preferred package manager. 
+
+
+Using the yarn package manager as an example:
+
+```bash
+yarn add wagmi @wagmi/connectors
+```
+
+<Callout type="info" emoji="👉">
+  If you want a working example application that you can try by yourself you can find it on the <a href='https://github.com/LedgerHQ/connect-kit/tree/main/examples/next-wagmi'>Connect Kit GitHub repository</a>
+</Callout>
+
+Setup the wagmi client and the Ledger connector with:
+
+```js
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+
+
+import { WagmiConfig, configureChains, createConfig } from 'wagmi';
+import { mainnet, polygon } from 'wagmi/chains'
+import { LedgerConnector } from '@wagmi/connectors/ledger';
+
+
+import App from './App';
+
+
+const { chains, publicClient, webSocketPublicClient } = configureChains(
+  [mainnet, polygon],
+  [publicProvider()],
+);
+
+
+const wagmiConfig = createConfig({
+  autoConnect: true,
+  provider,
+  connectors: {
+    ledger: new LedgerConnector({
+      chains,
+      options: {
+        enableDebugLogs: false,
+        walletConnectVersion: 2,
+        projectId: 'YOUR PROJECT ID',
+        requiredChains: [1],
+      }
+    }),
+    publicClient,
+    webSocketPublicClient,
+  },
+});
+
+
+const rootElement = document.getElementById("root");
+const root = createRoot(rootElement);
+
+
+root.render(
+  <StrictMode>
+    <WagmiConfig config={wagmiConfig}>
+      <App />
+    </WagmiConfig>
+  </StrictMode>
+);
+```
+
+All the new WalletConnect v2 options mentioned above for the `checkSupport` call are supported, but `chains`, `methods` and, `events` are preceded by "required", e.g. `requiredChains`.
+
+Manage the DApp state using wagmi hooks and use it to decide what to show to the user:
+
+```js
+import { useAccount, useConnect, useDisconnect, useNetwork } from 'wagmi'
+ 
+export default function App() {
+  const { disconnect } = useDisconnect();
+  const { connector, address } = useAccount();
+  const { chain } = useNetwork();
+  const { connect, connectors } = useConnect();
+ 
+  return (
+    <>
+      <div>Status: {connector
+        ? (<span>Connected</span>)
+        : (<span>Not connected</span>)
+      }</div>
+ 
+      {connector && (
+        <>
+          <div>Network Id: {chain ? `${chain.id (${chain.name})` : "none"}}
+          </div>
+          <div>Account: {address ? address : 'none'}</div>
+        </>
+      )}
+ 
+      <div>
+        {!connector ? (
+          <Button onClick={() => {
+            connect({ connector: connectors['ledger'] })
+          }}>Connect Ledger Wallet</Button>
+        ) : (
+          <Button onClick={() => disconnect()}>Disconnect</Button>
+        )}
+      </div>
+    </>
+  );
+}
+```
+
+For more information take a look at the [wagmi](https://wagmi.sh/docs/getting-started) documentation.
+
+
+### Web3-React
+Coming soon
+
+### RainbowKit
+Coming soon
+
+### Web3Modal
+
+Version 1 of Web3modal does not support WalletConnect v2. You will have to migrate to another wallet library to be able to use a Ledger connector with support for WalletConnect v2.
