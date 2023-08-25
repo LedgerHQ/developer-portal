@@ -1,12 +1,4 @@
----
-title: Choose the right transport
-subtitle: 
-tags: [transport, device, communicate, companion wallet]
-category: Connect your app
-author: Ledger
-toc: true
-layout: doc
----
+# Choose the right transport
 
 For the client's side device (Desktop & Mobile), several technologies can be used to communicate with Ledger hardware devices.
 
@@ -18,13 +10,12 @@ For a web application three options are possible :
 - Web USB
 - Web Bluetooth (Nano X)
 
-{: .center}
-[![WebApp](../images/webAppsummary.png)](../images/webAppsummary.png)
+![WebApp](/webAppsummary.png)
 *Fig. 1: WebApp Transports*
 
 Getting started with WebApp integration:
- - [HID/USB](../web-hid-usb/)
- - [Bluetooth](../web-bluetooth/)
+ - [HID/USB](./integration-walkthrough/web-application/web-hid-usb/)
+ - [Bluetooth](./integration-walkthrough/web-application/web-bluetooth/)
  
 
 ### Mobile Application
@@ -32,22 +23,21 @@ For Mobile applications, you can integrate through React Native libraries HID an
 - React Native HID (Only Android)
 - React Native Bluetooth (Nano X)
 
-{: .center}
-[![Mobile Application Transports](../images/mobile-integration.png)](../images/mobile-integration.png)
+
+![Mobile Application Transports](/mobile-integration.png)
 *Fig. 2: Mobile Application Transports*
 
 Getting started with React Native Mobile App integration:
- - [React Native HID - Android Only](../react-native-android-hid/)
- - [React Native Bluetooth - iOS](../react-native-bluetooth-ios/)
- - [React Native Bluetooth - Android](../react-native-bluetooth-android/)
+ - [React Native HID - Android Only](./integration-walkthrough/mobile-application/react-native-android-hid/)
+ - [React Native Bluetooth - iOS](./integration-walkthrough/mobile-application/react-native-bluetooth-ios/)
+ - [React Native Bluetooth - Android](./integration-walkthrough/mobile-application/react-native-bluetooth-android/)
 
 ### Desktop Application
 For a desktop application, your option is to use Node HID Transport layer. The library is only supported on Electron/Node.js
 - Node HID
 
 
-{: .center}
-[![Desktop Application Transports](../images/desktop-integration.png)](../images/desktop-integration.png)
+![Desktop Application Transports](/desktop-integration.png)
 *Fig. 2: Desktop Application Transports*
 
-Getting started with Desktop App integration [Node HID](../node-electron-hid/)
+Getting started with Desktop App integration [Node HID](./integration-walkthrough/desktop-application/node-electron-hid/)

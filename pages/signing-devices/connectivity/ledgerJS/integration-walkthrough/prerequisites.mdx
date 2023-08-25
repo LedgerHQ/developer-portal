@@ -1,0 +1,128 @@
+import { Callout } from 'nextra/components'
+
+# Prerequisites
+
+## Summary
+
+To connect your app you will need to install:
+- [Node (for Desktop apps) and NPM](#node-and-npm)
+- [Ledger Live](#ledger-live-installation)
+- [The Ledger Embedded App](#embedded-app-installation) of the coin that you are going to use (to use this documentation you will need Bitcoin, Ethereum and Solana)
+- At least [one account](#account-creation) for each coin (except for Solana).
+
+## Node and NPM
+
+If not already installed, install <a href="https://nodejs.org/en/download/">Node & npm</a>, choose the LTS version of your operating system. You can check if you have it installed by checking the version with the following commands:
+
+```
+$ node -v
+v14.18.0
+
+$ npm -v
+6.14.15
+```
+
+The commands should print the versions of Node.js and npm accordingly.
+
+<Callout type="info" emoji="👉">
+	The integrations and tutorials should work with older versions of Node and npm but it has not been tested by our team.
+</Callout>
+
+
+<Callout type="warning" emoji="⚠️">
+ 	Please remember that the React Native and the ledger packages have been updated since the creation of the documentation and there might be some breaking changes. If you encounter difficulties with more recent packages, you can downgrade to the versions used in the documentation.
+</Callout>
+
+---------------------------------
+## Ledger Live Installation
+
+Now that node and npm are installed, you have to install the [Ledger Live](https://www.ledger.com/ledger-live/download) desktop application to connect your Ledger device.
+After the installation, open Ledger Live and go to the **Manager** tab.
+
+![Ledger Live Prerequisites](/ledgerlivetabs.png)
+*Fig. 1: Ledger Live Prerequisites*
+
+Then connect your Ledger Nano to your computer and unlock it.
+
+<div class="center">
+	<figure>
+		<img src="/ledgerCodePin.jpg" alt="Ledger Device Unlock"/>
+		<figcaption><i>Fig. 2: Ledger Device Unlock</i></figcaption>
+	</figure>
+</div>
+
+Then Ledger Live will ask you to allow the Ledger device, just press the two buttons simultaneously to allow it.
+
+<div class="center">
+	<figure>
+		<img src="/ledgerConnect.png" alt="Ledger Live Animation"/>
+		<figcaption><i>Fig. 3: Ledger Live Animation</i></figcaption>
+	</figure>
+</div>
+<br/>
+<div class="center">
+	<figure>
+		<img src="/ledgerAllow.jpg" alt="Ledger Live Notification on Ledger Device"/>
+		<figcaption><i>Fig. 4: Ledger Live Notification on Ledger Device</i></figcaption>
+	</figure>
+</div>
+
+## Embedded App Installation
+
+Now you can install the Ethereum and bitcoin application into your Ledger Nano S/X/S Plus.
+In this integration, we will use the Ethereum and Bitcoin application.
+
+![Ethereum App Installation](/ethereumInstallation.png)
+*Fig. 5: Ethereum App Installation*
+
+
+## Account Creation
+
+To use the Bitcoin/Ethereum Embedded Apps you have to create a Bitcoin/Ethereum account.
+We will present there the creation of a bitcoin account but it is the same for any application supported by Ledger Live.
+
+
+To create your Bitcoin account:
+
+- Launch the Bitcoin application on your Ledger Nano S/X/S Plus
+
+- Open the Bitcoin app on your ledger device
+
+
+<div class="center">
+	<figure>
+		<img src="/ledgerBtc.jpg" alt="Bitcoin App Launch"/>
+		<figcaption><i>Fig. 6: Bitcoin App Launch</i></figcaption>
+	</figure>
+</div>
+<br/>
+<div class="center">
+	<figure>
+		<img src="/ledgerReady.jpg" alt="Bitcoin App Ready"/>
+		<figcaption><i>Fig. 7: Bitcoin App Ready</i></figcaption>
+	</figure>
+</div>
+
+
+- Create an account by going to the **Manager** tab and click on **Add account**.
+
+![Bitcoin App Add Account](/bitcoinInstalled.png)
+*Fig. 8: Bitcoin App Add Account*
+
+
+- Click on **Add account** button.
+
+![Bitcoin Account Creation](/step1account.png)
+*Fig. 9: Bitcoin Account Creation*
+
+
+- Your account is created.
+
+![Bitcoin Account Selection](/step2account.png)
+*Fig. 10: Bitcoin Account Selection*
+
+
+You have now a secured bitcoin account on your Ledger Device, congratulations!
+
+![Bitcoin Account Created](/step3account.png)
+*Fig. 11: Bitcoin Account Created*
