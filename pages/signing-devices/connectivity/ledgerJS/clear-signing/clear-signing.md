@@ -1,0 +1,86 @@
+---
+title: Clear Signing for ERC721, ERC1155 and ERC20
+subtitle:
+tags: [assets, design, communication]
+category: Connect your app
+author:
+toc:
+layout: doc
+---
+
+For every transaction, the users must be able to verify on the device the amount being transferred and the destination address or the validator/nominator address(es) in the case of a staking operation.
+
+When the display of those parameters (Token, smart contract management) is not possible, the transaction should be rejected by the device unless the user has acknowledged that they will be blind signing.
+
+For the clear signing to be possible with your App when buying or selling NFTs, you will need to instantiate the const `resolution` with `nft`set to `true` and then pass it when requesting the signature.
+
+
+Here is an example with a ERC20 transaction:
+
+```javascript
+import ethers from "ethers";
+import Eth, { ledgerService } from "@ledgerhq/hw-app-eth";
+import WebUsbTransport from "@ledgerhq/hw-transport-webusb";
+
+const ethersTx: ethers.Transaction = {
+  to: "0xTheSmartContract",
+  value: ethers.BigNumber.from(0),
+  data: "0xa9059cbb000000000000000000000000d8da6bf26964af9d7eed9e03e53415d37aa960450000000000000000000000000000000000000000000000008ac7230489e80000",
+  gasLimit: ethers.BigNumber.from(60000),
+  gasPrice: ethers.BigNumber.from(200000000),
+  nonce: 1,
+  chainId: 1,
+  type: 0,
+};
+
+// Get the serialized transaction as an hex string
+const serializedTxHexString = ethers.utils.serializeTransaction(ethersTx).slice(2); // Remove 0x prefix
+
+// Instanciate whatever transport you want to use
+const transport = await WebUsbTransport.create();
+// Instanciate Eth app bindings
+const eth = new Eth(transport);
+
+// Look for resolutions for external plugins and ERC20
+const resolution = await ledgerService.resolveTransaction(
+  serializedTxHexString,
+  eth.loadConfig,
+  {
+    externalPlugins: true,
+    erc20: true, 
+    nft: true, 
+  }
+);
+
+// Request signature on the Ledger device
+const signature = await eth.signTransaction(
+  "44'/60'/0'/0",
+  serializedTxHexString,
+  resolution
+);
+```
+
+Here is the list of method that are clear signed:
+
+```
+ERC721
+
+function safeTransferFrom(address _from, address _to, uint256 _tokenId, bytes data) external payable;
+function safeTransferFrom(address _from, address _to, uint256 _tokenId) external payable;
+function transferFrom(address _from, address _to, uint256 _tokenId) external payable;
+function approve(address _approved, uint256 _tokenId) external payable;
+function setApprovalForAll(address _operator, bool _approved) external;
+
+
+ERC1155
+
+function safeTransferFrom(address _from, address _to, uint256 _id, uint256 _value, bytes calldata _data) external;
+function safeBatchTransferFrom(address _from, address _to, uint256[] calldata _ids, uint256[] calldata _values, bytes calldata _data) external;
+function setApprovalForAll(address _operator, bool _approved) external;
+
+
+ERC20
+
+function transfer(address _to, uint256 _value) public 
+function approve(address _spender, uint256 _value) public
+```

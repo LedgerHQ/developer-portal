@@ -1,0 +1,32 @@
+---
+title: Why is U2F deprecated ?
+subtitle:
+tags: [communication, transport]
+category: Connect your app
+author:
+toc: true
+layout: doc
+---
+
+## Why is U2F deprecated?
+
+`@ledgerhq/hw-transport-u2f` and `@ledgerhq/hw-transport-webauthn` have been deprecated.
+
+**You must migrate to [`@ledgerhq/hw-transport-webusb`](../web-hid-usb/) or [`@ledgerhq/hw-transport-webhid`](../web-hid-usb/).**
+
+Explanation:
+
+- U2F is a technology that was hijacked by Ledger in 2016-2018 in order to achieve Web integrations of our devices. It was done at a time where was no other alternative and no way to communicate with "HID" or "WebUSB" technologies in a seemless manner.
+- WebHID and WebUSB are technologies that offer a better alternative and are specfically designed to be used for bi-directional communication with USB hardware.
+- Since then, we have been advised to move away from this U2F approach as it breaks U2F security assertions from the browser point of view. Moreover, Windows implementation made it unbearable to keep using this "U2F hack" with agressive pop ups
+- U2F channel was a "fire and forget" protocol without even the capacity to know if a device is plugged or disconnected.
+- The support of U2F channel proxying have been removed from our apps
+
+## What are the solutions and their differences
+
+The solution we suggest is to use either `@ledgerhq/hw-transport-webusb` or `@ledgerhq/hw-transport-webhid`. You can click on the following links to check the compatibility between a web browser and [WebHID](https://caniuse.com/webhid), [WebUSB](https://caniuse.com/webusb) and [Web Bluetooth](https://caniuse.com/web-bluetooth).
+
+The main difference relies on the fact we can create a session with the device. **This works with a browser Permission, so the security is getting better for the user**. The challenge on the integration side, is that you must use the Transport in the context of a User Event Click. Because technically, we can only open the device in context of a click of a button, typically a "Sign Transaction" button you may already have in your interface.
+
+You can see integrations of WebUSB in the [ledgerjs-examples repository](https://github.com/LedgerHQ/ledgerjs-examples/tree/new-examples).
+
