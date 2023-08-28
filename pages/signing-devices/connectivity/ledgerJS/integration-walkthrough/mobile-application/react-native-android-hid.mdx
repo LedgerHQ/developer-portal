@@ -1,12 +1,6 @@
----
-title: React Native HID (Android only)
-subtitle:
-tags: [transport, device, communicate, companion wallet]
-category: Connect your app
-author:
-toc: true
-layout: doc
----
+import { Callout } from 'nextra/components'
+
+# React Native HID (Android only)
 
 ## Introduction
 In this section, you will see how to create a React Native application using the [@ledgerhq/react-native-hid](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/react-native-hid) (Only on Android).
@@ -21,20 +15,17 @@ Download and install [Android Studio](https://developer.android.com/studio), cho
 
 When Android Studio is installed, open it.
 
-{: .center}
-[![Android Studio Window](../images/android-studio.png){:width="840"}](../images/android-studio.png){: style="border-bottom:none;"}   
+![Android Studio Window](/android-studio.png)
 *Fig. 1: Android Studio Window*
 
 Go to Settings => Appearance & Behaviour => System Settings => Android SDK and check the "Show Package Details" checkbox on the bottom right of the windows.
 
-{: .center}
-[![Android Studio Settings](../images/android-studio-settings.png){:width="840"}](../images/android-studio-settings.png){: style="border-bottom:none;"}   
+![Android Studio Settings](/android-studio-settings.png)
 *Fig. 2: Android Studio Settings*
 
 Install the latest SDK version. To do so, select the packages shown below and click apply.
 
-{: .center}
-[![Android Studio SDK Settings](../images/android-studio-SDK.png){:width="840"}](../images/android-studio-SDK.png){: style="border-bottom:none;"}   
+![Android Studio SDK Settings](/android-studio-SDK.png)
 *Fig. 3: Android Studio SDK Settings*
 
 #### Install Homebrew
@@ -103,9 +94,9 @@ react-native init myApp
 cd myApp
 ```
 
-<!--  -->
-{% include alert.html style="tip" text="During the initialization, required 'CocoaPods' dependencies are installed and it may take time." %}
-<!--  -->
+<Callout>
+  During the initialization, required 'CocoaPods' dependencies are installed and it may take time.
+</Callout>
 
 ### Code Implementation
 
@@ -117,10 +108,13 @@ touch polyfill.js
 ```
 Open your folder in a code editor, it must look like this.
 
-{: .center}
-[![Folder of the Application](../images/folder-rn-android.png){:width="210"}](../images/folder-rn-android.png){: style="border-bottom:none;"}   
-*Fig. 4: Folder of the Application*
-
+<br/>
+<div class="center">
+  <figure>
+    <img src="/folder-rn-android.png" alt="Folder of the Application"/>
+    <figcaption><i>Fig. 4: Folder of the Application</i></figcaption>
+  </figure>
+</div>
 
 #### polyfill.js
 
@@ -246,32 +240,13 @@ npm install --save @ledgerhq/hw-app-eth
 npm install --save @ledgerhq/hw-transport-webusb
 ```
 
-<table>
-    <thead>
-        <tr>
-            <th colspan="1">Package</th>
-            <th colspan="2">What does it do?</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><a href="https://www.npmjs.com/package/buffer">Buffer</a></td>
-            <td colspan="2"></td>
-        </tr>
-        <tr>
-            <td><a href="https://www.npmjs.com/package/@ledgerhq/logs">@ledgerhq/logs</a></td>
-            <td colspan="2">It helps you ask your Ledger device to access the ethereum address.</td>
-        </tr>
-        <tr>
-            <td><a href="https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-eth">@ledgerhq/hw-app-eth</a></td>
-            <td colspan="2">It helps you ask your Ledger device to access the ethereum address.</td>
-        </tr>
-        <tr>
-            <td><a href="https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/react-native-hid">@ledgerhq/react-native-hid</a></td>
-            <td colspan="2">It provides you with all the methods to interact with  your Ledger with an HID connexion.</td>
-        </tr>
-    </tbody>
-</table>
+| Package | What does it do? |
+|---------|------------------|
+|[buffer](https://www.npmjs.com/package/buffer) | The goal is to provide an API that is 100% identical to node's Buffer API. |
+|[@ledgerhq/logs](https://www.npmjs.com/package/@ledgerhq/logs) | It helps you ask your Ledger device to access the ethereum address. |
+|[rxjs](https://www.npmjs.com/package/rxjs) | It is a rewrite of "Reactive-Extensions/RxJS" and is the latest production-ready version of RxJS. |
+|[@ledgerhq/hw-app-eth](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-eth) | It helps you ask your Ledger device to access the ethereum address.|
+| [@ledgerhq/react-native-hid](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/react-native-hid) |It provides you with all the methods to interact with  your Ledger with an HID connexion. |
 
 #### Package.json dependencies
 
@@ -316,8 +291,7 @@ This is how your “package.json” must look like.
 #### Build.gradle Modification
 In “build.gradle”, in the "android" folder change `minSdkVersion = 21` to `minSdkVersion = 24`.
 
-{: .center}
-[![Build.gradle Modify the minSdkVersion](../images/change-minSDK.png){:width="840"}](../images/change-minSDK.png){: style="border-bottom:none;"}   
+![Build.gradle Modify the minSdkVersion](/change-minSDK.png)
 *Fig. 5: Build.gradle Modify the minSdkVersion*
 
 
@@ -327,9 +301,9 @@ You can now test the application you have built.
 
 The app testing will be executed on your smartphone because the android studio environment does not allow you to use either Bluetooth or USB connexion.
 
-<!--  -->
-{% include alert.html style="tip" text="Please refer to the information for <a href='https://stackoverflow.com/questions/22604305/how-to-use-android-emulator-for-testing-bluetooth-application' class='alert-link'> Android Emulator Limitation </a>." %}
-<!--  -->
+<Callout>
+  Please refer to the information for <a href='https://stackoverflow.com/questions/22604305/how-to-use-android-emulator-for-testing-bluetooth-application' class='alert-link'> Android Emulator Limitation </a>.
+</Callout>
 
 ### Enable Developer Settings
 To integrate an application on your android smartphone you have to enable the developer role.
@@ -343,13 +317,18 @@ adb devices
 ```
 If all goes well, the list of devices is displayed as shown below:
 
-{: .center}
-[![Device Connected On The Machine](../images/adb-devices.png){:width="210"}](../images/adb-devices.png){: style="border-bottom:none;"}   
-*Fig. 6: Device Connected On The Machine*
+<br/>
+<div class="center">
+  <figure>
+    <img src="/adb-devices.png" alt="Device Connected On The Machine"/>
+    <figcaption><i>Fig. 6: Device Connected On The Machine</i></figcaption>
+  </figure>
+</div>
 
-<!--  -->
-{% include alert.html style="tip" text="For more information about enabling the developer settings on your android device go to <a href='https://developer.android.com/studio/debug/dev-options' class='alert-link'> android studio docs </a>." %}
-<!--  -->
+
+<Callout>
+  Fpr more information about enabling the developer settings on your android device go to <a href='https://developer.android.com/studio/debug/dev-options' class='alert-link'> android studio docs </a>.
+</Callout>
 
 ### Start the Development Server
 You can now open a terminal, navigate to your "myApp" folder, and start the server by running:
@@ -373,30 +352,51 @@ A window will pop up on your android device to install the application. Click on
 
 When launching the application it will be displayed like the image below.
 
-{: .center}
-[![Application Displayed on Smartphone](../images/android-device-hid.jpg){:width="210"}](../images/android-device-hid.jpg){: style="border-bottom:none;"}   
-*Fig. 7: Application Displayed on Smartphone*
+<br/>
+<div class="center">
+  <figure>
+    <img src="/android-device-hid.jpg" alt="Application Displayed on Smartphone"/>
+    <figcaption><i>Fig. 7: Application Displayed on Smartphone</i></figcaption>
+  </figure>
+</div>
 
 ### Plug Your Nano
 Connect your Ledger Nano to your android device, unlock it and open the ethereum application.
 The steps are described below.
 
-{: .center}
-[![Nano Enter Code Pin](../images/ledgerCodePin.jpg){:width="300"}](../images/ledgerCodePin.jpg){: style="border-bottom:none;"}  
-*Fig. 8: Nano Enter Code Pin*
+<br/>
+<div class="center">
+  <figure>
+    <img src="/ledgerCodePin.jpg" alt="Nano Enter Code Pin"/>
+    <figcaption><i>Fig. 8: Nano Enter Code Pin</i></figcaption>
+  </figure>
+</div>
 
-{: .center}
-[![Embedded Application](../images/ledgerEth.jpg){:width="300"}](../images/ledgerEth.jpg){: style="border-bottom:none;"}   
-*Fig. 9: Embedded Application*
+<br/>
+<div class="center">
+  <figure>
+    <img src="/ledgerEth.jpg" alt="Embedded Application"/>
+    <figcaption><i>Fig. 9: Embedded Application</i></figcaption>
+  </figure>
+</div>
 
-{: .center}
-[![Nano Run Application](../images/ledgerReady.jpg){:width="300"}](../images/ledgerReady.jpg){: style="border-bottom:none;"}   
-*Fig. 10: Nano Run Application*
+<br/>
+<div class="center">
+  <figure>
+    <img src="/ledgerReady.jpg" alt="Nano Run Application"/>
+    <figcaption><i>Fig. 10: Nano Run Application</i></figcaption>
+  </figure>
+</div>
+
 
 Now that the two devices are connected, the address will be displayed as shown below:
 
-{: .center}
-[![Address Account Displayed on Smartphone](../images/android-device-hid-address.jpg){:width="210"}](../images/android-device-hid-address.jpg){: style="border-bottom:none;"}   
-*Fig. 11: Address Account Displayed on Smartphone*
+<br/>
+<div class="center">
+  <figure>
+    <img src="/android-device-hid-address.jpg" alt="Address Account Displayed on Smartphone"/>
+    <figcaption><i>Fig. 11: Address Account Displayed on Smartphone</i></figcaption>
+  </figure>
+</div>
 
 Congratulations you have successfully built your first application connected with Ledger!
