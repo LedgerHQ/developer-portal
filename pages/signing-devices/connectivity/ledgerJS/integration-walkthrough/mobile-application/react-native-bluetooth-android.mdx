@@ -1,12 +1,8 @@
----
-title: React Native Bluetooth on Android (Nano X only)
-subtitle:
-tags: [transport, device, communicate, companion wallet]
-category: Connect your app
-author:
-toc: true
-layout: doc
----
+import { Callout } from 'nextra/components'
+
+
+# React Native Bluetooth on Android (Nano X only)
+
 ## Introduction
 In this section you will see how to create a React Native application using the [@ledgerhq/react-native-hw-transport-ble](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/react-native-hw-transport-ble).
 For this project some general prerequisites are mandatory and you can find them [here](../prerequisites/).
@@ -15,37 +11,38 @@ Then you can now go through the prerequisite for Android development below.
 
 ## Prerequisites
 
-#### Install Homebrew
-Homebrew is a package manager for macOS. When it needs to install software from third-party websites. To install it, run:
+### Install
 
-```console
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
-```
+- **Homebrew**
 
+  Homebrew is a package manager for macOS. When it needs to install software from third-party websites. To install it, run:
+  ```console
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
+  ```
+ 
+- **watchman**
+  
+  React Native uses watchman to detect real-time code changes and it automatically builds and pushes the update to your device without manually refreshing.
+  ```console
+  brew install watchman
+  ```
 
-#### Install watchman
-React Native uses watchman to detect real-time code changes and it automatically builds and pushes the update to your device without manually refreshing.
+- **Java JRE and JDK**
 
-```console
-brew install watchman
-```
+  There is a risk of react-native build failure if you don’t have a complete installation of Java. Downloading Android Studio is not enough since it comes bundled with its own JRE.
 
+  ```console
+  brew install --cask adoptopenjdk/openjdk/adoptopenjdk8
+  ```
 
-#### Install Java JRE and JDK
-There is a risk of react-native build failure if you don’t have a complete installation of Java. Downloading Android Studio is not enough since it comes bundled with its own JRE.
+- **React Native**
+  
+  With React Native, you can write an application in Javascript and then the React Native Compiler will convert your Javascript code into native code for iOS and Android environments.
+  React Native command line interface can be installed using npm as below.
 
-```console
-brew install --cask adoptopenjdk/openjdk/adoptopenjdk8
-```
-
-
-#### Install React Native
-With React Native, you can write an application in Javascript and then the React Native Compiler will convert your Javascript code into native code for iOS and Android environments.
-React Native command line interface can be installed using npm as below.
-
-```console
-npm install -g react-native-cli
-```
+  ```console
+  npm install -g react-native-cli
+  ```
 
 
 ### Android development prerequisites
@@ -53,21 +50,18 @@ Download and install [Android Studio](https://developer.android.com/studio), cho
 
 When Android Studio is installed, open it.
 
-{: .center}
-[![Android Studio Window](../images/android-studio.png){:width="840"}](../images/android-studio.png){: style="border-bottom:none;"}   
+![Android Studio Window](/android-studio.png)
 *Fig. 1: Android Studio Window*
 
 
 Then go to settings => Appearance & Behaviour => System Settings => Android SDK and check the "Show Package Details" checkbox on the bottom right of the windows.
 
-{: .center}
-[![Android Studio Settings](../images/android-studio-settings.png){:width="840"}](../images/android-studio-settings.png){: style="border-bottom:none;"}   
+![Android Studio Settings](/android-studio-settings.png)
 *Fig. 2: Android Studio Settings*
 
 Install the latest SDK version. To do so, select the packages shown below and click apply.
 
-{: .center}
-[![Android Studio SDK Settings](../images/android-studio-SDK.png){:width="840"}](../images/android-studio-SDK.png){: style="border-bottom:none;"}   
+![Android Studio SDK Settings](/android-studio-SDK.png)
 *Fig. 3: Android Studio SDK Settings*
 
 #### Set the environnement variables
@@ -105,9 +99,9 @@ react-native init ledgerApp
 cd ledgerApp
 ```
 
-<!--  -->
-{% include alert.html style="tip" text="During the initialization, it is installing required 'CocoaPods' dependencies and it may take time." %}
-<!--  -->
+<Callout>
+  During the initialization, it is installing required 'CocoaPods' dependencies and it may take time.
+</Callout>
 
 ### Code Implementation
 
@@ -512,8 +506,7 @@ const styles = StyleSheet.create({
 
 Your folder must look like this.
 
-{: .center}
-[![Folder of the Application](../images/folder-rn-ble.png){:width="210"}](../images/folder-rn-ble.png){: style="border-bottom:none;"}   
+![Folder of the Application](/folder-rn-ble.png)
 *Fig. 4: Folder of the Application*
 
 ### Dependencies Installation
@@ -617,8 +610,7 @@ This is how your “package.json” has to look like.
 
 In “build.gradle”, in the "android" folder change `minSdkVersion = 21` to `minSdkVersion = 24`.
 
-{: .center}
-[![Build.gradle Modify the minSdkVersion](../images/change-minSDK.png){:width="840"}](../images/change-minSDK.png){: style="border-bottom:none;"}   
+![Build.gradle Modify the minSdkVersion](/change-minSDK.png)
 *Fig. 5: Build.gradle Modify the minSdkVersion*
 
 You can now test the application you have built.
@@ -628,9 +620,9 @@ You can now test the application you have built.
 The app testing will be executed on your smartphone because the android studio emulator environment does not allow you to use either Bluetooth or USB connexion.
 
 
-<!--  -->
-{% include alert.html style="tip" text="Please refer to the information for <a href='https://stackoverflow.com/questions/22604305/how-to-use-android-emulator-for-testing-bluetooth-application' class='alert-link'> Android Emulator Limitation </a>." %}
-<!--  -->
+<Callout>
+  Please refer to the information for <a href='https://stackoverflow.com/questions/22604305/how-to-use-android-emulator-for-testing-bluetooth-application' class='alert-link'> Android Emulator Limitation </a>
+</Callout>
 
 ### Enable Developer Settings
 To integrate an application on your smartphone you have to enable the developer role.
@@ -644,14 +636,13 @@ adb devices
 ```
 If all goes well, the list of devices is displayed as shown below:
 
-{: .center}
-[![Device Connected On The Machine](../images/adb-devices.png){:width="210"}](../images/adb-devices.png){: style="border-bottom:none;"}   
+![Device Connected On The Machine](/adb-devices.png)
 *Fig. 6: Device Connected On The Machine*
 
 
-<!--  -->
-{% include alert.html style="tip" text="For more information about enabling the developer settings on your android device go to <a href='https://developer.android.com/studio/debug/dev-options' class='alert-link'> android studio docs </a>." %}
-<!--  -->
+<Callout>
+  For more information about enabling the developer settings on your android device go to <a href='https://developer.android.com/studio/debug/dev-options' class='alert-link'> android studio docs </a>.
+</Callout>
 
 ### Start the Development Server
 You can now open a terminal, navigate to your "ledgerApp" folder, and start the server by running:
@@ -673,79 +664,74 @@ npm run android
 A window will pop up on your android device to install the application. Click on "Yes" to install it and run it.
 
 
-{: .center}
-[![Mobile Application Installation](../images/mobile-install-app.jpg){:width="320"}](../images/mobile-install-app.jpg)   
+![Mobile Application Installation](/mobile-install-app.jpg)
 *Fig. 7: Mobile Application Installation*
 
 ### Launching the Application
 When launching the application it will be displayed like the image below. You must have the Bluetooth and location activated.
 
-{: .center}
-[![Application Displayed on Smartphone](../images/android-rn-ble.jpg){:width="210"}](../images/android-rn-ble.jpg){: style="border-bottom:none;"}   
+![Application Displayed on Smartphone](/android-rn-ble.jpg)
 *Fig. 8: Application Displayed on Smartphone*
 
 If this is not what you see, you may get:
 
-{: .center}
-[![Bluetooth Not Authorized](../images/android-ble-error.jpg){:width="300"}](../images/android-ble-error.jpg){: style="border-bottom:none;"} [![App Settings 1](../images/android-settings-1.jpg){:width="300"}](../images/android-settings-1.jpg){: style="border-bottom:none;"}  
-[![App Settings 2](../images/android-settings-2.jpg){:width="300"}](../images/android-settings-2.jpg){: style="border-bottom:none;"} [![App Settings 3](../images/android-settings-3.jpg){:width="300"}](../images/android-settings-3.jpg){: style="border-bottom:none;"}  
+![Bluetooth Not Authorized](/android-ble-error.jpg)
+
+![App Settings 1](/android-settings-1.jpg)
+
+![App Settings 2](/android-settings-2.jpg)
+
+![App Settings 3](/android-settings-3.jpg)
+
 *Fig. 9: Authorize the Bluetooth*
 
 
 
-<!--  -->
-{% include alert.html style="tip" text="For more information about enabling the Bluetooth settings on your android device go to the troubleshooting tab." %}
-<!--  -->
+<Callout>
+  For more information about enabling the Bluetooth settings on your android device go to the troubleshooting tab.
+</Callout>
 
 
 ### Pairing the Ledger Nano X
 To pair your Ledger Nano X, unlock it.
 
-{: .center}
-[![Nano Code Pin](../images/ledgerCodePin.jpg){:width="300"}](../images/ledgerCodePin.jpg){: style="border-bottom:none;"}   
+![Nano Code Pin](/ledgerCodePin.jpg)
 *Fig. 10: Nano Code Pin*
 
 Now try to pair the Ledger Nano X to your android smartphone.
 
-{: .center}
-[![Pairing the Ledger Nano X](../images/android-rn-ble-list.jpg){:width="210"}](../images/android-rn-ble-list.jpg){: style="border-bottom:none;"} [![Pairing the Ledger Nano X](../images/android-rn-pairing.jpg){:width="210"}](../images/android-rn-pairing.jpg){: style="border-bottom:none;"}  
+![Pairing the Ledger Nano X](/android-rn-ble-list.jpg)
+![Pairing the Ledger Nano X](/android-rn-pairing.jpg)
 *Fig. 11: Pairing the Ledger Nano X*
 
 ### Pairing and Launching the Ethereum App on Nano X
 When pairing, the pairing code will be displayed on your Ledger Nano X to confirm.
 
-{: .center}
-[![Confirm the pairing](../images/ledgerPairing.jpg){:width="300"}](../images/ledgerPairing.jpg){: style="border-bottom:none;"}  
+![Confirm the pairing](/ledgerPairing.jpg)
 *Fig. 12: Confirm the pairing*
 
-{: .center}
-[![Ethereum Application](../images/ledgerEth.jpg){:width="300"}](../images/ledgerEth.jpg){: style="border-bottom:none;"}   
+![Ethereum Application](/ledgerEth.jpg)
 *Fig. 13: Ethereum Application*
 
-{: .center}
-[![Nano Run Application](../images/ledgerReady.jpg){:width="300"}](../images/ledgerReady.jpg){: style="border-bottom:none;"}   
+![Nano Run Application](/ledgerReady.jpg)
 *Fig. 14: Nano Run Application*
 
 Now that the pairing is complete, the Nano X is ready with the ethereum application.
 If all goes well you see the address of your ethereum account displayed.
 
-{: .center}
-[![Address Account Displayed on Smartphone](../images/android-rn-ble-address.jpg){:width="210"}](../images/android-rn-ble-address.jpg){: style="border-bottom:none;"}   
+![Address Account Displayed on Smartphone](/android-rn-ble-address.jpg)
 *Fig. 15: Address Account Displayed on Smartphone*
 
 ### Verify the Address
 For security purposes, we display on your Nano X the same ethereum address for you to confirm.
 
-{: .center}
-[![Nano Verify Screen](../images/ledgerVerify.jpg){:width="300"}](../images/ledgerVerify.jpg){: style="border-bottom:none;"}   
+![Nano Verify Screen](/ledgerVerify.jpg)
 *Fig. 16: Nano Verify Screen*
 
-{: .center}
-[![Nano Verify Address Screen](../images/ledgerAddress.jpg){:width="300"}](../images/ledgerAddress.jpg){: style="border-bottom:none;"}   
+![Nano Verify Address Screen](/ledgerAddress.jpg)
 *Fig. 17: Nano Verify Address Screen*
 
-{: .center}
-[![Device Approve Screen](../images/ledgerApprove.jpg){:width="300"}](../images/ledgerApprove.jpg){: style="border-bottom:none;"}   
+![Device Approve Screen](/ledgerApprove.jpg)
 *Fig. 18: Device Approve Screen*
 
 Congratulations you have successfully built your first application connected with Ledger on Android!

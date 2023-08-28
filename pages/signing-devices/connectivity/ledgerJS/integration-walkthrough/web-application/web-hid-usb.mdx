@@ -1,12 +1,7 @@
----
-title: Web USB/HID
-subtitle:
-tags: [transport, device, communicate, companion wallet]
-category: Connect your app
-author:
-toc: true
-layout: doc
----
+import { Callout } from 'nextra/components'
+
+# Web USB/HID
+
 ## Introduction
 In this section, we will guide you through the creation of a web application. This application will connect to your Nano to display the address of a Bitcoin account. If you want it for Ethereum you can easily modify it.
 
@@ -47,8 +42,7 @@ touch src/main.js
 
 Your folder must look like this.
 
-{: .center}
-[![Folder USB and HID](../images/folderUsbHid.png)](../images/folderUsbHid.png){: style="border-bottom:none;"}  
+![Folder USB and HID](/folderUsbHid.png)
 *Fig. 1: File structure*
 
 ### Coding
@@ -77,9 +71,9 @@ In index.html copy-paste the following code :
 
 In main.js copy-paste the following code:
 
-<!--  -->
-{% include alert.html style="important" text="Comment out or remove the Transport package you are not using (@ledgerhq/hw-transport-webusb or @ledgerhq/hw-transport-webhid) and the corresponding <code>const</code>." %}
-<!--  -->
+<Callout type="warning" emoji="⚠️">
+  Comment out or remove the Transport package you are not using (@ledgerhq/hw-transport-webusb or @ledgerhq/hw-transport-webhid) and the corresponding <code>const</code>.
+</Callout>
 
 ```javascript
 import 'core-js/actual';
@@ -147,33 +141,12 @@ npm install --save-dev parcel
 npm install --save @ledgerhq/hw-app-btc
 ```
 
-<table>
-    <thead>
-        <tr>
-            <th colspan="1">Package</th>
-            <th colspan="2">What does it do?</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><a href="https://www.npmjs.com/package/core-js">core-js</a></td>
-            <td colspan="2">Modular standard library for JavaScript.</td>
-        </tr>
-        <tr>
-            <td><a href="https://www.npmjs.com/package/@ledgerhq/logs">@ledgerhq/logs</a></td>
-            <td colspan="2">It provides you the log of all the errors from your connection with your Nano that may appear when developing.</td>
-        </tr>
-        <tr>
-            <td><a href="https://parceljs.org/">parcel</a></td>
-            <td colspan="2">It is a build tool that will help you package your application to run it in the browser.</td>
-        </tr>
-        <tr>
-            <td><a href="https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-btc">@ledgerhq/hw-app-btc</a></td>
-            <td colspan="2">It will help you ask your Nano to access the Bitcoin address.</td>
-        </tr>
-    </tbody>
-</table>
-
+| Package | What does it do? |
+|---------|------------------|
+|[core-js](https://www.npmjs.com/package/core-js) | Modular standard library for JavaScript. |
+|[@ledgerhq/logs](https://www.npmjs.com/package/@ledgerhq/logs) | It provides you the log of all the errors from your connection with your Nano that may appear when developing. |
+|[parcel](https://parceljs.org/) | It is a build tool that will help you package your application to run it in the browser. |
+|[@ledgerhq/hw-app-btc](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-btc) | It will help you ask your Nano to access the Bitcoin address. |
 
 #### Install the Transport HID or USB package
 Then depending on your choice install one of the corresponding packages:
@@ -238,9 +211,9 @@ Your "package.json" should look like this:
 }
 ```
 
-<!--  -->
-{% include alert.html style="important" text="In package.json, remove the Transport package you are not using (@ledgerhq/hw-transport-webusb or @ledgerhq/hw-transport-webhid)." %}
-<!--  -->
+<Callout type="warning" emoji="⚠️">
+  In package.json, remove the Transport package you are not using (@ledgerhq/hw-transport-webusb or @ledgerhq/hw-transport-webhid).
+</Callout>
 
 ## Launch
 
@@ -254,44 +227,51 @@ npm run start
 
 Now the application is up and running. Open the browser and go to `localhost:1234`, it will display :
 
-{: .center}
-[![Application running on browser](../images/webapp1.png)](../images/webapp1.png){: style="border-bottom:none;"}  
+![Application running on browser](/webapp1.png)
 *Fig. 3: Application Running on Browser*
+
 ### Plug your Nano
 Before clicking on the text connect your Nano to the USB port, unlock it and run the bitcoin application.
 The steps are described below.
 
-{: .center}
-[![Enter Pin](../images/ledgerCodePin.jpg){:width="300"}](../images/ledgerCodePin.jpg){: style="border-bottom:none;"}   
-*Fig. 4: Enter Pin*
-
-{: .center}
-[![Selection Bitcoin](../images/ledgerBtc.jpg){:width="300"}](../images/ledgerBtc.jpg){: style="border-bottom:none;"}   
-*Fig. 5: Select Bictoin*
-
-{: .center}
-[![Run App](../images/ledgerReady.jpg){:width="300"}](../images/ledgerReady.jpg){: style="border-bottom:none;"}   
-*Fig. 6: The App is running*
+<br/>
+<div class="center">
+  <figure>
+    <img src="/ledgerCodePin.jpg" alt="Nano Enter Code Pin"/>
+    <figcaption><i>Fig. 4: Enter Pin</i></figcaption>
+  </figure>
+</div>
+<br/>
+<div class="center">
+  <figure>
+    <img src="/ledgerBtc.jpg" alt="Select Bictoin"/>
+    <figcaption><i>Fig. 5: Select Bictoin</i></figcaption>
+  </figure>
+</div>
+<br/>
+<div class="center">
+  <figure>
+    <img src="/ledgerReady.jpg" alt="Embedded Run Application"/>
+    <figcaption><i>Fig. 6: Embedded Run Application</i></figcaption>
+  </figure>
+</div>
 
 ### Connect Your Nano to the Application
 Now you can click on the text and a popup will be prompt. Choose your Nano and click connect:
 
-{: .center}
-[![Connect your Nano](../images/webapp2.png)](../images/webapp2.png){: style="border-bottom:none;"}  
+![Connect your Nano](/webapp2.png)
 *Fig. 7: Connect your Nano*
 
 Then if all goes well you must have the bitcoin address you just create [previously](#prerequisites)
 
-{: .center}
-[![Address Account Displayed](../images/webapp3.png)](../images/webapp3.png){: style="border-bottom:none;"}  
+![Address Account Displayed](/webapp3.png)
 *Fig. 8: Address Account Displayed*
 
 Congratulations, you have successfully built your first application connected with a Nano !
 
-<!--  -->
-{% include alert.html style="note" text="Note that if your finalize the operation on your Nano by accepting or rejecting, the corresponding message appears on your web application." %}
-<!--  -->
-
+<Callout type="info" emoji="👉">
+  Note that if your finalize the operation on your Nano by accepting or rejecting, the corresponding message appears on your web application.
+</Callout>
 
 ## Android chrome
 
@@ -328,9 +308,10 @@ To test your application on android, a little change has to be made. Just add th
 }
 ```
 
-<!--  -->
-{% include alert.html style="important" text="In package.json, remove the Transport package you are not using (@ledgerhq/hw-transport-webusb or @ledgerhq/hw-transport-webhid)." %}
-<!--  -->
+<Callout type="warning" emoji="⚠️">
+  In package.json, remove the Transport package you are not using (@ledgerhq/hw-transport-webusb or @ledgerhq/hw-transport-webhid).
+</Callout>
+
 
 The browser will ask you that the website is malicious, to continue, click on "advanced settings" and then on "continue to the localhost site".
 Now you can test to connect your Nano on your android just like the [previous step](#web-app-test).
