@@ -1,12 +1,5 @@
----
-title: Transfer of Ethers between accounts
-subtitle:
-tags: [transport, device, communicate, companion wallet]
-category: Connect your app
-author:
-toc: true
-layout: doc
----
+# Transfer of Ethers between accounts
+
 ## Introduction
 In this section, we will guide you through the creation of an application. This application will create a transaction that will be signed with the Ledger Nano before sending it to the blockchain.
 The purpose of the application is to transfer ethers from your ethereum account on your Ledger to another account.
