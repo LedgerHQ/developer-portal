@@ -1,0 +1,29 @@
+---
+title: Introduction
+subtitle: PSDs - The secure portal to your assets, not a bank
+tags: [psd, personal security devices, device]
+category: Embedded Application
+redirect_from: 
+  - docs/nano-app/psd-introduction
+  - docs/nano-app/psd-introduction/
+author:
+layout: doc
+---
+
+Personal security devices (PSDs) are designed to isolate cryptographic secrets (like PGP or Bitcoin private keys) from your potentially insecure computer which has known vulnerabilities. Storing cryptographic secrets on a physical medium that cannot be infected with a virus (a piece of paper or an encrypted drive) is secure until you need to use your funds.
+
+The instant you need to transfer your funds, you need to load your private keys onto your computer to sign the transaction and you expose them to potential malware (unless you'd like to perform the cryptographic operations necessary to sign the transaction by hand, which is far from convenient, to say the least).
+
+This is where personal security devices come in. They don't just store your cryptographic secrets safely, they also allow you to perform operations with them (like signing transactions) securely and conveniently. Ledger devices also generate secrets securely with a large amount of entropy using an AIS-31 compliant true random number generator (TRNG). Thereby, it is more secure to use the device's internally generated secrets rather than importing a secret from elsewhere which could have been compromised before being loaded onto the device.
+
+Ledger leverages Secure Element technology to build personal security devices for cryptocurrencies and blockchains which provide an interface between humans and the blockchain world. They keep your private keys secure from hackers by storing them in a tamper-proof and eavesdropping-proof Secure Element. Additionally, the Ledger Nano S, Nano X and Nano S Plus have a screen which serves as a trusted source of information about your assets as it is controlled by the device itself, not by potentially vulnerable computer software.
+
+However, personal security devices aren't intended to be a store of data -they're a root of trust. Apps for these devices tend to be lightweight apps that work in conjunction with a host computer. The Secure Element places a limit on the storage capacity of these devices, so storing data encrypted on a host computer is preferred over storing data directly on the device. Therefore, the device contains a set of private keys that you can use to unlock your data and assets, without any risk of compromising the security of your assets in the event that your computer becomes infected with a virus.
+
+Applications that process large amounts of data may not be able to store all of the data on the device at once. There are two effective solutions to this problem:
+- Stream data through the device while the application processes it (for example, it may be encrypting / decrypting the data)
+**or**
+- Derive a secret on the device (preferably from the master seed) and use it on the computer to process the data (this is how the [PGP app](https://github.com/LedgerHQ/blue-app-openpgp-card) works).
+
+This is an important concept: personal security devices are a secure portal to your assets, not a bank. If your device gets lost or destroyed, your assets are still safe. The key to this portal is your "master seed". That brings us to our next section, [The Master Seed](../psd-masterseed/).
+

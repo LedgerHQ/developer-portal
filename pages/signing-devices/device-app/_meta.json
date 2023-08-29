@@ -1,0 +1,18 @@
+{  
+	"introduction": "Introduction", 
+	"submission-process": "App Submission Process",
+	"quickstart": "Quickstart",
+	"seperator": {
+    "type": "separator"
+  	},
+	"coding-guidelines": "Coding guidelines",
+	"delivrables": "Delivrables",
+	"clones": "Ethereum Clones",
+	"separator": {
+    "type": "separator"
+  	},
+	"psd": "Personal security devices",
+	"bolos": "The BOLOS Platform",
+	"tools": "Tools",
+	"faq": "FAQ"
+}

@@ -1,0 +1,48 @@
+---
+title: PIN bypass
+subtitle: 
+tags: [pin bypass, debug]
+category: Embedded Application
+toc:
+author:
+layout: doc
+---
+
+<!-- $ Nov 2022 -->
+
+In Ledger app development, it is necessary to enter your PIN code each time you install an unsigned app. However, BOLOS supports installing a custom developer certificate. With a custom certificate, you can avoid having to retype your PIN each time you adjust your app. Here are the steps for the Ledger Nano S:
+
+1.  Generate a public / private keypair using the following command:
+
+        foo@bar:~$ python3 -m ledgerblue.genCAPair
+        Public key : 0495331cb86e961fc9cb5792a97737e4204b58be99321dcec463cec3057b3304e9875614004e6e540ab0610a1339fae22df6f6f3ec594912b409d69b72f0eaf390
+        Private key: 6c1f1df852255e113b23c2e977d6b5c3ea2aaf411f05a5fdab87a3e8f44468ee
+
+2. Enter in recovery mode on your Ledger Nano S. Do this by unplugging it then holding down the right button (near the hinge, away from USB port) while plugging it in again. `recovery mode` should then appear on the screen. Enter your pin and continue.
+
+3. Load your public key onto the Ledger Nano S. Paste the public key generated at step 1 after `--public`. You may need to adjust the `--targetId` constant to match your device. Find the right targetId for your device [here](https://gist.github.com/TamtamHero/b7651ffe6f1e485e3886bf4aba673348). Notice that we must include a `--name` parameter containing the name of the custom certificate (any string will do):
+
+        python3 -m ledgerblue.setupCustomCA --targetId 0x31100004 --public yourPublicKey --name dev
+
+    If you receive the error `Invalid status 6985`, review [this link](https://github.com/LedgerHQ/blue-loader-python/issues/42) and go back to step 2. The above command is the simplest that can work however some developers may wish to use the optional `--rootPrivateKey` option to specify a secure channel encryption key (which is the private key generated at step 1) or use the `--name` option for convenient labeling according to local convention.
+
+4. Once you have loaded your custom certificate, load an app you compiled onto your Ledger device to see if you are able to bypass the PIN. Before you try it, set the `SCP_PRIVKEY` environment variable to contain the private key generated at step 1 in your shell or `.bashrc`:
+
+        export SCP_PRIVKEY=yourPrivateKey
+
+    and rebuild/load your app.
+
+
+<!--  -->
+{% include alert.html style="important" text="A Ledger device with a custom CA installed can not pass the Ledger Genuine Check, which is required to install applications from the Ledger Live. To make it pass the check, uninstall your custom CA and all the applications installed through it." %}
+<!--  -->
+
+**Uninstalling a custom CA is very quick:**
+
+1. Enter in recovery mode on your Ledger Nano S: unplug the device and then plug it back while holding down the right button (near the hinge, away from USB port). `recovery mode` appears on the screen. Enter your pin and continue.
+
+2.  Type this command in your terminal:
+
+        foo@bar:~$ python3 -m ledgerblue.resetCustomCA --targetId 0x31100004
+
+    Find the right targetId for your device [here](https://gist.github.com/TamtamHero/b7651ffe6f1e485e3886bf4aba673348).

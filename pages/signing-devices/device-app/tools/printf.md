@@ -1,0 +1,23 @@
+---
+title: Printf
+subtitle: 
+tags: [printf debug]
+category: Embedded Application
+toc: true
+author:
+layout: doc
+---
+
+
+The firmware supports the `PRINTF` macro debugging feature, which is defined it in the Makefile.  
+`DEFINES += HAVE_SPRINTF HAVE_PRINTF PRINTF=screen_printf`
+
+You can use PRINTF with [the Speculos emulator](../../speculos/introduction).
+
+Usually, `PRINTF` is defined as void, with this line `DEFINES += PRINTF\(...\)=`.  
+Check if `PRINTF` is already defined somewhere in your Makefile, and if so, comment out this definition so it doesn't override.
+
+<!--  -->
+{% include alert.html style="important" text="The <code>PRINTF</code> macro is a debugging feature, it must not  be used in production. <br>When compiling an application for release, please check that <code>PRINTF</code> is disabled in the Makefile: <br>insert the line <code>DEFINES += PRINTF\(...\)=</code> and comment out the other one." %}
+<!--  -->
+
