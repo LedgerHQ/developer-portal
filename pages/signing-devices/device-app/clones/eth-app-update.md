@@ -1,14 +1,4 @@
----
-title: 1 - Using the 44/60 path
-subtitle:
-tags: []
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/eth-app-update
-  - docs/nano-app/eth-app-update/
-author:
-layout: doc
----
+# 1 - Using the 44/60 path
 
 ## Prerequisites 
 

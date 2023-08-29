@@ -1,15 +1,4 @@
----
-title: Blind Signing
-subtitle:
-tags: [Build, Container]
-category: Embedded Application
-redirect_from: 
-  - docs/embedded-app/functional-requirements
-  - docs/embedded-app/functional-requirements/
-toc:
-author:
-layout: doc
----
+# Blind Signing
 
 For every transaction, the users must be able to verify on the device the amount being transferred and the destination address or the validator/nominator address(es) in the case of a staking operation.
 

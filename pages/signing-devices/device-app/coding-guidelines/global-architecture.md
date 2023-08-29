@@ -1,15 +1,4 @@
----
-title: Global architecture
-subtitle:
-tags: [embedded app, embedded application, dapp plugin, dapp, other applications, applications, apps]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/types-apps
-  - docs/nano-app/types-apps/
-toc: 
-author:
-layout: doc
----
+# Global architecture
 
 Let’s see the typical end-to-end architecture of a BOLOS application, in the case of an app for a cryptocurrency:
 

@@ -1,17 +1,4 @@
----
-title: Low-level display management
-subtitle: Hold your breath. Then jump in
-tags: [bagl, asynchronous display, macros, ux, events, button push ]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/low-level-display-management
-  - docs/nano-app/low-level-display-management/
-toc: true
-author:
-layout: doc
----
-
-
+# Low-level display management
 
 ## Introduction
 

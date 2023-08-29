@@ -1,15 +1,4 @@
----
-title: App updates
-subtitle:
-tags: []
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/maintenance 
-  - docs/nano-app/maintenance/
-toc: 
-author:
-layout: doc
----
+# App updates
 
 You have already submitted an embedded app and you want to update it. Ledger will not update your embedded app code, you are responsible for all subsequent updates following the initial release. 
 

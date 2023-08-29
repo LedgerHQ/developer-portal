@@ -1,14 +1,4 @@
----
-title: Clone Applications
-subtitle: 
-tags: [development phases, develop embedded app]
-category: Embedded Application
-toc: true
-author:
-layout: doc
----
-
-<!-- $ Nov 2022 -->
+# Clone Applications
 
 ## 1 Introduction
 

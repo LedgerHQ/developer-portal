@@ -1,17 +1,4 @@
----
-title: HD Key Generation
-subtitle: The children of infinite trees
-tags: [psd, personal security devices, device, deterministic, cryptography, passphrase, hierarchical deterministic]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/psd-keys
-  - docs/nano-app/psd-keys/
-toc: true
-author:
-layout: doc
----
-
-
+# HD Key Generation
 
 ## Introduction
 

@@ -1,15 +1,4 @@
----
-title: Documentation
-subtitle: Ensuring your documentation is well documented
-tags: [writing documentation, embedded app documentation, requirement, requirements]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/documentation-requirements
-  - docs/nano-app/documentation-requirements/
-toc: true
-author:
-layout: doc
----
+# Documentation
 
 The requirement is to document your app's **APDUs** and **status words** on the app's repository (A)  
 and to submit the **user's documentation** in a Google Doc format for review or a **URL** to the already published documentation (B).  

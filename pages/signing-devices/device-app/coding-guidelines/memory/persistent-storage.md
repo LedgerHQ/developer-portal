@@ -1,16 +1,4 @@
----
-title: Persistent Storage
-subtitle: Not for goldfish
-tags: [flash memory, RAM]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/persistent-storage
-  - docs/nano-app/persistent-storage/
-toc: true
-author:
-layout: doc
----
-
+# Persistent Storage
 
 
 ## Introduction

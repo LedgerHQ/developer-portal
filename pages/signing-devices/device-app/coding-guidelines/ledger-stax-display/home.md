@@ -1,12 +1,4 @@
----
-title: App’s home
-subtitle:
-tags: [requirement, requirements]
-category: Embedded Application
-toc: true
-author:
-layout: doc
----
+# App’s home
 
 The app’s home is what users see when they launch your app. It explains what your app is about, and quickly lead them to where they can take action—typically creating a transaction in Ledger Live or another wallet.
 

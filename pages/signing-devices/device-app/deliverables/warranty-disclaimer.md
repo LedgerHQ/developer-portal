@@ -1,15 +1,4 @@
----
-title: Warranty and liability
-subtitle:
-tags: [publish an app, publish, release app, release, release process, requirement, requirements]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/warranty-disclaimer
-  - docs/nano-app/warranty-disclaimer/
-toc: true
-author:
-layout: doc
----
+# Warranty and liability
 
 The requirement is to **read** and **agree** to the terms below.
 

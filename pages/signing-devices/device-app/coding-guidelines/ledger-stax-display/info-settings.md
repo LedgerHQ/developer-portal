@@ -1,12 +1,4 @@
----
-title: Infos and settings
-subtitle:
-tags: [requirement, requirements]
-category: Embedded Application
-toc: true
-author:
-layout: doc
----
+# Infos and settings
 
 Provide helpful information to your users in the informations section. And for advanced use cases, provide app settings that unlock additional functionality or change the default behavior of your app.
 

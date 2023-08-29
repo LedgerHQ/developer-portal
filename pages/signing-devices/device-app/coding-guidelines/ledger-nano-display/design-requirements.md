@@ -1,15 +1,4 @@
----
-title: Interface
-subtitle:
-tags: [icon, logo, app icon, device icon, manager icon, graphics, glyphs, requirement, requirements]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/design-requirements
-  - docs/nano-app/design-requirements/
-toc: true
-author:
-layout: doc
----
+# Interface
 
 Most of the time, Ledger embedded apps have few functionalities. However, despite this simplicity, it is still challenging to build a user-friendly interface, because of the few inputs (only 2 buttons) and the screen size (128\*32 pixels). The following guidelines will give a good basis to ensure user-friendliness.
 

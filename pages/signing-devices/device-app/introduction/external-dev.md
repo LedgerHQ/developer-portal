@@ -1,14 +1,4 @@
----
-title: External Development
-subtitle: 
-tags: [development phases, develop embedded app]
-category: Embedded Application
-toc: 
-author:
-layout: doc
----
-
-<!-- $ Nov 2022 -->
+# External Development
 
 ## Need a team to build your Embedded App?
 

@@ -1,17 +1,4 @@
----
-title: Advanced display management
-subtitle: Advanced flows for advanced uses
-tags: [on-screen display, screen, ux flow, ux, cherry-picking, define steps]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/advanced-display-management
-  - docs/nano-app/advanced-display-management/
-toc: true
-author:
-layout: doc
----
-
-
+# Advanced display management
 
 ## Introduction
 

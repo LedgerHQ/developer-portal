@@ -1,22 +1,4 @@
----
-title: Developing and submitting an Embedded App
-subtitle: A comprehensive guide on how to develop and submit applications for Ledger devices
-tags: [development phases, develop embedded app, submit an app, submission]
-category: Embedded Application
-redirect_from:
-  - docs/nano-app/introduction
-  - docs/nano-app/introduction/
-  - docs/nano-app/start-here/
-  - docs/nano-app/start-here
-  - docs/embedded-app/start-here/
-  - docs/embedded-app/start-here
-  - docs/embedded-app/types-apps/
-  - docs/embedded-app/types-apps
-
-toc: true
-author:
-layout: doc
----
+# Developing and submitting an Embedded App
 
 ## What is an Embedded App?
 

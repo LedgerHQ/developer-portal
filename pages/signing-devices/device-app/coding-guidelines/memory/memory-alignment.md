@@ -1,17 +1,4 @@
----
-title: Memory alignment
-subtitle: Get padded if you're not aligned
-tags: [development constraints, pointers]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/memory-alignment
-  - docs/nano-app/memory-alignment/
-toc: true
-author:
-layout: doc
----
-
-
+# Memory alignment
 
 ## Introduction
 

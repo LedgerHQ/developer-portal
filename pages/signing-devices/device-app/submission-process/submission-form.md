@@ -1,17 +1,4 @@
----
-title: App submission
-subtitle:
-tags: [publish an app, publish, release app, release, release process]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/submission-form
-  - docs/nano-app/submission-form/
-  - docs/embedded-app/deliverables-checklist
-  - docs/embedded-app/deliverables-checklist/
-toc: true
-author:
-layout: doc
----
+# App submission
 
 ## Ready to submit your App for review?
 

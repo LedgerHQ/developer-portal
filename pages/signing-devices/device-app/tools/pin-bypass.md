@@ -1,14 +1,4 @@
----
-title: PIN bypass
-subtitle: 
-tags: [pin bypass, debug]
-category: Embedded Application
-toc:
-author:
-layout: doc
----
-
-<!-- $ Nov 2022 -->
+# PIN bypass
 
 In Ledger app development, it is necessary to enter your PIN code each time you install an unsigned app. However, BOLOS supports installing a custom developer certificate. With a custom certificate, you can avoid having to retype your PIN each time you adjust your app. Here are the steps for the Ledger Nano S:
 

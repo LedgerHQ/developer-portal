@@ -1,12 +1,4 @@
----
-title: Build & Load App
-subtitle:
-tags: [Build, Container]
-category: Embedded Application
-toc: true
-author:
-layout: doc
----
+# Build & Load App
 
 With the [Ledger Framework](../framework), you can build and load Embedded Apps on Linux, Mac and Windows, very easily, with the Visual Code Ledger extension.
 

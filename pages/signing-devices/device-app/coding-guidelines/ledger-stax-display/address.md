@@ -1,12 +1,4 @@
----
-title: Address verification and sharing
-subtitle:
-tags: [requirement, requirements]
-category: Embedded Application
-toc: true
-author:
-layout: doc
----
+# Address verification and sharing
 
 In addition to signing transactions, your app should let your users verify their receive addresses securely, leveraging the trusted display of Ledger Stax. This chapter goes over the best practices to show, share, and verify an address.
 

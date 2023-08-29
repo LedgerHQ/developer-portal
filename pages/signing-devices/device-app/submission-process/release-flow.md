@@ -1,12 +1,4 @@
----
-title: Release flow
-subtitle:
-tags: [publish an app, publish, release app, release, release process]
-category: Embedded Application
-toc: 
-author:
-layout: doc
----
+# Release flow
 
 This process is applicable to first submissions and to App updates. 
 

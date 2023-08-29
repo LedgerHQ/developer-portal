@@ -1,16 +1,4 @@
----
-title: Application Environment
-subtitle:
-tags: [bolos]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/bolos-application-environment
-  - docs/nano-app/bolos-application-environment/
-toc: true
-layout: doc
----
-
-
+# Application Environment
 
 ## Introduction
 

@@ -1,17 +1,4 @@
----
-title: Hardware Architecture
-subtitle: Secure chips served with a helping of protocol
-tags: [bolos, chips, processors, secure element proxy, seproxyhal]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/bolos-hardware-architecture
-  - docs/nano-app/bolos-hardware-architecture/
-toc: true
-author:
-layout: doc
----
-
-
+# Hardware Architecture
 
 ## Introduction
 

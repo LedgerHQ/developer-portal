@@ -1,15 +1,4 @@
----
-title: Support
-subtitle:
-tags: [support, requirement, requirements]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/support-requirements
-  - docs/nano-app/support-requirements/
-toc: true
-author:
-layout: doc
----
+# Support
 
 The requirement is for you to **ensure support** for all users for your application.  
 You must state **how** users will obtain support as described below.

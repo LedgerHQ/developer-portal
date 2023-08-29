@@ -1,12 +1,4 @@
----
-title: Ledger Framework
-subtitle:
-tags: []
-category: Embedded Application
-toc: true
-author:
-layout: doc
----
+# Ledger Framework
 
 We provide a complete framework to develop Embedded Apps for our devices. This Framework contains:
 - An App Boilerplate

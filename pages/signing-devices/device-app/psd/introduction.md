@@ -1,14 +1,4 @@
----
-title: Introduction
-subtitle: PSDs - The secure portal to your assets, not a bank
-tags: [psd, personal security devices, device]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/psd-introduction
-  - docs/nano-app/psd-introduction/
-author:
-layout: doc
----
+# Introduction
 
 Personal security devices (PSDs) are designed to isolate cryptographic secrets (like PGP or Bitcoin private keys) from your potentially insecure computer which has known vulnerabilities. Storing cryptographic secrets on a physical medium that cannot be infected with a virus (a piece of paper or an encrypted drive) is secure until you need to use your funds.
 

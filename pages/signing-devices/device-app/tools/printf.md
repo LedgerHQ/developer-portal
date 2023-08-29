@@ -1,13 +1,4 @@
----
-title: Printf
-subtitle: 
-tags: [printf debug]
-category: Embedded Application
-toc: true
-author:
-layout: doc
----
-
+# Printf
 
 The firmware supports the `PRINTF` macro debugging feature, which is defined it in the Makefile.  
 `DEFINES += HAVE_SPRINTF HAVE_PRINTF PRINTF=screen_printf`

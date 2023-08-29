@@ -1,15 +1,4 @@
----
-title: BOLOS-App Interaction
-subtitle: Getting smooth exchanges
-tags: [syscall, error model, error codes, try catch finally]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/interaction-bolos-apps
-  - docs/nano-app/interaction-bolos-apps/
-toc: true
-author:
-layout: doc
----
+# BOLOS-App Interaction
 
 ## Introduction
 

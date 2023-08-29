@@ -1,15 +1,4 @@
----
-title: Marketing
-subtitle:
-tags: [twitter, retweet, blog post, press release, requirement, requirements]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/marketing-requirements
-  - docs/nano-app/marketing-requirements/
-toc: true
-author:
-layout: doc
----
+# Marketing
 
 The requirement is to submit a Google Doc containing a **marketing plan** that includes roadmap, dates, and actions. See details below.
 

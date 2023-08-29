@@ -1,18 +1,4 @@
----
-title: Position-Independent Code
-subtitle:
-tags: [pic, link address, execution address, dereferencing]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/position-independant-code
-  - docs/nano-app/position-independant-code/
-toc: true
-author:
-layout: doc
----
-
-
-
+# Position-Independent Code
 
 ## PIC and Model Implications
 

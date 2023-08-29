@@ -1,16 +1,4 @@
----
-title: Introduction
-subtitle: A bird's eye view
-tags: [bolos, framework, operating system]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/bolos-introduction
-  - docs/nano-app/bolos-introduction/
-toc: true
-author:
-layout: doc
----
-
+# Introduction
 
 These pages contain detailed documentation about the core features offered by BOLOS, and how they can be utilized by BOLOS applications and end-users. We'll discuss how BOLOS manages the master device seed and the device private key, and how it can be used for attestation purposes. We'll also describe the hardware architecture that is common between all BOLOS devices.
 

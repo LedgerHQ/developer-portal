@@ -1,12 +1,4 @@
----
-title: Messages and advanced signing
-subtitle:
-tags: [requirement, requirements]
-category: Embedded Application
-toc: true
-author:
-layout: doc
----
+# Messages and advanced signing
 
 In the [Transaction page](../stax-transactions), you’ve seen how to design transactions with fields that are properly parsed and formatted by your app for clear signing. In this chapter, you’ll see how to adapt the design of your operations when you have less control over the data to sign.
 

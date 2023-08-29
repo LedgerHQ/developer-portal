@@ -1,12 +1,4 @@
----
-title: Security Audits
-subtitle: 
-tags: [development phases, develop embedded app, security audit]
-category: Embedded Application
-toc: true
-author:
-layout: doc
----
+# Security Audits
 
 ## Introduction
 

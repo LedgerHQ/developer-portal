@@ -1,15 +1,4 @@
----
-title: Security
-subtitle: Ensuring your app passes the security review
-tags: [security, requirement, requirements]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/secure-app
-  - docs/nano-app/secure-app/
-toc: true
-author:
-layout: doc
----
+# Security
 
 ## Requirement Note
 

@@ -1,12 +1,4 @@
----
-title: Transactions
-subtitle:
-tags: [requirement, requirements]
-category: Embedded Application
-toc: true
-author:
-layout: doc
----
+# Transactions
 
 Signing transactions is the core function of Ledger’s hardware wallets, and it’s a core function of your app. This section presents the fundamentals of transactions and the user experience that is expected for clear signing.
 

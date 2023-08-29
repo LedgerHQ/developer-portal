@@ -1,12 +1,4 @@
----
-title: Manage your device with ledgerctl
-subtitle:
-tags: []
-category: Embedded Application
-toc: true
-author:
-layout: doc
----
+# Manage your device with ledgerctl
 
 ## Installation
 

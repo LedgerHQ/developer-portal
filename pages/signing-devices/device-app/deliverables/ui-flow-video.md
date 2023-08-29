@@ -1,15 +1,4 @@
----
-title: Demo
-subtitle:
-tags: [embedded app, embedded application, applications, deliverables]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/ui-flow-video
-  - docs/nano-app/ui-flow-video/
-toc: true
-author:
-layout: doc
----
+# Demo
 
 You are required to submit a video demo of your Embedded App as described below (For Ledger Nano only).
 

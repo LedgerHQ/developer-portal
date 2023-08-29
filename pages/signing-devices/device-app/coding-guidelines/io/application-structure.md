@@ -1,17 +1,4 @@
----
-title: Application Structure and I/O
-subtitle: I/O - aye, no?
-tags: [apdu, protocol, apdu protocol]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/application-structure
-  - docs/nano-app/application-structure/
-toc: true
-author:
-layout: doc
----
-
-
+# Application Structure and I/O
 
 ## Introduction
 

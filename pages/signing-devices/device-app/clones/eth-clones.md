@@ -1,15 +1,4 @@
----
-title: 2 - All other paths
-subtitle:
-tags: []
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/eth-clones
-  - docs/nano-app/eth-clones/
-toc: true
-author:
-layout: doc
----
+# 2 - All other paths
 
 Follow this process if your chain uses another path than 44/60.
 

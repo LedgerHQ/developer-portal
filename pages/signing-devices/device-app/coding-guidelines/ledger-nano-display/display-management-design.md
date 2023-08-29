@@ -1,13 +1,4 @@
----
-title: Display Management Design
-subtitle: With Oscars for on-screen performance
-tags: [on-screen display, screen, design, ux, layouts]
-category: Embedded Application
-toc: true
-author:
-layout: doc
----
-
+# Display Management Design
 
 ## Layouts
 
@@ -23,14 +14,12 @@ Note that **not all combinations of letters are possible**. For example `paging`
 
 This table contains the **most commonly used layouts**:
 
-| | | |
 | Denomination  | Comment <img align="left" width="320" src="">                                                                                                                                                     | Usage                                                      |
 |---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
 | `bn`          | Bold font for the first line, normal font for the second line.                                                                                                                                    | `bn, {"BoldLine", "NormalLine"}`                           |
 | `pb`          | Picture for the first line, bold font for the second line.                                                                                                                                        | `pb, {&RefToPicture, "BoldLine"}`                          |
 | `pnn`         | Picture for the first line, normal font for the second line and third line.                                                                                                                       | `pnn, {&RefToPicture, "NormalLine1", "NormalLine2"}`       |
 | `bnnn_paging` | Bold first line, normal fonts for the other lines. If the data to be displayed doesn't fit on a single screen, the user will be able to navigate through different screens to see the whole text. | `bnnn_paging, {.title = "BoldLine", .text = "NormalLine"}` |
-|
 
 **Most commonly used layouts**
 
@@ -40,7 +29,6 @@ Notice that the **Nano X and S Plus can fit up to 4 lines**, whereas the **Nano 
 <!-- ------------- Image ------------- -->
 <!-- --------------------------------- -->
 
-| | | |
 | LAYOUT        | NANO S                                                        | NANO X  and S Plus                                            |
 |---------------|---------------------------------------------------------------|---------------------------------------------------------------|
 | `pb`          | <img align="left" width="280" src="/nanos_approve.png">       | <img align="left" width="327" src="/nanox_approve.png">       |
@@ -48,5 +36,4 @@ Notice that the **Nano X and S Plus can fit up to 4 lines**, whereas the **Nano 
 | `nn`          | <img align="left" width="280" src="/nanos_ready.png">        | <img align="left" width="327" src="/nanox_ready.png">        |
 | `pnn`         | <img align="left" width="280" src="/nanos_boilerplate.png">   | <img align="left" width="327" src="/nanox_boilerplate.png">   |
 | `bnnn_paging` | <img align="left" width="280" src="/nanos_address_merged.png">| <img align="left" width="327" src="/nanox_address_merged.png">|
-|
 

@@ -1,17 +1,4 @@
----
-title: BOLOS Features
-subtitle: Secrets, Passphrases and Attestations
-tags: [bolos, cryptographic secrets, passphrases, attestation, chain of trust, secure channel, key, public key, private key]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/bolos-features
-  - docs/nano-app/bolos-features/
-toc: true
-author:
-layout: doc
----
-
-
+# BOLOS Features
 
 ## Introduction
 

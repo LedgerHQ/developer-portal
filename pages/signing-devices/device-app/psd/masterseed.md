@@ -1,17 +1,4 @@
----
-title: The Master Seed
-subtitle: How the 24 words are used on the device
-tags: [psd, personal security devices, device, serialization, cryptography, mnemonic]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/psd-masterseed
-  - docs/nano-app/psd-masterseed/
-toc: true
-author:
-layout: doc
----
-
-
+# The Master Seed
 
 ## Introduction
 

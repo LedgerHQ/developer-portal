@@ -1,13 +1,4 @@
----
-title: Icons
-subtitle:
-tags: [Build, Container]
-category: Embedded Application
-redirect_from: /docs/embedded-app/stax-icon/
-toc: true
-author:
-layout: doc
----
+# Icons
 
 There are 2 mandatory icons that should be provided for Ledger to release an app:
 

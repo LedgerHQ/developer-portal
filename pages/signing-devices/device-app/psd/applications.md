@@ -1,17 +1,4 @@
----
-title: Applications for HD Trees
-subtitle: HD Trees and the 24 words
-tags: [psd, personal security devices, device, path, derivation path, address]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/psd-applications
-  - docs/nano-app/psd-applications/
-toc: true
-author:
-layout: doc
----
-
-
+# Applications for HD Trees
 
 ## Introduction
 

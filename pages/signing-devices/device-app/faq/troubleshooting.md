@@ -1,15 +1,4 @@
----
-title: Pitfalls & Troubleshooting
-subtitle:
-tags: [not enough ram, ram, stack overflow, exception, try catch finally, application crashing, app crashing, unaligned ram]
-category: Embedded Application
-toc: true
-redirect_from: 
-  - docs/nano-app/troubleshooting
-  - docs/nano-app/troubleshooting/
-author:
-layout: doc
----
+# Pitfalls & Troubleshooting
 
 ## Introduction
 

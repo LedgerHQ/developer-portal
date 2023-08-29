@@ -1,18 +1,4 @@
----
-title: Release types and requirements
-subtitle:
-tags: [publish an app, publish, release app, release, release process]
-category: Embedded Application
-redirect_from: 
-  - docs/nano-app/publish-introduction
-  - docs/nano-app/publish-introduction/
-  - docs/embedded-app/publish-introduction
-  - docs/embedded-app/publish-introduction/
-toc: true
-author:
-layout: doc
----
-
+# Release types and requirements
 
 ## Developer mode releases and public release
 

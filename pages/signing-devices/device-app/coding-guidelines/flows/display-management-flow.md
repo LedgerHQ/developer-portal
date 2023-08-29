@@ -1,15 +1,4 @@
----
-title: Display Management Flows
-subtitle: With Oscars for on-screen performance
-tags: [on-screen display, screen, ux flow, ux, layouts]
-category: Embedded Application
-redirect_from:  
-  - docs/nano-app/display-management
-  - docs/nano-app/display-management/
-toc: true
-author:
-layout: doc
----
+# Display Management Flows
 
 ## Introduction
 
