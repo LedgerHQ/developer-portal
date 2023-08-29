@@ -23,7 +23,7 @@ First, open a terminal and create a new project. For this tutorial the project w
 
 Run:
 
-```console
+```console copy
 npx create-react-app examples-web-bluetooth
 cd examples-web-bluetooth
 ```
@@ -33,7 +33,7 @@ The React app initialization creates a "src" folder where you will find all the 
 
 Run:
 
-```console
+```console copy
 touch ./src/QRCode.js
 touch ./src/polyfill.js
 ```
@@ -51,7 +51,7 @@ For this implemetation, you will only modify "App.js", "App.css”, "index.js", 
 
 In "polyfill.js" copy-paste the following code:
 
-```javascript
+```javascript copy
 global.Buffer = require("buffer").Buffer;
 ```
 
@@ -59,14 +59,14 @@ global.Buffer = require("buffer").Buffer;
 
 In "index.js" add the following code:
 
-```javascript
+```javascript copy
 import './polyfill'
 ```
 #### App.js
 
 In App.js copy-paste the following code:
 
-```javascript
+```javascript copy
 import React, { Component } from "react";
 import TransportWebBLE from "@ledgerhq/hw-transport-web-ble";
 import AppEth from "@ledgerhq/hw-app-eth";
@@ -200,7 +200,7 @@ export default App;
 
 In App.css copy-paste the following code:
 
-```css
+```css copy
 .App {
   min-height: 100vh;
   display: flex;
@@ -237,7 +237,7 @@ In App.css copy-paste the following code:
 
 In "QRCode.js" copy-paste the following code:
 
-```javascript
+```javascript copy
 import React, { PureComponent } from "react";
 import qrcode from "qrcode";
 
@@ -290,7 +290,7 @@ export default class QRCode extends PureComponent<Props> {
 
 Run:
 
-```console
+```console copy
 npm install --save qrcode
 npm install --save @ledgerhq/hw-app-eth
 npm install --save @ledgerhq/hw-transport-web-ble
@@ -312,7 +312,7 @@ npm install --save stream
 Now that the dependencies are installed you can find them in the “package.js”.
 This is how your “package.json” has to look like:
 
-```javascript
+```javascript copy
 {
   "name": "examples-web-bluetooth",
   "version": "0.1.0",
@@ -374,7 +374,7 @@ Make sure the Bluetooth feature of your Nano is enabled.
 Now that the Setup is finished, the app has to be available to be displayed.
 Therefore start the development server:
 
-```console
+```console copy
 npm run start
 ```
 

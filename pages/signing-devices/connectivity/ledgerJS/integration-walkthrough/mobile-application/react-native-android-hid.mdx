@@ -31,14 +31,14 @@ Install the latest SDK version. To do so, select the packages shown below and cl
 #### Install Homebrew
 Homebrew is a package manager for macOS. When it needs to install software from third-party websites. To install it, run:
 
-```console
+```console copy
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
 ```
 
 #### Install watchman
 React Native uses watchman to detect real-time code changes and it automatically builds and pushes the update to your device without manually refreshing.
 
-```console
+```console copy
 brew install watchman
 ```
 
@@ -46,7 +46,7 @@ brew install watchman
 #### Install Java JRE and JDK
  There is a risk of react-native build failure if you don’t have a complete installation of Java. Downloading Android Studio is not enough since it comes bundled with its own JRE.
 
-```console
+```console copy
 brew install --cask adoptopenjdk/openjdk/adoptopenjdk8
 ```
 
@@ -55,7 +55,7 @@ brew install --cask adoptopenjdk/openjdk/adoptopenjdk8
 With React Native, you can write an application in Javascript and then the React Native Compiler will convert your Javascript code into native code for iOS and Android environments.
 React Native command line interface can be installed using npm as below.
 
-```console
+```console copy
 npm install -g react-native-cli
 ```
 
@@ -63,13 +63,13 @@ npm install -g react-native-cli
 #### Set the environnement variables
 If you are using bash, put the environment variable into the bash_profile as below:
 
-```console
+```console copy
 cd ~/
 touch ~/.bash_profile;
 open -e .bash_profile
 ```
 
-```console
+```console copy
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
@@ -89,7 +89,7 @@ First, open a terminal and create a new project. For this tutorial the project w
 
 Run:
 
-```console
+```console copy
 react-native init myApp
 cd myApp
 ```
@@ -102,7 +102,7 @@ cd myApp
 
 Run:
 
-```console
+```console copy
 touch App.js
 touch polyfill.js
 ```
@@ -120,7 +120,7 @@ Open your folder in a code editor, it must look like this.
 
 In polyfill.js copy-paste the following code:
 
-```javascript
+```javascript copy
 global.Buffer = require("buffer").Buffer;
 ```
 
@@ -128,7 +128,7 @@ global.Buffer = require("buffer").Buffer;
 
 Then import the "polyfill.js" in "index.js" as shown below:
 
-```javascript
+```javascript copy
 /**
  * @format
  */
@@ -145,7 +145,7 @@ AppRegistry.registerComponent(appName, () => App);
 
 In App.js copy-paste the following code:
 
-```javascript
+```javascript copy
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { listen } from "@ledgerhq/logs";
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
 
 Run:
 
-```console
+```console copy
 npm install --save buffer
 npm install --save @ledgerhq/logs
 npm install --save @ledgerhq/hw-app-eth
@@ -253,7 +253,7 @@ npm install --save @ledgerhq/hw-transport-webusb
 Now that the dependencies are installed you can find them in the “package.js”.
 This is how your “package.json” must look like.
 
-```javascript
+```javascript copy
 {
   "name": "myApp",
   "version": "0.0.1",
@@ -312,7 +312,7 @@ To do that go to  Settings > About Phone > Build Number, and tap 7 times on buil
 Then go to Settings > System > Advanced > Developer Options and enable the  "USB debugging" as well as "Install via USB"
 
 Connect your phone to your computer, and run the below command to see if your device is connected:
-```console
+```console copy
 adb devices
 ```
 If all goes well, the list of devices is displayed as shown below:
@@ -332,19 +332,19 @@ If all goes well, the list of devices is displayed as shown below:
 
 ### Start the Development Server
 You can now open a terminal, navigate to your "myApp" folder, and start the server by running:
-```console
+```console copy
 npm start
 ```
 
 ### Install the App on Device
 Keep the terminal where "metro" is running open and open a new terminal.
 In this new terminal go to your app folder:
-```console
+```console copy
 cd myApp
 ```
 
 Run the command below to install the application on your android device. It's assumed that your device is recognized by the command `adb devices` as the [Previous Step](#enable-developer-settings) mentioned. 
-```console
+```console copy
 npm run android
 ```
 

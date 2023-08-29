@@ -5,10 +5,10 @@ In this section, we will guide you through the creation of an application. This 
 The purpose of the application is to transfer sol from your solana account on your Ledger to another account.
 
 ## Prerequisites
-Before startint, make sure you have gone through the [prerequisites](../prerequisites/).
+Before startint, make sure you have gone through the [prerequisites](../integration-walkthrough/prerequisites/).
 
 ### Install the Solana Embedded App
-First you need to install the Solana Embedded App from Ledger Live as shown in the [prerequisites](../prerequisites/) for Ethereum.
+First you need to install the Solana Embedded App from Ledger Live as shown in the [prerequisites](../integration-walkthrough/prerequisites/) for Ethereum.
 
 ## Tutorial implementation
 
@@ -18,14 +18,14 @@ In this implementation, we will be building a web application with vanilla javas
 It is time to implement the application and test it. First, open a terminal and create a new folder. For this tutorial, the folder will be named "e2e-sol-tutorial”.
 Run:
 
-```console
+```console copy
 mkdir e2e-sol-tutorial
 cd e2e-sol-tutorial
 ```
 
 Then, initialize the project by running the following:
 
-```console
+```console copy
 npm init
 ```
 
@@ -33,14 +33,14 @@ Answer the questions displayed or by default press enter. There is no incidence 
 
 Run:
 
-```console
+```console copy
 touch index.html
 touch index.js
 touch style.css
 mkdir assets
 ```
 
-Put [this logo](../images/ledger-logo.jpg) in the assets folder.
+Put [the logo](../faq/ledger-logos) in the assets folder.
 
 Your working folder must look like this.
 
@@ -53,7 +53,7 @@ Your working folder must look like this.
 
 In index.html copy-paste the following code :
 
-```html
+```html copy
 <!DOCTYPE html>
 <html>
   <head>
@@ -133,7 +133,7 @@ In index.html copy-paste the following code :
 
 In index.js copy-paste the following code :
 
-```javascript
+```javascript copy
 import * as SolanaWeb3 from '@solana/web3.js';
 import TransportWebUSB from "@ledgerhq/hw-transport-webusb";
 import Solana from "@ledgerhq/hw-app-solana";
@@ -222,7 +222,7 @@ document.getElementById("tx-transfer").onclick = async function () {
 
 In style.css copy-paste the following code :
 
-```css
+```css copy
 .modal-content{
     width: 300px;
     height: 400px;
@@ -256,7 +256,7 @@ In style.css copy-paste the following code :
 
 Run:
 
-```console
+```console copy
 npm install --save-dev parcel
 npm install --save @ledgerhq/hw-app-solana
 npm install --save @ledgerhq/hw-transport-webusb
@@ -279,7 +279,7 @@ npm install --save bs58
 Modify the 5th line: `"main": "index.js"` => `"source": "index.html"`
 And ensure you have this line in scripts:
 
-```javascript
+```javascript copy
   "scripts": {
     "start": "parcel"
   },
@@ -287,7 +287,7 @@ And ensure you have this line in scripts:
 
 Add this at the end of the script:
 
-```javascript
+```javascript copy
   "alias": {
     "@ledgerhq/devices": "@ledgerhq/devices/lib-es"
   }
@@ -296,7 +296,7 @@ Add this at the end of the script:
 
 Your file should know look like this:
 
-```javascript
+```javascript copy
 {
     "name": "e2e-sol-tutorial",
     "version": "1.0.0",
@@ -329,7 +329,7 @@ Your file should know look like this:
 Now that the Setup is finished, the app has to be built to be displayed.
 Start the development server:
 
-```console
+```console copy
 npm run start
 ```
 
@@ -401,11 +401,11 @@ Go to the [Solana Faucet](https://solfaucet.com/) website put your Wallet Public
 #### Option n°2 -Solana CLI
 Go to the [Solana CLI](https://docs.solana.com/cli/transfer-tokens) website, there are the steps to add some sol to your account.
 
-```console
+```console copy
 solana airdrop 1 <RECIPIENT_ACCOUNT_ADDRESS> --url https://api.devnet.solana.com
 ```
 For example
-```console
+```console copy
 solana airdrop 1 72tCcW6F4gRWJLCXf3RGejNDZBwUvWCfxHTdxoLGV4ht --url https://api.devnet.solana.com
 ```
 

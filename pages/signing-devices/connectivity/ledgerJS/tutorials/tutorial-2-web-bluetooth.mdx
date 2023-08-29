@@ -6,7 +6,7 @@ import { Callout } from 'nextra/components'
 In this section, we will guide you through the creation of an application that will call a smart contract to read and write.
 
 ## Prerequisites
-Before starting, make sure you have gone through the [prerequisites](../prerequisites/).
+Before starting, make sure you have gone through the [prerequisites](../integration-walkthrough/prerequisites/).
 
 ### Send Ether token to your Ledger Nano ethereum account
 To send some ethers on the Ropsten network, go to one of the ropsten faucet websites:
@@ -43,7 +43,7 @@ The app is build with React, which is a frontend Javascript framework.
 First, open a terminal and create a new project. For this tutorial the project will be named "e2e-tutorial-contract".
 Run:
 
-```console
+```console copy
 npx create-react-app e2e-tutorial-contract
 cd e2e-tutorial-contract
 ```
@@ -53,7 +53,7 @@ The React app initialization creates a "src" folder where you will find all the 
 
 Run:
 
-```console
+```console copy
 touch ./src/ConnectLedger.js
 touch ./src/SmartContract.js
 touch ./src/ethereum.js
@@ -74,7 +74,7 @@ To implement the Ledger connexion you will only modify "App.js", "index.js", "Co
 
 In App.js copy-paste the following code:
 
-```javascript
+```javascript copy
 import React, { useState } from 'react';
 import ConnectLedger from './ConnectLedger.js';
 import SmartContract from './SmartContract.js';
@@ -107,12 +107,12 @@ export default App;
 
 In App.js copy-paste the following code:
 
-```javascript
+```javascript copy
 global.Buffer = require("buffer").Buffer;
 ```
 #### index.js
 in the index.js add these line 
-```javascript
+```javascript copy
 import './polyfill'
 import 'bootstrap/dist/css/bootstrap.min.css';
 ```
@@ -121,7 +121,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 In ConnectLedger.js, copy-paste the following code:
 
-```javascript
+```javascript copy
 import React from 'react';
 
 import TransportWebBLE from "@ledgerhq/hw-transport-web-ble";
@@ -157,7 +157,7 @@ export default ConnectLedger;
 
 In "SmartContract.js", copy-paste the following code:
 
-```javascript
+```javascript copy
 import React, { useState } from 'react';
 import getBlockchain from './ethereum.js';
 import { ethers } from 'ethers';
@@ -262,7 +262,7 @@ export default SmartContract;
 
 In "ethereum.js", copy-paste the following code:
 
-```javascript
+```javascript copy
 import { Contract } from 'ethers';
 
 const getBlockchain = (provider) =>
@@ -327,7 +327,7 @@ export default getBlockchain;
 
 Run:
 
-```console
+```console copy
 npm install --save bootstrap
 npm install --save ethers
 npm install --save @ledgerhq/hw-app-eth
@@ -347,7 +347,7 @@ npm install --save buffer
 Now that the dependencies are installed you can find them in the "package.js".
 This is how your "package.json" shoud look like:
 
-```javascript
+```javascript copy
 {
   "name": "e2e-tutorial",
   "version": "0.1.0",
@@ -398,7 +398,7 @@ This is how your "package.json" shoud look like:
 ### Start the Development Server
 Run:
 
-```console
+```console copy
 npm run start
 ```
 

@@ -14,14 +14,14 @@ For this application we will use the Ledger node hid package which is [@ledgerhq
 First, open a terminal and create a new folder. For this tutorial the folder will be named “examples-node-electron-hid”.
 Run:
 
-```console
+```console copy
 mkdir examples-node-electron-hid
 cd examples-node-electron-hid
 ```
 
 Then, initialize the project:
 
-```console
+```console copy
 npm init
 ```
 
@@ -29,7 +29,7 @@ Answer the questions displayed or by default press enter. There is no incidence 
 
 Run:
 
-```console
+```console copy
 touch index.html
 touch main.js
 touch renderer.js
@@ -46,7 +46,7 @@ Your folder must look like this.
 
 In index.html copy-paste the following code:
 
-```html
+```html copy
 <!DOCTYPE html>
 <html>
   <head>
@@ -81,7 +81,7 @@ In index.html copy-paste the following code:
 
 In main.js copy-paste the following code:
 
-```javascript
+```javascript copy
 // Modules to control application life and create native browser window
 require("babel-polyfill");
 const TransportNodeHid = require("@ledgerhq/hw-transport-node-hid").default;
@@ -187,7 +187,7 @@ app.on("activate", function() {
 
 In renderer.js copy-paste the following code:
 
-```javascript
+```javascript copy
 const electron = require("electron");
 const { ipcRenderer } = electron;
 
@@ -212,7 +212,7 @@ ipcRenderer.send("requestBitcoinInfo");
 
 Run:
 
-```console
+```console copy
 npm install --save-dev electron
 npm install --save babel-polyfill
 npm install @ledgerhq/logs
@@ -232,7 +232,7 @@ npm install --save @ledgerhq/hw-transport-node-hid
 
 Since automatic polyfills have been removed in webpack 5, run the following command to avoid errors when building the app locally:
 
-```console
+```console copy
 npm install node-polyfill-webpack-plugin
 npm i stream
 ```
@@ -242,7 +242,7 @@ npm i stream
 1. Modify the 5th line: `"main": "index.js"` => `"source": "index.html"`
 2. Ensure you have this line in scripts:
 
-```javascript
+```javascript copy
   "scripts": {
     "start": "electron"
   },
@@ -250,7 +250,7 @@ npm i stream
 
 Your file should know look like this:
 
-```javascript
+```javascript copy
 {
   "name": "examples-node-electron-hid",
   "version": "1.0.0",
@@ -279,7 +279,7 @@ Your file should know look like this:
 
 ### Start the Development Server
 Now that the Setup is finished, let's start the application.
-```console
+```console copy
 node_modules/electron/dist/Electron.app/Contents/MacOS/Electron ./main.js
 ```
 

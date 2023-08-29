@@ -18,14 +18,14 @@ Then you can now go through the prerequisite for iOS development below.
 
   Homebrew is a package manager for macOS. When it needs to install software from third-party websites. To install it, run:
 
-  ```console
+  ```console copy
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
   ```
 - **watchman**
 
   React Native uses watchman to detect real-time code changes and it automatically builds and pushes the update to your device without manually refreshing.
 
-  ```console
+  ```console copy
   brew install watchman
   ```
 
@@ -35,7 +35,7 @@ Then you can now go through the prerequisite for iOS development below.
   There is a risk of react-native build failure if you don’t have a complete installation of Java. Downloading Android Studio is not enough since it comes bundled with its own JRE.
 
 
-  ```console
+  ```console copy
   brew install --cask adoptopenjdk/openjdk/adoptopenjdk8
   ```
 
@@ -45,7 +45,7 @@ Then you can now go through the prerequisite for iOS development below.
   With React Native, you can write an application in Javascript and then the React Native Compiler will convert your Javascript code into native code for iOS and Android environments.
   React Native command line interface can be installed using npm as below.
 
-  ```console
+  ```console copy
   npm install -g react-native-cli
   ```
 
@@ -65,7 +65,7 @@ Select the most recent version from the "Command Line Tools" dropdown.
 *Fig. 2: Xcode Location Settings*
 
 Finally, install cocoapods by running:
-```console
+```console copy
 sudo gem install cocoapods
 ```
 
@@ -79,7 +79,7 @@ First, open a terminal and create a new project. For this tutorial the project w
 
 Run:
 
-```console
+```console copy
 react-native init ledgerApp
 cd ledgerApp
 ```
@@ -91,7 +91,7 @@ cd ledgerApp
 ### Code Implementation
 
 Run:
-```console
+```console copy
 mkdir src
 touch polyfill.js
 touch src/DeviceItem.js
@@ -103,7 +103,7 @@ touch src/ShowAddressScreen.js
 
 In "polyfill.js", copy-paste the following code:
 
-```javascript
+```javascript copy
 global.Buffer = require("buffer").Buffer;
 ```
 
@@ -111,7 +111,7 @@ global.Buffer = require("buffer").Buffer;
 
 Then import the polyfill in "index.js" as shown below:
 
-```javascript
+```javascript copy
 /**
  * @format
  */
@@ -128,7 +128,7 @@ AppRegistry.registerComponent(appName, () => App);
 
 Move the file named "App.js" in the "src" folder and copy-paste the following code:
 
-```javascript
+```javascript copy
 import React, { Component } from "react";
 
 import DeviceSelectionScreen from "./DeviceSelectionScreen";
@@ -168,7 +168,7 @@ export default App;
 
 In "DeviceItem.js" copy-paste the following code:
 
-```javascript
+```javascript copy
 import React, { Component } from "react";
 import {
   Text,
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
 
 In "DeviceSelectionScreen.js", copy-paste the following code:
 
-```javascript
+```javascript copy
 import React, { Component } from "react";
 import {
   StyleSheet,
@@ -386,7 +386,7 @@ const styles = StyleSheet.create({
 
 In "ShowAddressScreen.js", copy-paste the following code:
 
-```javascript
+```javascript copy
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -496,7 +496,7 @@ Your folder must look like this.
 ### Dependencies Installation
 
 Run:
-```console
+```console copy
 npm install --save react-native-qrcode-svg
 npm install --save react-native-svg
 npm install --save rxjs
@@ -522,7 +522,7 @@ npm install --save @ledgerhq/hw-app-eth
 Now that the dependencies are installed you can find them in the “package.js”.
 This is how your “package.json” has to look like.
 
-```javascript
+```javascript copy
 {
   "name": "ledgerApp",
   "version": "0.0.1",
@@ -565,7 +565,7 @@ This is how your “package.json” has to look like.
 #### Pod Installation
 
 Then the pod has to be installed in the "ios" folder:
-```console
+```console copy
 cd ios/
 pod install
 pod update

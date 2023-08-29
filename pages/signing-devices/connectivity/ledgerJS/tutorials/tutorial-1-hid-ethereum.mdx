@@ -5,7 +5,7 @@ In this section, we will guide you through the creation of an application. This 
 The purpose of the application is to transfer ethers from your ethereum account on your Ledger to another account.
 
 ## Prerequisites
-Before startint, make sure you have gone through the [prerequisites](../prerequisites/).
+Before startint, make sure you have gone through the [prerequisites](../integration-walkthrough/prerequisites/).
 
 ### Send Ether token to your Ledger Nano ethereum account
 To send some ethers on the Ropsten network, go to one of the ropsten faucet websites:
@@ -39,14 +39,14 @@ In this implementation, we will be building a web application with vanilla javas
 It is time to implement the application and test it. First, open a terminal and create a new folder. For this tutorial, the folder will be named "e2e-eth-tutorial”.
 Run:
 
-```console
+```console copy
 mkdir e2e-eth-tutorial
 cd e2e-eth-tutorial
 ```
 
 Initialize the project by running the following:
 
-```console
+```console copy
 npm init
 ```
 
@@ -54,14 +54,14 @@ Answer the questions displayed or by default press enter. There is no incidence 
 
 Run:
 
-```console
+```console copy
 touch index.html
 touch index.js
 touch style.css
 mkdir assets
 ```
 
-Put [this logo](/ledger-logo.jpg) in the assets folder.
+Put [the logo](../faq/ledger-logos) in the assets folder.
 
 Your working folder must look like this.
 
@@ -74,7 +74,7 @@ Your working folder must look like this.
 
 In index.html copy-paste the following code :
 
-```html
+```html copy
 <!DOCTYPE html>
 <html>
   <head>
@@ -155,7 +155,7 @@ In index.html copy-paste the following code :
 
 In index.js copy-paste the following code :
 
-```javascript
+```javascript copy
 import { ethers } from "ethers";
 import TransportWebHID from "@ledgerhq/hw-transport-webhid";
 import Eth from "@ledgerhq/hw-app-eth";
@@ -244,7 +244,7 @@ document.getElementById("tx-transfer").onclick = async function () {
 
 In style.css copy-paste the following code :
 
-```css
+```css copy
 .modal-content{
     width: 300px;
     height: 400px;
@@ -278,7 +278,7 @@ In style.css copy-paste the following code :
 
 Run:
 
-```console
+```console copy
 npm install --save-dev parcel
 npm install --save @ledgerhq/hw-app-eth
 npm install --save @ledgerhq/hw-transport-webhid
@@ -298,7 +298,7 @@ npm install --save ethers
 Modify the 5th line: `"main": "index.js"` => `"source": "index.html"`
 And ensure you have this line in scripts:
 
-```javascript
+```javascript copy
   "scripts": {
     "start": "parcel"
   },
@@ -306,7 +306,7 @@ And ensure you have this line in scripts:
 
 Add this at the end of the script:
 
-```javascript
+```javascript copy
   "alias": {
     "@ledgerhq/devices": "@ledgerhq/devices/lib-es"
   }
@@ -314,7 +314,7 @@ Add this at the end of the script:
 
 Your file should now look like this:
 
-```javascript
+```javascript copy
 {
     "name": "e2e-eth-tutorial",
     "version": "1.0.0",
@@ -345,7 +345,7 @@ Your file should now look like this:
 Now that the Setup is finished, the app has to be built to be displayed.
 Start the development server:
 
-```console
+```console copy
 npm run start
 ```
 

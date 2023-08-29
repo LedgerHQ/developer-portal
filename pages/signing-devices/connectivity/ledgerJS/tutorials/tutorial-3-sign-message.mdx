@@ -27,7 +27,7 @@ First, open a terminal and create a new folder in your usual working directory. 
 
 Run:
 
-```bash
+```bash copy
 mkdir example-sign-personal-message
 cd example-sign-personal-message
 ```
@@ -35,7 +35,7 @@ cd example-sign-personal-message
 
 Initialize the project by running:
 
-```bash
+```bash copy
 npm init
 ```
 
@@ -44,7 +44,7 @@ Answer the questions displayed or by default press enter. There is no incidence 
 
 Run:
 
-```bash
+```bash copy
 mkdir src
 touch src/index.html
 touch src/main.js
@@ -63,7 +63,7 @@ Open the folder example-sign-personal-message in a code editor.
 
 In index.html copy and paste the following code:
 
-```html
+```html copy
 <!doctype html>
 <html lang="en">
  <head>
@@ -89,7 +89,7 @@ In main.js copy and paste the following code:
   Comment out or remove the Transport package you are not using (<code>@ledgerhq/hw-transport-webusb</code> or <code>@ledgerhq/hw-transport-webhid</code>) and the corresponding <code>const</code>. In the example, we use webusb. Webhid is already commented in line 8 and line 23.
 </Callout>
 
-```js
+```js copy
 import 'core-js/actual';
 import { listen } from "@ledgerhq/logs";
 import Eth from "@ledgerhq/hw-app-eth";
@@ -152,7 +152,7 @@ document.querySelector("#hashMessage").addEventListener("click", async () => {
 
 Run: 
 
-```bash
+```bash copy
 npm install --save core-js
 npm install --save @ledgerhq/logs
 npm install --save-dev parcel
@@ -179,7 +179,7 @@ Modify `“main”: “index.js”` to `“source”:”src/index.html”`.
 
 And ensure you have this line in your `package.json`:
 
-```json
+```json copy
 "scripts": {
    "build": "parcel build",
    "start": "parcel"
@@ -188,7 +188,7 @@ And ensure you have this line in your `package.json`:
 
 Your `package.json` should look like this:
 
-```json
+```json copy
 {
  "name": "example-sign-personal-message",
  "version": "1.0.0",
@@ -224,7 +224,7 @@ Your `package.json` should look like this:
 
 Now that the Setup is finished, the app has to be built to be displayed. Start the development server:
 
-```bash
+```bash copy
 npm run start
 ```
 
@@ -279,7 +279,7 @@ You can verify that you are the one who signed the message by signing in on [run
 
 1. Adapt the code with the message you signed and the hash of the message:
 
-	```js
+	```js copy
 	const { ethers } = require("ethers");
 
 	ethers.utils.verifyMessage("test","0xefb42c22baa0143b322e93b24b0903a0ef47a64b716fbb77debbea55a93dec3e4417aff7dce845723240916c6e34cf17c674828b3addfb0afad966334df5b6311b");

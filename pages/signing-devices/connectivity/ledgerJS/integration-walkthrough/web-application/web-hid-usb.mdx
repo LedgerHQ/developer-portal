@@ -19,14 +19,14 @@ First, open a terminal and create a new folder in your usual working directory. 
 
 Run:
 
-```console
+```console copy
 mkdir example-web-hid-usb
 cd example-web-hid-usb
 ```
 
 Initialize the project by running:
 
-```console
+```console copy
 npm init
 ```
 
@@ -34,7 +34,7 @@ Answer the questions displayed or by default press enter. There is no incidence 
 
 Run:
 
-```console
+```console copy
 mkdir src
 touch src/index.html
 touch src/main.js
@@ -52,7 +52,7 @@ Open the folder example-web-hid-usb in an code editor.
 In index.html copy-paste the following code :
 
 
-```html
+```html copy
 <!doctype html>
 <html lang="en">
   <head>
@@ -75,7 +75,7 @@ In main.js copy-paste the following code:
   Comment out or remove the Transport package you are not using (@ledgerhq/hw-transport-webusb or @ledgerhq/hw-transport-webhid) and the corresponding <code>const</code>.
 </Callout>
 
-```javascript
+```javascript copy
 import 'core-js/actual';
 import { listen } from "@ledgerhq/logs";
 import AppBtc from "@ledgerhq/hw-app-btc";
@@ -134,7 +134,7 @@ document.body.addEventListener("click", async () => {
 
 Run:
 
-```console
+```console copy
 npm install --save core-js
 npm install --save @ledgerhq/logs
 npm install --save-dev parcel
@@ -151,11 +151,11 @@ npm install --save @ledgerhq/hw-app-btc
 #### Install the Transport HID or USB package
 Then depending on your choice install one of the corresponding packages:
 - Install the Ledger package [@ledgerhq/hw-transport-webhid](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-webhid) which provide you with all the methods to interact with your Nano with an HID connection:
-    ```console
+    ```console copy
     npm install --save @ledgerhq/hw-transport-webhid
     ```
 - Install the Ledger package [@ledgerhq/hw-transport-webusb](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-webusb) which provide you with all the methods to interact with your Nano with a USB connection:
-    ```console
+    ```console copy
     npm install --save @ledgerhq/hw-transport-webusb
     ``` 
 
@@ -165,7 +165,7 @@ Then depending on your choice install one of the corresponding packages:
 Modify `"main": "index.js"` to `"source": "src/index.html"`.
 
 And ensure you have this line in your package.json:
-```javascript
+```javascript copy
   "scripts": {
     "build": "parcel build", 
     "start": "parcel"
@@ -174,7 +174,7 @@ And ensure you have this line in your package.json:
 
 Add this at the end of the script:
 
-```javascript
+```javascript copy
   "alias": {
     "@ledgerhq/devices": "@ledgerhq/devices/lib-es"
   }
@@ -182,7 +182,7 @@ Add this at the end of the script:
 
 Your "package.json" should look like this:
 
-```javascript
+```javascript copy
 {
   "name": "example-web-hid-usb",
   "version": "1.0.0",
@@ -221,7 +221,7 @@ Your "package.json" should look like this:
 Now that the Setup is finished, the app has to be built to be displayed.
 Start the development server:
 
-```console
+```console copy
 npm run start
 ```
 
@@ -283,7 +283,7 @@ Moreover, on android, just chrome can support the web application.
 To test your application on android, a little change has to be made. Just add the "--https" flag in your start script, and run the script.
 
 #### package.json
-```javascript
+```javascript copy
 {
   "name": "example-web-hid-usb",
   "version": "1.0.0",
@@ -313,6 +313,4 @@ To test your application on android, a little change has to be made. Just add th
 </Callout>
 
 
-The browser will ask you that the website is malicious, to continue, click on "advanced settings" and then on "continue to the localhost site".
-Now you can test to connect your Nano on your android just like the [previous step](#web-app-test).
-
+The browser will ask you that the website is malicious, to continue, click on "advanced settings" and then on "continue to the localhost site". Now you can test to connect your Nano on your Android.
