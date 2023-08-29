@@ -19,8 +19,7 @@ If the Ropsten and Dimension faucets don't work or the queue is too long, please
 #### Ropsten Ethereum Network
 Go to the [Ropsten Ethereum Faucet](https://faucet.ropsten.be/) website put your Wallet Public Key on the input and click on "Send me test Ether"
 
-{: .center}
-[![Ropsten Ethereum Faucet](../images/tutorial-1-faucet1.png){:width="840"}](../images/tutorial-1-faucet1.png){: style="border-bottom:none;"}   
+![Ropsten Ethereum Faucet](/tutorial-1-faucet1.png)
 *Fig. 1: Ropsten Ethereum Faucet*
 
 
@@ -28,8 +27,7 @@ Go to the [Ropsten Ethereum Faucet](https://faucet.ropsten.be/) website put your
 #### Dimensions Network
 Go to the [Dimensions Network](https://faucet.dimensions.network/) website put your Wallet Public Key on the input, do the captcha and click on "Send me test Ether"
 
-{: .center}
-[![Ropsten Ethereum Faucet](../images/tutorial-1-faucet2.png){:width="840"}](../images/tutorial-1-faucet2.png){: style="border-bottom:none;"}   
+![Ropsten Ethereum Faucet](/tutorial-1-faucet2.png)
 *Fig. 2: Ropsten Ethereum Faucet*
 
 
@@ -63,12 +61,11 @@ touch style.css
 mkdir assets
 ```
 
-Put [this logo](../images/ledger-logo.jpg) in the assets folder.
+Put [this logo](/ledger-logo.jpg) in the assets folder.
 
 Your working folder must look like this.
 
-{: .center}
-[![Folder tutorial](../images/folder-e2e-eth.png)](../images/folder-e2e-eth.png){: style="border-bottom:none;"}  
+![Folder tutorial](/folder-e2e-eth.png)
 *Fig. 3: Folder of the Application*
 
 ### Code Implementation
@@ -288,32 +285,13 @@ npm install --save @ledgerhq/hw-transport-webhid
 npm install --save ethers
 ```
 
-<table>
-    <thead>
-        <tr>
-            <th colspan="1">Package</th>
-            <th colspan="2">What does it do?</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><a href="https://parceljs.org/">parcel</a></td>
-            <td colspan="2">It is a build tool that will help you package your application to run it in the browser.</td>
-        </tr>
-        <tr>
-            <td><a href="https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-eth">@ledgerhq/hw-app-eth</a></td>
-            <td colspan="2">It will help you ask your Ledger Nano to access the ethereum address.</td>
-        </tr>
-        <tr>
-            <td><a href="https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-webhid">@ledgerhq/hw-transport-webhid</a></td>
-            <td colspan="2">It provides you with all the methods to interact with your Ledger with an HID connexion.</td>
-        </tr>
-        <tr>
-            <td><a href="https://docs.ethers.io/v5/">ethers</a></td>
-            <td colspan="2">It provides you with all the methods to interact with the ethereum blockchain.</td>
-        </tr>
-    </tbody>
-</table>
+| Package | What does it do? |
+| ------- | ---------------- |
+| [parcel](https://parceljs.org/) | It is a build tool that will help you package your application to run it in the browser.|
+| [@ledgerhq/hw-app-eth](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-eth) | It will help you ask your Ledger Nano to access the ethereum address. |
+| [@ledgerhq/hw-transport-webhid](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-webhid) | It provides you with all the methods to interact with your Ledger with an HID connexion. |
+| [ethers](https://docs.ethers.io/v5/) | It provides you with all the methods to interact with the ethereum blockchain. |
+
 
 #### Modify Package.json
 
@@ -373,45 +351,52 @@ npm run start
 
 Now the application is up and running. Open the browser and go to `localhost:1234`, it will display :
 
-{: .center}
-[![Application running on browser](../images/tutorial-1-view.png)](../images/tutorial-1-view.png){: style="border-bottom:none;"}  
+![Application running on browser](/tutorial-1-view.png)
 *Fig. 5: Application Running on Browser*
 
 ### Plug Your Ledger Device
 Before clicking on the text connect your Ledger to the USB port, unlock it and run the ethereum application.
 The steps are described below.
 
-{: .center}
-[![Ledger Enter Code Pin](../images/ledgerCodePin.jpg){:width="300"}](../images/ledgerCodePin.jpg){: style="border-bottom:none;"}  
-*Fig. 6: Ledger Enter Code Pin*
+<br/>
+<div class="center">
+  <figure>
+      <img src="/ledgerCodePin.jpg" alt="Nano Enter Code Pin"/>
+    <figcaption><i>Fig. 6: Nano Enter Code Pin</i></figcaption>
+  </figure>
+</div>
 
-{: .center}
-[![Run Ethereum Application on Ledger Nano](../images/ledgerEth.jpg){:width="300"}](../images/ledgerEth.jpg){: style="border-bottom:none;"}   
-*Fig. 7: Run Ethereum Application on Ledger Nano*
+<br/>
+<div class="center">
+  <figure>
+      <img src="/ledgerEth.jpg" alt="Run Ethereum Application on Ledger Nano"/>
+    <figcaption><i>Fig. 7: Run Ethereum Application on Ledger Nano</i></figcaption>
+  </figure>
+</div>
 
-{: .center}
-[![Ethereum Application is Running on Ledger Nano](../images/ledgerReady.jpg){:width="300"}](../images/ledgerReady.jpg){: style="border-bottom:none;"}   
-*Fig. 8: Ethereum Application is Running on Ledger Nano*
-
+<br/>
+<div class="center">
+  <figure>
+      <img src="/ledgerReady.jpg" alt="Ethereum Application is Running on Ledger Nano"/>
+    <figcaption><i>Fig. 8:  Ethereum Application is Running on Ledger Nano</i></figcaption>
+  </figure>
+</div>
 
 ### Connect Your Ledger to the Application
 Now you can click on the "Connect your Wallet" button and a modal will be opened.
 Click on the Ledger logo.
 
-{: .center}
-[![Choice of Wallet](../images/tutorial-1-connect.png)](../images/tutorial-1-connect.png){: style="border-bottom:none;"}  
+![Choice of Wallet](/tutorial-1-connect.png)
 *Fig. 9: Choice of Wallet*
 
 Now choose the Ledger Nano to connect it to the browser.
 
-{: .center}
-[![Connect the Ledger Nano](../images/tutorial-1-pairing.png)](../images/tutorial-1-pairing.png){: style="border-bottom:none;"}  
+![Connect the Ledger Nano](/tutorial-1-pairing.png)
 *Fig. 10: Connect the Ledger Nano*
 
 If all goes well, the input fields will be filled with data. The greyed input is not to be changed and it is directly extracted either from the blockchain or from your Ledger Embedded application.
 
-{: .center}
-[![Application After Connecting Ledger Nano](../images/tutorial-1-view2.png)](../images/tutorial-1-view2.png){: style="border-bottom:none;"}  
+![Application After Connecting Ledger Nano](/tutorial-1-view2.png)
 *Fig. 11: Application After Connecting Ledger Nano*
 
 
@@ -420,21 +405,18 @@ If all goes well, the input fields will be filled with data. The greyed input is
 Now that the inputs are filled with data. It is time to transfer some ether tokens from your Ledger ethereum account to another account (you can keep the default account on the "index.js" file).  
 Therefore, click on "Create Transaction" to create the transaction which will be signed by your ledger before sending it to the blockchain.  
 
-{: .center}
-[![Application After Connecting Ledger Nano](../images/tutorial-1-view2.png)](../images/tutorial-1-view2.png){: style="border-bottom:none;"}  
+![Application After Connecting Ledger Nano](/tutorial-1-view2.png)
 *Fig. 12: Application After Connecting Ledger Nano*
 
 When the transaction proceed and finalize, an URL will be displayed on the screen. This URL is a link to Ropsten Etherscan to review the transaction.  
 There you can find all the information concerning the transaction you have previously sent.
 
-{: .center}
-[![Result after Sending Transaction](../images/tutorial-1-result.png)](../images/tutorial-1-result.png){: style="border-bottom:none;"}  
+![Result after Sending Transaction](/tutorial-1-result.png)
 *Fig. 13: Result after Sending Transaction*
 
 If you go on Etherscan you can see the information of your transaction.
 
-{: .center}
-[![Result after Sending Transaction](../images/tutorial-1-etherscan.png)](../images/tutorial-1-etherscan.png){: style="border-bottom:none;"}  
+![Result after Sending Transaction](/tutorial-1-etherscan.png)
 *Fig. 14: Transaction Information on Ropsten Etherscan*
 
 

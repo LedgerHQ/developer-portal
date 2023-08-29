@@ -1,12 +1,8 @@
----
-title: Sign a personal message
-subtitle:
-tags: [transport, device, communicate, companion wallet]
-category: Connect your app
-author:
-toc: true
-layout: doc
----
+import { Callout } from 'nextra/components'
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
+
+# Sign a personal message
 
 ## Introduction
 
@@ -56,8 +52,7 @@ touch src/main.js
 
 Your folder must look like this: 
 
-{: .center}
-[![Folder USB and HID](../images/folderUsbHid.png)](../images/folderUsbHid.png){: style="border-bottom:none;"}  
+![Folder USB and HID](/folderUsbHid.png)
 
 
 ### Coding
@@ -90,10 +85,9 @@ In index.html copy and paste the following code:
 
 In main.js copy and paste the following code:
 
-<!--  -->
-{% include alert.html style="important" text="Comment out or remove the Transport package you are not using (<code>@ledgerhq/hw-transport-webusb</code> or <code>@ledgerhq/hw-transport-webhid</code>) and the corresponding <code>const</code>. In the example, we use webusb. Webhid is already commented in line 8 and line 23." %}
-<!--  -->
-
+<Callout type="warning" emoji="⚠️">
+  Comment out or remove the Transport package you are not using (<code>@ledgerhq/hw-transport-webusb</code> or <code>@ledgerhq/hw-transport-webhid</code>) and the corresponding <code>const</code>. In the example, we use webusb. Webhid is already commented in line 8 and line 23.
+</Callout>
 
 ```js
 import 'core-js/actual';
@@ -236,8 +230,7 @@ npm run start
 
 Now the application is up and running. Open the browser and go to `localhost:1234`, it will display: 
 
-{: .center}
-[![Hash Message](../images/hash-message.png)](../images/hash-message.png){: style="border-bottom:none;"}  
+![Hash Message](/hash-message.png)
 
 
 ### Plug your Nano
@@ -248,37 +241,31 @@ Before clicking on the “Hash my message”, connect your Nano to the USB port,
 
 When you click on the “Hash my message”, a popup message will be prompt inviting you to sign a message.
 
-<!-- ------------- Image ------------- -->
-<div class="uk-text-center">
-  <img width="250"  src="../images/sign-message-01.png" >
+<br/>
+<div class="center">
+  <img src="/sign-message-01.png" alt="Hash Message"/>
 </div>
-<!-- --------------------------------- -->
 
 Click the right button to see the content of the message that you are going to sign with your Ethereum address:
 
-<!-- ------------- Image ------------- -->
-<div class="uk-text-center">
-  <img width="250"  src="../images/sign-message-02.png" >
+<br/>
+<div class="center">
+  <img src="/sign-message-02.png" alt="Hash Message"/>
 </div>
-<!-- --------------------------------- -->
 
 
 ### Sign the message
 
 Click the right button to the next screens to sign the “test” message or decline it:
 
-<!-- ------------- Image ------------- -->
-<div class="uk-text-center">
-  <img width="250"  src="../images/sign-message-03.png" >
+<br/>
+<div class="center">
+  <img src="/sign-message-03.png" alt="Hash Message"/>
 </div>
-<!-- --------------------------------- -->
-
-<!-- ------------- Image ------------- -->
-<div class="uk-text-center">
-  <img width="250"  src="../images/sign-message-04.png" >
+<br/>
+<div class="center">
+  <img src="/sign-message-04.png" alt="Hash Message"/>
 </div>
-<!-- --------------------------------- -->
-
 
 Once signed, the webapp will display:
 - The signed message (“hash”)
@@ -300,5 +287,10 @@ You can verify that you are the one who signed the message by signing in on [run
 
 2. Run your code, it should now display the Ethereum address linked to the signed message (the run can take a bit of time):
 
-{: .center}
-[![Runkit](../images/runkit-verification.png)](../images/runkit-verification.png){: style="border-bottom:none;"}  
+<Zoom>
+  <img
+    alt="Runkit"
+    src="/runkit-verification.png"
+  />
+</Zoom>
+

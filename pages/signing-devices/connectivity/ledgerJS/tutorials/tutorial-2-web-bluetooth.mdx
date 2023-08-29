@@ -1,12 +1,7 @@
----
-title: Call a Smart Contract
-subtitle:
-tags: [transport, device, communicate, companion wallet]
-category: Connect your app
-author:
-toc: true
-layout: doc
----
+import { Callout } from 'nextra/components'
+
+# Call a Smart Contract
+
 ## Introduction
 In this section, we will guide you through the creation of an application that will call a smart contract to read and write.
 
@@ -25,8 +20,7 @@ If the Ropsten and Dimension faucets don't work or the queue is too long, please
 #### Ropsten Ethereum Network
 Go to the [Ropsten Ethereum Faucet](https://faucet.ropsten.be/) website put your Wallet Public Key on the input and click on "Send me test Ether"
 
-{: .center}
-[![Ropsten Ethereum Faucet](../images/tutorial-1-faucet1.png){:width="840"}](../images/tutorial-1-faucet1.png){: style="border-bottom: none;"}   
+![Ropsten Ethereum Faucet](/tutorial-1-faucet1.png)
 *Fig. 1: Ropsten Ethereum Faucet*
 
 
@@ -34,8 +28,7 @@ Go to the [Ropsten Ethereum Faucet](https://faucet.ropsten.be/) website put your
 #### Dimensions Network
 Go to the [Dimensions Network](https://faucet.dimensions.network/) website put your Wallet Public Key on the input, do the captcha and click on "Send me test Ether"
 
-{: .center}
-[![Ropsten Ethereum Faucet](../images/tutorial-1-faucet2.png){:width="840"}](../images/tutorial-1-faucet2.png){: style="border-bottom: none;"}   
+![Ropsten Ethereum Faucet](/tutorial-1-faucet2.png)
 *Fig. 2: Ropsten Ethereum Faucet*
 
 ## Web App Bluetooth (only Nano X)
@@ -69,8 +62,7 @@ touch ./src/polyfill.js
 
 Your folder must look like this.
 
-{: .center}
-[![Folder of the Application](../images/tutorial-2-folder.png){:width="210"}](../images/tutorial-2-folder.png){: style="border-bottom: none;"}   
+![Folder of the Application](/tutorial-2-folder.png)
 *Fig. 1: Folder of the Application*
 
 To implement the Ledger connexion you will only modify "App.js", "index.js", "ConnectLedger.js”,"SmartContract.js", and ethereum.js”
@@ -342,37 +334,14 @@ npm install --save @ledgerhq/hw-app-eth
 npm install --save @ledgerhq/hw-transport-web-ble
 npm install --save buffer
 ```
-<table>
-    <thead>
-        <tr>
-            <th colspan="1">Package</th>
-            <th colspan="2">What does it do?</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><a href="https://getbootstrap.com/">bootstrap</a></td>
-            <td colspan="2">It allows you to use the Bootstrap CSS framework.</td>
-        </tr>
-        <tr>
-            <td><a href="https://docs.ethers.io/v5/">ethers</a></td>
-            <td colspan="2">It provides you with all the methods to interact with the Ethereum blockchain</td>
-        </tr>
-        <tr>
-            <td><a href="https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-eth">@ledgerhq/hw-app-eth</a></td>
-            <td colspan="2">It will help you ask your Nano to access the ethereum address.</td>
-        </tr>
-        <tr>
-            <td><a href="https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-web-ble">@ledgerhq/hw-transport-web-ble</a></td>
-            <td colspan="2">It provides you with all the methods to interact with your Ledger Nano X with a Bluetooth connexion.</td>
-        </tr>
-        <tr>
-            <td><a href="https://www.npmjs.com/package/buffer">buffer</a></td>
-            <td colspan="2">The goal is to provide an API that is 100% identical to node's Buffer API.</td>
-        </tr>
-    </tbody>
-</table>
 
+| Package | What does it do? |
+| ------- | ---------------- |
+| [bootstrap](https://getbootstrap.com/) | It allows you to use the Bootstrap CSS framework. |
+| [ethers](https://docs.ethers.io/v5/) | It provides you with all the methods to interact with the Ethereum blockchain. |
+| [@ledgerhq/hw-app-eth](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-eth) | It will help you ask your Nano to access the ethereum address. |
+| [@ledgerhq/hw-transport-web-ble](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-web-ble) | It provides you with all the methods to interact with your Ledger Nano X with a Bluetooth connexion. |
+| [buffer](https://www.npmjs.com/package/buffer) | The goal is to provide an API that is 100% identical to node's Buffer API. |
 
 #### Package.json Dependencies
 Now that the dependencies are installed you can find them in the "package.js".
@@ -433,16 +402,13 @@ Run:
 npm run start
 ```
 
-<!--  -->
-{% include alert.html style="warning" text="All the browser do not support the Bluetooth please look at the <a href='https://caniuse.com/web-bluetooth' class='alert-link'> browser support </a>.
-" %}
-<!--  -->
-
+<Callout type="warning" emoji="⚠️">
+  All the browser do not support the Bluetooth please look at the <a href='https://caniuse.com/web-bluetooth' class='alert-link'> browser support </a>.
+</Callout>
 
 Now the application is up and running. Open the browser and go to `localhost:3000`, it will display :
 
-{: .center}
-[![Application Running on Browser](../images/tutorial-2-connect.png){:width="840"}](../images/tutorial-2-connect.png){: style="border-bottom: none;"}   
+![Application Running on Browser](/tutorial-2-connect.png)
 *Fig. 2: Application Running on Browser*  
 
 Don't click on the button yet.
@@ -451,84 +417,107 @@ Don't click on the button yet.
 Before clicking on the button, unlock your Nano X and run the Ethereum application.
 The steps are described below.
 
-{: .center}
-[![Ledger Enter Code Pin](../images/ledgerCodePin.jpg){:width="300"}](../images/ledgerCodePin.jpg){: style="border-bottom: none;"}  
-*Fig. 3: Ledger Enter Code Pin*
+<br/>
+<div class="center">
+  <figure>
+    <img src="/ledgerCodePin.jpg" alt="Nano Enter Code Pin"/>
+    <figcaption><i>Fig. 3: Ledger Enter Code Pin</i></figcaption>
+  </figure>
+</div>
 
-{: .center}
-[![Ledger Application](../images/ledgerEth.jpg){:width="300"}](../images/ledgerEth.jpg){: style="border-bottom: none;"}   
-*Fig. 4: Ledger Application*
+<br/>
+<div class="center">
+  <figure>
+    <img src="/ledgerEth.jpg" alt="Embedded Application"/>
+    <figcaption><i>Fig. 4: Ledger Application</i></figcaption>
+  </figure>
+</div>
 
-{: .center}
-[![Ledger Run Application](../images/ledgerReady.jpg){:width="300"}](../images/ledgerReady.jpg){: style="border-bottom: none;"}   
-*Fig. 5: Ledger Run Application*
+<br/>
+<div class="center">
+  <figure>
+    <img src="/ledgerReady.jpg" alt="Nano Run Application"/>
+    <figcaption><i>Fig. 5: Application is running</i></figcaption>
+  </figure>
+</div>
 
 ### Connect Your Nano to the Application
 Now you can click on the button and a popup open. Choose your Ledger Nano X and click connexion
 
-{: .center}
-[![Connect the Ledger with Bluetooth](../images/tutorial-2-pairing.png){:width="840"}](../images/tutorial-2-pairing.png){: style="border-bottom: none;"}   
+![Connect the Ledger with Bluetooth](/tutorial-2-pairing.png)
 *Fig. 6: Connect the Ledger with Bluetooth*
 
 ### Read the data of a Smart Contract
 Now you can click on the button "Get Data" to read the data of the smart contract. Then the data will be displayed on the screen.
 
-{: .center}
-[![Get data from a smart contract](../images/tutorial-2-getdata.png){:width="840"}](../images/tutorial-2-getdata.png){: style="border-bottom: none;"}   
+![Get data from a smart contract](/tutorial-2-getdata.png)
 *Fig. 7: Get data from a smart contract*
 
 
 ### Update the data of a Smart Contract
 Now instead of reading data, we will overwrite the data by calling a function of the smart contract which is "UpdateData".
 
-{: .center}
-[![Change data from a smart contract](../images/tutorial-2-changedata.png){:width="840"}](../images/tutorial-2-changedata.png){: style="border-bottom: none;"}    
+![Change data from a smart contract](/tutorial-2-changedata.png)
 *Fig. 8: Change data from a smart contract*
 
 ### Verify the Address on your Nano
 For security reasons, the address will also be displayed on your Ledger Nano X to verify and confirm the address.
 
-{: .center}
-[![Nano Review Screen](../images/ledger-tx-review.jpg){:width="300"}](../images/ledger-tx-review.jpg) [![Nano Amount Screen](../images/ledger-tx-amount.jpg){:width="300"}](../images/ledger-tx-amount.jpg)   
-*Fig. 9: Nano Review Screen  \ Fig. 10: Nano Amount Screen*
+<br/>
+<div class="center">
+  <figure>
+    <img src="/ledger-tx-review.jpg" alt="Nano Review Screen"/>
+    <br/>
+    <img src="/ledger-tx-amount.jpg" alt="Nano Amount Screen"/>
+    <figcaption><i>Fig. 9: Nano Review Screen</i></figcaption>
+    <figcaption><i>Fig. 10: Nano Amount Screen</i></figcaption>
+  </figure>
+</div>
+<br/>
+<div class="center">
+  <figure>
+    <img src="/ledger-tx-address.jpg" alt="Nano Address Screen"/>
+    <br/>
+    <img src="/ledger-tx-network.jpg" alt="Nano Network Screen"/>
+    <figcaption><i>Fig. 11: Nano Address Screen</i></figcaption>
+    <figcaption><i>Fig. 12: Nano Network Screen</i></figcaption>
+  </figure>
+</div>
+<br/>
+<div class="center">
+  <figure>
+    <img src="/ledger-tx-fees.jpg" alt="Nano Max Fees Screen"/>
+    <br/>
+    <img src="/ledger-tx-accept.jpg" alt="Nano Accept and Send Screen"/>
+    <figcaption><i>Fig. 13: Nano Max Fees Screen</i></figcaption>
+    <figcaption><i>Fig. 14: Nano Accept and Send Screen</i></figcaption>
+  </figure>
+</div>
 
-{: .center}
-[![Nano Address Screen](../images/ledger-tx-address.jpg){:width="300"}](../images/ledger-tx-address.jpg) [![Nano Network Screen](../images/ledger-tx-network.jpg){:width="300"}](../images/ledger-tx-network.jpg)   
-*Fig. 11: Nano Address Screen   \   Fig. 12: Nano Network Screen*
-
-{: .center}
-[![Nano Max Fees Screen](../images/ledger-tx-fees.jpg){:width="300"}](../images/ledger-tx-fees.jpg) [![Nano Accept and Send Screen](../images/ledger-tx-accept.jpg){:width="300"}](../images/ledger-tx-accept.jpg)   
-*Fig. 13: Nano Max Fees Screen   \  Fig. 14: Nano Accept and Send Screen*
-
-
-<!--  -->
-{% include alert.html style="warning" text="For the Smart Contract call you need to allow blind signing because the smart contract that is called in the tutorial is not yet verified and reviewed by Ledger. But if the smart contract you are calling is accepted by Ledger do not enable blind signing. Moreover, we do not recommend enabling blind signing in other situations as the main purpose to sign with Ledger is the 'Sign what you see' system. And by enabling blind signing it can not ensure that what you see is what you get." %}
-<!--  -->
+<Callout type="warning" emoji="⚠️">
+  For the Smart Contract call you need to allow blind signing because the smart contract that is called in the tutorial is not yet verified and reviewed by Ledger. But if the smart contract you are calling is accepted by Ledger do not enable blind signing. Moreover, we do not recommend enabling blind signing in other situations as the main purpose to sign with Ledger is the 'Sign what you see' system. And by enabling blind signing it can not ensure that what you see is what you get.
+</Callout>
 
 
 ### Review the Transaction on Ropsten Etherscan
 By updating the data a transaction is created to change this data, it can be verified on Ropsten Etherscan.
 
-{: .center}
-[![Ropsten Etherscan](../images/tutorial-2-etherscan1.png){:width="840"}](../images/tutorial-2-etherscan1.png){: style="border-bottom: none;"}    
+![Ropsten Etherscan](/tutorial-2-etherscan1.png)    
 *Fig. 15: Ropsten Etherscan*
 
 Wait till the status passes to Success.
 
-{: .center}
-[![Ropsten Etherscan](../images/tutorial-2-etherscan2.png){:width="840"}](../images/tutorial-2-etherscan2.png){: style="border-bottom: none;"}    
+![Ropsten Etherscan](/tutorial-2-etherscan2.png)    
 *Fig. 16: Ropsten Etherscan*
 
 ### Verify the update of data
 
 Finally, to verify if data was updated, open the web application and click on "Get data".
 
-{: .center}
-[![Verify the data](../images/tutorial-2-getdata2.png){:width="840"}](../images/tutorial-2-getdata2.png){: style="border-bottom: none;"}    
+![Verify the data](/tutorial-2-getdata2.png)  
 *Fig. 17: Verify the data*
 
-{: .center}
-[![Verify the data](../images/tutorial-2-getdata3.png){:width="840"}](../images/tutorial-2-getdata3.png){: style="border-bottom: none;"}    
+![Verify the data](/tutorial-2-getdata3.png)   
 *Fig. 18: Verify the data*
 
 Congratulations, you have successfully built your first application connected with Ledger!
