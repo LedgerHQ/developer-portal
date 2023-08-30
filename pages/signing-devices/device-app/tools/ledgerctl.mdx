@@ -1,0 +1,49 @@
+# Manage your device with ledgerctl
+
+## Installation
+
+### 1. Install ledgerctl
+
+Run:
+
+```bash
+pip3 install --upgrade protobuf setuptools ecdsa
+pip3 install ledgerwallet
+```
+
+And:
+```bash
+git clone https://github.com/LedgerHQ/ledgerctl.git
+pip3 install --upgrade protobuf setuptools ecdsa
+cd ledgerctl
+pip install -e .
+```
+
+### 2. Install a custom certificate authority (optional)
+
+Optionally, install a custom certificate authority (this will help to establish a custom secure channel between the computer and the device, and identifies ledgerctl as a "trusted manager" on the device):
+
+- a. To install a custom CA, boot the device in "Recovery" mode by pressing the right button at boot time.
+- b. Then run `ledgerctl install-ca <NAME>` where `<NAME>` is the name that will be displayed on the device to identify the CA. It can be any label, like "ledgerctl", "Dev", or "CA". 
+
+The Ledger device will display to you a public key. Allow the “unsafe manager” on the device by pressing at the time the right and left buttons. 
+
+## Usage
+
+You’re now ready to use ledgerctl to manage your Nano. 
+
+To display the list of the application installed on your device:
+```bash
+ledgerctl list 
+```
+
+To display the available space on the device:
+```bash
+ledgerctl meminfo
+```
+
+To delete an app (for example “Bitcoin Legacy”):
+```bash
+ledgerctl delete "Bitcoin Legacy"
+```
+
