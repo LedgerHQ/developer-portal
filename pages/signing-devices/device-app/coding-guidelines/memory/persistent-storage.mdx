@@ -1,0 +1,36 @@
+import { Callout } from 'nextra/components'
+
+# Persistent Storage
+
+
+## Introduction
+
+BOLOS applications have access to two different types of memory in the Secure Element (SE):
+- A small amount of RAM for the call stack and certain global variables
+- A considerably larger amount of flash memory for persistent storage
+
+Access to flash memory is regulated by the Memory Protection Unit, which is configured by BOLOS to prevent applications from tampering with parts of flash memory that they shouldn't. However, applications are able to access the part of flash memory where their constant data and code is defined. This data includes code and `const` variables, but applications may also allocate extra space in NVRAM to be used at runtime for persistent storage.
+
+## Types of Memory
+
+It is up to the developer to decide which parts of the code must be stored in RAM or flash memory. To make your decision, know that:
+
+- All global variables that are declared as `const` are stored in read-only flash memory, right next to code. In most Ledger embedded apps for example, general settings are stored in flash memory.
+- All normal global variables that are declared as non-`const` are stored in RAM. 
+	
+	However, thanks to the link script (`script.ld`) in the SDK, global variables that are declared as non-`const` and are given the prefix `N_` are placed in a special write-permitted location of NVRAM. This data can be read in the same way that regular global variables are read. However, writing to NVRAM variables must be done using the `nvm_write(...)` function defined by the SDK, which performs a syscall. When loading the app, NVRAM variables are initialized with data specified in the app's hex file (this is usually just zero bytes).
+
+<Callout type="warning" emoji="⚠️">
+  Initializers of global non-<code>const</code> variables (including NVRAM variables) are ignored. As such, this data must be initialized by application code.
+</Callout>
+
+## Flash Memory Endurance
+
+Secure elements used in Ledger devices each have a flash memory rated to a certain amount of erase / write cycles. There should be enough cycles to last the expected lifetime of the devices, but only if applications use it properly. Applications should avoid erasures as much as possible.
+
+
+**Here are some techniques for avoiding wearing out the device's flash memory.**
+
+- If you intend to be changing data in flash memory many times while an application is running, consider caching the data in RAM and then flushing to flash memory when the application has finished its operation. This of course has the downside of possible data loss if the user powers off the device (perhaps by unplugging it, in the case of the Nano S or Nano S Plus) before the data has been written to persistent storage.
+- Developers should be aware that flash memory pages are aligned to 64-byte boundaries. Each page in flash memory is expected to survive the amount of erase / write cycles related to the SE. As such, one can develop an application that writes to as few pages as possible. For example, if you intend to store 32 bytes of data in flash memory, write amplification can be avoided by making sure that 32 bytes of data is contained entirely within a single page (and modified using only a single call to `nvm_write(...)`). If the data crossed a 64-byte page boundary, then writing to it once may require two pages to be erased instead of just one.
+
