@@ -26,7 +26,7 @@ The following page uses the Tomo Chain as an example, please replace every `TOMO
 
 Following the next example, add a `.mk` file in `app-ethereum/makefile_conf/chain`
 
-``` c
+``` c copy
 APP_LOAD_PARAMS += --path "44'/889'"
 DEFINES += CHAINID_UPCASE=\"TOMOCHAIN\" CHAINID_COINNAME=\"TOMO\"CHAIN_KIND=CHAIN_KIND_TOMOCHAIN CHAIN_ID=88
 APPNAME = "TomoChain"
@@ -41,7 +41,7 @@ APPNAME = "TomoChain"
 
 Inside `scr/chainConfig.h`, add your chain in `chain_kind_e`:
 
-``` c
+``` c copy
 typedef enum chain_kind_e {
     CHAIN_KIND_ETHEREUM,
   CHAIN_KIND_REOSC,
@@ -60,14 +60,14 @@ Once you have created your App's icons following the [Design requirements](../co
 
 Add:
 
-```c
+```c copy
 case CHAIN_KIND_TOMOCHAIN:
     numTokens = NUM_TOKENS_TOMOCHAIN;
     break;
 ```
 
 and:
-```c
+```c copy
 case CHAIN_KIND_TOMOCHAIN:
     currentToken = (tokenDefinition_t *)PIC(&TOKENS_TOMOCHAIN[i]);
     break;

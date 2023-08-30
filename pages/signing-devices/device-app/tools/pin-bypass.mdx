@@ -5,7 +5,7 @@ import { Callout } from 'nextra/components'
 In Ledger app development, it is necessary to enter your PIN code each time you install an unsigned app. However, BOLOS supports installing a custom developer certificate. With a custom certificate, you can avoid having to retype your PIN each time you adjust your app. Here are the steps for the Ledger Nano S:
 
 1.  Generate a public / private keypair using the following command:
-        ```
+        ``` console copy
         foo@bar:~$ python3 -m ledgerblue.genCAPair
         Public key : 0495331cb86e961fc9cb5792a97737e4204b58be99321dcec463cec3057b3304e9875614004e6e540ab0610a1339fae22df6f6f3ec594912b409d69b72f0eaf390
         Private key: 6c1f1df852255e113b23c2e977d6b5c3ea2aaf411f05a5fdab87a3e8f44468ee
@@ -34,7 +34,7 @@ In Ledger app development, it is necessary to enter your PIN code each time you 
 1. Enter in recovery mode on your Ledger Nano S: unplug the device and then plug it back while holding down the right button (near the hinge, away from USB port). `recovery mode` appears on the screen. Enter your pin and continue.
 
 2.  Type this command in your terminal:
-
+        ``` bash copy
         foo@bar:~$ python3 -m ledgerblue.resetCustomCA --targetId 0x31100004
-
+        ```
     Find the right targetId for your device [here](https://gist.github.com/TamtamHero/b7651ffe6f1e485e3886bf4aba673348).

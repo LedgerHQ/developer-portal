@@ -10,7 +10,7 @@ Traditionally, PIC code implies the BSS segment (RAM variables) is at a constant
 
 The model we choose has limitations, which are related to the way `const` data and code is referenced in other `const` data. Here is a simple example:
 
-``` c
+``` c copy
 const char array1[] = {1, 2, 3, 4};
 const char array2[] = {1, 2, 3, 4};
 const char *array_2d[] = {array1, array2};
@@ -28,7 +28,7 @@ void main() {
 
 In the example above, when dereferencing `array_2d`, the compiler uses a link-time address (in the `0xC0D00000` space, following the previous examples). This is not where the program is loaded in memory at runtime. Therefore, when the dereference is executed, it causes a segmentation fault that effectively stalls the SE. Luckily, the solution is pretty simple, thanks to a small piece of assembly provided with the SDKs which is invoked with the `PIC(...)` macro. `PIC(...)` uses the current load address to adjust the link-time address in order to acquire the correct runtime address of `const` data and code. The above examples can be corrected by modifying the line where `array_2d` is dereferenced to do the following:
 
-``` c
+``` c copy
 sum += ((const char*) PIC(array_2d[i]))[j];
 ```
 

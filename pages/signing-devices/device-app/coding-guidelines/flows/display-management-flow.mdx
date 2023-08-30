@@ -12,7 +12,7 @@ The macro `UX_FLOW` lets you define a flow. It first takes the **name of the flo
 
 Here's an example:
 
-``` c
+``` c copy
 UX_FLOW(ux_sign_transaction,            // Name of the flow
         &step_destination_address,      // Reference to the first step
         &step_display_amount,           // Reference to second step
@@ -36,8 +36,8 @@ Looking back at our previous flow (the `ux_display_pubkey_flow`), you
 can guess which steps were declared with `UX_STEP_NOCB` and
 `UX_STEP_CB`:
 
-| Step                             | STEP\_MACRO    | Note                                                                                                                                                                                                                                          |
-|----------------------------------|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step                             | STEP\_MACRO    | Note                   |
+|----------------------------------|----------------|------------------------|
 | `ux_display_destination_address` | `UX_STEP_NOCB` | This step will just display the destination address to the user, **we're not expecting him to confirm or reject anything**.                                                                                                                   |
 | `ux_display_amount`              | `UX_STEP_NOCB` | This step will just display the amount to the user, **we're not expecting him to confirm or reject**.                                                                                                                                         |
 | `ux_display_transaction_fees`    | `UX_STEP_NOCB` | This step will just display the transaction fees to the user, **we're not expecting him to confirm or reject**.                                                                                                                               |
@@ -48,7 +48,7 @@ can guess which steps were declared with `UX_STEP_NOCB` and
 
 Here's how the first step is defined:
 
-``` c
+``` c copy
 UX_STEP_NOCB(
     step_destination_address,
     bnnn_paging,
@@ -72,7 +72,7 @@ It looks like the `layout` is where the black-magic happens. Let's have a closer
 
 Here's a typical flow for any app that will display its name (along with its logo), then its version, then the settings and finally a quit (along with a icon).
 
-``` c
+``` c copy
 UX_STEP_NOCB(step_menu, pnn, {&C_app_logo, "App", "is ready"}); 
 /* OR UX_STEP_NOCB(step_menu, nn, {&C_app_logo, "Application", "is ready"}); */
 UX_STEP_NOCB(step_version, bn, {"Version", &g_version});
@@ -94,7 +94,7 @@ Pressing both buttons when on the **QUIT** screen calls `os_sched_exit(-1)`, eff
 
 Here's the example of a flow to sign a transaction. We first display "Confirm address" along with a picture, then use `bnnn_paging` to display the address because it might not fit on a single screen. We then display the amount and the transactions fees, and finally add two callback steps: the first one to confirm, the second one to reject.
 
-``` c
+``` c copy
 UX_STEP_NO_CB(step_review, pn, {&C_icon_eye, "Confirm Address"});
 UX_STEP_NO_CB(step_address, bnnn_paging, { .title = "Address", .text = &g_destination_address});
 UX_STEP_NO_CB(step_amount, bn, {"Amount", &g_amount});

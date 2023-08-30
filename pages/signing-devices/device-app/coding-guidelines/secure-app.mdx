@@ -55,7 +55,7 @@ A complete [codeql-workflow.yml](https://github.com/LedgerHQ/app-boilerplate/blo
 
 The first part of the file is an initialization of what is needed to build your Ledger app and a declaration of languages used in your code so CodeQL analyzes it in the right way.
 
-```yaml
+```yaml copy
 jobs:
   analyse:
     name: Analyse
@@ -76,7 +76,7 @@ The action part needs 4 steps:
 - Build the app. Be careful : the initialization of CodeQL needs to be done before building the app so that CodeQL makes the code dictionary during the building stage.
 - Perform the CodeQL analysis
 
-```yaml
+```yaml copy
 steps:
   - name: Clone
     uses: actions/checkout@v3
@@ -162,7 +162,7 @@ Most notable flags are:
 
 A common use of the APPLICATION_FLAG_BOLOS_SETTINGS is querying whether the plane mode on Nano X is currently active and thus disable the Bluetooth Low Energy channel.
 
-```c
+```c copy
 #ifdef TARGET_NANOX
                 G_io_app.plane_mode = os_setting_get(OS_SETTING_PLANEMODE, NULL, 0);
 #endif  // TARGET_NANOX
@@ -170,7 +170,7 @@ A common use of the APPLICATION_FLAG_BOLOS_SETTINGS is querying whether the plan
 
 The Nano S and Nano S Plus do not have such a channel however. Which means the Makefile has to treat the `--appFlags` separately for each device type, like so:
 
-```makefile
+```makefile copy
 ifeq ($(TARGET_NAME), TARGET_NANOX)
 APP_LOAD_PARAMS=--appFlags 0x200  # APPLICATION_FLAG_BOLOS_SETTINGS
 else
@@ -198,7 +198,7 @@ Restricting the derivation path can be done by setting the `--path` property in 
 
 For example, if your application derives keys on the hardened path 44'/60', specify in your Makefile:
 
-``` makefile
+``` makefile copy
 APP_LOAD_PARAMS += --path "44'/60'"
 ```
 
@@ -206,7 +206,7 @@ Derivation can also be restricted to a specific curve using the `--curve` proper
 
 Several curves and paths can be configured at the same time. For example, if your app must derive keys on paths 44'/535348', 13' and 17', on curves Ed25519 and prime256r1, the Makefile should contain:
 
-``` makefile
+``` makefile copy
 APP_LOAD_PARAMS=--curve ed25519 --curve prime256r1 --path "44'/535348'" --path "13'" --path "17'"
 ```
 <Callout type="warning" emoji="⚠️">
@@ -362,7 +362,7 @@ However, if the key has not properly been erased, a security issue could lead to
 
 Here is an example of a common and **wrong way** of doing this:
 
-``` c
+``` c copy
 uint8_t privateKeyData[64];
 cx_ecfp_private_key_t privateKey;
 

@@ -28,7 +28,7 @@ The canary is then checked regularly. If the canary was modified, this means the
 
 Here is the recommended way to implement a stack canary:
 
-``` c
+``` c copy
 // This symbol is defined by the link script to be at the start of the stack
 // area.
 extern unsigned long _stack;
@@ -53,7 +53,7 @@ With our error model, there are two common failure scenarios.
 
 1. You must be careful always to close a `TRY` context when jumping out of it. For example, in the block of code below, the `CLOSE_TRY` macro must be used to close the `TRY` context before returning from the function in the case that `i > 0`. However, in the `CATCH` clause, the `TRY` has already been closed automatically, so `CLOSE_TRY` is unnecessary.
 
-    ``` c
+    ``` c copy
     bool is_positive(int8_t i) {
         BEGIN_TRY {
             TRY {
@@ -73,7 +73,7 @@ With our error model, there are two common failure scenarios.
 
 2. When modifying variables within a `try` / `catch` / `finally` context, always declare those variables `volatile`. This will prevent the compiler from making invalid assumptions when optimizing your code because it doesn't understand how our exception model works.
 
-    ``` c
+    ``` c copy
     uint16_t multiply(uint8_t a, uint8_t b) {
         volatile uint16_t product = 0;
         volatile uint8_t multiplier = b;
@@ -117,7 +117,7 @@ If it occurs, simplify the app and strip away as much code as possible until the
 
 ## Unaligned RAM access
 
-``` c
+``` c copy
 uint16_t *ptr16 = &tmp_ctx.signing_context.buffer[processed];
 PRINTF("uint16_t: %d", ptr16[0]);
 ```

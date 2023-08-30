@@ -6,13 +6,13 @@
 
 Run:
 
-```bash
+```bash copy
 pip3 install --upgrade protobuf setuptools ecdsa
 pip3 install ledgerwallet
 ```
 
 And:
-```bash
+```bash copy
 git clone https://github.com/LedgerHQ/ledgerctl.git
 pip3 install --upgrade protobuf setuptools ecdsa
 cd ledgerctl
@@ -33,17 +33,17 @@ The Ledger device will display to you a public key. Allow the “unsafe manager�
 You’re now ready to use ledgerctl to manage your Nano. 
 
 To display the list of the application installed on your device:
-```bash
+```bash copy
 ledgerctl list 
 ```
 
 To display the available space on the device:
-```bash
+```bash copy
 ledgerctl meminfo
 ```
 
 To delete an app (for example “Bitcoin Legacy”):
-```bash
+```bash copy
 ledgerctl delete "Bitcoin Legacy"
 ```
 

@@ -12,7 +12,7 @@ If you are familiar with C programming, you will be used to error codes as the d
 
 Here is an example of a typical try / catch / finally construct:
 
-``` c
+``` c copy
 BEGIN_TRY {
     TRY {
         // Perform some operation that may throw an error using THROW(...)
@@ -36,7 +36,7 @@ BOLOS is based on an exception model for error reporting, therefore, it expects 
 
 Here is a valid way to call a system entry point:
 
-``` c
+``` c copy
 BEGIN_TRY {
     TRY {
         cx_hash_sha512(...);

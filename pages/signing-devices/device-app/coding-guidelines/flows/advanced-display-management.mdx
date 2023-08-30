@@ -12,7 +12,7 @@ In [Display Management](./display-management-flow/) you learned how to use the `
 
 Imagine an app where you have a flow for a transaction signature.
 
-``` c
+``` c copy
 UX_FLOW(ux_transaction_signature,
          &step_review,
          &step_amount,
@@ -25,7 +25,7 @@ UX_FLOW(ux_transaction_signature,
 
 This works for a transaction signature. But suppose there's an update to the protocol: now some transactions can also sign some arbitrary data. However, not all transactions are required to sign the arbitrary data, so you need two flows:
 
-``` c
+``` c copy
 // The standard signature, nothing has changed.
 UX_FLOW(ux_vanilla_transaction_signature,
          &step_review,
@@ -50,7 +50,7 @@ UX_FLOW(ux_data_transaction_signature,
 
 And now somewhere in your app at runtime you will be able to decide which flow to use:
 
-``` c
+``` c copy
 void launch_flow() {
    if (g.has_arbitrary_data) {
       ux_flow_init(0, ux_data_transaction_signature, NULL);
@@ -64,7 +64,7 @@ Great, this works. But imagine that advanced users in the community also wants t
 
 You then need a flow for the vanilla signature, as well as a flow for the vanilla signature where you show the nonce. You also need the option to display the nonce when there is arbitrary data to sign, so you **also** need the "data signature" flow **and** the "data signature + nonce" flow.
 
-``` c
+``` c copy
 // The standard signature, nothing has changed.
 UX_FLOW(ux_vanilla_transaction_signature,
          &step_review,
@@ -112,7 +112,7 @@ UX_FLOW(ux_data_nonce_transaction_signature,
 
 And now somewhere in you app at runtime you can decide which flow to use:
 
-``` c
+``` c copy
 void launch_flow() {
    if (g.has_arbitrary_data) {
       if (g.display_nonce) {
@@ -144,7 +144,7 @@ The idea is to create an array of steps that is big enough to fit all the steps.
 
 You can then call the `ux_flow_init` and pass in you array as argument.
 
-``` c
+``` c copy
 // The maximum number of steps you will ever need. Here it's 8: step_review, step_amount,
 // step_fee, step_address, step_arbitrary_data, step_nonce, step_accept, step_reject.
 #define MAX_NUM_STEPS 8
@@ -154,7 +154,7 @@ You can then call the `ux_flow_init` and pass in you array as argument.
 const ux_flow_step_t *ux_signature_flow[MAX_NUM_STEPS + 1];
 ```
 
-``` c
+``` c copy
 void start_display() {
    uint8_t index = 0;
 
@@ -189,7 +189,7 @@ In the previous section we saw that we could define a `UX_FLOW` at runtime. But 
 
 Finding a step that would be generic enough to fit all you needs. Naively, the code we would expect would look something like that:
 
-``` c
+``` c copy
 // Naive definition of a UX_FLOW.
 // Note: Keep step_review, step_accept and
 // step_reject because your flow will need those anyway.
@@ -210,7 +210,7 @@ So here's a solution:
 
 Here's what the code looks like.
 
-``` c
+``` c copy
 UX_FLOW(dynamic_flow,
          &step_welcome,
 
@@ -225,7 +225,7 @@ UX_FLOW(dynamic_flow,
 
 The definition of `step_upper_delimiter`, `step_lower_delimiter` and `step_generic` could look like this:
 
-``` c
+``` c copy
 // Note we're using UX_STEP_INIT because this step won't display anything.
 UX_STEP_INIT(
    step_upper_delimiter,
@@ -264,7 +264,7 @@ And now you only need to implement the special logic for this to work!
 
 Inside the `.h` file, you only need to add an `enum` definition and an instance of this `enum` in our global structure:
 
-``` c
+``` c copy
 // State of the dynamic display.
 // Use to keep track of whether we are displaying screens that are inside the
 // array (dynamic), or outside the array (static).
@@ -285,7 +285,7 @@ Add all the business logic in the `.c` file. A helper function is used throughou
 
 > The code is commented thoroughly, so take your time and read it carefully.
 
-``` c
+``` c copy
 // This is a special function you must call for bnnn_paging to work properly in an edgecase.
 // It does some weird stuff with the `G_ux` global which is defined by the SDK.
 // No need to dig deeper into the code, a simple copy-paste will do.
