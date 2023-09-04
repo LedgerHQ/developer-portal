@@ -1,6 +1,6 @@
 # Ledger's exchange SDK
 
-To learn how to create (or embed if already existing) your user interface for the swap, please follow this [tutorial](../../../ledger-live/discover/non-dapp/wallet-api).
+To learn how to create (or embed if already existing) your user interface for the swap, please follow this [tutorial](../../../ledger-live/discover/non-dapp/introduction).
 
 Your LiveApp will interact with Ledger Live, through the ExchangeSDK, with the [swap](#swap) method.
 
@@ -15,7 +15,7 @@ This method will need you to provide the following parameters:
 * `fromAmount`: amount that will be sent from `fromAddressId` to `payinAddress`
 * `feeStrategy`: `SLOW`, `MEDIUM` or `FAST`.
 
-This method rely on the [WalletAPI](https://github.com/LedgerHQ/wallet-api).
+This method rely on the [WalletAPI](https://github.com/LedgerHQ/introduction).
 
 ```js copy
   exchangeSDK.swap({

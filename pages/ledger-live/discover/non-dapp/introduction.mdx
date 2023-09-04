@@ -1,0 +1,24 @@
+# Introduction
+
+## Context
+
+In this section, we will guide you through the process of developing your non-DApp and integrating it into Ledger Live. By having your application supported in Ledger Live, you offer security, ease and accessibility to millions of users.
+
+## What is a non-DApp?
+
+In the context of Live Apps, a non-DApp is an application that leverages the Ledger Live SDK. By doing so, it can get access to the native features of Ledger Live and to the user’s accounts and information.
+
+## How do I develop a non-DApp?
+
+To integrate a **non-DApp**, you need to:
+
+- write [a manifest](../docs/manifest/),
+- use the [Wallet API](https://wallet.api.live.ledger.com/).
+
+To develop an application compatible with Ledger Live, we provide you with a set of particular APIs ([Wallet API](https://wallet.api.live.ledger.com/)). According to the services and features you want to provide, you may have to use some specific APIs to interact with Ledger Live. An example would be account registration or signing transactions. This set of APIs will evolve over time.
+
+You basically develop a web version of your application, which is then integrated into an iframe within Ledger Live so all our users can discover it. This means that you will be hosting the app, not Ledger.
+
+You will find use cases [here](./use-cases/).
+
+Please find UX requirements [here](./ux-req/).
