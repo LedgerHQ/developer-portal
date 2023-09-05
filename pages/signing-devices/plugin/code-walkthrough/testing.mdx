@@ -92,7 +92,7 @@ Note that only two `erc20OfInterest` can be added. This is a memory constraint o
 ### Build the plugin and the Ethereum app
 
 To build the plugin, go back to your docker setup. 
-Open a new terminal window, and in the `plugin-tools/` folder, run`./start.sh`.
+Open a new terminal window, and in the `plugin_dev/` folder, run`sudo docker run --rm -ti -v "$(realpath .):/app" --user $(id -u $USER):$(id -g $USER) ghcr.io/ledgerhq/ledger-app-builder/ledger-app-dev-tools:latest`.
 
 In the container, go to the plugin repository, then to the `tests/` folder.
 
