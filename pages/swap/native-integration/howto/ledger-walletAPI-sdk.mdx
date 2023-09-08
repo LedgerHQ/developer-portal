@@ -13,7 +13,8 @@ This method will need you to provide the following parameters:
 * `fromAccountId`: user's account id, [previously given to the liveapp](./providers-liveapp) as a query parameter
 * `toAccountId`: user's account id, [previously given to the liveapp](./providers-liveapp) as a query parameter
 * `fromAmount`: amount that will be sent from `fromAddressId` to `payinAddress`
-* `feeStrategy`: `SLOW`, `MEDIUM` or `FAST`.
+* `rate`: rate differences in the pair, [previously given to the liveapp](../providers-liveapp) as a query parameter
+* `feeStrategy`: `SLOW`, `MEDIUM`, `FAST` or `CUSTOM`.
 
 This method rely on the [WalletAPI](https://github.com/LedgerHQ/wallet-api).
 
@@ -23,6 +24,7 @@ This method rely on the [WalletAPI](https://github.com/LedgerHQ/wallet-api).
     fromAccountId: "07AB5930-C73A-433F-A2FA-920640AF3A02",
     toAccountId: "76A239EB-1C2A-4237-B942-CA87472106EB",
     fromAmount: "12.3",
-    feeStrategy: "SLOW"
+    feeStrategy: "SLOW",
+    rate: 0.7555,    
   });
 ```
