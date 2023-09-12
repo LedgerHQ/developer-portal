@@ -6,9 +6,13 @@ The deeplink format is already fixed and will depend on the information you prov
 The query params for this deeplink are:
 * `quoteId`: The id retrieved by Ledger's backend during a quote request.
 * `fromAmount`: The amount of currency.
-* `fromAddressId`: The user's address id in Ledger Live repository.
-* `toAddressId`: The user's address id in Ledger Live repository.
-* `feeStrategy`: `SLOW`, `MEDIUM` or `FAST`.
+* `fromAccountId`: The user's account id in Ledger Live repository.
+* `toAccountId`: The user's account id in Ledger Live repository.
+* `rate`: the rate differences in the pair.
+* `feeStrategy`: `SLOW`, `MEDIUM`, `FAST` or `CUSTOM`.
+* `initFeeTotalValue`: initial transaction total fee.
+* `initFeeCurrencyCode`: initial transaction total fee unit.
+* `customFeeConfig`(optional, required for `CUSTOM` feeStrategy): Custom fee configuration in case the strategy is of type `CUSTOM`. The key-value object is encoded in URI parameter.
 
 __Example__:
 ```
