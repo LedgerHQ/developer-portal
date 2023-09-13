@@ -1,7 +1,6 @@
 {  
-	"release-requirements": "Release types and requirements", 
+	"requirements": "Release types and requirements", 
 	"security-audit": "Security Audits",
 	"submission-form": "App submission",
-	"maintenance": "App updates",
-	"release-flow": "Release flow"
+	"maintenance": "App updates"
 }

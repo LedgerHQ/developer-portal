@@ -1,9 +1,35 @@
 import { Cards, Card } from 'nextra/components'
+import { Callout } from 'nextra/components'
 
-<Cards>
+# How the submission of an app goes?
+
+## Release types
+
+There are different release types for an application:
+
+-   **Developer mode release**  
+-   **Public release** (official Ledger support)  
+
+An application can go through Ledger acceptance several times, according to release type.
+
+
+<Callout type="info" emoji="👉">
+  Until the application is audited, the message <code>Pending Ledger Review</code> is displayed when the application is used. The user must acknowledge this warning by pressing both buttons to use the application, which is at their own risk. 
+</Callout>
+
+Developer mode applications are considered experimental and such application will be visible **only when the [developer mode](../../../ledger-live/discover/developer-mode) setting is enabled** in Ledger Live settings.
+
+<Callout type="info" emoji="👉">
+  Some applications are only visible if developer mode is enabled, not because of a lack of security review, but rather because they are considered too complex to use. For example, the mandatory compatible GUI may be missing, or perhaps the application is considered too technical for the majority of users.
+</Callout>
+
+
+## Read the requirements and submit your app
+
+<Cards num={2}>
   <Card
-    title="Release types and requirements"
-    href="/signing-devices/device-app/submisson/release-requirements"
+    title="Release requirements"
+    href="/signing-devices/device-app/submisson/requirements"
   />
   <Card
     title="Security audits"
@@ -16,9 +42,5 @@ import { Cards, Card } from 'nextra/components'
   <Card
     title="App updates"
     href="/signing-devices/device-app/submission/maintenance"
-  />
-  <Card
-    title="Release flow"
-    href="/signing-devices/device-app/submission/release-flow"
   />
 </Cards>
