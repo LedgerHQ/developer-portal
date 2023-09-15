@@ -7,5 +7,6 @@
 	"io": "I/O",
 	"flows": "Flows",
 	"ledger-nano-display": "Ledger Nano Display",
-	"ledger-stax-display": "Ledger Stax Display"
+	"ledger-stax-display": "Ledger Stax Display",
+	"troubleshooting": "Pitfalls and troubleshooting"
 }

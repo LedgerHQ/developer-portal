@@ -1,6 +1,6 @@
 {  
-	"introduction": "Introduction", 
-	"submission-process": "App Submission Process",
+	"getting-started": "Getting started", 
+	"submission": "Submission Requirements",
 	"quickstart": "Quickstart",
 	"seperator": {
     "type": "separator"
@@ -14,5 +14,5 @@
 	"psd": "Personal security devices",
 	"bolos": "The BOLOS Platform",
 	"tools": "Tools",
-	"faq": "FAQ"
+	"faq": "Frequently Asked Questions"
 }
