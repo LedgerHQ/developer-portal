@@ -6,8 +6,8 @@
       "layout": "raw"
     }
   },
-  "signing-devices": {
-    "title": "Signing devices",
+  "ledger-devices": {
+    "title": "Ledger devices",
     "type": "page"
   },
   "ledger-live": {
