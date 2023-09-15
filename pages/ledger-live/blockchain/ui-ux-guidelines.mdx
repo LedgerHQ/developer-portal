@@ -7,7 +7,7 @@ import { Callout } from 'nextra/components'
 These guidelines will help you to use existing UI/UX Flows for Ledger Live Desktop. In addition, it contains instructions to create new Flows, where existing ones are similar so that they can be used as a template. If you have any questions or comments please feel free to contact us on Discord.
 
 <Callout type="warning" emoji="⚠️">
-	The mechanism described below is for Ledger Live Desktop. There is a similar mechanism in Ledger Live Mobile, but without the LLDCoinFamily type at the moment.
+  The mechanism described below is for Ledger Live Desktop. There is a similar mechanism in Ledger Live Mobile, but without the LLDCoinFamily type at the moment.
 </Callout>
 
 
@@ -51,7 +51,7 @@ When they are customisable, you can create your own Component, with the same nam
 
 
 <Callout type="info" emoji="👉">
-	In each of the existing Family members, look in <b>index.ts</b> to see which Component (listed there) are different from the Standard Component. These Differences are listed in the <b>Import</b> header section
+  In each of the existing Family members, look in <b>index.ts</b> to see which Component (listed there) are different from the Standard Component. These Differences are listed in the <b>Import</b> header section
 </Callout>
 
 On running `pnpm i`, MyCoin will be added in `apps/ledger-live-desktop/src/renderer/families/generated.ts` if it doesn’t already exist (as an example, [see Algorand](https://github.com/LedgerHQ/ledger-live/tree/develop/apps/ledger-live-desktop/src/renderer/families/algorand)). 
@@ -65,8 +65,8 @@ In `/apps/ledger-live-desktop/src/renderer/families/MyCoin/`
 1. Create **Index**: follow the structure of other Index files you can find
 2. Optionally create **Types**. If you have specific (Coin) type definitions put them here
 In each folder (of each coin), you’ll find code related to the UI of that coin only. For example, [in the Polkadot family](https://github.com/LedgerHQ/ledger-live/tree/develop/apps/ledger-live-desktop/src/renderer/families/polkadot), there are many examples of UI custom Components:
-	- token bond (BondFlowModal),
-	- validator nomination (NominationFlowModal), 
+  - token bond (BondFlowModal),
+  - validator nomination (NominationFlowModal), 
 These two Components are used in the Staking Flow of Polkadot
 3. Follow with case 3a or 3b
 

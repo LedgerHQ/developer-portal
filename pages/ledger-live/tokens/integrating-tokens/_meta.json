@@ -1,7 +1,7 @@
 {  
-  "introduction": "Introduction",
-  "faq": "Frequently Asked Questions",
   "erc20-bep20": "ERC20, BEP20 and Polygon tokens",
   "asa": "ASA",
-  "trc": "TRC10 and TRC20"
+  "trc": "TRC10 and TRC20",
+  "faq": "Frequently Asked Questions"
+
 }
