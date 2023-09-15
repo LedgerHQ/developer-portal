@@ -1,9 +1,9 @@
 {  
 	"getting-started": "Getting Started", 
 	"setup-build": "Setup and build",
-	"guidelines": "Guidelines",
+	"ui-ux-guidelines": "UI/UX Guidelines",
 	"coding": "Coding",
 	"testing": "Testing",
-	"faq": "FAQ and common bugs",
-	"legal": "Legal"
+	"faq": "Frequently Asked Questions",
+	"terms-conditions": "Terms & Conditions"
 }

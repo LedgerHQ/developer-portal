@@ -1,32 +1,44 @@
-import { Cards, Card } from 'nextra/components'
+import { Card, Cards } from 'nextra/components'
 
-<Cards>
-  <Card
-    title="Start here"
-    href="/ledger-live/discover/start-here"
-  />
-  <Card
-    title="Review guidelines"
-    href="/ledger-live/discover/guidelines"
-  />
-  <Card
-    title="Required programming skills"
-    href="/ledger-live/discover/required-skills"
-  />
-  <Card
-    title="Frequently Asked Questions"
-    href="/ledger-live/discover/faq"
-  />
-  <Card
-    title="Enabling the developer mode"
-    href="/ledger-live/discover/developer-mode"
-  />
-  <Card
+# Start here
+
+## What is a Live App?
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/L6dGYsevRxc" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+
+Live Apps are displayed in the Discover section of Ledger Live on Desktop (Windows, Mac, Linux) and mobile (Android and iOS).
+
+![Discover section](/discover-section.jpg)   
+
+We call it a Live App, as it is usable directly in Ledger Live, but initially it is either a DApp or a Non-DApp.
+   
+## What are DApps and non-DApps?
+
+- **DApps** are decentralized application. That means they are applications that work on a blockchain network.
+- **Non-DApps** are just your regular web applications that work on a centralized server, as any Web 2.0 application does.
+
+Depending on whether you have a **DApp** or a **non-DApp** to insert into Ledger Live, this diagram summarizes what you need to do.  
+
+![Discover section](/live-app.jpg)
+
+## Process
+
+- Review the [guidelines](./guidelines/)
+- We recommend you get in touch with us on the [Ledger Discord server](https://developers.ledger.com/discord/) to discuss your project.
+- We reserve the right to perform KYB (including regulatory compliance review) and may reject your submission based on such KYB.
+- If there is need to share data with us, please read this [doc](https://docs.google.com/document/d/1pD2iht4nAphDDEMikwJjD2OG8x4cc9BcUJ1QeMDE94Y/edit?usp=sharing)
+- Your integration work is detailed in the sections below. Click on the corresponding card to continue.  
+
+
+<Cards  num={2}> 
+  <Card 
+    arrow 
     title="DApp"
-    href="/ledger-live/discover/dapp/process"
-  />
-  <Card
-    title="Non DApp"
-    href="/ledger-live/discover/non-dapp/introduction"
-  />
-</Cards>
+    href="../dapp"> 
+  </Card> 
+  <Card 
+    arrow 
+    title="Non-DApp" 
+    href="../non-dapp"> 
+  </Card> 
+</Cards> 
