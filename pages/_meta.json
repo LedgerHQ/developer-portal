@@ -25,16 +25,12 @@
       "blockchain-foundation": {
         "title": "Blockchain foundation",
         "href": "/blockchain-foundation"
+      },
+      "services-dapps": {
+        "title": "Services & DApps",
+        "href": "/services-dapps"
       }
     }
-  },
-  "blockchain-foundation": {
-    "type": "page",
-    "title": "Blokchain foundation",
-    "display": "hidden",
-    "theme": {
-          "layout": "raw"
-        }
   },
   "overview": {
     "title": "Overview",
@@ -43,6 +39,22 @@
     "theme": {
       "layout": "raw"
     }
+  },
+    "blockchain-foundation": {
+    "type": "page",
+    "title": "Blokchain foundation",
+    "display": "hidden",
+    "theme": {
+          "layout": "raw"
+        }
+  },
+    "services-dapps": {
+    "type": "page",
+    "title": "Services & DApp",
+    "display": "hidden",
+    "theme": {
+          "layout": "raw"
+        }
   },
   "swap": {
     "type": "page",
