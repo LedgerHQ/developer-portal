@@ -33,6 +33,10 @@
       "nft-project": {
         "title": "NFT project",
         "href": "/nft-project"
+      },
+      "wallet": {
+        "title": "Wallet",
+        "href": "/wallet"
       }
     }
   },
@@ -63,6 +67,14 @@
     "nft-project": {
     "type": "page",
     "title": "NFT project",
+    "display": "hidden",
+    "theme": {
+          "layout": "raw"
+        }
+  },
+    "wallet": {
+    "type": "page",
+    "title": "Wallet",
     "display": "hidden",
     "theme": {
           "layout": "raw"
