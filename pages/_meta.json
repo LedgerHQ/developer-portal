@@ -7,16 +7,39 @@
     }
   },
   "ledger-devices": {
-    "title": "Ledger devices",
+    "title": "Ledger devices docs",
     "type": "page"
   },
   "ledger-live": {
-    "title": "Ledger Live",
+    "title": "Ledger Live docs",
     "type": "page"
+  },
+  "dev-journey": {
+    "title": "Dev Journeys",
+    "type": "menu",
+    "items": {
+      "overview": {
+        "title": "General overview",
+        "href": "/overview"
+      },
+      "blockchain-foundation": {
+        "title": "Blockchain foundation",
+        "href": "/blockchain-foundation"
+      }
+    }
+  },
+  "blockchain-foundation": {
+    "type": "page",
+    "title": "Blokchain foundation",
+    "display": "hidden",
+    "theme": {
+          "layout": "raw"
+        }
   },
   "overview": {
     "title": "Overview",
     "type": "page",
+    "display": "hidden",
     "theme": {
       "layout": "raw"
     }
