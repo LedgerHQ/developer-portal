@@ -29,6 +29,10 @@
       "services-dapps": {
         "title": "Services & DApps",
         "href": "/services-dapps"
+      },
+      "nft-project": {
+        "title": "NFT project",
+        "href": "/nft-project"
       }
     }
   },
@@ -51,6 +55,14 @@
     "services-dapps": {
     "type": "page",
     "title": "Services & DApp",
+    "display": "hidden",
+    "theme": {
+          "layout": "raw"
+        }
+  },
+    "nft-project": {
+    "type": "page",
+    "title": "NFT project",
     "display": "hidden",
     "theme": {
           "layout": "raw"
