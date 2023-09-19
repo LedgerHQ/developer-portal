@@ -5,10 +5,11 @@ import 'react-medium-image-zoom/dist/styles.css'
 
 In order to communicate with Ledger’s back-end, you have to give us the mapping of the endpoints we need.
 
-As you can see on the diagram [What do we need?](./requirements), there are 4 main endpoints needed for the swap:
+As you can see on the diagram [What do we need?](../../howto), there are 5 main endpoints needed for the swap:
 - To get the list of available currencies: [/currencies](#get-currencies).
 - To get the list of tradable pairs: [/pairs](#get-pairs).
 - To query a rate: [/quote](#post-quote).
+- To create a signed swap binary payload [/swap](#post-swap).
 - To query a swap status: [/status](#get-status).
 
 You will find the details about each needed endpoint below.
