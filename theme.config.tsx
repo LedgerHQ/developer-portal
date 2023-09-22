@@ -44,7 +44,7 @@ const config: DocsThemeConfig = {
  
     return (
       <>
-        <metan name="robots" content="noindex"/>
+        <meta name="robots" content="noindex"/>
         <meta property="og:url" content={url} />
         <meta property="og:title" content={frontMatter.title || 'Developers'} />
         <meta
