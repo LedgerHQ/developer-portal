@@ -4,10 +4,6 @@ body {
   font-family: 'InterRegular';
 }
 
-h1, h2, nav {
-  font-family: 'HMAlphaMono';
-}
-
 article a[target='_blank']:after {
     content: ' \21aa';
 }
@@ -58,7 +54,6 @@ article a[target='_blank']:after {
 }
 
 .intro h1 {
-  font-family: HMAlphaMono;
   font-size: 60px;
   color: #fff;
   font-weight: bold;
@@ -74,7 +69,6 @@ article a[target='_blank']:after {
 }
 
 .intro button {
-  font-family: HMAlphaMono;
   background-color: #FF5300;
   color: #FFFFFF;
   padding: 10px 25px;
@@ -100,7 +94,6 @@ article a[target='_blank']:after {
 }
 
 .projects .work .work-heading {
-  font-family: HMAlphaMono;
   font-size: 20px;
   color: #333333;
   text-transform: uppercase;

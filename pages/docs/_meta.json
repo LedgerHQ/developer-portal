@@ -1,0 +1,9 @@
+{  
+	"device-app": "Device App", 
+	"plugin": "Plugin",
+	"connectivity": "Connectivity",
+	"nft-display": "NFT Display",
+	"discover": "Discover",
+	"blockchain": "Blockchain Integration",
+	"tokens": "Token Integration"
+}
