@@ -2,15 +2,17 @@
 	"getting-started": "Getting started", 
 	"submission": "Submission Requirements",
 	"quickstart": "Quickstart",
-	"seperator": {
+	"---": {
+		"title": "---",
     "type": "separator"
-  	},
+  },
 	"coding-guidelines": "Coding guidelines",
 	"deliverables": "Deliverables",
 	"clones": "Ethereum Clones",
-	"separator": {
+	"---": {
+		"title": "---",
     "type": "separator"
-  	},
+  },
 	"psd": "Personal security devices",
 	"bolos": "The BOLOS Platform",
 	"tools": "Tools",
