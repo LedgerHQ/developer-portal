@@ -87,60 +87,60 @@ In index.html copy-paste the following code :
     <script type="module" src="index.js"></script>
   </head>
 
-  <body class="m-5">
-    <div class="d-flex flex-column justify-content-center m-5 align-items-center">
+  <body className="m-5">
+    <div className="d-flex flex-column justify-content-center m-5 align-items-center">
       <p>Click on the bellow button to connect your Ledger Wallet</p>
-      <button class="btn btn-primary w-25" data-bs-toggle="modal" data-bs-target="#WalletModal">Connect your Wallet</button>
+      <button className="btn btn-primary w-25" data-bs-toggle="modal" data-bs-target="#WalletModal">Connect your Wallet</button>
     </div>
-    <div class="d-flex flex-row">
-      <div id="app" class="w-50">
-        <form class="row g-3">
-          <div class="col-md-12">
-            <label for="wallet" class="form-label">Wallet Public Key</label>
-            <input type="text" class="form-control" id="wallet" disabled>
+    <div className="d-flex flex-row">
+      <div id="app" className="w-50">
+        <form className="row g-3">
+          <div className="col-md-12">
+            <label for="wallet" className="form-label">Wallet Public Key</label>
+            <input type="text" className="form-control" id="wallet" disabled>
           </div>
-          <div class="col-md-12">
-            <label for="recipient" class="form-label">Recipient</label>
-            <input type="text" class="form-control" id="recipient">
+          <div className="col-md-12">
+            <label for="recipient" className="form-label">Recipient</label>
+            <input type="text" className="form-control" id="recipient">
           </div>
-          <div class="col-md-6">
-            <label for="gasPrice" class="form-label">Gas Price in wei</label>
-            <input type="text" class="form-control" id="gasPrice" disabled>
+          <div className="col-md-6">
+            <label for="gasPrice" className="form-label">Gas Price in wei</label>
+            <input type="text" className="form-control" id="gasPrice" disabled>
           </div>
-          <div class="col-md-6">
-            <label for="gasLimit" class="form-label">Gas Limit in wei</label>
-            <input type="text" class="form-control" id="gasLimit">
+          <div className="col-md-6">
+            <label for="gasLimit" className="form-label">Gas Limit in wei</label>
+            <input type="text" className="form-control" id="gasLimit">
           </div>
-          <div class="col-md-6">
-            <label for="chainId" class="form-label">Chain ID</label>
-            <input type="text" class="form-control" id="chainId" disabled>
+          <div className="col-md-6">
+            <label for="chainId" className="form-label">Chain ID</label>
+            <input type="text" className="form-control" id="chainId" disabled>
           </div>
-          <div class="col-md-6">
-            <label for="value" class="form-label">Value</label>
-            <input type="text" class="form-control" id="value" >
+          <div className="col-md-6">
+            <label for="value" className="form-label">Value</label>
+            <input type="text" className="form-control" id="value" >
           </div>
-          <div class="col-12">
-            <button type="button" id="tx-transfer" class="btn btn-primary">Create Transaction</button>
+          <div className="col-12">
+            <button type="button" id="tx-transfer" className="btn btn-primary">Create Transaction</button>
           </div>
         </form>
       </div>
-      <div class="w-50 d-flex flex-column">
-            <p class="url">Ropsten etherscan: </p>
+      <div className="w-50 d-flex flex-column">
+            <p className="url">Ropsten etherscan: </p>
             <p  id="url"></p>
       </div>
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="WalletModal" tabindex="-1" aria-labelledby="WalletModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="WalletModalLabel">Choose your Wallet</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div className="modal fade" id="WalletModal" tabindex="-1" aria-labelledby="WalletModalLabel" aria-hidden="true">
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="WalletModalLabel">Choose your Wallet</h5>
+            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body d-flex justify-content-center">
-            <button id="connect-ledger" class="rounded-3 align-self-center" data-bs-dismiss="modal">
-              <img src="./assets/ledger-logo.jpg" class="card-img-top" alt="Ledger">
+          <div className="modal-body d-flex justify-content-center">
+            <button id="connect-ledger" className="rounded-3 align-self-center" data-bs-dismiss="modal">
+              <img src="./assets/ledger-logo.jpg" className="card-img-top" alt="Ledger">
             </button>
           </div>
         </div>
@@ -359,7 +359,7 @@ Before clicking on the text connect your Ledger to the USB port, unlock it and r
 The steps are described below.
 
 <br/>
-<div class="center">
+<div className="center">
   <figure>
       <img src="/ledgerCodePin.jpg" alt="Nano Enter Code Pin"/>
     <figcaption><i>Fig. 6: Nano Enter Code Pin</i></figcaption>
@@ -367,7 +367,7 @@ The steps are described below.
 </div>
 
 <br/>
-<div class="center">
+<div className="center">
   <figure>
       <img src="/ledgerEth.jpg" alt="Run Ethereum Application on Ledger Nano"/>
     <figcaption><i>Fig. 7: Run Ethereum Application on Ledger Nano</i></figcaption>
@@ -375,7 +375,7 @@ The steps are described below.
 </div>
 
 <br/>
-<div class="center">
+<div className="center">
   <figure>
       <img src="/ledgerReady.jpg" alt="Ethereum Application is Running on Ledger Nano"/>
     <figcaption><i>Fig. 8:  Ethereum Application is Running on Ledger Nano</i></figcaption>
