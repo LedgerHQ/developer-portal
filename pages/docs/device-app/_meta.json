@@ -2,15 +2,15 @@
 	"getting-started": "Getting started", 
 	"submission": "Submission Requirements",
 	"quickstart": "Quickstart",
-	"---": {
-		"title": "---",
+	"separator1": {
+		"title": "",
     "type": "separator"
   },
 	"coding-guidelines": "Coding guidelines",
 	"deliverables": "Deliverables",
 	"clones": "Ethereum Clones",
-	"---": {
-		"title": "---",
+	"separator2": {
+		"title": "",
     "type": "separator"
   },
 	"psd": "Personal security devices",
