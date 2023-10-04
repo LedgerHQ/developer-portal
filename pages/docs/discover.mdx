@@ -1,44 +1,35 @@
-import { Card, Cards } from 'nextra/components'
+# Get your Live App in Discover
 
-# Start here
+## What are Live Apps and Discover?
 
-## What is a Live App?
+A Live App is a web application that incorporates the Wallet API, providing convenience and security for Ledger Live users when interacting with web3 projects.
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/L6dGYsevRxc" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+The Discover section is a dedicated area within Ledger Live that includes a Live App browser, enabling users to access any Live Apps via its search bar and also showcasing a carefully selected list of apps on the main UI.
 
-Live Apps are displayed in the Discover section of Ledger Live on Desktop (Windows, Mac, Linux) and mobile (Android and iOS).
+![Discover section](/discover-section.png)
 
-![Discover section](/discover-section.jpg)   
+The guiding principle behind the Apps available through Discover, or Live Apps, is to provide a secure and enjoyable experience for users to access web3 apps and offer developers an opportunity to succeed. We achieve this by providing a carefully selected collection of web3 apps, each of which undergoes a thorough review by a panel of experts, ensuring that users can discover new apps every day with peace of mind. For everything else, users can always turn to the open Internet. If the Live App model and guidelines do not fit your app or business idea, don't worry. We also support Wallet Connect through Ledger Live, providing a great web experience.
 
-We call it a Live App, as it is usable directly in Ledger Live, but initially it is either a DApp or a Non-DApp.
+### The search Bar
+
+- Automatic connection to your wallet
+- Clear signing with hardware wallet security
+- Free service for users and for partners
+
+### Discover curated Live Apps
+
+- It is a subset of the search bar exhaustive list of Live Apps
+- The list of Live Apps showcased in Discover is curated by our business team
+- Beyond the Discover curated list, all Live Apps are available from the search bar
+
    
-## What are DApps and non-DApps?
+## Integration structure for DApps and other Web3 apps
 
 - **DApps** are applications based on EVM. 
 - **Non-DApps** are applications based on other protocols.
 
-Depending on whether you have a **DApp** or a **non-DApp** to insert into Ledger Live, this diagram summarizes what you need to do.  
+In either cases, a Live App is a web version of your application, which is then integrated into an iframe within Ledger Live. This means that you will be hosting the app, not Ledger.
+
+Depending on whether you have a **DApp** or a **non-DApp** to integrate in to the Discover section of Ledger Live, this diagram summarizes what you need to do.  
 
 ![Discover section](/live-app.jpg)
-
-## Process
-
-- Review the [guidelines](./guidelines/)
-- We recommend you get in touch with us on the [Ledger Discord server](https://developers.ledger.com/discord/) to discuss your project.
-- We reserve the right to perform KYB (including regulatory compliance review) and may reject your submission based on such KYB.
-- If there is need to share data with us, please read this [doc](https://docs.google.com/document/d/1pD2iht4nAphDDEMikwJjD2OG8x4cc9BcUJ1QeMDE94Y/edit?usp=sharing)
-- Your integration work is detailed in the sections below. Click on the corresponding card to continue.  
-
-
-<Cards  num={2}> 
-  <Card 
-    arrow 
-    title="DApp"
-    href="../dapp"> 
-  </Card> 
-  <Card 
-    arrow 
-    title="Non-DApp" 
-    href="../non-dapp"> 
-  </Card> 
-</Cards> 
