@@ -1,10 +1,10 @@
 {
   "index": {
     "title": "Home",
-    "display": "hidden",
     "theme": {
       "layout": "raw"
-    }
+    },
+    "display": "hidden"
   },
   "overview": {
     "title": "Overview",
@@ -14,41 +14,45 @@
     },
     "display": "hidden"
   },
-    "blockchain-foundation": {
-    "type": "page",
+  "blockchain-foundation": {
     "title": "Blockchain foundation",
-    "theme": {
-          "layout": "raw"
-        }
-  },
-    "services-dapps": {
     "type": "page",
+<<<<<<< HEAD
+    "title": "Blockchain foundation",
+=======
+>>>>>>> main
+    "theme": {
+      "layout": "raw"
+    }
+  },
+  "services-dapps": {
     "title": "Services & DApp",
-    "theme": {
-          "layout": "raw"
-        }
-  },
-    "nft-project": {
     "type": "page",
+    "theme": {
+      "layout": "raw"
+    }
+  },
+  "nft-project": {
     "title": "NFT project",
-    "theme": {
-          "layout": "raw"
-        }
-  },
-    "wallet": {
     "type": "page",
-    "title": "Wallet",
     "theme": {
-          "layout": "raw"
-        }
+      "layout": "raw"
+    }
+  },
+  "wallet": {
+    "title": "Wallet",
+    "type": "page",
+    "theme": {
+      "layout": "raw"
+    }
   },
   "docs": {
     "title": "Docs",
     "type": "page"
   },
   "swap": {
-    "type": "page",
     "title": "Swap Provider",
+    "type": "page",
     "display": "hidden"
   }
 }
