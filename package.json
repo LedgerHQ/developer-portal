@@ -19,12 +19,15 @@
   "homepage": "https://github.com/shuding/nextra-docs-template#readme",
   "dependencies": {
     "@docsly/react": "^1.8.6",
+    "clsx": "^2.0.0",
     "next": "13.0.6",
     "nextra": "latest",
     "nextra-theme-docs": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-medium-image-zoom": "5.1.8"
+    "react-medium-image-zoom": "5.1.8",
+    "react-scroll": "^1.8.9",
+    "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
     "@types/node": "18.11.10",
