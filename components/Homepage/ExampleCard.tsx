@@ -2,25 +2,57 @@ import { FC, HTMLAttributes } from 'react'
 import Image from "next/image"
 import { cn } from '../../lib/utils';
 import { Tag } from './Tag';
+import Button from '../ui/Button';
 
 interface ExampleCardProps extends HTMLAttributes<HTMLDivElement> {
-  icon: "coinbase" | "cosmos" | "lido" | "moonpay" | "objkt" | "solana";
+  icon: "coinbase" | "cosmos" | "lido" | "moonpay-purple" | "objkt" | "solana";
   title: string;
   subtitle: string;
   description: string;
-  type: "wallet" | "services-dapps" | "blockchain" | "nft"
+  type: "wallet" | "services-dapps" | "blockchain" | "nft";
 }
 
 export const ExampleCard: FC<ExampleCardProps> = ({icon, title, subtitle, description, type, className, ...props}) => {  
+  const handleClick = () => {
+    switch (type) {
+      case "wallet":
+        console.log("wallet")
+        break;
+      case "services-dapps":
+        console.log("services-dapps")
+        break;
+      case "blockchain":
+        console.log("blockchain")
+        break;
+      case "nft":
+        console.log("nft")
+        break;
+      default:
+        break;
+    }
+  }
+
   return (
-    <div className={cn("flex flex-col w-[384px] px-6 py-8 rounded border-[0.5px] border-grey-300 bg-grey-200 shadow-[0px_14px_15px_0px_rgba(128,128,128,0.10)]", className)} {...props}>
+    <button type="button" onClick={handleClick} className={cn("group flex flex-col w-[384px] px-6 py-8 rounded border-[0.5px] border-grey-700 hover:border-white bg-grey-900 text-left ease-linear duration-300", className)} {...props}>
       <div className="flex gap-4 items-center">
-        <Image src={require(`../../public/icons/${icon}.png`)} alt="icon" className="h-6 w-6" />
-        <div className="heading-6">{title}</div>
+        <div className="flex items-center justify-center w-8 h-8 bg-white rounded-md">
+          <Image src={require(`../../public/icons/${icon}.png`)} alt="icon" className="w-6" />
+        </div>
+        <div className="text-heading-6 font-semibold tracking-tight">{title}</div>
       </div>
-      <div className="bodyTextSemiBold text-grey-700 mt-6 !leading-[28px]">{subtitle}</div>
-      <div className="bodyText text-grey-700 !leading-[28px] mb-6">{description}</div>
-      <Tag type={type} className="mt-auto" />
-    </div>
+      <div className="text-p font-semibold text-grey-300 mt-6 !leading-[28px]">{subtitle}</div>
+      <div className="text-p text-grey-300 !leading-[28px] mb-6">{description}</div>
+      <div className="flex w-full place-content-between mt-auto">
+        <Tag type={type} />
+        <div className="items-center gap-2 hidden md:flex opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 ease-linear duration-300">
+          <span className="text-p-caption underline whitespace-nowrap">Plan this journey</span>
+          <img src="/icons/arrow-right-white.svg" alt="button icon" />
+        </div>
+      </div>
+      <div className="items-center gap-2 mt-6 flex md:hidden">
+        <span className="text-p-caption underline whitespace-nowrap">Plan this journey</span>
+        <img src="/icons/arrow-right-white.svg" alt="button icon" />
+      </div>
+    </button>
   )
 }

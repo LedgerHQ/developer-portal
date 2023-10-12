@@ -2,10 +2,10 @@ import { ExampleCard } from "./ExampleCard"
 
 export const Examples = () => {
   return (
-    <div className="relative bg-white text-black">
+    <div className="relative bg-black">
       <div className="max-w-[1440px] mx-auto">
-        <div className="relative py-20 px-28 z-10">
-          <div className="heading-3 tracking-tighter font-semibold">They chose security, they chose Ledger</div>
+        <div className="relative py-20 px-4 md:px-28 z-10">
+          <div className="text-heading-5 md:text-heading-3 tracking-tighter font-semibold">They chose security, they chose Ledger</div>
           <div className="flex flex-wrap gap-8 mt-16">
             <ExampleCard 
               icon="coinbase" 
@@ -15,7 +15,7 @@ export const Examples = () => {
               type="wallet"
             />
             <ExampleCard 
-              icon="moonpay" 
+              icon="moonpay-purple" 
               title="Moonpay"
               subtitle="Buying crypto straight to your Ledger"
               description="Moonpay was integrated into Ledger Live, and allows assets to be directly deposited and secured in Ledger devices" 
@@ -50,7 +50,7 @@ export const Examples = () => {
               type="blockchain"
             />
           </div>
-          <div className="bodyText text-grey-700 text-right mt-4">And many more...</div>
+          <div className="text-p text-grey-700 text-right mt-4 hidden md:block">And many more...</div>
         </div>
       </div>
     </div>

@@ -14,29 +14,23 @@ interface TagProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const Tag: FC<TagProps> = ({type, className, ...props}) => {  
-  const [textStyle, setTextStyle] = useState<string>("");
   const [containerStyle, setContainerStyle] = useState<string>("");
 
   useEffect(() => {
     switch (type) {
       case "wallet":
-        setTextStyle("text-purple-dark");
-        setContainerStyle("border-purple");
+        setContainerStyle("border-purple-light bg-purple-dark");
         break;
       case "services-dapps":
-        setTextStyle("text-black");
-        setContainerStyle("border-grey-700");
+        setContainerStyle("border-grey-300 bg-grey-600");
         break;
       case "blockchain":
-        setTextStyle("text-primary-dark");
-        setContainerStyle("border-primary");
+        setContainerStyle("border-primary bg-primary-dark");
         break;
       case "nft":
-        setTextStyle("text-green-nft-dark");
-        setContainerStyle("border-green-nft");
+        setContainerStyle("border-green-nft bg-green-nft-dark");
         break;
       default:
-        setTextStyle("");
         setContainerStyle("");
         break;
     }
@@ -45,7 +39,7 @@ export const Tag: FC<TagProps> = ({type, className, ...props}) => {
   return (
     <div className={cn("w-fit flex gap-2 border rounded px-4 py-2 items-center", containerStyle, className)} {...props}>
         <Image src={require(`../../public/icons/${type}.svg`)} alt="icon" className="h-5 w-5" />
-        <div className={`tagText ${textStyle}`}>{strings[type]}</div>
+        <div className="tagText">{strings[type]}</div>
     </div>
   )
 }

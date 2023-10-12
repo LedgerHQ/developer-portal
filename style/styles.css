@@ -158,47 +158,7 @@ article a[target='_blank']:after {
 }
 
 .font-mono-medium {
-  font-family: 'HM Alpha Mono Medium';
-}
-
-.heading-2 {
-  @apply  text-heading-2 font-semibold tracking-tighter;
-}
-
-.heading-3 {
-  @apply  text-heading-3;
-}
-
-.heading-3SemiBold {
-  @apply  text-heading-3 font-semibold;
-}
-
-.heading-5 {
-  @apply  text-heading-5 font-semibold tracking-tight;
-}
-
-.heading-6 {
-  @apply  text-heading-6 font-semibold tracking-tight;
-}
-
-.bodyText {
-  @apply text-p;
-}
-
-.bodyTextSemiBold {
-  @apply text-p font-semibold;
-}
-
-.highlightText {
-  @apply text-p-highlight font-semibold;
-}
-
-.emphasisText {
-  @apply text-p-emphasis;
-}
-
-.captionText {
-  @apply text-p-caption;
+  font-family: 'HMAlphaMono';
 }
 
 .tagText {

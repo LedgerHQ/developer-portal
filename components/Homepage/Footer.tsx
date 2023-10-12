@@ -7,12 +7,12 @@ import { FooterMobile } from './FooterMobile';
 
 export const Footer = () => {
   return (
-    <>
+    <div className="bg-black">
       <div className="h-[1px] w-full bg-white" />
-      <div className="max-w-[1440px] mx-auto bg-black">
-        <div className="py-20 px-28 z-10">
-          <div className="flex flex-col lg:flex-row gap-16">
-            <div className="flex flex-col gap-9 w-60">
+      <div className="max-w-[1440px] mx-auto">
+        <div className="py-20 px-4 md:px-28 z-10">
+          <div className="flex flex-col lg:flex-row gap-6 md:gap-16">
+            <div className="flex flex-col gap-9 md:w-60">
               <Link href="https://www.ledger.com" className="relative h-10 w-28">
                 <Image
                   src="/homepage/ledger-logo-long-white.svg"
@@ -20,9 +20,9 @@ export const Footer = () => {
                   fill
                 />
               </Link>
-              <div className="captionText text-grey-600">Copyright © Ledger SAS. All rights reserved. Ledger, Ledger Nano S, Ledger Vault, Bolos are registered trademarks of Ledger SAS</div>
+              <div className="text-p-caption text-grey-600">Copyright © Ledger SAS. All rights reserved. Ledger, Ledger Nano S, Ledger Vault, Bolos are registered trademarks of Ledger SAS</div>
               <div className="flex flex-col gap-2">
-                <div className="captionText text-grey-600">Payment methods</div>
+                <div className="text-p-caption text-grey-600">Payment methods</div>
                 <PaymentsLogos />
               </div>
             </div>
@@ -37,6 +37,6 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }

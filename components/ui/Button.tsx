@@ -8,6 +8,7 @@ interface ButtonChildrenProps {
   jsxIcon?: JSX.Element;
   disabled?: boolean;
   color?: "white" | "gray" | "black";
+  textClassName?: string;
 }
 
 function ButtonChildren(props: ButtonChildrenProps) {
@@ -17,6 +18,7 @@ function ButtonChildren(props: ButtonChildrenProps) {
     jsxIcon = null,
     disabled = false,
     color = "white",
+    textClassName = "",
   } = props;
 
   const textStyle = () => {
@@ -27,11 +29,11 @@ function ButtonChildren(props: ButtonChildrenProps) {
   };
 
   return (
-    <>
+    <div className="w-max flex gap-4 items-center">
       <span
-        className={`normal-case bodyTextSemiBold ${textStyle()} ${
+        className={cn(`normal-case text-p font-semibold ${textStyle()} ${
           disabled ? "" : "transition-left"
-        }`}
+        }`, textClassName)}
       >
         {label}
       </span>
@@ -47,7 +49,7 @@ function ButtonChildren(props: ButtonChildrenProps) {
           {jsxIcon}
         </div>
       )}
-    </>
+    </div>
   );
 }
 
@@ -58,6 +60,7 @@ interface ButtonProps extends HTMLAttributes<HTMLButtonElement>, ButtonChildrenP
   onClick?: () => void;
   link?: string;
   disabled?: boolean;
+  textClassName?: string;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -70,6 +73,7 @@ const Button: FC<ButtonProps> = ({
   svgIcon,
   jsxIcon,
   disabled = false,
+  textClassName = "",
 }) => {
   const typeStyles = () => {
     if (type === "primary") return "!bg-primary text-white";
@@ -105,6 +109,7 @@ const Button: FC<ButtonProps> = ({
           svgIcon={svgIcon}
           jsxIcon={jsxIcon}
           color={color()}
+          textClassName={textClassName}
         />
       </a>
     );
@@ -116,23 +121,42 @@ const Button: FC<ButtonProps> = ({
         to={link}
         smooth
         className={cn(`${buttonClasses} cursor-pointer`)}
+        offset={-80}
       >
         <ButtonChildren
           label={label}
           svgIcon={svgIcon}
           jsxIcon={jsxIcon}
           color={color()}
+          textClassName={textClassName}
         />
       </Link>
     );
   }
 
+  if (onClick) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className={buttonClasses}
+        disabled={disabled}
+      >
+        <ButtonChildren
+          label={label}
+          svgIcon={svgIcon}
+          jsxIcon={jsxIcon}
+          disabled={disabled}
+          color={color()}
+          textClassName={textClassName}
+        />
+      </button>
+    );
+  }
+
   return (
-    <button
-      type="button"
-      onClick={onClick}
+    <div
       className={buttonClasses}
-      disabled={disabled}
     >
       <ButtonChildren
         label={label}
@@ -140,8 +164,9 @@ const Button: FC<ButtonProps> = ({
         jsxIcon={jsxIcon}
         disabled={disabled}
         color={color()}
+        textClassName={textClassName}
       />
-    </button>
+    </div>
   );
 }
 

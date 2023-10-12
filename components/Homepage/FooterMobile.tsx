@@ -1,4 +1,4 @@
-import { useState, useEffect, HTMLAttributes, FC } from "react"
+import { useState, HTMLAttributes, FC } from "react"
 import Image from "next/image";
 import { cn } from "../../lib/utils";
 import Link from "next/link";
@@ -10,10 +10,6 @@ interface FooterMobileProps extends HTMLAttributes<HTMLDivElement> {
 
 export const FooterMobile: FC<FooterMobileProps> = ({ footerData, className, ...props }) => {
   const [expandedItem, setExpandedItem] = useState("");
-
-  useEffect(() => {
-    console.log("expandedItem", expandedItem)
-  }, [expandedItem])
 
   return (
     <div className={cn("mt-8 w-full", className)} {...props}>
@@ -52,7 +48,7 @@ export const FooterMobile: FC<FooterMobileProps> = ({ footerData, className, ...
                 className="px-3 py-2 text-sm text-gray-300"
                 key={`${linkData.name}-${index}`}
               >
-                <Link key={linkData.label} className="captionText text-grey-500 hover:text-grey-400" href={linkData.link}>
+                <Link key={linkData.label} className="text-p-caption text-grey-500 hover:text-grey-400" href={linkData.link}>
                   {linkData.label}
                 </Link>
               </li>

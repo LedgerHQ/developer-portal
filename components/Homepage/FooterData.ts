@@ -19,6 +19,10 @@ export const FooterData: FooterDataType = [
         link: "https://shop.ledger.com/pages/ledger-nano-s-plus"
       },
       {
+        label: "Ledger Backup pack",
+        link: "https://shop.ledger.com/products/ledger-backup-pack"
+      },
+      {
         label: "Compare our devices",
         link: "https://shop.ledger.com/pages/hardware-wallets-comparison"
       },
@@ -61,7 +65,7 @@ export const FooterData: FooterDataType = [
       },
       {
         label: "In the news",
-        link: "TODOTOREPLACE"
+        link: "https://www.ledger.com/in-the-news"
       },
       {
         label: "Blog",
@@ -69,7 +73,7 @@ export const FooterData: FooterDataType = [
       },
       {
         label: "Join Us",
-        link: "TODOTOREPLACE"
+        link: "https://www.ledger.com/join-us"
       },
     ]
   },
@@ -112,7 +116,7 @@ export const FooterData: FooterDataType = [
       },
       {
         label: "Retailers",
-        link: "TODOTOREPLACE"
+        link: "https://www.ledger.com/reseller"
       },
       {
         label: "Affiliates",
