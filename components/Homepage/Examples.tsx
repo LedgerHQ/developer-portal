@@ -5,7 +5,7 @@ export const Examples = () => {
     <div className="relative bg-black">
       <div className="max-w-[1440px] mx-auto">
         <div className="relative py-20 px-4 md:px-28 z-10">
-          <div className="text-heading-5 md:text-heading-3 tracking-tighter font-semibold">They chose security, they chose Ledger</div>
+          <div className="text-heading-5 md:text-heading-3 tracking-tighter font-semibold" id="api">They chose security, they chose Ledger</div>
           <div className="flex flex-wrap gap-8 mt-16">
             <ExampleCard 
               icon="coinbase" 

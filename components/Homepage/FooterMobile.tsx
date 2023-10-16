@@ -2,6 +2,7 @@ import { useState, HTMLAttributes, FC } from "react"
 import Image from "next/image";
 import { cn } from "../../lib/utils";
 import Link from "next/link";
+import { Link as ScrollLink } from "react-scroll";
 import { FooterDataType } from "./FooterData";
 
 interface FooterMobileProps extends HTMLAttributes<HTMLDivElement> {
@@ -43,7 +44,26 @@ export const FooterMobile: FC<FooterMobileProps> = ({ footerData, className, ...
                 : 'invisible max-h-0 '
             )}
           >
-            {blockData.links.map((linkData, index) => (
+            {blockData.links.map((linkData, index) => {
+            if (linkData.scrollLink) {
+              return (
+                <li
+                className="px-3 py-2 text-sm text-gray-300"
+                key={`${linkData.name}-${index}`}
+              >
+                <ScrollLink
+                  key={linkData.label}
+                  to={linkData.scrollLink}
+                  smooth
+                  className="text-p-caption text-grey-500 hover:text-grey-400 cursor-pointer"
+                  offset={-80}
+                >
+                  {linkData.label}
+                </ScrollLink>
+              </li>
+              )
+            }
+            return (
               <li
                 className="px-3 py-2 text-sm text-gray-300"
                 key={`${linkData.name}-${index}`}
@@ -52,7 +72,7 @@ export const FooterMobile: FC<FooterMobileProps> = ({ footerData, className, ...
                   {linkData.label}
                 </Link>
               </li>
-            ))}
+            )})}
           </ul>
         </div>
       ))}

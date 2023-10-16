@@ -10,7 +10,7 @@ export const Hero = ({ journeyId }: HeroProps) => {
   return (
     <div className="bg-black">
       <div className="max-w-[1440px] mx-auto md:bg-hero-background bg-contain bg-no-repeat bg-right">
-        <div className="pb-20 md:py-20 px-4 md:px-28">
+        <div className="pb-20 md:py-20 px-4 md:px-28" id="home">
           <div className="h-[475px] phone:h-[512px] md:hidden">
             <Image className="max-h-[700px] w-auto -mt-[35%] phone:-mt-[30%] sm:-mt-[25%] mx-auto md:hidden z-0" src={HeroImg} alt="hero" />
           </div>

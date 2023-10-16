@@ -90,6 +90,26 @@ export const CryptosData: CryptosDataType = [
     icon: "paraswap",
     name: "Paraswap",
   },
+  {
+    icon: "avalanche",
+    name: "Avalanche",
+  },
+  {
+    icon: "keplr",
+    name: "Keplr",
+  },
+  {
+    icon: "metamask",
+    name: "Metamask",
+  },
+  {
+    icon: "wyre",
+    name: "Wyre",
+  },
+  {
+    icon: "zerion",
+    name: "Zerion",
+  },
 ]
 
 export const BlockchainCryptos: string[] = [

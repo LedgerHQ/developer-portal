@@ -1,9 +1,7 @@
-import { useState, useEffect, useRef, FC, HTMLAttributes } from 'react'
+import { useState, useEffect, FC, HTMLAttributes } from 'react'
 import Image from "next/image"
 import { cn } from '../../lib/utils';
 import { Tag } from './Tag';
-import Button from '../ui/Button';
-import { CryptoIcon } from './CryptoIcon';
 import { BlockchainCryptos, CryptoType, CryptosData, NFTCryptos, ServicesDappsCryptos, WalletCryptos } from './CryptoData';
 import { Cryptos } from './Cryptos';
 import { JourneyButton } from './JourneyButton';
@@ -17,7 +15,6 @@ interface JourneyCardProps extends HTMLAttributes<HTMLDivElement> {
 export const JourneyCard: FC<JourneyCardProps> = ({title, description, type, className, ...props}) => {  
   const [cryptos, setCryptos] = useState<CryptoType[]>([])
   const [isHover,setIsHover]=useState(false);
-  const cardRef = useRef<HTMLButtonElement>(null)
 
   function MouseOver() {
     setIsHover(true);
@@ -74,17 +71,13 @@ export const JourneyCard: FC<JourneyCardProps> = ({title, description, type, cla
     }
   }
 
-  // useEffect(() => {
-  //   console.log("object", cardRef.current)
-  // }, [cardRef.current.clientWidth])
-
   return (
-    <button type="button" ref={cardRef} onMouseOver={MouseOver} onMouseOut={MouseOut} onClick={handleClick} className={cn("flex flex-col rounded border-[0.5px] border-grey-700 bg-grey-800/40 bg-blur-sm text-left", className)} {...props}>
-      <div className={cn("w-full overflow-hidden duration-300 ease-linear", isHover ? "h-[32%]" : "h-[35%]")}>
+    <button type="button" onMouseOver={MouseOver} onMouseOut={MouseOut} onClick={handleClick} className={cn("flex flex-col rounded border-[0.5px] border-grey-700 bg-grey-800/40 bg-blur-sm text-left", className)} {...props}>
+      <div className="w-full overflow-hidden duration-300 ease-linear">
         <Image 
           src={require(`../../public/homepage/bg-${type}.png`)} 
           alt="type"
-          className={cn("w-full duration-300 ease-linear", isHover ? "-mt-0" : "")}
+          className="w-full"
         />  
       </div>
       <div className="flex flex-col px-8 pt-6 mb-6">
@@ -93,7 +86,7 @@ export const JourneyCard: FC<JourneyCardProps> = ({title, description, type, cla
         <div className="text-heading-7 font-semibold mt-2">{description}</div>
       </div>
       <div className="flex flex-col md:flex-row w-full gap-8 md:place-content-between px-8 pb-6 mt-8 md:mt-auto md:items-end">
-        <Cryptos cryptos={cryptos} hovered={isHover} />
+        {/* <Cryptos cryptos={cryptos} hovered={isHover} /> */}
         <JourneyButton hovered={isHover} />
       </div>
     </button>
