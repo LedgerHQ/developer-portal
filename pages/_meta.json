@@ -17,10 +17,7 @@
   "blockchain-foundation": {
     "title": "Blockchain foundation",
     "type": "page",
-<<<<<<< HEAD
     "title": "Blockchain foundation",
-=======
->>>>>>> main
     "theme": {
       "layout": "raw"
     }
