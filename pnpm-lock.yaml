@@ -10,7 +10,6 @@ specifiers:
   postcss: ^8.4.31
   react: 18.2.0
   react-dom: 18.2.0
-  react-gtm-module: ^2.0.11
   react-medium-image-zoom: 5.1.8
   tailwindcss: ^3.3.3
   typescript: 4.9.3
@@ -22,7 +21,6 @@ dependencies:
   nextra-theme-docs: 2.13.2_bb7gdxdnpecg3jmhpc7g7y7tna
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  react-gtm-module: 2.0.11
   react-medium-image-zoom: 5.1.8_biqbaboplfbrettd7655fr4n2y
 
 devDependencies:
@@ -2834,10 +2832,6 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.6
       react: 18.2.0
-    dev: false
-
-  /react-gtm-module/2.0.11:
-    resolution: {integrity: sha512-8gyj4TTxeP7eEyc2QKawEuQoAZdjKvMY4pgWfycGmqGByhs17fR+zEBs0JUDq4US/l+vbTl+6zvUIx27iDo/Vw==}
     dev: false
 
   /react-hot-toast/2.4.1_biqbaboplfbrettd7655fr4n2y:
