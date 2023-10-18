@@ -10,6 +10,8 @@ switch (context->selectorIndex) {
     case SWAP_EXACT_ETH_FOR_TOKENS:
         handle_swap_exact_eth_for_tokens(msg, context);
         break;
+    case BOILERPLATE_DUMMY_2:
+        break;
     default:
         PRINTF("Selector Index %d not supported\n", context->selectorIndex);
         msg->result = ETH_PLUGIN_RESULT_ERROR;
@@ -20,8 +22,8 @@ Now let's write `handle_swap_exact_eth_for_tokens()`.
 Parsing these handlers is simple: just look at `next_param` to be parsed and copy the data to your context.
 
 <Callout>
-    You will see <code>context</code> used frequently throughout the code. It is defined in the <code>boilerplate.h</code> header file.
-    Since the execution toggles between the Ethereum App and the Plugin, the plugin needs somewhere to store the data (such as the contract address or the amount of tokens swapped) as it goes along. This is done in <code>context</code>. Make sure you change the definition of <code>context</code> in <code>boilerplate.h</code> to suit your plugin.
+    You will see <code>context</code> used frequently throughout the code. It is defined in the <code>boilerplate_plugin.h</code> header file.<br/>
+    Since the execution toggles between the Ethereum App and the Plugin, the plugin needs somewhere to store the data (such as the contract address or the amount of tokens swapped) as it goes along. This is done in <code>context</code>. Make sure you change the definition of <code>context</code> in <code>boilerplate_plugin.h</code> to suit your plugin.
 </Callout>
 
 
