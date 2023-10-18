@@ -48,7 +48,7 @@ module.exports = {
         }
       },
       backgroundImage: {
-        "hero-background": "linear-gradient(269deg, #000 7.78%, rgba(0, 0, 0, 0.00) 15.8%), linear-gradient(96deg, rgba(0, 0, 0, 0.80) 36.2%, rgba(0, 0, 0, 0.80) 36.2%, rgba(0, 0, 0, 0.00) 53.12%), url(/homepage/hero-desktop.png)",
+        "hero-background": "url(/homepage/hero-background.png)",
         "purple-radial-gradient": "radial-gradient(61.07% 61.05% at 50.8% 98.5%, #4F3167 0%, #000 100%)",
         "nano-background": "linear-gradient(103deg, #000 42.94%, rgba(0, 0, 0, 0.00) 59.62%), url('/homepage/nano-background.png')",
         "nano-background-mobile": "linear-gradient(103deg, #000 42.94%, rgba(0, 0, 0, 0.00) 59.62%), url('/homepage/nano-background.png')",
