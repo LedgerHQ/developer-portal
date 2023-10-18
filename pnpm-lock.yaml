@@ -44,13 +44,13 @@ devDependencies:
     specifier: 18.11.10
     version: 18.11.10
   autoprefixer:
-    specifier: 10.4.16
+    specifier: ^10.4.16
     version: 10.4.16(postcss@8.4.31)
   postcss:
-    specifier: 8.4.31
+    specifier: ^8.4.31
     version: 8.4.31
   tailwindcss:
-    specifier: 3.3.3
+    specifier: ^3.3.3
     version: 3.3.3
   typescript:
     specifier: 4.9.3
@@ -6536,7 +6536,7 @@ packages:
     dependencies:
       object-assign: 4.1.1
       react: 18.2.0
-      react-is: 16.13.1
+      react-is: 18.2.0
     dev: false
 
   /react-spring@9.7.3(@react-three/fiber@8.14.6)(konva@9.2.2)(react-dom@18.2.0)(react-konva@18.2.10)(react-native@0.72.6)(react-zdog@1.2.2)(react@18.2.0)(three@0.157.0)(zdog@1.1.3):
