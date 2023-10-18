@@ -21,11 +21,6 @@ Here is the code for our plugin, with comments:
         // The Ethereum App did not manage to find 
         // the info for the requested token.
         context->token_found = false;
-
-        // Default to ETH decimals (for wei).
-        context->decimals = 18;
-        // Default to "???" when information was not found.
-        strlcpy(context->ticker, "???", sizeof(context->ticker));
         
         // If we wanted to add a screen, say a warning screen for example,
         // then we tell the Ethereum app to add an additional screen
@@ -36,4 +31,4 @@ Here is the code for our plugin, with comments:
 
 The code is straightforward. Note that `msg->additionalScreens` tells the Ethereum App it needs X additional screens.
 
-The next step is about how to word your first screen.
+The next step is about how to word your first screen (`query_contract_id`).
