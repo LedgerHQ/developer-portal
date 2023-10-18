@@ -1,12 +1,18 @@
+import { Callout } from 'nextra/components'
+
 # Query Contract ID
 
 The Ethereum App asks for information to be displayed. For the moment, it just wants an overview of this method (in our case, a swap). Let's look at what needs to be done.
 
-The device screen has two lines. For example:
+The Nanos devices screens have two lines. For example:
 ```
 |  Ledger  |    <-- Upper line
 |   Rocks   |    <-- Bottom line
 ```
+
+<Callout type="info" emoji="👉">
+    For Stax devices it's possible to display more than 2 lines. The Ethereum application takes care of filling an entire screen before moving to the next one. As for the plugin, the functionality is the same for both Stax and Nanos devices.
+</Callout>
 
 In this call, the upper line is `msg->name`. It is the Plugin name.
 The bottom line is `msg->version` (legacy name, etc.). It is the action context, for example "Stake", "Vote", "Buy", etc. In our example, the user is swapping, so we use "Swap".

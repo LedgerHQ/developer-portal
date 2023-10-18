@@ -1,8 +1,8 @@
 # Selector Setup
 
-## main.c
+## contract.c
 
-Let’s go to the first `EDIT THIS` comment in `app-plugin-boilerplate/src/main.c`. We start by implementing just a single selector because others are added later.
+Let’s go to the first `EDIT THIS` comment in `app-plugin-boilerplate/src/contract.c`. In this file you can list all the selectors for each contract. In this example we have two selectors but we focus only on the first one.
 
 The first selector (or methodID) to support is `SwapExactEthForToken` from Uniswap V2. 
 You can find it using Etherscan, and you can also compose it using the ABI (Application Binary Interface).
@@ -27,15 +27,16 @@ You can also change the name of `BOILERPLATE_SELECTORS` throughout the project c
 // enum defined in `boilerplate_plugin.h`
 const uint32_t BOILERPLATE_SELECTORS[NUM_SELECTORS] = {
     SWAP_EXACT_ETH_FOR_TOKENS_SELECTOR,
+    BOILERPLATE_DUMMY_SELECTOR_2,
 };
 ```
 ## boilerplate_plugin.h
 
-Let's have a look at `boilerplate_plugin.h` mentioned in the code comments.
+Let's have a look at `app-plugin-boilerplate/src/boilerplate_plugin.h` mentioned in the code comments.
 
 Start by checking the value of `NUM_SELECTORS`. Indeed, for the moment we only have two selectors.
 ```c copy
-#define NUM_SELECTORS 1
+#define NUM_SELECTORS 2
 ```
 
 Here `PLUGIN_NAME` is `Boilerplate`. Your plugin must be named appropriately here, and changed throughout the code
@@ -44,18 +45,15 @@ Here `PLUGIN_NAME` is `Boilerplate`. Your plugin must be named appropriately her
 #define PLUGIN_NAME "Boilerplate"
 ```
 
-Now let's look for the selector mentioned in the comments. Since it is an enum let's change it in our selector:
+Now let's look for the selectors mentioned in the comments. Since it is an enum let's change it in our selector:
 ```c copy
 typedef enum {
     SWAP_EXACT_ETH_FOR_TOKENS,
+    BOILERPLATE_DUMMY_2,
 } selector_t;
 ```
 
-## dispatch_plugin_calls 
+## handlers
 
-We must also change the name of `BOILERPLATE_SELECTORS` to match the one used in `main.c`.
-
-Now let's go back to `main.c`. We see that it contains a function called `dispatch_plugin_calls()`. 
-We will go through each case condition in the pages below. They must all have a corresponding `handle_*.c` located in `src/`. 
-Remember to use the [reference flow](./flow/) to have a complete view of what is going on.
+Now we have to implement a handler for each case condition as described in the [reference flow](../flow/). They must all have a corresponding `handle_*.c` located in `src/`.
 
