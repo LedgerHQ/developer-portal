@@ -17,6 +17,7 @@
   "blockchain-foundation": {
     "title": "Blockchain foundation",
     "type": "page",
+    "title": "Blockchain foundation",
     "theme": {
       "layout": "raw"
     }
