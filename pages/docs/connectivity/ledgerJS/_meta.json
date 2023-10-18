@@ -1,10 +1,9 @@
 {  
 	"required-skills": "Required programming skills",
-	"choose-the-transport": "Choose the right transport",
+	"architecture": "Architecture",
 	"open-close-info-on-apps": "Automatic firmware applications opening / closing",
 	"integration-walkthrough": "Integration Walkthrough",
-	"architecture": "Architecture",
-	"clear-signing": "Clear Signing for ERC721, ERC1155 and ERC20",
 	"tutorials": "End-2-end Tutorials",
+	"clear-signing": "Clear Signing for ERC721, ERC1155 and ERC20",
 	"faq": "FAQ"
 }
