@@ -13,7 +13,7 @@ export const JourneyButton: FC<JourneyButtonProps> = ({hovered, className, ...pr
     if (hovered) {
       setColor("black")
       setTextColor("text-black")
-      setContainerStyles("bg-white")
+      setContainerStyles("bg-white border border-white")
     } else {
       setColor("white")
       setTextColor("text-white")

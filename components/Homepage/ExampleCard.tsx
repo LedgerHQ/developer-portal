@@ -2,7 +2,7 @@ import { FC, HTMLAttributes } from 'react'
 import Image from "next/image"
 import { cn } from '../../lib/utils';
 import { Tag } from './Tag';
-import Button from '../ui/Button';
+import { useRouter } from 'next/navigation';
 
 interface ExampleCardProps extends HTMLAttributes<HTMLDivElement> {
   icon: "coinbase" | "cosmos" | "lido" | "moonpay-purple" | "objkt" | "solana";
@@ -13,19 +13,21 @@ interface ExampleCardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const ExampleCard: FC<ExampleCardProps> = ({icon, title, subtitle, description, type, className, ...props}) => {  
+  const router = useRouter();
+  
   const handleClick = () => {
     switch (type) {
       case "wallet":
-        console.log("wallet")
+        router.push("/wallet")
         break;
       case "services-dapps":
-        console.log("services-dapps")
+        router.push("/services-dapps")
         break;
       case "blockchain":
-        console.log("blockchain")
+        router.push("/blockchain-foundation")
         break;
       case "nft":
-        console.log("nft")
+        router.push("/nft-project")
         break;
       default:
         break;

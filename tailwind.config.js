@@ -55,10 +55,31 @@ module.exports = {
         "nano-background-lg": "linear-gradient(103deg, #000 52.94%, rgba(0, 0, 0, 0.00) 59.62%), url('/homepage/nano-background.png')",
         "nano-background-xl": "linear-gradient(103deg, #000 57.94%, rgba(0, 0, 0, 0.00) 69.62%), url('/homepage/nano-background.png')",
         "nano-background-2xl": "linear-gradient(103deg, #000 72.94%, rgba(0, 0, 0, 0.00) 79.62%), url('/homepage/nano-background.png')",
+        "black-gradient-left": "linear-gradient(90deg, #000 0%, rgba(10, 10, 10, 0.00) 100%);",
+        "black-gradient-right": "linear-gradient(90deg, rgba(10, 10, 10, 0.00) 0%, #000 100%);"
       },
       screens: {
         "phone": "425px",
       },
+      animation: {
+        "carousel-part1": "slide1 20s linear infinite",
+        "carousel-part2": "slide2 20s linear infinite",
+        "carousel-part3": "slide3 20s linear infinite",
+      },
+      keyframes: {
+        slide1: {
+          "0%": { left: "0" },
+          "100%": { left: "-2160px" },
+        },
+        slide2: {
+          "0%": { left: "2160px" },
+          "100%": { left: "0" },
+        },
+        slide3: {
+          "0%": { left: "4320px" },
+          "100%": { left: "2160px" },
+        }
+      }
     },
   },
   plugins: [],

@@ -2,9 +2,8 @@ import { useState, useEffect, FC, HTMLAttributes } from 'react'
 import Image from "next/image"
 import { cn } from '../../lib/utils';
 import { Tag } from './Tag';
-import { BlockchainCryptos, CryptoType, CryptosData, NFTCryptos, ServicesDappsCryptos, WalletCryptos } from './CryptoData';
-import { Cryptos } from './Cryptos';
 import { JourneyButton } from './JourneyButton';
+import { useRouter } from 'next/navigation';
 
 interface JourneyCardProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -13,7 +12,7 @@ interface JourneyCardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const JourneyCard: FC<JourneyCardProps> = ({title, description, type, className, ...props}) => {  
-  const [cryptos, setCryptos] = useState<CryptoType[]>([])
+  const router = useRouter();
   const [isHover,setIsHover]=useState(false);
 
   function MouseOver() {
@@ -23,48 +22,19 @@ export const JourneyCard: FC<JourneyCardProps> = ({title, description, type, cla
     setIsHover(false);
   }
 
-  const getCryptosList = () => {
-    switch (type) {
-      case "wallet":
-        return WalletCryptos;
-      case "services-dapps":
-        return ServicesDappsCryptos;
-      case "blockchain":
-        return BlockchainCryptos;
-      case "nft":
-        return NFTCryptos;
-      default:
-        return [];
-    }
-  }
-
-  useEffect(() => {
-    const journeyList = getCryptosList();
-
-    const list: CryptoType[] = [];
-    journeyList.forEach((cryptoIcon) => {
-      const crypto = CryptosData.find(c => c.icon === cryptoIcon)
-      if (crypto) {
-        list.push(crypto)
-      }
-    })
-
-    setCryptos(list);
-  }, [])
-
   const handleClick = () => {
     switch (type) {
       case "wallet":
-        console.log("wallet")
+        router.push("/wallet")
         break;
       case "services-dapps":
-        console.log("services-dapps")
+        router.push("/services-dapps")
         break;
       case "blockchain":
-        console.log("blockchain")
+        router.push("/blockchain-foundation")
         break;
       case "nft":
-        console.log("nft")
+        router.push("/nft-project")
         break;
       default:
         break;
@@ -72,12 +42,12 @@ export const JourneyCard: FC<JourneyCardProps> = ({title, description, type, cla
   }
 
   return (
-    <button type="button" onMouseOver={MouseOver} onMouseOut={MouseOut} onClick={handleClick} className={cn("flex flex-col rounded border-[0.5px] border-grey-700 bg-grey-800/40 bg-blur-sm text-left", className)} {...props}>
+    <button type="button" onMouseOver={MouseOver} onMouseOut={MouseOut} onClick={handleClick} className={cn("group flex flex-col rounded border-[0.5px] border-grey-700 hover:border-white bg-grey-800/40 bg-blur-sm text-left duration-300 ease-linear", className)} {...props}>
       <div className="w-full overflow-hidden duration-300 ease-linear">
         <Image 
           src={require(`../../public/homepage/bg-${type}.png`)} 
           alt="type"
-          className="w-full"
+          className="w-full group-hover:scale-110 duration-300 ease-linear"
         />  
       </div>
       <div className="flex flex-col px-8 pt-6 mb-6">
@@ -85,9 +55,8 @@ export const JourneyCard: FC<JourneyCardProps> = ({title, description, type, cla
         <div className="text-heading-5 font-semibold tracking-tight mt-4">{title}</div>
         <div className="text-heading-7 font-semibold mt-2">{description}</div>
       </div>
-      <div className="flex flex-col md:flex-row w-full gap-8 md:place-content-between px-8 pb-6 mt-8 md:mt-auto md:items-end">
-        {/* <Cryptos cryptos={cryptos} hovered={isHover} /> */}
-        <JourneyButton hovered={isHover} />
+      <div className="flex flex-col md:flex-row w-full justify-end px-8 pb-6 md:mt-auto md:items-end">
+        <JourneyButton hovered={isHover} className="ml-10" />
       </div>
     </button>
   )
