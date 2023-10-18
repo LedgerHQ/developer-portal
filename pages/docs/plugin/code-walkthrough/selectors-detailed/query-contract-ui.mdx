@@ -43,64 +43,85 @@ Let's dive right into `handle_query_contract_ui.c`:
 // to set the UI accordingly.
 switch (msg->screenIndex) {
     case 0:
-        set_send_ui(msg, context);
+        fn_status = set_send_ui(msg);
         break;
     case 1:
-        set_receive_ui(msg, context);
+        fn_status = set_receive_ui(msg, context);
         break;
     case 2:
-        set_beneficiary_ui(msg, context);
+        fn_status = set_beneficiary_ui(msg, context);
         break;
+    // Keep this
     default:
         PRINTF("Received an invalid screenIndex\n");
         msg->result = ETH_PLUGIN_RESULT_ERROR;
         return;
 }
+
+
+if (!fn_status) {
+    msg->result = ETH_PLUGIN_RESULT_ERROR;
+}
 ```
 
 Let's start by writing `set_send_ui`.
 ```c copy
-static void set_send_ui(ethQueryContractUI_t *msg, context_t *context) {
+static bool set_send_ui(ethQueryContractUI_t *msg) {
     // Copy the "Send" in the upper line.
     strlcpy(msg->title, "Send", msg->titleLength);
     
     // The amount of ETH associated with this transaction is
     // located in `msg->pluginSharedRO->txContent->value.
-    uint8_t *eth_amount = msg->pluginSharedRO->txContent->value.value;
+    const uint8_t *eth_amount = msg->pluginSharedRO->txContent->value.value;
     uint8_t eth_amount_size = msg->pluginSharedRO->txContent->value.length;
 
     // `amountToString` is a utility function that converts 
     //  a `uin256_t` to a string. Also, `18` and `ETH` refer
     //  to the number of decimals and to the ticker respectively.
-    amountToString(eth_amount,
-                eth_amount_size,
-                18,
-                "ETH",
-                msg->msg,
-                msg->msgLength);
+    if (!amountToString(eth_amount,
+                        eth_amount_size,
+                        WEI_TO_ETHER,
+                        "ETH",
+                        msg->msg,
+                        msg->msgLength)) {
+        return false;
+    }
+
+    return true;
 }
 ```
 
 We can write a similar function for `set_receive_ui`:
 ```c copy
-static void set_receive_ui(ethQueryContractUI_t *msg, context_t *context) {
+static bool set_receive_ui(ethQueryContractUI_t *msg, context_t *context) {
     // Set the title
     strlcpy(msg->title, "Receive Min.", msg->titleLength);
 
+    uint8_t decimals = context->decimals;
+    const char *ticker = context->ticker;
+    // If the token look up failed, use the default network ticker along with the default decimals.
+    if (!context->token_found) {
+        decimals = WEI_TO_ETHER;
+        ticker = msg->network_ticker;
+    }
+
     // This time use amountToString with the data stored in our context!
-    amountToString(context->amount_received,
-                   sizeof(context->amount_received),
-                   context->decimals,
-                   context->ticker,
-                   msg->msg,
-                   msg->msgLength);
+    if (!amountToString(context->amount_received,
+                        sizeof(context->amount_received),
+                        decimals,
+                        ticker,
+                        msg->msg,
+                        msg->msgLength)) {
+        return false;
+    }
+    return true;
 }
 ```
 
 And finally, we need to write `set_beneficiary_ui`. Remember, this screen is only shown if the recipient's address doesn't match the user's address. This was done in `handle_plugin_finalize`, where we incremented `numScreens` if the addresses were different.
 
 ```c copy
-static void set_beneficiary_ui(ethQueryContractUI_t *msg, context_t *context) {
+static bool set_beneficiary_ui(ethQueryContractUI_t *msg, context_t *context) {
     // Set the upper line
     strlcpy(msg->title, "Beneficiary", msg->titleLength);
 
@@ -114,11 +135,15 @@ static void set_beneficiary_ui(ethQueryContractUI_t *msg, context_t *context) {
 
     // Get the string format of the address stored in `context->beneficiary`. Store it in
     // `msg->msg`.
-    getEthAddressStringFromBinary(
-        context->beneficiary,
-        (uint8_t *) msg->msg + 2,  // +2 because we've already prefixed with '0x'.
-        msg->pluginSharedRW->sha3, // Used by the function to calculate the hash
-        chainid);
+    if (!getEthAddressStringFromBinary(
+            context->beneficiary,
+            msg->msg + 2,              // +2 here because we've already prefixed with '0x'.
+            msg->pluginSharedRW->sha3, // Used by the function to calculate the hash
+            chainid)) {
+        return false;
+    }
+
+    return true;
 }
 ```
 

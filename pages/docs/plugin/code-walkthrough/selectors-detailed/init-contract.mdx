@@ -33,6 +33,10 @@ switch (context->selectorIndex) {
     case SWAP_EXACT_ETH_FOR_TOKENS:
         context->next_param = MIN_AMOUNT_RECEIVED;
         break;
+    case BOILERPLATE_DUMMY_2:
+        context->next_param = TOKEN_RECEIVED;
+        break;
+    // Keep this
     default:
         PRINTF("Missing selectorIndex: %d\n", context->selectorIndex);
         msg->result = ETH_PLUGIN_RESULT_ERROR;
