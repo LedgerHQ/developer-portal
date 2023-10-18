@@ -4,9 +4,7 @@ import { useRouter } from 'next/router'
 import { useConfig } from 'nextra-theme-docs'
 import { Copy } from './components/features/copy-page-url'
 import DocslyClient from "./components/DocslyClient";
-
-
-
+import AuthButton from "./auth-button"
 
 const config: DocsThemeConfig = {
   project: {
@@ -79,7 +77,12 @@ const config: DocsThemeConfig = {
       </span>
     </>
   ),
-  faviconGlyph: '💻'
+  faviconGlyph: '💻',
+  navbar: {
+    extraContent: (
+      <AuthButton/>
+    )
+  },
 }
 
 export default config
