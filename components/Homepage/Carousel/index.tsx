@@ -15,11 +15,6 @@ export const Carousel= () => {
             <CarouselItem key={item.title} title={item.title} url={item.url} />
         ))}
       </div>
-      <div className="absolute w-[2160px] flex left-[4320px] items-center gap-16 animate-carousel-part3">
-        {CarouselData.map((item) => (
-            <CarouselItem key={item.title} title={item.title} url={item.url} />
-        ))}
-      </div>
     </div>
   )
 }
