@@ -8,13 +8,13 @@ export const Journeys = () => {
           <div className="text-heading-5 md:text-heading-3 tracking-tight-3 font-semibold" id="journeys">Which track is right for you</div>
           <div className="flex flex-wrap gap-y-8 md:gap-x-[3%] mt-16">
             <JourneyCard 
-              title="Increase transaction security,"
+              title="Increase transaction security"
               description="transaction security, and bring your protocol to Ledger Live users"
               type="blockchain"
               className="w-full md:w-[48.5%]"
             />
             <JourneyCard 
-              title="Connect a Ledger device to your application,"
+              title="Connect a Ledger device to your application"
               description="quickly, by implementing various transport protocols" 
               type="wallet"
               className="w-full md:w-[48.5%]"
@@ -26,7 +26,7 @@ export const Journeys = () => {
               className="w-full md:w-[48.5%]"
             />
             <JourneyCard 
-              title="Secure NFT  collections, "
+              title="Secure NFT  collections"
               description="and allow all Ledger users to directly display their NFTs in Ledger Live." 
               type="nft"
               className="w-full md:w-[48.5%]"
