@@ -63,7 +63,7 @@ export const Examples = () => {
               type="blockchain"
             />
           </div>
-          <div className="text-p text-grey-700 text-right mt-4 hidden md:block">And many more...</div>
+          <div className="text-p text-grey-500 text-left md:text-right mt-4">And many more...</div>
         </div>
       </div>
     </div>
