@@ -30,12 +30,6 @@ module.exports = {
           "light": "#C988FF",
           "dark": "#7F6099",
         },
-        green: {
-          "nft": {
-            DEFAULT: "#9D9F64",
-            "dark": "#3F4028"
-          }
-        },
         grey: {
           200: "#F1F1F1",
           300: "#E5E5E5",

@@ -19,16 +19,16 @@ export const Tag: FC<TagProps> = ({type, className, ...props}) => {
   useEffect(() => {
     switch (type) {
       case "wallet":
-        setContainerStyle("border-purple-light bg-purple-dark");
+        setContainerStyle("border-grey-600 bg-grey-700");
         break;
       case "services-dapps":
-        setContainerStyle("border-grey-300 bg-grey-600");
+        setContainerStyle("border-purple-light bg-purple-dark");
         break;
       case "blockchain":
-        setContainerStyle("border-primary bg-primary-dark");
+        setContainerStyle("border-grey-200 bg-grey-400 text-black");
         break;
       case "nft":
-        setContainerStyle("border-green-nft bg-green-nft-dark");
+        setContainerStyle("border-primary bg-primary-dark");
         break;
       default:
         setContainerStyle("");
