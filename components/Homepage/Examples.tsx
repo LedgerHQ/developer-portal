@@ -5,7 +5,7 @@ export const Examples = () => {
   return (
     <div className="relative bg-black">
       <div className="max-w-[1440px] mx-auto">
-        <div className="relative pt-20 pb-16 px-4 md:px-28 z-10">
+        <div className="relative pt-20 pb-10 md:pb-16 px-4 md:px-28 z-10">
           <div className="text-heading-5 md:text-heading-3 tracking-tight-3 font-semibold" id="api">
             They chose security, they chose Ledger
           </div>
@@ -17,7 +17,7 @@ export const Examples = () => {
         <div className="absolute h-14 w-96 right-0 top-0 bg-black-gradient-right z-10" />
       </div>
 
-      <div className="max-w-[1440px] mx-auto">
+      <div className="max-w-[1440px] mx-auto -mt-4 md:mt-0">
         <div className="relative pb-20 px-4 md:px-28 z-10">
           <div className="flex flex-wrap gap-8 mt-16">
             <ExampleCard 

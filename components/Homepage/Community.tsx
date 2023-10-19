@@ -3,7 +3,7 @@ import Button from "../ui/Button"
 export const Community = () => {
   return (
     <div className="relative bg-black">
-      <div className="flex items-center justify-center p-28 bg-purple-radial-gradient">
+      <div className="flex items-center justify-center px-28 py-20 bg-purple-radial-gradient">
         <div className="flex flex-col items-center gap-16">
           <div className='flex flex-col items-center gap-6'>
             <span className="tagText text-purple">Community driven</span>
