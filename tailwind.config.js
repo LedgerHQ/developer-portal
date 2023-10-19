@@ -61,7 +61,6 @@ module.exports = {
       animation: {
         "carousel-part1": "slide1 20s linear infinite",
         "carousel-part2": "slide2 20s linear infinite",
-        "carousel-part3": "slide3 20s linear infinite",
       },
       keyframes: {
         slide1: {
@@ -72,10 +71,6 @@ module.exports = {
           "0%": { left: "2160px" },
           "100%": { left: "0" },
         },
-        slide3: {
-          "0%": { left: "4320px" },
-          "100%": { left: "2160px" },
-        }
       },
       letterSpacing: {
         "tight-1": "-1.08px",
