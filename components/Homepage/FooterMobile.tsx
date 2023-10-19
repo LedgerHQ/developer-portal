@@ -1,6 +1,6 @@
 import { useState, HTMLAttributes, FC } from "react"
 import Image from "next/image";
-import { cn } from "../../lib/utils";
+import { combination } from "../../lib/utils";
 import Link from "next/link";
 import { Link as ScrollLink } from "react-scroll";
 import { FooterDataType } from "./FooterData";
@@ -13,7 +13,7 @@ export const FooterMobile: FC<FooterMobileProps> = ({ footerData, className, ...
   const [expandedItem, setExpandedItem] = useState("");
 
   return (
-    <div className={cn("mt-8 w-full", className)} {...props}>
+    <div className={combination("mt-8 w-full", className)} {...props}>
       {footerData.map((blockData) => (
         <div key={`${blockData.name}`}>
           <button
@@ -37,7 +37,7 @@ export const FooterMobile: FC<FooterMobileProps> = ({ footerData, className, ...
             />
           </button>
           <ul
-            className={cn(
+            className={combination(
               'overflow-hidden duration-300',
               expandedItem === blockData.name
                 ? 'visible max-h-96 '

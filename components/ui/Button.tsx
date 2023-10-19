@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes } from 'react'
 import { Link } from "react-scroll";
-import { cn } from '../../lib/utils';
+import { combination } from '../../lib/utils';
 
 interface ButtonChildrenProps {
   label: string;
@@ -31,7 +31,7 @@ function ButtonChildren(props: ButtonChildrenProps) {
   return (
     <div className="w-max flex gap-4 items-center">
       <span
-        className={cn(`normal-case text-p font-semibold ${textStyle()} ${
+        className={combination(`normal-case text-p font-semibold ${textStyle()} ${
           disabled ? "" : "transition-left"
         }`, textClassName)}
       >
@@ -91,7 +91,7 @@ const Button: FC<ButtonProps> = ({
     return "black";
   };
 
-  const buttonClasses = cn(
+  const buttonClasses = combination(
     `group w-max px-6 py-4 rounded-full flex items-center gap-4 ${typeStyles()}`,
     className
   );
@@ -99,7 +99,7 @@ const Button: FC<ButtonProps> = ({
   if (href) {
     return (
       <a
-        className={cn(`${buttonClasses} cursor-pointer`)}
+        className={combination(`${buttonClasses} cursor-pointer`)}
         href={href}
         target="_blank"
         rel="noreferrer"
@@ -120,7 +120,7 @@ const Button: FC<ButtonProps> = ({
       <Link
         to={link}
         smooth
-        className={cn(`${buttonClasses} cursor-pointer`)}
+        className={combination(`${buttonClasses} cursor-pointer`)}
         offset={-80}
       >
         <ButtonChildren

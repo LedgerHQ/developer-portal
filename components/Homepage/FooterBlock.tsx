@@ -2,7 +2,7 @@ import { HTMLAttributes, FC } from "react"
 import Link from "next/link"
 import { Link as ScrollLink } from "react-scroll";
 import { FooterBlockType } from "./FooterData"
-import { cn } from "../../lib/utils";
+import { combination } from "../../lib/utils";
 
 interface FooterBlockProps extends HTMLAttributes<HTMLDivElement> {
   blockData: FooterBlockType;
@@ -10,7 +10,7 @@ interface FooterBlockProps extends HTMLAttributes<HTMLDivElement> {
 
 export const FooterBlock: FC<FooterBlockProps> = ({ blockData, className, ...props }) => {
   return (
-    <div className={cn("mb-10", className)} {...props}>
+    <div className={combination("mb-10", className)} {...props}>
       <div className="text-p-highlight font-semibold mb-3">{blockData.name}</div>
       <div className="flex flex-col gap-3">
         {blockData.links.map((linkData) => {

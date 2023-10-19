@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes } from 'react'
-import { cn } from '../../lib/utils';
+import { combination } from '../../lib/utils';
 import { useSpring, animated } from 'react-spring';
 
 function numberWithCommas(x) {
@@ -24,7 +24,7 @@ export const NumberItem: FC<NumberItemProps> = ({number, text, className, ...pro
 
 
   return (
-    <div className={cn("flex flex-col w-[350px] items-center gap-5 text-center", className)} {...props}>
+    <div className={combination("flex flex-col w-[350px] items-center gap-5 text-center", className)} {...props}>
       <div className="font-mono-medium text-heading-5 lg:text-heading-3 text-purple">
         <animated.span>{spring.val.to(val => (Math.floor(val)).toLocaleString("fr-FR"))}</animated.span>
         {nonStringValue}

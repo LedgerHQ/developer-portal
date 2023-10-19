@@ -1,6 +1,6 @@
 import { useState, useEffect, FC, HTMLAttributes } from 'react'
 import Image from "next/image"
-import { cn } from '../../lib/utils';
+import { combination } from '../../lib/utils';
 
 const strings = {
   "wallet": "Wallet",
@@ -37,7 +37,7 @@ export const Tag: FC<TagProps> = ({type, className, ...props}) => {
   }, [type])
 
   return (
-    <div className={cn("w-fit flex gap-2 border rounded px-4 py-2 items-center", containerStyle, className)} {...props}>
+    <div className={combination("w-fit flex gap-2 border rounded px-4 py-2 items-center", containerStyle, className)} {...props}>
         <Image src={require(`../../public/icons/${type}.svg`)} alt="icon" className="h-5 w-5" />
         <div className="tagText">{strings[type]}</div>
     </div>
