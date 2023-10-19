@@ -52,7 +52,7 @@ export const JourneyCard: FC<JourneyCardProps> = ({title, description, type, cla
       </div>
       <div className="flex flex-col px-8 pt-6 mb-6">
         <Tag type={type} />
-        <div className="text-heading-5 font-semibold tracking-tight mt-4">{title}</div>
+        <div className="text-heading-5 font-semibold tracking-tight-2 mt-4">{title}</div>
         <div className="text-heading-7 font-semibold mt-2">{description}</div>
       </div>
       <div className="flex flex-col md:flex-row w-full justify-end px-8 pb-6 md:mt-auto md:items-end">

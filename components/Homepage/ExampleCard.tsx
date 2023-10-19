@@ -40,7 +40,7 @@ export const ExampleCard: FC<ExampleCardProps> = ({icon, title, subtitle, descri
         <div className="flex items-center justify-center w-8 h-8 bg-white rounded-md">
           <Image src={require(`../../public/icons/${icon}.png`)} alt="icon" className="w-6" />
         </div>
-        <div className="text-heading-6 font-semibold tracking-tight">{title}</div>
+        <div className="text-heading-6 font-semibold tracking-tight-1">{title}</div>
       </div>
       <div className="text-p font-semibold text-grey-300 mt-6 !leading-[28px]">{subtitle}</div>
       <div className="text-p text-grey-300 !leading-[28px] mb-6">{description}</div>

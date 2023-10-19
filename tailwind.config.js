@@ -80,6 +80,13 @@ module.exports = {
           "0%": { left: "4320px" },
           "100%": { left: "2160px" },
         }
+      },
+      letterSpacing: {
+        "tight-1": "-1.08px",
+        "tight-2": "-1.44px",
+        "tight-3": "-2.25px",
+        "tight-4": "-3.06px",
+        
       }
     },
   },
