@@ -27,7 +27,8 @@ const config: DocsThemeConfig = {
   },
   sidebar: {
     autoCollapse: true,
-    defaultMenuCollapseLevel: 1
+    defaultMenuCollapseLevel: 1,
+    toggleButton: true
   },
   toc: {
     extraContent: () => {
@@ -68,7 +69,11 @@ const config: DocsThemeConfig = {
       }
     }
   },
-  primaryHue: { dark: 120, light: 270 },
+  primaryHue: { dark: 35, light: 270 },
+  nextThemes: {
+    forcedTheme: 'dark'
+  },
+  darkMode: false,
   logo: (
     <>
       <svg width="37" height="32" viewBox="0 0 37 32" fill="none" xmlns="http://www.w3.org/2000/svg">
