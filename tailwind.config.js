@@ -55,8 +55,9 @@ module.exports = {
         "nano-background-lg": "linear-gradient(103deg, #000 52.94%, rgba(0, 0, 0, 0.00) 59.62%), url('/homepage/nano-background.png')",
         "nano-background-xl": "linear-gradient(103deg, #000 57.94%, rgba(0, 0, 0, 0.00) 69.62%), url('/homepage/nano-background.png')",
         "nano-background-2xl": "linear-gradient(103deg, #000 72.94%, rgba(0, 0, 0, 0.00) 79.62%), url('/homepage/nano-background.png')",
-        "black-gradient-left": "linear-gradient(90deg, #000 0%, rgba(10, 10, 10, 0.00) 100%);",
-        "black-gradient-right": "linear-gradient(90deg, rgba(10, 10, 10, 0.00) 0%, #000 100%);"
+        "black-gradient-left": "linear-gradient(90deg, #000 0%, rgba(10, 10, 10, 0.00) 100%)",
+        "black-gradient-right": "linear-gradient(90deg, rgba(10, 10, 10, 0.00) 0%, #000 100%)",
+        "black-gradient-bottom": "linear-gradient(180deg, rgba(10, 10, 10, 0.00) 0%, #000 100%)"
       },
       screens: {
         "phone": "425px",
