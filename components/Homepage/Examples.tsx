@@ -19,7 +19,7 @@ export const Examples = () => {
 
       <div className="max-w-[1440px] mx-auto -mt-4 md:mt-0">
         <div className="relative pb-20 px-4 md:px-28 z-10">
-          <div className="flex flex-wrap gap-8 mt-16 justify-center md:justify-normal">
+          <div className="flex flex-wrap gap-8 mt-16 justify-center items-center md:justify-normal">
             <ExampleCard 
               icon="coinbase" 
               title="CoinbaseWallet"
@@ -62,8 +62,9 @@ export const Examples = () => {
               description="Cosmos is fully compatible with Ledger making it easy to support any Cosmos chains on the suite of Ledger products" 
               type="blockchain"
             />
+            <div className="md:hidden w-full text-p text-grey-500 mt-4">And many more...</div>
           </div>
-          <div className="text-p text-grey-500 text-left md:text-right mt-4">And many more...</div>
+          <div className="hidden md:block text-p text-grey-500 text-right mt-4">And many more...</div>
         </div>
       </div>
     </div>
