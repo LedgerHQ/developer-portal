@@ -49,12 +49,14 @@ module.exports = {
       },
       backgroundImage: {
         "hero-background": "url(/homepage/hero-background.png)",
-        "purple-radial-gradient": "radial-gradient(61.07% 61.05% at 50.8% 98.5%, #4F3167 0%, #000 100%)",
         "nano-background": "linear-gradient(103deg, #000 42.94%, rgba(0, 0, 0, 0.00) 59.62%), url('/homepage/nano-background.png')",
         "nano-background-mobile": "linear-gradient(103deg, #000 42.94%, rgba(0, 0, 0, 0.00) 59.62%), url('/homepage/nano-background.png')",
         "nano-background-lg": "linear-gradient(103deg, #000 52.94%, rgba(0, 0, 0, 0.00) 59.62%), url('/homepage/nano-background.png')",
         "nano-background-xl": "linear-gradient(103deg, #000 57.94%, rgba(0, 0, 0, 0.00) 69.62%), url('/homepage/nano-background.png')",
         "nano-background-2xl": "linear-gradient(103deg, #000 72.94%, rgba(0, 0, 0, 0.00) 79.62%), url('/homepage/nano-background.png')",
+        "purple-radial-gradient": "radial-gradient(61.07% 61.05% at 50.8% 98.5%, #4F3167 0%, #000 100%)",
+        "purple-radial-gradient-smaller": "radial-gradient(42.07% 51.05% at 50.8% 98.5%, #4F3167 0%, #000 100%)",
+        "purple-radial-gradient-smaller-mobile": "radial-gradient(62.07% 16.05% at 50.8% 98.5%, #4F3167 0%, #000 100%)",
         "black-gradient-left": "linear-gradient(90deg, #000 0%, rgba(10, 10, 10, 0.00) 100%)",
         "black-gradient-right": "linear-gradient(90deg, rgba(10, 10, 10, 0.00) 0%, #000 100%)",
         "black-gradient-bottom": "linear-gradient(180deg, rgba(10, 10, 10, 0.00) 0%, #000 100%)"
