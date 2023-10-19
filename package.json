@@ -21,6 +21,7 @@
     "@docsly/react": "^1.8.6",
     "clsx": "^2.0.0",
     "next": "13.0.6",
+    "next-auth": "^4.23.2",
     "nextra": "latest",
     "nextra-theme-docs": "latest",
     "react": "18.2.0",
