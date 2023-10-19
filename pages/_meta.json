@@ -17,7 +17,6 @@
   "blockchain-foundation": {
     "title": "Blockchain foundation",
     "type": "page",
-    "title": "Blockchain foundation",
     "theme": {
       "layout": "raw"
     }
@@ -48,8 +47,7 @@
     "type": "page"
   },
   "swap": {
-    "title": "Swap Provider",
-    "type": "page",
-    "display": "hidden"
+    "title": "Exchange",
+    "type": "page"
   }
 }
