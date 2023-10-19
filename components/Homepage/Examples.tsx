@@ -19,7 +19,7 @@ export const Examples = () => {
 
       <div className="max-w-[1440px] mx-auto -mt-4 md:mt-0">
         <div className="relative pb-20 px-4 md:px-28 z-10">
-          <div className="flex flex-wrap gap-8 mt-16">
+          <div className="flex flex-wrap gap-8 mt-16 justify-center md:justify-normal">
             <ExampleCard 
               icon="coinbase" 
               title="CoinbaseWallet"
