@@ -12,9 +12,9 @@ export const Examples = () => {
         </div>
       </div>
       <div className="relative max-w-[1600px] overflow-hidden mx-auto">
-        <div className="absolute h-14 w-24 md:w-44 lg:w-96 left-0 top-0 bg-black-gradient-left z-10" />
+        <div className="absolute h-14 w-10 md:w-44 lg:w-96 left-0 top-0 bg-black-gradient-left z-10" />
         <Carousel />
-        <div className="absolute h-14 w-24 md:w-44 lg:w-96 right-0 top-0 bg-black-gradient-right z-10" />
+        <div className="absolute h-14 w-10 md:w-44 lg:w-96 right-0 top-0 bg-black-gradient-right z-10" />
       </div>
 
       <div className="max-w-[1440px] mx-auto -mt-4 md:mt-0">

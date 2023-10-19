@@ -43,11 +43,11 @@ export const JourneyCard: FC<JourneyCardProps> = ({title, description, type, cla
 
   return (
     <button type="button" onMouseOver={MouseOver} onMouseOut={MouseOut} onClick={handleClick} className={combination("group flex flex-col rounded border-[0.5px] border-grey-700 hover:border-white bg-grey-800/40 backdrop-blur-sm text-left duration-300 ease-linear", className)} {...props}>
-      <div className="w-full overflow-hidden duration-300 ease-linear">
+      <div className="relative w-full h-[160px] sm:h-[200px] md:h-[110px] lg:h-[170px] xl:h-[200px] overflow-hidden duration-300 ease-linear">
         <Image 
-          src={require(`../../public/homepage/bg-${type}.png`)} 
+          src={require(`../../public/homepage/bg-${type}.jpg`)} 
           alt="type"
-          className="w-full group-hover:scale-110 duration-300 ease-linear"
+          className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] group-hover:scale-110 duration-300 ease-linear"
         />  
       </div>
       <div className="flex flex-col px-8 pt-6 mb-6">

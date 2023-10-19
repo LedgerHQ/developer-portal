@@ -24,7 +24,7 @@ export const NumberItem: FC<NumberItemProps> = ({number, text, className, ...pro
 
 
   return (
-    <div className={combination("flex flex-col w-[350px] items-center gap-5 text-center", className)} {...props}>
+    <div className={combination("flex flex-col w-[320px] phone:w-[350px] items-center gap-5 text-center", className)} {...props}>
       <div className="font-mono-medium text-heading-5 lg:text-heading-3 text-purple">
         <animated.span>{spring.val.to(val => (Math.floor(val)).toLocaleString("fr-FR"))}</animated.span>
         {nonStringValue}
