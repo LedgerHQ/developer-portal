@@ -23,6 +23,7 @@ export default NextAuth({
     session({ session, token }) {
       session.user.role = token.role
       return session
-    }
+    },
+    async redirect({ url, baseUrl }) { return baseUrl }
   }
 })
