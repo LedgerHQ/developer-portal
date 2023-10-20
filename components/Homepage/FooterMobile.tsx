@@ -49,7 +49,7 @@ export const FooterMobile: FC<FooterMobileProps> = ({ footerData, className, ...
               return (
                 <li
                 className="px-3 py-2 text-sm text-gray-300"
-                key={`${linkData.name}-${index}`}
+                key={`${linkData.label}-${index}`}
               >
                 <ScrollLink
                   key={linkData.label}
@@ -66,7 +66,7 @@ export const FooterMobile: FC<FooterMobileProps> = ({ footerData, className, ...
             return (
               <li
                 className="px-3 py-2 text-sm text-gray-300"
-                key={`${linkData.name}-${index}`}
+                key={`${linkData.label}-${index}`}
               >
                 <Link key={linkData.label} className="text-p-caption text-grey-500 hover:text-grey-400" href={linkData.link}>
                   {linkData.label}
