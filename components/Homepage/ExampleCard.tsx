@@ -4,7 +4,7 @@ import { combination } from '../../lib/utils';
 import { Tag } from './Tag';
 import { useRouter } from 'next/navigation';
 
-interface ExampleCardProps extends HTMLAttributes<HTMLDivElement> {
+interface ExampleCardProps extends HTMLAttributes<HTMLButtonElement> {
   icon: "coinbase" | "cosmos" | "lido" | "moonpay-purple" | "objkt" | "solana";
   title: string;
   subtitle: string;

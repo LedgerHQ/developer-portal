@@ -5,7 +5,7 @@ import { Tag } from './Tag';
 import { JourneyButton } from './JourneyButton';
 import { useRouter } from 'next/navigation';
 
-interface JourneyCardProps extends HTMLAttributes<HTMLDivElement> {
+interface JourneyCardProps extends HTMLAttributes<HTMLButtonElement> {
   title: string;
   description: string;
   type: "wallet" | "services-dapps" | "blockchain" | "nft";
