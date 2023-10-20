@@ -1,7 +1,15 @@
-export const Homepage = () => {
+import { Hero } from "../components/Homepage/Hero"
+import { Numbers } from "../components/Homepage/Numbers"
+import { Journeys } from "../components/Homepage/Journeys"
+import { Examples } from "../components/Homepage/Examples"
+import { Community } from "../components/Homepage/Community"
+import { Explore } from "../components/Homepage/Explore"
+import { Footer } from "../components/Homepage/Footer"
 
-  return <div>HOME</div>
-}
-
-<Homepage />
-
+<Hero journeyId="journeys" />
+<Numbers />
+<Journeys />
+<Examples />
+<Community />
+<Explore journeyId="journeys" />
+<Footer />
