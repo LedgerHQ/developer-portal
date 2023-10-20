@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @import "./system-fonts.css";
 
 body {
@@ -136,4 +137,30 @@ article a[target='_blank']:after {
   font-size: 15px;
   color: #585858;
   margin: 10px 0;
+}
+
+
+@layer components {
+  .transition-right { 
+    @apply transition-all group-hover:translate-x-1 group-hover:transform
+  }
+  .transition-left { 
+    @apply transition-all group-hover:-translate-x-1 group-hover:transform
+  }
+}
+
+.font-inter {
+  font-family: 'Inter';
+}
+
+.font-inter-medium {
+  font-family: 'Inter Medium';
+}
+
+.font-mono-medium {
+  font-family: 'HMAlphaMono';
+}
+
+.tagText {
+  @apply text-p-tag font-semibold uppercase;
 }
