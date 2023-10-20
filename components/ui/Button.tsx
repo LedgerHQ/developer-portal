@@ -7,7 +7,7 @@ interface ButtonChildrenProps {
   svgIcon?: "arrow-right" | "arrow-external";
   jsxIcon?: JSX.Element;
   disabled?: boolean;
-  color?: "white" | "gray" | "black";
+  textColor?: "white" | "gray" | "black";
   textClassName?: string;
 }
 
@@ -17,14 +17,14 @@ function ButtonChildren(props: ButtonChildrenProps) {
     svgIcon = null,
     jsxIcon = null,
     disabled = false,
-    color = "white",
+    textColor = "white",
     textClassName = "",
   } = props;
 
   const textStyle = () => {
-    if (color === "white") return "text-white";
-    if (color === "black") return "text-black";
-    if (color === "gray") return "text-gray-600";
+    if (textColor === "white") return "text-white";
+    if (textColor === "black") return "text-black";
+    if (textColor === "gray") return "text-gray-600";
     return "";
   };
 
@@ -39,7 +39,7 @@ function ButtonChildren(props: ButtonChildrenProps) {
       </span>
       {svgIcon && (
         <img
-          src={`/icons/${svgIcon}-${color}.svg`}
+          src={`/icons/${svgIcon}-${textColor}.svg`}
           className={`${disabled ? "brightness-50" : "transition-right"}`}
           alt="button icon"
         />
@@ -108,7 +108,7 @@ const Button: FC<ButtonProps> = ({
           label={label}
           svgIcon={svgIcon}
           jsxIcon={jsxIcon}
-          color={color()}
+          textColor={color()}
           textClassName={textClassName}
         />
       </a>
@@ -127,7 +127,7 @@ const Button: FC<ButtonProps> = ({
           label={label}
           svgIcon={svgIcon}
           jsxIcon={jsxIcon}
-          color={color()}
+          textColor={color()}
           textClassName={textClassName}
         />
       </Link>
@@ -147,7 +147,7 @@ const Button: FC<ButtonProps> = ({
           svgIcon={svgIcon}
           jsxIcon={jsxIcon}
           disabled={disabled}
-          color={color()}
+          textColor={color()}
           textClassName={textClassName}
         />
       </button>
@@ -163,7 +163,7 @@ const Button: FC<ButtonProps> = ({
         svgIcon={svgIcon}
         jsxIcon={jsxIcon}
         disabled={disabled}
-        color={color()}
+        textColor={color()}
         textClassName={textClassName}
       />
     </div>
