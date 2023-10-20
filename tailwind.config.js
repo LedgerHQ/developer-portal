@@ -30,12 +30,6 @@ module.exports = {
           "light": "#C988FF",
           "dark": "#7F6099",
         },
-        green: {
-          "nft": {
-            DEFAULT: "#9D9F64",
-            "dark": "#3F4028"
-          }
-        },
         grey: {
           200: "#F1F1F1",
           300: "#E5E5E5",
@@ -49,23 +43,25 @@ module.exports = {
       },
       backgroundImage: {
         "hero-background": "url(/homepage/hero-background.png)",
-        "purple-radial-gradient": "radial-gradient(61.07% 61.05% at 50.8% 98.5%, #4F3167 0%, #000 100%)",
         "nano-background": "linear-gradient(103deg, #000 42.94%, rgba(0, 0, 0, 0.00) 59.62%), url('/homepage/nano-background.png')",
         "nano-background-mobile": "linear-gradient(103deg, #000 42.94%, rgba(0, 0, 0, 0.00) 59.62%), url('/homepage/nano-background.png')",
         "nano-background-lg": "linear-gradient(103deg, #000 52.94%, rgba(0, 0, 0, 0.00) 59.62%), url('/homepage/nano-background.png')",
         "nano-background-xl": "linear-gradient(103deg, #000 57.94%, rgba(0, 0, 0, 0.00) 69.62%), url('/homepage/nano-background.png')",
-        "nano-background-2xl": "linear-gradient(103deg, #000 72.94%, rgba(0, 0, 0, 0.00) 79.62%), url('/homepage/nano-background.png')",
+        "nano-background-laptop": "linear-gradient(103deg, #000 57.94%, rgba(0, 0, 0, 0.00) 69.62%), linear-gradient(90deg, rgba(10, 10, 10, 0.00) 90%, #000 100%), url('/homepage/nano-background.png')",
+        "purple-radial-gradient": "radial-gradient(61.07% 61.05% at 50.8% 98.5%, #4F3167 0%, #000 100%)",
+        "purple-radial-gradient-smaller": "radial-gradient(42.07% 51.05% at 50.8% 98.5%, #4F3167 0%, #000 100%)",
+        "purple-radial-gradient-smaller-mobile": "radial-gradient(62.07% 16.05% at 50.8% 98.5%, #4F3167 0%, #000 100%)",
         "black-gradient-left": "linear-gradient(90deg, #000 0%, rgba(10, 10, 10, 0.00) 100%)",
         "black-gradient-right": "linear-gradient(90deg, rgba(10, 10, 10, 0.00) 0%, #000 100%)",
         "black-gradient-bottom": "linear-gradient(180deg, rgba(10, 10, 10, 0.00) 0%, #000 100%)"
       },
       screens: {
         "phone": "425px",
+        "laptop": "1440px"
       },
       animation: {
         "carousel-part1": "slide1 20s linear infinite",
         "carousel-part2": "slide2 20s linear infinite",
-        "carousel-part3": "slide3 20s linear infinite",
       },
       keyframes: {
         slide1: {
@@ -76,10 +72,13 @@ module.exports = {
           "0%": { left: "2160px" },
           "100%": { left: "0" },
         },
-        slide3: {
-          "0%": { left: "4320px" },
-          "100%": { left: "2160px" },
-        }
+      },
+      letterSpacing: {
+        "tight-1": "-1.08px",
+        "tight-2": "-1.44px",
+        "tight-3": "-2.25px",
+        "tight-4": "-3.06px",
+        
       }
     },
   },

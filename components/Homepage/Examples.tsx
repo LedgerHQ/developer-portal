@@ -5,21 +5,21 @@ export const Examples = () => {
   return (
     <div className="relative bg-black">
       <div className="max-w-[1440px] mx-auto">
-        <div className="relative pt-20 pb-16 px-4 md:px-28 z-10">
-          <div className="text-heading-5 md:text-heading-3 tracking-tighter font-semibold" id="api">
+        <div className="relative pt-20 pb-10 md:pb-16 px-4 md:px-28 z-10">
+          <div className="text-heading-5 md:text-heading-3 tracking-tight-3 font-semibold" id="api">
             They chose security, they chose Ledger
           </div>
         </div>
       </div>
-      <div className="relative">
-        <div className="absolute h-14 w-96 left-0 top-0 bg-black-gradient-left z-10" />
+      <div className="relative max-w-[1600px] overflow-hidden mx-auto">
+        <div className="absolute h-14 w-10 md:w-44 lg:w-96 left-0 top-0 bg-black-gradient-left z-10" />
         <Carousel />
-        <div className="absolute h-14 w-96 right-0 top-0 bg-black-gradient-right z-10" />
+        <div className="absolute h-14 w-10 md:w-44 lg:w-96 right-0 top-0 bg-black-gradient-right z-10" />
       </div>
 
-      <div className="max-w-[1440px] mx-auto">
+      <div className="max-w-[1440px] mx-auto -mt-4 md:mt-0">
         <div className="relative pb-20 px-4 md:px-28 z-10">
-          <div className="flex flex-wrap gap-8 mt-16">
+          <div className="flex flex-wrap gap-8 mt-16 justify-center items-center md:items-stretch md:justify-normal">
             <ExampleCard 
               icon="coinbase" 
               title="CoinbaseWallet"
@@ -62,8 +62,9 @@ export const Examples = () => {
               description="Cosmos is fully compatible with Ledger making it easy to support any Cosmos chains on the suite of Ledger products" 
               type="blockchain"
             />
+            <div className="md:hidden w-full text-p text-grey-500 mt-4">And many more...</div>
           </div>
-          <div className="text-p text-grey-700 text-right mt-4 hidden md:block">And many more...</div>
+          <div className="hidden md:block text-p text-grey-500 text-right mt-4">And many more...</div>
         </div>
       </div>
     </div>
