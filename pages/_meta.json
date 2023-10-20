@@ -45,9 +45,5 @@
   "docs": {
     "title": "Docs",
     "type": "page"
-  },
-  "swap": {
-    "title": "Exchange",
-    "type": "page"
   }
 }
