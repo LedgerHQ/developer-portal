@@ -1,64 +1,48 @@
 import '../style/styles.css'
 import Script from "next/script";
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
 import { SessionProvider } from "next-auth/react"
-import * as gtag from '../lib/gtag'
-
 
 export default function MyApp({
   Component,
   pageProps: { session, ...pageProps },
   }) {
-  
-  const router = useRouter()
-  const GTM_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID;
+const GTM_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID;
 
-  useEffect(() => {
-    const handleRouteChange = (url) => {
-      gtag.pageview(url)
-    }
-    router.events.on('routeChangeComplete', handleRouteChange)
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange)
-    }
-  }, [router.events])
+return (
 
-  return (
+<>
+  <SessionProvider session={session}>
+    <Component {...pageProps} />
+  </SessionProvider>
 
-  <>
-    <SessionProvider session={session}>
-      <Component {...pageProps} />
-    </SessionProvider>
+  {/* Global Tag Manager Header */}
 
-    {/* Global Tag Manager Header */}
+{" "}
 
-  {" "}
+<Script
+  id="google-tag-manager-header"
+  strategy="beforeInteractive"
+  dangerouslySetInnerHTML={{
+    __html: `
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','${GTM_ID}');
+    `,
+  }}
+/>
 
-  <Script
-    id="google-tag-manager-header"
-    strategy="beforeInteractive"
-    dangerouslySetInnerHTML={{
-      __html: `
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','${GTM_ID}');
-      `,
-    }}
-  />
+  {/* Global Tag Manager Body */}
 
-    {/* Global Tag Manager Body */}
-
-  <Script id="google-tag-manager" strategy="afterInteractive">
-    <iframe
-      src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"
-    ></iframe>
-  </Script>
-  </>
-  )
+<Script id="google-tag-manager" strategy="afterInteractive">
+  <iframe
+    src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}"
+    height="0"
+    width="0"
+    style="display:none;visibility:hidden"
+  ></iframe>
+</Script>
+</>
+)
 }
