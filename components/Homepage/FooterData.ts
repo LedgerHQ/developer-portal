@@ -12,19 +12,14 @@ export const FooterData: FooterDataType = [
         scrollLink: "home",
       },
       {
-        label: "Overview",
-        link: "https://shop.ledger.com/pages/ledger-nano-x",
-        scrollLink: "overview",
+        label: "Docs",
+        link: "/docs",
+        scrollLink: null,
       },
       {
-        label: "Guides",
-        link: "https://shop.ledger.com/pages/ledger-nano-s-plus",
-        scrollLink: "journeys",
-      },
-      {
-        label: "API",
-        link: "https://shop.ledger.com/products/ledger-backup-pack",
-        scrollLink: "api",
+        label: "Discord",
+        link: "https://ledgeropen.herokuapp.com/pro",
+        scrollLink: null,
       },
     ]
   },
