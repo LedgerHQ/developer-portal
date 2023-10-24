@@ -227,7 +227,15 @@ The vast majority of applications are mainly designed to sign a transaction. Alt
 
 The application's structure should follow this pattern:
 
-![Transaction Signature Flow](/tx-parsing.svg)
+```mermaid
+flowchart LR
+A[Receive transaction];
+B[Parse tx data ];
+C[Select fields];
+D[Display fields];
+E[Sign transaction];
+A --> B --> C --> D --> E
+```
 
 In order to produce an easily maintained, readable codebase composed of reusable components, each of these steps should be cleanly cut.
 It is sometimes tempting to mix in the parser with the rest of the code, or format data for printing within the parser, but doing so produces code that is hard to test or maintain.
