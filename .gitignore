@@ -2,4 +2,4 @@
 node_modules
 .DS_Store
 .env.local
-**/.DS_Store
+public/.DS_Store
