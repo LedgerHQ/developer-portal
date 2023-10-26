@@ -23,12 +23,22 @@ Instead of building your application in a separate repository, you will make cha
 Add your chain ID, chain name and Ticker to [network.c](https://github.com/LedgerHQ/app-ethereum/blob/develop/src_common/network.c) following this example:
 
 ```js copy
-{.chain_id = 592, .name = "Astar", .ticker = "ASTR "};
+{.chain_id = 592, .name = "Astar", .ticker = "ASTR"},
 ```
 
+## 2. Add an icon for Ledger Stax
 
-## 2. Add your Network to Chainlist.org and SLIP-0044
+Add your 64x64px gif icon in the `glyphs` folder following this naming convention: `stax_yourchainid_64px.gif`.
+Use the template provided [here](../deliverables/icons#stax-template). 
+
+## 3. Add your Network to Chainlist.org and SLIP-0044
 
 - Chainlist.org: Click "Add Your Network +" on [the Chainlist homepage](https://chainlist.org/) and follow the ReadMe to add your Network.
 
 - SLIP-0044: Open a PR to add your network [in this file](https://github.com/satoshilabs/slips/blob/master/slip-0044.md)
+
+## 4. Open a pull request
+
+When your application is ready, open a pull request on the Ethereum application repository.
+
+Please get in touch with our team on the [Ledger's Discord server](https://developers.ledger.com/discord/) to get your PR reviewed.
