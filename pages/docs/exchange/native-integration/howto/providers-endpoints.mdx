@@ -124,7 +124,7 @@ Some requirements about the **/quote** endpoint:
   - `payloadCurrencyTo`: to currency id, using ledger's referencial. This value has to used for `currency_to` field in the protobuf payload.
   - `amountToProvider`: amount of `currencyFrom` that the provider expects to receive from client.
   - `amountToWallet`: amount of `currencyTo` that the provider agrees to send to the client in exchange from (optional for a *float* trade).
-  - `nonce`: value to use for `device_transaction_id` field in the protobuf payload.
+  - `nonce`: value to use for `device_transaction_id_ng` field in the protobuf payload.
 - **Output**:
   - `swapId`: provider's id of the ongoing swap transaction. This will be used by Ledger's backend to retrieve the status of user swap transaction.
   - `payinAddress`: provider's address.
@@ -202,6 +202,7 @@ message NewTransactionResponse {
     bytes     amount_to_provider = 9;
     bytes     amount_to_wallet = 10;
     string    device_transaction_id = 11; // nonce
+    bytes     device_transaction_id_ng = 12; // nonce
 }
 ```
 
@@ -216,7 +217,8 @@ Explanation of each fields:
 - `currency_to`: must be set to value of `payloadCurrencyTo` from the [/swap API request](#post-swap)
 - `amount_to_provider`: amount of `currency_from` that the provider expects to receive from client
 - `amount_to_wallet`: amount of `currency_to` that the provider agrees to send to the client in exchange from `amount_to_provider`. This amount must also include the network fees that the provider will pay to send the crypto to the user.
-- `device_transaction_id`: swap transaction nonce provided by client at initialization (must be set to value of `nonce` from the API request)
+- `device_transaction_id`: swap transaction nonce provided by client at initialization (must be set to value of `nonce` from the API request) - this is a legacy property, only used by historical parter
+- `device_transaction_id_ng`: swap transaction nonce provided by client at initialization (must be set to value of `nonce` from the API request)
 
 Amounts must be in the lowest unit of the coin, encoded into a 16 bytes array in big endian.
 
@@ -246,6 +248,7 @@ payload = {
   amount_to_provider, // amount (to provider)
   amount_to_wallet,   // amount (to customer)
   device_transaction_id,
+  device_transaction_id_ng,
   …
 }
 R, S = Sign(payload, priv_key)
