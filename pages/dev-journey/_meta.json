@@ -1,0 +1,32 @@
+{  
+	"overview": {
+	    "title": "Overview",
+	    "theme": {
+	      "layout": "raw"
+	    }
+	},
+	"blockchain-foundation": {
+	    "title": "Blockchain Foundation",
+	    "theme": {
+	      "layout": "raw"
+	    }
+  	},
+	"services-dapps": {
+	    "title": "Services & DApps",
+	    "theme": {
+	      "layout": "raw"
+	    }
+  	},
+	"nft-project": {
+	    "title": "NFT project",
+	    "theme": {
+	      "layout": "raw"
+	    }
+  	},
+	"wallet": {
+	    "title": "Wallet",
+	    "theme": {
+	      "layout": "raw"
+	    }
+  	}
+}

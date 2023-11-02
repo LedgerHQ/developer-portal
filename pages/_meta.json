@@ -6,44 +6,31 @@
     },
     "display": "hidden"
   },
-  "overview": {
-    "title": "Overview",
-    "type": "page",
-    "theme": {
-      "layout": "raw"
-    },
-    "display": "hidden"
-  },
-  "blockchain-foundation": {
-    "title": "Blockchain foundation",
-    "type": "page",
-    "theme": {
-      "layout": "raw"
-    }
-  },
-  "services-dapps": {
-    "title": "Services & DApp",
-    "type": "page",
-    "theme": {
-      "layout": "raw"
-    }
-  },
-  "nft-project": {
-    "title": "NFT project",
-    "type": "page",
-    "theme": {
-      "layout": "raw"
-    }
-  },
-  "wallet": {
-    "title": "Wallet",
-    "type": "page",
-    "theme": {
-      "layout": "raw"
+  "dev-journey": {
+    "title": "Dev Journeys",
+    "type": "menu",
+    "items": {
+      "overview": {
+        "title": "Overview",
+        "display": "hidden"
+
+      },
+      "blockchain-foundation": {
+        "title": "Blockchain foundation"
+      },
+      "services-dapps": {
+        "title": "Services & DApp"
+      },
+      "nft-project": {
+        "title": "NFT project"
+      },
+      "wallet": {
+        "title": "Wallet"
+      }
     }
   },
   "docs": {
-    "title": "Docs",
+    "title": "Documentation",
     "type": "page"
   }
 }

@@ -1,4 +1,5 @@
 {  
+	"sections": "Sections",
 	"device-app": "Device App", 
 	"plugin": "Plugin",
 	"connectivity": "Connectivity",
