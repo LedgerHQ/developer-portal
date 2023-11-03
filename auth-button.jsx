@@ -15,7 +15,7 @@ const AuthButton = () => {
 
   return (
     <button onClick={handleAuthentication}>
-      {session ? 'Logout' : 'Partners'}
+      {session ? 'Logout' : ''}
     </button>
   );
 };
