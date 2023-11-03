@@ -5,6 +5,8 @@ import { useConfig } from 'nextra-theme-docs'
 import { Copy } from './components/features/copy-page-url'
 import DocslyClient from "./components/DocslyClient";
 import AuthButton from "./auth-button"
+import { Footer } from "/components/Homepage/Footer"
+
 
 const config: DocsThemeConfig = {
   project: {
@@ -19,6 +21,7 @@ const config: DocsThemeConfig = {
     component: () => (
       <>
         {/* Your footer code */}
+        <Footer />
         <DocslyClient />
       </>
     ),
