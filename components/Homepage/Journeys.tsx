@@ -9,13 +9,13 @@ export const Journeys = () => {
           <div className="flex flex-wrap gap-y-8 md:gap-x-[3%] mt-16">
             <JourneyCard 
               title="Increase transaction security"
-              description="transaction security, and bring your protocol to Ledger Live users"
+              description="and bring your protocol to Ledger Live users"
               type="blockchain"
               className="w-full md:w-[48.5%]"
             />
             <JourneyCard 
               title="Connect a Ledger device to your application"
-              description="quickly, by implementing various transport protocols" 
+              description="quickly by implementing various transport protocols" 
               type="wallet"
               className="w-full md:w-[48.5%]"
             />
