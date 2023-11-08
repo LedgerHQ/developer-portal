@@ -716,32 +716,32 @@ module.exports = {
        },
       {
         source: '/docs/swap/live-app/start-here',
-        destination: '/docs/exchange/live-app/start-here',
+        destination: '/docs/exchange/embedded-app/start-here',
         permanent: true,
        },
       {
         source: '/docs/swap/live-app/quote',
-        destination: '/docs/exchange/live-app/flow-breakdown/quote',
+        destination: '/docs/exchange/embedded-app/flow-breakdown/quote',
         permanent: true,
        },
       {
         source: '/docs/swap/live-app/partner-live-app',
-        destination: '/docs/exchange/live-app/flow-breakdown/partner-live-app',
+        destination: '/docs/exchange/embedded-app/flow-breakdown/partner-live-app',
         permanent: true,
        },
       {
         source: '/docs/swap/live-app/device-flow',
-        destination: '/docs/exchange/live-app/flow-breakdown/device-flow',
+        destination: '/docs/exchange/embedded-app/flow-breakdown/device-flow',
         permanent: true,
        },
       {
         source: '/docs/swap/live-app/transaction-status',
-        destination: '/docs/exchange/live-app/flow-breakdown/transaction-status',
+        destination: '/docs/exchange/embedded-app/flow-breakdown/transaction-status',
         permanent: true,
        },
       {
         source: '/docs/swap/live-app/edge-cases',
-        destination: '/docs/exchange/live-app/flow-breakdown/edge-cases',
+        destination: '/docs/exchange/embedded-app/flow-breakdown/edge-cases',
         permanent: true,
        },                                                                                                                                                                                                                                                              
     ];
