@@ -288,7 +288,122 @@ module.exports = {
         source: '/docs/embedded-app/version',
         destination: '/docs/device-app/getting-started/version',
         permanent: true,
-       },                                                                                         
+       },
+      {
+        source: '/docs/transport/overview',
+        destination: '/docs/connectivity/ledgerJS',
+        permanent: true,
+       }, 
+      {
+        source: '/docs/transport/required-skills',
+        destination: '/docs/connectivity/ledgerJS/required-skills',
+        permanent: true,
+       }, 
+      {
+        source: '/docs/transport/choose-the-transports',
+        destination: '/docs/connectivity/ledgerJS',
+        permanent: true,
+       },
+      {
+        source: '/docs/transport/prerequisites',
+        destination: '/docs/connectivity/ledgerJS/integration-walkthrough',
+        permanent: true,
+       },
+      {
+        source: '/docs/transport/web-hid-usb',
+        destination: '/docs/connectivity/ledgerJS/integration-walkthrough/web-application/web-bluetooth',
+        permanent: true,
+       },
+      {
+        source: '/docs/transport/web-hid-usb',
+        destination: '/docs/connectivity/ledgerJS/integration-walkthrough/web-application/web-bluetooth',
+        permanent: true,
+       },
+      {
+        source: '/docs/transport/react-native-android-hid',
+        destination: '/docs/connectivity/ledgerJS/integration-walkthrough/mobile-application/react-native-android-hid',
+        permanent: true,
+       },
+      {
+        source: '/docs/transport/react-native-bluetooth-android',
+        destination: '/docs/connectivity/ledgerJS/integration-walkthrough/mobile-application/react-native-bluetooth-android',
+        permanent: true,
+       },
+      {
+        source: '/docs/transport/react-native-bluetooth-ios',
+        destination: '/docs/connectivity/ledgerJS/integration-walkthrough/mobile-application/react-native-bluetooth-ios',
+        permanent: true,
+       },
+      {
+        source: '/docs/transport/node-electron-hid',
+        destination: '/docs/connectivity/ledgerJS/integration-walkthrough/desktop-application/node-electron-hid',
+        permanent: true,
+       },
+      {
+        source: '/docs/transport/tutorial-1-hid-ethereum',
+        destination: '/docs/connectivity/ledgerJS/tutorials/tutorial-1-hid-ethereum',
+        permanent: true,
+       },
+      {
+        source: '/docs/transport/tutorial-1-usb-solana',
+        destination: '/docs/connectivity/ledgerJS/tutorials/tutorial-1-usb-solana',
+        permanent: true,
+       },
+      {
+        source: '/docs/transport/tutorial-2-web-bluetooth',
+        destination: '/docs/connectivity/ledgerJS/tutorials/tutorial-2-web-bluetooth',
+        permanent: true,
+       },
+      {
+        source: '/docs/transport/tutorial-3-sign-message',
+        destination: '/docs/connectivity/ledgerJS/tutorials/tutorial-3-sign-message',
+        permanent: true,
+       },
+      {
+        source: '/docs/transport/tutorial-4-cosmos-webapp',
+        destination: '/docs/connectivity/ledgerJS/tutorials/tutorial-4-cosmos-webapp',
+        permanent: true,
+       },
+      {
+        source: '/docs/transport/clear-signing',
+        destination: '/docs/connectivity/ledgerJS/clear-signing',
+        permanent: true,
+       },
+      {
+        source: '/docs/transport/usb-identifiers',
+        destination: '/docs/connectivity/ledgerJS/faq/usb-identifiers',
+        permanent: true,
+       },
+      {
+        source: '/docs/transport/U2F',
+        destination: '/docs/connectivity/ledgerJS/faq/U2F',
+        permanent: true,
+       },
+      {
+        source: '/docs/transport/transport-nano',
+        destination: '/docs/connectivity/ledgerJS/faq/transport-nano',
+        permanent: true,
+       },
+      {
+        source: '/docs/transport/ledger-logos',
+        destination: '/docs/connectivity/ledgerJS/faq/ledger-logos',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp-connect-kit/introduction',
+        destination: '/docs/connectivity/connect-kit',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp-connect-kit/:slug',
+        destination: '/docs/connectivity/connect-kit/:slug',
+        permanent: true,
+       },
+      {
+        source: '/docs/nft/:slug',
+        destination: '/docs/nft-display/:slug',
+        permanent: true,
+       },                                                                                                                
     ];
   },
 }
