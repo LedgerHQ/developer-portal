@@ -403,7 +403,132 @@ module.exports = {
         source: '/docs/nft/:slug',
         destination: '/docs/nft-display/:slug',
         permanent: true,
-       },                                                                                                                
+       },
+      {
+        source: '/docs/live-app/start-here',
+        destination: '/docs/discover',
+        permanent: true,
+       },
+      {
+        source: '/docs/live-app/guidelines',
+        destination: '/docs/discover/guidelines',
+        permanent: true,
+       },
+      {
+        source: '/docs/live-app/required-skills',
+        destination: '/docs/discover/required-skills',
+        permanent: true,
+       },
+      {
+        source: '/docs/live-app/faq',
+        destination: '/docs/discover/faq',
+        permanent: true,
+       },
+      {
+        source: '/docs/live-app/developer-mode',
+        destination: '/docs/discover/developer-mode',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp/process',
+        destination: '/docs/discover/dapp',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp/dapp-customisation',
+        destination: '/docs/discover/dapp/dapp-customisation',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp/manifest',
+        destination: '/docs/discover/dapp/manifest',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp/requirements',
+        destination: '/docs/plugin/requirements',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp/embedded-plugin/overview',
+        destination: '/docs/plugin/overview',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp/embedded-plugin/code-overview',
+        destination: '/docs/plugin/code-walkthrough',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp/embedded-plugin/boilerplate-plugin',
+        destination: '/docs/plugin/code-walkthrough/boilerplate-plugin',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp/embedded-plugin/selectors',
+        destination: '/docs/plugin/code-walkthrough/selectors',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp/embedded-plugin/init-contract',
+        destination: '/docs/plugin/code-walkthrough/selectors-detailed/init-contract',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp/embedded-plugin/provide-parameter',
+        destination: '/docs/plugin/code-walkthrough/selectors-detailed/provide-parameter',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp/embedded-plugin/finalize',
+        destination: '/docs/plugin/code-walkthrough/selectors-detailed/finalize',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp/embedded-plugin/provide-token',
+        destination: '/docs/plugin/code-walkthrough/selectors-detailed/provide-token',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp/embedded-plugin/query-contract-id',
+        destination: '/docs/plugin/code-walkthrough/selectors-detailed/query-contract-id',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp/embedded-plugin/query-contract-ui',
+        destination: '/docs/plugin/code-walkthrough/selectors-detailed/query-contract-ui',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp/embedded-plugin/testing',
+        destination: '/docs/plugin/code-walkthrough/testing',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp/embedded-plugin/flow',
+        destination: '/docs/plugin/code-walkthrough/flow',
+        permanent: true,
+       },              
+      {
+        source: '/docs/non-dapp/introduction',
+        destination: '/docs/discover/non-dapp',
+        permanent: true,
+       },
+      {
+        source: '/docs/non-dapp/use-cases',
+        destination: '/docs/discover/non-dapp/use-cases',
+        permanent: true,
+       },
+      {
+        source: '/docs/non-dapp/ux-req',
+        destination: '/docs/discover/non-dapp/ux-requirements',
+        permanent: true,
+       },
+      {
+        source: '/docs/non-dapp/reference/manifest',
+        destination: '/docs/discover/non-dapp',
+        permanent: true,
+       },                                                                                                                        
     ];
   },
 }
