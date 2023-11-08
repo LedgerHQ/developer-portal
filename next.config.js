@@ -686,9 +686,64 @@ module.exports = {
        },
       {
         source: '/docs/swap/introduction',
-        destination: '/docs/tokens/eip712-messages',
+        destination: '/docs/exchange/native-integration',
         permanent: true,
-       },                                                                                                                                                                                                                                   
+       },
+      {
+        source: '/docs/swap/flow',
+        destination: '/docs/exchange/native-integration/flow',
+        permanent: true,
+       },
+      {
+        source: '/docs/swap/howto',
+        destination: '/docs/exchange/native-integration/howto/requirements',
+        permanent: true,
+       },
+      {
+        source: '/docs/swap/howto/providers-endpoints',
+        destination: '/docs/exchange/native-integration/howto/providers-endpoints',
+        permanent: true,
+       },  
+      {
+        source: '/docs/swap/howto/providers-liveapp',
+        destination: '/docs/exchange/native-integration/howto/providers-liveapp',
+        permanent: true,
+       },  
+      {
+        source: '/docs/swap/howto/ledger-exchange-sdk',
+        destination: '/docs/exchange/native-integration/howto/ledger-walletAPI-sdk',
+        permanent: true,
+       },
+      {
+        source: '/docs/swap/live-app/start-here',
+        destination: '/docs/exchange/live-app/start-here',
+        permanent: true,
+       },
+      {
+        source: '/docs/swap/live-app/quote',
+        destination: '/docs/exchange/live-app/flow-breakdown/quote',
+        permanent: true,
+       },
+      {
+        source: '/docs/swap/live-app/partner-live-app',
+        destination: '/docs/exchange/live-app/flow-breakdown/partner-live-app',
+        permanent: true,
+       },
+      {
+        source: '/docs/swap/live-app/device-flow',
+        destination: '/docs/exchange/live-app/flow-breakdown/device-flow',
+        permanent: true,
+       },
+      {
+        source: '/docs/swap/live-app/transaction-status',
+        destination: '/docs/exchange/live-app/flow-breakdown/transaction-status',
+        permanent: true,
+       },
+      {
+        source: '/docs/swap/live-app/edge-cases',
+        destination: '/docs/exchange/live-app/flow-breakdown/edge-cases',
+        permanent: true,
+       },                                                                                                                                                                                                                                                              
     ];
   },
 }
