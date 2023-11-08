@@ -528,7 +528,167 @@ module.exports = {
         source: '/docs/non-dapp/reference/manifest',
         destination: '/docs/discover/non-dapp',
         permanent: true,
-       },                                                                                                                        
+       },
+      {
+        source: '/docs/coin/general-process',
+        destination: '/docs/blockchain/getting-started',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/general-architecture',
+        destination: '/docs/blockchain/getting-started/general-architecture',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/work-breakdown',
+        destination: '/docs/blockchain/coding',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/required-skills',
+        destination: '/docs/blockchain/getting-started/required-skills',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/live-common',
+        destination: '/docs/blockchain/setup-build',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/ledger-live-cli',
+        destination: '/docs/blockchain/setup-build/ledger-live-cli',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/mostusefulcmd',
+        destination: '/docs/blockchain/setup-build/mostusefulcmd',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/ll-setup',
+        destination: '/docs/blockchain/setup-build/ll-setup',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/ui-ux-guidelines',
+        destination: '/docs/blockchain/ui-ux-guidelines',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/lld-ui-guidelines',
+        destination: '/docs/blockchain/ui-ux-guidelines/lld-ui-guidelines',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/llm-ui-guidelines',
+        destination: '/docs/blockchain/ui-ux-guidelines/llm-ui-guidelines',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/cryptoassets-library',
+        destination: '/docs/blockchain/coding/cryptoassets-library',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/js-bindings',
+        destination: '/docs/blockchain/coding/js-bindings',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/address-derivation',
+        destination: '/docs/blockchain/coding/address-derivation',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/sync',
+        destination: '/docs/blockchain/coding/light-sync',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/sync',
+        destination: '/docs/blockchain/coding/sync',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/send',
+        destination: '/docs/blockchain/coding/send',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/desktop-mobile',
+        destination: '/docs/blockchain/coding/desktop-mobile',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/bugs-troubleshooting',
+        destination: '/docs/blockchain/coding/bugs-troubleshooting',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/writing-tests',
+        destination: '/docs/blockchain/testing',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/bridge-tests',
+        destination: '/docs/blockchain/testing/bridge-test',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/generic-test-plan',
+        destination: '/docs/blockchain/testing/generic-test-plan',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/ui-tests',
+        destination: '/docs/blockchain/testing/ui-tests',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/faq',
+        destination: '/docs/blockchain/testing/ui-tests',
+        permanent: true,
+       },
+      {
+        source: '/docs/coin/terms-conditions',
+        destination: '/docs/blockchain/terms-conditions',
+        permanent: true,
+       },
+      {
+        source: '/docs/token/introduction',
+        destination: '/docs/tokens',
+        permanent: true,
+       },
+      {
+        source: '/docs/token/faq',
+        destination: '/docs/tokens/integrating-tokens/faq',
+        permanent: true,
+       },
+      {
+        source: '/docs/token/evm-chains-tokens',
+        destination: '/docs/tokens/integrating-tokens/evm-chains-tokens',
+        permanent: true,
+       },
+      {
+        source: '/docs/token/asa',
+        destination: '/docs/tokens/integrating-tokens/asa',
+        permanent: true,
+       },
+      {
+        source: '/docs/token/trc',
+        destination: '/docs/tokens/integrating-tokens/trc',
+        permanent: true,
+       },
+      {
+        source: '/docs/token/eip712-messages',
+        destination: '/docs/tokens/eip712-messages',
+        permanent: true,
+       },
+      {
+        source: '/docs/swap/introduction',
+        destination: '/docs/tokens/eip712-messages',
+        permanent: true,
+       },                                                                                                                                                                                                                                   
     ];
   },
 }
