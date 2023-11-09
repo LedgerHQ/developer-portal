@@ -8,7 +8,7 @@ In this article, we will walk you through the important concepts when developing
 
 ## Not Enough RAM
 
-At the time of this writing, the default link script provided by the SDK for the Ledger Nano S allocates 4 KiB of RAM for applications to use. This 4 KiB has to be enough to store all global non-const and [non-NVRAM](../coding-guidelines/memory/persistent-storage/) variables as well as the call stack (which is currently set to 768 bytes by default, also defined in the link script).
+At the time of this writing, the default link script provided by the SDK for the Ledger Nano S allocates 4.5 KiB of RAM for applications to use. This 4.5 KiB has to be enough to store all global non-const and [non-NVRAM](../coding-guidelines/memory/persistent-storage/) variables as well as the call stack.
 
 This is the linker error you will get if you declare too many global non-const and non-NVRAM variables to fit in RAM:
 
@@ -16,7 +16,7 @@ This is the linker error you will get if you declare too many global non-const a
 bin/app.elf section `.bss' will not fit in region `SRAM'
 ```
 
-The only solution to this problem is using less RAM. To do so, make your application's memory layout more efficient. Alternatively, if you're feeling adventurous, you can attempt to modify the link script (`script.ld` at the root of the SDK folder) to optimize the space allocated for the call stack. If you choose to pursue the latter option, we recommend you also read the next section.
+The only solution to this problem is using less RAM. To do so, make your application's memory layout more efficient.
 
 ## Stack Overflows
 
@@ -108,12 +108,7 @@ An application crashing when running on the device (the device's screen freezes 
 - The Secure Element is isolated due to invalid handling of [SEPROXYHAL](https://developers.ledger.com/docs/embedded-app/bolos-hardware-architecture/#seproxyhal) packets
 - There's a core fault on the device (perhaps due to a [misaligned memory access](../coding-guidelines/memory/memory-alignment/) or an attempt to access restricted memory)
 
-If it occurs, simplify the app and strip away as much code as possible until the problem can be isolated.
-
-<Callout>
-    These errors happen rarely, and you should not encounter them if you're using the <a href='../app-builder-container/'>Ledger App Builder</a>
-</Callout>
-
+If it occurs, you can start by trying it on Speculos which support GDB debugging. You can also simplify the app and strip away as much code as possible until the problem can be isolated.
 
 ## Unaligned RAM access
 
@@ -122,7 +117,7 @@ uint16_t *ptr16 = &tmp_ctx.signing_context.buffer[processed];
 PRINTF("uint16_t: %d", ptr16[0]);
 ```
 
-`ptr16[0]` access can make the application crash, even though `tmp_ctx.signing_context.buffer[processed]` (`unsigned char*`) can be accessed. This happens when a pointer isn't word-aligned, but a word is accessed in RAM. As a workaround, copy the buffer into a properly aligned location (e.g. using `os_memmove`).
+`ptr16[0]` access can make the application crash, even though `tmp_ctx.signing_context.buffer[processed]` (`unsigned char*`) can be accessed. This happens when a pointer isn't word-aligned, but a word is accessed in RAM. As a workaround, copy the buffer into a properly aligned location (e.g. using `memmove`).
 
 Please refer to the [alignment](../coding-guidelines/memory/memory-alignment/) page for further information.
 
