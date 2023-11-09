@@ -160,15 +160,7 @@ Most notable flags are:
 - APPLICATION_FLAG_GLOBAL_PIN (0x40) : the application can request a user PIN verification or query the number of tries left before the device erases its own memory.
 - APPLICATION_FLAG_LIBRARY (0x800) : the application behaves (or rather can also behave) as a library and exports functions that can be reached from other applications.
 
-A common use of the APPLICATION_FLAG_BOLOS_SETTINGS is querying whether the plane mode on Nano X is currently active and thus disable the Bluetooth Low Energy channel.
-
-```c copy
-#ifdef TARGET_NANOX
-                G_io_app.plane_mode = os_setting_get(OS_SETTING_PLANEMODE, NULL, 0);
-#endif  // TARGET_NANOX
-```
-
-The Nano S and Nano S Plus do not have such a channel however. Which means the Makefile has to treat the `--appFlags` separately for each device type, like so:
+A common use of the APPLICATION_FLAG_BOLOS_SETTINGS is for using BLE channel on Nano X. The Nano S and Nano S Plus do not have such a channel however. Which means the Makefile has to treat the `--appFlags` separately for each device type, like so:
 
 ```makefile copy
 ifeq ($(TARGET_NAME), TARGET_NANOX)
@@ -292,12 +284,6 @@ Finally, experience showed that developers have difficulties to correctly handle
 
 For these reasons, we strongly advise developers to avoid using the exception mechanism in transaction parsers and printers, unless they correctly understand the error-handling model, and they are able to provide unit tests for these modules.
 
-- **Do not use os_mem* functions**
-
-Several apps make use of custom data manipulation functions provided by the BOLOS SDK, such as `os_memset` and `os_memmove`. These functions were originally added to the SDK to avoid relying on an external libc.
-
-However, newer SDKs make or will make use of [newlib](https://sourceware.org/newlib/), which provides compact implementations for libc functions. Hence, using `os_mem*` does not make much sense, and these functions have been deprecated.
-
 ## Cryptography
 
 This section presents general concepts about cryptography development, but also guidelines specific to the security model of the Ledger devices. It gives guidelines to:
@@ -356,7 +342,7 @@ Rationale: It is a purpose of BOLOS operating system to perform these in a secur
 
 From the 2.0 version of the SDK every cryptographic function has a version that returns an error code instead of raising an exception. As an example `cx_ecdsa_sign_no_throw` performs the same computation as `cx_ecdsa_sign` but does not raise any exception and returns CX_OK if everything went fine.
 
-We recommend using all `_no_throw` equivalents when available, as the ones raising exceptions will be deprecated in a future SDK release.
+We enforce using all `_no_throw` equivalents when available, as the ones raising exceptions are deprecated in a future SDK release.
 
 Rationale: the exception mechanism is not standard C, and is difficult to use, particularly for error management. There were errors related to this exception model in every single app we reviewed in 2020.
 

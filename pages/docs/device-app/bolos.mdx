@@ -18,6 +18,3 @@ BOLOS is organized into the following modules:
 ### The Dashboard
 
 All BOLOS devices have a special app installed that runs on the OS with certain special privileges called the Dashboard application or the PSD Content Manager. The dashboard app contains the main GUI that the user sees when they aren't in any other app. This is what the users use to enter their master seed, and its what they use to launch other applications. The dashboard application is also what the host computer communicates with when loading or deleting apps off of the device.
-
-An important component of the dashboard is the [BOLOS UX](./coding-guidelines/ledger-nano-display/low-level-display-management#bolos-ux), which is the implementation of the device-wide user interface that all applications need to interface with for certain device-wide UI features (like screen locking). The UI of the default dashboard app that is built into the firmware for the Nano S is also available as an external application that can be loaded onto the device [on GitHub](https://github.com/LedgerHQ/nanos-ui).
-
