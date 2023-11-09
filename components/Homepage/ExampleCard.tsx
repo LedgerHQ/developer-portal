@@ -18,16 +18,16 @@ export const ExampleCard: FC<ExampleCardProps> = ({icon, title, subtitle, descri
   const handleClick = () => {
     switch (type) {
       case "wallet":
-        router.push("/wallet")
+        router.push("/dev-journey/wallet")
         break;
       case "services-dapps":
-        router.push("/services-dapps")
+        router.push("/dev-journey/services-dapps")
         break;
       case "blockchain":
-        router.push("/blockchain-foundation")
+        router.push("/dev-journey/blockchain-foundation")
         break;
       case "nft":
-        router.push("/nft-project")
+        router.push("/dev-journey/nft-project")
         break;
       default:
         break;
