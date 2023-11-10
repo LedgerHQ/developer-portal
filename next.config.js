@@ -511,17 +511,17 @@ module.exports = {
        },              
       {
         source: '/docs/non-dapp/introduction',
-        destination: '/docs/discover/non-dapp',
+        destination: '/docs/discover/web3-app',
         permanent: true,
        },
       {
         source: '/docs/non-dapp/use-cases',
-        destination: '/docs/discover/non-dapp/use-cases',
+        destination: '/docs/discover/web3-app/use-cases',
         permanent: true,
        },
       {
         source: '/docs/non-dapp/ux-req',
-        destination: '/docs/discover/non-dapp/ux-requirements',
+        destination: '/docs/discover/web3-app/ux-requirements',
         permanent: true,
        },
       {
