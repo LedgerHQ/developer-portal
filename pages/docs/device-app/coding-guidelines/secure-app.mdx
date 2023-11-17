@@ -65,7 +65,7 @@ jobs:
         language: [ 'cpp' ]
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/ledgerhq/ledger-app-builder/ledger-app-builder:latest
+      image: ghcr.io/ledgerhq/ledger-app-builder/ledger-app-builder-legacy:latest
 ```
 
 The action part needs 4 steps:
@@ -156,9 +156,9 @@ This bitfield is documented [here](https://github.com/LedgerHQ/nanos-secure-sdk/
 
 Most notable flags are:
 
-- APPLICATION_FLAG_BOLOS_SETTINGS (0x200) : the application can read and modify system parameters such as the device's name.
-- APPLICATION_FLAG_GLOBAL_PIN (0x40) : the application can request a user PIN verification or query the number of tries left before the device erases its own memory.
-- APPLICATION_FLAG_LIBRARY (0x800) : the application behaves (or rather can also behave) as a library and exports functions that can be reached from other applications.
+- `APPLICATION_FLAG_BOLOS_SETTINGS (0x200)` : the application can read and modify system parameters such as the device's name.
+- `APPLICATION_FLAG_GLOBAL_PIN (0x40)` : the application can request a user PIN verification or query the number of tries left before the device erases its own memory.
+- `APPLICATION_FLAG_LIBRARY (0x800)` : the application behaves (or rather can also behave) as a library and exports functions that can be reached from other applications.
 
 A common use of the APPLICATION_FLAG_BOLOS_SETTINGS is for using BLE channel on Nano X. The Nano S and Nano S Plus do not have such a channel however. Which means the Makefile has to treat the `--appFlags` separately for each device type, like so:
 
