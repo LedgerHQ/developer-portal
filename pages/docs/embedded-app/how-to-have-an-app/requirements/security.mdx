@@ -1,0 +1,121 @@
+import { Callout } from 'nextra/components'
+
+# Security
+
+## App Permissions
+
+Every application has an associated set of permissions, ranging from system-related permissions such as the ability to modify system configuration or being able to request user PIN verification, to hardware wallet functionalities like the ability to derive specific keys only accesible to one particular app.
+
+The following sections details how those permissions are granted. It is crucial to uphold the principle of least priviledge: each application must use permissions only absolutely necessary to its execution.
+
+Please not that these app parameters are verified as part of Ledger guidelines enforcer GitHub workflow. These app parameters must be listed in the Ledger apps [database](https://github.com/LedgerHQ/ledger-app-database). Coherence between app `Makefile` and apps database is also checked in the workflow.
+
+<Callout type="warning" emoji="⚠️">
+  Ledger will not sign an app if its parameters have not been registered in Ledger app database.
+</Callout>
+
+### Restrict Apps to Coin-Specific BIP32 Prefix
+
+<Callout type="warning" emoji="⚠️">
+  Ledger will not sign apps whose BIP32 prefixes have not been properly set.
+</Callout>
+
+<Callout type="warning" emoji="⚠️">
+  If your application derives keys on the hardened path 44'/60' then the chainID parameter must be different from 0 or 1. This is necessary to avoid replaying transactions broadcoast on Ethereum-like chains on Ethereum. As a general recommendation, and to ensure a good level of privacy for the end user, we recommend to always use the correct coin type in the derivation path as defined in <a href='https://github.com/satoshilabs/slips/blob/master/slip-0044.md' className='alert-link'> slip44 </a>
+</Callout>
+
+## Automate Security Check with CodeQL
+
+In order to increase code security, use static analysis based on [CodeQL](https://codeql.github.com/docs/) to perform security checks.
+CodeQL can be directly integrated into your project by creating a new YAML file: `.github/workflows/codeql-workflow.yaml` in your repository.
+
+A complete [codeql-workflow.yml](https://github.com/LedgerHQ/app-boilerplate/blob/0cdb0059e4f374b796b25ed347202c5e4e3e558a/.github/workflows/codeql-workflow.yml) file is available in the repository of the Boilerplate app.
+
+The first part of the file is an initialization of what is needed to build your Ledger app and a declaration of languages used in your code so CodeQL analyzes it in the right way.
+
+```yaml copy
+jobs:
+  analyse:
+    name: Analyse
+    strategy:
+      matrix:
+        sdk: [ "$NANOS_SDK", "$NANOX_SDK", "$NANOSP_SDK" ]
+        language: [ 'cpp' ]
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/ledgerhq/ledger-app-builder/ledger-app-builder-legacy:latest
+```
+
+The action part needs 4 steps:
+
+- Clone your repository
+- Initialize CodeQL:
+  - Declaration of which languages are used and the chosen queries. Please choose the `security-and-quality` queries.
+- Build the app. Be careful : the initialization of CodeQL needs to be done before building the app so that CodeQL makes the code dictionary during the building stage.
+- Perform the CodeQL analysis
+
+```yaml copy
+steps:
+  - name: Clone
+    uses: actions/checkout@v3
+
+  - name: Initialize CodeQL
+    uses: github/codeql-action/init@v2
+    with:
+      languages: ${{ matrix.language }}
+      queries: security-and-quality
+
+  - name: Build
+    run: |
+      make BOLOS_SDK=${{ matrix.sdk }}
+
+  - name: Perform CodeQL Analysis
+    uses: github/codeql-action/analyze@v2
+```
+
+Next the results of CodeQL are displayed on your GitHub security view, in the “Code scanning alerts” panel. If CodeQL is configured to run when a pull request (PR) on some branches is made, the results will also be shown in the “Checks” parts of the PR.
+
+![Code Scanning view](/codeql_codescanning_view.png)
+
+![Pull request view](/codeql_pr_view.png)
+
+
+## Security Audits
+
+### Introduction
+
+To be listed on the Ledger Live “My Ledger“ section, Embedded Apps and Plugins must go through our integration process that includes a security audit performed by one of our trusted partners.
+
+Provided your project fulfills the [conditions](#conditions), this is how an external audit unfolds:
+1. You get in touch with the auditers and sign a contract with them. [Read more](#your-agreement-with-our-partners).
+2. The auditors review your app based on Ledger specifications. [Read more](#content-of-the-security-audit).
+3. Ledger reviews the security audit report
+4. Ledger publishes your app
+
+### Conditions
+
+To go through an external security audit, ensure your project fulfills the following conditions:
+
+- Your Embedded App works with all our devices (Ledger Nano S, S Plus, X and Stax)
+- Your Embedded App has been functionally validated by Ledger team
+
+<Callout type="warning" emoji="⚠️">
+    <ul>
+        <li>Do not start a security audit process if your Embedded App is not ready for all Ledger devices (Ledger Nano S, S Plus, X and Stax).</li>
+        <li>Your Embedded App must still be functional after the security audit </li>
+    </ul>
+</Callout>
+
+### Content of the security audit
+
+Ledger has established and made public a detailed specification of what needs to be done to perform a security audit following Ledger’s standards.
+
+|          Step          |         Specification                                              |
+| ---------------------- | ------------------------------------------------------------------ |
+| Application privileges | Check application flags (privileges) and allowed derivation paths. |
+| Compilation            | Check for compilation warnings, and if warnings have been silenced. If so, ask for a fix. |
+| Tests                  | Run tests and check they succeed / Check tests are sound.           |
+| Static Analysis        | Check for defects using scan-build and our scan options. Add in CI if not present / CodeQL: check with the "security and quality" queries. Add in CI if not present. |
+| Manual code review     | List every transaction fields. Look which ones must be displayed to the user / Check transaction parser, field formatters / Check if sensitive data is properly erased / Do not allow blind signing. |
+| Fuzzing                | Implement a transaction fuzzer. Best effort to reach decent coverage / Use libFuzzer if possible to integrate with ClusterFuzzLite. |
+| Deliverables           | Report and executive summary detailing findings, and tests that gave no results / Security fixes: on a temporary private fork / Feedback on the SDK: what could be improved for a better security. |

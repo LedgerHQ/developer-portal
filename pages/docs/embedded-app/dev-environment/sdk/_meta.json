@@ -1,0 +1,8 @@
+{
+    "flags": "Permissions, derivation path",
+    "memory": "Memory constraints",
+    "io": "IO architecture",
+    "ui": "UI guidelines",
+    "crypto": "Cryptographic information",
+    "stax-porting": "Porting an app to Stax"
+}
