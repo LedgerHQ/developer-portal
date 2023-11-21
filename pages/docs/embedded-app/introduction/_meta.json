@@ -1,6 +1,5 @@
 {
-    "app": "What's an app?",
-    "clones": "Clones",
-    "plugins": "Plugins",
-    "content": "What's in this documentation?"
+    "app": "Application",
+    "clones": "Clone",
+    "plugins": "Plugin"
 }

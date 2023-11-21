@@ -1,0 +1,78 @@
+import { Callout } from 'nextra/components'
+
+# Development
+
+
+## Introduction
+
+Developing applications for Ledger devices is an intricate process. The security of the user funds relies on the fact that the application works in a correct and secure manner and that potential attackers cannot misuse it to extract private data and/or sign requests which are not authorized by the user. The app should guard against such attacks because they have a very low entry point -- a Ledger device attached to a compromised host might be a victim of the attacker's program sending invalid/non-standard requests to the device.
+
+<Callout type="warning" emoji="⚠️">
+  This guide is meant to be a summary of all important aspects of Ledger Apps security and it shall be read by developers before developing an app for Ledger.
+</Callout>
+
+
+## Workflows
+
+Ledger provides [reusable workflows running on GitHub actions](https://github.com/ledgerhq/ledger-app-workflows), which
+builds, analyzes or tests the code, checks the application's metadata and more. Some of these workflows are mandatory.
+
+<Callout type="warning" emoji="⚠️">
+    <ul>
+        <li>
+            The following workflows are required on every embedded app repository, and must run without error.
+        </li>
+        <li>
+            Ledger will not deploy an application if these workflows are not integrated and green.
+        </li>
+    </ul>
+</Callout>
+
+
+- The [guidelines enforcer workflow](https://github.com/LedgerHQ/ledger-app-workflows/blob/master/.github/workflows/reusable_guidelines_enforcer.yml)
+  (example its usage on boilerplate [here](https://github.com/LedgerHQ/app-boilerplate/blob/master/.github/workflows/guidelines_enforcer.yml))
+- The [build workflow](https://github.com/LedgerHQ/ledger-app-workflows/blob/master/.github/workflows/reusable_build.yml)
+  (example of its usage on boilerplate [here](https://github.com/LedgerHQ/app-boilerplate/blob/master/.github/workflows/build_and_functional_tests.yml#L21-L25))
+
+
+## Manifest
+
+Some high-level application metadata must be declared in a `ledger_app.toml` manifest file, stored at the root of the
+application repository.
+
+The format of this manifest is described [here](https://github.com/LedgerHQ/ledgered/blob/master/doc/utils/manifest.md),
+along with the tool which can be used to check the validity of the manifest.
+You can also use [the manifest in Boilerplate](https://github.com/LedgerHQ/app-boilerplate/blob/master/ledger_app.toml)
+as a living example
+
+Most of our workflows (including the mandatory ones) use this manifest to infer environment data (like the SDK language,
+or the build directory) so the validity of the manifest can be checked through these.
+
+<Callout type="warning" emoji="⚠️">
+    Ledger will not deploy an application without a correct `ledger_app.toml` manifest.
+</Callout>
+
+
+## Tests
+
+The application repository must have a `tests` folder that contains at least functional tests using the
+[Speculos](../../how-to-develop/tools#speculos) emulator. These tests must be triggered by the CI and running without error.
+
+<Callout type="warning" emoji="⚠️">
+    Ledger will not deploy an application without tests or with failing tests.
+</Callout>
+
+For Python tests, Ledger provides the [`Ragger` library](https://github.com/ledgerhq/ragger), which can be easily
+integrated with `Pytest` in the GitHub action with the [Ragger workflow](https://github.com/LedgerHQ/ledger-app-workflows/blob/master/.github/workflows/reusable_ragger_tests.yml)
+(example of its usage on boilerplate [here](https://github.com/LedgerHQ/app-boilerplate/blob/master/.github/workflows/build_and_functional_tests.yml#L27-L32))
+
+Unit tests are highly recommended, especially for critical functions like parsers - preferably relying on a standard framework like [cmocka](https://cmocka.org/). These tests must be automated using GitHub actions the [unit tests workflow](https://github.com/LedgerHQ/app-boilerplate/blob/master/.github/workflows/unit_tests.yml) of the Boilerplate application can act as a reference.
+
+
+## Nice to have
+
+On top of that, we also encourage the following practices:
+
+- Linting helps improving code quality and ensuring consistent coding style and resolving basic coding errors.
+- Developing a fuzzer thanks to [libFuzzer](https://llvm.org/docs/LibFuzzer.html).
+- Integration with the Coverity static code analysis tool helps finding security issues and software defects.

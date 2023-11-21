@@ -1,28 +1,33 @@
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 
+
 # Developing and submitting an embedded app
+
 
 ## Development and submission phases
 
 <div style={{width: "100%"}} className="center">
   <div style={{position: "relative", paddingBottom: "56.25%", paddingTop: 0, height: 0}}>
-    <iframe title="Live App Structure" frameBorder="0" style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}} src="https://view.genial.ly/65521d0b3f30120011106193" type="text/html" allowscriptaccess="always" allowFullScreen={true} scrolling="yes" allownetworking="all"></iframe> 
-  </div> 
+    <iframe title="Live App Structure" frameBorder="0" style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}} src="https://view.genial.ly/65521d0b3f30120011106193" type="text/html" allowscriptaccess="always" allowFullScreen={true} scrolling="yes" allownetworking="all"></iframe>
+  </div>
 </div>
 
 
-See the complete submission flow [here](./getting-started/release-flow).
+See the complete submission flow [here](./how-to-deploy/process).
+
 
 ## Your developer journey
+
 
 ### Engage with the Ledger developer community
 
 Joining Discord is not required to code your embedded application, but it will be easier to meet with our team and discuss the specifics of your project. Join us on the [Ledger's Discord server](https://developers.ledger.com/discord/) and introduce your project in the **#embedded-app** channel.
 
+
 ### Understand the process & meet the requirements
 
-Ensure that you have a clear understanding of the [Process](../introduction/release-flow) and are able to meet the [Requirements](../submission/requirements) listed here.
+Ensure that you have a clear understanding of the [Process](./how-to-deploy/process) and are able to meet the [Requirements](./how-to-deploy/requirements) listed here.
 
 
 ### Begin Coding
@@ -31,23 +36,56 @@ Embedded applications are primarily developed in C using the Blockchain Open Led
 
 To develop an embedded application, ensure that you:
 - Use Linux, Mac or Windows
-- Use the [Ledger Framework](../device-app/quickstart/framework)
-- Use either a physical device or the Speculos emulator (available in the [Ledger Framework](../device-app/quickstart/framework))
+- Know about the [Ledger Framework](./how-to-develop/tutorials/quickstart) and all the [environment tools](./how-to-develop/tools)
+- Know how to test your application, using either a physical device or the [Speculos emulator](./how-to-develop/tools#speculos)
 
 
 ## Core concepts
+
 
 ### The BOLOS platform
 
 BOLOS, the operating system powering all Ledger personal security devices, offers a lightweight and open-source framework. Developers can use this to build portable applications that run securely.
 
-[Discover more about the BOLOS platform](../bolos)
+[Discover more about the BOLOS platform](./architecture/bolos)
+
 
 ### Personal Security Devices
 
 Ledger Personal Security Devices provide a secure and convenient way for users to store cryptographic secrets and sign transactions. Understanding their operation is crucial before starting the embedded application development process.
 
-[Learn about the personal security devices](../psd)
+[Learn about the personal security devices](./architecture/psd)
+
+
+## Used languages and format
+
+
+### Languages
+
+| Component               | Developing language |
+| ----------------------- | ------------------- |
+| OS [Bolos](../bolos)    | `C`                 |
+| Applications            | `C` or `Rust` (WIP) |
+| Plugins                 | `C`                 |
+| Tools (including tests) | `Python` (mostely)  |
+
+
+### Data formats
+
+| Component                   | Format   |
+| --------------------------- | -------- |
+| CI (GitHub Workflows)       | `YAML`   |
+| `ledger_app.toml` manifests | `TOML`   |
+| App database                | `JSON`   |
+
+The available SDK is for Apps written in C
+
+For the Apps written in Rust, a Rust SDK is still work in progress
+
+
+## Documentation version
+
+The current version of the Embedded App documentation displayed on the Developer Portal is **v03.2_20230627**.
 
 
 ## Contributing

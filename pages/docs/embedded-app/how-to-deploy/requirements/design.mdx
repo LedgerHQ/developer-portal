@@ -1,0 +1,18 @@
+import { Callout } from 'nextra/components'
+
+# Design guidelines
+
+## Blind Signing
+
+For every transaction, the users must be able to verify on the device the amount being transferred and the destination address or the validator/nominator address(es) in the case of a staking operation.
+
+When the display of those parameters (Token, smart contract management) is not possible, the transaction should be rejected by the device unless the user has acknowledged that they will be blind signing.
+
+To implement this requirement it is recommended to have a setting menu with the possibility to enable/disable blind signing.
+
+<Callout type="warning" emoji="⚠️">
+    If blind signing is implemented, it must be **disabled** by default.
+</Callout>
+
+
+You can find implementation example inside [Ethereum](https://github.com/LedgerHQ/app-ethereum), [Solana](https://github.com/LedgerHQ/app-solana) or [Elrond](https://github.com/LedgerHQ/app-elrond) code base.
