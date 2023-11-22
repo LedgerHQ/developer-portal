@@ -2,23 +2,34 @@
 
 With the [Ledger Framework](./framework), you can build and load Embedded Apps on Linux, Mac and Windows, very easily, with the Visual Code Ledger extension.
 
-## Prerequisites
+## Introduction
  
-- Docker
-- An X11 server
-- Visual Studio Code
-- [The Ledger extension in VS Code](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools)
+The easiest way to develop your app is by using [Visual Studio Code](https://code.visualstudio.com/download), using: 
+- the [ Ledger Developer Tools](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools) in the Extensions Marketplace.
+- a handy [Workspace](https://code.visualstudio.com/docs/editor/workspaces) to put all your Apps in.  
+   It can be useful to benefit from how existing apps have been coded.
+- [Docker]( https://www.docker.com/products/docker-desktop/) (not necessary for Linux), as well as
+- An X11 server, such as [XQuartz](https://www.xquartz.org/) for Mac or VcXsrv (https://sourceforge.net/projects/vcxsrv/) for Windows
+for windows
+
+## How it works 
+
+The Extension does (nearly) everything. It:
+- loads the Container in Docker, but you need Docker running beforehand, and it 
+- has all the tasks to build, load and test your app, on the Ledger or in the emulaor
+- as well as the tools to eveluate your tests, delete the build files, and other maintenance tasks.
 
 
-## How-to build and load
+## How-to 
 
-1. 1. Have Docker running. Note: Not needed on Linux because this is already a background task.
-2. Open the [Boilerplate App](https://github.com/LedgerHQ/app-boilerplate) or your own App in Visual Studio Code
-3. Use Ledger extension's sidebar menu or open the tasks menu with `ctrl + shift + b` (`command + shift + b` on a Mac) to conveniently execute actions:
+1. Have Docker running (except for Linux because this is already a background task).
+2. With Visual Studio Code, open the [Boilerplate App](https://github.com/LedgerHQ/app-boilerplate) or your own App.  
+This opens the container in Docker
+3. In XQuartz preferences, make sure connections from network client are allowed.
+4. Use Ledger Developer Tools extension. When installed, it is in the Activity Bar. Click on it to open the tasks menu with `ctrl + shift + b` (`command + shift + b` on a Mac) to conveniently execute actions:
 	- To pull and run the Docker image chose `Run dev-tools image`
 	- To build your app chose `Build app`
 	- To load it to a device, chose `Load app on device`
-
 
 For more information, or if you want to manually Build and Load your app, read the [Boilerplate App documentation](https://github.com/LedgerHQ/app-boilerplate).
 
