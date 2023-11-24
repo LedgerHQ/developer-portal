@@ -13,13 +13,13 @@ export const Numbers = () => {
     <div className="relative bg-black">
       <div className="max-w-[1216px] mx-auto flex items-center justify-center px-4 py-16 md:px-28 md:py-20 bg-purple-radial-gradient-smaller-mobile md:bg-purple-radial-gradient-smaller">
         <div className="flex flex-col md:flex-row gap-6 md:gap-4 w-full items-center md:items-stretch place-content-between" id="overview">
-          <NumberItem number="140+" text="blockchain protocols secured" />
+          <NumberItem number="170+" text="blockchain protocols secured" />
           <VerticalSeparator />
           <HorizontalSeparator />
           <NumberItem number="200+" text="compatible DApps" />
           <VerticalSeparator />
           <HorizontalSeparator />
-          <NumberItem number="6 000 000" text="devices sold worldwide" />
+          <NumberItem number="6 200 000+" text="devices sold worldwide" />
         </div>
       </div>
     </div>
