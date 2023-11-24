@@ -32,5 +32,9 @@
   "docs": {
     "title": "Documentation",
     "type": "page"
+  },
+  "APIs": {
+    "title": "APIs",
+    "type": "page"
   }
 }
