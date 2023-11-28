@@ -1,6 +1,10 @@
 import { Callout } from 'nextra/components'
 
-# Overview
+
+# Ethereum plugins
+
+
+## Overview
 
 Let’s start with a high-level overview of what a plugin is, how it interacts with the Ethereum app, and the steps required to write your plugin.
 
@@ -8,7 +12,8 @@ Let’s start with a high-level overview of what a plugin is, how it interacts w
   Even though this guide is relatively beginner-friendly, you need to have prior experience of C and Solidity development.
 </Callout>
 
-## Why Plugins?
+
+### Why Plugins?
 
 If you’ve already interacted with any smart contract using a Ledger Device, then you’ve already seen this screen:
 
@@ -17,7 +22,6 @@ If you’ve already interacted with any smart contract using a Ledger Device, th
 This is a UX disaster. The user has no guarantee of interacting with the right smart contract, nor of signing the correct data. The only user action is literally to blind-sign the transaction.
 
 Display information is specific to each smart contract: so when swapping on a decentralised exchange, you probably want to see information such as “Swapping X ETH for Y DAI”. When depositing DAI on Aave, you need to see the amount in DAI. So, the information is specific to the smart contract.
-
 
 ![Plugin](/plugin.png)
 
@@ -33,7 +37,8 @@ Ledger designed and implemented Paraswap, the first Ethereum plugin.
   The second mandatory requirement to obtain official support by Ledger for your DApp is using a plugin to verify transaction details on the Ledger.
 </Callout>
 
-## Example
+
+### Example
 
 Plugins work hand-in-hand with the Ethereum App, and implementation is straightforward. The Ethereum App handles parsing, signing, screen display etc. The only thing your plugin needs to do is:
 
@@ -64,10 +69,10 @@ As you can see, the flow is a series of back-and-forth messages between the Ethe
 Before we start to code, let's set up the development environment.
 
 
-# Introduction
+## This tutorial
 
-We will walk through the boilerplate example, which is a DApp Plugin for Ethereum. This will help you code your plugin.
+We will walk through the plugin Boilerplate example, which is a DApp Plugin for Ethereum. This will help you code your plugin.
 
 Remember, the plugin gets called repeatedly by the Ethereum Application and answers with the appropriate message status.
 
-The complete interaction is detailed in the [reference flow](./code-walkthrough/flow/).
+The complete interaction is detailed in the [reference flow](./plugin/flow/).

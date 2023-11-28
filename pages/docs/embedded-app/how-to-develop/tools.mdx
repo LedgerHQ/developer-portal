@@ -1,14 +1,49 @@
-import { Callout, Cards, Card } from 'nextra/components'
+import { Callout } from 'nextra/components'
+
 
 # Embedded Tools
 
-## Speculos
 
-The Speculos emulator is used in our [development Framework](../quickstart/framework). If you need more information about how it works, read [this documentation](https://speculos.ledger.com/).
+## `Speculos`
+
+`Speculos` is an emulator allowing to run and test an embedded application without loading it on a physical Ledger
+device. While it is not capable of emulating some constraints of the physical devices, it is still a very realistic
+and handy tool, and the pillar of any credible testing strategy.
+
+<Callout type="info">
+    If you need more information about `Speculos`, read [its documentation](https://speculos.ledger.com/). <br/>
+    Sources can be found [here](https://github.com/ledgerhq/speculos).
+</Callout>
+
+## `Ragger`
+
+`Ragger` is Python library offering abstractions over an Ledger embedded device (Nano and Stax), either real or emulated
+(through `Speculos`). It aims at simplifying writing generic communication with an embedded application and managing
+high-level graphical interactions. It is widly used to write functional tests code
 
 
+<Callout type="info">
+    You can read the full Ragger documentation [here](https://ledgerhq.github.io/ragger/). <br/>
+    Sources can be found [here](https://github.com/ledgerhq/ragger).
+</Callout>
 
-## Ledgerblue - PIN bypass
+
+## Ledgered
+
+Ledgered is a Python package which goal is to be a collection of small, autonomous utilitaries and libraries.
+
+For now, it only contains a tool (`ledger-manifest`) allowing to check `ledger_app.toml` manifest files (which are a
+[requirement](../how-to-deploy/requirements/development#manifest) for an application to be deployed).
+
+<Callout type="info">
+    Sources and documentation can be found [in the Ledgered repository](https://github.com/ledgerhq/ledgered).
+</Callout>
+
+## Ledgerblue
+
+<Callout type="info">
+    The sources of this tool can be found [here](https://github.com/LedgerHQ/blue-loader-python).
+</Callout>
 
 In Ledger app development, it is necessary to enter your PIN code each time you install an unsigned app. However, BOLOS supports installing a custom developer certificate. With a custom certificate, you can avoid having to retype your PIN each time you adjust your app. Here are the steps for the Ledger Nano S:
 
@@ -48,11 +83,15 @@ In Ledger app development, it is necessary to enter your PIN code each time you 
     Find the right targetId for your device [here](https://gist.github.com/TamtamHero/b7651ffe6f1e485e3886bf4aba673348).
 
 
-## Manage your device with ledgerctl
+## Ledgerctl
+
+<Callout type="info">
+    The sources of this too can be found [here](https://github.com/LedgerHQ/ledgerctl).
+</Callout>
 
 ### Installation
 
-#### 1. Install ledgerctl
+#### Install Ledgerctl
 
 Run:
 
@@ -69,7 +108,7 @@ cd ledgerctl
 pip install -e .
 ```
 
-#### 2. Install a custom certificate authority (optional)
+#### (optional) Install a custom certificate authority
 
 Optionally, install a custom certificate authority (this will help to establish a custom secure channel between the computer and the device, and identifies ledgerctl as a "trusted manager" on the device):
 

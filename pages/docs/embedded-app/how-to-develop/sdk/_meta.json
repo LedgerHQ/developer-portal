@@ -2,6 +2,5 @@
     "flags": "Permissions, derivation path",
     "memory": "Memory constraints",
     "io": "IO architecture",
-    "ui": "UI guidelines",
-    "stax-porting": "Porting an app to Stax"
+    "ui": "UI guidelines"
 }

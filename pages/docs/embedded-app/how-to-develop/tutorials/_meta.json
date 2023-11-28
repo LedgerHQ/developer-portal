@@ -1,7 +1,6 @@
 {
-    "quickstart": "Quickstart",
-    "boilerplate": "The C app boilerplate",
-    "plugin": "The plugin boilerplate",
+    "c": "The C app boilerplate",
     "rust": "The Rust app boilerplate",
+    "plugin": "The plugin boilerplate",
     "clone": "Cloning an existing app"
 }

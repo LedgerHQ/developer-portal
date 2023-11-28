@@ -1,5 +1,8 @@
 {
+    "quickstart": "Quickstart",
     "tutorials": "Tutorials",
-    "tools": "Environment and tools",
-    "sdk": "SDK"
+    "environment": "Environment",
+    "tools": "Tools",
+    "sdk": "SDK",
+    "community": "Community"
 }

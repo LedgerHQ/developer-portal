@@ -1,7 +1,6 @@
-{  
+{
 	"boilerplate-plugin": "Boilerplate Plugin",
 	"selectors": "Selector Setup",
 	"selectors-detailed": "Selector detailed",
-	"testing": "Testing",
-	"flow": "Reference Flow"
+	"testing": "Testing"
 }
