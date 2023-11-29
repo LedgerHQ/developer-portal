@@ -10,6 +10,11 @@ module.exports = {
   async redirects() {
     return [
       {
+        source: '/discord',
+        destination: 'https://ledgeropen.herokuapp.com/pro ',
+        permanent: true,
+      },
+      {
         source: '/docs/embedded-app/introduction',
         destination: '/docs/device-app',
         permanent: true,
