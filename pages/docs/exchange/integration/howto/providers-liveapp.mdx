@@ -1,8 +1,9 @@
 # Provider's Live App
 
+## Deeplink
 The LiveApp needs to respond to a deeplink with some parameters.
 
-The deeplink format is already fixed and will depend on the information you provided inside your [LiveApp manifest](../../../docs/discover/non-dapp) (ex: `ledgerlive://discover/swapprovidername`).
+The deeplink format is already fixed and will depend on the information you provided inside your [LiveApp manifest](../../../../APIs/wallet-api/appendix/manifest) (ex: `ledgerlive://discover/swapprovidername`).
 The query params for this deeplink are:
 * `quoteId`: The id retrieved by Ledger's backend during a quote request.
 * `fromAmount`: The amount of currency.
@@ -15,6 +16,16 @@ The query params for this deeplink are:
 
 __Example__:
 ```
-ledgerlive://discover/swapprovidername?quoteId=1234&fromAmount=12.3&fromAccountId=07AB5930-C73A-433F-A2FA-920640AF3A02&toAccountId=76A239EB-1C2A-4237-B942-CA87472106EB&rate=79.09405555555555555556&feeStrategy=SLOW&initFeeTotalValue=878198522989412
 ledgerlive://discover/swapprovidername?quoteId=1234&fromAmount=0.09&fromAccountId=82f48c06-6170-536e-a21b-56b30b02b58d&toAccountId=c0c4493e-fc4b-50b6-b1a0-566f1a751521&rate=79.09405555555555555556&feeStrategy=CUSTOM&initFeeTotalValue=878198522989412&customFeeConfig=%7B%22maxFeePerGas%22%3A%2212000000000%22%2C%22maxPriorityFeePerGas%22%3A%221000000000%22%2C%22userGasLimit%22%3Anull%2C%22gasLimit%22%3A%2221000%22%7D
+```
+
+## Manifest Permission
+Your [LiveApp manifest](../../../../APIs/wallet-api/appendix/manifest) should contains at least those permissions request:
+```json
+"permissions": [
+  "account.list",
+  "currency.list",
+  "exchange.start",
+  "exchange.completeSwap",
+]
 ```
