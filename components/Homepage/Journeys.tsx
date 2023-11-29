@@ -15,7 +15,7 @@ export const Journeys = () => {
             />
             <JourneyCard 
               title="Connect a Ledger device to your application"
-              description="quickly, by implementing various transport protocols" 
+              description="quickly by implementing various transport protocols" 
               type="wallet"
               className="w-full md:w-[48.5%]"
             />
