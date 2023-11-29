@@ -1,4 +1,10 @@
-{
+{"Introduction": {
+    "title": "introduction",
+    "theme": {
+      "toc": true
+    }
+  },
+
 "getting-started": {
     "title": "Getting Started",
     "theme": {
