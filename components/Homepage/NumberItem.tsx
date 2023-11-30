@@ -19,12 +19,7 @@ export const NumberItem_1: FC<NumberItemProps> = ({number, text, className, ...p
     from: { val: numberValue*0 },
     to: { val: numberValue*1 },
     delay: 200,
-    //config: { mass:4, tension:28, friction: 60, easing: easings.easeOutExpo },
-
-    config: { mass:3, tension:280, friction: 60, easing: easings.easeOutExpo },
-
-    //config: { mass:1, tension:280, friction: 70, easing: easings.easeOutExpo, duration: 3000},
-    //config: { mass:3, tension:280, friction: 70, easing: easings.easeOutCirc },
+    config: { mass:7, tension:60, friction: 60, easing: easings.easeOutExpo },
   }
   );
 
@@ -47,7 +42,7 @@ export const NumberItem_2: FC<NumberItemProps> = ({number, text, className, ...p
     from: { val: numberValue*0 },
     to: { val: numberValue*1 },
     delay: 200,
-    config: { mass:3, tension:28, friction: 60, easing: easings.easeOutExpo },
+    config: { mass:7, tension:65, friction: 60, easing: easings.easeOutExpo },
   }
   );
 
@@ -70,7 +65,7 @@ export const NumberItem_3: FC<NumberItemProps> = ({number, text, className, ...p
     from: { val: numberValue*0 },
     to: { val: numberValue*1 },
     delay: 200,
-    config: { mass:3, tension:280, friction: 87, easing: easings.easeOutExpo },
+    config: { mass:3, tension:280, friction: 90, easing: easings.easeOutExpo },
   }
   );
 
@@ -84,3 +79,4 @@ export const NumberItem_3: FC<NumberItemProps> = ({number, text, className, ...p
     </div>
   )
 }
+
