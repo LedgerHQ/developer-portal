@@ -29,16 +29,16 @@ export const Examples = () => {
             />
             <ExampleCard 
               icon="moonpay-purple" 
-              title="Moonpay"
+              title="MoonPay"
               subtitle="Buying crypto straight to your Ledger"
-              description="Moonpay was integrated into Ledger Live, and allows assets to be directly deposited and secured in Ledger devices" 
+              description="MoonPay was integrated into Ledger Live, and allows assets to be directly deposited and secured in Ledger devices" 
               type="services-dapps"
             />
             <ExampleCard 
               icon="lido" 
               title="Lido"
               subtitle="Staking ETH on Ledger Live"
-              description="The LIDO DApp joined the Ledger Live ecosystem and improved security by providing clear-signing to Ledger users" 
+              description="The LIDO dAPP was integrated into the Ledger Live ecosystem and improved security by providing clear-signing to Ledger users" 
               type="services-dapps"
             />
             <ExampleCard 
