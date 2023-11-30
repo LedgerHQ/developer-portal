@@ -2,7 +2,7 @@ import { Callout } from 'nextra/components'
 
 # 1 - Cryptoassets Library
 
-The [@ledgerhq/cryptoassets](https://github.com/LedgerHQ/docs/tree/develop/libs/ledgerjs/packages/cryptoassets) package contains all definitions of cryptoassets that could be useful to Ledger Live.
+The [@ledgerhq/cryptoassets](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/cryptoassets) package contains all definitions of cryptoassets that could be useful to Ledger Live.
 
 Ledger Live deals with different kinds of currencies and assets: fiat currencies, cryptocurrencies, and tokens.
 They all share similar concepts but have specifics, which are defined as a Currency model.
@@ -76,7 +76,7 @@ We don't want showAllDigits for currencies because they generally have a lot of 
 
 At the opposite, it is commonly wanted that for popular fiats like EUR we will always display `EUR 42.10` and never `EUR 42.1`.
 
-In live-common, our formatter is implemented by [`formatCurrencyUnit`](https://github.com/LedgerHQ/docs/tree/develop/libs/ledger-live-common/src/currencies/formatCurrencyUnit.js) which takes a BigNumber value and a Unit (and many other options available).
+In live-common, our formatter is implemented by [`formatCurrencyUnit`](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledger-live-common/src/currencies/formatCurrencyUnit.js) which takes a BigNumber value and a Unit (and many other options available).
 
 ### CryptoCurrency specific fields
 
