@@ -8,7 +8,7 @@ For ASAs, compared to ERC20, the process differs due to the fact that the tokens
 
 ### 1. Is my ASA token listed?
 
-First, make sure your token isn’t already listed by checking this table of the [supported crypto-assets](https://github.com/LedgerHQ/docs/blob/develop/apps/ledger-live-desktop/cryptoassets.md).
+First, make sure your token isn’t already listed by checking this table of the [supported crypto-assets](https://github.com/LedgerHQ/ledger-live/blob/develop/apps/ledger-live-desktop/cryptoassets.md).
 
 <Callout>
 	The list of supported assets on the <a href='https://www.ledger.com/supported-crypto-assets/'>website</a> is managed through an internal Ledger process. For the moment it’s difficult to guarantee the exact mapping between tokens available on Ledger Live and listed on the website.
@@ -19,7 +19,7 @@ First, make sure your token isn’t already listed by checking this table of the
 Update the [Algorand embedded app](https://github.com/algorand/ledger-app-algorand/blob/main/app/src/algo_asa.c).
 When your PR is validated by the Algorand team, they will make a PR to Ledger Github repository.
 
-Then, the Algorand team will update the [ledgerjs package](https://github.com/LedgerHQ/docs/blob/develop/libs/ledgerjs/packages/cryptoassets/data/asa.js).
+Then, the Algorand team will update the [ledgerjs package](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/ledgerjs/packages/cryptoassets/src/data/asa.ts).
 
 <Callout type="warning" emoji="⚠️">
 	To ensure both these topics are handled properly, we invite you to contact our engineering team through the <a href='https://developers.ledger.com/discord/'>Ledger's Discord server</a>.
@@ -28,5 +28,5 @@ Then, the Algorand team will update the [ledgerjs package](https://github.com/Le
 ### What next?
 
 This is all you need to do. Ledger will review the PR made by the Algorand team to [Ledger Github repository](https://github.com/LedgerHQ/app-algorand).
-Ledger will review and merge the PR made on the [ledgerjs package](https://github.com/LedgerHQ/docs/blob/develop/libs/ledgerjs/packages/cryptoassets/data/asa.js).
+Ledger will review and merge the PR made on the [ledgerjs package](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/ledgerjs/packages/cryptoassets/src/data/asa.ts).
 Ledger will perform a functional review of the changes before release in production.
