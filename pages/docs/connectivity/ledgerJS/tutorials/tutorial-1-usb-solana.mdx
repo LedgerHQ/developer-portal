@@ -12,7 +12,7 @@ First you need to install the Solana Embedded App from Ledger Live as shown in t
 
 ## Tutorial implementation
 
-In this implementation, we will be building a web application with vanilla javascript that uses the USB protocol from a [Ledger package](https://github.com/LedgerHQ/docs/tree/develop/libs/ledgerjs/packages/hw-transport-webusb) to communicate with the ledger.
+In this implementation, we will be building a web application with vanilla javascript that uses the USB protocol from a [Ledger package](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-webusb) to communicate with the ledger.
 
 ### Project Initialization
 It is time to implement the application and test it. First, open a terminal and create a new folder. For this tutorial, the folder will be named "e2e-sol-tutorial”.
@@ -267,8 +267,8 @@ npm install --save bs58
 | Package | What does it do? |
 | ------- | ---------------- |
 | [parcel](https://parceljs.org/) | It is a build tool that will help you package your application to run it in the browser.|
-| [@ledgerhq/hw-app-solana](https://github.com/LedgerHQ/docs/tree/develop/libs/ledgerjs/packages/hw-app-solana) | It will help you ask your Ledger Nano to access the solana application on the Ledger Nano. |
-| [@ledgerhq/hw-transport-webusb](https://github.com/LedgerHQ/docs/tree/develop/libs/ledgerjs/packages/hw-transport-webusb) | It provides you with all the methods to interact with your Ledger with an USB connexion. |
+| [@ledgerhq/hw-app-solana](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-solana) | It will help you ask your Ledger Nano to access the solana application on the Ledger Nano. |
+| [@ledgerhq/hw-transport-webusb](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-webusb) | It provides you with all the methods to interact with your Ledger with an USB connexion. |
 | [@ledgerhq/logs](https://www.npmjs.com/package/@ledgerhq/logs) | It provides you the log of all the error from your connexion with your Ledger device that may appear when developing. |
 | [@solana/web3.js](https://solana-labs.github.io/solana-web3.js/index.html) | It provides you with all the methods to interact with the solana blockchain. |
 | [bs58](https://www.npmjs.com/package/bs58) | It provides you with all the methods to compute base 58 encoding. |
