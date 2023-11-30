@@ -4,7 +4,7 @@ import { Callout } from 'nextra/components'
 
 ## Introduction
 
-In this article, we'll discuss some of the features that are built into BOLOS. These features are available through the [dashboard app](./introduction#the-dashboard) and / or can be used by userspace applications.
+In this article, we'll discuss some of the features that are built into BOLOS. These features are available through the [dashboard app](./#the-dashboard) and / or can be used by userspace applications.
 
 ## Management of Cryptographic Secrets
 
@@ -16,7 +16,7 @@ Both of these secrets are stored by BOLOS and are not directly accessible to app
 
 ### Passphrases in BOLOS
 
-Since firmware version 1.3 on the Ledger Nano S, BOLOS allows users to load multiple [BIP 39 passphrases](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki/#from-mnemonic-to-seed) onto the device at once. As described in [the previous chapter](../psd-masterseed/), passphrases are a method to add additional entropy to the BIP 39 master seed in order to completely change the [HD tree](../psd/keys/). Users can set a temporary passphrase which is activated until the device is disconnected, or store a passphrase on the device by attaching it to a PIN. When a passphrase is attached to a PIN, it is only activated when the user unlocks the device using the PIN corresponding to that passphrase. See our [Help Center article on the advanced passphrase options](https://support.ledger.com/hc/en-us/articles/115005214529-Advanced-passphrase-security) for more information about using passphrases.
+Since firmware version 1.3 on the Ledger Nano S, BOLOS allows users to load multiple [BIP 39 passphrases](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki/#from-mnemonic-to-seed) onto the device at once. As described in [the previous chapter](../psd/masterseed/), passphrases are a method to add additional entropy to the BIP 39 master seed in order to completely change the [HD tree](../psd/keys/). Users can set a temporary passphrase which is activated until the device is disconnected, or store a passphrase on the device by attaching it to a PIN. When a passphrase is attached to a PIN, it is only activated when the user unlocks the device using the PIN corresponding to that passphrase. See our [Help Center article on the advanced passphrase options](https://support.ledger.com/hc/en-us/articles/115005214529-Advanced-passphrase-security) for more information about using passphrases.
 
 When a passphrase is activated, the binary seed derived according to BIP 39 is changed and consequently the entire HD tree is changed. This means that using a different passphrase causes applications that derive information from the HD tree (like cryptocurrency wallet applications) to derive entirely different information (different cryptocurrency addresses will be generated).
 
@@ -112,7 +112,7 @@ Below is a definition of all of the parties involved in our public key cryptogra
 
 ### Owner
 
-**Owner Certificate** An Owner is simply a party that owns and / or verifies the authenticity of a Ledger device. An Owner has a public-private keypair that can be used to sign certificates. A single [Device](#device) can have zero or more Owners, and the Owner doesn't have to be Ledger. The device uses Owner Certificates exclusively for the purposes of [application attestation](./bfeatures#endorsement--application-attestation).
+**Owner Certificate** An Owner is simply a party that owns and / or verifies the authenticity of a Ledger device. An Owner has a public-private keypair that can be used to sign certificates. A single [Device](#device) can have zero or more Owners, and the Owner doesn't have to be Ledger. The device uses Owner Certificates exclusively for the purposes of [application attestation](#endorsement--application-attestation).
 
 ### Custom CA
 
