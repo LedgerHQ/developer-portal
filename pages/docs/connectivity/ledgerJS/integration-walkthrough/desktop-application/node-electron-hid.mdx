@@ -8,7 +8,7 @@ Before starting, make sure you have gone through the [prerequisites](../prerequi
 
 ## Implementation for Web USB and Web HID on Nano S/X/S Plus
 
-For this application we will use the Ledger node hid package which is [@ledgerhq/hw-transport-node-hid](https://github.com/LedgerHQ/docs/tree/develop/libs/ledgerjs/packages/hw-transport-node-hid).
+For this application we will use the Ledger node hid package which is [@ledgerhq/hw-transport-node-hid](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-node-hid).
 
 ### Project Initialization
 First, open a terminal and create a new folder. For this tutorial the folder will be named “examples-node-electron-hid”.
@@ -226,9 +226,9 @@ npm install --save @ledgerhq/hw-transport-node-hid
 | [Electron](https://www.electronjs.org/) | It is a build tool that will help you package your application to run it as a desktop application. |
 | [Babel polyfill](https://www.npmjs.com/package/@babel/polyfill)| |
 | [@ledgerhq/logs](https://www.npmjs.com/package/@ledgerhq/logs) | It provides you with the log of all the error from your connexion with your Ledger device that may appear when developing. |
-| [@ledgerhq/hw-app-btc](https://github.com/LedgerHQ/docs/tree/develop/libs/ledgerjs/packages/hw-app-btc) | It helps you ask your Ledger Nano to access the bitcoin address. |
+| [@ledgerhq/hw-app-btc](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-btc) | It helps you ask your Ledger Nano to access the bitcoin address. |
 | [Browserify](https://browserify.org/) | It helps you use "require" like Node does. |
-| [@ledgerhq/hw-transport-node-hid](https://github.com/LedgerHQ/docs/tree/develop/libs/ledgerjs/packages/hw-transport-node-hid) | It provides you with all the methods to interact with your Nano with an HID connexion. |
+| [@ledgerhq/hw-transport-node-hid](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-node-hid) | It provides you with all the methods to interact with your Nano with an HID connexion. |
 
 Since automatic polyfills have been removed in webpack 5, run the following command to avoid errors when building the app locally:
 

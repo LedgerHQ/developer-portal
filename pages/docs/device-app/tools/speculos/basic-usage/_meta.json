@@ -1,0 +1,7 @@
+{  
+	"linux": "Linux users", 
+	"docker": "Docker for Mac OS (and Linux) users",
+	"macm1": "Mac M1 users",
+	"wsl": "Windows users",
+	"usage": "Usage"
+}

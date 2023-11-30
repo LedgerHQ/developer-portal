@@ -1,0 +1,7 @@
+{
+	"requirements": "What do we need?", 
+	"providers-endpoints": "Provider's Endpoints",
+	"providers-liveapp": "Provider's Live App",
+	"ledger-exchange-sdk": "Ledger's Exchange SDK",
+	"test": "Test your Live App"
+}

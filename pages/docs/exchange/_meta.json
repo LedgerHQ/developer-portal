@@ -1,4 +1,5 @@
-{
-	"native-integration": "Native Integration", 
-	"embedded-app": "Embedded App Integration"
+{	
+	"flow": "Flow breakdown",
+	"integration": "How-to integrate" 
+
 }
