@@ -67,7 +67,7 @@ export const CarouselData: CarouselType = [
     url: "/icons/carousel/Wyre.svg",
   },
   {
-    title: "Moonpay",
+    title: "MoonPay",
     url: "/icons/carousel/Moonpay.svg",
   },
   {
