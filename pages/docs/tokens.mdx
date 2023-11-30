@@ -12,9 +12,9 @@ The main account is where Ledger Live does the main currency transactions.
 
 There is a sub-account for each token. Sub-accounts can be either "token accounts" or "child accounts", the primary difference being that token accounts share the same address as their parent account, while child accounts have their own address.
 
-These account types are defined in the code in [account.ts](https://github.com/LedgerHQ/docs/blob/develop/libs/ledgerjs/packages/types-live/src/account.ts)
+These account types are defined in the code in [account.ts](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/ledgerjs/packages/types-live/src/account.ts)
 
-Token operations are defined both as operations in the sub-accounts, and as sub-operations in the parent account operations, as defined in [operation.ts](https://github.com/LedgerHQ/docs/blob/5f15da174652ebc39ec8f07a0671ab265317214c/libs/ledgerjs/packages/types-live/src/operation.ts#L91)
+Token operations are defined both as operations in the sub-accounts, and as sub-operations in the parent account operations, as defined in [operation.ts](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/ledgerjs/packages/types-live/src/operation.ts)
 
 
 <Cards num={2}>
