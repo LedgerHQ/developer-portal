@@ -691,57 +691,57 @@ module.exports = {
        },
       {
         source: '/docs/swap/introduction',
-        destination: '/docs/exchange/integration',
+        destination: '/docs/exchange/introduction',
         permanent: true,
        },
       {
         source: '/docs/swap/flow',
-        destination: '/docs/exchange/integration/flow',
+        destination: '/docs/exchange/flows/technical-flow',
         permanent: true,
        },
       {
         source: '/docs/swap/howto',
-        destination: '/docs/exchange/integration/howto/requirements',
+        destination: '/docs/exchange/integration',
         permanent: true,
        },
       {
         source: '/docs/swap/howto/providers-endpoints',
-        destination: '/docs/exchange/integration/howto/providers-endpoints',
+        destination: '/docs/exchange/integration/providers-endpoints',
         permanent: true,
        },  
       {
         source: '/docs/swap/howto/providers-liveapp',
-        destination: '/docs/exchange/integration/howto/providers-liveapp',
+        destination: '/docs/exchange/integration/providers-liveapp',
         permanent: true,
        },  
       {
         source: '/docs/swap/howto/ledger-exchange-sdk',
-        destination: '/docs/exchange/integration/howto/ledger-exchange-sdk',
+        destination: '/docs/exchange/integration/ledger-exchange-sdk',
         permanent: true,
        },
       {
         source: '/docs/swap/live-app/start-here',
-        destination: '/docs/exchange/flow/start-here',
+        destination: '/docs/exchange/flows',
         permanent: true,
        },
       {
         source: '/docs/swap/live-app/quote',
-        destination: '/docs/exchange/flow/flow-breakdown/quote',
+        destination: '/docs/exchange/flows/transaction-breakdown/quote',
         permanent: true,
        },
       {
         source: '/docs/swap/live-app/partner-live-app',
-        destination: '/docs/exchange/flow/flow-breakdown/partner-live-app',
+        destination: '/docs/exchange/flows/transaction-breakdown/partner-live-app',
         permanent: true,
        },
       {
         source: '/docs/swap/live-app/device-flow',
-        destination: '/docs/exchange/flow/flow-breakdown/device-flow',
+        destination: '/docs/exchange/flows/transaction-breakdown/device-flow',
         permanent: true,
        },
       {
         source: '/docs/swap/live-app/transaction-status',
-        destination: '/docs/exchange/flow/flow-breakdown/transaction-status',
+        destination: '/docs/exchange/flows/transaction-breakdown/transaction-status',
         permanent: true,
        },
       {
