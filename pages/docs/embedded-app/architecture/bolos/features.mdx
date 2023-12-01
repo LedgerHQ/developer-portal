@@ -4,7 +4,7 @@ import { Callout } from 'nextra/components'
 
 ## Introduction
 
-In this article, we'll discuss some of the features that are built into BOLOS. These features are available through the [dashboard app](./introduction#the-dashboard) and / or can be used by userspace applications.
+In this article, we'll discuss some of the features that are built into BOLOS. These features are available through the [dashboard app](../bolos#the-dashboard) and / or can be used by userspace applications.
 
 ## Management of Cryptographic Secrets
 
@@ -16,7 +16,7 @@ Both of these secrets are stored by BOLOS and are not directly accessible to app
 
 ### Passphrases in BOLOS
 
-Since firmware version 1.3 on the Ledger Nano S, BOLOS allows users to load multiple [BIP 39 passphrases](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki/#from-mnemonic-to-seed) onto the device at once. As described in [the previous chapter](../psd-masterseed/), passphrases are a method to add additional entropy to the BIP 39 master seed in order to completely change the [HD tree](../psd/keys/). Users can set a temporary passphrase which is activated until the device is disconnected, or store a passphrase on the device by attaching it to a PIN. When a passphrase is attached to a PIN, it is only activated when the user unlocks the device using the PIN corresponding to that passphrase. See our [Help Center article on the advanced passphrase options](https://support.ledger.com/hc/en-us/articles/115005214529-Advanced-passphrase-security) for more information about using passphrases.
+Since firmware version 1.3 on the Ledger Nano S, BOLOS allows users to load multiple [BIP 39 passphrases](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki/#from-mnemonic-to-seed) onto the device at once. As described in [the previous chapter](../psd), passphrases are a method to add additional entropy to the BIP 39 master seed in order to completely change the [HD tree](../psd/keys/). Users can set a temporary passphrase which is activated until the device is disconnected, or store a passphrase on the device by attaching it to a PIN. When a passphrase is attached to a PIN, it is only activated when the user unlocks the device using the PIN corresponding to that passphrase. See our [Help Center article on the advanced passphrase options](https://support.ledger.com/hc/en-us/articles/115005214529-Advanced-passphrase-security) for more information about using passphrases.
 
 When a passphrase is activated, the binary seed derived according to BIP 39 is changed and consequently the entire HD tree is changed. This means that using a different passphrase causes applications that derive information from the HD tree (like cryptocurrency wallet applications) to derive entirely different information (different cryptocurrency addresses will be generated).
 
@@ -73,7 +73,7 @@ This diagram shows the chain of trust of our attestation model. All data signed 
 
 Throughout the standard device lifecycle, it is possible for a host computer to establish a Secure Channel with a device to verify its authenticity and to securely exchange secrets with it.
 
-As discussed in `anti-tampering`, the authenticity of a Ledger device can be verified when it connects to a host computer by requesting the device's `Issuer Certificate`, which is signed by Ledger. This is done when establishing a Secure Channel with the device. However, the Secure Channel is not only a means to verify the authenticity of a Ledger device, it also allows the host computer to establish an encrypted communication channel with the device. Only the [dashboard application](./introduction/#dashboard) is able to establish a Secure Channel with the host computer, as doing so requires access to the `Device` private key.
+As discussed in `anti-tampering`, the authenticity of a Ledger device can be verified when it connects to a host computer by requesting the device's `Issuer Certificate`, which is signed by Ledger. This is done when establishing a Secure Channel with the device. However, the Secure Channel is not only a means to verify the authenticity of a Ledger device, it also allows the host computer to establish an encrypted communication channel with the device. Only the [dashboard application](../bolos/#dashboard) is able to establish a Secure Channel with the host computer, as doing so requires access to the `Device` private key.
 
 The Secure Channel protocol is built on top of the APDU (Application Protocol Data Unit) protocol used to communicate with the device over USB. As such, the protocol consists of a series of Command APDUs being sent from the host computer, and then associated Response APDUs being sent back from the device, with a one-to-one correspondence. The Secure Channel exists between two parties: the Signer and the Device. The Signer is the remote host connecting to the device. This may be the Issuer (Ledger) connecting to the device through our APIs, a [Custom Certificate Authority](#custom-ca) connecting to the device using a previously [enrolled Custom CA public key](#custom-ca-public-key-enrollment), or another end-user using a randomly generated keypair.
 
@@ -112,7 +112,7 @@ Below is a definition of all of the parties involved in our public key cryptogra
 
 ### Owner
 
-**Owner Certificate** An Owner is simply a party that owns and / or verifies the authenticity of a Ledger device. An Owner has a public-private keypair that can be used to sign certificates. A single [Device](#device) can have zero or more Owners, and the Owner doesn't have to be Ledger. The device uses Owner Certificates exclusively for the purposes of [application attestation](./bfeatures#endorsement--application-attestation).
+**Owner Certificate** An Owner is simply a party that owns and / or verifies the authenticity of a Ledger device. An Owner has a public-private keypair that can be used to sign certificates. A single [Device](#device) can have zero or more Owners, and the Owner doesn't have to be Ledger. The device uses Owner Certificates exclusively for the purposes of [application attestation](#endorsement--application-attestation).
 
 ### Custom CA
 
@@ -121,4 +121,3 @@ Below is a definition of all of the parties involved in our public key cryptogra
 <Callout>
 	A Custom CA may be a BOLOS application developer or a third party company that would like to give their application manager special administration permissions with a BOLOS device.
 </Callout>
-

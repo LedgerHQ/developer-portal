@@ -1,69 +1,29 @@
 import { Cards, Card } from 'nextra/components'
 
-# Clone Applications
+#
 
-## What is a clone?
-
-A variant, or clone, embedded app is developed when all the logic for signing transactions can be contained in the parent coin Embedded Application.
-
-As for any Embedded Application, you must follow our guidelines to comply with Ledger publication requirements.
-
-
-## Which development process for your Ethereum clone?
-
-Depending on your derivation path, the process will vary. 
+This chapter talks about key concept of what a Personnal Security Device (PSD) is and why it is needed, the design of
+such a device, and more specific high-level consideration on the Ledger PSDs: UI, BOLOS and such.
 
 <Cards num={2}>
   <Card
-    title="1 - Using the 44/60 path"
-    href="/docs/embedded-app/clones/eth-app-update"
+    title="Personal Security Device"
+    href="./architecture/psd"
   />
   <Card
-    title="2 - All other paths"
-    href="/docs/embedded-app/clones/eth-clones"
+    title="Application architecture"
+    href="./architecture/app-architecture"
+  />
+  <Card
+    title="BOLOS"
+    href="./architecture/bolos"
+  />
+  <Card
+    title="UI examples and good practices"
+    href="./architecture/ui"
+  />
+  <Card
+    title="Tips"
+    href="./architecture/tips"
   />
 </Cards>
-
-
-## What if my coin is a Bitcoin clone?
-
-### New Bitcoin clone
-
-For any other clone type, use the [main Embedded App process](../introduction/).
-
-### Update an existing clone
-
-If your Bitcoin clone was included in the Bitcoin Embedded App and you need to update it, please start a [new Embedded App process](../introduction/).
-
-
-## What to do? 
-
-### 1. Read the coding guidelines
-
-You don't need to follow all the coding guidelines. Only follow the steps below:
-
-|                                                              | Eth Clones |
-|--------------------------------------------------------------|:----------:|
-| [Blind Signing](../coding-guidelinesblind-signing/)          | Depends    |
-| [Icon](../deliverables/icons/)                               | **Yes**    |
-| [Documentation](../deliverables/documentation-requirements/) | Depends    |
-| Functional Tests                                             | **Yes**    |
-| [Warr/Liability accpt](../deliverables/warranty-disclaimer/) | **Yes**    |
-
-
-### 2. Build & Load and use the Ledger framework
-Refer to [Build & Load](../quickstart/build-load/) and [the Embedded App Framework](../quickstart/framework/).
-
-
-### 3. Submit your App
-Use and submit the Form to complete the process
-[Submission form](../process/submission-form/)
-
-### 4. Finished!
-We will contact you via Discord to let you know how your submission is doing.
-
-
-## Get in touch with the Ledger developer community
-
-Joining Discord is not required to code your Embedded Application, but it will be easier to meet with our team and discuss the specifics of your project. Join us on the [Ledger's Discord server](https://developers.ledger.com/discord/) and introduce your project in the **#dev-support** channel.
-

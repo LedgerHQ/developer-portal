@@ -1,6 +1,7 @@
-## Application Architecture
+## UI good practices
 
 The vast majority of applications are mainly designed to sign a transaction. Although they share a similar goal, their implementation varies greatly.
+
 
 ### Transaction signature flow
 
@@ -35,6 +36,7 @@ Last important consequence is the ability to write reusable components. The func
 The [Solana app](https://github.com/LedgerHQ/app-solana) is a great example of such architecture.
 We recommend developing a portable library implementing all the complex steps of the signature flow (parsing, field selection and field formatting) as he libsol library from Solana does.
 
+
 ### Good Practices for Transaction Handling
 
 Parsing transaction data, extracting important fields from this data, and showing them to the end user is the complex part of cryptocurrency applications for hardware wallets. This is where most time of the security review is spent.
@@ -43,11 +45,13 @@ A significant part of the work can be automated. We make extensive use of static
 
 To use these tools correctly, the security team adapts, most of the time, the application code. This task is tedious, and is the main reason why security reviews take, sometimes, a longer time than expected. Here are a few recommendations to write robust code, with better security guarantees:
 
+
 - **Do not rely on the BOLOS SDK to handle transaction data**
 
 Transaction handlers can be split, as seen above, in 5 parts. Only very specific areas require using the BOLOS SDK: receiving data from USB or BLE, displaying a formatted field on the screen, and signing the transaction data. These parts should be clearly separated from the rest of the core library responsible to handle transactions.
 
 This library should be portable. This will result in modular and testable code. Hence, a good practice for transaction parsers and printers is to put them in dedicated files. Such files should not include headers from the SDK. Do not include "`os.h`", "`cx.h`" nor "`os_io_seproxyhal.h`" in such files.
+
 
 - **Document the transaction format**
 
@@ -58,15 +62,3 @@ Using a app that does not read correctly transaction data on a hardware wallet m
 As we do not require app developers to write a full documentation for transactions if it does not exist yet, we ask for minimal test cases for every kind of transaction handled by the application. We also ask to document the kinds of transactions that are not handled by the application.
 
 To ensure test cases cover a major part of the transactions supported by your application, developers can rely on [code coverage](https://clang.llvm.org/docs/SourceBasedCodeCoverage.html), which becomes easy to add if your transaction parsers and printers are portable. We do not enforce a minimal percentage of coverage for unit tests. Nevertheless, we reserve the right to reject an app during the security review if we consider it cannot be tested easily.
-
-- **Do not throw exceptions in parser code**
-
-BOLOS provides an exception mechanism, designed primarily to minimize the application code size. Using this exception mechanism is mandatory to perform some system calls: code calling a syscall must be enclosed in a TRY / CATCH block (as seen in [Application Structure](./io/application-structure/)).
-
-This model is fine for simple functions. It is not adapted for complex code such as transaction parsers. A major drawback of such a model is that it becomes hard to make the code testable: unit tests are hard to write, as no testing framework support custom C exceptions.
-
-Static analyzers such as Clang Static Analyzer or Coverity Scan give improper results with such code because they do not correctly handle `setjmp` / `longjmp` (the underlying functions used in the BOLOS exception model). Moreover, writing a fuzzer for such code requires parts to be rewritten. This takes time, and this rewrite must be done each time a new version of the application is out, as the fuzzable code is different from the production code.
-
-Finally, experience showed that developers have difficulties to correctly handle errors thrown by exceptions. There were errors related to exceptions in every single app security reviews we performed in 2020.
-
-For these reasons, we strongly advise developers to avoid using the exception mechanism in transaction parsers and printers, unless they correctly understand the error-handling model, and they are able to provide unit tests for these modules.

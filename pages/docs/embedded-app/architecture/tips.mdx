@@ -8,7 +8,7 @@ In this article, we will walk you through the important concepts when developing
 
 ## Not Enough RAM
 
-At the time of this writing, the default link script provided by the SDK for the Ledger Nano S allocates 4.5 KiB of RAM for applications to use. This 4.5 KiB has to be enough to store all global non-const and [non-NVRAM](../coding-guidelines/memory/persistent-storage/) variables as well as the call stack.
+At the time of this writing, the default link script provided by the SDK for the Ledger Nano S allocates 4.5 KiB of RAM for applications to use. This 4.5 KiB has to be enough to store all global non-const and [non-NVRAM](../how-to-develop/sdk/memory/persistent-storage/) variables as well as the call stack.
 
 This is the linker error you will get if you declare too many global non-const and non-NVRAM variables to fit in RAM:
 
@@ -106,7 +106,7 @@ With our error model, there are two common failure scenarios.
 
 An application crashing when running on the device (the device's screen freezes and stops responding to the APDU) can be caused by a number of issues. For example:
 - The Secure Element is isolated due to invalid handling of [SEPROXYHAL](https://developers.ledger.com/docs/embedded-app/bolos-hardware-architecture/#seproxyhal) packets
-- There's a core fault on the device (perhaps due to a [misaligned memory access](../coding-guidelines/memory/memory-alignment/) or an attempt to access restricted memory)
+- There's a core fault on the device (perhaps due to a [misaligned memory access](../how-to-develop/sdk/memory/memory-alignment/) or an attempt to access restricted memory)
 
 If it occurs, you can start by trying it on Speculos which support GDB debugging. You can also simplify the app and strip away as much code as possible until the problem can be isolated.
 
@@ -119,7 +119,7 @@ PRINTF("uint16_t: %d", ptr16[0]);
 
 `ptr16[0]` access can make the application crash, even though `tmp_ctx.signing_context.buffer[processed]` (`unsigned char*`) can be accessed. This happens when a pointer isn't word-aligned, but a word is accessed in RAM. As a workaround, copy the buffer into a properly aligned location (e.g. using `memmove`).
 
-Please refer to the [alignment](../coding-guidelines/memory/memory-alignment/) page for further information.
+Please refer to the [alignment](../how-to-develop/sdk/memory/memory-alignment/) page for further information.
 
 ## Printf
 
@@ -128,7 +128,7 @@ The firmware supports the `PRINTF` macro debugging feature, which is defined it 
 DEFINES += HAVE_SPRINTF HAVE_PRINTF PRINTF=screen_printf
 ```
 
-You can use PRINTF with [the Speculos emulator](./speculos).
+You can use PRINTF with [the Speculos emulator](../how-to-develop/tools#speculos).
 
 Usually, `PRINTF` is defined as void, with this line `DEFINES += PRINTF\(...\)=`.
 Check if `PRINTF` is already defined somewhere in your Makefile, and if so, comment out this definition so it doesn't override.

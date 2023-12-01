@@ -1,7 +1,8 @@
 {
-    "app-architecture": "Application architecture",
-    "ui": "UI examples and good practices",
     "psd": "Personal Security Device",
     "bolos": "BOLOS",
+    "security": "Security concerns",
+    "crypto": "Cryptography",
+    "ui": "UI good practices",
     "tips": "Tips"
 }

@@ -45,23 +45,45 @@ Plugins work hand-in-hand with the Ethereum App, and implementation is straightf
 1. Extract the relevant information from the data.
 2. Send the string to be displayed back to the Ethereum App.
 
-Here is an overview of what the flow looks like:
+Here is the detailed sequence diagram of the interaction between the Ethereum application and the plugin:
 
 ```mermaid
-    sequenceDiagram
-    Eth App ->> Plugin: Are you installed on this device?
-    Note right of Plugin: Fail if<br>no plugin found
-    Plugin -->> Eth App: Yes, bring it on!
-    Note left of Eth App: Parse transaction
-    Eth App ->> Plugin: Here is the contract data
-    Note right of Plugin: Extract<br>important fields
-    Plugin -->> Eth App: Ok
-    Note left of Eth App: Compute stuff
-    Note left of Eth App: Prepare the display
-    Eth App ->> Plugin: What must I display with this?
-    Note right of Plugin: Decide<br>what to display
-    Plugin -->> Eth App: 'Swap ETH 1 for DAI 10000'
-    Note left of Eth App: Display<br>the message
+sequenceDiagram
+    Note left of Eth App: Receive transaction
+    Eth App -> Plugin: ETH_PLUGIN_CHECK_PRESENCE
+    Plugin --> Eth App:
+    Note left of Eth App: Plugin exists<br>so initialize it
+    Eth App -> Plugin: ETH_PLUGIN_INITIALIZE
+    Note right of Plugin: Initialize context
+    Plugin --> Eth App:
+    Note left of Eth App: Split contract data<br>in chunks
+    Note left of Eth App: Send chunks<br>to plugin
+    Eth App -> Plugin: ETH_PLUGIN_PROVIDE_PARAMETER
+    Note right of Plugin: Parse the chunk
+    Plugin --> Eth App:
+    Note left of Eth App: Repeat call<br>for every chunk
+    Eth App -> Plugin: ...
+    Plugin --> Eth App: ...
+    Note left of Eth App: Finish parsing Tx
+    Eth App -> Plugin: ETH_PLUGIN_FINALIZE
+    Note right of Plugin: Note which ERC20<br>are needed
+    Plugin --> Eth App: Ask for info on ERC20
+    Note left of Eth App: Get info on ERC20
+    Note left of Eth App: Send it back<br>to plugin
+    Eth App -> Plugin: ETH_PLUGIN_PROVIDE_TOKEN
+    Note right of Plugin: Store ERC20 info
+    Plugin --> Eth App:
+    Eth App -> Plugin: ETH_PLUGIN_QUERY_CONTRACT_ID
+    Note right of Plugin: Prepare screen
+    Plugin --> Eth App:
+    Note left of Eth App: Display<br>contract ID screen
+    Eth App -> Plugin: ETH_PLUGIN_QUERY_CONTRACT_UI
+    Note right of Plugin: Prepare screen
+    Plugin --> Eth App:
+    Note left of Eth App: Repeat call<br>for every screen
+    Eth App -> Plugin: ...
+    Plugin --> Eth App: ...
+    Note left of Eth App: Sign/Reject<br>the transaction
 ```
 
 As you can see, the flow is a series of back-and-forth messages between the Ethereum App and the plugin.

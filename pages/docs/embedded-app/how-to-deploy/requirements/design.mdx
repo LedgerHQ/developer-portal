@@ -2,7 +2,20 @@ import { Callout } from 'nextra/components'
 
 # Design guidelines
 
+
+## Signing
+
+<Callout type="warning" emoji="⚠️">
+  All signing transactions/messages action must ask for the user approval before happening.
+</Callout>
+
+More information [here](../../architecture/crypto#signingdisclosing-keys).
+
+
 ## Blind Signing
+
+As a general rule, [blind signing should be avoided](../../architecture/crypto#avoid-blindly-signing-data), however it is tolerated under some circumstances.
+
 
 For every transaction, the users must be able to verify on the device the amount being transferred and the destination address or the validator/nominator address(es) in the case of a staking operation.
 

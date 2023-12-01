@@ -1,12 +1,24 @@
-import { Cards, Card } from 'nextra/components'
+# Application Structure and I/O
 
-<Cards num={2}>
-  <Card
-    title="Bolos-App Interaction"
-    href="/docs/embedded-app/coding-guidelines/io/interaction-bolos-apps"
-  />
-  <Card
-    title="Application Structure and I/O"
-    href="/docs/embedded-app/coding-guidelines/io/application-structure"
-  />
-</Cards>
+## Introduction
+
+Many of the existing BOLOS applications are based on a smartcard architecture. This is because BOLOS applications are not meant to run standalone, but rather assist a host process (on a computer / smartphone) to perform a secure task (signing a message, encryption / decryption, etc.). Therefore the device is commonly addressed using a command / response scheme. Numerous design decisions have been made when developing the SDKs in order to support this model.
+
+However, the Event / Commands / Status model is designed to avoid limitations on the application, as it does not follow the command / response synchronous model. Developers are free to work around the model and redesign a custom event processing loop to suit their needs.
+
+## APDU Interpretation Loop
+
+The command / response scheme used to address the device is similar to the [ISO/IEC 7816-4](https://en.wikipedia.org/wiki/Smart_card_application_protocol_data_unit) smartcard protocol. Each command / response packet is called an APDU (application protocol data unit). The application is driven by a never-ending APDU interpretation loop called straight from the application main function.
+
+Each cycle of the APDU interpretation loop calls `io_exchange(...)` from the SDK, which first sends a response APDU (unless it's the first call, in which case it sends nothing), and then receives the next APDU command.
+
+However, sometimes, a user confirmation to perform a security action must be performed before replying to an APDU (for example, when signing a message). Such behaviour is handled by replying no data to the command in the APDU interpreter by using the `IO_ASYNCH_REPLY` flag, then following the user action calling `io_exchange` with the `IO_RETURN_AFTER_TX` flag and with the amount of data to reply to the stalled command.
+
+For an example of this feature, refer to [blue-app-samplesign](https://github.com/LedgerHQ/blue-sample-apps/blob/2fb0f8f68ef68bbecd601cf476e532177288a0fa/blue-app-samplesign/src/main.c). In this app, when the command APDU to sign a message is received (line 510), the flag `IO_ASYNCH_REPLY` is set and no response APDU is sent. If the user approves the action, then the button push handler calls `io_seproxyhal_touch_approve(...)` which sends the response APDU using another call to `io_exchange(...)` with the `IO_RETURN_AFTER_TX` flag set (line 434). The same occurs if the user denies the action, in which case `io_seproxyhal_touch_deny(...)` is triggered.
+
+## Protocols
+
+It's important to understand that the APDU protocol used by most BOLOS applications is not implemented by BOLOS itself. Instead, the APDU interpretation is performed entirely by the SDK. This means that applications can choose to implement another protocol on top of the transport layer (USB HID, USB CCID, BLE, ...) instead of APDU. In fact, the same is true for the transport layer protocols. Applications can customize the way the application is enumerated as a USB device by the host.
+
+![Common protocols across BOLOS applications](/common_protocols.png)
+*Common protocols across BOLOS applications*

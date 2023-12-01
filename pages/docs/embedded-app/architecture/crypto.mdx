@@ -1,5 +1,6 @@
 import { Callout } from 'nextra/components'
 
+
 ## Cryptography
 
 This section presents general concepts about cryptography development, but also guidelines specific to the security model of the Ledger devices. It gives guidelines to:
@@ -8,6 +9,7 @@ This section presents general concepts about cryptography development, but also 
 - Make sure all the operations that manipulate secrets are approved by the user.
 - Restrict the use of these secrets by apps.
 
+
 ### Never store or export secrets derived from seed
 
 The seed allows the user to derive any key from a given path at will. The user can reconstruct this secret from a new device by reentering its seed if he were to lose the original device.
@@ -15,6 +17,7 @@ The seed allows the user to derive any key from a given path at will. The user c
 Generating secrets must be done on demand. An application **must not** store a secret derived from the seed, and should regenerate it instead then erased when it is not used anymore.
 
 Even in encrypted form, those secrets **must not** not be stored outside of the device. They can be regenerated instead.
+
 
 ### Avoid blindly signing data
 
@@ -29,7 +32,8 @@ Warning: If you allow signing untrusted hashes (while displaying a prompt to the
 1. Some users are not familiar with security and could be easily tricked. They can click through your prompt without properly checking unless you give them explicit "Warning: this is a very unusual operation. Do not continue unless you know what you are doing" warning. They might not see the message even then.
 2. A compromised host might both change hash on the screen and also data sent to device. This opens the possibility of users signing something they didn't want to.
 
-### Signing/disclosing keys without user approval
+
+### Signing/disclosing keys
 
 <Callout type="warning" emoji="⚠️">
   You must always require user approval for signing transactions/messages.
@@ -47,6 +51,7 @@ Rationale: If you do not require user consent for signing important data, an att
 <Callout type="info" emoji="👉">
   There is a trade-off between privacy and usability here. If you want privacy, it would require a user interaction every time they want to use Ledger device, as opposed to only interaction while signing transactions. The behaviour could also be manually set in the application options.
 </Callout>
+
 
 ### Don't roll your own crypto primitives
 
