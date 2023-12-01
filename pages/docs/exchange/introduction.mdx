@@ -1,0 +1,34 @@
+import { Card, Cards } from 'nextra/components'
+
+# Being integrated as a swap provider in Ledger Live
+
+As a swap provider, it is possible to integrate your service to Ledger Live and appear under the “Swap” section. By becoming a swap provider in Ledger Live, you offer security, ease and accessibility to millions of users!
+
+There are two types of integration:
+- On-chain providers can develop a Ledger Live App and are integrated for now in the “Discover” section (like [Paraswap](https://www.ledger.com/blog/more-swapping-freedom-access-paraswap-directly-through-ledger-live)). 
+- Off-chain providers, on the other hand, are integrated in the “Swap” section, powered by Ledger Live backend and must provide us with a specific API.
+
+To offer our partner centralized exchanges the best time-to-market and and our users the best swap experience, we have built an hybrid solution:
+1. Native swap marketplace: An aggregator on Ledger Live listing our partners depending on the region, token coverage and prices.
+2. Partner Web app: A Live App experience (embedded web app) where users interact with the partner web app in Ledger Live, once they want to finalize the swap. The transaction is performed with ExchangeSDK.
+
+In this section, you will find: 
+- A breakdown of the how transaction occurs and a technical deepdive to understand the different flows, the architecture, and how the trade is secured between the three parties (the user’s device, the Ledger Live back-end and the provider). 
+- A guide to find out what needs to be done from the provider’s side in order to be integrated in Ledger Live, in the “Swap” section. It also provides detailled information about the different endpoints needed, as well as how to develop and test your LiveApp.
+
+<Cards num={2}>
+  <Card 
+    image
+    arrow
+    title="Flow" 
+    href="./flows">
+    <>![Cryptoassets Library](/blockchain-cover.jpg)</> 
+  </Card>
+  <Card 
+    image
+    arrow
+    title="Integration" 
+    href="./integration">
+    <>![Cryptoassets Library](/crypto-cover.jpg)</> 
+  </Card>
+</Cards>

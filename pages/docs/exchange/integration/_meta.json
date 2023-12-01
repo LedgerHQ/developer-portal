@@ -1,4 +1,5 @@
 {
-	"flow": "Flows",
-	"howto": "How to"
+	"providers-endpoints": "Provider's Endpoints",
+	"providers-liveapp": "Provider's Live App",
+	"ledger-exchange-sdk": "Ledger's Exchange SDK"
 }

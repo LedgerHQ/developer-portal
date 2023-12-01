@@ -1,5 +1,6 @@
 {	
-	"flow": "Flow breakdown",
-	"integration": "How-to integrate" 
+	"introduction": "Introduction",
+	"flows": "Flows",
+	"integration": "Integration how-to" 
 
 }
