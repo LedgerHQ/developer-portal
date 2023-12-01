@@ -42,7 +42,7 @@ const config: DocsThemeConfig = {
     const { asPath, defaultLocale, locale } = useRouter()
     const { frontMatter } = useConfig()
     const url =
-      'https://developers.ledger.com/' +
+      'https://developers.ledger.com' +
       (defaultLocale === locale ? asPath : `/${locale}${asPath}`)
  
     return (
