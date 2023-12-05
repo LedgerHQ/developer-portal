@@ -22,9 +22,9 @@ export const Examples = () => {
           <div className="flex flex-wrap gap-8 mt-16 justify-center items-center md:items-stretch md:justify-normal">
             <ExampleCard 
               icon="coinbase" 
-              title="CoinbaseWallet"
-              subtitle="CoinbaseWallet with your Ledger"
-              description="Developers at Coinbase added an additional layer of security to their extension by incorporating Ledger connectivity to the CoinbaseWallet extension"
+              title="Coinbase Wallet"
+              subtitle="Use Coinbase Wallet with your Ledger"
+              description="Coinbase Wallet's browser extension is compatible with Ledger hardware wallets, providing an additional layer of security and greater peace of mind"
               type="wallet"
             />
             <ExampleCard 
