@@ -10,12 +10,12 @@ import { Footer } from "./components/Homepage/Footer"
 
 const config: DocsThemeConfig = {
   project: {
-    link: 'https://github.com/LedgerHQ/developer-portal-v2',
+    link: 'https://github.com/LedgerHQ/developer-portal',
   },
   chat: {
     link: 'https://ledgeropen.herokuapp.com/pro',
   },
-  docsRepositoryBase: 'https://github.com/LedgerHQ/developer-portal-v2/blob/main',
+  docsRepositoryBase: 'https://github.com/LedgerHQ/developer-portal/blob/main',
   footer: {
     text: 'Ledger Developer Portal',
     component: () => (
