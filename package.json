@@ -30,6 +30,7 @@
     "react-medium-image-zoom": "5.1.8",
     "react-scroll": "^1.8.9",
     "react-spring": "^9.7.3",
+    "sharp": "^0.33.0",
     "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
