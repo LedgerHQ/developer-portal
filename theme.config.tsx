@@ -41,6 +41,9 @@ const config: DocsThemeConfig = {
   head: () => {
     const { asPath, defaultLocale, locale } = useRouter()
     const { frontMatter } = useConfig()
+    const meta = {
+      image: "homepage/hero-background.png",
+    };
     const url =
       'https://developers.ledger.com' +
       (defaultLocale === locale ? asPath : `/${locale}${asPath}`)
@@ -48,6 +51,7 @@ const config: DocsThemeConfig = {
     return (
       <>
         <meta property="og:url" content={url} />
+        <meta property="og:image" content={meta.image} />
         <meta property="og:title" content={frontMatter.title || 'Developers'} />
         <meta
           property="og:description"
