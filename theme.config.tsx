@@ -42,7 +42,7 @@ const config: DocsThemeConfig = {
     const { asPath, defaultLocale, locale } = useRouter()
     const { frontMatter } = useConfig()
     const meta = {
-      image: "homepage/hero-background.png",
+      image: "homepage/hero-background.webp",
     };
     const url =
       'https://developers.ledger.com' +
