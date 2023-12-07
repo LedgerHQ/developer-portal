@@ -42,7 +42,7 @@ module.exports = {
         }
       },
       backgroundImage: {
-        "hero-background": "url(/homepage/hero-background.png)",
+        "hero-background": "url(/homepage/hero-background.webp)",
         "nano-background": "linear-gradient(103deg, #000 42.94%, rgba(0, 0, 0, 0.00) 59.62%), url('/homepage/nano-background.png')",
         "nano-background-mobile": "linear-gradient(103deg, #000 42.94%, rgba(0, 0, 0, 0.00) 59.62%), url('/homepage/nano-background.png')",
         "nano-background-lg": "linear-gradient(103deg, #000 52.94%, rgba(0, 0, 0, 0.00) 59.62%), url('/homepage/nano-background.png')",

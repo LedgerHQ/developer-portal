@@ -1,5 +1,5 @@
 import Image from "next/image"
-import HeroImg from "../../public/homepage/hero-background.png"
+import HeroImg from "../../public/homepage/hero-background.webp"
 import Button from "../ui/Button"
 
 interface HeroProps {
