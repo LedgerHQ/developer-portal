@@ -14,4 +14,4 @@ export default withAuth(
 
 // 2023-10-19 - To access all protected pages locally, when the github app is not available, 
 // comment out the line below
-export const config = { matcher: ["/docs/exchange/integration/:path*", "/docs/exchange/flows/:path*", "/docs/exchange/introduction"] }
+export const config = { matcher: ["/docs/eexchange/integration/:path*", "/docs/eexchange/flows/:path*", "/docs/eexchange/introduction"] }
