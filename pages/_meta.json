@@ -12,8 +12,6 @@
     "items": {
       "overview": {
         "title": "Overview",
-        "display": "hidden"
-
       },
       "blockchain-foundation": {
         "title": "Blockchain foundation"
