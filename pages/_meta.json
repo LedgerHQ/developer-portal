@@ -11,7 +11,7 @@
     "type": "menu",
     "items": {
       "overview": {
-        "title": "Overview",
+        "title": "Overview"
       },
       "blockchain-foundation": {
         "title": "Blockchain foundation"
