@@ -1,3 +1,7 @@
+---
+title: Why my app can not communicate with an Ledger Embedded App?
+---
+
 # Why my app can not communicate with an Ledger Embedded App?
 
 For a wallet app to communicate with an Embedded App through a device, the same mode of transport must be implemented on each side. If the communication does not work, it may be because the transport is not implemented in the Embedded App. It happens rarely because the Makefile is inherited from the SDK which contains the transport declarations. 
