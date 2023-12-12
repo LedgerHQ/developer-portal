@@ -1,10 +1,15 @@
+---
+title: The security of Ledger devices apps
+description: Your device app must comply with all the Security requirements. Security aspect apply to building the code, testing, (including automated testing), the use of BOLOS flags, the derivation path, exception calls, the handling of key-derived secrets, the signing process. The list is not exhaustive.
+---
+
 import { Callout } from 'nextra/components'
 
 # Security
 
 ## Requirement Note
 
-Your embedded app must comply with all the Security requirements (Updated in April 2023). Security aspect apply to building the code, testing, (including automated testing), the use of BOLOS flags, the derivation path, exception calls, the handling of key-derived secrets, the signing process. The list is not exhaustive.
+Your device app must comply with all the Security requirements (Updated in April 2023). Security aspect apply to building the code, testing, (including automated testing), the use of BOLOS flags, the derivation path, exception calls, the handling of key-derived secrets, the signing process. The list is not exhaustive.
 
 Ledger will not pass the Security Audit for an App if potential errors have been detected by the Ledger guidelines enforcer GitHub workflow available [here](https://github.com/LedgerHQ/app-boilerplate/blob/master/.github/workflows/guidelines_enforcer.yml). This includes a static code analyzer and a checker which verifies icons, `Makefile`, `README.md` and some application parameters (detailed in the sections below). 
 
