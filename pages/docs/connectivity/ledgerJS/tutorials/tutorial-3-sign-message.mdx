@@ -282,7 +282,7 @@ You can verify that you are the one who signed the message by signing in on [run
 	```js copy
 	const { ethers } = require("ethers");
 
-	ethers.utils.verifyMessage("test","0xefb42c22baa0143b322e93b24b0903a0ef47a64b716fbb77debbea55a93dec3e4417aff7dce845723240916c6e34cf17c674828b3addfb0afad966334df5b6311b");
+	ethers.verifyMessage("test", "0xefb42c22baa0143b322e93b24b0903a0ef47a64b716fbb77debbea55a93dec3e4417aff7dce845723240916c6e34cf17c674828b3addfb0afad966334df5b6311b");
 	```
 
 2. Run your code, it should now display the Ethereum address linked to the signed message (the run can take a bit of time):

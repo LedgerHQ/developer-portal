@@ -159,16 +159,17 @@ In index.js copy-paste the following code :
 import { ethers } from "ethers";
 import TransportWebHID from "@ledgerhq/hw-transport-webhid";
 import Eth from "@ledgerhq/hw-app-eth";
+import ledgerService from "@ledgerhq/hw-app-eth/lib/services/ledger"
 
-//Infuria provider for Ropsten network
-const provider = new ethers.providers.JsonRpcProvider("https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161");
+//Infuria provider for Goerli network
+const provider = new ethers.providers.JsonRpcProvider("https://ethereum-goerli.publicnode.com/");
 
 
-const chainId = 3;
+const chainId = 5;
 let gasPrice;
 let addressWallet;
 let recipient = "0x920f19c7F7Ce5b3170AdB94fDcC4570Da95D286b";
-let value = 0.1;
+let value = 0.001;
 let gasLimit = 1000000;
 let nonce;
 let _eth;
@@ -218,9 +219,10 @@ document.getElementById("tx-transfer").onclick = async function () {
 
     //Serializing the transaction to pass it to Ledger Nano for signing
     let unsignedTx = ethers.utils.serializeTransaction(transaction).substring(2);
+    const resolution = await ledgerService.resolveTransaction(unsignedTx, {}, {});
 
     //Sign with the Ledger Nano (Sign what you see)
-    const signature = await _eth.signTransaction("44'/60'/0'/0/0",unsignedTx);
+    const signature = await _eth.signTransaction("44'/60'/0'/0/0",unsignedTx, resolution);
 
     //Parse the signature
     signature.r = "0x"+signature.r;
@@ -234,8 +236,8 @@ document.getElementById("tx-transfer").onclick = async function () {
     //Sending the transaction to the blockchain
     const hash = (await provider.sendTransaction(signedTx)).hash;
 
-    //Display the Ropsten etherscan on the screen
-    const url = "https://ropsten.etherscan.io/tx/" + hash;
+    //Display the Goerli etherscan on the screen
+    const url = "https://goerli.etherscan.io/tx/" + hash;
     document.getElementById("url").innerHTML = url;
 }
 ```
@@ -282,7 +284,7 @@ Run:
 npm install --save-dev parcel
 npm install --save @ledgerhq/hw-app-eth
 npm install --save @ledgerhq/hw-transport-webhid
-npm install --save ethers
+npm install --save ethers@5.4.7
 ```
 
 | Package | What does it do? |
