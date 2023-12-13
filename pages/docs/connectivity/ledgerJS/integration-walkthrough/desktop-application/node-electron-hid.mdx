@@ -88,7 +88,6 @@ const TransportNodeHid = require("@ledgerhq/hw-transport-node-hid").default;
 const AppBtc = require("@ledgerhq/hw-app-btc").default;
 const { listen } = require("@ledgerhq/logs");
 
-
 const { app, BrowserWindow, ipcMain } = require("electron");
 
 // This a very basic example
@@ -98,7 +97,7 @@ function getBitcoinInfo(verify) {
   return TransportNodeHid.open("")
     .then(transport => {
       listen(log => console.log(log))
-      const appBtc = new AppBtc(transport);
+      const appBtc = new AppBtc({ transport, currency: "bitcoin" });
       return appBtc.getWalletPublicKey("44'/0'/0'/0/0",{verify: verify, format: "legacy"}).then(r =>
         transport
           .close()
@@ -248,32 +247,33 @@ npm i stream
   },
 ```
 
-Your file should know look like this:
+Your file should now look like this:
 
 ```javascript copy
 {
-  "name": "examples-node-electron-hid",
-  "version": "1.0.0",
-  "description": "",
-  "source": "index.html",
-  "scripts": {
-    "start": "electron ."
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "electron": "^16.0.10"
-  },
-  "dependencies": {
-    "@ledgerhq/hw-app-btc": "^6.24.1",
-    "@ledgerhq/hw-transport-node-hid": "^6.24.1",
-    "@ledgerhq/logs": "^6.10.0",
-    "babel-polyfill": "^6.26.0",
-    "browserify": "^17.0.0",
-    "node-polyfill-webpack-plugin": "^1.1.4",
-    "stream": "^0.0.2"
+    "name": "nodehid",
+    "version": "1.0.0",
+    "description": "",
+    "source": "index.html",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "electron"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "electron": "^27.1.2"
+    },
+    "dependencies": {
+      "@ledgerhq/hw-app-btc": "^10.1.0",
+      "@ledgerhq/hw-transport-node-hid": "^6.28.0",
+      "@ledgerhq/logs": "^6.12.0",
+      "babel-polyfill": "^6.26.0",
+      "browserify": "^17.0.0",
+      "node-polyfill-webpack-plugin": "^2.0.1",
+      "stream": "^0.0.2"
+    }
   }
-}
 ```
 ## Desktop App Test
 

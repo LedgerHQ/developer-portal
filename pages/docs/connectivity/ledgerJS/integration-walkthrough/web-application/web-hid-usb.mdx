@@ -85,10 +85,12 @@ import TransportWebUSB from "@ledgerhq/hw-transport-webusb";
 // Keep this import if you want to use a Ledger Nano S/X/S Plus with the HID protocol and delete the @ledgerhq/hw-transport-webusb import
 import TransportWebHID from "@ledgerhq/hw-transport-webhid";
 
+
 //Display the header in the div which has the ID "main"
 const initial = "<h1>Connect your Nano and open the Bitcoin app. Click anywhere to start...</h1>";
 const $main = document.getElementById("main");
 $main.innerHTML = initial;
+
 
 document.body.addEventListener("click", async () => {
   $main.innerHTML = initial;
@@ -100,11 +102,12 @@ document.body.addEventListener("click", async () => {
     // Keep if you chose the HID protocol
     const transport = await TransportWebHID.create();
 
+
     //listen to the events which are sent by the Ledger packages in order to debug the app
     listen(log => console.log(log))
 
     //When the Ledger device connected it is trying to display the bitcoin address
-    const appBtc = new AppBtc(transport);
+    const appBtc = new AppBtc({ transport, currency: "bitcoin" });
     const { bitcoinAddress } = await appBtc.getWalletPublicKey(
       "44'/0'/0'/0/0",
       { verify: false, format: "legacy"}
@@ -127,6 +130,7 @@ document.body.addEventListener("click", async () => {
     $main.appendChild($err);
   }
 });
+
 ```
 ### Dependencies Installation
 
@@ -138,6 +142,9 @@ Run:
 npm install --save core-js
 npm install --save @ledgerhq/logs
 npm install --save-dev parcel
+npm install --save-dev buffer
+npm install --save-dev process
+npm install --save-dev stream-browserify
 npm install --save @ledgerhq/hw-app-btc
 ```
 
@@ -189,26 +196,32 @@ Your "package.json" should look like this:
   "description": "",
   "source": "src/index.html",
   "dependencies": {
-    "@ledgerhq/hw-app-btc": "^6.24.1",
-    "@ledgerhq/hw-transport-webhid": "^6.24.1", 
-    "@ledgerhq/hw-transport-webusb": "^6.24.1", 
-    "@ledgerhq/logs": "^6.10.0",
-    "core-js": "^3.21.1"
-  },
-  "devDependencies": {
-      "parcel": "^2.0.0"
+    "@ledgerhq/hw-app-btc": "^10.1.0",
+    "@ledgerhq/hw-transport-webhid": "^6.28.0",
+    "@ledgerhq/hw-transport-webusb": "^6.28.0",
+
+    "@ledgerhq/logs": "^6.12.0",
+    "core-js": "^3.33.3"
   },
   "scripts": {
-    "build": "parcel build", 
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "parcel build",
     "start": "parcel"
   },
   "author": "",
   "license": "ISC",
 
+  "devDependencies": {
+    "buffer": "^6.0.3",
+    "parcel": "^2.10.3",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0"
+  },
   "alias": {
     "@ledgerhq/devices": "@ledgerhq/devices/lib-es"
   }
 }
+
 ```
 
 <Callout type="warning" emoji="⚠️">
