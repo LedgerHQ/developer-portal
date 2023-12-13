@@ -2,17 +2,14 @@ import { Callout } from 'nextra/components'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 
-# Flows
+# Detailled Technical Flows
 
-## High level flow
+For high-level flows, refer to the [flow-breakdown](../flow/flow-breakdown) section.
 
-![High level flow](/high-level-flow.png)
+## Swap
 
-The Exchange Application is an application for Ledger’s devices (Nano S, Nano X and Nano S Plus) that has been developed specifically to manage and secure swap operations (crypto-to-crypto transfer).
+### Overview diagram
 
-The trade between the provider and the user is secured by going through Ledger Live back-end, front-end and the Exchange app installed on the Hardware Wallet. The provider signs the trade data, in order to let the Ledger device (Nano S, S Plus, X or Stax) display it to the user. Since the Ledger device is the single source of truth, the user can trust and sign the transaction on the device, thus allowing the provider to complete the transaction. The provider is accredited by Ledger so that the device can trust the provider data.
-
-## Detailed flow
 This is a [C4 diagram](https://c4model.com/) that describes an overview of the exchange during the swap process.
 
 <Zoom>
@@ -26,18 +23,10 @@ This is a [C4 diagram](https://c4model.com/) that describes an overview of the e
     Although the provider's LiveApp is embedded inside Ledger Live, we describe it as running in a separate environment because it is sandboxed.This type is not required at light sync step and will soon be removed from this section
 </Callout>
 
-### Display quote information to user
+### Detailled transaction flow
 
-<Zoom>
-    <img
-      alt="Quote information flow"
-      src="/detailed-flow-1.png"
-    />
-</Zoom>
+Explanations about each step below the diagram. 
 
-[Details on the quote API needed](./howto/providers-endpoints#post-quote).
-
-### Swap transaction flow
 
 <Zoom>
     <img
@@ -46,7 +35,7 @@ This is a [C4 diagram](https://c4model.com/) that describes an overview of the e
     />
 </Zoom>
 
-1. Ledger Live opens the provider's LiveApp through a [deeplink](https://github.com/LedgerHQ/ledger-live/wikiLLM:DeepLinking). Example:
+1. Ledger Live opens the provider's LiveApp through a [deeplink](./providers-liveapp#deeplink). Example:
 ```
 ledgerlive://discover/swapprovidername?quoteId=CC14E626-CF1B-4EDA-AF5E-766FFD5A3457&
 fromAddress=bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq&
@@ -71,6 +60,18 @@ toAddressId=6EA9F270-91C5-4832-9A44-2713F9A6F6F0
 
 8. The LiveApp should call back Ledger Live with a deeplink. Example: `ledgerlive://swap?status=COMPLETED&swapId=123`
 
+
+### Display quote information to user
+
+<Zoom>
+    <img
+      alt="Quote information flow"
+      src="/detailed-flow-1.png"
+    />
+</Zoom>
+
+[Details on the quote API needed](https://exchange-integration-swap.redoc.ly/#operation/postQuote).
+
 ### Check swap status flow
 
 <Zoom>
@@ -80,12 +81,4 @@ toAddressId=6EA9F270-91C5-4832-9A44-2713F9A6F6F0
     />
 </Zoom>
 
-## High level architecture
-
-<Zoom>
-    <img
-      alt="High level architecture"
-      src="/high-level-architecture.png"
-    />
-</Zoom>
 
