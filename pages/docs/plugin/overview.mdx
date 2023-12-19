@@ -17,14 +17,14 @@ Let’s start with a high-level overview of what a plugin is, how it interacts w
 
 If you’ve already interacted with any smart contract using a Ledger Device, then you’ve already seen this screen:
 
-![Blind Signing](/blind-signing.png)
+![Blind Signing](/plugin/blind-signing.png)
 
 This is a UX disaster. The user has no guarantee of interacting with the right smart contract, nor of signing the correct data. The only user action is literally to blind-sign the transaction.
 
 Display information is specific to each smart contract: so when swapping on a decentralised exchange, you probably want to see information such as “Swapping X ETH for Y DAI”. When depositing DAI on Aave, you need to see the amount in DAI. So, the information is specific to the smart contract.
 
 
-![Plugin](/plugin.png)
+![Plugin](/plugin/contract-data.png)
 
 Modifying the Ethereum App would not do because its size would quickly go out of control. Instead, the solution lies in a small and versatile parser of smart contract data, which works hand-in-hand with the Ethereum App and decides what to display for the best user experience.
 

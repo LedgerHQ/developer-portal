@@ -31,7 +31,7 @@ Attestation is a process used by Ledger devices to prove that they are genuine L
 
 ### Anti-Tampering with Attestation
 
-![](/wallet_not_genuine.png)
+![](/device-app/wallet_not_genuine.png)
 
 Ledger devices are protected from interdiction attacks (being tampered with while en route from Ledger's warehouses to your home) due to anti-tampering technology built into the firmware. Using attestation, the authenticity of the device is verified in software every time you plug it into one of the Ledger Live applications.
 
@@ -68,7 +68,7 @@ For an example of how these features may be used, check out [blue-app-otherdime]
 
 ### Attestation Chain of Trust
 
-![The chain of trust for Ledger's attestation model](/chain_of_trust.png)
+![The chain of trust for Ledger's attestation model](/device-app/chain_of_trust.png)
 *The chain of trust for Ledger's attestation model*
 
 
@@ -86,7 +86,7 @@ When establishing the Secure Channel, both parties (the Signer and the Device) g
 
 The process of establishing a Secure Channel is illustrated in the following diagram.
 
-![An admittedly not-so-simple diagram of the Secure Channel protocol handshake](/secure_channel_protocol.png)
+![An admittedly not-so-simple diagram of the Secure Channel protocol handshake](/device-app/secure_channel_protocol.png)
 *An admittedly not-so-simple diagram of the Secure Channel protocol handshake*
 
 In the above diagram, during segment (6), the Device provides a Signer serial. The Signer serial is a number stored by the device which identifies the specific Issuer keypair used to sign the device's Issuer Certificate, as Ledger does not use the same Issuer keypair for every device.

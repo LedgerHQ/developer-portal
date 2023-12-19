@@ -25,7 +25,7 @@ If the Ropsten and Dimension faucets don't work or the queue is too long, please
 #### Ropsten Ethereum Network
 Go to the [Ropsten Ethereum Faucet](https://faucet.ropsten.be/) website put your Wallet Public Key on the input and click on "Send me test Ether"
 
-![Ropsten Ethereum Faucet](/tutorial-1-faucet1.png)
+![Ropsten Ethereum Faucet](/connectivity/tutorial-1-faucet1.png)
 *Fig. 1: Ropsten Ethereum Faucet*
 
 
@@ -33,7 +33,7 @@ Go to the [Ropsten Ethereum Faucet](https://faucet.ropsten.be/) website put your
 #### Dimensions Network
 Go to the [Dimensions Network](https://faucet.dimensions.network/) website put your Wallet Public Key on the input, do the captcha and click on "Send me test Ether"
 
-![Ropsten Ethereum Faucet](/tutorial-1-faucet2.png)
+![Ropsten Ethereum Faucet](/connectivity/tutorial-1-faucet2.png)
 *Fig. 2: Ropsten Ethereum Faucet*
 
 ## Web App Bluetooth (only Nano X)
@@ -67,7 +67,7 @@ touch ./src/polyfill.js
 
 Your folder must look like this.
 
-![Folder of the Application](/tutorial-2-folder.png)
+![Folder of the Application](/connectivity/tutorial-2-folder.png)
 *Fig. 1: Folder of the Application*
 
 To implement the Ledger connexion you will only modify "App.js", "index.js", "ConnectLedger.js”,"SmartContract.js", and ethereum.js”
@@ -413,7 +413,7 @@ npm run start
 
 Now the application is up and running. Open the browser and go to `localhost:3000`, it will display :
 
-![Application Running on Browser](/tutorial-2-connect.png)
+![Application Running on Browser](/connectivity/tutorial-2-connect.png)
 *Fig. 2: Application Running on Browser*  
 
 Don't click on the button yet.
@@ -425,7 +425,7 @@ The steps are described below.
 <br/>
 <div className="center">
   <figure>
-    <img src="/ledgerCodePin.jpg" alt="Nano Enter Code Pin"/>
+    <img src="/connectivity/ledgerCodePin.jpg" alt="Nano Enter Code Pin"/>
     <figcaption><i>Fig. 3: Ledger Enter Code Pin</i></figcaption>
   </figure>
 </div>
@@ -433,7 +433,7 @@ The steps are described below.
 <br/>
 <div className="center">
   <figure>
-    <img src="/ledgerEth.jpg" alt="Embedded Application"/>
+    <img src="/connectivity/ledgerEth.jpg" alt="Embedded Application"/>
     <figcaption><i>Fig. 4: Ledger Application</i></figcaption>
   </figure>
 </div>
@@ -441,7 +441,7 @@ The steps are described below.
 <br/>
 <div className="center">
   <figure>
-    <img src="/ledgerReady.jpg" alt="Nano Run Application"/>
+    <img src="/connectivity/ledgerReady.jpg" alt="Nano Run Application"/>
     <figcaption><i>Fig. 5: Application is running</i></figcaption>
   </figure>
 </div>
@@ -449,20 +449,20 @@ The steps are described below.
 ### Connect Your Nano to the Application
 Now you can click on the button and a popup open. Choose your Ledger Nano X and click connexion
 
-![Connect the Ledger with Bluetooth](/tutorial-2-pairing.png)
+![Connect the Ledger with Bluetooth](/connectivity/tutorial-2-pairing.png)
 *Fig. 6: Connect the Ledger with Bluetooth*
 
 ### Read the data of a Smart Contract
 Now you can click on the button "Get Data" to read the data of the smart contract. Then the data will be displayed on the screen.
 
-![Get data from a smart contract](/tutorial-2-getdata.png)
+![Get data from a smart contract](/connectivity/tutorial-2-getdata.png)
 *Fig. 7: Get data from a smart contract*
 
 
 ### Update the data of a Smart Contract
 Now instead of reading data, we will overwrite the data by calling a function of the smart contract which is "UpdateData".
 
-![Change data from a smart contract](/tutorial-2-changedata.png)
+![Change data from a smart contract](/connectivity/tutorial-2-changedata.png)
 *Fig. 8: Change data from a smart contract*
 
 ### Verify the Address on your Nano
@@ -471,9 +471,9 @@ For security reasons, the address will also be displayed on your Ledger Nano X t
 <br/>
 <div className="center">
   <figure>
-    <img src="/ledger-tx-review.jpg" alt="Nano Review Screen"/>
+    <img src="/connectivity/ledger-tx-review.jpg" alt="Nano Review Screen"/>
     <br/>
-    <img src="/ledger-tx-amount.jpg" alt="Nano Amount Screen"/>
+    <img src="/connectivity/ledger-tx-amount.jpg" alt="Nano Amount Screen"/>
     <figcaption><i>Fig. 9: Nano Review Screen</i></figcaption>
     <figcaption><i>Fig. 10: Nano Amount Screen</i></figcaption>
   </figure>
@@ -481,9 +481,9 @@ For security reasons, the address will also be displayed on your Ledger Nano X t
 <br/>
 <div className="center">
   <figure>
-    <img src="/ledger-tx-address.jpg" alt="Nano Address Screen"/>
+    <img src="/connectivity/ledger-tx-address.jpg" alt="Nano Address Screen"/>
     <br/>
-    <img src="/ledger-tx-network.jpg" alt="Nano Network Screen"/>
+    <img src="/connectivity/ledger-tx-network.jpg" alt="Nano Network Screen"/>
     <figcaption><i>Fig. 11: Nano Address Screen</i></figcaption>
     <figcaption><i>Fig. 12: Nano Network Screen</i></figcaption>
   </figure>
@@ -491,9 +491,9 @@ For security reasons, the address will also be displayed on your Ledger Nano X t
 <br/>
 <div className="center">
   <figure>
-    <img src="/ledger-tx-fees.jpg" alt="Nano Max Fees Screen"/>
+    <img src="/connectivity/ledger-tx-fees.jpg" alt="Nano Max Fees Screen"/>
     <br/>
-    <img src="/ledger-tx-accept.jpg" alt="Nano Accept and Send Screen"/>
+    <img src="/connectivity/ledger-tx-accept.jpg" alt="Nano Accept and Send Screen"/>
     <figcaption><i>Fig. 13: Nano Max Fees Screen</i></figcaption>
     <figcaption><i>Fig. 14: Nano Accept and Send Screen</i></figcaption>
   </figure>
@@ -507,22 +507,22 @@ For security reasons, the address will also be displayed on your Ledger Nano X t
 ### Review the Transaction on Ropsten Etherscan
 By updating the data a transaction is created to change this data, it can be verified on Ropsten Etherscan.
 
-![Ropsten Etherscan](/tutorial-2-etherscan1.png)    
+![Ropsten Etherscan](/connectivity/tutorial-2-etherscan1.png)    
 *Fig. 15: Ropsten Etherscan*
 
 Wait till the status passes to Success.
 
-![Ropsten Etherscan](/tutorial-2-etherscan2.png)    
+![Ropsten Etherscan](/connectivity/tutorial-2-etherscan2.png)    
 *Fig. 16: Ropsten Etherscan*
 
 ### Verify the update of data
 
 Finally, to verify if data was updated, open the web application and click on "Get data".
 
-![Verify the data](/tutorial-2-getdata2.png)  
+![Verify the data](/connectivity/tutorial-2-getdata2.png)  
 *Fig. 17: Verify the data*
 
-![Verify the data](/tutorial-2-getdata3.png)   
+![Verify the data](/connectivity/tutorial-2-getdata3.png)   
 *Fig. 18: Verify the data*
 
 Congratulations, you have successfully built your first application connected with Ledger!
