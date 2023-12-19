@@ -13,7 +13,7 @@ In addition to signing transactions, your app should let your users verify their
 
 **Just like for transactions, address verification starts with a prompt that attracts the user’s attention and let them know what action they’re going to perform.**
 
-![App architecture](/stax-address-verification.png)
+![App architecture](/device-app/stax-address-verification.png)
 
 To validate the address, users simply tap the black button. This action doesn’t leverage the “Hold to sign” gesture because it is reserved for signing transactions and messages.
 
@@ -23,7 +23,7 @@ You can provide a visual representation of an address as a QR code. This lets yo
 - for self-transfers to their Ledger Stax (from an exchange, a mobile wallet app, etc.);
 - for peer-to-peer sharing.
 
-![App architecture](/stax-qr-code.png)
+![App architecture](/device-app/stax-qr-code.png)
 
 A snippet of the address is repeated under the QR code to confirm that the data shown in the QR is indeed the address.
 
@@ -36,7 +36,7 @@ A snippet of the address is repeated under the QR code to confirm that the data 
 
 As for transactions and messages, a user action must be followed by a notification:
 
-![App architecture](/stax-address.png)
+![App architecture](/device-app/stax-address.png)
 
 As opposed to transactions, cancelling the verification is not destructive and we recommend not using a confirmation prompt.
 
@@ -48,7 +48,7 @@ In these cases, the content will not likely fit in one page with the confirmatio
 
 Here’s an example with advanced Cardano address verification:
 
-![App architecture](/stax-address-additional-fields.png)
+![App architecture](/device-app/stax-address-additional-fields.png)
 
 <Callout type="warning" emoji="⚠️">
   Don’t show more fields than necessary for the majority of your users, in order to keep address verification simple and fast.

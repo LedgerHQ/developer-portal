@@ -30,7 +30,7 @@ Communicating this difference to your users through your transaction flows bring
 
 All transactions must respect the following structure. The single and double arrows represent user navigation within this structure.
 
-![App architecture](/stax-transaction.png)
+![App architecture](/device-app/stax-transaction.png)
 
 Each of these parts are presented in the following sections:
 - loading the transaction data;
@@ -51,7 +51,7 @@ However, in some cases, the processing and data fetching durations might be noti
 
 If the loading duration can be calculated, use a progress bar instead.
 
-![App architecture](/stax-loading.png)
+![App architecture](/device-app/stax-loading.png)
 
 
 ## Presenting context with the transaction prompt
@@ -70,7 +70,7 @@ The transaction prompt should show:
 In certain cases it may not be possible to display the transaction type in the initial screen. In this case, use  generic wording such as “Review transaction”.
 
 
-![App architecture](/stax-transaction-prompt.png)
+![App architecture](/device-app/stax-transaction-prompt.png)
 
 
 As you can see in the last example above, a generic message that was not fully parsed by the app for clear signing cannot show a rich transaction prompt. Read more on generic message signing in chapter 5.
@@ -90,7 +90,7 @@ As you can see in the last example above, a generic message that was not fully p
 
 **The fields are always structured in th same way: rows of key-value pairs.**
 
-![App architecture](/stax-transaction-fields.png)
+![App architecture](/device-app/stax-transaction-fields.png)
 
 <Callout>
 	Always use the bigger font presented above for legibility. Clear-signing a transaction means carefully reviewing all fields, so make your app legible for a wide number of users.
@@ -104,7 +104,7 @@ Users must be able to navigate back and forth through the transaction fields, by
 
 The following example shows the 2 pages of transaction data that correspond to an NFT transfer on Ethereum. The third page would be the signing page, presented in the next section.
 
-![App architecture](/stax-transaction-data.png)
+![App architecture](/device-app/stax-transaction-data.png)
 
 <Callout type="info" emoji="👉">
 	Common fields must have very consistent naming, for users to feel familiar across all Ledger Stax apps. For example:
@@ -120,7 +120,7 @@ The following example shows the 2 pages of transaction data that correspond to a
 
 The transaction summary must present the same data as the transaction prompt, to bring up the context during signing: operation type, blockchain or network, icon, etc. Add any piece of important context you need to communicate to your users right when they sign.
 
-![App architecture](/stax-sign-01.png)
+![App architecture](/device-app/stax-sign-01.png)
 
 **Confirming a transaction always uses the same press-and-hold gesture on the dedicated area of the screen: “Hold to sign”.**
 
@@ -136,7 +136,7 @@ The transaction summary must present the same data as the transaction prompt, to
 
 As the user holds in the signing area, the black bar moves to indicate progress. After around 2 seconds, the transaction is signed and the user receives a success notification accompanied by a sound.
 
-![App architecture](/stax-sign-02.png)
+![App architecture](/device-app/stax-sign-02.png)
 
 <Callout type="warning" emoji="⚠️">
   Giving too much context in the signing area, such as “Hold to send” or “Hold to stake”, would be misleading because your app cannot guarantee that the signed payload reached your user’s phone and was broadcasted.
@@ -151,7 +151,7 @@ Rejecting a transaction is a safety action that must be accessible at all times.
 
 When users tap on “Reject transaction”, a confirmation modal asks them to confirm. This is to prevent accidental touches.
 
-![App architecture](/stax-reject.png)
+![App architecture](/device-app/stax-reject.png)
 
 Upon rejection, a notification confirms their action before leading them back to your app’s home screen.
 
@@ -168,7 +168,7 @@ For these transactions, the same rules should apply to the transaction fields as
 Concerning the transaction summary and the transaction prompt, both should be aligned and reflect context during signing. However, in some cases it may be technically very complex to provide said context. 
 In that case, a generic wording should be used stating “Review transaction” and “Sign transaction?” . See below for an example:
 
-![App architecture](/advanced-transaction.png)
+![App architecture](/device-app/advanced-transaction.png)
 
 
 ## Key takeaways
