@@ -15,7 +15,7 @@ The transaction structure presented in the previous page holds for message signi
 
 **When messages lack information about their type, structure, or network, the prompt and signature screens must follow this presentation:**
 
-![App architecture](/stax-message-prompt.png)
+![App architecture](/device-app/stax-message-prompt.png)
 
 When there are no guarantees on the blockchain or the network used, you can use the generic “message” pictogram shown above instead of your app icon.
 
@@ -25,13 +25,13 @@ The navigation bars at the top of the screen adapt to the number of pages requir
 - if there are 6 pages or less (including the final signing screen), bars must be used;
 - if there are more than 6 pages, a numbering system is used.
 
-![App architecture](/stax-navigation-01.png)
+![App architecture](/device-app/stax-navigation-01.png)
 
 In some cases, it may be impossible for your app to display a number of pages because the length may be unknown or non-computable. In these cases, simply remove the progress indicators.
 
 In some cases, it may be impossible for your app to provide backwards navigation, such as when transaction data is streamed to Ledger Stax. In that case, hide remove the back arrow in the top-left to let your users know that navigation is one-way.
 
-![App architecture](/stax-navigation-02.png)
+![App architecture](/device-app/stax-navigation-02.png)
 
 
 ## Progressive disclosure of unbounded data
@@ -42,7 +42,7 @@ When signing messages with uncontrolled structure and contents, you’ll often e
 
 When the user taps on the “More” button, a modal containing the entirety of the field opens. If the field spans over several pages, navigation arrows appear at the bottom:
 
-![App architecture](/stax-unbounded-data.png)
+![App architecture](/device-app/stax-unbounded-data.png)
 
 <Callout type="warning" emoji="⚠️">
 	Use progressive disclosure with care.
@@ -63,11 +63,11 @@ For your users, this can have the following implications:
 
 In this case, use a “Skip” option to give your users a shortcut to access the signing page:
 
-![App architecture](/stax-skip-01.png)
+![App architecture](/device-app/stax-skip-01.png)
 
 On tapping the “Skip” button, users are prompted for confirmation in a modal. This helps against accidental taps, as well as educating users over skipping information to review:
 
-![App architecture](/stax-skip-02.png)
+![App architecture](/device-app/stax-skip-02.png)
 
 Tapping on “Yes, skip” brings the user directly to the signing screen. From here, they won’t be able to navigate backwards.
 
