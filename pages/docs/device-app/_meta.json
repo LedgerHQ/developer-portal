@@ -13,6 +13,7 @@
 		"title": "",
     "type": "separator"
   },
+  	"cryptography-lib": "Cryptoraphy Library and syscalls",
 	"psd": "Personal security devices",
 	"bolos": "The BOLOS Platform",
 	"tools": "Tools",
