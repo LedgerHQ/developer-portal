@@ -95,7 +95,19 @@ https://sell.provider.widget.com?[account-id]=ua11-…&[crypto-currency]=BTC&[fi
   </Tabs.Tab>
   <Tabs.Tab>
 
-  [TBD] Contact Ledger for more info. 
+  * `account-address`: Destination address to deposit the crypto.
+  * `crypto-currency`: The crypto currency that the user wants to buy. It will contain the providerId value to identify the crypto.
+  * `fiat-currency`: The fiat cureency that the user wants to spend.
+  * `fiat-amount`: The fiat amount that the user wants to spend.
+  * `crypto-amount`: The crypto amount that the user wants to buy.
+  * `mode`: If it is buy or sell flow. In this case, always buy.
+  * `payment-method`: The preferred payment method for the user.
+  * `bank-residency`(optional): The bank residency of the user.
+
+__Example__:
+```
+https://buy.provider.widget.com?[account-address]=x0…&[crypto-currency]=BTC&[fiat-currency]=EUR&[fiat-amount]=50&[payment-method]=visa
+```
 
   </Tabs.Tab>
   <Tabs.Tab>
@@ -105,6 +117,12 @@ https://sell.provider.widget.com?[account-id]=ua11-…&[crypto-currency]=BTC&[fi
   </Tabs.Tab>
 </Tabs>
 
+Ledger needs to know:
+  - The base url of the widget,
+  - The base url of the api,
+  - Any information about the provider authentication mechanism :
+    - Authentication for the backend to use the api (token in header...)
+    - How to send referral information through the widget
 
 ## Manifest Permission
 Your [LiveApp manifest](../../../../APIs/wallet-api/appendix/manifest) should contains at least those permissions request:
