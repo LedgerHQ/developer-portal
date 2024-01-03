@@ -50,6 +50,7 @@ const config: DocsThemeConfig = {
  
     return (
       <>
+        <meta name="google-site-verification" content="fJHVlVHjffhnC-lrehFc-z5GMiBSUO-EiDITGfjky_w" />
         <meta property="og:url" content={url} />
         <meta property="og:image" content={meta.image} />
         <meta property="og:title" content={frontMatter.title || 'Developers'} />
