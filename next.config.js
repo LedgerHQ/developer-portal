@@ -15,6 +15,11 @@ module.exports = {
         permanent: true,
       },
       {
+        source: '/discord-pro',
+        destination: 'https://ledgeropen.herokuapp.com/pro ',
+        permanent: true,
+      },
+      {
         source: '/docs/embedded-app/introduction',
         destination: '/docs/device-app',
         permanent: true,
