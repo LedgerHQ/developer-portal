@@ -10,12 +10,12 @@ In order to become a native service provider in the Ledger Live ecosystem, you m
 ### Adapt to our Backend
  
 - Adapt your API and endpoints to interact with our Backend.
-- Generate a structured Payload and a signature with a specific format.
-- Prepare your public key and secure your private key. 
+- Generate a structured Payload and a signature with a specific format.*
+- Prepare your public key and secure your private key.*
 
 ### Develop/Modify your LiveApp
  
-- Use our Exchange SDK in addition to the Wallet API. 
+- Use our Exchange SDK in addition to the Wallet API.*
 - Configure some Deeplinks to access your LiveApp directly with the quote entered by the user in Ledger Live. 
 - Write/Modify the Manifest file. 
 - Follow some flow/UX requirements.
@@ -25,13 +25,14 @@ In order to become a native service provider in the Ledger Live ecosystem, you m
 Test end-to-end your integration as much as possible with some tools we provide, and submit:
   - your API, 
   - your LiveApp Manifest,
-  - your Public key.
+  - your Public key.*
 
 </Steps>
+
+*: Not needed for BUY.
 
 In the following pages, you will find:
 - [Backend](integration/providers-endpoints): details on the main endpoints needed for the chosen operation, the payload, the signature, and your public/private key.
 - [LiveApp](integration/providers-liveapp): details on your Live App specifities, such as the deeplink's format, or the use of Exchange SDK instead of the Wallet API.
 - [Test & Submit](integration/providers-test-and-submit): details on how to use the Ledger Live Developer Mode and other tools (coming soon) to test your integration end-to-end, as well as how to submit it. 
 - [[Reference] Advanced Flows](integration/flow): Details on advanced flows and architecture diagrams.
-
