@@ -5,8 +5,8 @@ import { Callout } from 'nextra/components'
 ## Introduction
 In this section, we will guide you through the creation of an application that will call a smart contract to read and write.
 
-## Prerequisites
-Before starting, make sure you have gone through the [prerequisites](../integration-walkthrough).
+## Tutorial Prerequisites
+Before starting, make sure you go through the [Development Prerequisites](../../integration-walkthrough).
 
 ### Receive Ether token to your Ledger Nano ethereum account
 To send some ethers on the Ropsten network, go to one of the ropsten faucet websites:
@@ -20,11 +20,8 @@ If the Ropsten and Dimension faucets don't work or the queue is too long, please
 #### Goerli Network
 Go to the [Ethereum Goerli Faucet](https://goerlifaucet.com/) website put your Wallet Public Key on the input and click on "Send me test Ether"
 
-
 ![Ropsten Ethereum Faucet](/tutorial-1-faucet1.png)
 *Fig. 1: Ropsten Ethereum Faucet*
-
-
 
 #### Dimensions Network
 Go to the [Dimensions Network](https://faucet.dimensions.network/) website put your Wallet Public Key on the input, do the captcha and click on "Send me test Ether"
@@ -334,7 +331,7 @@ npm install --save @ledgerhq/hw-transport-web-ble
 npm install --save buffer
 ```
 
-| Package | What does it do? |
+| Package | What it does |
 | ------- | ---------------- |
 | [bootstrap](https://getbootstrap.com/) | It allows you to use the Bootstrap CSS framework. |
 | [ethers](https://docs.ethers.io/v5/) | It provides you with all the methods to interact with the Ethereum blockchain. |
@@ -342,7 +339,7 @@ npm install --save buffer
 | [@ledgerhq/hw-transport-web-ble](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-web-ble) | It provides you with all the methods to interact with your Ledger Nano X with a Bluetooth connexion. |
 | [buffer](https://www.npmjs.com/package/buffer) | The goal is to provide an API that is 100% identical to node's Buffer API. |
 
-#### Package.json Dependencies
+#### package.json
 Now that the dependencies are installed you can find them in the "package.js".
 This is how your "package.json" shoud look like:
 
@@ -402,7 +399,8 @@ npm run dev
 ```
 
 <Callout type="warning" emoji="⚠️">
-  All the browser do not support the Bluetooth please look at the <a href='https://caniuse.com/web-bluetooth' className='alert-link'> browser support </a>.
+  Not all browsers support Bluetooth. <br/>
+  Please look at the [browser support page](https://caniuse.com/web-bluetooth).
 </Callout>
 
 Now the application is up and running. Open the browser and go to `localhost:3000`, it will display :

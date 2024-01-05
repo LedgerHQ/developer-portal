@@ -11,15 +11,30 @@ For this project some general prerequisites are mandatory and you can find them 
 
 Then you can now go through the prerequisite for Android development below.
 
-## One-time setup
+## Coding
 
-###  Environnement
+###  Initialization
 
-Make sure you go through:   
-1. the [Development Prerequisites](../../integration-walkthrough).
-1. the [Mobile Environment Setup](environment-setup).
+#### Android Studio Installation
+Download and install [Android Studio](https://developer.android.com/studio), choose the version of your operating system.
 
-### Environnement variables
+When Android Studio is installed, open it.
+
+![Android Studio Window](/android-studio.png)
+*Fig. 1: Android Studio Window*
+
+
+Then go to settings => Appearance & Behaviour => System Settings => Android SDK and check the "Show Package Details" checkbox on the bottom right of the windows.
+
+![Android Studio Settings](/android-studio-settings.png)
+*Fig. 2: Android Studio Settings*
+
+Install the latest SDK version. To do so, select the packages shown below and click apply.
+
+![Android Studio SDK Settings](/android-studio-SDK.png)
+*Fig. 3: Android Studio SDK Settings*
+
+#### Set the environnement variables
 If you are using bash, put the environment variable into the bash_profile as below:
 
 ```console copy
@@ -38,27 +53,27 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 Do the same if you are using zsh or anything else. Remember the file will be named differently (eg. zsh => .zprofile)
 
-## App Coding
+## Mobile App Build
 
 Now that we have set up the prerequisites, you can now create the application.
 In this integration, we will use the ethereum application.
 
-### Initialization
+### Project Initialization
 
-First, open a terminal and create a new project. For this tutorial the project will be named “myAndroidBTApp”.
+First, open a terminal and create a new project. For this tutorial the project will be named “ledgerApp”.
 
 Run:
 
 ```console copy
-react-native init myAndroidBTApp
-cd myAndroidBTApp
+react-native init ledgerApp
+cd ledgerApp
 ```
 
 <Callout type="info" emoji="ℹ️">
   The dependencies of 'CocoaPods' may take some time to initialize.
 </Callout>
 
-### Files
+### Code Implementation
 
 Run:
 
@@ -72,7 +87,7 @@ touch src/ShowAddressScreen.js
 
 #### polyfill.js
 
-In "polyfill.js", copy-paste the following code:
+In "polyfill.js" copy-paste the following code:
 
 ```javascript copy
 global.Buffer = require("buffer").Buffer;
@@ -80,7 +95,7 @@ global.Buffer = require("buffer").Buffer;
 
 #### index.js
 
-Then import the "polyfill.js" in "index.js" as shown below:
+Then import the polyfill in "index.js" as shown below:
 
 ```javascript copy
 /**
@@ -464,9 +479,7 @@ Your folder must look like this.
 ![Folder of the Application](/folder-rn-ble.png)
 *Fig. 4: Folder of the Application*
 
-### Dependencies
-
-#### Installation
+### Dependencies Installation
 
 Run:
 ```console copy
@@ -496,7 +509,7 @@ This is how your “package.json” has to look like.
 
 ```javascript copy
 {
-  "name": "myAndroidBTApp",
+  "name": "ledgerApp",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -542,23 +555,22 @@ In “build.gradle”, in the "android" folder change `minSdkVersion = 21` to `m
 
 You can now test the application you have built.
 
-## App Launch
+## Mobile App Test
 
-App testing is done on your smartphone because the Android Studio emulator cannot use Bluetooth or USB connexions.
+The app testing will be executed on your smartphone because the android studio emulator environment does not allow you to use either Bluetooth or USB connexion.
 
 
 <Callout>
   Please refer to the information for [Android Emulator Limitation](https://stackoverflow.com/questions/22604305/how-to-use-android-emulator-for-testing-bluetooth-application).
-
 </Callout>
 
 ### Enable Developer Settings
-To integrate an application on your Android smartphone you have to enable the developer role.
+To integrate an application on your smartphone you have to enable the developer role.
 To do that go to  Settings > About Phone > Build Number, and tap 7 times on build number to enable the developer settings.
 
 Then go to Settings > System > Advanced > Developer Options and enable the  "USB debugging" as well as "Install via USB"
 
-Connect your phone to your computer, and run the command below to check your device is connected:
+Connect your phone to your comptuer, and run the command below to see if your device is connected:
 ```console copy
 adb devices
 ```
@@ -577,7 +589,7 @@ If all goes well, the list of devices is displayed as shown below:
 </Callout>
 
 ### Start the Development Server
-You can now open a terminal, go to the "myAndroidBTApp" folder, and start the server by running:
+You can now open a terminal, navigate to your "ledgerApp" folder, and start the server by running:
 ```console copy
 npm start
 ```
@@ -585,10 +597,10 @@ npm start
 Keep the terminal where "metro" is running open and open a new terminal.
 In this new terminal go to your app folder:
 ```console copy
-cd myAndroidBTApp
+cd ledgerApp
 ```
 
-Run the command  below to install the application on your android device. It assumes your smartphone is connected and your device is recognized by the command `adb devices` as mentioned in the [Previous Step](#enable-developer-settings).
+Run the command  below to install the application on your android device. It's assumed that you have connected your smartphone and your device is recognized by the command `adb devices` as the [Previous Step](#enable-developer-settings) mentioned.
 ```console copy
 npm run android
 ```
@@ -605,8 +617,8 @@ A window will pop up on your android device to install the application. Click on
   </figure>
 </div>
 
-### Launching the App
-When launching the application it will be displayed as the image below. You must have the Bluetooth and location activated.
+### Launching the Application
+When launching the application it will be displayed like the image below. You must have the Bluetooth and location activated.
 
 <br/>
 <div className="center">
@@ -763,4 +775,4 @@ For security purposes, we display on your Nano X the same ethereum address for y
 </div>
 
 
-Congratulations you have successfully built your first Android Bluetooth application connected with your Ledger!
+Congratulations you have successfully built your first application connected with your Ledger on Android!

@@ -57,11 +57,11 @@ toAddressId=6EA9F270-91C5-4832-9A44-2713F9A6F6F0
 
     The `quoteId` sent is the one coming from a previous request to the `/quote` endpoint of the Provider's backend. This id is linked to the `fromCurrency` and `toCurrency` wanted by the user.
 
-2. The provider's LiveApp starts Ledger's swap process through a call to ExchangeSDK method call: `swap`.
+2. The provider's LiveApp starts the Ledger swap process through a call to ExchangeSDK method call: `swap`.
 
-3. After asking the user to start the process, Ledger's Swap Service will call the Provider's backend to generate and sign the `payload`. The backend will also returns a `swapId`, for [status tracking purpose](#check-swap-status-flow).
+3. After asking the user to start the process, the Ledger Swap Service will call the Provider's backend to generate and sign the `payload`. The backend will also returns a `swapId`, for [status tracking purpose](#check-swap-status-flow).
 
-4. The Provider's backend will generate the payload with Ledger's currency id. This part is important as Ledger's device only knows Ledger's referential currency.
+4. The Provider's backend will generate the payload with the Ledger currency id. This part is important as the Ledger device only knows the Ledger referential currency.
 
 5. The Provider's backend will sign the payload with its private key. The public part must be previously sent to Ledger and must use secp256k1 curve.
 

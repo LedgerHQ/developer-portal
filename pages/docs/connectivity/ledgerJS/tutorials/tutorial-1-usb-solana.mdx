@@ -4,8 +4,8 @@
 In this section, we will guide you through the creation of an application. This application will create a transaction that will be signed with the Ledger Nano before sending it to the blockchain.
 The purpose of the application is to transfer sol from your solana account on your Ledger to another account.
 
-## Prerequisites
-Before startint, make sure you have gone through the [prerequisites](../integration-walkthrough).
+## Tutorial Prerequisites
+Before starting, make sure you go through the [Development Prerequisites](../../integration-walkthrough).
 
 ### Install the Solana Embedded App
 First you need to install the Solana Embedded App from Ledger Live as shown in the [prerequisites](../integration-walkthrough) for Ethereum.
@@ -264,7 +264,7 @@ npm install --save @ledgerhq/logs
 npm install --save @solana/web3.js
 npm install --save bs58
 ```
-| Package | What does it do? |
+| Package | What it does |
 | ------- | ---------------- |
 | [parcel](https://parceljs.org/) | It is a build tool that will help you package your application to run it in the browser.|
 | [@ledgerhq/hw-app-solana](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-solana) | It will help you ask your Ledger Nano to access the solana application on the Ledger Nano. |
@@ -274,7 +274,7 @@ npm install --save bs58
 | [bs58](https://www.npmjs.com/package/bs58) | It provides you with all the methods to compute base 58 encoding. |
 
 
-#### Modify Package.json
+#### package.json
 
 Modify the 5th line: `"main": "index.js"` => `"source": "index.html"`
 And ensure you have this line in scripts:

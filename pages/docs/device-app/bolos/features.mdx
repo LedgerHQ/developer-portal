@@ -28,16 +28,16 @@ Attestation is a process used by Ledger devices to prove that they are genuine L
 
 ![](/wallet_not_genuine.png)
 
-Ledger devices are protected from interdiction attacks (being tampered with while en route from Ledger's warehouses to your home) due to anti-tampering technology built into the firmware. Using attestation, the authenticity of the device is verified in software every time you plug it into one of the Ledger Live applications.
+Ledger devices are protected from interdiction attacks (being tampered with while en route from the Ledger warehouses to your home) due to anti-tampering technology built into the firmware. Using attestation, the authenticity of the device is verified in software every time you plug it into one of the Ledger Live applications.
 
-When all Ledger devices are provisioned in the factory, they first generate a unique `Device` public-private keypair. The Device's public key is then signed by Ledger's `Issuer` key to create an Issuer Certificate which is stored in the device. This certificate is a digital seal of authenticity of the Ledger device. By providing the Device's public key and Issuer Certificate, the device can prove that it is a genuine Ledger device.
+When all Ledger devices are provisioned in the factory, they first generate a unique `Device` public-private keypair. The Device's public key is then signed by the Ledger `Issuer` key to create an Issuer Certificate which is stored in the device. This certificate is a digital seal of authenticity of the Ledger device. By providing the Device's public key and Issuer Certificate, the device can prove that it is a genuine Ledger device.
 
 When the Ledger device connects to one of the Ledger Chrome applications, the device uses the Issuer Certificate to prove that it is an authentic device (this takes place during establishment of the [Secure Channel](#secure-channel), as we'll discuss later in this section). If an attacker created a clone of the device running rogue firmware, this attestation process would fail and the device would be rejected as non-genuine. It is impossible for an attacker to replace the firmware on the device and have it pass attestation without having a Device private key and the corresponding Issuer Certificate, signed by Ledger.
 
 It is extremely unlikely for the Device private key to become compromised, because the Secure Element is designed to be a stronghold against such physical attacks. It is theoretically possible to extract the private key, but only with great expense and time, so only an organization such as the NSA could do it.
 
 <Callout type="info" emoji="👉">
-  For more information about the benefits of Ledger's use of a Secure Element for verifying device authenticity, see our blog post <a href='https://www.ledger.com/how-to-protect-hardware-wallets-against-tampering/' className='alert-link'> How to protect hardware wallets against tampering </a> (though keep in mind that not all of the information in this article applies to Ledger's latest products).
+  For more information about the benefits of Ledger's use of a Secure Element for verifying device authenticity, see our blog post [How to protect hardware wallets against tampering](https://www.ledger.com/how-to-protect-hardware-wallets-against-tampering/) (though not all of the information in the article applies to Ledger's latest products).
 </Callout>
 
 
@@ -63,8 +63,8 @@ For an example of how these features may be used, check out [blue-app-otherdime]
 
 ### Attestation Chain of Trust
 
-![The chain of trust for Ledger's attestation model](/chain_of_trust.png)
-*The chain of trust for Ledger's attestation model*
+![The chain of trust for the Ledger attestation model](/chain_of_trust.png)
+*The chain of trust for the Ledger attestation model*
 
 
 This diagram shows the chain of trust of our attestation model. All data signed by the attestation keys can be trusted to have been signed by an authentic Ledger device. This is because the Device Certificate is proof that the attestation keys belong to a device, and the Issuer Certificate is proof that the device is genuine. Additionally, the Owner Certificate is proof that the attestation keys are trusted by Owner (which may be Ledger or a third party).

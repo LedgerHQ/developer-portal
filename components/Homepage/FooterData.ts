@@ -32,7 +32,7 @@ export const FooterData: FooterDataType = [
         scrollLink: null,
       },
       {
-        label: "Ledger's privacy policy",
+        label: "Ledger privacy policy",
         link: "https://www.ledger.com/privacy-policy",
         scrollLink: null,
       },

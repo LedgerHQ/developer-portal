@@ -104,7 +104,7 @@ case PATH_OFFSET:
 ```
 
 <Callout>
-    We are using <code>PATH_OFFSET</code> even though it is not declared. We will add it at the end of the section, in the enum <code>parameter</code> declared in <code>boilerplate_plugin.h</code>.
+    We use the <code>PATH_OFFSET</code> even though it is not declared. We will add it at the end of the section, in the enum <code>parameter</code> declared in <code>boilerplate_plugin.h</code>.
 </Callout>
 
 We use `U2BE`, which stands for `Unsigned 2-Bytes Big Endian`. Indeed `offset` is a `uint16_t`, so it is two bytes long. We need it to parse the two last bytes, so we pass the offset `30` (`PARAMETER_LENGTH - 2`) to it.

@@ -1,41 +1,69 @@
 import { Callout } from 'nextra/components'
 
-# Prerequisites
+# Development Prerequisites
 
-## Summary
+## Overview
 
-To connect your app you will need to install:
-- [Node (for Desktop apps) and NPM](#node-and-npm)
-- [Ledger Live](#ledger-live-installation)
-- [The Ledger Embedded App](#embedded-app-installation) of the coin that you are going to use (to use this documentation you will need Bitcoin, Ethereum and Solana)
-- At least [one account](#account-creation) for each coin (except for Solana).
+Make sure you have all of the following. If you do, you can skip this instructions page.  
+  
+<br/>
+{<div class="tg-wrap"><table>
+<thead>
+  <tr>
+    <th><center>Item</center></th>
+    <th><center>Notes</center></th>
+  </tr>
+</thead><tbody>
+  <tr>
+    <td><center><a href="integration-walkthrough#node-and-npm">Node and NPM</a></center></td>
+    <td>for Desktop apps</td>
+  </tr>
+  <tr>
+    <td><center><a href="integration-walkthrough#ledger-live-installation">Ledger Live</a></center></td>
+    <td>The tutorails and walkthrough use Ledger Live</td>
+  </tr>
+  <tr>
+    <td><center><a href="integration-walkthrough#embedded-app-installation">Ledger Embedded App</a></center></td>
+    <td>Of the coin that you are going to use. <br/> In this documentation uses Bitcoin, Ethereum and Solana</td>
+  </tr>
+  <tr>
+    <td><center><a href="integration-walkthrough#account-creation">Account creation</a></center></td>
+    <td>At least one account for each coin, except for Solana.</td>
+  </tr>
+</tbody>
+</table></div>
+}
 
-## Node and NPM
+---------------------------------
+##  Setup
+
+### Node and NPM 
 
 If not already installed, install <a href="https://nodejs.org/en/download/">Node & npm</a>, choose the LTS version of your operating system. You can check if you have it installed by checking the version with the following commands:
 
-```
-$ node -v
-v20.9.0
 
-$ npm -v
-6.14.15
+```shell copy
+node -v
 ```
-Web Bluetooth works with Node.js version 18.18.2  
+Returns at least v20.9.0
 
-The commands should print the versions of Node.js and npm accordingly.
+```shell copy
+npm -v
+```
+Returns at least 6.14.15
+
+**Web Bluetooth** works with Node.js v18.18.2  
 
 <Callout type="info" emoji="👉">
-  The integrations and tutorials should work with older versions of Node and npm but it has not been tested by our team.
+  The integrations and tutorials may work with older versions of Node and npm but they have not been tested.
 </Callout>
 
 
 <Callout type="warning" emoji="⚠️">
-  Please remember that the React Native and the ledger packages have been updated since the creation of the documentation and there might be some breaking changes. If you encounter difficulties with more recent packages, you can downgrade to the versions used in the documentation.
+  Please remember that the React Native and the ledger packages have been updated since the creation of the documentation and there may be some breaking changes. If you encounter difficulties with more recent packages, you can downgrade to the versions used in the documentation.
 </Callout>
 
----------------------------------
-## Ledger Live Installation
+### Ledger Live Installation
 
 Now that node and npm are installed, you have to install the [Ledger Live](https://www.ledger.com/ledger-live) desktop application to connect your Ledger device.
 After the installation, open Ledger Live and go to the **Manager** tab.
@@ -68,7 +96,7 @@ Then Ledger Live will ask you to allow the Ledger device, just press the two but
   </figure>
 </div>
 
-## Embedded App Installation
+### Embedded App Installation
 
 Now you can install the Ethereum and bitcoin application into your Ledger Nano S/X/S Plus.
 In this integration, we will use the Ethereum and Bitcoin application.
@@ -77,7 +105,7 @@ In this integration, we will use the Ethereum and Bitcoin application.
 *Fig. 5: Ethereum App Installation*
 
 
-## Account Creation
+### Account Creation
 
 To use the Bitcoin/Ethereum Embedded Apps you have to create a Bitcoin/Ethereum account.
 We will present there the creation of a bitcoin account but it is the same for any application supported by Ledger Live.

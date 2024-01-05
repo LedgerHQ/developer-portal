@@ -324,7 +324,12 @@ module.exports = {
         destination: '/docs/connectivity/ledgerJS/integration-walkthrough/web-application/web-bluetooth',
         permanent: true,
        },
-      {
+       {
+        source: '/docs/transport/environment-setup',
+        destination: '/docs/connectivity/ledgerJS/integration-walkthrough/mobile-application/environment-setup',
+        permanent: true,
+       },
+       {
         source: '/docs/transport/react-native-android-hid',
         destination: '/docs/connectivity/ledgerJS/integration-walkthrough/mobile-application/react-native-android-hid',
         permanent: true,

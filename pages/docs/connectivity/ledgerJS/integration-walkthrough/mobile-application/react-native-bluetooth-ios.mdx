@@ -10,85 +10,33 @@ For this project some general prerequisites are mandatory and you can find them 
 
 Then you can now go through the prerequisite for iOS development below.
 
-## Prerequisites
+## One-time setup
 
-### Install 
+### Environnement
 
-- **Homebrew**
+Make sure you go through:   
+1. the [Development Prerequisites](../../integration-walkthrough).
+1. the [Mobile Environment Setup](environment-setup).
 
-  Homebrew is a package manager for macOS. When it needs to install software from third-party websites. To install it, run:
-
-  ```console copy
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
-  ```
-- **watchman**
-
-  React Native uses watchman to detect real-time code changes and it automatically builds and pushes the update to your device without manually refreshing.
-
-  ```console copy
-  brew install watchman
-  ```
-
-
-- **Java JRE and JDK**
-
-  There is a risk of react-native build failure if you don’t have a complete installation of Java. Downloading Android Studio is not enough since it comes bundled with its own JRE.
-
-
-  ```console copy
-  brew install --cask adoptopenjdk/openjdk/adoptopenjdk8
-  ```
-
-
-- **React Native**
-
-  With React Native, you can write an application in Javascript and then the React Native Compiler will convert your Javascript code into native code for iOS and Android environments.
-  React Native command line interface can be installed using npm as below.
-
-  ```console copy
-  npm install -g react-native-cli
-  ```
-
-
-### iOS development prerequisites
-
-To develop an iOS application we have to install [Xcode](https://apps.apple.com/us/app/xcode/id497799835?mt=12) via the Mac App Store.
-
-When the installation is complete, open Xcode then go to Settings => Locations.
-
-![Xcode Settings](/Xcode-settings.png)
-*Fig. 1: Xcode Settings*
-
-Select the most recent version from the "Command Line Tools" dropdown.
-
-![Xcode Location Settings](/Xcode-locations.png)
-*Fig. 2: Xcode Location Settings*
-
-Finally, install cocoapods by running:
-```console copy
-sudo gem install cocoapods
-```
-
-
-## Mobile App Build
+## App Coding
 Now that we have set up the prerequisites, you can now create the application.
 In this integration, we will use the ethereum application.
 
-### Project Initialization
-First, open a terminal and create a new project. For this tutorial the project will be named “ledgerApp”.
+### Initialization
+First, open a terminal and create a new project. For this tutorial the project will be named “myiOSBTApp”.
 
 Run:
 
 ```console copy
-react-native init ledgerApp
-cd ledgerApp
+react-native init myiOSBTApp
+cd myiOSBTApp
 ```
 
-<Callout>
-  During the initialization, it is installing required 'CocoaPods' dependencies and it may take time.
+<Callout type="info" emoji="ℹ️">
+  The dependencies of 'CocoaPods' may take some time to initialize.
 </Callout>
 
-### Code Implementation
+### Files
 
 Run:
 ```console copy
@@ -488,12 +436,14 @@ const styles = StyleSheet.create({
 });
 ```
 
-Your folder must look like this.
+Your folder will look like this.
 
 ![Folder of the Application](/folder-rn-ble.png)
 *Fig. 3: Folder of the Application*
 
-### Dependencies Installation
+### Dependencies
+
+#### Installation
 
 Run:
 ```console copy
@@ -507,7 +457,7 @@ npm install --save buffer
 npm install --save @ledgerhq/hw-app-eth
 ```
 
-| Package | What does it do? |
+| Package | What it does |
 |---------|------------------|
 | [react-native-qrcode-svg](https://www.npmjs.com/package/react-native-qrcode-svg) | It allows you to create a QR code. |
 |[react-native-svg](https://www.npmjs.com/package/react-native-svg) | It is a mandatory package to use **react-native-qrcode-svg** |
@@ -518,13 +468,13 @@ npm install --save @ledgerhq/hw-app-eth
 | [hw-app-eth](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-eth) | It helps you ask your Ledger device to access the ethereum address. |
 
 
-#### Package.json dependencies
+#### package.json
 Now that the dependencies are installed you can find them in the “package.js”.
 This is how your “package.json” has to look like.
 
 ```javascript copy
 {
-  "name": "ledgerApp",
+  "name": "myiOSBTApp",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -571,8 +521,8 @@ pod install
 pod update
 ```
 
-#### Enable The Bluetooth Usage
-Launch Xcode and open the ios folder in the "ledgerApp" folder to add the "NSBluetoothAlwaysUsageDescription" key to the "info.plist".
+#### Enable Bluetooth
+Launch Xcode and open the ios folder in the "myiOSBTApp" folder to add the "NSBluetoothAlwaysUsageDescription" key to the "info.plist".
 
 ![Open a Project on Xcode](/Xcode.png)
 *Fig. 4: Open a Project on Xcode*
@@ -585,17 +535,17 @@ Launch Xcode and open the ios folder in the "ledgerApp" folder to add the "NSBlu
 
 You can now test the application you have built.
 
-## Mobile App Test
+## App Launch
 
-The app testing will be executed on your smartphone because the Xcode emulator environment does not allow you to use either Bluetooth or USB connexion.
+App testing is done on your smartphone because the Xcode emulator cannot use Bluetooth or USB connexions.
 
 
 <Callout>
-  Please refer to the information for <a href='https://developer.apple.com/forums/thread/14983' className='alert-link'> iOS Emulator limitation </a>.
+  Please refer to the information for [iOS Emulator limitation](https://developer.apple.com/forums/thread/14983).
 </Callout>
 
-### Application Build on Xcode
-Now to build your application on your Apple device you have to connect Xcode to an Apple account as demonstrated below.
+### Build the App
+To build your application on your Apple device you have to connect Xcode to an Apple account as shown below.
 
 ![Connect Xcode to an Apple Account](/Xcode-signing-capabilities.png)
 *Fig. 7: Connect Xcode to an Apple Account*
@@ -691,7 +641,7 @@ To pair your Ledger Nano X you must unlock it.
 </div>
 
 
-Now try to pair the Ledger Nano X to your Apple device.
+Pair the Ledger Nano X to your Apple device.
 
 <br/>
 <div className="center">
@@ -711,7 +661,7 @@ Now try to pair the Ledger Nano X to your Apple device.
 </div>
 
 ### Pairing and Launching the Ethereum App on the Nano X
-When pairing, the pairing code will be displayed on your Ledger Nano X to confirm.
+The pairing code displayed on your Ledger Nano X needs to be confirmed.
 
 <br/>
 <div className="center">
@@ -791,4 +741,4 @@ For security purposes, we display on your Nano X the same ethereum address for y
   </figure>
 </div>
 
-Congratulations you have successfully built your first application connected with Ledger on an Apple device!
+Congratulations you have successfully built your first iOS Bluetooth application connected with your Ledger!

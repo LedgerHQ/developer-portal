@@ -126,7 +126,7 @@ Some requirements about the **/quote** endpoint:
   - `amountToWallet`: amount of `currencyTo` that the provider agrees to send to the client in exchange from (optional for a *float* trade).
   - `nonce`: value to use for `device_transaction_id_ng` field in the protobuf payload. It will be an `hex` format of the byte array nonce received by the user.
 - **Output**:
-  - `swapId`: provider's id of the ongoing swap transaction. This will be used by Ledger's backend to retrieve the status of user swap transaction.
+  - `swapId`: provider's id of the ongoing swap transaction. This will be used by the Ledger backend to retrieve the status of user swap transaction.
   - `payinAddress`: provider's address.
   - `createdAt`: date of creation of the swap payload in ISO-8601 format.
   - `providerFees`: amount, expressed in currencyTo, that is paid to the provider.

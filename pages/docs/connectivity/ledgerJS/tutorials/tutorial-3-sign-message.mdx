@@ -85,8 +85,12 @@ In index.html copy and paste the following code:
 
 In main.js copy and paste the following code:
 
+
 <Callout type="warning" emoji="⚠️">
-  Comment out or remove the Transport package you are not using (<code>@ledgerhq/hw-transport-webusb</code> or <code>@ledgerhq/hw-transport-webhid</code>) and the corresponding <code>const</code>. In the example, we use webusb. Webhid is already commented in line 8 and line 23.
+  Comment out or remove the `import` package you don't use <br/>
+  (`@ledgerhq/hw-transport-webusb` or `@ledgerhq/hw-transport-webhid`) <br/>
+  and the `const transport` you don't use.<br/><br/>
+  In the example, we use webusb. Webhid is already commented on lines 8 and 23.
 </Callout>
 
 ```js copy
@@ -173,7 +177,7 @@ Then depending on your choice install one of the corresponding packages:
 `npm install --save @ledgerhq/hw-transport-webusb@6.27.1`
 
 
-### Package.json
+#### package.json
 
 Modify `“main”: “index.js”` to `“source”:”src/index.html”`.
 

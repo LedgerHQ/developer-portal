@@ -3,14 +3,21 @@
 ## Introduction
 In this section, we will guide you through the creation of a desktop electron application. This application will be connected to your Nano to display the address of your account (eg. bitcoin account, ethereum account).
 
-## Prerequisites
-Before starting, make sure you have gone through the [prerequisites](../prerequisites/).
-
-## Implementation for Web USB and Web HID on Nano S/X/S Plus
+Implementation for Web USB and Web HID on Nano S/X/S Plus.
 
 For this application we will use the Ledger node hid package which is [@ledgerhq/hw-transport-node-hid](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-node-hid).
 
-### Project Initialization
+## One-time setup
+
+###  Environnement
+
+Make sure you go through the [Development Prerequisites](../../integration-walkthrough).
+
+## App Coding
+Now that we have set up the prerequisites, you can now create the application.
+
+
+### Initialization
 First, open a terminal and create a new folder. For this tutorial the folder will be named “examples-node-electron-hid”.
 Run:
 
@@ -40,7 +47,7 @@ Your folder must look like this.
 ![Folder of the Application](/folderNodeHID.png)
 *Fig. 1: Folder of the Application*
 
-### Code Implementation
+### Files
 
 #### index.html
 
@@ -205,9 +212,9 @@ ipcRenderer.on("bitcoinInfo", (event, arg) => {
 ipcRenderer.send("requestBitcoinInfo");
 ```
 
-### Dependencies Installation
+### Dependencies
 
-#### Install the packages
+#### Installation
 
 Run:
 
@@ -220,7 +227,7 @@ npm install --save browserify
 npm install --save @ledgerhq/hw-transport-node-hid
 ```
 
-| Package | What does it do? |
+| Package | What it does |
 | ------- | ---------------- |
 | [Electron](https://www.electronjs.org/) | It is a build tool that will help you package your application to run it as a desktop application. |
 | [Babel polyfill](https://www.npmjs.com/package/@babel/polyfill)| |
@@ -235,8 +242,7 @@ Since automatic polyfills have been removed in webpack 5, run the following comm
 npm install node-polyfill-webpack-plugin
 npm i stream
 ```
-
-#### Modify Package.json
+#### package.json
 
 1. Modify the 5th line: `"main": "index.js"` => `"source": "index.html"`
 2. Ensure you have this line in scripts:
@@ -246,7 +252,6 @@ npm i stream
     "start": "electron"
   },
 ```
-
 Your file should now look like this:
 
 ```javascript copy
@@ -275,7 +280,7 @@ Your file should now look like this:
     }
   }
 ```
-## Desktop App Test
+## App Launch
 
 ### Start the Development Server
 Now that the Setup is finished, let's start the application.
@@ -318,8 +323,7 @@ The steps are described below.
 
 Then, if all goes well, the Bitcoin address you've just [created](#prerequisites) is displayed on the application.
 
-
 ![Address Account Displayed](/electron-node-address.png)  
 *Fig. 6: Address Account Displayed*
 
-Congratulations you have successfully built your first application connected with Ledger!
+Congratulations you have successfully built your first Node Electron HID application connected with your Ledger!

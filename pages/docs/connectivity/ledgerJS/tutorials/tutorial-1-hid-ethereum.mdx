@@ -1,11 +1,15 @@
 # Transfer of Ethers between accounts
 
 ## Introduction
-In this section, we will guide you through the creation of an application. This application will create a transaction that will be signed with the Ledger Nano then send it to the blockchain.
+In this section, we will guide you through the creation of an application that:  
+- creates a transaction 
+- signs it using the Ledger Nano then 
+- sends it to the blockchain.  
+
 The purpose of the application is to transfer ethers from your ethereum account on your Ledger to another account.
 
-## Prerequisites
-Before starting, make sure you have gone through the [prerequisites](../integration-walkthrough).
+## Tutorial Prerequisites
+Before starting, make sure you go through the [Development Prerequisites](../../integration-walkthrough).
 
 ### Receive Ether token to your Ledger Nano ethereum account
 To send some ethers on the Ropsten network, go to one of the ropsten faucet websites:
@@ -17,15 +21,14 @@ The Ropsten network is not visible on Ledger Live, you can then check the transa
 If the Ropsten and Dimension faucets don't work or the queue is too long, please use another faucet of your choice to receive testnet Ether.
 
 #### Goerli Network
-Go to the [Ethereum Goerli Faucet](https://goerlifaucet.com/) website put your Wallet Public Key on the input and click on "Send me test Ether"
 
+Go to the [Ethereum Goerli Faucet](https://goerlifaucet.com/) website put your Wallet Public Key on the input and click on "Send me test Ether"
 
 ![Ropsten Ethereum Faucet](/tutorial-1-faucet1.png)
 *Fig. 1: Ropsten Ethereum Faucet*
 
-
-
 #### Dimensions Network
+
 Go to the [Dimensions Network](https://faucet.dimensions.network/) website put your Wallet Public Key on the input, do the captcha and click on "Send me test Ether"
 
 ![Ropsten Ethereum Faucet](/tutorial-1-faucet2.png)
@@ -294,7 +297,7 @@ npm install --save-dev url
 
 ```
 
-| Package | What does it do? |
+| Package | What it does |
 | ------- | ---------------- |
 | [parcel](https://parceljs.org/) | It is a build tool that will help you package your application to run it in the browser.|
 | [@ledgerhq/hw-app-eth](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-eth) | It will help you ask your Ledger Nano to access the ethereum address. |
@@ -302,7 +305,7 @@ npm install --save-dev url
 | [ethers](https://docs.ethers.io/v5/) | It provides you with all the methods to interact with the ethereum blockchain. |
 
 
-#### Modify Package.json
+#### package.json
 
 Modify the 5th line: `"main": "index.js"` => `"source": "index.html"`
 And ensure you have this line in scripts:

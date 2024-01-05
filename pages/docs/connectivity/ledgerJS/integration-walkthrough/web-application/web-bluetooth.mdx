@@ -3,36 +3,42 @@ import { Callout } from 'nextra/components'
 # Web Bluetooth
 
 ## Introduction
-In this section, we will guide you through the creation of an application. This application will connect to your Ledger Nano X to display the address of your account (eg. bitcoin account, ethereum account).
+In this section, we will guide you through the creation of an application.  
+This application will connect to your Ledger Nano X to display the address of your account (eg. bitcoin account, ethereum account).  
 
-## Prerequisites
-Before starting, make sure you have gone through the [prerequisites](../.).
+<Callout type="info" emoji="ℹ️">
+**This walkthrough will only work with a Ledger Nano X**.  
+The Ledger Nano S and S Plus do not have the Bluetooth functionality. 
 
-## Web App Bluetooth (only Nano X)
+Please be aware that the Bluetooth implementation is only supported by a few browsers. <br/>
+You can check if [your browser supports](https://caniuse.com/web-bluetooth) connections via Web Bluetooth.
+</Callout>
 
-The Ledger Nano S and S Plus do not have the Bluetooth functionality. This tutorial will only work with a Ledger Nano X.
+## One-time setup
 
-Please be aware that the Bluetooth implementation is only supported by a few browsers.
-You can check the [browser support](https://caniuse.com/web-bluetooth) for the Web Bluetooth.
+### Environnement
 
-### Project Initialization
-This web application is build with React, which is a frontend Javascript framework.
+Make sure you go through the [Development Prerequisites](../../integration-walkthrough).
 
+This web application is build using React, which is a frontend Javascript framework.
 
-First, open a terminal and create a new project. For this tutorial the project will be named “examples-web-bluetooth”.
+## App Coding
 
-Run:
+### App setup
+
+First, open a terminal and create a new project.  
+For this tutorial the project will be named “examples-web-bluetooth”.
+
+From your `Github folder` or favourite `examples folder`, run:
 
 ```console copy
 npx create-react-app examples-web-bluetooth
 cd examples-web-bluetooth
 ```
 
-Open the folder in an editor.
-The React app initialization creates a "src" folder where you will find all the code.
+The initialization of the React app creates a "src" folder which contains all the code.
 
 Run:
-
 ```console copy
 touch ./src/QRCode.js
 touch ./src/polyfill.js
@@ -42,10 +48,9 @@ Your folder must look like this.
 ![Folder of the Application](/folderWebBle.png)
 *Fig. 1: Folder of the Application*
 
-For this implemetation, you will only modify "App.js", "App.css”, "index.js", "polyfill.js" and “QRCode.js”.
+### Files
 
-### Code Implementation
-
+For this implemetation, you will only modify "polyfill.js", "index.js", "App.js", "App.css” and “QRCode.js”
 
 #### polyfill.js
 
@@ -60,7 +65,7 @@ global.Buffer = require("buffer").Buffer;
 In "index.js" add the following code:
 
 ```javascript copy
-import './polyfill'
+import './polyfill';
 ```
 #### App.js
 
@@ -195,7 +200,6 @@ class App extends Component {
 export default App;
 ```
 
-
 #### App.css
 
 In App.css copy-paste the following code:
@@ -231,7 +235,6 @@ In App.css copy-paste the following code:
   margin: 1em;
 }
 ```
-
 
 #### QRCode.js
 
@@ -283,10 +286,12 @@ export default class QRCode extends PureComponent<Props> {
 ```
 
 <Callout type="info" emoji="👉">
-  Some error will be emphasized by your editor because of the 'QRCode.js' use some features from typescript. But you can skip those errors as they will not affect the application.
+  Some errors will be emphasized by your editor because of the 'QRCode.js' use some features from typescript. But you can ignore the errors as they will not affect the application.
 </Callout>
 
-### Dependencies Installation
+### Dependencies
+
+#### Installation
 
 Run:
 
@@ -299,7 +304,7 @@ npm install --save node-polyfill-webpack-plugin
 npm install --save stream
 ```
 
-| Package | What does it do? |
+| Package | What it does |
 |---------|------------------|
 |[qrcode](https://www.npmjs.com/package/qrcode) | It allows you to create a QR code. |
 |[@ledgerhq/hw-app-eth](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-eth) | It will help you ask your Nano to access the ethereum address. |
@@ -308,9 +313,22 @@ npm install --save stream
 |[node-polyfill-webpack-plugin](https://www.npmjs.com/package/node-polyfill-webpack-plugin) | Polyfill Node.js core modules in Webpack. This module is only needed for webpack 5+. |
 |[stream](https://www.npmjs.com/package/stream) | Node.js streams in the browser. Ported straight from the Node.js core and adapted to component/emitter's api. |
 
-#### Package.json Dependencies
-Now that the dependencies are installed you can find them in the “package.js”.
-This is how your “package.json” has to look like:
+#### package.json
+Now that the dependencies are installed you can find them in the “package.js”.  
+
+1. Modify Scripts
+1. Check Contents
+
+##### Modify Scripts
+```javascript copy
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start"
+  },
+```
+
+##### Check your “package.json” looks like this:  
 
 ```javascript copy
 {
@@ -359,15 +377,18 @@ This is how your “package.json” has to look like:
   }
 }
 
-
 ```
-## Web App Test
+## App Launch
+
 ### Start the Development Server
 
-Make sure the Bluetooth feature of your Nano is enabled.
+Make sure the Bluetooth feature of your Nano is enabled. To check, see [here](https://support.ledger.com/hc/en-us/articles/360019115193-Access-Control-Center?docs=true).
 
 <Callout type="warning" emoji="⚠️">
-  If it was not enabled, you need to enable it and then power off the power on your Nano.
+  If it was not enabled, you need to: 
+  1. enable it 
+  1. power OFF your Nano 
+  1. and power it back ON.
 </Callout>
 
 
@@ -379,7 +400,8 @@ npm run dev
 ```
 
 <Callout type="warning" emoji="⚠️">
-  All the browser do not support the Bluetooth please look at the <a href='https://caniuse.com/web-bluetooth' className='alert-link'> browser support </a>.
+  Not all browsers support Bluetooth. <br/>
+  Please look at the [browser support page](https://caniuse.com/web-bluetooth).
 </Callout>
 
 Now the application is up and running. Open the browser and go to `localhost:3000`, it will display :
@@ -414,6 +436,7 @@ The steps are described below.
 </div>
 
 ### Connect Your Nano to the Application
+
 Now you can click on the button and a popup will be prompt. Choose your Ledger Nano X and click connexion
 
 ![Connect the Nano with Bluetooth](/webBle2.png)
@@ -430,6 +453,7 @@ Finally, if all goes well the address must be displayed with the QR code
 *Fig. 9: Address Account Displayed*
 
 ### Verify the Address on Nano
+
 For security reasons, the address will also be displayed on your Ledger Nano X to verify and confirm the address.
 
 <br/>
@@ -454,5 +478,4 @@ For security reasons, the address will also be displayed on your Ledger Nano X t
   </figure>
 </div>
 
-
-Congratulations you have successfully built your first application connected with Ledger Nano X!
+Congratulations you have successfully built your first application connected with your Ledger Nano X!
