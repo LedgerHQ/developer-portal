@@ -1,7 +1,8 @@
 {
-    "introduction": "Introduction",
-    "how-to-deploy": "How to have my app on the Ledger store?",
-    "how-to-develop": "How to develop my app?",
-    "architecture": "Architecture and design guidelines",
+    "introduction": "I. Introduction",
+    "choose": "II. Choose",
+    "develop": "III-IV. Develop & Test",
+    "deliver": "V. Deliver",
+    "architecture": "VI. References",
     "faq": "Frequently Asked Questions"
 }
