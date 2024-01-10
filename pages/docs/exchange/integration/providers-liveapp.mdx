@@ -21,7 +21,7 @@ Your LiveApp will interact with Ledger Live, through the [ExchangeSDK](https://g
 
 You will need to set up the SDK with your `providerId` attributed upon request by Ledger.
 
-Check the following tabs according to the operation (swall/sell/buy/fund) that you want to integrate:
+Check the following tabs according to the operation (swall/sell/fund) that you want to integrate:
 
 <Tabs items={['Swap', 'Sell', 'Fund']}>
   <Tabs.Tab>
@@ -124,7 +124,7 @@ https://buy.provider.widget.com?[account-address]=x0…&[crypto-currency]=BTC&[f
 
 
 <Callout type="info" emoji="👉">
-  Ledger needs to know the base url of the widget.
+  Ledger needs to know how to send referral information through the widget.
 </Callout>
 
 
@@ -134,8 +134,8 @@ Your [LiveApp manifest](../../../../APIs/wallet-api/appendix/manifest) should co
 "permissions": [
   "account.list",
   "currency.list",
-  "exchange.start",
-  "exchange.completeSwap",
+  "custom.exchange.start", // Not needed for BUY
+  "custom.exchange.complete",  // Not needed for BUY
 ]
 ```
 
