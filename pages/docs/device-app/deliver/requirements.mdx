@@ -1,0 +1,123 @@
+---
+title: Requirements
+description: This section is a summary outline of what is needed in the process od developing a device app. You may use this list as a checklist.  
+---
+
+import { Callout } from 'nextra/components'
+
+# Requirements
+
+## Read the requirements and submit your app
+
+<Cards num={2}>
+  <Card
+    title="Development"
+    href="/docs/embedded-app/how-to-have-an-app/requirements/development"
+  />
+  <Card
+    title="Security"
+    href="/docs/embedded-app/how-to-have-an-app/requirements/security"
+  />
+  <Card
+    title="Deliverables"
+    href="/docs/embedded-app/how-to-have-an-app/requirements/deliverables"
+  />
+  <Card
+    title="Design"
+    href="/docs/embedded-app/how-to-have-an-app/requirements/design"
+  />
+  <Card
+    title="Legal"
+    href="/docs/embedded-app/how-to-have-an-app/requirements/legal"
+  />
+</Cards>
+
+
+## Release Requirements
+
+This section is a summary outline of what is needed in the process od developing an embedded app. The list below is organised by category and some items are quite varied.
+Please make sure you have understood what is expected. You may use this list as a checklist.
+
+### 1 - General information
+
+- Embedded app name
+- The name of your token as displayed in [CoinMarketCap](https://coinmarketcap.com/)
+- Legal Entity name
+- Postal address
+- Email address
+
+
+### 2 - Security
+
+- I have met the [security requirements](./requirements/security)
+- The application went through a security audit
+- All vulnerabilities have been fixed
+
+
+### 3 - Embedded app
+
+- I have read the [coding guidelines](../coding-guidelines)
+- Embedded app source code (GitHub repository)
+- My app repository has a test folder that contains the Functional tests and Unit tests
+- The App has been fully tested with a companion wallet (CLI or GUI)
+- Two icons for the Ledger Stax, Nano and for "My Ledger" in Ledger Live, in PNG or GIF
+ (see [Icons](../deliverables/icons/))
+- [Video](../deliverables/ui-flow-video/#video) of your application running on the Ledger device (for Ledger Nano only)
+- The App has a [Blind Signing](../coding-guidelines/blind-signing) setting (if applicable)
+- The [Guidelines_enforcer and Build_and_functional_tests workflow](../quickstart/framework#ci) succeeds
+
+
+### 4 - Companion Wallet
+
+- A link to the Companion Wallet The wallet must give an option to verify the receiving address on a Ledger device. It should also have an affiliate link next to the "Connect with Ledger" option. You must provide either:
+  - a link to the CLI repository, or
+  - a link to the GUI running on Windows/MacOS/Linux (mandatory for Public release)
+
+### 5- Documentation
+
+- Document in the App's repository the list of the app's APDUs and status words
+- Link to a Google doc tutorial about how to install and use your app (see [Third Party Applications Support](../deliverables/support-requirements/))
+    - The doc must include the link to the published tutorial hosted on third party website
+
+
+### 6 - Support
+
+- I have read the [support page](../deliverables/support-requirements/)
+- Main support contact (mail address, Slack/Reddit/Telegram/Discord communities)
+
+
+### 7 - Marketing (Mandatory for Public release)
+
+- I have read the [marketing page](../deliverables/marketing-requirements/)
+- Marketing plan
+
+
+### 8 - Warranty and liability
+
+- I have read and agree with information laid out the [warranty and liability disclaimer](../deliverables/warranty-disclaimer/)
+
+### Disclaimer
+
+Ledger's release of a third party application must not be considered as any form of partnership or endorsement.
+
+## Plugin requirements and submission
+
+### Requirements
+
+The following requirements are here to provide a secure and unified experience for Ledger devices users.
+
+To make sure the review process of your Embedded Plugin goes smoothly and quickly, we recommend you read the requirements before starting to code.
+
+| Category        | Requirement                                                                                                     |
+|-----------------|-----------------------------------------------------------------------------------------------------------------|
+|  General        | Communicate to Ledger the DApp name, the smart contract address (if applicable), and an email address.          |
+| Coding          | Go through the <a href="../embedded-plugin/">Plugin Code walkthrough</a> to create your plugin.   |
+| Design          | Follow the <a href="../../embedded-app/design-requirements">Embedded app design requirements.</a>               |
+| Documentation   | Follow the <a href="../../embedded-app/documentation-requirements">Embedded app documentation requirements.</a> |
+| Support         | Follow the <a href="../../embedded-app/support-requirements">Embedded app support requirements.</a>             |
+| Security Audits | Follow the <a href="../../embedded-app/security-audit">Embedded app security audits requirements.</a>           |
+
+
+### Submission
+
+Once your plugin is ready, please [fill in this form](https://ledger.typeform.com/to/YZZCHEB8).

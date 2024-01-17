@@ -1,0 +1,54 @@
+---
+title: Applications for HD Trees
+description: How Ledger applies the concept of cryptographic secrets generation from a single masterseed to develop applications for personal security devices that are lightweight and easily recoverable.
+---
+
+import { Callout } from 'nextra/components'
+
+# Applications for HD Trees
+
+## Introduction
+
+In the previous section, `hd_keys`, we described how an infinite number of cryptographic secrets can be generated from a single master seed. In this article, we'll talk about how Ledger applies this concept to develop applications for our [personal security devices](../psd) that are lightweight and easily recoverable.
+
+## Coin Types
+
+So how are HD trees useful? Simple: developers of different cryptocurrencies got together and [reserved a space on the tree](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#registered-coin-types). Developers for these cryptocurrencies each specified which "location" on the tree they wanted users to store their private keys (called the coin's "path"). This path is public information, because nobody can determine the actual value of your keys without knowing your master node (your mnemonic seed). The paths that correspond to various cryptocurrencies, and the paths used to derive cryptocurrency addresses and private keys, are defined by [BIP 44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) (which in turn defers coin type registration to [SLIP 44](https://github.com/satoshilabs/slips/blob/master/slip-0044.md)).
+
+For each cryptocurrency, there is a node on the tree where all of the keys for that coin begin (from this point on, we'll call this the "coin type root node", for lack of a better term). Since this is a hierarchical deterministic tree, we can apply the same rules to that coin type root node as we applied to the master node. Just as an infinite tree of keys descended from the master node, there is also an infinite tree of keys descending from the coin type root node. This means that if you have a 24-word mnemonic seed, even if you don't use Bitcoin, you have a virtually infinite[^1] number of Bitcoin addresses. You have a virtually infinite number of Ethereum addresses, too.
+
+<Callout type="warning" emoji="⚠️">
+  In the Ledger Ethereum Wallet desktop app, addresses are not derived according to BIP 44. Instead of using the derivation path <code>m / 44' / 60' / account' / change / address_index</code> (as defined by BIP 44 for Ethereum), the Ledger Ethereum Wallet desktop app uses the derivation path <code>m / 44' / 60' / 0' / address_index</code>.
+</Callout>
+
+## How does my wallet know which addresses I've used?
+
+In most BIP 44-compliant HD wallet programs (including the Ledger Bitcoin Wallet desktop app) your addresses are split into "accounts". You can split your coins across multiple accounts in the same way you might with multiple bank accounts. You can have an account for savings, an account for donations, an account for common expenses, et cetera. Within each of these accounts, there are two virtually infinite "chains" of addresses: an external chain and an internal chain (commonly called the "change address" chain). Each of the addresses in these chains are given numbers (called the "address index") starting at 0.
+
+When your wallet software starts up for the first time, it searches the blockchain for transactions involving address number 0 for each address chain. If it finds any transactions, then the address is displayed by the wallet software and the wallet searches for transactions involving address number 1. This process continues until the wallet finds an address that you haven't used yet. It displays this address to you, then stops searching for more addresses in the chain, making the assumption that no more of them have been used yet.[^2]
+
+This way, all of the important information about your transaction history is stored in the blockchain, so none of it has to be stored in the hardware wallet itself. If your wallet is destroyed / reset, all you need to do is input your 24-word mnemonic seed into a new HD wallet and the wallet will search the public blockchain for all of the information it needs.
+
+## Summary
+
+![A diagram of a hierarchical deterministic wallet; everything in the box labelled &quot;hierarchical deterministic tree&quot; is recoverable if your wallet is lost, destroyed, or reset because it is all derived from the master seed](/device-app/where_are_my_assets.png)
+*A diagram of a hierarchical deterministic wallet; everything in the box labelled "hierarchical deterministic tree" is recoverable if your wallet is lost, destroyed, or reset because it is all derived from the master seed*
+
+
+An HD wallet has a few very important properties, so let's reiterate:
+
+-   The "tree" that makes up an HD wallet is generated using nothing more than your 24-word mnemonic seed. This is all you need to generate all of your cryptocurrency addresses, and sign transactions.
+-   No private keys need to be saved, anywhere. Even if you continue to receive Bitcoins to more and more of your addresses, you don't need to save any of those private keys anywhere. This is because they were there all along, in the HD tree.
+-   The HD wallet standards used by Ledger (BIPs 32, 39, and 44) are industry standards. Your 24-word mnemonic seed will work with any other HD wallet that supports these standards, not just with Ledger wallets.
+
+## Going Beyond Cryptocurrencies
+
+Hierarchical deterministic wallets are useful for a lot more than just securing assets on blockchains. You could also expand this concept and use your master seed to derive passwords, PGP keys, SSH keys, et cetera.
+
+For example, Ledger has developed a [Password Manager app](https://github.com/LedgerHQ/blue-app-password-manager). It works by converting a node on the HD tree into a text password that looks like random gibberish. When you create a new password, you must enter a label for the password (for example: "Google", "Dropbox", "Twitter", etc.). **The location of a password's node on the HD tree is encoded in the corresponding password's label.** When you ask the Password Manager app for your password, it uses the password's label to locate a specific node on the HD tree, and then it converts that node into a text password. You cannot specify your own passwords to use, the passwords are generated for you.
+
+**Footnotes**
+
+[^1]: In this case, virtually infinite = 2<sup>63</sup> = 9 223 372 036 854 775 808.
+
+[^2]: In this example, we described a wallet that operates with a [gap limit](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#address-gap-limit) of 1. Different wallet software use different values, but BIP 44 currently recommends a gap limit of 20.

@@ -1,7 +1,6 @@
-{  
+{
 	"sections": "All the sections",
-	"device-app": "Device App", 
-	"plugin": "Plugin",
+    "device-app": "Device app",
 	"connectivity": "Connectivity",
 	"nft-display": "NFT Display",
 	"discover": "Discover",

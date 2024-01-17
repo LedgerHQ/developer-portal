@@ -303,12 +303,12 @@ module.exports = {
         source: '/docs/transport/overview',
         destination: '/docs/connectivity/ledgerJS',
         permanent: true,
-       }, 
+       },
       {
         source: '/docs/transport/required-skills',
         destination: '/docs/connectivity/ledgerJS/required-skills',
         permanent: true,
-       }, 
+       },
       {
         source: '/docs/transport/choose-the-transports',
         destination: '/docs/connectivity/ledgerJS',
