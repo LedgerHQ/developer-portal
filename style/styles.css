@@ -139,6 +139,14 @@ article a[target='_blank']:after {
   margin: 10px 0;
 }
 
+.nextra-content h2 {
+  text-decoration: underline;
+}
+
+.nextra-content h4 {
+  text-indent: 3%;
+
+}
 
 @layer components {
   .transition-right { 
