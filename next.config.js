@@ -26,27 +26,27 @@ module.exports = {
       },
       {
         source: '/docs/embedded-app/required-skills',
-        destination: '/docs/device-app/getting-started/required-skills',
+        destination: '/docs/device-app/introduction',
         permanent: true,
       },
       {
         source: '/docs/embedded-app/external-dev',
-        destination: '/docs/device-app/getting-started/external-devs',
+        destination: '/docs/device-app/deliver/references',
         permanent: true,
       },
       {
         source: '/docs/embedded-app/release-requirements',
-        destination: '/docs/device-app/submission/requirements',
+        destination: '/docs/device-app/deliver/requirements',
         permanent: true,
       },
       {
         source: '/docs/embedded-app/security-audit',
-        destination: '/docs/device-app/submission/security-audit',
+        destination: '/docs/device-app/deliver/references',
         permanent: true,
       },
       {
         source: '/docs/embedded-app/submission-form',
-        destination: '/docs/device-app/submission/submission-form',
+        destination: '/docs/device-app/deliver/submission-form',
         permanent: true,
       },
       {
@@ -56,32 +56,32 @@ module.exports = {
       },
       {
         source: '/docs/embedded-app/release-flow',
-        destination: '/docs/device-app/getting-started/release-flow',
+        destination: '/docs/device-app/deliver/process',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/framework',
-        destination: '/docs/device-app/quickstart/framework',
+        destination: '/docs/device-app/develop/quickstart',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/build-load',
-        destination: '/docs/device-app/quickstart/build-load',
+        destination: '/docs/device-app/develop/quickstart',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/clone-intro',
-        destination: '/docs/device-app/clones',
+        destination: '/docs/device-app/develop/tutorials/clone',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/eth-app-update',
-        destination: '/docs/device-app/clones/eth-app-update',
+        destination: '/docs/device-app/develop/tutorials/clone',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/eth-clones',
-        destination: '/docs/device-app/clones/eth-clones',
+        destination: '/docs/device-app/develop/tutorials/clone',
         permanent: true,
        },
       {
@@ -91,7 +91,7 @@ module.exports = {
        },
       {
         source: '/docs/embedded-app/global-architecture',
-        destination: '/docs/device-app/coding-guidelines/global-architecture',
+        destination: '/docs/device-app/introduction/app',
         permanent: true,
        },
       {

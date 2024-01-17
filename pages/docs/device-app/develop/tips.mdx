@@ -110,7 +110,7 @@ With our error model, there are two common failure scenarios.
 ## The Application crashed
 
 An application crashing when running on the device (the device's screen freezes and stops responding to the APDU) can be caused by a number of issues. For example:
-- The Secure Element is isolated due to invalid handling of [SEPROXYHAL](https://developers.ledger.com/docs/embedded-app/bolos-hardware-architecture/#seproxyhal) packets
+- The Secure Element is isolated due to invalid handling of SEPROXYHAL packets
 - There's a core fault on the device (perhaps due to a [misaligned memory access](../develop/sdk/memory/memory-alignment/) or an attempt to access restricted memory)
 
 If it occurs, you can start by trying it on Speculos which support GDB debugging. You can also simplify the app and strip away as much code as possible until the problem can be isolated.
