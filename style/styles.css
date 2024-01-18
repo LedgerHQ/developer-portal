@@ -13,6 +13,10 @@ article a[target='_blank']:after {
     content: ' \21aa';
 }
 
+code {
+  font-family: 'HMAlphaMono';
+}
+
 .center {
   display: block;
   width: 30%;
