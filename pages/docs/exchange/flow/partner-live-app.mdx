@@ -1,11 +1,11 @@
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 
-# Partner Live App
+# Partner LiveApp
 
-When the user selects a quote among partners and clicks on the exchange to access the selected partner’s app, the user is redirected to the Live App (embedded partner web app). The Live App is displayed in the LL browser as a webview.
+When the user selects a quote among partners and clicks on the exchange to access the selected partner’s app, the user is redirected to the LiveApp (embedded partner web app). The LiveApp is displayed in the LL browser as a webview.
 
-## Partner Live App flow
+## Partner LiveApp flow
 
 <Zoom>
     <img
@@ -24,7 +24,7 @@ Following information is displayed:
 - **Slippage** (only valid for floating rates): The acceptable slippage up to which a refund is requested. Slippage can either be fixed by the partner and/or set by the user
 - **Fee**: The breakdown of the transaction (withdrawal fee, partner fee, Ledger fee)
 - **To account**: The account name on which the user will receive the cryptocurrency
-- **Account address**: The address of the account on which the user wikk receive cryptocurrency
+- **Account address**: The address of the account on which the user will receive cryptocurrency
 
 The user cannot change their choice on this page. For any change, they need to come back to the Ledger Live swap app.
 
@@ -34,13 +34,13 @@ To make sure the user has the last up to date quote, a timer must be set to upda
 
 The login is on the summary screen. It allows the user to log in with email, password or OTP depending on the partner policy. If the user is already logged in, this step is passed.
 
-The login page is on the partner Live App side only, and not handled by Ledger.
+The login page is on the partner LiveApp side only, and not handled by Ledger.
 
 ### KYC screen
 
-If a KYC is needed and the user has not performed it yet, the KYC onboarding must be included in the partner Live App.
+If a KYC is needed and the user has not performed it yet, the KYC onboarding must be included in the partner LiveApp.
 
-The KYC process is on the partner Live APp side only, and not handled by Ledger.
+The KYC process is on the partner LiveApp side only, and not handled by Ledger.
 
 ### Summary screen after login
 
@@ -61,8 +61,8 @@ The partner provides navigation inside their app, so users can navigate from one
 - To go back to the previous page
 - To validate a screen and go forth in the process
 
-Users can leave a partner Live App by clicking on the “X” button in the navigation bar. This action:
-- Closes the partner Live App
+Users can leave a partner LiveApp by clicking on the “X” button in the navigation bar. This action:
+- Closes the partner LiveApp
 - Brings the user back to the swap page with
 	- Last source and destination accounts
 	- Last source amount
