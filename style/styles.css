@@ -14,7 +14,9 @@ article a[target='_blank']:after {
 }
 
 code {
-  font-family: 'HMAlphaMono';
+  font-family: 'Courier';
+  font-weight: bolder;
+  font-size: 1.1em;
 }
 
 .center {
