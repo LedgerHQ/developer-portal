@@ -1,4 +1,6 @@
 {
-	"flow": "Flows",
-	"howto": "How to"
+	"providers-backend": "Backend",
+	"providers-liveapp": "LiveApp",
+	"providers-test-and-submit": "Test & Submit",
+	"flow": "Advanced Flows"
 }
