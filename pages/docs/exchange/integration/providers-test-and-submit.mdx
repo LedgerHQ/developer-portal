@@ -1,0 +1,42 @@
+import { Steps } from 'nextra/components'
+
+## Test your integration end-to-end 
+
+The end-to-end test process is a bit more complex than for the regular LiveApp found in the Discover section. 
+
+You will need to enable the developer mode in Ledger Live. 
+Please refer to the [Developer Mode](../../discover/developer-mode) article for more details.
+
+<Steps>
+### Test your LiveApp
+   
+To test your LiveApp, you will have to: 
+- Go to Ledger Live and open your LiveApp in debug mode.
+- Use a Nano hardware wallet with the exchange app installed. 
+
+If you need to debug, you can use the LiveApp debug tools.
+
+### Test the Backend
+ 
+After testing your LiveApp and making sure it works with the Exchange App, you should now test the backend. You can make your LiveApp point to your own Backend and check if it works.
+
+
+</Steps>
+
+
+## Submit
+
+<Steps>
+### Your API
+ 
+Adapt your API to interact with our Backend, with some specifities. Details in [Backend](providers-endpoints) section.
+ 
+### Your LiveApp's Manifest
+ 
+It's a bit more complex than the regular LiveApp's Manifest of the Discover section. Details in [LiveApp](providers-liveapp) section.
+
+### Your Public key
+
+Make sure your private key is secured, and send us your public key. Details in [Backend](providers-endpoints) section.
+
+</Steps>

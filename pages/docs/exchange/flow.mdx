@@ -1,28 +1,45 @@
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 import { Card, Cards } from 'nextra/components'
 
-# Swap : CEX integrated as a Live App 
+# Swap : CEX integrated as a LiveApp 
 
 Our goal is to offer the best swap experience for our users in Ledger Live, by providing competitive quotes and security.
 
-To offer our partner centralized exchanges the best time-to-market and and our users the best swap experience, we have built an hybrid solution:
+To offer our centralize exchange partners the best time-to-market and and our users the best swap experience, we have built an hybrid solution:
 - Native swap marketplace: An aggregator on Ledger Live listing our partners depending on the region, token coverage and prices.
-- Partner Web app: A Live App experience (embedded web app) where users interact with the partner web app in Ledger Live, once they want to finalize the swap. The transaction is performed with ExchangeSDK.
+- Partner Web app: A LiveApp experience (embedded web app) where users interact with the partner web app in Ledger Live, once they want to finalize the swap. The transaction is performed with ExchangeSDK.
 
 This section of the documentation explains how the swap feature is displayed to the user in Ledger Live and how your web app is integrated into this hybrid solution.
 
-<Cards num={2}>
-  <Card 
-    image
-    arrow
-    title="Start Here" 
-    href="./flow/start-here">
-    <>![Cryptoassets Library](/blockchain-cover.jpg)</> 
-  </Card>
-  <Card 
-    image
-    arrow
-    title="Flows" 
-    href="./flow/flow-breakdown">
-    <>![Cryptoassets Library](/crypto-cover.jpg)</> 
-  </Card>
+## Full transaction flow
+
+<Zoom>
+    <img
+      alt="Transaction flow"
+      src="/live-app-flow.png"
+    />
+</Zoom>
+
+<Cards>
+  <Card
+    title="Quote display and user preferences"
+    href="./flow/quote"
+  />
+  <Card
+    title="Partner LiveApp"
+    href="./flow/partner-live-app"
+  />
+  <Card
+    title="Device transaction approval"
+    href="./flow/device-flow"
+  />
+  <Card
+    title="Transaction status"
+    href="./flow/transaction-status"
+  />
+  <Card
+    title="Edge Cases"
+    href="./flow/edge-cases"
+  />
 </Cards>
