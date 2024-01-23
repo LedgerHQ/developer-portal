@@ -30,7 +30,18 @@ module.exports = {
         permanent: true,
       },
       {
+        source: '/docs/device-app/getting-started/required-skills',
+        destination: '/docs/device-app/introduction',
+        permanent: true,
+      },
+      {
         source: '/docs/embedded-app/external-dev',
+        destination: '/docs/device-app/deliver/references',
+        permanent: true,
+      },
+      
+      {
+        source: '/docs/device-app/getting-started/external-dev',
         destination: '/docs/device-app/deliver/references',
         permanent: true,
       },
@@ -40,7 +51,17 @@ module.exports = {
         permanent: true,
       },
       {
+        source: '/docs/device-app/submission/requirements',
+        destination: '/docs/device-app/deliver/requirements',
+        permanent: true,
+      },
+      {
         source: '/docs/embedded-app/security-audit',
+        destination: '/docs/device-app/deliver/references',
+        permanent: true,
+      },
+      {
+        source: '/docs/device-app/submission/security-audit',
         destination: '/docs/device-app/deliver/references',
         permanent: true,
       },
@@ -50,7 +71,17 @@ module.exports = {
         permanent: true,
       },
       {
+        source: '/docs/device-app/submission/submission-form',
+        destination: '/docs/device-app/deliver/submission-form',
+        permanent: true,
+      },
+      {
         source: '/docs/embedded-app/maintenance',
+        destination: '/deliver/process',
+        permanent: true,
+      },
+      {
+        source: '/docs/device-app/submission/maintenance',
         destination: '/deliver/process',
         permanent: true,
       },
@@ -60,7 +91,17 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/device-app/getting-started/release-flow',
+        destination: '/docs/device-app/deliver/process',
+        permanent: true,
+       },
+      {
         source: '/docs/embedded-app/framework',
+        destination: '/docs/device-app/develop/quickstart',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/quickstart/framework',
         destination: '/docs/device-app/develop/quickstart',
         permanent: true,
        },
@@ -70,7 +111,17 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/device-app/quickstart/build-load',
+        destination: '/docs/device-app/develop/quickstart',
+        permanent: true,
+       },
+      {
         source: '/docs/embedded-app/clone-intro',
+        destination: '/docs/device-app/develop/tutorials/clone',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/clones',
         destination: '/docs/device-app/develop/tutorials/clone',
         permanent: true,
        },
@@ -80,7 +131,17 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/device-app/clones/eth-app-update',
+        destination: '/docs/device-app/develop/tutorials/clone',
+        permanent: true,
+       },
+      {
         source: '/docs/embedded-app/eth-clones',
+        destination: '/docs/device-app/develop/tutorials/clone',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/clones/eth-clones',
         destination: '/docs/device-app/develop/tutorials/clone',
         permanent: true,
        },
@@ -90,7 +151,17 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/device-app/coding-guidelines/stax-porting',
+        destination: '/docs/device-app/coding-guidelines/stax-porting',
+        permanent: true,
+       },
+      {
         source: '/docs/embedded-app/global-architecture',
+        destination: '/docs/device-app/introduction/app',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/coding-guidelines/global-architecture',
         destination: '/docs/device-app/introduction/app',
         permanent: true,
        },
@@ -100,7 +171,17 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/device-app/coding-guidelines/secure-app',
+        destination: '/docs/device-app/coding-guidelines/secure-app',
+        permanent: true,
+       },
+      {
         source: '/docs/embedded-app/blind-signing',
+        destination: '/docs/device-app/deliver/requirements/design',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/coding-guidelines/blind-signing',
         destination: '/docs/device-app/deliver/requirements/design',
         permanent: true,
        },
@@ -110,12 +191,27 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/device-app/coding-guidelines/memory/persistent-storage',
+        destination: '/docs/device-app/develop/sdk/memory/persistent-storage',
+        permanent: true,
+       },
+      {
         source: '/docs/embedded-app/position-independent-code',
         destination: '/docs/device-app/develop/sdk/memory/position-independent-code',
         permanent: true,
        },
       {
+        source: '/docs/device-app/coding-guidelines/memory/position-independent-code',
+        destination: '/docs/device-app/develop/sdk/memory/position-independent-code',
+        permanent: true,
+       },
+      {
         source: '/docs/embedded-app/memory-alignment',
+        destination: '/docs/device-app/develop/sdk/memory/memory-alignment',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/coding-guidelines/memory/memory-alignment',
         destination: '/docs/device-app/develop/sdk/memory/memory-alignment',
         permanent: true,
        },
