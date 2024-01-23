@@ -13,6 +13,12 @@ article a[target='_blank']:after {
     content: ' \21aa';
 }
 
+code {
+  font-family: 'Courier';
+  font-weight: bolder;
+  font-size: 1.1em;
+}
+
 .center {
   display: block;
   width: 30%;
@@ -139,6 +145,14 @@ article a[target='_blank']:after {
   margin: 10px 0;
 }
 
+.nextra-content h3 {
+  font-weight: normal;
+}
+
+.nextra-content h4 {
+  text-indent: 3%;
+  font-weight: normal;
+}
 
 @layer components {
   .transition-right { 

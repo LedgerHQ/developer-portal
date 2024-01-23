@@ -21,7 +21,7 @@ export const Numbers = () => {
           <NumberItem_2 number="200+" text="compatible DApps" />
           <VerticalSeparator />
           <HorizontalSeparator />
-          <NumberItem_3 number="6500000+" text="devices sold worldwide" />
+          <NumberItem_3 number="6052678+" text="devices sold worldwide" />
         </div>
       </div>
     </div>

@@ -12,6 +12,5 @@ export default withAuth(
   }
 )
 
-// 2023-10-19 - To access all protected pages locally, when the github app is not available, 
-// comment out the line below
-export const config = { matcher: ["/docs/exchange/integration/:path*", "/docs/exchange/flow/:path*"] }
+// 2024-01-17 - To add login protection to your page, add the path in the ["...."] below, 
+export const config = { matcher: ["/docs/folder/page/:path*", "/docs/folder/page/:path*"] }
