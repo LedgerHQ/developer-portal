@@ -1,8 +1,8 @@
 {
     "quickstart": "Quickstart",
     "requirements": "Requirements",
-    "tutorials": "Tutorials",
     "environment": "Environment",
+    "tutorials": "Tutorials",
     "tools": "Tools",
     "sdk": "SDK",
     "tips": "Tips",
