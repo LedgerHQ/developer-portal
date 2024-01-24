@@ -1,5 +1,6 @@
 {
     "app": "Application",
     "clones": "Clone",
-    "plugins": "Plugin"
+    "plugins": "Plugin",    
+    "community": "Community"
 }
