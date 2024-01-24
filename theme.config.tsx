@@ -50,6 +50,11 @@ const config: DocsThemeConfig = {
  
     return (
       <>
+        <script type="text/javascript" src="https://cdn.cookielaw.org/consent/5ff3ecce-44bd-4ef3-b746-ec81546bf82a/OtAutoBlock.js" ></script>
+          <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charSet="UTF-8" data-domain-script="5ff3ecce-44bd-4ef3-b746-ec81546bf82a" ></script>
+          <script type="text/javascript">
+          function OptanonWrapper() { }
+        </script>
         <meta name="google-site-verification" content="fJHVlVHjffhnC-lrehFc-z5GMiBSUO-EiDITGfjky_w" />
         <meta property="og:url" content={url} />
         <meta property="og:image" content={meta.image} />
