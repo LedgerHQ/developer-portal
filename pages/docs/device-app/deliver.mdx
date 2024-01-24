@@ -2,14 +2,14 @@ import { Cards, Card } from 'nextra/components'
 
 # Releasing an application
 
-<Cards>
+<Cards num={2}>
   <Card
     title="Deployment process"
     href="./deliver/process"
   />
   <Card
-    title="Requirements"
-    href="./deliver/requirements"
+    title="Deliverables"
+    href="./deliver/deliverables"
   />
   <Card
     title="Submission form"
@@ -21,27 +21,37 @@ import { Cards, Card } from 'nextra/components'
   />
 </Cards>
 
-## What to do?
 
-### 1. Read the requirements
+## 1. Make sure your app followed the coding requirements
 
 For an app to be deploy, it must comply with a list of requirements, which are expressed in [this section](./deliver/requirements).
 
-### 2. Build & Load and use the Ledger framework
+## 2. Make sure you have all the delivrables ready
 
-If you want to build your application yourself, refer to this [chapter](./develop).
+## 3. Fill in the submission form
 
-Else, you can found [here](./deliver/references) a list of developer companies which are used to working with us.
+## Plugin requirements and submission
+
+### Requirements
+
+The following requirements are here to provide a secure and unified experience for Ledger devices users.
+
+To make sure the review process of your Embedded Plugin goes smoothly and quickly, we recommend you read the requirements before starting to code.
+
+| Category        | Requirement                                                                                                     |
+|-----------------|-----------------------------------------------------------------------------------------------------------------|
+|  General        | Communicate to Ledger the DApp name, the smart contract address (if applicable), and an email address.          |
+| Coding          | Go through the <a href="../embedded-plugin/">Plugin Code walkthrough</a> to create your plugin.   |
+| Design          | Follow the <a href="../../embedded-app/design-requirements">Embedded app design requirements.</a>               |
+| Documentation   | Follow the <a href="../../embedded-app/documentation-requirements">Embedded app documentation requirements.</a> |
+| Support         | Follow the <a href="../../embedded-app/support-requirements">Embedded app support requirements.</a>             |
+| Security Audits | Follow the <a href="../../embedded-app/security-audit">Embedded app security audits requirements.</a>           |
 
 
-### 3. Submit your App
+### Submission
 
-Use and submit the [submission form](./deliver/submission-form) to complete the process.
 
-### 4. Finished!
+### Disclaimer
 
-We will contact you via Discord to let you know how your submission is doing.
+Ledger's release of a third party application must not be considered as any form of partnership or endorsement.
 
-## Get in touch with the Ledger developer community
-
-Joining Discord is not required to code your Embedded Application, but it will be easier to meet with our team and discuss the specifics of your project. Join us on the [Ledger's Discord server](https://developers.ledger.com/discord/) and introduce your project in the **#dev-support** channel.
