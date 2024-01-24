@@ -51,7 +51,7 @@ const config: DocsThemeConfig = {
     return (
       <>
         <script type="text/javascript" src="https://cdn.cookielaw.org/consent/5ff3ecce-44bd-4ef3-b746-ec81546bf82a/OtAutoBlock.js" ></script>
-          <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="5ff3ecce-44bd-4ef3-b746-ec81546bf82a" ></script>
+          <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charSet="UTF-8" data-domain-script="5ff3ecce-44bd-4ef3-b746-ec81546bf82a" ></script>
           <script type="text/javascript">
           function OptanonWrapper() { }
         </script>
