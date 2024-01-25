@@ -44,6 +44,35 @@ The coherence between these derivation path and the app `Makefile` is verified a
   If your application derives keys on the hardened path 44'/60' then the chainID parameter must be different from 0 or 1. This is necessary to avoid replaying transactions broadcoast on Ethereum-like chains on Ethereum. As a general recommendation, and to ensure a good level of privacy for the end user, we recommend to always use the correct coin type in the derivation path as defined in <a href='https://github.com/satoshilabs/slips/blob/master/slip-0044.md' className='alert-link'> slip44 </a>
 </Callout>
 
+## Signing settings
+
+### Signing
+
+<Callout type="warning" emoji="⚠️">
+  All signing transactions/messages action must ask for the user approval before happening.
+</Callout>
+
+More information [here](../../architecture/crypto#signingdisclosing-keys).
+
+
+### Blind Signing
+
+As a general rule, [blind signing should be avoided](../../architecture/crypto#avoid-blindly-signing-data), however it is tolerated under some circumstances.
+
+
+For every transaction, the users must be able to verify on the device the amount being transferred and the destination address or the validator/nominator address(es) in the case of a staking operation.
+
+When the display of those parameters (Token, smart contract management) is not possible, the transaction should be rejected by the device unless the user has acknowledged that they will be blind signing.
+
+To implement this requirement it is recommended to have a setting menu with the possibility to enable/disable blind signing.
+
+<Callout type="warning" emoji="⚠️">
+    If blind signing is implemented, it must be **disabled** by default.
+</Callout>
+
+
+You can find implementation example inside [Ethereum](https://github.com/LedgerHQ/app-ethereum), [Solana](https://github.com/LedgerHQ/app-solana) or [Elrond](https://github.com/LedgerHQ/app-elrond) code base.
+
 
 ## Security Audit
 

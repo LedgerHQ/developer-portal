@@ -1,22 +1,22 @@
 ---
-title: App submission
+title: Submission
 description: Ready to submit your App for review? The submission of a Ledger devuce app is completed through a form.
 ---
 
 import { Callout } from 'nextra/components'
 
 
-# App submission
+# Submission
 
-## Ready to submit your App for review?
+The submission of a Ledger device app or plugin is completed through a form. This will ask you for all the various items required together in one place.
 
-The submission of a Ledger embedded app is completed through a form. This will ask you for all the various items required together in one place.
+Please make sure you followed this [process](./) and the coding requirements, and that all the deliverables are ready, else the deployment process will be stopped.
 
-Please make sure you already comply with the [requirements](./requirements), else the deployment process will be stopped.
+### Ready to submit your App or Plugin for review?
 
-### Submission form
-
-Once you have finished your work and you have collected all the App items you must enter them in the [form](https://ledger.typeform.com/app-submission).
+Once you have finished your work and you have collected all the App or Plugin items you must enter them in:
+- The Device App [form](https://ledger.typeform.com/app-submission) or
+- The Plugin [form](https://ledger.typeform.com/to/YZZCHEB8)
 
 Make sure you thoroughly complete the form to ensure a speedy release process.
 
@@ -24,7 +24,8 @@ Make sure you thoroughly complete the form to ensure a speedy release process.
     The integration process will only start if you answer accurately to all the questions.
 </Callout>
 
-### Form content
+
+## App Form Checklist
 
 This section is a summary outline of what is needed in the process od developing a device app. The list below is organised by category and some items are quite varied.
 Please make sure you have understood what is expected. You may use this list as a checklist.
@@ -40,21 +41,21 @@ Please make sure you have understood what is expected. You may use this list as 
 
 #### 2 - Security
 
-- I have met the [security requirements](./requirements/security)
+- I have met the [security requirements](../develop/requirements/security)
 - The application went through a security audit
 - All vulnerabilities have been fixed
 
 
 #### 3 - Embedded app
 
-- I have read the [coding guidelines](../coding-guidelines)
+- I have read the [coding tutorials](../develop/tutorials)
 - Embedded app source code (GitHub repository)
 - My app repository has a test folder that contains the Functional tests and Unit tests
 - The App has been fully tested with a companion wallet (CLI or GUI)
 - Two icons for the Ledger Stax, Nano and for "My Ledger" in Ledger Live, in PNG or GIF
- (see [Icons](../deliverables/icons/))
-- [Video](../deliverables/ui-flow-video/#video) of your application running on the Ledger device (for Ledger Nano only)
-- The App has a [Blind Signing](../coding-guidelines/blind-signing) setting (if applicable)
+ (see [Icons](./deliverables/icons/))
+- [Video](./deliverables/ui-flow-video/#video) of your application running on the Ledger device (for Ledger Nano only)
+- The App has a [Blind Signing](../develop/requirements/security#signing-settings) setting (if applicable)
 - The [Guidelines_enforcer and Build_and_functional_tests workflow](../quickstart/framework#ci) succeeds
 
 
@@ -67,31 +68,45 @@ Please make sure you have understood what is expected. You may use this list as 
 #### 5- Documentation
 
 - Document in the App's repository the list of the app's APDUs and status words
-- Link to a Google doc tutorial about how to install and use your app (see [Third Party Applications Support](../deliverables/support-requirements/))
+- Link to a Google doc tutorial about how to install and use your app (see [Third Party Applications Support](./deliverables/support))
     - The doc must include the link to the published tutorial hosted on third party website
 
-
-#### 6 - Support
-
-- I have read the [support page](../deliverables/support-requirements/)
-- Main support contact (mail address, Slack/Reddit/Telegram/Discord communities)
 
 
 #### 7 - Marketing (Mandatory for Public release)
 
-- I have read the [marketing page](../deliverables/marketing-requirements/)
+- I have read the [marketing page](./deliverables/marketing)
 - Marketing plan
 
 
 #### 8 - Warranty and liability
 
-- I have read and agree with information laid out the [warranty and liability disclaimer](../deliverables/warranty-disclaimer/)
+- I have read and agree with information laid out the [warranty and liability disclaimer](./deliverables/legal/)
 
-## Ready to submit your Plugin for review?
+## Plugin Form Checklist
 
-### Submission form
+#### 1 - General information
 
-Plugin : Once your plugin is ready, please [fill in this form](https://ledger.typeform.com/to/YZZCHEB8).
+- Embedded app name
+- What service does the DApp provide
+- The smart contracts addresses
+- Legal Entity name
+- Postal address
+- Email address
 
-### Form content
+#### 2 - Plugin
+
+- Plugin source code (GitHub repository)
+- Two icons for the Ledger Stax, Nano and for "My Ledger" in Ledger Live, in PNG or GIF
+ (see [Icons](./deliverables/icons/))
+- Link of the DApp working with the plugin
+
+#### 3 - Support
+
+- I have read the [support page](./deliverables/support)
+- Main support contact (mail address, Slack/Reddit/Telegram/Discord communities)
+
+#### 4 - Warranty and liability
+
+- I have read and agree with information laid out the [warranty and liability disclaimer](./deliverables/legal/)
 
