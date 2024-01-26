@@ -10,7 +10,7 @@ import { Callout, Cards, Card } from 'nextra/components'
 
 A variant, or clone, device app is developed when all the logic for signing transactions can be contained in the parent coin Device Application.
 
-As for any Embedded Application, you must follow our guidelines to comply with Ledger publication requirements.
+As for any Device Application, you must follow our guidelines to comply with Ledger publication requirements.
 
 
 ### Which development process for your Ethereum clone?
@@ -33,11 +33,11 @@ Depending on your derivation path, the process will vary.
 
 #### New Bitcoin clone
 
-For any other clone type, use the [main Embedded App process](../quickstart/).
+For any other clone type, use the [main Device App process](../quickstart/).
 
 #### Update an existing clone
 
-If your Bitcoin clone was included in the Bitcoin Embedded App and you need to update it, please start a [new Embedded App process](../introduction/).
+If your Bitcoin clone was included in the Bitcoin Deice App and you need to update it, please start a [new Device App process](../introduction/).
 
 ## A - Using the 44/60 path
 
@@ -87,7 +87,7 @@ Please get in touch with our team on the [Ledger's Discord server](https://devel
 Follow this process if your chain uses another path than 44/60.
 
 <Callout type="warning" emoji="⚠️">
-  If your chain does not use the `44/60` path, you won't be able to use Metamask with your embedded app.
+  If your chain does not use the `44/60` path, you won't be able to use Metamask with your device app.
 </Callout>
 
 ### Start here
@@ -131,7 +131,7 @@ Use the template provided [here](../deliverables/icons#stax-template).
 To build the clone application, [follow these guidelines](../quickstart/build-load/).
 1. First run the `make` command for the Ethereum App and run `make load`
 2. Run `make clean`
-2. Load the Embedded App clone with the name of your chain. E.g: `make load CHAIN=tomochain`
+2. Load the Device App clone with the name of your chain. E.g: `make load CHAIN=tomochain`
 
 ### 4. Add your Network to SLIP-0044
 
