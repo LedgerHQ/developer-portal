@@ -50,24 +50,3 @@ the others can still be useful.
     [Ethereum workflows](https://github.com/LedgerHQ/app-ethereum/tree/develop/.github/workflows) or the
     [Exchange workflows](https://github.com/LedgerHQ/app-exchange/tree/develop/.github/workflows).
 </Callout>
-
-
-## Application repository flow
-
-To be able to deploy an application (and sometimes test or apply modifications), Ledger will fork the application's
-repository.
-
-Our fork will have its own Git flow, which will help us keep track of what code is deployed in production or not,
-through branches and tags.
-
-Basically, all of the work and PR is made into or against a `develop` branch. Ledger will also deploy application
-from develop to specific, test providers (number 4 except for Stax application which usually are deployed on 12).
-
-This application will not be available for most Ledger Live users which use the default, production provider (number 1),
-but it is available for anyone changing the provider number ("Settings > Experimental features > My Ledger provider"),
-so that it allows real-life testing and qualification.
-
-Further fixes or modification before the application is deemed ready will be merged from the developer's repository into
-this `develop` branch.
-
-<img src="/fork-app.png"/>
