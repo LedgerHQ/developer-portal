@@ -1,7 +1,6 @@
 {
-    "introduction": "I. Introduction",
-    "choose": "II. Choose",
-    "develop": "III-IV. Develop & Test",
-    "deliver": "V. Deliver",
-    "architecture": "VI. References"
+    "introduction": "Introduction",
+    "develop": "Develop & Test",
+    "deliver": "Deliver",
+    "architecture": "References"
 }

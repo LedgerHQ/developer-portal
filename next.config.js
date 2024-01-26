@@ -36,13 +36,13 @@ module.exports = {
       },
       {
         source: '/docs/embedded-app/external-dev',
-        destination: '/docs/device-app/deliver/references',
+        destination: '/docs/device-app/deliver/partners',
         permanent: true,
       },
       
       {
         source: '/docs/device-app/getting-started/external-dev',
-        destination: '/docs/device-app/deliver/references',
+        destination: '/docs/device-app/deliver/partners',
         permanent: true,
       },
       {
@@ -57,12 +57,12 @@ module.exports = {
       },
       {
         source: '/docs/embedded-app/security-audit',
-        destination: '/docs/device-app/deliver/references',
+        destination: '/docs/device-app/deliver/partners',
         permanent: true,
       },
       {
         source: '/docs/device-app/submission/security-audit',
-        destination: '/docs/device-app/deliver/references',
+        destination: '/docs/device-app/deliver/partners',
         permanent: true,
       },
       {
