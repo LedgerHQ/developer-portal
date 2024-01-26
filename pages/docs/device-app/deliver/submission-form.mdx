@@ -1,0 +1,118 @@
+---
+title: Submission
+description: Ready to submit your App for review? The submission of a Ledger devuce app is completed through a form.
+---
+
+import { Callout } from 'nextra/components'
+
+
+# Submission
+
+The submission of a Ledger device app or plugin is completed through a form. This will ask you for all the various items required together in one place.
+
+Please make sure you followed this [process](./) and the coding requirements, and that all the deliverables are ready, else the deployment process will be stopped.
+
+### Ready to submit your App or Plugin for review?
+
+Once you have finished your work and you have collected all the App or Plugin items you must enter them in:
+- The Device App [form](https://ledger.typeform.com/app-submission) or
+- The Plugin [form](https://ledger.typeform.com/to/YZZCHEB8)
+
+Make sure you thoroughly complete the form to ensure a speedy release process.
+
+<Callout type="warning" emoji="⚠️">
+    The integration process will only start if you answer accurately to all the questions.
+</Callout>
+
+
+## App Form Checklist
+
+This section is a summary outline of what is needed in the process od developing a device app. The list below is organised by category and some items are quite varied.
+Please make sure you have understood what is expected. You may use this list as a checklist.
+
+#### 1 - General information
+
+- Device app name
+- The name of your token as displayed in [CoinMarketCap](https://coinmarketcap.com/)
+- Legal Entity name
+- Postal address
+- Email address
+
+
+#### 2 - Security
+
+- I have met the [security requirements](../develop/requirements/security)
+- The application went [through a security audit](./deliverables/security-audit)
+- All vulnerabilities have been fixed
+
+
+#### 3 - Device app
+
+- I have read the [coding tutorials](../develop/tutorials)
+- Device app source code (GitHub repository)
+- My app repository has a test folder that contains the Functional tests and Unit tests
+- The App has been fully tested with a companion wallet (CLI or GUI)
+- Two icons for the Ledger Stax, Nano and for "My Ledger" in Ledger Live, in PNG or GIF
+ (see [Icons](./deliverables/icons/))
+- [Video](./deliverables/ui-flow-video/#video) of your application running on the Ledger device (for Ledger Nano only)
+- The App has a [Blind Signing](../develop/requirements/security#signing-settings) setting (if applicable)
+- The [Guidelines_enforcer and Build_and_functional_tests workflow](../quickstart/framework#ci) succeeds
+
+
+#### 4 - Companion Wallet
+
+- A link to the Companion Wallet The wallet must give an option to verify the receiving address on a Ledger device. It should also have an affiliate link next to the "Connect with Ledger" option. You must provide either:
+  - a link to the CLI repository, or
+  - a link to the GUI running on Windows/MacOS/Linux (mandatory for Public release)
+
+#### 5- Documentation
+
+- Document in the App's repository the list of the app's APDUs and status words
+- Link to a Google doc tutorial about how to install and use your app (see [Third Party Applications Support](./deliverables/support))
+    - The doc must include the link to the published tutorial hosted on third party website
+
+
+
+#### 7 - Marketing (Mandatory for Public release)
+
+- I have read the [marketing page](./deliverables/marketing)
+- Marketing plan
+
+
+#### 8 - Warranty and liability
+
+- I have read and agree with information laid out the [warranty and liability disclaimer](./deliverables/legal/)
+
+## Plugin Form Checklist
+
+#### 1 - General information
+
+- Device app name
+- What service does the DApp provide
+- The smart contracts addresses
+- Legal Entity name
+- Postal address
+- Email address
+
+#### 3 - Security
+
+- I have met the [security requirements](../develop/requirements/security)
+- The application went [through a security audit](./deliverables/security-audit)
+- All vulnerabilities have been fixed
+
+#### 4 - Plugin
+
+- Plugin source code (GitHub repository)
+- Two icons for the Ledger Stax, Nano and for "My Ledger" in Ledger Live, in PNG or GIF
+ (see [Icons](./deliverables/icons/))
+- Link of the DApp working with the plugin
+
+#### 5 - Support
+
+- I have read the [support page](./deliverables/support)
+- Main support contact (mail address, Slack/Reddit/Telegram/Discord communities)
+
+#### 6 - Warranty and liability
+
+- I have read and agree with information laid out the [warranty and liability disclaimer](./deliverables/legal/)
+

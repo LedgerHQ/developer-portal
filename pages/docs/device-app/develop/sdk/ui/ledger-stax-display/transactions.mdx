@@ -1,0 +1,198 @@
+---
+title: Transactions
+description: Signing transactions is the core function of Ledger’s hardware wallets, and it’s a core function of your app. This section presents the fundamentals of transactions and the user experience that is expected for clear signing.
+---
+
+import { Callout } from 'nextra/components'
+
+# Transactions
+
+Signing transactions is the core function of Ledger’s hardware wallets, and it’s a core function of your app. This section presents the fundamentals of transactions and the user experience that is expected for clear signing.
+
+## Transaction or message?
+
+Throughout these guidelines and the Ledger documentation, you’ll find references to signing “transactions” and “messages”. Here’s the difference between the two.
+
+**A transaction is an operation that affects the state of a blockchain.** For example:
+- a Bitcoin send;
+- an NFT transfer on Ethereum or Polygon.
+
+**A message is arbitrary data that can be signed, but that is typically not broadcasted.** For example:
+- a wallet connection message (public key sharing);
+- an authentication to access a service, eg. Opensea;
+- a non-parsable payload.
+
+Of course, this is not a strict definition and there are instances of transactions that don’t move funds or messages that do affect the state of a blockchain.
+
+Communicating this difference to your users through your transaction flows brings clarity and reassurance. This chapter focuses on the clear signing of transactions.
+
+## Anatomy of a transaction
+
+All transactions must respect the following structure. The single and double arrows represent user navigation within this structure.
+
+![App architecture](/device-app/stax-transaction.png)
+
+Each of these parts are presented in the following sections:
+- loading the transaction data;
+- presenting context with the transaction prompt;
+- reviewing the transaction data;
+- signing the transaction;
+- and rejecting the transaction.
+
+## Loading transaction data
+
+**Most transactions and messages should feel instantaneous to load for users.**
+
+However, in some cases, the processing and data fetching durations might be noticeable. In these cases, use the standard loader for Ledger Stax. As a rule of thumb, you can present the loader if the loading duration is 1 second or greater.
+
+<Callout type="info" emoji="👉">
+  If the operation type (transaction or message) can be determined in advance, use this in the loading message. Otherwise, use the generic term “operation”.
+</Callout>
+
+If the loading duration can be calculated, use a progress bar instead.
+
+![App architecture](/device-app/stax-loading.png)
+
+
+## Presenting context with the transaction prompt
+
+**Once the transaction is ready for review, the user is shown the transaction prompt.**
+
+The transaction prompt attracts the user’s attention to Ledger Stax, since it was probably elsewhere while preparing the transaction over a mobile or desktop wallet. Ledger Stax plays a sound to attract the user’s attention (it can be turned off in the OS settings).
+
+The transaction prompt presents the context of the transaction and reassures the user that they’re about to sign the type of operation they asked for. It acts both as an informational step and a safety net, because users can reject the operation as soon as the prompt is displayed, without even reviewing the fields.
+
+The transaction prompt should show:
+- the operation type: transaction or message;
+- the transaction type: send, delegate, generic signing…;
+- the blockchain and/or the network on which the transaction will occur, as well as a pictogram representing this information.
+
+In certain cases it may not be possible to display the transaction type in the initial screen. In this case, use  generic wording such as “Review transaction”.
+
+
+![App architecture](/device-app/stax-transaction-prompt.png)
+
+
+As you can see in the last example above, a generic message that was not fully parsed by the app for clear signing cannot show a rich transaction prompt. Read more on generic message signing in chapter 5.
+
+<Callout type="info" emoji="👉">
+  The prompt sentence must start with “Review”. It is built either:
+	<ul>
+		<li>- dynamically, composing the transaction type and other key informations;</li>
+		<li>- or statically, by making a legible sentence with the available information for every transaction type.</li>
+	</ul>
+</Callout>
+
+## Presenting transaction fields for review
+
+**When the user continues from the transaction prompt, they’re ready to review the transaction data—also called “fields”. These are the key informations that users need you review, and this is what makes clear signing.**
+
+
+**The fields are always structured in th same way: rows of key-value pairs.**
+
+![App architecture](/device-app/stax-transaction-fields.png)
+
+<Callout>
+	Always use the bigger font presented above for legibility. Clear-signing a transaction means carefully reviewing all fields, so make your app legible for a wide number of users.
+</Callout>
+
+The bars at the top represent the number of pages needed to display the transaction data.Because the signing page counts in this total, the number of bars is equal to the number of field pages plus 1.
+
+Users must be able to navigate back and forth through the transaction fields, by:
+- tapping anywhere on the screen to move forward;
+- tapping on the back arrow in the top-left to move backwards.
+
+The following example shows the 2 pages of transaction data that correspond to an NFT transfer on Ethereum. The third page would be the signing page, presented in the next section.
+
+![App architecture](/device-app/stax-transaction-data.png)
+
+<Callout type="info" emoji="👉">
+	Common fields must have very consistent naming, for users to feel familiar across all Ledger Stax apps. For example:
+	<ul>
+		<li>- Prefer “To” over the generic “Address” to distinguish sender and receiver;</li>
+		<li>- Use “Amount” and “Fees” or “Max fees” consistently.</li>
+	</ul>
+</Callout>
+
+## Signing the transaction
+
+**The signing page is always the last one because it ensures that your users went through all the critical fields they needed to review. This page corresponds to the rightmost bar in the navigation stepper.**
+
+The transaction summary must present the same data as the transaction prompt, to bring up the context during signing: operation type, blockchain or network, icon, etc. Add any piece of important context you need to communicate to your users right when they sign.
+
+![App architecture](/device-app/stax-sign-01.png)
+
+**Confirming a transaction always uses the same press-and-hold gesture on the dedicated area of the screen: “Hold to sign”.**
+
+<Callout type="info" emoji="👉">
+	Use the default naming for elements of this screen to ensure a coherent experience for users throughout Ledger Stax apps:
+	<ul>
+		<li>- Reuse the information from the transaction prompt;</li>
+		<li>- If the transanction type can not be retrieve, use generic wording such as “Sign transaction”.</li>
+		<li>- Always use the verb “sign” in conjunction with the “transaction” or “message” terms;</li>
+		<li>- “Hold to sign” and “Reject transaction” must always be used.</li>
+	</ul>
+</Callout>
+
+As the user holds in the signing area, the black bar moves to indicate progress. After around 2 seconds, the transaction is signed and the user receives a success notification accompanied by a sound.
+
+![App architecture](/device-app/stax-sign-02.png)
+
+<Callout type="warning" emoji="⚠️">
+  Giving too much context in the signing area, such as “Hold to send” or “Hold to stake”, would be misleading because your app cannot guarantee that the signed payload reached your user’s phone and was broadcasted.
+</Callout>
+
+The notification dismisses automatically after a few seconds, and the user is back on your app’s home screen.
+
+
+## Rejecting transaction
+
+Rejecting a transaction is a safety action that must be accessible at all times. Thus, this action always sits at the bottom of every screen, from the transaction prompt to the signing step. The action has a consistent naming convention to be reliably found.
+
+When users tap on “Reject transaction”, a confirmation modal asks them to confirm. This is to prevent accidental touches.
+
+![App architecture](/device-app/stax-reject.png)
+
+Upon rejection, a notification confirms their action before leading them back to your app’s home screen.
+
+Upon tapping “Go back to transaction”, the user must navigate back to the transaction page they were currently viewing.
+
+
+## Advanced transaction signing
+
+There are multiple additional transactions types other than basic transfers that may be
+supported through a device application. In this section we will refer to all these types as advanced transactions. These include but are not limited to staking, delegating and claiming rewards. 
+
+For these transactions, the same rules should apply to the transaction fields as detailed above in the “Presenting transaction fields for review” section. 
+
+Concerning the transaction summary and the transaction prompt, both should be aligned and reflect context during signing. However, in some cases it may be technically very complex to provide said context. 
+In that case, a generic wording should be used stating “Review transaction” and “Sign transaction?” . See below for an example:
+
+![App architecture](/device-app/advanced-transaction.png)
+
+
+## Key takeaways
+
+<Callout>
+	<ul>
+		<li>- Use the default transaction structure and allow users to navigate freely within it.</li>
+		<li>- Use the default signing gesture and wording to make the experience delightful and consistent across all Ledger Stax apps.</li>
+		<li>- Use clear wording in the transaction prompt and the transaction summary to help users anticipate what they’re about to sign.</li>
+		<li>- Provide clear feedback during processing and loading times.</li>
+	</ul>
+</Callout>
+
+## Stax Graphic Library APIs
+
+- Use `nbgl_useCaseReviewStart()` to make the cover page of a transaction review (the first page, without the transaction data).
+- Use `nbgl_useCaseStaticReview()` to make a flow of pages of a transaction review. A back key is available on the top-left of the screen, except in first page. It is possible to go to next page by hitting "tap to continue".
+- When a transaction is successfully signed or an address has been verifieds, use `nbgl_useCaseStatus()` to make a transient status page, without control.
+- When a transaction is rejected or to display a warning when a setting is changed (allow blind signing for example), use `nbgl_useCaseConfirm()` to make a typical confirmation page.
+- Use `nbgl_useCaseChoice()` to make a typical dual choice page.
+- For specific use casess, use `nbgl_useCaseViewDetails()` to make the pages displaying the full value of a given long data of a review.
+- For very specific cases, use `nbgl_useCaseRegularReview()` to make the pages of a regular review (all pages except the cover page).
+- For very specific cases, use `nbgl_useCaseForwardOnlyReview()` to make the pages of a forward-only review (without a back key).
+
+More info [here](./graphic-lib/).
+
+

@@ -1,0 +1,95 @@
+---
+title: Developing and submitting a device app
+Description: "The steps to code your device app and submit it for a Ledger Live integration." 
+---
+
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
+
+# Developing and submitting a device app
+
+## Development and submission phases
+
+<div style={{width: "100%"}} className="center">
+  <div style={{position: "relative", paddingBottom: "56.25%", paddingTop: 0, height: 0}}>
+    <iframe title="Live App Structure" frameBorder="0" style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}} src="https://view.genial.ly/65521d0b3f30120011106193" type="text/html" allowscriptaccess="always" allowFullScreen={true} scrolling="yes" allownetworking="all"></iframe>
+  </div>
+</div>
+
+
+See the complete submission flow [here](./deliver/process).
+
+
+## Your developer journey
+
+
+### Engage with the Ledger developer community
+
+Joining Discord is not required to code your device application, but it will be easier to meet with our team and discuss the specifics of your project. Join us on the [Ledger's Discord server](https://developers.ledger.com/discord/) and introduce your project in the **#embedded-app** channel.
+
+
+### Understand the process & meet the requirements
+
+Ensure that you have a clear understanding of the [Process](./deliver/process) and are able to meet the [Requirements](./deliver/requirements) listed here.
+
+
+### Begin Coding
+
+Device applications are primarily developed in C using the Blockchain Open Ledger Operating System (BOLOS).
+
+To develop a device application, ensure that you:
+- Use Linux, Mac or Windows
+- Know about the [Ledger Framework](./develop/tutorials/quickstart) and all the [environment tools](./develop/tools)
+- Know how to test your application, using either a physical device or the [Speculos emulator](./develop/tools#speculos)
+
+
+## Core concepts
+
+
+### The BOLOS platform
+
+BOLOS, the operating system powering all Ledger personal security devices, offers a lightweight and open-source framework. Developers can use this to build portable applications that run securely.
+
+[Discover more about the BOLOS platform](./architecture/bolos)
+
+### Personal Security Devices
+
+Ledger Personal Security Devices provide a secure and convenient way for users to store cryptographic secrets and sign transactions. Understanding their operation is crucial before starting the device application development process.
+
+[Learn about the personal security devices](./architecture/psd)
+
+
+## Used languages and format
+
+
+### Languages
+
+| Component               | Developing language |
+| ----------------------- | ------------------- |
+| OS [Bolos](../bolos)    | `C`                 |
+| Applications            | `C` or `Rust` (WIP) |
+| Plugins                 | `C`                 |
+| Tools (including tests) | `Python` (mostely)  |
+
+
+### Data formats
+
+| Component                   | Format   |
+| --------------------------- | -------- |
+| CI (GitHub Workflows)       | `YAML`   |
+| `ledger_app.toml` manifests | `TOML`   |
+| App database                | `JSON`   |
+
+The available SDK is for Apps written in C
+
+For the Apps written in Rust, a Rust SDK is still work in progress
+
+
+## Documentation version
+
+The current version of the Device App documentation displayed on the Developer Portal is **v04_20240126**.
+
+
+## Contributing
+
+Interested in enhancing our documentation? Feel free to leave your suggestions in the comment box at the bottom of each page. We value your input.

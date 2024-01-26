@@ -1,0 +1,44 @@
+# Get a project going and start experimenting
+
+To get your project started quickly, we provide a complete framework made to develop device applications. This framework works on Linux, Mac and Windows. It contains:
+
+- An [OS emulator called `Speculos`](https://github.com/LedgerHQ/speculos)
+- A [test framework called `Ragger`](https://github.com/LedgerHQ/ragger), using `Speculos`
+- [CI workflows](https://github.com/LedgerHQ/ledger-app-workflows/)
+- [`Docker` containers](https://github.com/LedgerHQ/ledger-app-builder/) providing up-to-date development environments
+- A [Visual Studio Code extension (ledger-dev-tools)](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools)
+  packaging the previous tools altogether inside the VSCode IDE
+- Several boilerplate applications, to be used as a modifyable bases to create your own application:
+  - [A `C` Boilerplate](https://github.com/LedgerHQ/app-boilerplate)
+  - [A `Rust` Boilerplate](https://github.com/LedgerHQ/app-boilerplate-rust) and
+  - [A Plugin Boilerplate](https://github.com/LedgerHQ/app-pluginboilerplate)
+
+More information on these components can be found in the [tutorials](./tutorials), [environment](./environment)
+and [tools](./tools) sections.
+
+
+## Build & load an application
+
+
+### Prerequisites
+
+- [`Docker`](https://www.docker.com/)
+- An X11 server
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [The Ledger extension in VS Code](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools)
+- The (`C`) [Boilerplate](https://github.com/LedgerHQ/app-boilerplate)
+
+
+### How-to
+
+1. Ensure `Docker` is running
+2. Install the [Visual Studio Code Ledger extension](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools)
+2. In VSCode, open the [Boilerplate application](https://github.com/LedgerHQ/app-boilerplate)
+3. Use VSCode Ledger extension's sidebar menu or open the tasks menu with `ctrl + shift + b` (`command + shift + b` on a
+   Mac) to conveniently execute actions:
+     - To pull and run the Docker image chose `Run dev-tools image`
+     - To build your app chose `Build app`
+    -  To load it to a device, chose `Load app on device`
+
+From there, you should have the capability to fully build, load and test an application. [Make changes in Boilerplate](./tutorials/c)
+to customize it to your liking!

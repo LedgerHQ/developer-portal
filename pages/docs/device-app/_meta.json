@@ -1,21 +1,6 @@
-{  
-	"getting-started": "Getting started", 
-	"submission": "Submission Requirements",
-	"quickstart": "Quickstart",
-	"separator1": {
-		"title": "",
-    "type": "separator"
-  },
-	"coding-guidelines": "Coding guidelines",
-	"deliverables": "Deliverables",
-	"clones": "Ethereum Clones",
-	"separator2": {
-		"title": "",
-    "type": "separator"
-  },
-  	"cryptography-lib": "Cryptoraphy Library and syscalls",
-	"psd": "Personal security devices",
-	"bolos": "The BOLOS Platform",
-	"tools": "Tools",
-	"faq": "Frequently Asked Questions"
+{
+    "introduction": "Introduction",
+    "develop": "Develop & Test",
+    "deliver": "Deliver",
+    "architecture": "References"
 }
