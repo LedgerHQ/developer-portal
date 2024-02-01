@@ -1,3 +1,5 @@
+import { Callout } from "nextra/components";
+
 # Get a project going and start experimenting
 
 To get your project started quickly, we provide a complete framework made to develop device applications. This framework works on Linux, Mac and Windows. It contains:
@@ -8,9 +10,9 @@ To get your project started quickly, we provide a complete framework made to dev
 - [`Docker` containers](https://github.com/LedgerHQ/ledger-app-builder/) providing up-to-date development environments
 - A [Visual Studio Code extension (ledger-dev-tools)](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools)
   packaging the previous tools altogether inside the VSCode IDE
-- Several boilerplate applications, to be used as a modifyable bases to create your own application:
+- Several boilerplate applications, to be used as a modifiable bases to create your own application:
   - [A `C` Boilerplate](https://github.com/LedgerHQ/app-boilerplate)
-  - [A `Rust` Boilerplate](https://github.com/LedgerHQ/app-boilerplate-rust) and
+  - [A `Rust` Boilerplate](https://github.com/LedgerHQ/app-boilerplate-rust)
   - [A Plugin Boilerplate](https://github.com/LedgerHQ/app-plugin-boilerplate)
 
 More information on these components can be found in the [tutorials](./tutorials), [environment](./environment)
@@ -23,7 +25,7 @@ and [tools](./tools) sections.
 ### Prerequisites
 
 - [`Docker`](https://www.docker.com/)
-- An X11 server
+- An X server
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [The Ledger extension in VS Code](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools)
 - The (`C`) [Boilerplate](https://github.com/LedgerHQ/app-boilerplate)
@@ -42,3 +44,16 @@ and [tools](./tools) sections.
 
 From there, you should have the capability to fully build, load and test an application. [Make changes in Boilerplate](./tutorials/c)
 to customize it to your liking!
+
+<Callout type="info">
+    Please note that you can do the same thing with the rust boilerplate or the plugin boilerplate.
+</Callout>
+
+<br/>
+
+<div style={{width: "100%"}} className="center">
+  <div style={{position: "relative", paddingBottom: "56.25%", paddingTop: 0, height: 0}}>
+    <iframe title="Live App Structure" frameBorder="0" style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}} src="https://view.genial.ly/658d78ce93e6210015e72562" type="text/html" allowscriptaccess="always" allowFullScreen={true} scrolling="yes" allownetworking="all"></iframe>
+  </div>
+</div>
+
