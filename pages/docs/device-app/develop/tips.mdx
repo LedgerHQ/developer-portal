@@ -13,7 +13,7 @@ In this article, we will walk you through the important concepts when developing
 
 ## Not Enough RAM
 
-At the time of this writing, the default link script provided by the SDK for the Ledger Nano S allocates 4.5 KiB of RAM for applications to use. This 4.5 KiB has to be enough to store all global non-const and [non-NVRAM](../develop/sdk/memory/persistent-storage/) variables as well as the call stack.
+At the time of this writing, the default link script provided by the SDK for the Ledger Nano S allocates 4.5 KiB of RAM for applications to use. This 4.5 KiB has to be enough to store all global non-const and [non-NVRAM](../architecture/memory/persistent-storage/) variables as well as the call stack.
 
 This is the linker error you will get if you declare too many global non-const and non-NVRAM variables to fit in RAM:
 
