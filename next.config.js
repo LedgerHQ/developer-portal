@@ -726,6 +726,11 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/plugin',
+        destination: '/docs/device-app/develop/tutorials/plugin',
+        permanent: true,
+       },
+      {
         source: '/docs/plugin/requirements',
         destination: '/docs/device-app/deliver',
         permanent: true,
