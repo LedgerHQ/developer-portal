@@ -3,5 +3,8 @@
     "bolos": "BOLOS",
     "security": "Security concerns",
     "crypto": "Cryptography",
+    "flags": "Permissions, derivation path",
+    "memory": "Memory constraints",
+    "io": "IO architecture",
     "ui": "UI good practices"
 }
