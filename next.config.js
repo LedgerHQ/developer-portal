@@ -11,12 +11,12 @@ module.exports = {
     return [
       {
         source: '/discord',
-        destination: 'https://ledgeropen.herokuapp.com/pro ',
+        destination: 'https://discord.gg/Ledger',
         permanent: true,
       },
       {
         source: '/discord-pro',
-        destination: 'https://ledgeropen.herokuapp.com/pro ',
+        destination: 'https://discord.gg/Ledger',
         permanent: true,
       },
       {
