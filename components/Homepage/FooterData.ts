@@ -18,7 +18,7 @@ export const FooterData: FooterDataType = [
       },
       {
         label: "Discord",
-        link: "https://ledgeropen.herokuapp.com/pro",
+        link: "https://discord.gg/Ledger",
         scrollLink: null,
       },
     ]

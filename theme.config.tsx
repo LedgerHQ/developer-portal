@@ -13,7 +13,7 @@ const config: DocsThemeConfig = {
     link: 'https://github.com/LedgerHQ/developer-portal',
   },
   chat: {
-    link: 'https://ledgeropen.herokuapp.com/pro',
+    link: 'https://discord.gg/Ledger',
   },
   docsRepositoryBase: 'https://github.com/LedgerHQ/developer-portal/blob/main',
   footer: {
