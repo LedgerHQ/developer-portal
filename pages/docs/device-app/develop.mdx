@@ -3,6 +3,33 @@
 This chapter contains pratical tutorials, leads on our environment tools, boilerplates, and code-level explanations on
 the SDK.
 
-Whereas the ["Deliver"](./deliver) chapter was intended to be focused on mandatory subjects with little
-further specification, you should find in this one more detailed information (or links to detailed information) and
+Whereas the ["How to deploy an app"](./deliver) was intended to be focused on mandatory subjects with little
+further specificaction, you should find in this one more detailed information (or links to detailed information) and
 explanations.
+
+<br/>
+
+<div style={{width: "100%"}} className="center">
+  <div style={{position: "relative", paddingBottom: "56.25%", paddingTop: 0, height: "1000px"}}>
+    <iframe title="Live App Structure" frameBorder="0" style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}} src="https://view.genial.ly/65b90cfa27f8c20013b9a5d4" type="text/html" allowscriptaccess="always" allowFullScreen={true} scrolling="yes" allownetworking="all"></iframe>
+  </div>
+</div>
+
+## What the framework contains
+
+To get your project started quickly, we provide a complete framework made to develop device applications. This framework works on Linux, Mac and Windows. It contains:
+
+- An [OS emulator called `Speculos`](https://github.com/LedgerHQ/speculos)
+- A [test framework called `Ragger`](https://github.com/LedgerHQ/ragger), using `Speculos`
+- [CI workflows](https://github.com/LedgerHQ/ledger-app-workflows/)
+- [`Docker` containers](https://github.com/LedgerHQ/ledger-app-builder/) providing up-to-date development environments
+- A [Visual Studio Code extension (ledger-dev-tools)](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools)
+  packaging the previous tools altogether inside the VSCode IDE
+- Several boilerplate applications, to be used as a modifyable bases to create your own application:
+  - [A `C` Boilerplate](https://github.com/LedgerHQ/app-boilerplate)
+  - [A `Rust` Boilerplate](https://github.com/LedgerHQ/app-boilerplate-rust) and
+  - [A Plugin Boilerplate](https://github.com/LedgerHQ/app-plugin-boilerplate)
+
+More information on these components can be found in the [tutorials](./tutorials), [development environment](./tutorials)
+and [tools](./tools) sections.
+
