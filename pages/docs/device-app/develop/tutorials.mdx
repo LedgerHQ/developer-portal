@@ -2,57 +2,5 @@ import { Cards, Card, Callout } from 'nextra/components'
 
 # Tutorials 
 
-## Development environment
-
-### Docker images
-
-As the device applications needs to run on a non-standard system, and thus need specific build chain and
-configuration, we provide `Docker` images so that building an app and loading it on a device has a minimal
-impact on one's computer - given `Docker` is installed.
-
-Several images are available depending on the developer's needs.
-
-<Callout type="info">
-    These images are maintained and update on [this repository](https://github.com/LedgerHQ/ledger-app-builder/).
-</Callout>
-
-
-### VScode extension
-
-The `VSCode` extension uses the most complete Docker image we provide and wires it into the `VScode` IDE for a
-frictionless development experience.
-
-It includes the following capabilities:
-
-- Build the device application for all existing devices
-- Test the app with `Speculos`
-- Load an app on your device
-- Execute functional tests
-- Open a terminal in your Docker container
-- Update the development environment
-
-<Callout type="info">
-    The extension can be found [here](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools),
-    while the sources are updated [here](https://github.com/LedgerHQ/ledger-vscode-extension).
-</Callout>
-
-
-### GitHub Workflows
-
-Ledger provides several workflows to ease the integration of applications into the GitHub CI.
-
-[Some of them are mandatory for an application to be deployed](./requirements/development#workflows), but
-the others can still be useful.
-
-<Callout type="info">
-    Documentation and sources can be found [here](https://github.com/ledgerhq/ledger-app-workflows).<br/>
-    Usage examples can be found in the CI of lots of applications, for instance the
-    [Boilerplate workflows](https://github.com/LedgerHQ/app-boilerplate/tree/master/.github/workflows), the
-    [Ethereum workflows](https://github.com/LedgerHQ/app-ethereum/tree/develop/.github/workflows) or the
-    [Exchange workflows](https://github.com/LedgerHQ/app-exchange/tree/develop/.github/workflows).
-</Callout>
-
-## Choose your tutorial
-
 This section contains guides and links towards several of our code entrypoints, called "boilerplates", depending on your
 need.
