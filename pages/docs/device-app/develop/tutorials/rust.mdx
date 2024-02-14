@@ -22,12 +22,10 @@ With very little changes, you should be able to quickly have an application of y
 In the Rust boilerplate application repository you will find [a list of workflows](https://github.com/LedgerHQ/app-boilerplate-rust/tree/main/.github/workflows) 
 to set up an efficient CI pipeline for your project.
 
-Three of them are <u>mandatory</u> to submit your device application for review:
-- [Coding Style Check](https://github.com/LedgerHQ/app-boilerplate-rust/blob/main/.github/workflows/coding_style_checks.yml): 
-this workflow runs linting checks to ensure a proper level of code quality among all Ledger applications,
+Two of them are <u>mandatory</u> to submit your device application for review:
 - [Guidelines_enforcer](https://github.com/LedgerHQ/app-boilerplate/blob/master/.github/workflows/guidelines_enforcer.yml):
-  this workflow calls a reusable workflow developed by Ledger's internal developer team.
+  this workflow calls a reusable workflow developed by Ledger's internal developer team,
 - [Build and Run functional tests](https://github.com/LedgerHQ/app-boilerplate-rust/blob/main/.github/workflows/build_and_functional_tests.yml): it builds 
-the app and then runs functional tests using the [Ragger](https://github.com/LedgerHQ/ragger) framework upon [Speculos](https://github.com/LedgerHQ/speculos) 
-emulation. 
+the app and then runs functional tests. Functional tests can be run using the [Ragger](https://github.com/LedgerHQ/ragger) framework upon [Speculos](https://github.com/LedgerHQ/speculos) 
+emulation but you can also use your own framework upon Speculos.
 
