@@ -1,20 +1,31 @@
 import { Callout} from 'nextra/components'
 
+# The `Rust` 🦀 boilerplate application
 
-# The `Rust` boilerplate application
-
-<Callout type="warning">
-  This section is still a Work In Progress, as the `Rust` SDK is not yet stable and fully integrated in our
-  production environment.
+<Callout type="info">
+Stax device support is not ready yet and should be available later.
 </Callout>
 
-The `Rust` Boilerplate application is taylored to showcase both the capabilities of the Ledger Secure `Rust` SDK and our
-development environment and tools.
+The `Rust` Boilerplate application is taylored to showcase both the capabilities of the Ledger Device `Rust` [SDK](https://github.com/LedgerHQ/ledger-device-rust-sdk/tree/master) 
+(also published on [crates.io](https://crates.io/crates/ledger_device_sdk)) and our development environment ([Docker containers](https://github.com/LedgerHQ/ledger-app-builder), 
+[device emulator](https://github.com/LedgerHQ/speculos), [test framework](https://github.com/LedgerHQ/ragger)).
 
-By cloning this application, you should find extensive examples on how to managed APDU communication, declare UI flows,
-use cryptographic APIs, but also how to integrate into our build and test environment, and how to deploy your
-application.
+By cloning this application, you should find extensive examples on how to manage APDU communication, declare UI flows,
+use cryptographic APIs, but also how to integrate into our build and test environment.
 
 With very little changes, you should be able to quickly have an application of your own.
 
 [Click here](https://github.com/LedgerHQ/app-boilerplate-rust) to fork the repository and start your project.
+
+## Continuous Integration (CI)
+
+In the Rust boilerplate application repository you will find [a list of workflows](https://github.com/LedgerHQ/app-boilerplate-rust/tree/main/.github/workflows) 
+to set up an efficient CI pipeline for your project.
+
+Two of them are <u>mandatory</u> to submit your device application for review:
+- [Guidelines_enforcer](https://github.com/LedgerHQ/app-boilerplate/blob/master/.github/workflows/guidelines_enforcer.yml):
+  this workflow calls a reusable workflow developed by Ledger's internal developer team,
+- [Build and Run functional tests](https://github.com/LedgerHQ/app-boilerplate-rust/blob/main/.github/workflows/build_and_functional_tests.yml): it builds 
+the app and then runs functional tests. Functional tests can be run using the [Ragger](https://github.com/LedgerHQ/ragger) framework upon [Speculos](https://github.com/LedgerHQ/speculos) 
+emulation but you can also use your own framework upon Speculos.
+
