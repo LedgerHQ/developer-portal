@@ -20,6 +20,16 @@ module.exports = {
         permanent: true,
       },
       {
+        source: '/docs/nano-app/:slug',
+        destination: '/docs/device-app',
+        permanent: true,
+      },
+      {
+        source: '/docs/embedded-app/what-to-do',
+        destination: '/docs/device-app',
+        permanent: true,
+      },
+      {
         source: '/docs/embedded-app/introduction',
         destination: '/docs/device-app',
         permanent: true,
@@ -52,7 +62,7 @@ module.exports = {
       },
       {
         source: '/docs/device-app/submission/requirements',
-        destination: '/docs/device-app/deliver/requirements',
+        destination: '/docs/device-app/develop/requirements',
         permanent: true,
       },
       {
@@ -107,12 +117,17 @@ module.exports = {
        },
       {
         source: '/docs/embedded-app/build-load',
-        destination: '/docs/device-app/develop/quickstart',
+        destination: '/docs/device-app/develop/tutorials/quickstart',
         permanent: true,
        },
       {
         source: '/docs/device-app/quickstart/build-load',
-        destination: '/docs/device-app/develop/quickstart',
+        destination: '/docs/device-app/develop/tutorials/quickstart',
+        permanent: true,
+       },
+      {
+        source: '/docs/embedded-app/load-linux',
+        destination: '/docs/device-app/develop/tutorials/quickstart',
         permanent: true,
        },
       {
@@ -196,6 +211,11 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/nano-app/persistent-storage/',
+        destination: '/docs/device-app/architecture/memory/persistent-storage',
+        permanent: true,
+       },
+      {
         source: '/docs/embedded-app/position-independent-code',
         destination: '/docs/device-app/architecture/memory/position-independent-code',
         permanent: true,
@@ -263,6 +283,21 @@ module.exports = {
       {
         source: '/docs/device-app/coding-guidelines/ledger-nano-display/design-requirements',
         destination: '/docs/device-app/develop/ui/ledger-nano-display/design-requirements',
+        permanent: true,
+       },
+      {
+        source: '/docs/embedded-app/marketing-requirements',
+        destination: '/docs/device-app/deliver/deliverables/marketing',
+        permanent: true,
+       },
+      {
+        source: '/docs/embedded-app/documentation-requirements',
+        destination: '/docs/device-app/deliver/deliverables/documentation',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/deliverables/documentation-requirements',
+        destination: '/docs/device-app/deliver/deliverables/documentation',
         permanent: true,
        },
       {
@@ -347,22 +382,27 @@ module.exports = {
        },
       {
         source: '/docs/embedded-app/icons',
-        destination: '/docs/device-app/deliver/requirements/deliverables/icons',
+        destination: '/docs/device-app/deliver/deliverables/icons',
         permanent: true,
        },
       {
         source: '/docs/device-app/deliverables/icons',
-        destination: '/docs/device-app/deliver/requirements/deliverables/icons',
+        destination: '/docs/device-app/deliver/deliverables/icons',
+        permanent: true,
+       },  
+      {
+        source: '/docs/embedded-app/stax-icon',
+        destination: '/docs/device-app/deliver/deliverables/icons',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/ui-flow-video',
-        destination: '/docs/device-app/deliver/requirements/deliverables/ui-flow-video',
+        destination: '/docs/device-app/deliver/deliverables/ui-flow-video',
         permanent: true,
        },
       {
         source: '/docs/device-app/deliverables/ui-flow-video',
-        destination: '/docs/device-app/deliver/requirements/deliverables/ui-flow-video',
+        destination: '/docs/device-app/deliver/deliverables/ui-flow-video',
         permanent: true,
        },
       {
@@ -377,6 +417,11 @@ module.exports = {
        },
       {
         source: '/docs/embedded-app/documentation-requirements',
+        destination: '/docs/device-app/deliver/requirements/deliverables/support',
+        permanent: true,
+       },
+      {
+        source: '/docs/nano-app/support-requirements',
         destination: '/docs/device-app/deliver/requirements/deliverables/support',
         permanent: true,
        },
@@ -506,6 +551,11 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/device-app/tools/speculos/:slug',
+        destination: '/docs/device-app/develop/tools',
+        permanent: true,
+       },
+      {
         source: '/docs/device-app/tools/speculos',
         destination: '/docs/device-app/develop/tools',
         permanent: true,
@@ -563,6 +613,26 @@ module.exports = {
       {
         source: '/docs/device-app/getting-started/version',
         destination: '/docs/device-app/introduction',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/cryptography-lib/examples',
+        destination: '/docs/device-app/architecture/cryptography/examples',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/cryptography-lib/:slug',
+        destination: '/docs/device-app/architecture/cryptography/reference',
+        permanent: true,
+       },
+      {
+        source: '/docs/embedded-app/crypto-api/examples',
+        destination: '/docs/device-app/architecture/cryptography/examples',
+        permanent: true,
+       },
+      {
+        source: '/docs/embedded-app/crypto-api/:slug',
+        destination: '/docs/device-app/architecture/cryptography/reference',
         permanent: true,
        },
       {
@@ -676,12 +746,32 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/connect/:slug',
+        destination: '/docs/connectivity',
+        permanent: true,
+       },
+      {
         source: '/docs/nft/:slug',
         destination: '/docs/nft-display/:slug',
         permanent: true,
        },
       {
+        source: '/discover',
+        destination: '/docs/discover',
+        permanent: true,
+       },
+      {
         source: '/docs/live-app/start-here',
+        destination: '/docs/discover',
+        permanent: true,
+       },
+      {
+        source: '/docs/live-app/nano-less-part-02',
+        destination: '/docs/discover',
+        permanent: true,
+       },
+      {
+        source: '/docs/live-app/nano-less-part-01',
         destination: '/docs/discover',
         permanent: true,
        },
@@ -871,6 +961,16 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/non-dapp/tutorial/1-setup',
+        destination: '/docs/connectivity/ledgerJS/tutorials/tutorial-1-hid-ethereum',
+        permanent: true,
+       },     
+      {
+        source: '/docs/coin/:slug',
+        destination: '/docs/blockchain',
+        permanent: true,
+      },
+      {
         source: '/docs/coin/general-process',
         destination: '/docs/blockchain/getting-started',
         permanent: true,
@@ -1006,6 +1106,16 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/token/erc20-bep20',
+        destination: '/docs/tokens/integrating-tokens/evm-chains-tokens',
+        permanent: true,
+       },
+      {
+        source: '/docs/token/erc20',
+        destination: '/docs/tokens/integrating-tokens/evm-chains-tokens',
+        permanent: true,
+       },
+      {
         source: '/docs/token/evm-chains-tokens',
         destination: '/docs/tokens/integrating-tokens/evm-chains-tokens',
         permanent: true,
@@ -1041,6 +1151,11 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/swap/how-to',
+        destination: '/docs/exchange/integration/howto/requirements',
+        permanent: true,
+       },
+      {
         source: '/docs/swap/howto/providers-endpoints',
         destination: '/docs/exchange/integration/howto/providers-endpoints',
         permanent: true,
@@ -1052,7 +1167,7 @@ module.exports = {
        },  
       {
         source: '/docs/swap/howto/ledger-exchange-sdk',
-        destination: '/docs/exchange/integration/howto/ledger-exchange-sdk',
+        destination: '/docs/exchange/integration',
         permanent: true,
        },
       {
@@ -1067,7 +1182,7 @@ module.exports = {
        },
       {
         source: '/docs/swap/live-app/partner-live-app',
-        destination: '/docs/exchange/flow/flow-breakdown/partner-live-app',
+        destination: '/docs/exchange/flow/partner-live-app',
         permanent: true,
        },
       {
