@@ -30,22 +30,18 @@ code {
 /* CSS for Dev Journeys Genially */
 
 @media screen and (min-width: 768px) {
-  .desktop {
-    visibility: visible;
-  }
   .mobile {
-    visibility: hidden;
+    display: none;
     height: 0px;
   }
 }
 
 @media screen and (max-width: 768px) {
   .desktop {
-    visibility: hidden;
+    display: none;
     height: 0px;
   }
   .mobile {
-    visibility: visible;
     height: 1000px;
   }
 }
