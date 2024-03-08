@@ -21,7 +21,7 @@ Please be aware that the Bluetooth implementation is only supported by a few bro
 You can check the [browser support](https://caniuse.com/web-bluetooth) for the Web Bluetooth.
 
 ### Project Initialization
-This web application is build with React, which is a frontend Javascript framework.
+This web application is built with Next.js, which is a frontend React framework.
 
 
 First, open a terminal and create a new project. For this tutorial the project will be named “examples-web-bluetooth”.
@@ -29,72 +29,73 @@ First, open a terminal and create a new project. For this tutorial the project w
 Run:
 
 ```console copy
-npx create-react-app examples-web-bluetooth
+npx create-next-app@latest examples-web-bluetooth
+```
+You will prompted a series of questions, answer as indicated below:
+```console copy
+Would you like to use TypeScript? No
+Would you like to use ESLint? No
+Would you like to use Tailwind CSS? No
+Would you like to use `src/`directory” No
+Would you like to use App Router? (recommended) › No
+Would you like to customize the default import alias (@/*)? No
+```
+
+Navigate to your app’s directory:
+```console copy
 cd examples-web-bluetooth
 ```
 
-Open the folder in an editor.
-The React app initialization creates a "src" folder where you will find all the code.
-
-Run:
-
-```console copy
-touch ./src/QRCode.js
-touch ./src/polyfill.js
-```
-Your folder must look like this.
+Open the folder in an editor. Your folder must look like this.
 
 ![Folder of the Application](/connectivity/folderWebBle.png)
 *Fig. 1: Folder of the Application*
 
-For this implemetation, you will only modify "App.js", "App.css”, "index.js", "polyfill.js" and “QRCode.js”.
+For this implemetation, you will only modify "_app.js", "index.js", and "Home.module.css".
 
 ### Code Implementation
 
-
-#### polyfill.js
-
-In "polyfill.js" copy-paste the following code:
-
-```javascript copy
-global.Buffer = require("buffer").Buffer;
-```
-
 #### index.js
 
-In "index.js" add the following code:
+In pages/index.js replace the existing coe with the following:
 
 ```javascript copy
-import './polyfill'
+export default function Home() {
+  return (
+    <div className={styles.container}>
+      <App />
+    </div>
+  );
+}
 ```
-#### App.js
+#### _app.js
 
-In App.js copy-paste the following code:
+In pages/_app.js replace the existing coe with the following:
 
 ```javascript copy
 import React, { Component } from "react";
-import TransportWebBLE from "@ledgerhq/hw-transport-web-ble";
+import eip55 from "eip55";
+import BluetoothTransport from "@ledgerhq/hw-transport-web-ble";
 import AppEth from "@ledgerhq/hw-app-eth";
-import QRCode from "./QRCode";
-import "./App.css";
+import styles from '../styles/Home.module.css';
+import QRCode from "qrcode";
+
 
 const delay = ms => new Promise(success => setTimeout(success, ms));
 
 class DeviceSelectionScreen extends Component {
-  //Component that will display all the Ledger Nano X that is recognized by bluetooth
-
   state = {
     devices: []
   };
 
   createBLE = async () => {
-    const transport = await TransportWebBLE.create();
+    const transport = await BluetoothTransport.create();
     this.props.onSelectDevice(transport);
   };
 
   render() {
     return (
-      <div className="DeviceSelectionScreen">
+      <div className={styles.DeviceSelectionScreen}>
         <p>
           Power up your Ledger Nano X and enter your pin before continuing...
         </p>
@@ -105,8 +106,6 @@ class DeviceSelectionScreen extends Component {
 }
 
 class ShowAddressScreen extends Component {
-  //Component that is responsible to display your ethereum address
-
   state = {
     error: null,
     address: null
@@ -119,6 +118,7 @@ class ShowAddressScreen extends Component {
       await delay(500);
     }
     this.fetchAddress(true);
+    this.generateQRCode();
   }
 
   async componentWillUnmount() {
@@ -130,7 +130,8 @@ class ShowAddressScreen extends Component {
     try {
       const eth = new AppEth(transport);
       const path = "44'/60'/0'/0/0"; // HD derivation path
-      const { address } = await eth.getAddress(path, verify);
+      const r = await eth.getAddress(path, verify);
+      const address = eip55.encode(r.address);
       if (this.unmounted) return;
       this.setState({ address });
     } catch (error) {
@@ -142,16 +143,26 @@ class ShowAddressScreen extends Component {
     }
   };
 
+  async generateQRCode() {
+    try {
+      const response = await QRCode.toCanvas(this.state.address)
+      document.getElementById("qrcode").appendChild(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  
   render() {
     const { address, error } = this.state;
 
     return (
-      <div className="ShowAddressScreen">
+      <div className={styles.ShowAddressScreen}>
         {!address ? (
           <>
-            <p className="loading">Loading your Ethereum address...</p>
+            <p className={styles.loading}>Loading your Ethereum address...</p>
             {error ? (
-              <p className="error">
+              <p className={styles.error}>
                 A problem occurred, make sure to open the Ethereum application
                 on your Ledger Nano X. (
                 {String((error && error.message) || error)})
@@ -161,8 +172,8 @@ class ShowAddressScreen extends Component {
         ) : (
           <>
             <strong>Ledger Live Ethereum Account 1</strong>
-            <QRCode data={address} size={300} />
             <strong>{address}</strong>
+            <div id="qrcode"></div>
           </>
         )}
       </div>
@@ -186,7 +197,7 @@ class App extends Component {
   render() {
     const { transport } = this.state;
     return (
-      <div className="App">
+      <div className={styles.App}>
         {!transport ? (
           <DeviceSelectionScreen onSelectDevice={this.onSelectDevice} />
         ) : (
@@ -201,11 +212,25 @@ export default App;
 ```
 
 
-#### App.css
+#### Home.module.css
 
-In App.css copy-paste the following code:
+In Styles/Home.module.css replace the existing code with the following:
 
 ```css copy
+.container {
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .App {
   min-height: 100vh;
   display: flex;
@@ -237,81 +262,33 @@ In App.css copy-paste the following code:
 }
 ```
 
+#### Modify next.config.js
 
-#### QRCode.js
+ Remove `reactStrictMode: true,`
 
-In "QRCode.js" copy-paste the following code:
+```
+/** @type {import('next').NextConfig} */
+const nextConfig = {}
 
-```javascript copy
-import React, { PureComponent } from "react";
-import qrcode from "qrcode";
-
-type Props = {
-  data: string,
-  errorCorrectionLevel: string,
-  size: number,
-  style?: *
-};
-
-export default class QRCode extends PureComponent<Props> {
-  static defaultProps = {
-    size: 200,
-    errorCorrectionLevel: "H"
-  };
-
-  componentDidMount() {
-    this.drawQRCode();
-  }
-
-  componentDidUpdate() {
-    this.drawQRCode();
-  }
-
-  _canvas = null;
-
-  drawQRCode() {
-    const { data, size, errorCorrectionLevel } = this.props;
-    qrcode.toCanvas(this._canvas, data, {
-      width: size,
-      margin: 0,
-      errorCorrectionLevel,
-      color: {
-        light: "#ffffff"
-      }
-    });
-  }
-
-  render() {
-    return <canvas style={this.props.style} ref={n => (this._canvas = n)} />;
-  }
-}
+module.exports = nextConfig
 ```
 
-<Callout type="info" emoji="👉">
-  Some error will be emphasized by your editor because of the 'QRCode.js' use some features from typescript. But you can skip those errors as they will not affect the application.
-</Callout>
 
 ### Dependencies Installation
 
 Run:
 
 ```console copy
-npm install --save qrcode
 npm install --save @ledgerhq/hw-app-eth
 npm install --save @ledgerhq/hw-transport-web-ble
-npm install --save buffer
-npm install --save node-polyfill-webpack-plugin
-npm install --save stream
+npm install eip55
 ```
 
 | Package | What does it do? |
 |---------|------------------|
-|[qrcode](https://www.npmjs.com/package/qrcode) | It allows you to create a QR code. |
 |[@ledgerhq/hw-app-eth](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-eth) | It will help you ask your Nano to access the ethereum address. |
 |[@ledgerhq/hw-transport-web-ble](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-web-ble) | It provides you with all the methods to interact with your Ledger Nano X with a Bluetooth connexion. |
-|[buffer](https://www.npmjs.com/package/buffer) | The goal is to provide an API that is 100% identical to node's Buffer API. |
-|[node-polyfill-webpack-plugin](https://www.npmjs.com/package/node-polyfill-webpack-plugin) | Polyfill Node.js core modules in Webpack. This module is only needed for webpack 5+. |
-|[stream](https://www.npmjs.com/package/stream) | Node.js streams in the browser. Ported straight from the Node.js core and adapted to component/emitter's api. |
+|[eip55](https://www.npmjs.com/package/eip55) | An EIP55 compatible address encoding library.|
 
 #### Package.json Dependencies
 Now that the dependencies are installed you can find them in the “package.js”.
@@ -319,52 +296,24 @@ This is how your “package.json” has to look like:
 
 ```javascript copy
 {
-  "name": "examples-web-bluetooth",
+  "name": "test-bluetooth",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@ledgerhq/hw-app-eth": "^6.26.0",
-    "@ledgerhq/hw-transport-web-ble": "^6.24.1",
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
-    "@testing-library/user-event": "^13.5.0",
-    "buffer": "^6.0.3",
-    "eip55": "^2.1.0",
-    "node-polyfill-webpack-plugin": "^1.1.4",
-    "qrcode": "^1.5.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "5.0.0",
-    "stream": "^0.0.2",
-    "web-vitals": "^2.1.3"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "@ledgerhq/hw-app-eth": "^6.35.1",
+    "@ledgerhq/hw-transport-web-ble": "^6.28.1",
+    "eip55": "^2.1.1",
+    "next": "14.0.4",
+    "react": "^18",
+    "react-dom": "^18"
   }
 }
-
-
 ```
 ## Web App Test
 ### Start the Development Server
@@ -380,7 +329,7 @@ Now that the Setup is finished, the app has to be available to be displayed.
 Therefore start the development server:
 
 ```console copy
-npm run start
+npm run dev
 ```
 
 <Callout type="warning" emoji="⚠️">
