@@ -109,7 +109,7 @@ document.body.addEventListener("click", async () => {
     listen(log => console.log(log))
 
     //When the Ledger device connected it is trying to display the bitcoin address
-    const appBtc = new AppBtc(transport);
+    const appBtc = new AppBtc({ transport, currency: "bitcoin" });
     const { bitcoinAddress } = await appBtc.getWalletPublicKey(
       "44'/0'/0'/0/0",
       { verify: false, format: "legacy"}
@@ -189,27 +189,27 @@ Your "package.json" should look like this:
 
 ```javascript copy
 {
-  "name": "example-web-hid-usb",
+  "name": "update-doc-web-hid-usb",
   "version": "1.0.0",
   "description": "",
   "source": "src/index.html",
   "dependencies": {
-    "@ledgerhq/hw-app-btc": "^6.24.1",
-    "@ledgerhq/hw-transport-webhid": "^6.24.1", 
-    "@ledgerhq/hw-transport-webusb": "^6.24.1", 
-    "@ledgerhq/logs": "^6.10.0",
-    "core-js": "^3.21.1"
-  },
-  "devDependencies": {
-      "parcel": "^2.0.0"
+    "@ledgerhq/hw-app-btc": "^10.1.0",
+    "@ledgerhq/hw-transport-webhid": "^6.28.0",
+        "@ledgerhq/hw-transport-webusb": "^6.28.4",
+    "@ledgerhq/logs": "^6.12.0",
+    "core-js": "^3.33.3"
   },
   "scripts": {
-    "build": "parcel build", 
+    "build": "parcel build",
     "start": "parcel"
   },
-  "author": "",
-  "license": "ISC",
-
+  "devDependencies": {
+    "buffer": "^6.0.3",
+    "parcel": "^2.10.3",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0"
+  },
   "alias": {
     "@ledgerhq/devices": "@ledgerhq/devices/lib-es"
   }
