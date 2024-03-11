@@ -100,9 +100,9 @@ import { listen } from "@ledgerhq/logs";
 import Eth from "@ledgerhq/hw-app-eth";
 
 // Keep this import if you want to use a Ledger Nano S/X/S Plus with the USB protocol and delete the @ledgerhq/hw-transport-webhid import
-import TransportWebUSB from "@ledgerhq/hw-transport-webusb";
+//import TransportWebUSB from "@ledgerhq/hw-transport-webusb";
 // Keep this import if you want to use a Ledger Nano S/X/S Plus with the HID protocol and delete the @ledgerhq/hw-transport-webusb import
-// import TransportWebHID from "@ledgerhq/hw-transport-webhid";
+import TransportWebHID from "@ledgerhq/hw-transport-webhid";
 
 //Display the header in the div which has the ID "main"
 const initial = "<h1>Connect your Nano and open the Ethereum app. Click on “Hash my message”</h1>";
@@ -114,10 +114,10 @@ document.querySelector("#hashMessage").addEventListener("click", async () => {
  try {
 
    //trying to connect to your Ledger device with USB protocol
-   const transport = await TransportWebUSB.create();
+   // const transport = await TransportWebUSB.create();
 
    //trying to connect to your Ledger device with HID protocol
-   // const transport = await TransportWebHID.create();
+   const transport = await TransportWebHID.create();
 
    //listen to the events which are sent by the Ledger packages in order to debug the app
    listen(log => console.log(log))
@@ -182,7 +182,7 @@ Then depending on your choice install one of the corresponding packages:
 
 Modify `“main”: “index.js”` to `“source”:”src/index.html”`.
 
-And ensure you have this line in your `package.json`:
+Ensure you have this line in your `package.json`:
 
 ```json copy
 "scripts": {
@@ -191,33 +191,52 @@ And ensure you have this line in your `package.json`:
  },
 ```
 
+And:
+```json copy
+
+  "alias": {
+    "@ledgerhq/devices": "@ledgerhq/devices/lib-es",
+    "@ledgerhq/domain-service": "@ledgerhq/domain-service/lib-es",
+    "@ledgerhq/evm-tools": "@ledgerhq/evm-tools/lib-es",
+    "@ledgerhq/cryptoassets": "@ledgerhq/cryptoassets/lib-es",
+    "@ledgerhq/live-network": "@ledgerhq/live-network/lib-es"
+  }
+```
+
 Your `package.json` should look like this:
 
 ```json copy
 {
- "name": "example-sign-personal-message",
- "version": "1.0.0",
- "description": "",
- "source": "src/index.html",
- "scripts": {
-   "build": "parcel build",
-   "start": "parcel"
- },
- "author": "",
- "license": "ISC",
- "dependencies": {
-   "@ledgerhq/hw-app-eth": "^6.29.0",
-   "@ledgerhq/hw-transport-webusb": "^6.27.1",
-   "@ledgerhq/logs": "^6.10.0",
-   "core-js": "^3.23.3",
-   "eth-crypto": "^2.3.0"
- },
- "devDependencies": {
-   "buffer": "^6.0.3",
-   "parcel": "^2.6.2",
-   "process": "^0.11.10",
-   "stream-browserify": "^3.0.0"
- }
+  "name": "example-sign-personal-message",
+  "version": "1.0.0",
+  "description": "",
+  "source": "src/index.html",
+  "scripts": {
+    "build": "parcel build",
+    "start": "parcel"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ledgerhq/hw-app-eth": "^6.35.6",
+    "@ledgerhq/hw-transport-webhid": "^6.28.4",
+    "@ledgerhq/logs": "^6.12.0",
+    "core-js": "^3.36.0",
+    "eth-crypto": "^2.6.0"
+  },
+  "devDependencies": {
+    "buffer": "^6.0.3",
+    "parcel": "^2.12.0",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0"
+  },
+  "alias": {
+    "@ledgerhq/devices": "@ledgerhq/devices/lib-es",
+    "@ledgerhq/domain-service": "@ledgerhq/domain-service/lib-es",
+    "@ledgerhq/evm-tools": "@ledgerhq/evm-tools/lib-es",
+    "@ledgerhq/cryptoassets": "@ledgerhq/cryptoassets/lib-es",
+    "@ledgerhq/live-network": "@ledgerhq/live-network/lib-es"
+  }
 }
 ```
 
@@ -285,9 +304,8 @@ You can verify that you are the one who signed the message by signing in on [run
 1. Adapt the code with the message you signed and the hash of the message:
 
 	```js copy
-	const { ethers } = require("ethers");
-
-	ethers.utils.verifyMessage("test","0xefb42c22baa0143b322e93b24b0903a0ef47a64b716fbb77debbea55a93dec3e4417aff7dce845723240916c6e34cf17c674828b3addfb0afad966334df5b6311b");
+const { ethers } = require("ethers");
+ethers.verifyMessage("test", "0xefb42c22baa0143b322e93b24b0903a0ef47a64b716fbb77debbea55a93dec3e4417aff7dce845723240916c6e34cf17c674828b3addfb0afad966334df5b6311b");
 	```
 
 2. Run your code, it should now display the Ethereum address linked to the signed message (the run can take a bit of time):
