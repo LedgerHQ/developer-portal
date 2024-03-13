@@ -1,0 +1,379 @@
+openapi: 3.0.3
+info:
+  title: Partner Swap service
+  version: '2.0'
+paths:
+  /currencies:
+    get:
+      operationId: getCurrencies
+      description: Return a list of supported currencies.
+      responses:
+        '200':
+          description: Array of supported currencies, with information required to uniquely identify coins/tokens.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CryptoCurrencies'
+              example:
+                - id: BTC
+                  type: coin
+                  blockchain: bitcoin
+                - id: USDC
+                  type: token
+                  blockchain: ethereum
+                  chainId: 1
+                  contract: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+  /pairs:
+    get:
+      operationId: getPairs
+      description: Return a list of supported pairs.
+      responses:
+        '200':
+          description: Array of supported swap pairs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pair'
+              example:
+                - from: btc
+                  to: bat
+                  tradeMethod:
+                    - fixed
+                    - float
+                - from: bat
+                  to: btc
+                  tradeMethod:
+                    - fixed
+                    - float
+  /quote:
+    post:
+      operationId: postQuote
+      description: Return a quote for a pair and amount.
+      parameters:
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+            description: currency id in your system.
+          example: BTC
+        - name: to
+          in: query
+          required: true
+          schema:
+            type: string
+            description: currency id in your system.
+          example: BAT
+        - name: amount
+          in: query
+          required: true
+          schema:
+            type: string
+            description: amount requested by the user, without the gas fee.
+            minimum: 0
+          example: 50
+      responses:
+        '200':
+          description: TODO
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteResponse'
+              example:
+                quoteId: "CC14E626-CF1B-4EDA-AF5E-766FFD5A3457"
+                amount: "1"
+                amountTo: "270.864632"
+                providerFees: "0.0001"
+                referralFees: "0.0001"
+                payoutNetworkFees: "0.0002"
+                tradeMethod: "float"
+                expiry: "2022-04-04T09:10:51+0000"
+  /status:
+    get:
+      operationId: getStatus
+      description: Returns the status of a quote / trade being executed.
+      parameters:
+        - name: swapId
+          in: query
+          required: true
+          schema:
+            type: string
+          example: 1234
+      responses:
+        '200':
+          description: Status of an executed swap transaction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+              example:
+                status: "PENDING"
+                amount: 1.337
+                payinTransactionId: "0xfffffffffffff"
+                payoutTransactionId: "0xfffffffffffff"
+                providerFees`: "0.0001"
+                referralFees`: "0.0001"
+                payoutNetworkFees: "0.0002"
+  /swap:
+    post:
+      operationId: postSwap
+      description: Generates a secure binary payload for the nano in order to authorize the transaction. The provider should validate consistency between `quoteId` and other inputs (addresses, amounts and currencies).
+      requestBody:
+        description: Info for generating payload
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/PayloadInfo'
+      responses:
+        '200':
+          description: SwapId with flatten JWS `https://www.rfc-editor.org/rfc/rfc7515#section-7.2.2`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SwapPayload'
+              example:
+                swapId: "SWAP-ID-165940"
+                payinAddress: "0xa0b86991c627e936c1d19d4a2e90a2ce3606eb48"
+                createAt: "2030-05-26T14:13:39"
+                providerFees: "0.0001"
+                referralFees: "0.0001"
+                payoutNetworkFees: "0.0002"
+                providerSig:
+                  payload: "CgUweGZmZhoFMHhmZmYqBTB4ZmZmOgNCVENCA0JBVEoIMTIwMDAwMDBSCDExNTAwMDAwWhF2ZXJ5IGxvbmd1ZSBub25jZQ=="
+                  payload_signature: "MEUCIBRm4PrdgRw0aBwRepuOGGRmR/YPcCoyKNJ7UDjFO030AiEA/VT0anolum0a3X/9lGPeovZHqzeDG9brcUB4zhYmwbs="
+
+components:
+  schemas:
+    Coin:
+      type: string
+    CryptoCurrencies:
+      required:
+        - id
+        - type
+        - blockchain
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          $ref: '#/components/schemas/CryptoCurrencyType'
+        blockchain:
+          type: string
+        chainId:
+          type: integer
+          format: int32
+        contract:
+          type: string
+    CryptoCurrencyType:
+      oneOf:
+        - $ref: '#/components/schemas/Coin'
+        - $ref: '#/components/schemas/Token'
+    Pair:
+      required:
+        - from
+        - to
+        - tradeMethod
+      type: object
+      properties:
+        from:
+          type: string
+        to:
+          type: string
+        tradeMethod:
+          type: array
+          items:
+            type: string
+            enum:
+              - fixed
+              - float
+
+    PayloadInfo:
+      required:
+        - quoteId
+        - refundAddress
+        - refundAddressExtraId
+        - payoutAddress
+        - payoutAddressExtraId
+        - currencyFrom
+        - currencyTo
+        - payloadCurrencyFrom
+        - payloadCurrencyTo
+        - amountToProvider
+        - amountToWallet
+        - nonce
+      type: object
+      properties:
+        quoteId:
+          type: string
+          description: previously generated quote id
+        refundAddress:
+          type: string
+          description: user's refund address. This address is generaly the fromAddress.
+        refundAddressExtraId:
+          type: string
+          description: tag or memo (optional).
+        payoutAddress:
+          type: string
+          description: user's payout transaction address.
+        payoutAddressExtraId:
+          type: string
+          description: tag or memo (optional).
+        currencyFrom:
+          type: string
+          description: from currency id, using your identifiers (for checking purpose on your side only).
+        currencyTo:
+          type: string
+          description: to currency id, using you identifiers (for checking purpose on your side only).
+        payloadCurrencyFrom:
+          type: string
+          description: from currency id, using ledger's referencial. This value has to be used for currency_from field in the protobuf payload.
+        payloadCurrencyTo:
+          type: string
+          description: to currency id, using ledger's referencial. This value has to used for currency_to field in the protobuf payload.
+        amountToWallet:
+          type: string
+          description: amount of `currencyTo` that the provider agrees to send to the client in exchange from
+        nonce:
+          type: string
+          description: value to use for `device_transaction_id_ng` field in the protobuf payload. It will be an hex format of the byte array nonce received by the user.
+    ProviderSig:
+      required:
+        - payload
+        - signature
+      type: object
+      properties:
+        payload:
+          type: string
+          description: protobuf payload (in a binary format)
+        signature:
+          type: string
+          description: payload signed in a JWS format
+    QuoteResponse:
+      required:
+        - amountTo
+        - providerFees
+        - referralFees
+        - payoutNetworkFees
+      type: object
+      properties:
+        quoteId:
+          type: string
+          description: quote unique identifier (optional, only required for fixed quotes)
+        amount:
+          type: string
+          description: should be same as the input one (optional, only required for consistency check) (as an input coin floating amount)
+        amountTo:
+          type: string
+          description: estimated output amount that will be sent to user (as an output coin floating amount)
+        providerFees:
+          type: string
+          description: amount, expressed in currencyTo, that is paid to the provider.
+        referralFees:
+          type: string
+          description: amount, expressed in currencyTo, that is paid to Ledger (as a referral fee).
+        payoutNetworkFees:
+          type: string
+          description: estimated gas fees that will be used for the payout transaction (as an output coin floating amount)
+        tradeMethod:
+          type: string
+          enum:
+            - fixed
+            - float
+          description: fixed or float (optional, only required for consistency check)
+        expiry:
+          type: string
+          description: quote expiration timestamp (optional, only required for fixed quotes)
+        minAmountFrom:
+          type: string
+          description: minimum valid `amount` for this pair (optional, only required if amount is too low)
+        maxAmountFrom:
+          type: string
+          description: maximum valid `amount` for this pair (optional, only required if amount is too large)
+    ServerError:
+      required:
+        - code
+        - message
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Status:
+      required:
+        - status
+        - amount
+        - payinTransactionId
+        - payoutTransactionId
+        - providerFees
+        - referralFees
+        - payoutNetworkFees
+      type: object
+      properties:
+        quoteId:
+          type: string
+        status:
+          type: string
+          enum:
+            - FINISHED
+            - EXPIRED
+            - ON_HOLD
+            - PENDING
+            - REFUNDED
+            - UNKNOWN
+        amount:
+          type: string
+          description: as soon as this information is known, this should contain the final amount transferred to the user in output currency.
+        payinTransactionId:
+          type: string
+          description: as soon as this information is known, this should contain the payin transaction hash.
+        payoutTransactionId:
+          type: string
+          description: as soon as this information is known, this should contain the payout transaction hash.
+        providerFees:
+          type: string
+          description: fees amount that has been paid to the provider.
+        referralFees:
+          type: string
+          description: fees amount that has been paid to Ledger (as a referral fee).
+        payoutNetworkFees:
+          type: string
+          description: gas fees that has been be used for the payout transaction (as an output coin floating amount).
+    SwapPayload:
+      required:
+        - swapId
+        - payinAddress
+        - createdAt
+        - providerFees
+        - referralFees
+        - payoutNetworkFees
+        - providerSig
+      type: object
+      properties:
+        swapId:
+          type: string
+          description: provider's id of the ongoing swap transaction. This will be used by Ledger's backend to retrieve the status of user swap transaction.
+        payinAddress:
+          type: string
+          description: provider's address.
+        createdAt:
+          type: string
+          description: date of creation of the swap payload in ISO-8601 format.
+        providerFees:
+          type: string
+          description: amount, expressed in currencyTo, that is paid to the provider.
+        referralFees:
+          type: string
+          description: amount, expressed in currencyTo, that is paid to Ledger (as a referral fee).
+        payoutNetworkFees:
+          type: string
+          description: estimated gas fees that will be used for the payout transaction (as an output coin floating amount).
+        providerSig:
+          $ref: '#/components/schemas/ProviderSig'
+    Token:
+      type: string
