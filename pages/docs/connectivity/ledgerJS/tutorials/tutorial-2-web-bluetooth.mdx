@@ -13,36 +13,23 @@ In this section, we will guide you through the creation of an application that w
 ## Prerequisites
 Before starting, make sure you have gone through the [prerequisites](../integration-walkthrough).
 
-### Send Ether token to your Ledger Nano ethereum account
-To send some ethers on the Ropsten network, go to one of the ropsten faucet websites:
-- [Ropsten Ethereum Faucet](https://faucet.ropsten.be/)
-- [Dimensions Network](https://faucet.dimensions.network/)
+### Send Ether token to your Ledger Nano Ethereum Sepolia account
 
-The Ropsten network is not visible on Ledger Live, you can then check the transaction passed on [ropsten.etherscan.io](https://ropsten.etherscan.io/). 
+- Create an Ethereum Sepolia account in Ledger Live
+- Send Sepolia Eth to your account with [Infura faucet](https://www.infura.io/faucet/sepolia). You will need to create an account that  will be useful later for the API key.
 
-If the Ropsten and Dimension faucets don't work or the queue is too long, please use another faucet of your choice to receive testnet Ether.
-
-#### Ropsten Ethereum Network
-Go to the [Ropsten Ethereum Faucet](https://faucet.ropsten.be/) website put your Wallet Public Key on the input and click on "Send me test Ether"
-
-![Ropsten Ethereum Faucet](/connectivity/tutorial-1-faucet1.png)
-*Fig. 1: Ropsten Ethereum Faucet*
-
-
-
-#### Dimensions Network
-Go to the [Dimensions Network](https://faucet.dimensions.network/) website put your Wallet Public Key on the input, do the captcha and click on "Send me test Ether"
-
-![Ropsten Ethereum Faucet](/connectivity/tutorial-1-faucet2.png)
-*Fig. 2: Ropsten Ethereum Faucet*
+![Sepolia Ethereum Faucet](/connectivity/tutorial-infura-sepolia-faucet.png)
+*Fig. 1: Sepolia Ethereum Faucet*
 
 ## Web App Bluetooth (only Nano X)
+
 The Ledger Nano S and S Plus do not have the Bluetooth functionality. This tutorial will only work with a Ledger Nano X.
 
 Please be aware that the Bluetooth implementation is only supported by a few browsers.
 You can check the [browser support](https://caniuse.com/web-bluetooth) for the Web Bluetooth transport.
 
 ### Project Initialization
+
 The app is build with React, which is a frontend Javascript framework.
 
 First, open a terminal and create a new project. For this tutorial the project will be named "e2e-tutorial-contract".
@@ -53,19 +40,22 @@ npx create-react-app e2e-tutorial-contract
 cd e2e-tutorial-contract
 ```
 
-Open the folder in an editor.
-The React app initialization creates a "src" folder where you will find all the code.
+Open the folder in an text editor.
 
 Run:
 
 ```console copy
-touch ./src/ConnectLedger.js
-touch ./src/SmartContract.js
-touch ./src/ethereum.js
-touch ./src/polyfill.js
+mkdir pages
+mkdir styles
+touch ./ConnectLedger.js
+touch ./SmartContract.js
+touch ./ethereum.js
+touch ./styles/global.css
+touch ./styles/Home.module.css
+mv src/index.js pages
+mv src/App.js ./   
+rm -r src      
 ```
-
-Create a `pages` folder at the root of the project and move `index.js` there.
 
 Your folder must look like this.
 
@@ -87,18 +77,18 @@ In App.js copy-paste the following code:
 import React, { useState } from 'react';
 import ConnectLedger from './ConnectLedger.js';
 import SmartContract from './SmartContract.js';
-
+ 
 function App() {
   const [transport, setTransport] = useState(undefined);
   const [eth, setEth] = useState(undefined);
   const [address, setAddress] = useState(undefined);
-
+ 
   const saveInfo = (info) => {
     setAddress(info.address);
     setEth(info.eth);
     setTransport(info.transport);
   }
-
+ 
   return (
     <div className='container'>
       {
@@ -109,44 +99,30 @@ function App() {
     </div>
   );
 }
-
+ 
 export default App;
 ```
-#### polyfill.js
-
-In App.js copy-paste the following code:
-
-```javascript copy
-global.Buffer = require("buffer").Buffer;
-```
-#### index.js
-in the index.js add these line 
-```javascript copy
-import './polyfill'
-import 'bootstrap/dist/css/bootstrap.min.css';
-```
-
 #### ConnectLedger.js
 
 In ConnectLedger.js, copy-paste the following code:
 
 ```javascript copy
 import React from 'react';
-
+ 
 import TransportWebBLE from "@ledgerhq/hw-transport-web-ble";
 import Eth from "@ledgerhq/hw-app-eth";
-
-
+ 
+ 
 function ConnectLedger({onTransport}) {
-
+ 
   const connectLedger = async() => {
     const transport = await TransportWebBLE.create();
     const eth = new Eth(transport);
     const {address} = await eth.getAddress("44'/60'/0'/0/0", false);
     onTransport({address,eth,transport})
   }
-
-
+ 
+ 
   return (
     <div className='container'>
       <div className='row'>
@@ -157,7 +133,7 @@ function ConnectLedger({onTransport}) {
     </div>
   );
 }
-
+ 
 export default ConnectLedger;
 ```
 
@@ -170,15 +146,16 @@ In "SmartContract.js", copy-paste the following code:
 import React, { useState } from 'react';
 import getBlockchain from './ethereum.js';
 import { ethers } from 'ethers';
-
+import { ledgerService } from '@ledgerhq/hw-app-eth'
+ 
 function SmartContract({eth,address}) {
   const [simpleStorage, setSimpleStorage] = useState(undefined);
   const [data, setData] = useState(undefined);
   const [provider, setProvider] = useState(undefined);
   const [url, setUrl] = useState(undefined);
-
+ 
   const smartContractRead = async() => {
-    const provider = new ethers.providers.JsonRpcProvider('https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161');
+    const provider = new ethers.providers.JsonRpcProvider('https://sepolia.infura.io/v3/{YOUR_INFURA_APIKEY}');
     const { simpleStorage } = await getBlockchain(provider);
     console.log(simpleStorage);
     const data = await simpleStorage.readData();
@@ -186,30 +163,40 @@ function SmartContract({eth,address}) {
     setSimpleStorage(simpleStorage);
     setData(data);
   };
-
+ 
   const updateData = async e => {
     e.preventDefault();
     const dataInput = e.target.elements[0].value;
     console.log(simpleStorage);
     const { data } = await simpleStorage.populateTransaction['updateData(uint256)'](dataInput);
-
+ 
     const unsignedTx = {
       to: simpleStorage.address,
       gasPrice: (await provider.getGasPrice())._hex,
       gasLimit: ethers.utils.hexlify(100000),
       nonce: await provider.getTransactionCount(address, "latest"),
-      chainId: 3,
+      chainId: 11155111,
       data: data,
     }
     console.log(unsignedTx);
-    const serializedTx = ethers.utils.serializeTransaction(unsignedTx).slice(2);
 
+    const defaultLoadConfig = {
+      nftExplorerBaseURL: "https://nft.api.live.ledger.com/v1/ethereum",
+      pluginBaseURL: "https://cdn.live.ledger.com",
+      extraPlugins: null,
+      cryptoassetsBaseURL: "https://cdn.live.ledger.com/cryptoassets"
+    };
+
+    const serializedTx = ethers.utils.serializeTransaction(unsignedTx).slice(2);
+    const resolution = await ledgerService.resolveTransaction(serializedTx, defaultLoadConfig, {});
+ 
     console.log(serializedTx);
     const signature = await eth.signTransaction(
       "44'/60'/0'/0/0",
-      serializedTx
+      serializedTx,
+      resolution
     );
-
+ 
     console.log(signature);
     //Parse the signature
     signature.r = "0x"+signature.r;
@@ -217,17 +204,17 @@ function SmartContract({eth,address}) {
     signature.v = parseInt("0x"+signature.v);
     signature.from = address;
     console.log(signature);
-
+ 
     //Serialize the same transaction as before, but adding the signature on it
     const signedTx = ethers.utils.serializeTransaction(unsignedTx, signature);
     console.log(signedTx);
-
+ 
     const hash = (await provider.sendTransaction(signedTx)).hash;
     console.log(hash);
-    setUrl("https://ropsten.etherscan.io/tx/" + hash);
+    setUrl("https://sepolia.etherscan.io/tx/" + hash);
   };
-
-
+ 
+ 
   return (
     <div className='container'>
       <div className='row'>
@@ -236,7 +223,7 @@ function SmartContract({eth,address}) {
           <p>{data ? data.toString() : "..." }</p>
           <button onClick={() => smartContractRead()}>Get Data</button>
         </div>
-
+ 
         <div className='col-sm-4'>
           <h2>Change data</h2>
           <form className="form-inline" onSubmit={e => updateData(e)}>
@@ -255,7 +242,7 @@ function SmartContract({eth,address}) {
         </div>
         <div className="mt-5 mx-auto d-flex flex-column">
           <p>
-            Ropsten Etherscan :
+            Sepolia Etherscan :
           </p>
           <p><a href={url} target="_blank" rel="noreferrer">{url}</a></p>
         </div>
@@ -263,7 +250,7 @@ function SmartContract({eth,address}) {
     </div>
   );
 }
-
+ 
 export default SmartContract;
 ```
 
@@ -273,12 +260,12 @@ In "ethereum.js", copy-paste the following code:
 
 ```javascript copy
 import { Contract } from 'ethers';
-
+ 
 const getBlockchain = (provider) =>
   new Promise( async (resolve, reject) => {
     if(provider) {
       const simpleStorage = new Contract(
-        "0x989c810f64ac577683d49a318adfd98b8d482472",
+        "0xA0aB0fae9C6b4882dC3690cb1705D5Aeb8c436d7",
         [
           {
             "inputs": [],
@@ -327,7 +314,7 @@ const getBlockchain = (provider) =>
     }
     reject('Provider not recognized');
   });
-
+ 
 export default getBlockchain;
 ```
 
@@ -338,16 +325,17 @@ Run:
 
 ```console copy
 npm install --save bootstrap
-npm install --save ethers
+npm install --save ethers@5.4.7
 npm install --save @ledgerhq/hw-app-eth
 npm install --save @ledgerhq/hw-transport-web-ble
 npm install --save buffer
+npm install --save next
 ```
 
 | Package | What does it do? |
 | ------- | ---------------- |
 | [bootstrap](https://getbootstrap.com/) | It allows you to use the Bootstrap CSS framework. |
-| [ethers](https://docs.ethers.io/v5/) | It provides you with all the methods to interact with the Ethereum blockchain. |
+| [ethers](https://docs.ethers.io/v5/) | It provides you with all the methods to interact with the Ethereum blockchain. For this tutorial, we use the 5.4.7 version. |
 | [@ledgerhq/hw-app-eth](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-eth) | It will help you ask your Nano to access the ethereum address. |
 | [@ledgerhq/hw-transport-web-ble](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-web-ble) | It provides you with all the methods to interact with your Ledger Nano X with a Bluetooth connexion. |
 | [buffer](https://www.npmjs.com/package/buffer) | The goal is to provide an API that is 100% identical to node's Buffer API. |
@@ -358,28 +346,29 @@ This is how your "package.json" shoud look like:
 
 ```javascript copy
 {
-  "name": "e2e-tutorial",
+  "name": "e2e-tutorial-contract",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@ledgerhq/hw-app-eth": "^6.26.0",
-    "@ledgerhq/hw-transport-web-ble": "^6.24.0",
-    "@testing-library/jest-dom": "^5.16.2",
-    "@testing-library/react": "^12.1.3",
+    "@ledgerhq/hw-app-eth": "^6.35.6",
+    "@ledgerhq/hw-transport-web-ble": "^6.28.4",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "bootstrap": "^5.1.3",
+    "bootstrap": "^5.3.3",
     "buffer": "^6.0.3",
-    "ethers": "^5.5.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "5.0.0",
+    "eip55": "^2.1.1",
+    "ethers": "^5.4.7",
+    "next": "^14.1.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start"
   },
   "eslintConfig": {
     "extends": [
@@ -400,15 +389,13 @@ This is how your "package.json" shoud look like:
     ]
   }
 }
-
-
 ```
 ## Web App Test
 ### Start the Development Server
 Run:
 
 ```console copy
-npm run start
+npm run dev
 ```
 
 <Callout type="warning" emoji="⚠️">
