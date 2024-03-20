@@ -12,28 +12,13 @@ The purpose of the application is to transfer ethers from your ethereum account 
 ## Prerequisites
 Before startint, make sure you have gone through the [prerequisites](../integration-walkthrough).
 
-### Send Ether token to your Ledger Nano ethereum account
-To send some ethers on the Ropsten network, go to one of the ropsten faucet websites:
-- [Ropsten Ethereum Faucet](https://faucet.ropsten.be/), or
-- [Dimensions Network](https://faucet.dimensions.network/)
+### Send Ether token to your Ledger Nano Ethereum Sepolia account
 
-The Ropsten network is not visible on Ledger Live, you can then check the transaction passed on [ropsten.etherscan.io](https://ropsten.etherscan.io/). 
+- Create an Ethereum Sepolia account in Ledger Live
+- Send Sepolia Eth to your account with [Infura faucet](https://www.infura.io/faucet/sepolia). You will need to create an account that  will be useful later for the API key.
 
-If the Ropsten and Dimension faucets don't work or the queue is too long, please use another faucet of your choice to receive testnet Ether.
-
-#### Ropsten Ethereum Network
-Go to the [Ropsten Ethereum Faucet](https://faucet.ropsten.be/) website put your Wallet Public Key on the input and click on "Send me test Ether"
-
-![Ropsten Ethereum Faucet](/connectivity/tutorial-1-faucet1.png)
-*Fig. 1: Ropsten Ethereum Faucet*
-
-
-
-#### Dimensions Network
-Go to the [Dimensions Network](https://faucet.dimensions.network/) website put your Wallet Public Key on the input, do the captcha and click on "Send me test Ether"
-
-![Ropsten Ethereum Faucet](/connectivity/tutorial-1-faucet2.png)
-*Fig. 2: Ropsten Ethereum Faucet*
+![Sepolia Ethereum Faucet](/connectivity/tutorial-infura-sepolia-faucet.png)
+*Fig. 1: Sepolia Ethereum Faucet*
 
 
 ## Tutorial implementation
@@ -158,22 +143,26 @@ In index.html copy-paste the following code :
 
 #### index.js
 
-In index.js copy-paste the following code :
+In index.js copy-paste the following code and replace `{YOUR_INFURA_APIKEY}` by the API key you will find on your Infura account:
 
 ```javascript copy
 import { ethers } from "ethers";
+import { InfuraProvider } from "ethers";
 import TransportWebHID from "@ledgerhq/hw-transport-webhid";
 import Eth from "@ledgerhq/hw-app-eth";
-
-//Infuria provider for Ropsten network
-const provider = new ethers.providers.JsonRpcProvider("https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161");
+import ledgerService from "@ledgerhq/hw-app-eth/lib/services/ledger"
 
 
-const chainId = 3;
+var ethers = require('ethers');
+//Infuria provider for Sepolia network
+const provider = new ethers.JsonRpcProvider("https://sepolia.infura.io/v3/{YOUR_INFURA_APIKEY}");
+
+
+const chainId = 11155111; // Sepolia chainId
 let gasPrice;
 let addressWallet;
 let recipient = "0x920f19c7F7Ce5b3170AdB94fDcC4570Da95D286b";
-let value = 0.1;
+let value = 0.001;
 let gasLimit = 1000000;
 let nonce;
 let _eth;
@@ -189,12 +178,11 @@ document.getElementById("connect-ledger").onclick = async function () {
 
     //Get some properties from provider
     addressWallet = address;
-    gasPrice = (await provider.getGasPrice())._hex;
-    gasPrice = parseInt(gasPrice,16) * 1.15;
+    gasPrice = (await provider.getFeeData()).gasPrice;
 
     //Fill the inputs with the default value
     document.getElementById("wallet").value = address;
-    document.getElementById("gasPrice").value = parseInt(gasPrice) + " wei";
+    document.getElementById("gasPrice").value = ethers.formatUnits(gasPrice, 'wei');
     document.getElementById("chainId").value = chainId;
     document.getElementById("value").value = value;
     document.getElementById("recipient").value = recipient;
@@ -214,33 +202,34 @@ document.getElementById("tx-transfer").onclick = async function () {
     const transaction = {
         to: recipient,
         gasPrice: "0x" + parseInt(gasPrice).toString(16),
-        gasLimit: ethers.utils.hexlify(gasLimit),
+        gasLimit: ethers.toBeHex(gasLimit),
         nonce: nonce,
         chainId: chainId,
         data: "0x00",
-        value: ethers.utils.parseUnits(value, "ether")._hex,
+        value: ethers.toBeHex(ethers.parseUnits(value, "ether")),
     }
 
     //Serializing the transaction to pass it to Ledger Nano for signing
-    let unsignedTx = ethers.utils.serializeTransaction(transaction).substring(2);
+    let unsignedTx = ethers.Transaction.from(transaction).unsignedSerialized.substring(2);
+    const resolution = await ledgerService.resolveTransaction(unsignedTx, {}, {});
 
     //Sign with the Ledger Nano (Sign what you see)
-    const signature = await _eth.signTransaction("44'/60'/0'/0/0",unsignedTx);
+    const signature = await _eth.signTransaction("44'/60'/0'/0/0",unsignedTx, resolution);
 
-    //Parse the signature
-    signature.r = "0x"+signature.r;
-    signature.s = "0x"+signature.s;
-    signature.v = parseInt(signature.v);
-    signature.from = addressWallet;
-
-    //Serialize the same transaction as before, but adding the signature on it
-    let signedTx = ethers.utils.serializeTransaction(transaction, signature);
+    //Serialize the same transaction as before, but adding the parsed signature on it
+    let signedTx = ethers.Transaction.from({...transaction, 
+        signature: {
+        r: "0x"+signature.r,
+        s: "0x"+signature.s,
+        v: parseInt(signature.v),
+        },
+    }).serialized;
 
     //Sending the transaction to the blockchain
-    const hash = (await provider.sendTransaction(signedTx)).hash;
+    const hash = (await provider.broadcastTransaction(signedTx)).hash;
 
-    //Display the Ropsten etherscan on the screen
-    const url = "https://ropsten.etherscan.io/tx/" + hash;
+    //Display the Sepolia etherscan on the screen
+    const url = "https://sepolia.etherscan.io/tx/" + hash;
     document.getElementById("url").innerHTML = url;
 }
 ```
@@ -422,7 +411,7 @@ There you can find all the information concerning the transaction you have previ
 If you go on Etherscan you can see the information of your transaction.
 
 ![Result after Sending Transaction](/connectivity/tutorial-1-etherscan.png)
-*Fig. 14: Transaction Information on Ropsten Etherscan*
+*Fig. 14: Transaction Information on Sepolia Etherscan*
 
 
 Congratulations, you have successfully built your first transfer application connected with Ledger !!!
