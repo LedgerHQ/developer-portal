@@ -1,0 +1,66 @@
+import { Tabs } from 'nextra/components'
+import { Callout } from 'nextra/components'
+
+# Provider's LiveApp
+
+As explained in the [Sell Integration](../sell) page, you need to modify your LiveApp with some particularities compared to the one that can be found in the Discover section.
+
+Your LiveApp must: 
+  - Use the Ledger's [exchangeSDK](https://github.com/LedgerHQ/exchange-sdk), in addition to the Wallet API.
+  - Respond to some deeplinks in order to adapt to the flow inside Ledger Live.
+  - Have a modified, slightly more complex, Manifest file.
+  - Follow specifics flow/ux requirements.
+
+
+## Ledger's exchange SDK
+
+To learn how to create (or embed if already existing) your user interface for the sell, please follow the [Discover documentation](../../discover).
+
+Your LiveApp will interact with Ledger Live, through the [ExchangeSDK](https://github.com/LedgerHQ/exchange-sdk), with the corresponding method.
+
+You will need to set up the SDK with your `providerId` attributed upon request by Ledger.
+
+### SELL method
+
+[TBD] Contact Ledger for more info.
+
+## Deeplink
+
+The LiveApp needs to respond to a deeplink with some parameters. Deeplinks are used to open your LiveApp with the quote values that te user already entered in Ledger Live.
+
+The deeplink format is already fixed and will depend on the information you provided inside your [LiveApp manifest](../../../../APIs/wallet-api/appendix/manifest) (ex: `ledgerlive://discover/swapprovidername`).
+
+
+  * `account-id`: User’s selected account id, where the crypto he wants to sell is stored.
+  * `crypto-currency`: The crypto currency that the user wants to sell. It will contain the providerId value to identify the crypto.
+  * `fiat-currency`: The fiat currency that the user wants to be paid with.
+  * `crypto-amount`: The crypto amount that the user wants to sell.
+  * `payment-method`: The preferred payment method for the user.
+  * `mode`: `buy` or `sell`. In this case always sell. Required you share the same base widget url for both usages.
+  * `bank-residency`: The bank residency of the user.
+  * `ledger-transaction-id`: id used by ledger to track transactions and their completion statuses.
+
+__Example__:
+```
+https://sell.provider.widget.com?[account-id]=ua11-…&[crypto-currency]=BTC&[fiat-currency]=EUR&[crypto-amount]=0.04
+```
+
+<Callout type="info" emoji="👉">
+  Ledger needs to know how to send referral information through the widget.
+</Callout>
+
+
+## Manifest Permission
+Your [LiveApp manifest](../../../../APIs/wallet-api/appendix/manifest) should contains at least those permissions request:
+```json copy
+"permissions": [
+  "account.list",
+  "currency.list",
+  "custom.exchange.start", 
+  "custom.exchange.complete",
+]
+```
+
+## Flow/UX requirements
+
+Please refer to the [Flow Breakdown](../swap/flow) section for more information. 

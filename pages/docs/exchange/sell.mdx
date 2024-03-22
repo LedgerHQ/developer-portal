@@ -1,0 +1,35 @@
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
+import { Steps } from 'nextra/components'
+
+# What do we need
+
+In order to become a native Sell provider in the Ledger Live ecosystem, you must:
+
+<Steps>
+### Adapt to our Backend
+ 
+- Adapt your API and endpoints to interact with our Backend.
+- Generate a structured Payload and a signature with a specific format.
+- Prepare your public key and secure your private key.
+
+### Develop/Modify your LiveApp
+ 
+- Use our Exchange SDK in addition to the Wallet API.
+- Configure some Deeplinks to access your LiveApp directly with the quote entered by the user in Ledger Live. 
+- Write/Modify the Manifest file. 
+- Follow some flow/UX requirements.
+
+### Test and submit
+
+Test end-to-end your integration as much as possible with some tools we provide, and submit:
+  - your API, 
+  - your LiveApp Manifest,
+  - your Public key.
+
+</Steps>
+
+In the following pages, you will find:
+- [Backend](sell/providers-backend): details on the main endpoints needed for the chosen operation, the payload, the signature, and your public/private key.
+- [LiveApp](sell/providers-liveapp): details on your LiveApp specifities, such as the deeplink's format, or the use of Exchange SDK instead of the Wallet API.
+- [Test & Submit](sell/providers-test-and-submit): details on how to use the Ledger Live Developer Mode and other tools (coming soon) to test your integration end-to-end, as well as how to submit it. 

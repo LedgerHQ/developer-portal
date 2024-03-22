@@ -2,13 +2,9 @@ import { Callout } from 'nextra/components'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 
-# Detailled Technical Flows
+# Detailed Technical Flows
 
-For high-level flows, refer to the [flow-breakdown](../flow) section.
-
-## Swap
-
-### Overview diagram
+## Overview diagram
 
 This is a [C4 diagram](https://c4model.com/) that describes an overview of the exchange during the swap process.
 
@@ -23,7 +19,7 @@ This is a [C4 diagram](https://c4model.com/) that describes an overview of the e
     Although the provider's LiveApp is embedded inside Ledger Live, we describe it as running in a separate environment because it is sandboxed.
 </Callout>
 
-### Detailled transaction flow
+## Detailled transaction flow
 
 Explanations about each step below the diagram. 
 
@@ -60,7 +56,7 @@ toAddressId=6EA9F270-91C5-4832-9A44-2713F9A6F6F0
 8. The LiveApp should call back Ledger Live with a deeplink. Example: `ledgerlive://swap?status=COMPLETED&swapId=123`
 
 
-### Display quote information to user
+## Display quote information to user
 
 <Zoom>
     <img
@@ -71,7 +67,7 @@ toAddressId=6EA9F270-91C5-4832-9A44-2713F9A6F6F0
 
 [Details on the quote API needed](https://exchange-integration-swap.redoc.ly/#operation/postQuote).
 
-### Check swap status flow
+## Check swap status flow
 
 <Zoom>
     <img
