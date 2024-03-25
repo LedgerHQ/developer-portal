@@ -737,12 +737,17 @@ module.exports = {
        },
       {
         source: '/docs/dapp-connect-kit/introduction',
-        destination: '/docs/connectivity/connect-kit',
+        destination: '/docs/connectivity',
         permanent: true,
        },
       {
         source: '/docs/dapp-connect-kit/:slug',
-        destination: '/docs/connectivity/connect-kit/:slug',
+        destination: '/docs/connectivity',
+        permanent: true,
+       },
+      {
+        source: '/docs/connectivity/connect-kit/:slug',
+        destination: '/docs/connectivity',
         permanent: true,
        },
       {
