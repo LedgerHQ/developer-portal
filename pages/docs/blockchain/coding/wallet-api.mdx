@@ -10,6 +10,14 @@ import { Callout } from 'nextra/components'
 1. Fork [github.com/LedgerHQ/wallet-api](https://github.com/LedgerHQ/wallet-api)
 2. Clone the repo
 
+## Running the Wallet API project
+
+```sh copy
+cd wallet-api
+pnpm i
+pnpm dev
+```
+
 ## Adding the crypto in Wallet API
 
 1. In `packages/core/src/families` create a folder for your family if it doesn't already exist
@@ -45,14 +53,6 @@ import { Callout } from 'nextra/components'
 - [Elrond](https://github.com/LedgerHQ/wallet-api/pull/133)
 - [Cardano](https://github.com/LedgerHQ/wallet-api/pull/148)
 
-## Running the Wallet API project
-
-```sh copy
-cd wallet-api
-pnpm i
-pnpm dev
-```
-
 ## Updating Ledger Live
 
 1. Fork [github.com/LedgerHQ/ledger-live](https://github.com/LedgerHQ/ledger-live)
@@ -63,7 +63,7 @@ In LL, you might need to create an adapter for your coin family to transform a W
 - `libs/ledger-live-common/src/generated/walletApiAdapter.ts` import your adapter and add it to the export
 
 <Callout type="info" emoji="ℹ️">
-  This above file is automatically generated at build time by this script. It should not be updated manually but you should still check that your adapter is included in this file once added.
+  The file above is automatically generated at build time by this script. It should not be updated manually but you should still check that your adapter is included in this file once added.
 </Callout>
 
 The actual adapted file to add is described bellow:
@@ -71,3 +71,6 @@ The actual adapted file to add is described bellow:
 - `libs/ledger-live-common/src/families/{COIN_FAMILY}/walletApiAdapter.ts` the actual transaction adapter  
 (here is an example adapter for ethereum: `libs/ledger-live-common/src/families/ethereum/walletApiAdapter.ts`)
 
+### Examples:
+
+- https://github.com/LedgerHQ/ledger-live/pull/3182
