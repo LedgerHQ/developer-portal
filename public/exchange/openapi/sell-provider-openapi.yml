@@ -133,18 +133,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProviderServerError'
-  /cryptoCurrencies:
+  /crypto-currencies:
     get:
-      operationId: getCryptoCurrencies
+      operationId: getCrypto-currencies
       responses:
         '200':
           description: |
             ### Available crypto currencies
-            - "id" : id of the currency,
-            - "type" : possible values : coin, token,
-            - "blockchain" : ledger id of the blockchain in ledger_coins.json,
-            - "chainId" : chain id of the blockchain (for evm networks), 1 for ethereum, 137 for polygon... See https://chainlist.org/
-            - "contract" : mapped only if type is token, the contract address of the token."
+            - "id" : your unique identifier of the currency
+            - "type" : possible values : coin, token
+            - "blockchain" : ledger's blockchain_name of the blockchain as listed in https://crypto-assets-service.api.ledger.com/v1/coins?output=blockchain_name,chain_id, for evm networks this field may be omitted when chainId is defined.
+            - "chainId" : for EVMs only, chain id of the blockchain, 1 for ethereum, 137 for polygon... See https://chainlist.org/
+            - "contract" : mapped only if type is token, the contract address of the token.
+            blockchain OR chainId should be defined. If chainId is defined, blockchain field is ignored.
           content:
             application/json:
               schema:
