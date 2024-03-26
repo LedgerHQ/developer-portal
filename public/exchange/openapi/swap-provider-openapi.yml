@@ -1,14 +1,14 @@
 openapi: 3.0.3
 info:
   title: Partner Swap service
-  version: '2.0'
+  version: "2.0"
 paths:
   /crypto-currencies:
     get:
       operationId: getCrypto-currencies
       description: Return a list of supported currencies.
       responses:
-        '200':
+        "200":
           description: |
             ### Available crypto currencies
             - "id" : your unique identifier of the currency
@@ -22,7 +22,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CryptoCurrencies'
+                  $ref: "#/components/schemas/CryptoCurrencies"
               example:
                 - id: BTC
                   type: coin
@@ -31,20 +31,20 @@ paths:
                   type: token
                   blockchain: ethereum
                   chainId: 1
-                  contract: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+                  contract: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
   /pairs:
     get:
       operationId: getPairs
       description: Return a list of supported pairs.
       responses:
-        '200':
+        "200":
           description: Array of supported swap pairs.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Pair'
+                  $ref: "#/components/schemas/Pair"
               example:
                 - from: btc
                   to: bat
@@ -60,36 +60,19 @@ paths:
     post:
       operationId: postQuote
       description: Return a quote for a pair and amount.
-      parameters:
-        - name: from
-          in: query
-          required: true
-          schema:
-            type: string
-            description: currency id in your system.
-          example: BTC
-        - name: to
-          in: query
-          required: true
-          schema:
-            type: string
-            description: currency id in your system.
-          example: BAT
-        - name: amount
-          in: query
-          required: true
-          schema:
-            type: string
-            description: amount requested by the user, without the gas fee.
-            minimum: 0
-          example: 50
+      requestBody:
+        description: Info for generating payload
+        content:
+          "application/json":
+            schema:
+              $ref: "#/components/schemas/Quote"
       responses:
-        '200':
+        "200":
           description: TODO
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuoteResponse'
+                $ref: "#/components/schemas/QuoteResponse"
               example:
                 quoteId: "CC14E626-CF1B-4EDA-AF5E-766FFD5A3457"
                 amount: "1"
@@ -111,12 +94,12 @@ paths:
             type: string
           example: 1234
       responses:
-        '200':
+        "200":
           description: Status of an executed swap transaction
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Status'
+                $ref: "#/components/schemas/Status"
               example:
                 status: "PENDING"
                 amount: 1.337
@@ -132,16 +115,16 @@ paths:
       requestBody:
         description: Info for generating payload
         content:
-          'application/json':
+          "application/json":
             schema:
-              $ref: '#/components/schemas/PayloadInfo'
+              $ref: "#/components/schemas/PayloadInfo"
       responses:
-        '200':
+        "200":
           description: SwapId with flatten JWS `https://www.rfc-editor.org/rfc/rfc7515#section-7.2.2`
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SwapPayload'
+                $ref: "#/components/schemas/SwapPayload"
               example:
                 swapId: "SWAP-ID-165940"
                 payinAddress: "0xa0b86991c627e936c1d19d4a2e90a2ce3606eb48"
@@ -167,7 +150,7 @@ components:
         id:
           type: string
         type:
-          $ref: '#/components/schemas/CryptoCurrencyType'
+          $ref: "#/components/schemas/CryptoCurrencyType"
         blockchain:
           type: string
         chainId:
@@ -177,8 +160,8 @@ components:
           type: string
     CryptoCurrencyType:
       oneOf:
-        - $ref: '#/components/schemas/Coin'
-        - $ref: '#/components/schemas/Token'
+        - $ref: "#/components/schemas/Coin"
+        - $ref: "#/components/schemas/Token"
     Pair:
       required:
         - from
@@ -197,6 +180,25 @@ components:
             enum:
               - fixed
               - float
+    Quote:
+      required:
+        - from
+        - to
+        - amount
+      type: object
+      properties:
+        from:
+          type: string
+          description: currency id in your system.
+          example: "btc"
+        to:
+          type: string
+          description: currency id in your system.
+          example: "eth"
+        amount:
+          type: string
+          description: amount requested by the user, without the gas fee.
+          example: "1"
 
     PayloadInfo:
       required:
@@ -381,6 +383,7 @@ components:
           type: string
           description: estimated gas fees that will be used for the payout transaction (as an output coin floating amount).
         providerSig:
-          $ref: '#/components/schemas/ProviderSig'
+          $ref: "#/components/schemas/ProviderSig"
     Token:
       type: string
+
