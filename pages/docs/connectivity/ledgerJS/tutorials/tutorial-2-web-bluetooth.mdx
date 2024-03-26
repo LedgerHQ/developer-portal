@@ -10,10 +10,10 @@ import { Callout } from 'nextra/components'
 ## Introduction
 In this section, we will guide you through the creation of an application that will call a smart contract to read and write.
 
-## Prerequisites
+## Tutorial Prerequisites
 Before starting, make sure you have gone through the [prerequisites](../integration-walkthrough).
 
-### Send Ether token to your Ledger Nano Ethereum Sepolia account
+### Receive Ether token in your Ledger Nano Ethereum Sepolia account
 
 - Create an Ethereum Sepolia account in Ledger Live
 - Send Sepolia Eth to your account with [Infura faucet](https://www.infura.io/faucet/sepolia). You will need to create an account that  will be useful later for the API key.
@@ -57,9 +57,7 @@ mv src/App.js ./
 rm -r src      
 ```
 
-Your folder must look like this.
-
-CHANGE THIS PICTURE:
+The folder will contain these files:  
 
 ![Folder of the Application](/connectivity/tutorial-2-folder.png)
 *Fig. 1: Folder of the Application*
@@ -409,7 +407,7 @@ Now the application is up and running. Open the browser and go to `localhost:300
 
 Don't click on the button yet.
 
-### Launch Ethereum App
+### Launch the Ethereum App
 Before clicking on the button, unlock your Nano X and run the Ethereum application.
 The steps are described below.
 
@@ -443,7 +441,7 @@ The steps are described below.
 
 
 ### Connect Your Nano to the Application
-Now you can click on the button and a popup open. Choose your Ledger Nano X and click connexion
+Now you can click on the button and a popup opens. Choose your Ledger Nano X and click connexion.
 
 ![Connect the Ledger with Bluetooth](/connectivity/tutorial-2-pairing.png)
 *Fig. 6: Connect the Ledger with Bluetooth*
@@ -503,16 +501,16 @@ For security reasons, the address will also be displayed on your Ledger Nano X t
 </Callout>
 
 
-### Review the Transaction on Ropsten Etherscan
-By updating the data a transaction is created to change this data, it can be verified on Ropsten Etherscan.
+### Review the Transaction on Sepolia Etherscan
+By updating the data a transaction is created to change this data, it can be verified on Sepolia Etherscan.
 
-![Ropsten Etherscan](/connectivity/tutorial-2-etherscan1.png)    
-*Fig. 15: Ropsten Etherscan*
+![Sepolia Etherscan](/connectivity/tutorial-2-etherscan1.png)    
+*Fig. 15: Sepolia Etherscan*
 
 Wait till the status passes to Success.
 
-![Ropsten Etherscan](/connectivity/tutorial-2-etherscan2.png)    
-*Fig. 16: Ropsten Etherscan*
+![Sepolia Etherscan](/connectivity/tutorial-2-etherscan2.png)    
+*Fig. 16: Sepolia Etherscan*
 
 ### Verify the update of data
 
