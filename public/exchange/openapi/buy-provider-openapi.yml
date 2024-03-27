@@ -122,7 +122,7 @@ paths:
            \ currency of the buy,\n- \"to\": crypto currency of the buy,\n- \"amount\"\
            : fiat amount,\n- \"cryptoAmount\": crypto amount the user will have,\
            \ must include all the fees.\n"
-         x-summary: OK
+          x-summary: OK
           content:
             application/json:
               schema:
