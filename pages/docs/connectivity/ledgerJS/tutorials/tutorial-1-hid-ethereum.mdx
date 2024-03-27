@@ -6,13 +6,17 @@ description: In this section, we will guide you through the creation of an appli
 # Transfer of Ethers between accounts
 
 ## Introduction
-In this section, we will guide you through the creation of an application. This application will create a transaction that will be signed with the Ledger Nano before sending it to the blockchain.
+In this section, we will guide you through the creation of an application that:  
+- creates a transaction 
+- signs it using the Ledger Nano then 
+- sends it to the blockchain.  
+
 The purpose of the application is to transfer ethers from your ethereum account on your Ledger to another account.
 
-## Prerequisites
-Before startint, make sure you have gone through the [prerequisites](../integration-walkthrough).
+## Tutorial Prerequisites
+Before starting, make sure you have gone through the [prerequisites](../integration-walkthrough).
 
-### Send Ether token to your Ledger Nano Ethereum Sepolia account
+### Receive Ether token in your Ledger Nano Ethereum Sepolia account
 
 - Create an Ethereum Sepolia account in Ledger Live
 - Send Sepolia Eth to your account with [Infura faucet](https://www.infura.io/faucet/sepolia). You will need to create an account that  will be useful later for the API key.
@@ -51,9 +55,9 @@ touch style.css
 mkdir assets
 ```
 
-Put [the logo](../faq/ledger-logos) in the assets folder.
+Copy [the logo](../faq/ledger-logos) in the assets folder.
 
-Your working folder must look like this.
+The folder will contain these files:  
 
 ![Folder tutorial](/connectivity/folder-e2e-eth.png)
 *Fig. 3: Folder of the Application*

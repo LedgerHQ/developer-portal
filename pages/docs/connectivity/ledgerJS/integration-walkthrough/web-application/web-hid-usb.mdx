@@ -8,21 +8,26 @@ import { Callout } from 'nextra/components'
 # Web USB/HID
 
 ## Introduction
-In this section, we will guide you through the creation of a web application. This application will connect to your Nano to display the address of a Bitcoin account. If you want it for Ethereum you can easily modify it.
+In this section, we will guide you through the creation of a web application.  
+The instructions for Web USB and Web HID are very similar, with only a few lines to comment out, so this is a combined walkthrough.  
+This application will connect to your Nano to display the address of a Bitcoin account. 
+You can easily modify the code, if you want it for Ethereum.
 
-Web USB and Web HID applications are implemented with [@ledgerhq/hw-transport-webusb](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-webusb) and [@ledgerhq/hw-transport-webhid](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-webhid) respectively.
+Reference note: the packages referenced here are     
+ Web USB: [@ledgerhq/hw-transport-webusb](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-webusb)  
+ Web HID: [@ledgerhq/hw-transport-webhid](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-webhid).
 
-## Prerequisites
-Before starting ensure you have gone through the [prerequisites](../.).
+## One-time setup
 
-## Coding
+Make sure you go through the [Development Prerequisites](../../integration-walkthrough).
 
+## App Coding (Desktop)
 
+### App setup
 
-### Initialization
-First, open a terminal and create a new folder in your usual working directory. For this tutorial, the folder will be named "example-web-hid-usb".
+For this tutorial, the folder will be named `example-web-hid-usb`, so that it can be used for either Web USB or Web HID.
 
-Run:
+From your `Github folder` or favourite `examples folder`, run:
 
 ```console copy
 mkdir example-web-hid-usb
@@ -45,12 +50,12 @@ touch src/index.html
 touch src/main.js
 ```
 
-Your folder must look like this.
+The folder will contain these files:  
 
 ![Folder USB and HID](/connectivity/folderUsbHid.png)
 *Fig. 1: File structure*
 
-### Coding
+### Files
 Open the folder example-web-hid-usb in an code editor.
 
 #### index.html
@@ -77,7 +82,9 @@ In index.html copy-paste the following code :
 In main.js copy-paste the following code:
 
 <Callout type="warning" emoji="⚠️">
-  Comment out or remove the Transport package you are not using (@ledgerhq/hw-transport-webusb or @ledgerhq/hw-transport-webhid) and the corresponding <code>const</code>.
+  Comment out or remove the `import` package you don't need <br/>
+  (`@ledgerhq/hw-transport-webusb` or `@ledgerhq/hw-transport-webhid`) <br/>
+  and the `const transport` you don't use.
 </Callout>
 
 ```javascript copy
@@ -133,9 +140,9 @@ document.body.addEventListener("click", async () => {
   }
 });
 ```
-### Dependencies Installation
+### Dependencies 
 
-#### Install the packages
+#### Installation
 
 Run:
 
@@ -154,6 +161,7 @@ npm install --save @ledgerhq/hw-app-btc
 |[@ledgerhq/hw-app-btc](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-btc) | It will help you ask your Nano to access the Bitcoin address. |
 
 #### Install the Transport HID or USB package
+
 Then depending on your choice install one of the corresponding packages:
 - Install the Ledger package [@ledgerhq/hw-transport-webhid](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-webhid) which provide you with all the methods to interact with your Nano with an HID connection:
     ```console copy
@@ -187,6 +195,12 @@ Add this at the end of the script:
 
 Your "package.json" should look like this:
 
+<Callout type="warning" emoji="⚠️">
+  In the `dependencies` section of package.json, comment out or remove the line you don't need <br/>
+  (`@ledgerhq/hw-transport-webusb` or `@ledgerhq/hw-transport-webhid`) <br/>
+  Do not copy-paste as is, without removing the other line.
+</Callout>
+
 ```javascript copy
 {
   "name": "update-doc-web-hid-usb",
@@ -196,7 +210,7 @@ Your "package.json" should look like this:
   "dependencies": {
     "@ledgerhq/hw-app-btc": "^10.1.0",
     "@ledgerhq/hw-transport-webhid": "^6.28.0",
-        "@ledgerhq/hw-transport-webusb": "^6.28.4",
+    "@ledgerhq/hw-transport-webusb": "^6.28.4",
     "@ledgerhq/logs": "^6.12.0",
     "core-js": "^3.33.3"
   },
@@ -216,13 +230,10 @@ Your "package.json" should look like this:
 }
 ```
 
-<Callout type="warning" emoji="⚠️">
-  In package.json, remove the Transport package you are not using (@ledgerhq/hw-transport-webusb or @ledgerhq/hw-transport-webhid).
-</Callout>
+## App Launch
 
-## Launch
+### 1. Start the Server
 
-### Start the Development Server
 Now that the Setup is finished, the app has to be built to be displayed.
 Start the development server:
 
@@ -230,16 +241,17 @@ Start the development server:
 npm run start
 ```
 
+### 2. Launch the App
+
 Now the application is up and running. Open the browser and go to `localhost:1234`, it will display :
 
 ![Application running on browser](/connectivity/webapp1.png)
 *Fig. 3: Application Running on Browser*
 
-### Plug your Nano
-Before clicking on the text connect your Nano to the USB port, unlock it and run the bitcoin application.
-The steps are described below.
+Before clicking on the text connect your Nano to the USB port, unlock it and run the bitcoin application. The steps are described below.
 
-<br/>
+### 3. Plug your Nano
+
 <div className="center">
   <figure>
     <img src="/connectivity/ledgerCodePin.jpg" alt="Nano Enter Code Pin"/>
@@ -261,33 +273,44 @@ The steps are described below.
   </figure>
 </div>
 
-### Connect Your Nano to the Application
+### 4. Connect the Application
+
 Now you can click on the text and a popup will be prompt. Choose your Nano and click connect:
 
 ![Connect your Nano](/connectivity/webapp2.png)
 *Fig. 7: Connect your Nano*
 
-Then if all goes well you must have the bitcoin address you just create [previously](#prerequisites)
+### 5. Check displayed address
+
+The App gets the Bitcoin address and displays it.  
+Check that the address displayed on the App is the same as the one displayed on the Ledger device.
 
 ![Address Account Displayed](/connectivity/webapp3.png)
 *Fig. 8: Address Account Displayed*
 
-Congratulations, you have successfully built your first application connected with a Nano !
+Congratulations, you have successfully built your first application connected to a Nano!
 
 <Callout type="info" emoji="👉">
   Note that if your finalize the operation on your Nano by accepting or rejecting, the corresponding message appears on your web application.
 </Callout>
 
-## Android chrome
+## App Coding (Android Chrome)
 
-Android chrome supports the use of the Ledger device by HID and USB.
-On a mobile phone, only android can support the web application.
-Moreover, on android, just chrome can support the web application.
+Android chrome supports HID and USB.  
+For smartphones, only Android supports web applications.  
+For Android, only Chrome  supports web application.  
 
-### Launch on Android chrome
-To test your application on android, a little change has to be made. Just add the "--https" flag in your start script, and run the script.
+### package.json
 
-#### package.json
+To test your application on android, a little change has to be made.  
+Add the `--https` flag in your `"start"` script
+
+<Callout type="warning" emoji="⚠️">
+  In the `dependencies` section of package.json, comment out or remove the line you don't need <br/>
+  (`@ledgerhq/hw-transport-webusb` or `@ledgerhq/hw-transport-webhid`) <br/>
+  Do not copy-paste as is, without removing the other line.
+</Callout>
+
 ```javascript copy
 {
   "name": "example-web-hid-usb",
@@ -313,9 +336,4 @@ To test your application on android, a little change has to be made. Just add th
 }
 ```
 
-<Callout type="warning" emoji="⚠️">
-  In package.json, remove the Transport package you are not using (@ledgerhq/hw-transport-webusb or @ledgerhq/hw-transport-webhid).
-</Callout>
-
-
-The browser will ask you that the website is malicious, to continue, click on "advanced settings" and then on "continue to the localhost site". Now you can test to connect your Nano on your Android.
+The browser will warn that the website is malicious, to continue, click on "advanced settings" and then on "continue to the localhost site". Now you can test to connect your Nano on your Android.
