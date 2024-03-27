@@ -17,6 +17,7 @@ paths:
             - "chainId" : for EVMs only, chain id of the blockchain, 1 for ethereum, 137 for polygon... See https://chainlist.org/
             - "contract" : mapped only if type is token, the contract address of the token.
             blockchain OR chainId should be defined. If chainId is defined, blockchain field is ignored.
+          x-summary: OK
           content:
             application/json:
               schema:
@@ -39,6 +40,7 @@ paths:
       responses:
         "200":
           description: Array of supported swap pairs.
+          x-summary: OK
           content:
             application/json:
               schema:
@@ -69,6 +71,7 @@ paths:
       responses:
         "200":
           description: TODO
+          x-summary: OK
           content:
             application/json:
               schema:
@@ -96,6 +99,7 @@ paths:
       responses:
         "200":
           description: Status of an executed swap transaction
+          x-summary: OK
           content:
             application/json:
               schema:
@@ -121,6 +125,7 @@ paths:
       responses:
         "200":
           description: SwapId with flatten JWS `https://www.rfc-editor.org/rfc/rfc7515#section-7.2.2`
+          x-summary: OK
           content:
             application/json:
               schema:
