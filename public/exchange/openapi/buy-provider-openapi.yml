@@ -17,6 +17,7 @@ paths:
             - "coutriesCapabilities.[].country": available at the Alpha-2 standard (ISO3166),
             - "coutriesCapabilities.[].paymentMethods.[].name": Available payment method, valid values : visa, mastercard, creditcard, pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay, maestro, googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank, bank, gbpbank, eps, ideal, other,
             - "coutriesCapabilities.[].paymentMethods.[].successRate": percentage of success of the transaction.
+          x-summary: OK
           content:
             application/json:
               schema:
@@ -121,6 +122,7 @@ paths:
            \ currency of the buy,\n- \"to\": crypto currency of the buy,\n- \"amount\"\
            : fiat amount,\n- \"cryptoAmount\": crypto amount the user will have,\
            \ must include all the fees.\n"
+         x-summary: OK
           content:
             application/json:
               schema:
@@ -158,6 +160,7 @@ paths:
             - "chainId" : for EVMs only, chain id of the blockchain, 1 for ethereum, 137 for polygon... See https://chainlist.org/
             - "contract" : mapped only if type is token, the contract address of the token.
             blockchain OR chainId should be defined. If chainId is defined, blockchain field is ignored.
+          x-summary: OK
           content:
             application/json:
               schema:
