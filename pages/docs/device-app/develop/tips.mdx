@@ -25,7 +25,9 @@ The only solution to this problem is using less RAM. To do so, make your applica
 
 ## Stack Overflows
 
-It is complicated to determine the exact amount of the call stack used by your application without running it. We recommend using a stack canary to avoid stack overflows.
+<Callout type="info" emoji="ℹ️">
+       To address RAM limitations and stack overflows, consider optimizing your application's memory layout and implementing a stack canary for overflow detection.
+</Callout>
 
 To create a stack canary, you have to set a magic value at the start of the stack area. The stack grows towards lower addresses, so a canary at the start of this area will be located at the top of the stack.
 
@@ -103,7 +105,7 @@ With our error model, there are two common failure scenarios.
 
     In the above example, `a` does not need to be declared `volatile` because it is never modified.
 
-<Callout>
+<Callout type="info" emoji="ℹ️">
     For greater clarity and coherence, we recommend using the error codes defined in the SDKs wherever possible (see <code>EXCEPTION</code>, <code>INVALID_PARAMETER</code>, etc. in <code>os.h</code>). If you decide to use custom error codes, use custom error codes for each error case.
 </Callout>
 
@@ -122,7 +124,11 @@ uint16_t *ptr16 = &tmp_ctx.signing_context.buffer[processed];
 PRINTF("uint16_t: %d", ptr16[0]);
 ```
 
-`ptr16[0]` access can make the application crash, even though `tmp_ctx.signing_context.buffer[processed]` (`unsigned char*`) can be accessed. This happens when a pointer isn't word-aligned, but a word is accessed in RAM. As a workaround, copy the buffer into a properly aligned location (e.g. using `memmove`).
+`ptr16[0]` access can make the application crash, even though `tmp_ctx.signing_context.buffer[processed]` (`unsigned char*`) can be accessed. This happens when a pointer isn't word-aligned, but a word is accessed in RAM.
+
+<Callout type="info" emoji="ℹ️">
+   To prevent crashes due to unaligned RAM access, consider copying the buffer into a properly aligned location using `memmove` or a similar function.
+</Callout>
 
 Please refer to the [alignment](../architecture/memory/memory-alignment/) page for further information.
 
