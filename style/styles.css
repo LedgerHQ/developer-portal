@@ -150,6 +150,14 @@ code {
   font-weight: normal;
 }
 
+.nextra-callout a {
+  text-decoration: underline;
+}
+
+.nextra-callout a[target='_blank']:after {
+    content: ' \21aa';
+}
+
 @layer components {
   .transition-right { 
     @apply transition-all group-hover:translate-x-1 group-hover:transform

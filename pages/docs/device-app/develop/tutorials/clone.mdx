@@ -115,7 +115,7 @@ CHAIN_ID = 15
 APPNAME = "WaltonChain"
 ```
 
-<Callout type="warning" emoji="⚠️">
+<Callout type="error" emoji="🚨">
     It is necessary to choose a Derivation Path and a Chain ID specific to your network to prevent the risk of replay attack (Introduced by EIP155) that can happen when using the same Derivation Path ( m/44'/60'/0') and Chain ID as Ethereum. This could expose your users to loss of funds.<br/>
     You can either use the same Derivation Path but define a new chain ID (make sure this is not used by another network) or use slip44/BIP44 standard to reserve a dedicated coin type that will allow you to define a new derivation path.
 </Callout>

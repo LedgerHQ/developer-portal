@@ -24,7 +24,7 @@ Ledger uses a standard called [BIP 39](https://github.com/bitcoin/bips/blob/mast
 
 The result of this process is that your device will generate a single mnemonic seed out of 2<sup>256</sup> possible mnemonic seeds (That's one of 115 792 089 237 316 195 423 570 985 008 687 907 853 269 984 665 640 564 039 457 584 007 913 129 639 936 possible mnemonic seeds). Note that while the first 23 words are completely random, the final word is derived from 3 random bits and 8 calculated bits from the SHA-256 hash. This means that the final word can act like a checksum - if you input an incorrect seed into the device while recovering it, it is possible for the device to detect that the inputted seed is invalid.
 
-<Callout type="info" emoji="👉">
+<Callout type="info" emoji="ℹ️">
  	<b>Can someone guess my seed?</b> There are 2<sup>256</sup> different possible 24-word mnemonic seeds. For comparison, the number of atoms on Earth is estimated to be around 2<sup>166</sup>. Just let that sink in for a second. The chance of someone else being able to guess your seed is astronomically small, to say the least.
 </Callout>
 

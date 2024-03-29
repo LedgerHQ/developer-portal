@@ -9,7 +9,7 @@ import { Callout } from 'nextra/components'
 
 Let’s start with a high-level overview of what a plugin is, how it interacts with the Ethereum app, and the steps required to write your plugin.
 
-<Callout type="info" emoji="👉">
+<Callout type="info" emoji="ℹ️">
   Even though this guide is relatively beginner-friendly, you need to have prior experience of C and Solidity development.
 </Callout>
 
@@ -18,6 +18,8 @@ Let’s start with a high-level overview of what a plugin is, how it interacts w
 If you’ve already interacted with any smart contract using a Ledger Device, then you’ve already seen this screen:
 
 ![Blind Signing](/plugin/blind-signing.png)
+
+<Callout type="warning" emoji="⚠️">Blind signing transactions pose a significant security risk and result in a poor user experience by not providing users with clear transaction details.</Callout>
 
 This is a UX disaster. The user has no guarantee of interacting with the right smart contract, nor of signing the correct data. The only user action is literally to blind-sign the transaction.
 
@@ -34,7 +36,7 @@ Ledger designed and implemented Paraswap, the first Ethereum plugin.
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/18lLOVoQtNo" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
-<Callout type="info" emoji="👉">
+<Callout type="info" emoji="ℹ️">
   The second mandatory requirement to obtain official support by Ledger for your DApp is using a plugin to verify transaction details on the Ledger.
 </Callout>
 
