@@ -3,7 +3,7 @@ title: Wallet API
 description: Adding your currency in Wallet API.
 ---
 
-import { Callout } from 'nextra/components'
+import { Callout } from "nextra/components";
 
 # 8 - Wallet API
 
@@ -59,18 +59,23 @@ pnpm dev
 1. Fork [github.com/LedgerHQ/ledger-live](https://github.com/LedgerHQ/ledger-live)
 2. Clone the repo
 
-In LL, you might need to create an adapter for your coin family to transform a WalletAPITransaction (the type of the transaction from the Wallet API point of view) to a Ledger Live Transaction (the type of the transaction from the Ledger Live point of view)
+3. Update the version of `@ledgerhq/wallet-api-core`, `@ledgerhq/wallet-api-server` and `@ledgerhq/wallet-api-client` used in Ledger Live
+
+4. In LL, you might need to create an adapter for your coin family to transform a WalletAPITransaction (the type of the transaction from the Wallet API point of view) to a Ledger Live Transaction (the type of the transaction from the Ledger Live point of view)
 
 - `libs/ledger-live-common/src/generated/walletApiAdapter.ts` import your adapter and add it to the export
 
 <Callout type="info" emoji="ℹ️">
-  The file above is automatically generated at build time by this script. It should not be updated manually but you should still check that your adapter is included in this file once added.
+  The file above is automatically generated at build time by [this
+  script](https://github.com/LedgerHQ/ledger-live/blob/60710fc205d7ba751aaf0ee24b717e19ac47d48b/libs/ledger-live-common/scripts/sync-families-dispatch.mjs#L19).
+  It should not be updated manually but you should still check that your adapter
+  is included in this file once added.
 </Callout>
 
 The actual adapted file to add is described bellow:
 
 - `libs/ledger-live-common/src/families/{COIN_FAMILY}/walletApiAdapter.ts` the actual transaction adapter  
-(here is an example adapter for ethereum: `libs/ledger-live-common/src/families/ethereum/walletApiAdapter.ts`)
+  (here is an example adapter for ethereum: `libs/ledger-live-common/src/families/ethereum/walletApiAdapter.ts`)
 
 ### Examples:
 
