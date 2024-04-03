@@ -95,6 +95,21 @@ There are 5 main endpoints needed for the swap:
     So multiply 2 **ETH** by `10^18` → `0x1BC16D674EC80000`.
     And `0x1BC16D674EC80000` encoded into a 16 bytes array in big endian is `[0x00, ... 0x00, 0x1B, 0xC1, 0x6D, 0x67, 0x4E, 0xC8, 0x00, 0x00]`.
 
+    You also should ensure the following fields length limitations :
+    ```
+    ledger_swap.NewTransactionResponse.payin_address max_size:63;
+    ledger_swap.NewTransactionResponse.payin_extra_id max_size:81;
+    ledger_swap.NewTransactionResponse.refund_address max_size:63;
+    ledger_swap.NewTransactionResponse.refund_extra_id max_size:20;
+    ledger_swap.NewTransactionResponse.payout_address max_size:63;
+    ledger_swap.NewTransactionResponse.payout_extra_id max_size:20;
+    ledger_swap.NewTransactionResponse.currency_from max_size:10;
+    ledger_swap.NewTransactionResponse.currency_to max_size:10;
+    ledger_swap.NewTransactionResponse.amount_to_provider max_size:16;
+    ledger_swap.NewTransactionResponse.amount_to_wallet max_size:16;
+    ledger_swap.NewTransactionResponse.device_transaction_id max_size:11;
+    ledger_swap.NewTransactionResponse.device_transaction_id_ng max_size:32;
+    ```
 </details>
 
 <details>
