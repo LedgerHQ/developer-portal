@@ -7,19 +7,19 @@ import { Steps } from 'nextra/components'
 In order to become a native Buy provider in the Ledger Live ecosystem, you must:
 
 <Steps>
+### Develop/Modify your LiveApp
+ 
+- Provide a set of query parameters to access your LiveApp directly with the quote entered by the user in Ledger Live. 
+- Write/Modify the Manifest file. 
+- Follow some flow/UX requirements.
+
 ### Adapt to our Backend
  
 - Adapt your API and endpoints to interact with our Backend.
 
-### Develop/Modify your LiveApp
- 
-- Configure some Deeplinks to access your LiveApp directly with the quote entered by the user in Ledger Live. 
-- Write/Modify the Manifest file. 
-- Follow some flow/UX requirements.
-
 ### Test and submit
 
-Test end-to-end your integration as much as possible with some tools we provide, and submit:
+Test end-to-end your integration by manually loading your LiveApp through Developer Mode (see [Wallet API doc](https://wallet.api.live.ledger.com/docs/discover/dapp-browser/manifest#load-your-live-app-locally-on-desktop)) and submit:
   - your API, 
   - your LiveApp Manifest,
 
@@ -27,6 +27,6 @@ Test end-to-end your integration as much as possible with some tools we provide,
 
 
 In the following pages, you will find:
-- [Backend](buy/providers-backend): details on the main endpoints needed for the chosen operation, the payload, the signature, and your public/private key.
-- [LiveApp](buy/providers-liveapp): details on your LiveApp specifities, such as the deeplink's format, or the use of Exchange SDK instead of the Wallet API.
+- [LiveApp](buy/providers-liveapp): details on your LiveApp specifities, such as the widget URL or the Manifest. 
+- [Backend](buy/providers-backend): details on the main endpoints needed for the chosen operation.
 - [Test & Submit](buy/providers-test-and-submit): details on how to use the Ledger Live Developer Mode and other tools (coming soon) to test your integration end-to-end, as well as how to submit it. 

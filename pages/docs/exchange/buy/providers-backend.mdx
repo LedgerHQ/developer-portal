@@ -23,19 +23,6 @@ There are 3 main endpoints needed for the buy:
     - To get the list of available crypto-currencies: [/crypto-currencies](https://exchange-integration-buy.redoc.ly/#operation/getCrypto-currencies).
     - To get the crypto amount that the user should expect -after all fees are deducted - as a payment for the given fiat amount: [/quotes](https://exchange-integration-buy.redoc.ly/#operation/getQuote).  
 
-<Callout type="info" emoji="👉">
-  If you already have some endpoints with similar functions but different names, let us know because we might be able to adapt.
-</Callout>
-
-<details>
-  <summary>Additional Details: POST /quote</summary>
-    
-    All fees are expressed in output currency. For example, during a ETH to USDT on ethereum swap, the fees are expressed in USDT on ethereum.
-
-    Some requirements about the **/quote** endpoint:
-    - The quote must work without user auth. It can require a Ledger auth.
-    - The quote must be valid long enough (at least a few minutes).    
-</details>
 
 
 
@@ -43,9 +30,3 @@ There are 3 main endpoints needed for the buy:
 [//]: # (**IP address checking** )
 [//]: # (Additionally, we also need a way to know if a user will be able to perform a coin swap given his IP.)
 [//]: # (Our back-end can adapt to how you decide to do this, but we recommend you use a dedicated endpoint. Our back-end will send the user’s IP address to that endpoint, without logging it. In response, your endpoint should tell us if the trade is accepted or rejected.)
-
-
-
-## Payload & Signature
-
-<PayloadAndSignature />
