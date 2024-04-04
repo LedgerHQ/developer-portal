@@ -29,8 +29,8 @@ module.exports = {
         destination: '/docs/device-app',
         permanent: true,
       },
-       {
-        source: 'docs/dapp/embedded-plugin/environment-setup/',
+      {
+        source: '/docs/dapp/embedded-plugin/environment-setup/',
         destination: '/docs/device-app/introduction',
         permanent: true,
        },
