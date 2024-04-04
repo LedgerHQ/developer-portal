@@ -8,25 +8,32 @@ import { Callout } from 'nextra/components'
 # Web Bluetooth
 
 ## Introduction
-In this section, we will guide you through the creation of an application. This application will connect to your Ledger Nano X to display the address of your account (eg. bitcoin account, ethereum account).
+In this section, we will guide you through the creation of an application.  
+This application will connect to your Ledger Nano X to display the address of your account (eg. bitcoin account, ethereum account). 
 
-## Prerequisites
-Before starting, make sure you have gone through the [prerequisites](../.).
+<Callout type="warning" emoji="⚠️">
+**This walkthrough will only work with a Ledger Nano X**.  
+The Ledger Nano S and S Plus do not have `Bluetooth` connectiion. 
 
-## Web App Bluetooth (only Nano X)
+Please be aware that the Bluetooth implementation is only supported by a few browsers. <br/>
+You can check if [your browser supports](https://caniuse.com/web-bluetooth) connections via Web Bluetooth.
+</Callout>
 
-The Ledger Nano S and S Plus do not have the Bluetooth functionality. This tutorial will only work with a Ledger Nano X.
+## One-time setup
 
-Please be aware that the Bluetooth implementation is only supported by a few browsers.
-You can check the [browser support](https://caniuse.com/web-bluetooth) for the Web Bluetooth.
+### Environment
 
-### Project Initialization
+Make sure you go through the [Development Prerequisites](../../integration-walkthrough).
+
 This web application is built with Next.js, which is a frontend React framework.
 
+## App Coding
+
+### App setup
 
 First, open a terminal and create a new project. For this tutorial the project will be named “examples-web-bluetooth”.
 
-Run:
+From your `Github folder` or favourite `examples folder`, run:
 
 ```console copy
 npx create-next-app@latest examples-web-bluetooth
@@ -46,14 +53,14 @@ Navigate to your app’s directory:
 cd examples-web-bluetooth
 ```
 
-Open the folder in an editor. Your folder must look like this.
+Open the folder in an editor. The folder will contain these files:  
 
 ![Folder of the Application](/connectivity/folderWebBle.png)
 *Fig. 1: Folder of the Application*
 
-For this implemetation, you will only modify "_app.js", "index.js", and "Home.module.css".
+### Files
 
-### Code Implementation
+For this implemetation, you will only modify "index.js", "\_app.js", and "Home.module.css".
 
 #### index.js
 
@@ -68,9 +75,9 @@ export default function Home() {
   );
 }
 ```
-#### _app.js
+#### \_app.js
 
-In pages/_app.js replace the existing coe with the following:
+In pages/\_app.js replace the existing coe with the following:
 
 ```javascript copy
 import React, { Component } from "react";
@@ -274,14 +281,16 @@ module.exports = nextConfig
 ```
 
 
-### Dependencies Installation
+### Dependencies
+
+#### Installation
 
 Run:
 
 ```console copy
 npm install --save @ledgerhq/hw-app-eth
 npm install --save @ledgerhq/hw-transport-web-ble
-npm install eip55
+npm install --save eip55
 ```
 
 | Package | What does it do? |
@@ -290,9 +299,23 @@ npm install eip55
 |[@ledgerhq/hw-transport-web-ble](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-web-ble) | It provides you with all the methods to interact with your Ledger Nano X with a Bluetooth connexion. |
 |[eip55](https://www.npmjs.com/package/eip55) | An EIP55 compatible address encoding library.|
 
-#### Package.json Dependencies
+#### Package.json 
+
 Now that the dependencies are installed you can find them in the “package.js”.
-This is how your “package.json” has to look like:
+
+1. Modify Scripts
+1. Check Contents
+
+##### Modify Scripts
+```javascript copy
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+```
+
+##### Check your “package.json” looks like this:  
 
 ```javascript copy
 {
@@ -315,15 +338,20 @@ This is how your “package.json” has to look like:
   }
 }
 ```
-## Web App Test
-### Start the Development Server
+## App Launch
 
-Make sure the Bluetooth feature of your Nano is enabled.
+### Enable Bluetooth
+
+Make sure the Bluetooth feature of your Nano is enabled.  To check, see [here](https://support.ledger.com/hc/en-us/articles/360019115193-Access-Control-Center?docs=true).
 
 <Callout type="warning" emoji="⚠️">
-  If it was not enabled, you need to enable it and then power off the power on your Nano.
+  If it was not enabled, you need to: 
+  1. enable it 
+  2. power OFF your Nano 
+  3. and power it back ON.
 </Callout>
 
+### Start de Development Server
 
 Now that the Setup is finished, the app has to be available to be displayed.
 Therefore start the development server:
@@ -333,7 +361,8 @@ npm run dev
 ```
 
 <Callout type="warning" emoji="⚠️">
-  All the browser do not support the Bluetooth please look at the <a href='https://caniuse.com/web-bluetooth' className='alert-link'> browser support </a>.
+  Not all browsers support Bluetooth. <br/>
+  Please look at the [browser support page](https://caniuse.com/web-bluetooth).
 </Callout>
 
 Now the application is up and running. Open the browser and go to `localhost:3000`, it will display :
@@ -384,6 +413,7 @@ Finally, if all goes well the address must be displayed with the QR code
 *Fig. 9: Address Account Displayed*
 
 ### Verify the Address on Nano
+
 For security reasons, the address will also be displayed on your Ledger Nano X to verify and confirm the address.
 
 <br/>
@@ -409,4 +439,4 @@ For security reasons, the address will also be displayed on your Ledger Nano X t
 </div>
 
 
-Congratulations you have successfully built your first application connected with Ledger Nano X!
+Congratulations you have successfully built your first application connected to your Ledger Nano X!

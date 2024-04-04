@@ -16,7 +16,7 @@ The seed allows the user to derive any key from a given path at will. The user c
 
 Generating secrets must be done on demand. An application **must not** store a secret derived from the seed, and should regenerate it instead then erased when it is not used anymore.
 
-Even in encrypted form, those secrets **must not** not be stored outside of the device. They can be regenerated instead.
+Even in encrypted form, those secrets **must not** be stored outside of the device. They can be regenerated instead.
 
 
 ### Avoid blindly signing data
@@ -41,14 +41,14 @@ Warning: If you allow signing untrusted hashes (while displaying a prompt to the
 
 Rationale: If you do not require user consent for signing important data, an attacker can use your device as a signing black box and sign whatever they want.
 
-<Callout type="info" emoji="👉">
+<Callout type="info" emoji="ℹ️">
   You might also consider approvals for extracting public keys, as some users might want extended privacy.
 </Callout>
 
 1. They might not want to reveal their *root/account* public key, only address keys
 2. They might not want to reveal address public key until it is required. (Some cryptocurrencies use addresses that are hash of public keys. It is therefore enough to send the address to the host).
 
-<Callout type="info" emoji="👉">
+<Callout type="info" emoji="ℹ️">
   There is a trade-off between privacy and usability here. If you want privacy, it would require a user interaction every time they want to use Ledger device, as opposed to only interaction while signing transactions. The behaviour could also be manually set in the application options.
 </Callout>
 

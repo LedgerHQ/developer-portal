@@ -12,66 +12,19 @@ import 'react-medium-image-zoom/dist/styles.css'
 
 ## Introduction
 In this section you will see how to create a React Native application using the [@ledgerhq/react-native-hw-transport-ble](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/react-native-hw-transport-ble).
-For this project some general prerequisites are mandatory and you can find them [here](../).
+For this project some general prerequisites are mandatory and you can find them [here](../prerequisites/).
 
 Then you can now go through the prerequisite for Android development below.
 
-## Prerequisites
+## One-time setup
 
-### Install
+###  Environnement
 
-- **Homebrew**
+Make sure you go through:   
+1. the [Development Prerequisites](../../integration-walkthrough).
+1. the [Mobile Environment Setup](environment-setup).
 
-  Homebrew is a package manager for macOS. When it needs to install software from third-party websites. To install it, run:
-  ```console copy
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
-  ```
- 
-- **watchman**
-  
-  React Native uses watchman to detect real-time code changes and it automatically builds and pushes the update to your device without manually refreshing.
-  ```console copy
-  brew install watchman
-  ```
-
-- **Java JRE and JDK**
-
-  There is a risk of react-native build failure if you don’t have a complete installation of Java. Downloading Android Studio is not enough since it comes bundled with its own JRE.
-
-  ```console copy
-  brew install --cask adoptopenjdk/openjdk/adoptopenjdk8
-  ```
-
-- **React Native**
-  
-  With React Native, you can write an application in Javascript and then the React Native Compiler will convert your Javascript code into native code for iOS and Android environments.
-  React Native command line interface can be installed using npm as below.
-
-  ```console copy
-  npm install -g react-native-cli
-  ```
-
-
-### Android development prerequisites
-Download and install [Android Studio](https://developer.android.com/studio), choose the version of your operating system.
-
-When Android Studio is installed, open it.
-
-![Android Studio Window](/connectivity/android-studio.png)
-*Fig. 1: Android Studio Window*
-
-
-Then go to settings => Appearance & Behaviour => System Settings => Android SDK and check the "Show Package Details" checkbox on the bottom right of the windows.
-
-![Android Studio Settings](/connectivity/android-studio-settings.png)
-*Fig. 2: Android Studio Settings*
-
-Install the latest SDK version. To do so, select the packages shown below and click apply.
-
-![Android Studio SDK Settings](/connectivity/android-studio-SDK.png)
-*Fig. 3: Android Studio SDK Settings*
-
-#### Set the environnement variables
+### Environnement variables
 If you are using bash, put the environment variable into the bash_profile as below:
 
 ```console copy
@@ -90,27 +43,27 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 Do the same if you are using zsh or anything else. Remember the file will be named differently (eg. zsh => .zprofile)
 
-## Mobile App Build
+## App Coding
 
 Now that we have set up the prerequisites, you can now create the application.
 In this integration, we will use the ethereum application.
 
-### Project Initialization
+### App setup
 
-First, open a terminal and create a new project. For this tutorial the project will be named “ledgerApp”.
+First, open a terminal and create a new project. For this tutorial the project will be named “myAndroidBTApp”.
 
 Run:
 
 ```console copy
-react-native init ledgerApp
-cd ledgerApp
+react-native init myAndroidBTApp
+cd myAndroidBTApp
 ```
 
-<Callout>
-  During the initialization, it is installing required 'CocoaPods' dependencies and it may take time.
+<Callout type="info" emoji="ℹ️">
+  The dependencies of 'CocoaPods' may take some time to initialize.
 </Callout>
 
-### Code Implementation
+### Files
 
 Run:
 
@@ -124,7 +77,7 @@ touch src/ShowAddressScreen.js
 
 #### polyfill.js
 
-In "polyfill.js" copy-paste the following code:
+In "polyfill.js", copy-paste the following code:
 
 ```javascript copy
 global.Buffer = require("buffer").Buffer;
@@ -132,7 +85,7 @@ global.Buffer = require("buffer").Buffer;
 
 #### index.js
 
-Then import the polyfill in "index.js" as shown below:
+Then import the "polyfill.js" in "index.js" as shown below:
 
 ```javascript copy
 /**
@@ -511,12 +464,14 @@ const styles = StyleSheet.create({
 });
 ```
 
-Your folder must look like this.
+The folder will contain these files:  
 
 ![Folder of the Application](/connectivity/folder-rn-ble.png)
 *Fig. 4: Folder of the Application*
 
-### Dependencies Installation
+### Dependencies
+
+#### Installation
 
 Run:
 ```console copy
@@ -529,7 +484,7 @@ npx react-native link react-native-ble-plx
 npm install --save buffer
 npm install --save @ledgerhq/hw-app-eth
 ```
-| Package | What does it do? |
+| Package | What it does |
 |---------|------------------|
 | [react-native-qrcode-svg](https://www.npmjs.com/package/react-native-qrcode-svg) | It allows you to create a QR code. |
 |[react-native-svg](https://www.npmjs.com/package/react-native-svg) | It is a mandatory package to use **react-native-qrcode-svg** |
@@ -540,13 +495,13 @@ npm install --save @ledgerhq/hw-app-eth
 | [hw-app-eth](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-eth) | It helps you ask your Ledger device to access the ethereum address. |
 
 
-#### Package.json dependencies
+#### package.json
 Now that the dependencies are installed you can find them in the “package.js”.
 This is how your “package.json” has to look like.
 
 ```javascript copy
 {
-  "name": "ledgerApp",
+  "name": "myAndroidBTApp",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -592,22 +547,23 @@ In “build.gradle”, in the "android" folder change `minSdkVersion = 21` to `m
 
 You can now test the application you have built.
 
-## Mobile App Test
+## App Launch
 
-The app testing will be executed on your smartphone because the android studio emulator environment does not allow you to use either Bluetooth or USB connexion.
+App testing is done on your smartphone because the Android Studio emulator cannot use Bluetooth or USB connexions.
 
 
-<Callout>
-  Please refer to the information for <a href='https://stackoverflow.com/questions/22604305/how-to-use-android-emulator-for-testing-bluetooth-application' className='alert-link'> Android Emulator Limitation </a>
+<Callout emoji="📖">
+  Please refer to the information for [Android Emulator Limitation](https://stackoverflow.com/questions/22604305/how-to-use-android-emulator-for-testing-bluetooth-application).
+
 </Callout>
 
 ### Enable Developer Settings
-To integrate an application on your smartphone you have to enable the developer role.
+To integrate an application on your Android smartphone you have to enable the developer role.
 To do that go to  Settings > About Phone > Build Number, and tap 7 times on build number to enable the developer settings.
 
 Then go to Settings > System > Advanced > Developer Options and enable the  "USB debugging" as well as "Install via USB"
 
-Connect your phone to your comptuer, and run the command below to see if your device is connected:
+Connect your phone to your computer, and run the command below to check your device is connected:
 ```console copy
 adb devices
 ```
@@ -621,12 +577,12 @@ If all goes well, the list of devices is displayed as shown below:
   </figure>
 </div>
 
-<Callout>
-  For more information about enabling the developer settings on your android device go to <a href='https://developer.android.com/studio/debug/dev-options' className='alert-link'> android studio docs </a>.
+<Callout emoji="📖">
+  For more information about enabling the developer settings on your android device go to [android studio docs](https://developer.android.com/studio/debug/dev-options).
 </Callout>
 
 ### Start the Development Server
-You can now open a terminal, navigate to your "ledgerApp" folder, and start the server by running:
+You can now open a terminal, go to the "myAndroidBTApp" folder, and start the server by running:
 ```console copy
 npm start
 ```
@@ -634,10 +590,10 @@ npm start
 Keep the terminal where "metro" is running open and open a new terminal.
 In this new terminal go to your app folder:
 ```console copy
-cd ledgerApp
+cd myAndroidBTApp
 ```
 
-Run the command  below to install the application on your android device. It's assumed that you have connected your smartphone and your device is recognized by the command `adb devices` as the [Previous Step](#enable-developer-settings) mentioned.
+Run the command  below to install the application on your android device. It assumes your smartphone is connected and your device is recognized by the command `adb devices` as mentioned in the [Previous Step](#enable-developer-settings).
 ```console copy
 npm run android
 ```
@@ -654,8 +610,8 @@ A window will pop up on your android device to install the application. Click on
   </figure>
 </div>
 
-### Launching the Application
-When launching the application it will be displayed like the image below. You must have the Bluetooth and location activated.
+### Launching the App
+When launching the application it will be displayed as the image below. You must have the Bluetooth and location activated.
 
 <br/>
 <div className="center">
@@ -812,4 +768,4 @@ For security purposes, we display on your Nano X the same ethereum address for y
 </div>
 
 
-Congratulations you have successfully built your first application connected with Ledger on Android!
+Congratulations you have successfully built your first Android Bluetooth application connected to your Ledger!

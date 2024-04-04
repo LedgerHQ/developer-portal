@@ -203,7 +203,7 @@ The key generation is the same as for ECDSA.
 
 #### 1.3.b. Signature
 
-The signature is performed by the function `cx_ecschnorr_sign_no_throw` which takes as input the private key, the message (not any digest) and, an **auxiliary data** which is usually some random data. The auxiliary data is given to the function through the `sig` parameter and the value `CX_RND_PROVIDED` is set to the `mode` parameter to specify this. The parameter `sig` contains the calculated signature if the function returns properly. 
+The signature is performed by the function `cx_ecschnorr_sign_no_throw` which takes as input the private key, the message (not any digest), and an **auxiliary data** which is usually some random data. The auxiliary data is given to the function through the `sig` parameter and the value `CX_RND_PROVIDED` is set to the `mode` parameter to specify this. The parameter `sig` contains the calculated signature if the function returns properly. 
 
 In the example below, the value `CX_ECSCHNORR_BIP0340` is also set to the `mode` parameter to specify that the BIP-0340 implementation is used.
 
@@ -253,7 +253,7 @@ cx_aes_init_key_no_throw(rawKey, sizeof(rawKey), &aesKey);
 
 ### 2.2. Encryption
 
-The encryption function takes as input a secret key, an **initialization vector** (which is needed to perform a chained encryption) and, the plaintext and outputs the ciphertext. Since the block cipher works on blocks, if the length of the plaintext is not a multiple of the block size, the plaintext must be padded, i.e. additional data is added at the end of the message to fulfill this requirement. This is done by specifying a type of **padding method**:
+The encryption function takes as input a secret key, an **initialization vector** (which is needed to perform a chained encryption), and the plaintext and outputs the ciphertext. Since the block cipher works on blocks, if the length of the plaintext is not a multiple of the block size, the plaintext must be padded, i.e. additional data is added at the end of the message to fulfill this requirement. This is done by specifying a type of **padding method**:
 1. `CX_PAD_ISO9797M1` to complete the plaintext with only `0`.
 
 2. `CX_PAD_ISO9797M2` to complete the plaintext with one `1`, then all `0`.
@@ -284,7 +284,7 @@ cx_aes_iv_no_throw(&aes_key, CX_ENCRYPT | CX_PAD_ISO9797M1 | CX_CHAIN_CBC, iv, C
 
 ### 2.3. Decryption
 
-The decryption function takes as input a secret key, an initialization vector and, the ciphertext and outputs the plaintext.
+The decryption function takes as input a secret key, an initialization vector, and the ciphertext and outputs the plaintext.
 If the length of the plaintext that has been encrypted is not a multiple of the block size, the padding method used must be specified when calling the decryption function.
 
 The decryption is performed by `cx_aes_iv_no_throw` or `cx_des_iv_no_throw` depending on the algorithm and with the mode value `CX_DECRYPT`.
@@ -296,5 +296,4 @@ uint8_t plaintext[21];
 uint8_t iv[16]; /* The length of the initialization vector is always 16 */
 size_t plaintextLen = sizeof(plaintext);
 cx_aes_iv_no_throw(&aes_key, CX_DECRYPT | CX_PAD_ISO9797M1 | CX_CHAIN_CBC, iv, CX_AES_BLOCK_SIZE, ciphertext, ciphertextLen, plaintext, &plaintextLen);
-
 ```

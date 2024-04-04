@@ -3,7 +3,7 @@
 So how do I know that the apps I'm running on my Ledger devices are doing what I intend them to do? What protects me from getting a virus on my Ledger devices?
 
 
-## User mode, Supervior mode
+## User mode, Supervisor mode
 
 Ledger solves these problems by utilizing the application isolation technology available in the Secure Element - the ARM [Memory Protection Unit](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dai0179b/CHDFDFIG.html) and [Operating Modes](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0210c/Cihhcjia.html). The Memory Protection Unit is used to natively isolate each app to its own memory region, and apps run in User mode whereas the operating system runs in Supervisor mode. By restricting the device to a single-task model where only one app can run at a time, and each app is isolated from the rest of the device, apps are prevented from accessing your cryptographic secrets on the device unless you explicitly give them permission to.
 

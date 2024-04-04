@@ -37,11 +37,11 @@ Ledger devices are protected from interdiction attacks (being tampered with whil
 
 When all Ledger devices are provisioned in the factory, they first generate a unique `Device` public-private keypair. The Device's public key is then signed by Ledger's `Issuer` key to create an Issuer Certificate which is stored in the device. This certificate is a digital seal of authenticity of the Ledger device. By providing the Device's public key and Issuer Certificate, the device can prove that it is a genuine Ledger device.
 
-When the Ledger device connects to one of the Ledger Chrome applications, the device uses the Issuer Certificate to prove that it is an authentic device (this takes place during establishment of the [Secure Channel](#secure-channel), as we'll discuss later in this section). If an attacker created a clone of the device running rogue firmware, this attestation process would fail and the device would be rejected as non-genuine. It is impossible for an attacker to replace the firmware on the device and have it pass attestation without having a Device private key and the corresponding Issuer Certificate, signed by Ledger.
+When the Ledger device connects to one of the Ledger Live applications, the device uses the Issuer Certificate to prove that it is an authentic device (this takes place during establishment of the [Secure Channel](#secure-channel), as we'll discuss later in this section). If an attacker created a clone of the device running rogue firmware, this attestation process would fail and the device would be rejected as non-genuine. It is impossible for an attacker to replace the firmware on the device and have it pass attestation without having a Device private key and the corresponding Issuer Certificate, signed by Ledger.
 
 It is extremely unlikely for the Device private key to become compromised, because the Secure Element is designed to be a stronghold against such physical attacks. It is theoretically possible to extract the private key, but only with great expense and time, so only an organization such as the NSA could do it.
 
-<Callout type="info" emoji="👉">
+<Callout type="info" emoji="ℹ️">
   For more information about the benefits of Ledger's use of a Secure Element for verifying device authenticity, see our blog post <a href='https://www.ledger.com/how-to-protect-hardware-wallets-against-tampering/' className='alert-link'> How to protect hardware wallets against tampering </a> (though keep in mind that not all of the information in this article applies to Ledger's latest products).
 </Callout>
 

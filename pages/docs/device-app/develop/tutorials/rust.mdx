@@ -2,7 +2,7 @@ import { Callout} from 'nextra/components'
 
 # The `Rust` 🦀 boilerplate application
 
-<Callout type="info">
+<Callout type="info" emoji="ℹ️">
 Stax device support is not ready yet and should be available later.
 </Callout>
 
@@ -15,14 +15,15 @@ use cryptographic APIs, but also how to integrate into our build and test enviro
 
 With very little changes, you should be able to quickly have an application of your own.
 
-[Click here](https://github.com/LedgerHQ/app-boilerplate-rust) to fork the repository and start your project.
+<Callout emoji="🔨">Ready to start your project? <a href="https://github.com/LedgerHQ/app-boilerplate-rust" target='_blank'>Fork the repository</a> now and dive into developing your Ledger device application with Rust!</Callout>
 
 ## Continuous Integration (CI)
 
 In the Rust boilerplate application repository you will find [a list of workflows](https://github.com/LedgerHQ/app-boilerplate-rust/tree/main/.github/workflows) 
 to set up an efficient CI pipeline for your project.
 
-Two of them are <u>mandatory</u> to submit your device application for review:
+<Callout type="warning" emoji="⚠️">Setting up an efficient CI pipeline is crucial for your project's success. The <b>Guidelines enforcer</b> and <b>Build and Run functional tests</b> workflows are <b>mandatory</b> for submitting your device application for review.</Callout>
+
 - [Guidelines_enforcer](https://github.com/LedgerHQ/app-boilerplate-rust/blob/main/.github/workflows/guidelines_enforcer.yml):
   this workflow calls a reusable workflow developed by Ledger's internal developer team,
 - [Build and Run functional tests](https://github.com/LedgerHQ/app-boilerplate-rust/blob/main/.github/workflows/build_and_functional_tests.yml): it builds 

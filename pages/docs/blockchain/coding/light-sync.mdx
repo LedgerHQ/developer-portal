@@ -37,7 +37,7 @@ If needed by the blockchain, an account can also contain coin-specific resources
 
 ### Operation
 
-<Callout type="info" emoji="👉">
+<Callout type="info" emoji="ℹ️">
   This type is not required at light sync step and will soon be removed from this section
 </Callout>
 
@@ -88,7 +88,7 @@ src/icons/OperationStatusIcon/index.js
 
 ### Transaction
 
-<Callout type="info" emoji="👉">
+<Callout type="info" emoji="ℹ️">
   This type may not be required at light sync step.
 </Callout>
 
@@ -267,7 +267,7 @@ Since `Operation` will be stored as JSON, you will need to implement specific se
 
 We also would like the `Operation` and `Account` to be displayed in CLI with their specifics, so you must provide formatters to display them.
 
-<Callout type="info" emoji="👉">
+<Callout type="info" emoji="ℹ️">
   In this code sample, all references to operations are not needed at light sync step. They are currently necessary but will soon be removed from this section.
 </Callout>
 
@@ -366,7 +366,7 @@ export default {
 };
 ```
 
-<Callout type="info" emoji="👉">
+<Callout type="info" emoji="ℹ️">
   <code>formatOperationSpecifics()</code> and <code>formatAccountSpecifics()</code> are used in the CLI to display account-specific fields and extras of the transaction history, useful for debugging.
 </Callout>
 
@@ -431,7 +431,7 @@ export default { formatTransaction, fromTransactionRaw, toTransactionRaw };
 
 ## Wrap your API
 
-<Callout type="info" emoji="👉">
+<Callout type="info" emoji="ℹ️">
   In the code samples below, all references to operations are not needed at light sync step. They are currently necessary but will soon be removed from this section.
 </Callout>
 
