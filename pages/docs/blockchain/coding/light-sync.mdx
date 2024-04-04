@@ -124,7 +124,7 @@ See existing implementations for inspiration: [Polkadot types](https://github.co
 
 You will be implementing typescript types that will be used in your integration, like the Transaction type or the additional data needed to be added to the Account shared type, but also any other types that you will need (remember to always type your functions with typescript).
 
-`libs/coin-mycoin/src/types.ts`:
+`libs/coin-modules/coin-mycoin/src/types.ts`:
 
 ```ts copy
 import type { BigNumber } from "bignumber.js";
@@ -181,7 +181,7 @@ export type MyCoinPreloadData = {
 
 Since some of thoses types will be serialized when stored or cached, you may need to define serialize/deserialize functions for those:
 
-`libs/coin-mycoin/src/serialization.ts`:
+`libs/coin-modules/coin-mycoin/src/serialization.ts`:
 
 ```ts copy
 import { BigNumber } from "bignumber.js";
@@ -204,7 +204,7 @@ export function fromMyCoinResourcesRaw(r: MyCoinResourcesRaw): MyCoinResources {
 }
 ```
 
-Because of Account being generic, you may need to add your specific resources to your `libs/coin-mycoin/src/types.ts` file, if you need to store specific information related to the blockchain (like staking, validators, or frozen balance, etc) that are not handle in Account.
+Because of Account being generic, you may need to add your specific resources to your `libs/coin-modules/coin-mycoin/src/types.ts` file, if you need to store specific information related to the blockchain (like staking, validators, or frozen balance, etc) that are not handle in Account.
 
 ```ts
 // ...
@@ -223,7 +223,7 @@ export type AccountRaw = {
 };
 ```
 
-...and handle the associated serialization in `libs/coin-mycoin/src/serialization.ts` (if you use BigInt you will need to make it raw by changing it to string for example):
+...and handle the associated serialization in `libs/coin-modules/coin-mycoin/src/serialization.ts` (if you use BigInt you will need to make it raw by changing it to string for example):
 
 ```ts copy
 import { Account, AccountRaw } from "@ledgerhq/types-live";
@@ -271,7 +271,7 @@ We also would like the `Operation` and `Account` to be displayed in CLI with the
   In this code sample, all references to operations are not needed at light sync step. They are currently necessary but will soon be removed from this section.
 </Callout>
 
-`libs/coin-mycoin/src/account.ts`:
+`libs/coin-modules/coin-mycoin/src/account.ts`:
 
 ```ts copy
 import type { Unit } from "@ledgerhq/types-cryptoassets";
@@ -376,7 +376,7 @@ The same idea applies also to the `Transaction` type which needs to be serialize
   This part may not be required if you don't need transactions for light sync.
 </Callout>
 
-`libs/ledger-live-common/src/families/mycoin/transaction.ts`:
+`libs/coin-modules/coin-mycoin/src/transaction.ts`:
 
 ```ts copy
 import type { Account } from "@ledgerhq/types-live";
@@ -442,7 +442,7 @@ For the example, we will assume that <i>MyCoin</i> provides a SDK that is able t
 The best way to implement your API in Live Common is to create a dedicated `api` subfolder, that exports all functions that require calls to 3rd-party and map their responses to Ledger Live types.
 
 ```plaintext
-./src/families/mycoin
+./libs/coin-modules/coin-mycoin/src
 └── api
   ├── index.ts
   ├── sdk.ts
@@ -455,7 +455,7 @@ The best way to implement your API in Live Common is to create a dedicated `api`
 
 You will likely need to export thoses functions, but implemention is up-to-developer:
 
-`libs/coin-mycoin/src/api/index.ts`:
+`libs/coin-modules/coin-mycoin/src/api/index.ts`:
 
 ```ts copy
 export {
@@ -661,7 +661,7 @@ As you may see in `coin-mycoin/src/bridge/js.ts`, Live Common provides a helper 
 
 We usually group the `scanAccounts` and `sync` into the same file `js-synchronisation.ts` as they both use similar logic as a `getAccountShape` function passed to helpers.
 
-`coin-mycoin/src/js-synchronisation.ts`:
+`libs/coin-modules/coin-mycoin/src/js-synchronisation.ts`:
 
 ```ts copy
 import type { Account } from "@ledgerhq/types-live";
@@ -951,11 +951,11 @@ It is important to keep in mind that all currencies work independently and that 
 
 Hence, the more cryptocurrencies Ledger Live is using, the more requests and calculations are executed, which can take time.
 
-To avoid making the same requests several times, we recommend using a local cache in your implementation (e.g. fees estimations, some currency data to preload, etc in a `libs/coin-mycoin/src/api/cache.ts` file.
+To avoid making the same requests several times, we recommend using a local cache in your implementation (e.g. fees estimations, some currency data to preload, etc in a `libs/coin-modules/coin-mycoin/src/api/cache.ts` file.
 
-We have a [`src/cache.ts`](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/coin-framework/src/cache.ts) helper for creating Least-Recently-Used caches anywhere if needed.
+We have a [`makeLRUCache`](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/coin-framework/src/cache.ts) function for creating Least-Recently-Used caches anywhere if needed.
 
-See for example the [Polkadot's cache usage](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/coin-polkadot/src/api/index.ts).
+See for example the [Polkadot's cache usage](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/coin-modules/coin-polkadot/src/network/index.ts).
 
 ## React Hooks
 
