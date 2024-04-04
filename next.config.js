@@ -29,6 +29,11 @@ module.exports = {
         destination: '/docs/device-app',
         permanent: true,
       },
+       {
+        source: 'docs/dapp/embedded-plugin/environment-setup/',
+        destination: '/docs/device-app/introduction',
+        permanent: true,
+       },
       {
         source: '/docs/embedded-app/introduction',
         destination: '/docs/device-app',
@@ -107,12 +112,17 @@ module.exports = {
        },
       {
         source: '/docs/embedded-app/framework',
-        destination: '/docs/device-app/develop/quickstart',
+        destination: '/docs/device-app/develop/tutorials/quickstart',
+        permanent: true,
+       },
+      {
+        source: '/docs/embedded-app/debug/',
+        destination: '/docs/device-app/develop/tips',
         permanent: true,
        },
       {
         source: '/docs/device-app/quickstart/framework',
-        destination: '/docs/device-app/develop/quickstart',
+        destination: '/docs/device-app/develop/tutorials/quickstart',
         permanent: true,
        },
       {
@@ -321,6 +331,11 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/embedded-app/stax-interactions',
+        destination: '/docs/device-app/develop/ui/ledger-stax-display',
+        permanent: true,
+       },
+      {
         source: '/docs/embedded-app/stax-home',
         destination: '/docs/device-app/develop/ui/ledger-stax-display/home',
         permanent: true,
@@ -337,7 +352,7 @@ module.exports = {
        },
       {
         source: '/docs/device-app/coding-guidelines/ledger-stax-display/info-settings',
-        destination: '/docs/device-app/develop/sdk/ui/ledger-stax-display/info-settings',
+        destination: '/docs/device-app/develop/ui/ledger-stax-display/info-settings',
         permanent: true,
        },
       {
@@ -407,52 +422,52 @@ module.exports = {
        },
       {
         source: '/docs/embedded-app/documentation-requirements',
-        destination: '/docs/device-app/deliver/requirements/deliverables/documentation',
+        destination: '/docs/device-app/deliver/deliverables/documentation',
         permanent: true,
        },
       {
         source: '/docs/device-app/deliverables/documentation-requirements',
-        destination: '/docs/device-app/deliver/requirements/deliverables/documentation',
+        destination: '/docs/device-app/deliver/deliverables/documentation',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/documentation-requirements',
-        destination: '/docs/device-app/deliver/requirements/deliverables/support',
+        destination: '/docs/device-app/deliver/deliverables/support',
         permanent: true,
        },
       {
         source: '/docs/nano-app/support-requirements',
-        destination: '/docs/device-app/deliver/requirements/deliverables/support',
+        destination: '/docs/device-app/deliver/deliverables/support',
         permanent: true,
        },
       {
         source: '/docs/device-app/deliverables/support-requirements',
-        destination: '/docs/device-app/deliver/requirements/deliverables/support',
+        destination: '/docs/device-app/deliver/deliverables/support',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/support-requirements',
-        destination: '/docs/device-app/deliverables/marketing-requirements',
+        destination: '/docs/device-app/deliver/deliverables/marketing',
         permanent: true,
        },
       {
         source: '/docs/device-app/deliverables/marketing-requirements',
-        destination: '/docs/device-app/deliver/requirements/deliverables/marketing',
+        destination: '/docs/device-app/deliver/deliverables/marketing',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/marketing-requirements',
-        destination: '/docs/device-app/deliver/requirements/deliverables/marketing',
+        destination: '/docs/device-app/deliver/deliverables/marketing',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/warranty-disclaimer',
-        destination: '/docs/device-app/deliver/requirements/legal',
+        destination: '/docs/device-app/deliver/deliverables/legal',
         permanent: true,
        },
       {
         source: '/docs/device-app/deliverables/warranty-disclaimer',
-        destination: '/docs/device-app/deliver/requirements/legal',
+        destination: '/docs/device-app/deliver/deliverables/legal',
         permanent: true,
        },
       {
@@ -546,7 +561,12 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/speculos/:slug',
+        source: '/docs/device-app/tools/speculos/basic-usage/:slug',
+        destination: '/docs/device-app/develop/tools',
+        permanent: true,
+       },
+      {
+        source: '/docs/speculos/user/:slug',
         destination: '/docs/device-app/develop/tools',
         permanent: true,
        },
@@ -1156,8 +1176,8 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/swap/how-to',
-        destination: '/docs/exchange/integration/howto/requirements',
+        source: '/docs/swap/how-to/test/',
+        destination: '/docs/exchange/integration/providers-test-and-submit',
         permanent: true,
        },
       {
@@ -1174,6 +1194,11 @@ module.exports = {
         source: '/docs/swap/howto/ledger-exchange-sdk',
         destination: '/docs/exchange/integration',
         permanent: true,
+       },  
+      {
+        source: '/docs/exchange/integration/howto/ledger-exchange-sdk',
+        destination: '/docs/exchange/integration',
+        permanent: true,
        },
       {
         source: '/docs/swap/live-app/start-here',
@@ -1182,7 +1207,7 @@ module.exports = {
        },
       {
         source: '/docs/swap/live-app/quote',
-        destination: '/docs/exchange/flow/flow-breakdown/quote',
+        destination: '/docs/exchange/flow/quote',
         permanent: true,
        },
       {
@@ -1192,17 +1217,17 @@ module.exports = {
        },
       {
         source: '/docs/swap/live-app/device-flow',
-        destination: '/docs/exchange/flow/flow-breakdown/device-flow',
+        destination: '/docs/exchange/flow/device-flow',
         permanent: true,
        },
       {
         source: '/docs/swap/live-app/transaction-status',
-        destination: '/docs/exchange/flow/flow-breakdown/transaction-status',
+        destination: '/docs/exchange/flow/transaction-status',
         permanent: true,
        },
       {
         source: '/docs/swap/live-app/edge-cases',
-        destination: '/docs/exchange/flow/flow-breakdown/edge-cases',
+        destination: '/docs/exchange/flow/edge-cases',
         permanent: true,
        },                                                                                                                                                                                                                                                              
     ];
