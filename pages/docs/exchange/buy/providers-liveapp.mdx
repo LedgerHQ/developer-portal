@@ -6,15 +6,15 @@ import { Callout } from 'nextra/components'
 As explained in the [Sell Integration](../sell) page, you need to modify your LiveApp with some particularities compared to the one that can be found in the Discover section.
 
 Your LiveApp must: 
-  - Respond to some deeplinks in order to adapt to the flow inside Ledger Live.
+  - Respond to specific LiveApp URLs in order to adapt to the flow inside Ledger Live.
   - Follow specifics flow/ux requirements.
 
 
-## Deeplink
+## LiveApp URL
 
-The LiveApp needs to respond to a deeplink with some parameters. Deeplinks are used to open your LiveApp with the quote values that te user already entered in Ledger Live.
+The LiveApp needs to respond to an URL with some parameters. LiveApp URLs are used to open your LiveApp with the quote values that te user already entered in Ledger Live.
 
-The deeplink format is already fixed and will depend on the information you provided inside your [LiveApp manifest](../../../../APIs/wallet-api/appendix/manifest) (ex: `ledgerlive://discover/swapprovidername`).
+The LiveApp URL format is already fixed and will depend on the information you provided inside your [LiveApp manifest](../../../../APIs/wallet-api/appendix/manifest) (ex: `ledgerlive://discover/swapprovidername`).
 
 
   * `account-address`: Destination address to deposit the crypto.
@@ -42,8 +42,9 @@ https://buy.provider.widget.com?[account-address]=x0…&[crypto-currency]=BTC&[f
 Your [LiveApp manifest](../../../../APIs/wallet-api/appendix/manifest) should contains at least those permissions request:
 ```json copy
 "permissions": [
-  "account.list",
   "currency.list",
+  "account.list",
+  "account.receive"
 ]
 ```
 

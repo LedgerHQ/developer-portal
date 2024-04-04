@@ -7,7 +7,7 @@ As explained in the [Sell Integration](../sell) page, you need to modify your Li
 
 Your LiveApp must: 
   - Use the Ledger's [exchangeSDK](https://github.com/LedgerHQ/exchange-sdk), in addition to the Wallet API.
-  - Respond to some deeplinks in order to adapt to the flow inside Ledger Live.
+  - Respond to specific LiveApp URLs in order to adapt to the flow inside Ledger Live.
   - Have a modified, slightly more complex, Manifest file.
   - Follow specifics flow/ux requirements.
 
@@ -24,11 +24,11 @@ You will need to set up the SDK with your `providerId` attributed upon request b
 
 [TBD] Contact Ledger for more info.
 
-## Deeplink
+## LiveApp URL
 
-The LiveApp needs to respond to a deeplink with some parameters. Deeplinks are used to open your LiveApp with the quote values that te user already entered in Ledger Live.
+The LiveApp needs to respond to a URL with some parameters. LiveApp URLs are used to open your LiveApp with the quote values that te user already entered in Ledger Live.
 
-The deeplink format is already fixed and will depend on the information you provided inside your [LiveApp manifest](../../../../APIs/wallet-api/appendix/manifest) (ex: `ledgerlive://discover/swapprovidername`).
+The LiveApp URL format is already fixed and will depend on the information you provided inside your [LiveApp manifest](../../../../APIs/wallet-api/appendix/manifest) (ex: `ledgerlive://discover/swapprovidername`).
 
 
   * `account-id`: User’s selected account id, where the crypto he wants to sell is stored.
