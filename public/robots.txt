@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://developers.ledger.com
+
+# Sitemaps
+Sitemap: https://developers.ledger.com/sitemap.xml
