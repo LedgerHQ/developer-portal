@@ -34,9 +34,18 @@ return (
   {/* End Google Tag Manager Haeader */}
 
   {/* Google Tag Manager Body (no script) */}
-  <noscript id="google-tag-manager" strategy="afterInteractive"><iframe src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <noscript 
+    id="google-tag-manager" 
+    strategy="afterInteractive"
+    dangerouslySetInnerHTML={{
+      __html: `
+      <iframe src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}"
+      height="0" width="0" style="display:none;visibility:hidden" />
+      `,
+    }}
+  />
   {/* End Google Tag Manager Body (no script) */}
 </>
 )
 }
+
