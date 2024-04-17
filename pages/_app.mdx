@@ -13,8 +13,8 @@ return (
 
 <>
   <SessionProvider session={session}>
-    <Component {...pageProps} />
     <GoogleTagManager gtmId={GTM_ID} />
+    <Component {...pageProps} />
   </SessionProvider>
 </>
 )
