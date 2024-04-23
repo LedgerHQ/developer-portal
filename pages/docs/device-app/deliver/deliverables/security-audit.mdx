@@ -9,7 +9,7 @@ import { Callout } from 'nextra/components'
 
 ## Introduction
 
-To be listed on the Ledger Live “My Ledger“ section, Device Apps and Plugins must go through our integration process that includes a security audit performed by one of our trusted partners.
+To be listed on the Ledger Live “My Ledger“ section, Device Apps and Plugins must go through our integration process that includes a security audit performed by one of our [trusted partners](../partners#security-audit-your-agreement-with-our-partners).
 
 Provided your project fulfills the [conditions](#conditions), this is how an external audit unfolds:
 1. You get in touch with the auditers and sign a contract with them. [Read more](../partners#security-audit-your-agreement-with-our-partners).
@@ -115,7 +115,7 @@ Do not hesistate to use the following specification as a checklist.
 - Dependencies must be used only if they're strictly needed and maintained without containing impactful vulnerabilities for the chosen version.
 - For C apps, `scan-build` must succeed without returning any defects (can be reviewed through the CI results).
 - For C apps, `CodeQL` must succeed without returning any vulnerabilities with the "security and quality" queries.
-- For C apps, zxlib is considered as part of the app and used APIs must also be reviewed.
+- For C apps, external libraries are considered part of the app meaning that used APIs must also be reviewed.
 - For Rust apps, `clippy` must succeed without returning any issue (can be reviewed through the CI results).
 - For Rust apps, dependencies must be checked using `cargo-audit`.
 - Other tools may be used as part of the static analysis process.
@@ -158,6 +158,7 @@ Do not hesistate to use the following specification as a checklist.
 - User supplied messages must use a prefix if they are to be signed.
 - Cryptographic primitives must not be re-implemented if they already exist in BOLOS or the SDK.
 - Cryptographic functions that can throw exceptions are deprecated and must not be used (can be reviewed through the CI results).
+- Cryptographic helpers and ledger assertions provided by the SDK should be used to handle cryptographic operations.
 - The client must not be able to freely manipulate keypairs.
 - Authenticated encryption scheme must be used for data being cached on the client.
 

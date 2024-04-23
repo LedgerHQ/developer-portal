@@ -71,12 +71,12 @@ To implement this requirement it is recommended to have a setting menu with the 
 </Callout>
 
 
-You can find implementation example inside [Ethereum](https://github.com/LedgerHQ/app-ethereum), [Solana](https://github.com/LedgerHQ/app-solana) or [Elrond](https://github.com/LedgerHQ/app-elrond) code base.
+You can find implementation example inside [Ethereum](https://github.com/LedgerHQ/app-ethereum) code base.
 
 ## CodeQL
 
-In order to increase code security, it is also required to use static analysis based on [CodeQL](https://codeql.github.com/docs/) to perform security checks.
-CodeQL can be directly integrated into your project by creating a new YAML file: `.github/workflows/codeql-workflow.yaml` in your repository.
+[CodeQL](https://codeql.github.com/docs/) is required to perform security checks and detect vulnerabilities.
+It can be directly integrated into your project by creating a new YAML file: `.github/workflows/codeql-workflow.yaml` in your repository.
 
 A complete [codeql-workflow.yml](https://github.com/LedgerHQ/app-boilerplate/blob/0cdb0059e4f374b796b25ed347202c5e4e3e558a/.github/workflows/codeql-workflow.yml) file is available in the repository of the Boilerplate app.
 
