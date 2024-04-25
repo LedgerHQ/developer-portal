@@ -15,7 +15,8 @@ return (
   <SessionProvider session={session}>
     <Component {...pageProps} />
   </SessionProvider>
-  <Script src={tagURL} strategy='afterInteractive'/>
+  
+  <Script src="https://www.googletagmanager.com/gtag/js?id=G-12TT2F9Q5T"strategy='beforeInteractive'/>
   
   <Script
     id="google-tag-manager-header"
@@ -29,20 +30,6 @@ return (
       `,
     }}
   />
-  {/* End Google Tag Manager Haeader */}
-
-  {/* Google Tag Manager Body (no script) */}
-  <noscript 
-    id="google-tag-manager" 
-    strategy="afterInteractive"
-    dangerouslySetInnerHTML={{
-      __html: `
-      <iframe src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe>
-      `,
-    }}
-  />
-  {/* End Google Tag Manager Body (no script) */}
 </>
 )
 }
