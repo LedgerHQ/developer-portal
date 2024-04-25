@@ -841,6 +841,11 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/device-app/develop/tutorials/quickstart',
+        destination: '/docs/device-app/develop/quickstart',
+        permanent: true,
+       },
+      {
         source: '/docs/dapp/requirements',
         destination: '/docs/device-app/deliver',
         permanent: true,
