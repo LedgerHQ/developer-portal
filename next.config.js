@@ -112,7 +112,7 @@ module.exports = {
        },
       {
         source: '/docs/embedded-app/framework',
-        destination: '/docs/device-app/develop/tutorials/quickstart',
+        destination: '/docs/device-app/develop/quickstart',
         permanent: true,
        },
       {
@@ -122,22 +122,22 @@ module.exports = {
        },
       {
         source: '/docs/device-app/quickstart/framework',
-        destination: '/docs/device-app/develop/tutorials/quickstart',
+        destination: '/docs/device-app/develop/quickstart',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/build-load',
-        destination: '/docs/device-app/develop/tutorials/quickstart',
+        destination: '/docs/device-app/develop/quickstart',
         permanent: true,
        },
       {
         source: '/docs/device-app/quickstart/build-load',
-        destination: '/docs/device-app/develop/tutorials/quickstart',
+        destination: '/docs/device-app/develop/quickstart',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/load-linux',
-        destination: '/docs/device-app/develop/tutorials/quickstart',
+        destination: '/docs/device-app/develop/quickstart',
         permanent: true,
        },
       {
@@ -836,13 +836,23 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/device-app/tutorials/:slug',
+        destination: '/docs/device-app/code/:slug',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/develop/tutorials/quickstart',
+        destination: '/docs/device-app/develop/quickstart',
+        permanent: true,
+       },
+      {
         source: '/docs/dapp/requirements',
         destination: '/docs/device-app/deliver',
         permanent: true,
        },
       {
         source: '/docs/plugin',
-        destination: '/docs/device-app/develop/tutorials/plugin',
+        destination: '/docs/device-app/develop/code/plugin',
         permanent: true,
        },
       {
@@ -852,112 +862,112 @@ module.exports = {
        },
       {
         source: '/docs/dapp/embedded-plugin/overview',
-        destination: '/docs/device-app/develop/tutorials/plugin',
+        destination: '/docs/device-app/develop/code/plugin',
         permanent: true,
        },
       {
         source: '/docs/plugin/overview',
-        destination: '/docs/device-app/develop/tutorials/plugin',
+        destination: '/docs/device-app/develop/code/plugin',
         permanent: true,
        },
       {
         source: '/docs/dapp/embedded-plugin/code-overview',
-        destination: '/docs/device-app/develop/tutorials/plugin',
+        destination: '/docs/device-app/develop/code/plugin',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough',
-        destination: '/docs/device-app/develop/tutorials/plugin',
+        destination: '/docs/device-app/develop/code/plugin',
         permanent: true,
        },
       {
         source: '/docs/dapp/embedded-plugin/boilerplate-plugin',
-        destination: '/docs/device-app/develop/tutorials/pluginh',
+        destination: '/docs/device-app/develop/code/pluginh',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/boilerplate-plugin',
-        destination: '/docs/device-app/develop/tutorials/plugin',
+        destination: '/docs/device-app/develop/code/plugin',
         permanent: true,
        },
       {
         source: '/docs/dapp/embedded-plugin/selectors',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors',
+        destination: '/docs/device-app/develop/code/plugin/selectors',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/selectors',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors',
+        destination: '/docs/device-app/develop/code/plugin/selectors',
         permanent: true,
        },
       {
         source: '/docs/dapp/embedded-plugin/init-contract',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/init-contract',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/init-contract',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/selectors-detailed/init-contract',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/init-contract',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/init-contract',
         permanent: true,
        },
       {
         source: '/docs/dapp/embedded-plugin/provide-parameter',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/provide-parameter',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/provide-parameter',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/selectors-detailed/provide-parameter',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/provide-parameter',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/provide-parameter',
         permanent: true,
        },
       {
         source: '/docs/dapp/embedded-plugin/finalize',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/finalize',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/finalize',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/selectors-detailed/finalize',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/finalize',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/finalize',
         permanent: true,
        },
       {
         source: '/docs/dapp/embedded-plugin/provide-token',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/provide-token',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/provide-token',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/selectors-detailed/provide-token',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/provide-token',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/provide-token',
         permanent: true,
        },
       {
         source: '/docs/dapp/embedded-plugin/query-contract-ui',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/query-contract-ui',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/query-contract-ui',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/selectors-detailed/query-contract-ui',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/query-contract-ui',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/query-contract-ui',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/selectors-detailed/query-contract-id',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/query-contract-id',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/query-contract-id',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/selectors-detailed/query-contract-id',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/query-contract-id',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/query-contract-id',
         permanent: true,
        },
       {
         source: '/docs/dapp/embedded-plugin/testing',
-        destination: '/docs/device-app/develop/tutorials/plugin/testing',
+        destination: '/docs/device-app/develop/code/plugin/testing',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/testing',
-        destination: '/docs/device-app/develop/tutorials/plugin/testing',
+        destination: '/docs/device-app/develop/code/plugin/testing',
         permanent: true,
        },
       {
