@@ -4,53 +4,55 @@ import { YouTubeEmbed } from '@next/third-parties/google'
 
 Jumpstart your project from building to testing your app using the Ledger VS Code extension. Follow the tutorials below for a step-by-step guide.
 
-## Quickstart
-
-### What You'll Need
+**Prerequisites:**
 
 - [`Docker`](https://www.docker.com/)
 - An X server
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [The Ledger extension in VS Code](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools)
-- The [App Boilerplate](https://github.com/LedgerHQ/app-boilerplate)
+- The [C App Boilerplate](https://github.com/LedgerHQ/app-boilerplate) or the [Rust App Boilerplate](https://github.com/LedgerHQ/app-boilerplate-rust)
 
-### Getting started
+
+## Tutorial #1: Set Up Your Development Environment and Build Your App
+
+Watch this helpful tutorial video for a visual guide on setting up your development environment and app building:
+
+<YouTubeEmbed videoid="PxphfNWMGrY" />
+
+### What's in the video?
 
 1. **Set Up the Environment:**
-   - Make sure Docker is up and running.
-   - Install the Ledger extension in VS Code from [here](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools).
+  - Make sure Docker is up and running.
+  - Make sure you have an X11 server running :
+    - On Ubuntu Linux, it should be running by default.
+    - On macOS, install and launch XQuartz
+    - On Windows, install and launch VcXsrv
+    - ℹ️ On macOS and Windows, make sure to configure the X server so that client connections are allowed.
+  - Install the Ledger extension in VS Code from [here](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools).
 
 2. **Open and Prepare the Boilerplate:**
    - Open the [Boilerplate application](https://github.com/LedgerHQ/app-boilerplate) in VS Code.
 
 3. **Build and Load Your App:**
    - Within VS Code, you can either use the Ledger extension's sidebar menu or open the tasks menu with `Ctrl + Shift + B` (`Command + Shift + B` on Mac).
-   - To start the Docker environment, choose **Run dev-tools image**.
-   - To compile your app, choose **Build app**.
-   - To upload your app onto a Ledger device, select **Load app on device**.
+   - To compile your app, , choose the target (Ledger S, S Plus, X, Stax) and choose **Build app**.
+   - To upload your app onto a Ledger device, select **Load app on device**
 
-Now, you're all set to build, load, and test an application. Feel free to [modify the Boilerplate](./c) to tailor it to your project's requirements.
-
-## Video Tutorials
-
-### Tutorial #1: Set Up Your Development Environment and Build Your App
-
-Watch this helpful tutorial video for a visual guide on setting up your development environment and app building:
-
-<YouTubeEmbed videoid="PxphfNWMGrY" />
-
-### Tutorial #2: Functionnal tests
+## Tutorial #2: Functional tests
 
 Enhance your app's reliability by learning how to conduct functional tests:
 
 <YouTubeEmbed videoid="Sn83xI-oXSI" />
 
 
-### Tutorial #3: Device operations
+## Tutorial #3: Device operations
 
 Get acquainted with essential device operations to streamline your development process:
 
 <YouTubeEmbed videoid="Hocsb3avBR0" />
+
+
+Now, you're all set to build, load, and test an application. Feel free to modify the Boilerplate to tailor it to your project's requirements.
 
 
 
