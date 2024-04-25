@@ -1,5 +1,4 @@
 {
-    "quickstart": "Quickstart",
     "c": "The C app boilerplate",
     "rust": "The Rust app boilerplate",
     "plugin": "The plugin boilerplate",
