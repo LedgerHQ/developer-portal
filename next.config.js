@@ -834,15 +834,15 @@ module.exports = {
         source: '/docs/dapp/manifest',
         destination: '/docs/discover/dapp/manifest',
         permanent: true,
+       }, 
+      {
+        source: '/docs/device-app/develop/tutorials/quickstart',
+        destination: '/docs/device-app/develop/quickstart',
+        permanent: true,
        },
       {
         source: '/docs/device-app/tutorials/:slug',
         destination: '/docs/device-app/code/:slug',
-        permanent: true,
-       },
-      {
-        source: '/docs/device-app/develop/tutorials/quickstart',
-        destination: '/docs/device-app/develop/quickstart',
         permanent: true,
        },
       {
