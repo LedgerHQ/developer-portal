@@ -106,7 +106,7 @@ paths:
                 $ref: "#/components/schemas/Status"
               example:
                 status: "PENDING"
-                amount: 1.337
+                amount: "1.337"
                 payinTransactionId: "0xfffffffffffff"
                 payoutTransactionId: "0xfffffffffffff"
                 providerFees`: "0.0001"
