@@ -9,11 +9,11 @@ import { Callout } from 'nextra/components'
 
 ## Introduction
 
-To be listed on the Ledger Live “My Ledger“ section, Device Apps and Plugins must go through our integration process that includes a security audit performed by one of our trusted partners.
+To be listed on the Ledger Live “My Ledger“ section, Device Apps and Plugins must go through our integration process that includes a security audit performed by one of our [trusted partners](../partners#security-audit-your-agreement-with-our-partners).
 
 Provided your project fulfills the [conditions](#conditions), this is how an external audit unfolds:
 1. You get in touch with the auditers and sign a contract with them. [Read more](../partners#security-audit-your-agreement-with-our-partners).
-2. The auditors review your app based on Ledger specifications. [Read more](#content-of-the-security-audit).
+2. The auditors review your app based on Ledger specifications. [Read more](#security-audit-specifications).
 3. Ledger reviews the security audit report
 4. Ledger publishes your app
 
@@ -38,16 +38,159 @@ To go through an external security audit, ensure your project fulfills the follo
     </ul>
 </Callout>
 
-## Content of the security audit
+## Security audit specifications
 
-Ledger has established and made public a detailed specification of what needs to be done to perform a security audit following Ledger’s standards.
+Ledger has established and made public a detailed specification of what needs to be checked during a security audit following Ledger's standards.
 
-|          Step          |         Specification                                              |
-| ---------------------- | ------------------------------------------------------------------ |
-| Application privileges | Check application flags (privileges) and allowed derivation paths. |
-| Compilation            | Check for compilation warnings, and if warnings have been silenced. If so, ask for a fix. |
-| Tests                  | Run tests and check they succeed / Check tests are sound.           |
-| Static Analysis        | Check for defects using scan-build and our scan options. Add in CI if not present / CodeQL: check with the "security and quality" queries. Add in CI if not present. |
-| Manual code review     | List every transaction fields. Look which ones must be displayed to the user / Check transaction parser, field formatters / Check if sensitive data is properly erased / Do not allow blind signing. |
-| Fuzzing                | Implement a transaction fuzzer. Best effort to reach decent coverage / Use libFuzzer if possible to integrate with ClusterFuzzLite. |
-| Deliverables           | Report and executive summary detailing findings, and tests that gave no results / Security fixes: on a temporary private fork / Feedback on the SDK: what could be improved for a better security. |
+When the word **must** is used, it indicates a requirement.  
+When the word **should** is used, it indicates a recommendation. It means that there are reasons not to follow the recommendation and it can be justified.  
+
+Do not hesistate to use the following specification as a checklist.
+
+### Application privileges
+
+- The application flags must abide by the principle of least privilege. 
+- When required, privileges must be justified.
+- The application derivation paths must be restricted to coin-specific BIP32 prefixes.
+- The application derivation paths must be declared in the Ledger app database.
+- Curves usage must be restricted.
+
+**References:**
+- [BIP32 prefix restrictions](../../architecture/flags#restrict-apps-to-coin-specific-bip32-prefix)
+- [Application parameters](../../develop/requirements/security#application-parameters-minimal-and-declared)
+
+### Clear signing
+
+- All signing actions must ask for user approval.
+- The user must be able to see every important information (amount, destination address, validator, token…).
+- If blind signing is implemented:
+  - It must be disabled by default.
+  - It must not apply to basic transactions such as the coin transfers, which must be clear-signed.
+- A security review of the app workflow using either a live device or Speculos and the functional tests snapshots must ensure:
+  - Critical and important information are clear-signed using a user friendly format.
+  - The user cannot be confused or tricked by the application workflow and the displayed information.
+  - Every possible flow is functionally tested (associated snapshots are present).
+
+**References:**
+- [Signing settings](../../develop/requirements/security#signing-settings)
+
+### Compilation
+
+- Makefiles from boilerplate app and secure-sdk must be used to compile the project (the goal is to ensure that security flags are applied).
+- New apps must fork the boilerplate template and updated apps must upgrade to the latest standard makefile (located in the boilerplate app).
+- The compilation logs review must ensure (can be reviewed through the CI results):
+  - No compilation errors are returned.
+  - No compilation warnings are returned.
+  - No compilation warnings are silenced without a clear reason (though compilation flags or pragma directives).
+  - No deprecated functions are being used.
+
+**References:**
+- [Development requirements](../../develop/requirements/development)
+
+### Continuous integration
+
+- Guidelines enforcer and build workflows must be integrated to the device application.
+- All pipelines must succeed for all supported devices.
+
+**References:**
+- [Development requirements](../../develop/requirements/development)
+
+### Tests
+
+- Unit tests should be implemented for functions that do not require BOLOS syscalls mocking.
+- All unit tests must succeed.
+- Functional tests must be written to cover at least the nominal cases (features provided by the applications) and common errors (for example clear signing cancellation).
+- All functional tests must succeed for all devices.
+- Fuzzing targets should be implemented at least for parsers and critical functions that are easy to fuzz as it will facilitate the audit.
+- Ethereum plugins handlers must be fuzzed (a generic target is available in the boilerplate).
+- Fuzzing should be done using libfuzzer to integrate with ClusterFuzzLite as shown in the boilerplate apps and plugins.
+
+**References:**
+- [Development requirements](../../develop/requirements/development)
+- [Be wary of unstrusted input](../../architecture/security#be-wary-of-untrusted-input)
+- [Good practices for transaction handling](../../architecture/ui#good-practices-for-transaction-handling)
+
+### Static analysis
+
+- Dependencies must be used only if they're strictly needed and maintained without containing impactful vulnerabilities for the chosen version.
+- For C apps, `scan-build` must succeed without returning any defects (can be reviewed through the CI results).
+- For C apps, `CodeQL` must succeed without returning any vulnerabilities with the "security and quality" queries.
+- For C apps, external libraries are considered part of the app meaning that used APIs must also be reviewed.
+- For Rust apps, `clippy` must succeed without returning any issue (can be reviewed through the CI results).
+- For Rust apps, dependencies must be checked using `cargo-audit`.
+- Other tools may be used as part of the static analysis process.
+
+**References:**
+- [Security requirements](../../develop/requirements/security)
+
+### Vulnerabilities and weaknesses
+- The application or its dependencies must not contain any medium or high severity vulnerabilities.
+- The application should not contain any low vulnerabilities.
+- The review must check for security vulnerabilities (non exhaustive list):
+  - read/write out of bounds
+  - integer overflow/underflow
+  - format string vulnerabilities
+  - memory leaks
+  - incorrect type conversions
+  - usage of unsafe functions (eval, strcpy, strlen, gets, sprintf, …)
+  - …
+- The review must focus on logic errors (non exhaustive list):
+  - unsanitized or unconventional user input
+  - cryptographic oracle
+  - state machine issues (if the intended flow isn't followed)
+  - security restrictions bypass (autolock, pin entry)
+  - …
+- The review must report any other weaknesses, for example related to code quality and readability that could impact security indirectly (non exhaustive list):
+  - magic numbers such as:
+    - Using raw numbers where an enum or a macro would be preferred to ease code reading and maintenance.
+    - Using raw numbers instead of computing it with sizeof operator and/or dedicated macro.
+  - lack of documentation:
+    - APDUs that are not documented.
+    - Functions that are not documented (description, parameters, return value, error cases, specific behavior, ...).
+  - complex functions (huge cyclomatic complexity, length, …)
+  - …
+
+### Cryptography
+
+- Secrets must be erased from memory as soon as possible after usage.
+- Secrets derived from seed must not be stored, exported or shown.
+- Structure integrity of messages must be verified before signature (never allow signing attacker controlled messages).
+- User supplied messages must use a prefix if they are to be signed.
+- Cryptographic primitives must not be re-implemented if they already exist in BOLOS or the SDK.
+- Cryptographic functions that can throw exceptions are deprecated and must not be used (can be reviewed through the CI results).
+- Cryptographic helpers and ledger assertions provided by the SDK should be used to handle cryptographic operations.
+- The client must not be able to freely manipulate keypairs.
+- Authenticated encryption scheme must be used for data being cached on the client.
+
+**References:**
+- [General cryptography concepts](../../architecture/cryptography/general-concepts)
+- [Cryptography reference](../../architecture/cryptography/reference)
+- [Cryptography examples](../../architecture/cryptography/examples)
+
+### Deliverables
+
+- The report must contain an executive summary explicitly giving the auditor feedback on whether this app should be deployed or not (and in this case what needs to be done).
+- The report must contain the findings, steps to reproduce, impacts and associated recommendations. It should also contains tests that gave no results.
+- The report must contain the checklist below in appendix to indicate what has been checked and validated during the audit.
+
+
+### Checklist
+
+- [ ] Application flags, derivation paths and curves are correctly set.
+- [ ] Clear signing correctly displays information and asks for user confirmation.
+- [ ] Blind signing is disabled by default or does not exist (if it exists, it does apply for complex transactions but not to coin transfers or swaps).
+- [ ] App workflow is considered secure and snapshots cover the nominal and error cases of app features.
+- [ ] Boilerplate Makefiles and SDK are used to compile the app. If it's a new app, it has been developed over the C/Rust boilerplates.
+- [ ] The app compiles without errors or warnings (no errors/warnings are silenced using compilation flags or pragma directives)
+- [ ] Guidelines enforcer and build workflows are integrated and passed.
+- [ ] Unit tests, functional tests and fuzzing tests are passing.
+- [ ] For app-plugins, the generic fuzzing target is integrated.
+- [ ] scan-build/CodeQL or clippy succeed without returning vulnerabilities
+- [ ] Dependencies are needed, maintained and secure (no known impactful vulnerability for the used version).
+- [ ] The app does not contain any medium or high severity vulnerabilities.
+- [ ] The review process looked into technical vulnerabilities as well as logical ones and weaknesses.
+- [ ] Secrets are correctly erased from memory, not exported or shown to the user.
+- [ ] User supplied messages use a prefix and are validated before signature.
+- [ ] No cryptographic primitives are re-implemented if they already exist in BOLOS or the SDK.
+- [ ] The client is not able to freely manipulate the device keypairs.
+- [ ] An authenticated encryption scheme is used for data being cached on the client.
