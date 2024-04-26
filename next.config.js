@@ -1218,7 +1218,7 @@ module.exports = {
         source: '/docs/exchange/integration/:slug',
         destination: '/docs/exchange',
         permanent: true,
-       }                                                                                                                                                                                                                                                           
+       },                                                                                                                                                                                                                                                           
     ];
   },
 }
