@@ -20,6 +20,11 @@ module.exports = {
         permanent: true,
       },
       {
+        source: '/contact',
+        destination: 'https://discord.gg/Ledger',
+        permanent: true,
+      },
+      {
         source: '/docs/nano-app/:slug',
         destination: '/docs/device-app',
         permanent: true,
@@ -30,7 +35,7 @@ module.exports = {
         permanent: true,
       },
       {
-        source: '/docs/dapp/embedded-plugin/environment-setup/',
+        source: '/docs/dapp/embedded-plugin/environment-setup',
         destination: '/docs/device-app/introduction',
         permanent: true,
        },
@@ -246,6 +251,11 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/embedded-app/memory',
+        destination: '/docs/device-app/architecture/memory',
+        permanent: true,
+       },
+      {
         source: '/docs/embedded-app/interaction-bolos-apps',
         destination: '/docs/device-app/architecture/psd/application-isolation',
         permanent: true,
@@ -277,12 +287,12 @@ module.exports = {
        },
       {
         source: '/docs/embedded-app/advanced-display-management',
-        destination: '/docs/device-app/develop/ui/flows/advanced-display-management',
+        destination: '/docs/device-app/develop/ui/ledger-nano-display',
         permanent: true,
        },
       {
         source: '/docs/device-app/coding-guidelines/flows/advanced-display-management',
-        destination: '/docs/device-app/develop/ui/flows/advanced-display-management',
+        destination: '/docs/device-app/develop/ui/ledger-nano-display',
         permanent: true,
        },
       {
@@ -332,6 +342,11 @@ module.exports = {
        },
       {
         source: '/docs/embedded-app/stax-interactions',
+        destination: '/docs/device-app/develop/ui/ledger-stax-display',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/develop/sdk/ui/ledger-stax-display',
         destination: '/docs/device-app/develop/ui/ledger-stax-display',
         permanent: true,
        },
@@ -951,6 +966,10 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/dapp/embedded-plugin/query-contract-id',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/query-contract-id',
+        permanent: true,
+      {
         source: '/docs/plugin/code-walkthrough/selectors-detailed/query-contract-id',
         destination: '/docs/device-app/develop/code/plugin/selectors-detailed/query-contract-id',
         permanent: true,
@@ -977,17 +996,22 @@ module.exports = {
        },              
       {
         source: '/docs/non-dapp/introduction',
-        destination: '/docs/discover/web3-app',
+        destination: '/docs/discover',
+        permanent: true,
+       },              
+      {
+        source: '/docs/non-dapp/howto/test/',
+        destination: '/docs/discover',
         permanent: true,
        },
       {
         source: '/docs/non-dapp/use-cases',
-        destination: '/docs/discover/web3-app/use-cases',
+        destination: '/docs/discover',
         permanent: true,
        },
       {
         source: '/docs/non-dapp/ux-req',
-        destination: '/docs/discover/web3-app/ux-requirements',
+        destination: '/docs/discover',
         permanent: true,
        },
       {
@@ -997,9 +1021,14 @@ module.exports = {
        },
       {
         source: '/docs/non-dapp/tutorial/1-setup',
-        destination: '/docs/connectivity/ledgerJS/tutorials/tutorial-1-hid-ethereum',
+        destination: '/docs/discover',
         permanent: true,
-       },     
+       },
+      {
+        source: '/docs/non-dapp/tutorial/3-import/',
+        destination: '/docs/discover',
+        permanent: true,
+       },        
       {
         source: '/docs/coin/:slug',
         destination: '/docs/blockchain',
@@ -1171,75 +1200,25 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/swap/introduction',
-        destination: '/docs/exchange/integration',
+        source: '/docs/exchange/swap/glossary',
+        destination: '/docs/exchange/glossary',
         permanent: true,
        },
       {
-        source: '/docs/swap/flow',
-        destination: '/docs/exchange/integration/flow',
+        source: '/docs/exchange/swap/:slug',
+        destination: '/docs/exchange/swap',
         permanent: true,
        },
       {
-        source: '/docs/swap/howto',
-        destination: '/docs/exchange/integration/howto/requirements',
+        source: '/docs/swap/:slug',
+        destination: '/docs/exchange/swap',
         permanent: true,
        },
       {
-        source: '/docs/swap/how-to/test/',
-        destination: '/docs/exchange/integration/providers-test-and-submit',
+        source: '/docs/exchange/integration/:slug',
+        destination: '/docs/exchange',
         permanent: true,
-       },
-      {
-        source: '/docs/swap/howto/providers-endpoints',
-        destination: '/docs/exchange/integration/howto/providers-endpoints',
-        permanent: true,
-       },  
-      {
-        source: '/docs/swap/howto/providers-liveapp',
-        destination: '/docs/exchange/integration/howto/providers-liveapp',
-        permanent: true,
-       },  
-      {
-        source: '/docs/swap/howto/ledger-exchange-sdk',
-        destination: '/docs/exchange/integration',
-        permanent: true,
-       },  
-      {
-        source: '/docs/exchange/integration/howto/ledger-exchange-sdk',
-        destination: '/docs/exchange/integration',
-        permanent: true,
-       },
-      {
-        source: '/docs/swap/live-app/start-here',
-        destination: '/docs/exchange/flow/start-here',
-        permanent: true,
-       },
-      {
-        source: '/docs/swap/live-app/quote',
-        destination: '/docs/exchange/flow/quote',
-        permanent: true,
-       },
-      {
-        source: '/docs/swap/live-app/partner-live-app',
-        destination: '/docs/exchange/flow/partner-live-app',
-        permanent: true,
-       },
-      {
-        source: '/docs/swap/live-app/device-flow',
-        destination: '/docs/exchange/flow/device-flow',
-        permanent: true,
-       },
-      {
-        source: '/docs/swap/live-app/transaction-status',
-        destination: '/docs/exchange/flow/transaction-status',
-        permanent: true,
-       },
-      {
-        source: '/docs/swap/live-app/edge-cases',
-        destination: '/docs/exchange/flow/edge-cases',
-        permanent: true,
-       },                                                                                                                                                                                                                                                              
+       }                                                                                                                                                                                                                                                           
     ];
   },
 }
