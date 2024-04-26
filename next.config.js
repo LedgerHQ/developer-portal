@@ -841,13 +841,8 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/device-app/tutorials/clone',
-        destination: '/docs/device-app/code/clone',
-        permanent: true,
-       },
-      {
-        source: '/docs/device-app/tutorials/plugin/:slug',
-        destination: '/docs/device-app/code/plugin/:slug',
+        source: '/docs/device-app/develop/tutorials/:slug',
+        destination: '/docs/device-app/develop/code/:slug',
         permanent: true,
        },
       {
