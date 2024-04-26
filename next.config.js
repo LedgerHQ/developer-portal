@@ -969,6 +969,7 @@ module.exports = {
         source: '/docs/dapp/embedded-plugin/query-contract-id',
         destination: '/docs/device-app/develop/code/plugin/selectors-detailed/query-contract-id',
         permanent: true,
+       },
       {
         source: '/docs/plugin/code-walkthrough/selectors-detailed/query-contract-id',
         destination: '/docs/device-app/develop/code/plugin/selectors-detailed/query-contract-id',
