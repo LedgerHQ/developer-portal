@@ -142,32 +142,32 @@ module.exports = {
        },
       {
         source: '/docs/embedded-app/clone-intro',
-        destination: '/docs/device-app/develop/tutorials/clone',
+        destination: '/docs/device-app/develop/code/clone',
         permanent: true,
        },
       {
         source: '/docs/device-app/clones',
-        destination: '/docs/device-app/develop/tutorials/clone',
+        destination: '/docs/device-app/develop/code/clone',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/eth-app-update',
-        destination: '/docs/device-app/develop/tutorials/clone',
+        destination: '/docs/device-app/develop/code/clone',
         permanent: true,
        },
       {
         source: '/docs/device-app/clones/eth-app-update',
-        destination: '/docs/device-app/develop/tutorials/clone',
+        destination: '/docs/device-app/develop/code/clone',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/eth-clones',
-        destination: '/docs/device-app/develop/tutorials/clone',
+        destination: '/docs/device-app/develop/code/clone',
         permanent: true,
        },
       {
         source: '/docs/device-app/clones/eth-clones',
-        destination: '/docs/device-app/develop/tutorials/clone',
+        destination: '/docs/device-app/develop/code/clone',
         permanent: true,
        },
       {
