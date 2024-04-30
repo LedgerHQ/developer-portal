@@ -31,13 +31,15 @@ Depending on your derivation path, the process will vary.
 
 ### What if my coin is a Bitcoin clone?
 
-#### New Bitcoin clone
+If you want to create a new bitcoin clone, instead of forking the boilerplate app you should fork [app-bitcoin-clone-boilerplate](https://github.com/LedgerHQ/app-bitcoin-clone-boilerplate).
 
-For any other clone type, use the [main Device App process](./quickstart/).
+If your Bitcoin clone was included in the Bitcoin Device App and you need to update it, you should
+create a new application by forking [app-bitcoin-clone-boilerplate](https://github.com/LedgerHQ/app-bitcoin-clone-boilerplate).
 
-#### Update an existing clone
+You can then add your icon, customize the makefile, update the README, add your tests, make sure
+your CI is green and you should be good to go !
 
-If your Bitcoin clone was included in the Bitcoin Deice App and you need to update it, please start a [new Device App process](../../introduction/).
+Note that all APDU handlers have been defined with `WEAK` attribute, so they can be overwritten if your app requires you to do so.
 
 ## A - Using the 44/60 path
 
