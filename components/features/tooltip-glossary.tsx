@@ -1,5 +1,5 @@
 import { Tooltip } from 'react-tooltip';
-import { definitions } from '../../words-list';
+import { definitions } from '../../lib/words-list';
 
 function Glossary({word}) {
 	for (let entry in definitions) {
