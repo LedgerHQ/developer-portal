@@ -1,5 +1,5 @@
 let definitions = {
-	"test": "this is a test",
+	"device apps": "Applications that allows the users to manage their crypto-assets with their Ledger devices",
 	"bird": "this is a bird",
 	"example": "this is an example"
 };
