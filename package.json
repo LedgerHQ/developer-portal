@@ -18,6 +18,7 @@
     "url": "https://github.com/shuding/nextra-docs-template/issues"
   },
   "homepage": "https://github.com/shuding/nextra-docs-template#readme",
+  "packageManager": "pnpm@9.1.1",
   "dependencies": {
     "@docsly/react": "^1.8.6",
     "@next/third-parties": "^14.2.1",
