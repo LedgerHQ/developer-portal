@@ -18,7 +18,7 @@ So how are HD trees useful? Simple: developers of different cryptocurrencies got
 For each cryptocurrency, there is a node on the tree where all of the keys for that coin begin (from this point on, we'll call this the "coin type root node", for lack of a better term). Since this is a hierarchical deterministic tree, we can apply the same rules to that coin type root node as we applied to the master node. Just as an infinite tree of keys descended from the master node, there is also an infinite tree of keys descending from the coin type root node. This means that if you have a 24-word mnemonic seed, even if you don't use Bitcoin, you have a virtually infinite[^1] number of Bitcoin addresses. You have a virtually infinite number of Ethereum addresses, too.
 
 <Callout type="warning" emoji="⚠️">
-  In the Ledger Ethereum Wallet desktop app, addresses are not derived according to BIP 44. Instead of using the derivation path <code>m / 44' / 60' / account' / change / address_index</code> (as defined by BIP 44 for Ethereum), the Ledger Ethereum Wallet desktop app uses the derivation path <code>m / 44' / 60' / 0' / address_index</code>.
+  In the Ledger Ethereum Wallet desktop app, addresses are not derived according to BIP 44. Instead of using the derivation path <code>m / 44' / 60' / account' / change / address_index</code> (as defined by BIP 44 for Ethereum), the Ledger Ethereum Wallet desktop app uses the derivation path <code>m / 44' / 60' / account' / 0 / 0</code>.
 </Callout>
 
 ## How does my wallet know which addresses I've used?
