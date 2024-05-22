@@ -1,16 +1,19 @@
 ---
 title: What is a device app?
-Description: "The steps to code your device app and submit it for a Ledger Live integration." 
+Description: "The steps to code your device app and submit it for a Ledger Live integration."
 ---
 
-import Zoom from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 # Introduction
 
 ## What is a device app?
 
-<img style={{width: "250px", float:"right"}} src="/device-app/nanosplus.png"/>
+<img
+  style={{ width: "250px", float: "right" }}
+  src="/device-app/nanosplus.png"
+/>
 
 There are three types of device apps: Classical device apps, DApp plugins, and utility applications.
 
@@ -20,7 +23,7 @@ This is the application that allows the users to manage their crypto-assets with
 
 ### DApp plugins
 
-DApp Plugins are developed to integrate an Ethereum DApp to Ledger live. Ledger Live has a DApp browser where your DApp will be visible and usable through an iframe. Ethereum DApps can be developed for example to lend or borrow, swap, trade, pay with cryptoassets or manage your portfolio. The documentation for DApp plugins is in the [Live App section](../../../docs/discover).
+DApp Plugins are developed to integrate an Ethereum DApp to Ledger live. Ledger Live has a DApp browser where your DApp will be visible. Ethereum DApps can be developed for example to lend or borrow, swap, trade, pay with cryptoassets or manage your portfolio. The documentation for DApp plugins is in the [Live App section](../../../docs/discover).
 
 For a DApp Plugins to be able to sign transactions on a Ledger Device, one needs to develop a small, specific application relying on the Ethereum application environment. This type of application is called a **plugin**.
 
@@ -32,24 +35,22 @@ These applications leverage Ledger technology but are not involved in managing c
 
 ## Used languages and format
 
-
 ### Languages
 
-| Component               | Developing language |
-| ----------------------- | ------------------- |
-| OS [Bolos](./architecture/bolos)    | `C`                 |
-| Applications            | `C` or `Rust`       |
-| Plugins                 | `C`                 |
-| Tools (including tests) | `Python` (mostely)  |
-
+| Component                        | Developing language |
+| -------------------------------- | ------------------- |
+| OS [Bolos](./architecture/bolos) | `C`                 |
+| Applications                     | `C` or `Rust`       |
+| Plugins                          | `C`                 |
+| Tools (including tests)          | `Python` (mostely)  |
 
 ### Data formats
 
-| Component                   | Format   |
-| --------------------------- | -------- |
-| CI (GitHub Workflows)       | `YAML`   |
-| `ledger_app.toml` manifests | `TOML`   |
-| App database                | `JSON`   |
+| Component                   | Format |
+| --------------------------- | ------ |
+| CI (GitHub Workflows)       | `YAML` |
+| `ledger_app.toml` manifests | `TOML` |
+| App database                | `JSON` |
 
 The available SDK is for Apps written in C
 
@@ -70,15 +71,14 @@ Ensure that you have a clear understanding of the [Process](./deliver/process) a
 Device applications are primarily developed in C using the Blockchain Open Ledger Operating System (BOLOS).
 
 To develop a device application, ensure that you:
+
 - Use Linux, Mac or Windows
 - Know about the [Ledger Framework](./develop/quickstart) and all the [environment tools](./develop/tools)
 - Know how to test your application, using either a physical device or the [Speculos emulator](./develop/tools#speculos)
 
-
 ## Documentation version
 
 The current version of the Device App documentation displayed on the Developer Portal is **v04_20240126**.
-
 
 ## Contributing
 
