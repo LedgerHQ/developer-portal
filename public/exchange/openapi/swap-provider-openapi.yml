@@ -496,7 +496,7 @@ components:
       properties:
         swapId:
           type: string
-          description: provider's id of the ongoing swap transaction. This will be used by Ledger's backend to retrieve the status of user swap transaction.
+          description: provider's id of the ongoing swap transaction. This will be used by Ledger's backend to retrieve the status of user swap transaction. A unique id must be generated each time this endpoint is called, even if called with a same quoteId : quoteId != swapId. This is a swap attempt id and several retries sharing the same quote id might be performed by a user .
         payinAddress:
           type: string
           description: provider's address.
