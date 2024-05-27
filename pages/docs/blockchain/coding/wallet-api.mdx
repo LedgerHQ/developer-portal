@@ -26,7 +26,7 @@ pnpm dev
 
 3. In `packages/core/src/families/{COIN_FAMILY}/validation.ts` define and export coin family types related schema using [Zod](https://github.com/colinhacks/zod). At minimum, a `schemaRaw{COIN_FAMILY}Transaction`
 
-4. In `packages/core/src/families/{COIN_FAMILY}/types.ts` define and export types related to your type. At minimum, a [`{COIN_FAMILY}Transaction`](https://developers.ledger.com/APIs/wallet-api/appendix/transaction) and a [`Raw{COIN_FAMILY}Transaction`](https://developers.ledger.com/APIs/wallet-api/appendix/transaction#raw-transactions)
+4. In `packages/core/src/families/{COIN_FAMILY}/types.ts` define and export types related to your type. At minimum, a [`{COIN_FAMILY}Transaction`](https://developers.ledger.com/docs/discover/wallet-api/appendix/transaction) and a [`Raw{COIN_FAMILY}Transaction`](https://developers.ledger.com/docs/discover/wallet-api/appendix/transaction#raw-transactions)
 
 5. In `packages/core/src/families/{COIN_FAMILY}/serializer.ts` add the logic to serialize and deserialize a transaction in a raw transaction (type comprised of only json compatible types) to be transferred through [JSON-RPC](https://www.jsonrpc.org/specification)
 

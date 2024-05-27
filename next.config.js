@@ -1056,8 +1056,13 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/APIs/:slug',
+        destination: '/docs/discover/:slug',
+        permanent: true,
+       },
+      {
         source: '/docs/non-dapp/reference/manifest',
-        destination: '/APIs/wallet-api/appendix/manifest',
+        destination: '/docs/discover/wallet-api/appendix/manifest',
         permanent: true,
        },
       {
