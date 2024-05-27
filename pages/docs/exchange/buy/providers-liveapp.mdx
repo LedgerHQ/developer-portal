@@ -14,7 +14,7 @@ Your LiveApp must:
 
 The LiveApp needs to respond to an URL with some parameters. LiveApp URLs are used to open your LiveApp with the quote values that the user already entered in Ledger Live.
 
-The LiveApp URL format is already fixed and will depend on the information you provided inside your [LiveApp manifest](../../../../APIs/wallet-api/appendix/manifest) (ex: `ledgerlive://discover/swapprovidername`).
+The LiveApp URL format is already fixed and will depend on the information you provided inside your [LiveApp manifest](../../../../docs/discover/wallet-api/appendix/manifest) (ex: `ledgerlive://discover/swapprovidername`).
 
 
   * `account-address`: Destination address to deposit the crypto.
@@ -39,7 +39,7 @@ https://buy.provider.widget.com?[account-address]=x0…&[crypto-currency]=BTC&[f
 
 
 ## Manifest Permission
-Your [LiveApp manifest](../../../../APIs/wallet-api/appendix/manifest) should contains at least those permissions request:
+Your [LiveApp manifest](../../../../docs/discover/wallet-api/appendix/manifest) should contains at least those permissions request:
 ```json copy
 "permissions": [
   "currency.list",
