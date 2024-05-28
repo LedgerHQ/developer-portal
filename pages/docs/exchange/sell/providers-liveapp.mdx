@@ -22,7 +22,34 @@ You will need to set up the SDK with your `providerId` attributed upon request b
 
 ### SELL method
 
-[TBD] Contact Ledger for more info.
+This method will need you to provide the following parameters:
+
+* `quoteId`: the id coming from your system and [forwarded to your LiveApp](./providers-liveapp) as a query parameter
+* `accountId`: user's account id, [previously given to the LiveApp](./providers-liveapp) as a query parameter
+* `amount`: amount that will be sold
+* `feeStrategy`: `SLOW`, `MEDIUM`, `FAST` or `CUSTOM`.
+* `getSellPayload`: callback method called by the sell process to retrieve the payload (see below)
+
+The `getSellPayload` is a callback that during the Sell process will be called with a `nonce`.
+This value is required to craft on your side the Sell Payload, which will be returned by the callback.
+
+```js copy
+  exchangeSDK.sell({
+    quoteId: "1234",
+    accountId: "07AB5930-C73A-433F-A2FA-920640AF3A02",
+    amount: "0.8",
+    feeStrategy: "SLOW",
+    getSellPayload: (nonce, sellAddress, amount) => {
+      // Crafting Payload...
+      return {
+        recipientAddress: "0xc0ffee254729296a45a3885639AC7E10F9d54979"
+        amount: BigInt("800000000000000000")
+        binaryPayload: "YiA1CuoMl_dH8dD3YIFGFKR1I4AbGut9C8u6oqT0a_gYSw==",
+        signature: "HA8qBfo8yFNzbV60Ws8GT54UWeing3kcDIdnov2nT9gFB58JybFE1sK0Ext3kARXhZ9J1sbltkBSeuzBdSkjVg==",
+      };
+    }
+  });
+```
 
 ## LiveApp URL
 
