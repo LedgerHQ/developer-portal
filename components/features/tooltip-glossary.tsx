@@ -9,12 +9,17 @@ function Glossary({word}) {
 	    		let wordClass = word.replace(/\s+/g, '-');
 			    return (
 				  	<>
-				  	<a className={`anchor-${wordClass} font-bold`}>{word + "﹖"}</a>
+				  	<a  data-tooltip-delay-hide={1000}
+				  		className={`anchor-${wordClass}`}
+				  		style={{backgroundColor: "rgb( 211 , 211 , 211, 0.2)", padding: "0.2em"}}
+				  	>
+				  		{word}
+				  	</a>
 					<Tooltip 
 						anchorSelect={`.anchor-${wordClass}`} 
-						content={definition} 
-						style={{width:"250px", backgroundColor: "rgb(230, 134, 0)"}}>
-							
+						html={`${definition} <a href=""><b>test</b></a>`} 
+						style={{width:"250px", backgroundColor: "rgb(230, 134, 0)", pointerEvents: "auto"}}
+					>
 					</Tooltip>
 				    </>
 			  	);
