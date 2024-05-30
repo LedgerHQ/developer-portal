@@ -53,11 +53,15 @@ paths:
                   tradeMethod:
                     - fixed
                     - float
+                  minSwapAmount: "1"
+                  maxSwapAmount: "20"
                 - from: bat
                   to: btc
                   tradeMethod:
                     - fixed
                     - float
+                  minSwapAmount: "5"
+                  maxSwapAmount: "10"
   /quote:
     post:
       operationId: postQuote
@@ -85,6 +89,58 @@ paths:
                 payoutNetworkFees: "0.0002"
                 tradeMethod: "float"
                 expiry: "2022-04-04T09:10:51+0000"
+                minAmountFrom: "1"
+                maxAmountFrom: "3"
+                defaultSlippage: "0.1"
+                minSlippage: "0.1"
+                maxSlippage: "0.3"
+
+        "400":
+          description: Minimum/maximum error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              examples:
+                FROM_CURRENCY_MINIMUM_AMOUNT_ERROR:
+                  summary: FROM_CURRENCY_MINIMUM_AMOUNT_ERROR
+                  value:
+                    messageKey: FROM_CURRENCY_MINIMUM_AMOUNT_ERROR
+                    message: Minimum error. (you can add any usefull field as you want)
+                    minSwapAmount: "10"
+                TO_CURRENCY_MAXIMUM_AMOUNT_ERROR:
+                  summary: TO_CURRENCY_MAXIMUM_AMOUNT_ERROR
+                  value:
+                    messageKey: TO_CURRENCY_MAXIMUM_AMOUNT_ERROR
+                    message: Maximum error. (you can add any usefull field as you want)
+                    maxSwapAmount: "10"
+        "404":
+          description: When the pair is not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              example:
+                messageKey: SWAP_PAIR_NOT_FOUND_ERROR
+                message: When the pair is not found. (you can add any usefull field as you want)
+        "451":
+          description: When the user's IP address or currency is in a restricted region.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              examples:
+                REGION_RESTRICTED_ERROR:
+                  summary: REGION_RESTRICTED_ERROR
+                  value:
+                    messageKey: REGION_RESTRICTED_ERROR
+                    message: When the user's IP address is in a restricted region. (you can add any usefull field as you want)
+                CURRENCY_REGION_RESTRICTED_ERROR:
+                  summary: CURRENCY_REGION_RESTRICTED_ERROR
+                  value:
+                    messageKey: CURRENCY_REGION_RESTRICTED_ERROR
+                    message: When the user's currency is in a restricted region. (you can add any usefull field as you want)
+
   /status:
     get:
       operationId: getStatus
@@ -106,7 +162,7 @@ paths:
                 $ref: "#/components/schemas/Status"
               example:
                 status: "PENDING"
-                amount: 1.337
+                amount: "1.337"
                 payinTransactionId: "0xfffffffffffff"
                 payoutTransactionId: "0xfffffffffffff"
                 providerFees`: "0.0001"
@@ -140,6 +196,51 @@ paths:
                 providerSig:
                   payload: "CgUweGZmZhoFMHhmZmYqBTB4ZmZmOgNCVENCA0JBVEoIMTIwMDAwMDBSCDExNTAwMDAwWhF2ZXJ5IGxvbmd1ZSBub25jZQ=="
                   payload_signature: "MEUCIBRm4PrdgRw0aBwRepuOGGRmR/YPcCoyKNJ7UDjFO030AiEA/VT0anolum0a3X/9lGPeovZHqzeDG9brcUB4zhYmwbs="
+        "400":
+          description: When the deposit wallet is not available.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              example:
+                messageKey: NO_DEPOSIT_WALLET_ERROR
+                message: When the deposit wallet is not available. (you can add any usefull field as you want)
+        "404":
+          description: Not found error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              examples:
+                CURRENCY_FROM_NOT_FOUND_ERROR:
+                  summary: CURRENCY_FROM_NOT_FOUND_ERROR
+                  value:
+                    messageKey: CURRENCY_FROM_NOT_FOUND_ERROR
+                    message: When the currency from is not found. (you can add any usefull field as you want)
+                CURRENCY_TO_NOT_FOUND_ERROR:
+                  summary: CURRENCY_TO_NOT_FOUND_ERROR
+                  value:
+                    messageKey: CURRENCY_TO_NOT_FOUND_ERROR
+                    message: When the currency to is not found. (you can add any usefull field as you want)
+                SWAP_QUOTE_NOT_FOUND_ERROR:
+                  summary: SWAP_QUOTE_NOT_FOUND_ERROR
+                  value:
+                    messageKey: SWAP_QUOTE_NOT_FOUND_ERROR
+                    message: When the swap quote is not found. (you can add any usefull field as you want)
+                SWAP_TRANSACTION_NOT_FOUND_ERROR:
+                  summary: SWAP_TRANSACTION_NOT_FOUND_ERROR
+                  value:
+                    messageKey: SWAP_TRANSACTION_NOT_FOUND_ERROR
+                    message: When the swap transaction is not found. (you can add any usefull field as you want)
+        "451":
+          description: When the user's IP address is in a restricted region.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              example:
+                messageKey: FROM_CURRENCY_MINIMUM_AMOUNT_ERROR
+                message: When the user's IP address is in a restricted region. (you can add any usefull field as you want)
 
 components:
   schemas:
@@ -172,6 +273,8 @@ components:
         - from
         - to
         - tradeMethod
+        - minSwapAmount
+        - maxSwapAmount
       type: object
       properties:
         from:
@@ -185,6 +288,10 @@ components:
             enum:
               - fixed
               - float
+        minSwapAmount:
+          type: string
+        maxSwapAmount:
+          type: string
     Quote:
       required:
         - from
@@ -248,12 +355,12 @@ components:
         payloadCurrencyTo:
           type: string
           description: to currency id, using ledger's referencial. This value has to used for currency_to field in the protobuf payload.
-        amountToWallet:
-          type: string
-          description: amount of `currencyTo` that the provider agrees to send to the client in exchange from
         nonce:
           type: string
           description: value to use for `device_transaction_id_ng` field in the protobuf payload. It will be an hex format of the byte array nonce received by the user.
+        slippage:
+          type: string
+          description: Value between 0 to 1 (0.1 => 10%). Maximum difference between the amount the user has seen in his quote and the amount he might finally receive, as a ratio of the quoted amount. Otherwise, the user should be asked for his consent to the new trade or reimbursed in original coin.
     ProviderSig:
       required:
         - payload
@@ -307,6 +414,24 @@ components:
         maxAmountFrom:
           type: string
           description: maximum valid `amount` for this pair (optional, only required if amount is too large)
+        defaultSlippage:
+          type: string
+          description: Value between 0 to 1 (0.1 => 10%). Maximum difference between the amount the user has seen in his quote and the amount he might finally receive, as a ratio of the quoted amount. Otherwise, the user should be asked for his consent to the new trade or reimbursed in original coin.
+        minSlippage:
+          type: string
+          description: Minimum slippage that the user can set. (0.1)
+        maxSlippage:
+          type: string
+          description: Maximum slippage that the user can set. (0.3)
+    ErrorPayload:
+      type: object
+      properties:
+        messageKey:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Message description
     ServerError:
       required:
         - code
@@ -371,7 +496,7 @@ components:
       properties:
         swapId:
           type: string
-          description: provider's id of the ongoing swap transaction. This will be used by Ledger's backend to retrieve the status of user swap transaction.
+          description: "provider's id of the ongoing swap transaction. This will be used by Ledger's backend to retrieve the status of user swap transaction. A unique id must be generated each time this endpoint is called, even if called with a same quoteId : quoteId != swapId. This is a swap attempt id and several retries sharing the same quote id might be performed by a user."
         payinAddress:
           type: string
           description: provider's address.
@@ -391,4 +516,3 @@ components:
           $ref: "#/components/schemas/ProviderSig"
     Token:
       type: string
-

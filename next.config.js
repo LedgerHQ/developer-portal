@@ -45,6 +45,36 @@ module.exports = {
         permanent: true,
       },
       {
+        source: '/docs/embedded-app/case1',
+        destination: '/docs/device-app',
+        permanent: true,
+      },
+      {
+        source: '/docs/embedded-app/case2',
+        destination: '/docs/device-app',
+        permanent: true,
+      },
+      {
+        source: '/docs/embedded-app/case3',
+        destination: '/docs/device-app',
+        permanent: true,
+      },
+      {
+        source: '/docs/embedded-app/case4',
+        destination: '/docs/device-app',
+        permanent: true,
+      },
+      {
+        source: '/docs/embedded-app/case5',
+        destination: '/docs/device-app',
+        permanent: true,
+      },
+      {
+        source: '/docs/embedded-app/case6',
+        destination: '/docs/device-app',
+        permanent: true,
+      },
+      {
         source: '/docs/embedded-app/required-skills',
         destination: '/docs/device-app/introduction',
         permanent: true,
@@ -676,6 +706,11 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/transport/choose-the-transport',
+        destination: '/docs/connectivity/ledgerJS',
+        permanent: true,
+       },
+      {
         source: '/docs/transport/required-skills',
         destination: '/docs/connectivity/ledgerJS/required-skills',
         permanent: true,
@@ -856,6 +891,11 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/device-app/develop/environment',
+        destination: '/docs/device-app/develop/quickstart',
+        permanent: true,
+       },
+      {
         source: '/docs/device-app/develop/tutorials/:slug',
         destination: '/docs/device-app/develop/code/:slug',
         permanent: true,
@@ -1016,8 +1056,18 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/APIs/:slug',
+        destination: '/docs/discover/:slug',
+        permanent: true,
+       },
+      {
         source: '/docs/non-dapp/reference/manifest',
-        destination: '/docs/discover/non-dapp',
+        destination: '/docs/discover/wallet-api/appendix/manifest',
+        permanent: true,
+       },
+      {
+        source: '/docs/non-dapp/tutorial/introduction',
+        destination: '/docs/discover',
         permanent: true,
        },
       {
@@ -1027,6 +1077,11 @@ module.exports = {
        },
       {
         source: '/docs/non-dapp/tutorial/3-import/',
+        destination: '/docs/discover',
+        permanent: true,
+       },
+      {
+        source: '/docs/non-dapp/:slug',
         destination: '/docs/discover',
         permanent: true,
        },        
