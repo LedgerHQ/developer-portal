@@ -17,7 +17,7 @@ function Glossary({word}) {
 				  	</a>
 					<Tooltip 
 						anchorSelect={`.anchor-${wordClass}`} 
-						html={`${definition} <a href=""><b>test</b></a>`} 
+						html={`${definition}.`} 
 						style={{width:"250px", backgroundColor: "rgb(230, 134, 0)", pointerEvents: "auto"}}
 						place={'bottom'}
 					>
