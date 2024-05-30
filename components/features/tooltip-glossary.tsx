@@ -18,7 +18,7 @@ function Glossary({word}) {
 					<Tooltip 
 						anchorSelect={`.anchor-${wordClass}`} 
 						html={`${definition}.`} 
-						style={{width:"250px", backgroundColor: "rgb(230, 134, 0)", pointerEvents: "auto"}}
+						style={{width:"250px", backgroundColor: "rgb(230, 134, 0)", pointerEvents: "auto", zIndex:"1000"}}
 						place={'bottom'}
 					>
 					</Tooltip>
