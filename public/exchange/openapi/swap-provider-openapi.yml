@@ -97,7 +97,10 @@ paths:
                 minSlippage: "0.1"
                 maxSlippage: "0.3"
         "400":
-          description: Swap request does not meet the currency amount constraints. It can be due to the source currency amount being below the minimum required or the destination currency amount exceeding the maximum allowed.
+          description: | 
+              This error indicates a violation of one or more constraints within the partner's system regarding the quote request. 
+              It is essential for the partner to specify the breached constraint to facilitate correction of the request. 
+              You can express any other constraints in your system by extending the error payload.
           content:
             application/json:
               schema:
@@ -109,16 +112,20 @@ paths:
                   value:
                     messageKey: FROM_CURRENCY_MINIMUM_AMOUNT_ERROR
                     message: Minimum error. (you can add any useful field as you want)
-                    minSwapAmount: "10"
+                    additionalFields: 
+                      minRequiredAmount: "0.01"
+                      maxRequiredAmount: "10"
                 TO_CURRENCY_MAXIMUM_AMOUNT_ERROR:
                   summary: TO_CURRENCY_MAXIMUM_AMOUNT_ERROR
                   description: The amount of destination currency exceed the maximum amount.
                   value:
                     messageKey: TO_CURRENCY_MAXIMUM_AMOUNT_ERROR
                     message: Maximum error. (you can add any useful field as you want)
-                    maxSwapAmount: "10"
+                    additionalFields: 
+                      minRequiredAmount: "0.01"
+                      maxRequiredAmount: "10"
         "404":
-          description: Swap pair not found.
+          description: The pair might be currently unavailable on your end, or you might not recognize one of the currencies. Please add relevant details about the causes.
           content:
             application/json:
               schema:
@@ -142,14 +149,15 @@ paths:
                   summary: Currency Region Restricted Error
                   value:
                     messageKey: CURRENCY_REGION_RESTRICTED_ERROR
-                    message: User's currency is in a restricted region. (you can add any useful field as you want)
+                    message: One of the swapped currencies is disabled in user's region. (you can add any useful field as you want)
   /swap:
     post:
       operationId: postSwap
       description: |
         Generates a secure binary payload for the nano in order to authorize the transaction. The provider should validate consistency between `quoteId` and other inputs (addresses, amounts and currencies).
         - For swap with fixed trade method, we send on swap endpoint the quoteId (id generated with the previouse call to `/quote` ). The partner should retrieve the quote data (amounts…) from this id.
-        - For swap with floating trade method, we send on swap endpoint the amount instead of the `quoteId`.
+        - For swap with floating trade method, we send on swap endpoint the amount instead of the `quoteId`. This exact value should be used to generate the swap order and the binary payload, but the amount to might be updated.
+        - In both cases the final source of Truth for the user is the binary payload you generate.
       requestBody:
         description: Info for generating payload
         content:
@@ -205,11 +213,6 @@ paths:
                   value:
                     messageKey: SWAP_QUOTE_NOT_FOUND_ERROR
                     message: When the swap quote is not found. (you can add any useful field as you want)
-                SWAP_TRANSACTION_NOT_FOUND_ERROR:
-                  summary: SWAP_TRANSACTION_NOT_FOUND_ERROR
-                  value:
-                    messageKey: SWAP_TRANSACTION_NOT_FOUND_ERROR
-                    message: When the swap transaction is not found. (you can add any useful field as you want)
         "451":
           description: When the user's IP address is in a restricted region.
           content:
@@ -338,18 +341,16 @@ components:
           example: "eth"
         amount:
           type: string
-          description: Amount requested by the user, excluding the gas fee.
+          description: Or the amountTo, it's the amount that user will spend for the swap. (required only for float quotes)
           example: "1"
     SwapRequest:
       required:
-        - quoteId
         - refundAddress
         - payoutAddress
         - currencyFrom
         - currencyTo
         - payloadCurrencyFrom
         - payloadCurrencyTo
-        - amount
         - nonce
       type: object
       properties:
@@ -403,7 +404,6 @@ components:
           description: Payload signed in JWS format.
     QuoteResponse:
       required:
-        - quoteId
         - amountTo
         - providerFees
         - referralFees
@@ -420,16 +420,16 @@ components:
           description: Should be the same as the input (optional, for consistency check).
         amountTo:
           type: string
-          description: Estimated output amount sent to the user, in currencyTo.
+          description: Estimated output amount sent to the user, converted to currencyTo.
         providerFees:
           type: string
-          description: Amount paid to the provider, in currencyTo.
+          description: Amount paid to the provider, converted to currencyTo.
         referralFees:
           type: string
-          description: Amount paid to Ledger, as a referral fee, in currencyTo.
+          description: Amount paid to Ledger, as a referral fee, converted to currencyTo.
         payoutNetworkFees:
           type: string
-          description: Estimated gas fees for the payout transaction.
+          description: Estimated gas fees for the payout transaction, converted to currencyTo.
         tradeMethod:
           type: string
           enum:
@@ -457,6 +457,9 @@ components:
         message:
           type: string
           description: Error message description.
+        additionalFields:
+          type: object
+          description: Provides further details on the error, including specific amounts involved in the request. All amounts are presented in their respective currency units.
     ServerError:
       required:
         - code
@@ -492,10 +495,10 @@ components:
             - UNKNOWN
         amount:
           type: string
-          description: As soon as the transaction is submitted to the blockchain , this field should contain the amount of the transaction.
+          description: as soon as this information is known, this should contain the final amount transferred to the user in output currency.
         payinTransactionId:
           type: string
-          description: As soon as the transaction is submitted to the blockchain and the hash is generated, this field should contain the payin transaction hash.
+          description: as soon as this information is known, this should contain the payin transaction hash.
         payoutTransactionId:
           type: string
           description: As soon as the transaction is submitted to the blockchain and the hash is generated, this field should contain the payout transaction hash.
@@ -507,7 +510,7 @@ components:
           description: Fees paid to Ledger, as a referral fee.
         payoutNetworkFees:
           type: string
-          description: Gas fees used for the payout transaction.
+          description: Gas fees used for the payout transaction, converted to currencyTo.
     SwapResponse:
       required:
         - swapId
@@ -530,10 +533,10 @@ components:
           description: Creation date of the swap payload in ISO-8601 format.
         providerFees:
           type: string
-          description: Fees paid to the provider, in currencyTo.
+          description: Fees paid to the provider, converted to currencyTo.
         referralFees:
           type: string
-          description: Fees paid to Ledger, as a referral fee, in currencyTo.
+          description: Fees paid to Ledger, as a referral fee, converted to currencyTo.
         payoutNetworkFees:
           type: string
           description: estimated gas fees that will be used for the payout transaction (as an output coin floating amount).
