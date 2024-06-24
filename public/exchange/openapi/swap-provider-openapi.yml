@@ -150,7 +150,7 @@ paths:
                   value:
                     messageKey: CURRENCY_REGION_RESTRICTED_ERROR
                     message: One of the swapped currencies is disabled in user's region. (you can add any useful field as you want)
-  /swap/trade/fixed:
+  /swap/fixed:
     post:
       operationId: postSwapTradeFixed
       description: |
@@ -228,8 +228,8 @@ paths:
                   summary: CURRENCY_REGION_RESTRICTED_ERROR
                   value:
                     messageKey: CURRENCY_REGION_RESTRICTED_ERROR
-                    message: User's currency is in a restricted region. (you can add any useful field as you want)
-  /swap/trade/float:
+                    message: One of the swapped currencies is disabled in user's region. (you can add any useful field as you want)
+  /swap/float:
     post:
       operationId: postSwapTradeFloat
       description: |
@@ -519,7 +519,7 @@ components:
           description: Should be the same as the input (optional, for consistency check).
         amountTo:
           type: string
-          description: Estimated output amount sent to the user, converted to currencyTo.
+          description: Estimated output amount sent to the user, in currencyTo.
         providerFees:
           type: string
           description: Amount paid to the provider, converted to currencyTo.
