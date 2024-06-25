@@ -6,26 +6,9 @@
     },
     "display": "hidden"
   },
-  "dev-journey": {
-    "title": "Dev Journeys",
-    "type": "menu",
-    "items": {
-      "overview": {
-        "title": "Overview"
-      },
-      "blockchain-foundation": {
-        "title": "Blockchain foundation"
-      },
-      "services-dapps": {
-        "title": "Services & DApp"
-      },
-      "nft-project": {
-        "title": "NFT project"
-      },
-      "wallet": {
-        "title": "Wallet"
-      }
-    }
+  "overview": {
+    "title": "Overview",
+    "type" : "page"
   },
   "docs": {
     "title": "Documentation",
