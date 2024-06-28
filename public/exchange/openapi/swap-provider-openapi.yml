@@ -152,7 +152,7 @@ paths:
                     message: One of the swapped currencies is disabled in user's region. (you can add any useful field as you want)
   /swap/fixed:
     post:
-      operationId: postSwapTradeFixed
+      operationId: postSwapFixed
       description: |
          Generates a secure binary payload for the nano in order to authorize the transaction.
          - For swap with fixed trade method, we send on swap endpoint the quoteId (id generated with the previouse call to `/quote` ). The partner should retrieve the quote data (amounts…) from this id.
@@ -231,7 +231,7 @@ paths:
                     message: One of the swapped currencies is disabled in user's region. (you can add any useful field as you want)
   /swap/float:
     post:
-      operationId: postSwapTradeFloat
+      operationId: postSwapFloat
       description: |
           Generates a secure binary payload for the nano in order to authorize the transaction.
           - For swap with floating trade method, we send on swap endpoint the amount. This exact value should be used to generate the swap order and the binary payload, but the amount to might be updated.
