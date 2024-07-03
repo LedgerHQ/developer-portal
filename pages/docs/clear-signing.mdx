@@ -1,41 +1,48 @@
 # Enhancing Security through Clear Signing
 
 
-## Why does your DApp or Wallet need Clear Signing?
+## Why does your DApp or Wallet need clear signing?
 
-Blind signing is a significant vulnerability that scammers can exploit to steal funds from unsuspecting users. When only the transaction hash is displayed on the device, it becomes challenging for users to verify the accuracy and authenticity of the transaction they are signing.
+Blind signing is a significant vulnerability that scammers exploit to steal funds from unsuspecting users. If the only information given to the user is the transaction hash, it is challenging for users to verify the accuracy and authenticity of the transaction before signing, because it is unreadable.
 
-At Ledger, we are committed to building a secure Web3 ecosystem. That is why we have introduced Clear Signing standards and tools to combat this issue. These tools provide user-readable and understandable data, making it easier for users to identify potential risks and verify transactions accurately.
+<div style={{width: "90%"}} className="center">
+  <figure>
+    <img src="/blind-signing-risk.png" alt="Blind sign risk"/>
+    <figcaption><i>Blind sign risk</i></figcaption>
+  </figure>
+</div>
+
+At Ledger, we are committed to building a secure Web3 ecosystem. That is why we have introduced clear signing standards and tools to address this issue. These tools provide user-readable and understandable data, making it easier for users to identify potential risks and verify transactions accurately.
 
 ## Prerequisite
 
-This implementation is available for EVM chains only **at the moment**. Stay tuned for other protocols.
+This implementation is currently for EVM chains only. Stay tuned for other protocols.
 
-## How to implement clear-signing?
+## How to implement clear signing?
 
 ### DApps
 
-The traditional way is to develop an [Ethereum plugin](./device-app/develop/code/plugin) but we have now conceived a process to offer DApps the ability to whitelist their smart contract methods so that they can be clear-signed. This will allow all DApps to comply to the new clear-signing standard in a much quicker and easier manner.
+The traditional way is to develop an [Ethereum plugin](./device-app/develop/code/plugin) but the process gives DApps the possibility to whitelist their smart contract methods to be  clear signed. This allows any DApp to use to the new standard more quickly and easily.
 
-The whitelisting of a smart contract method consist of two steps:
+The whitelisting a smart contract method has two steps:
 
-- A Json file translating your smart contracts informations into human-readable to be displayed on Ledger devices. The specifications for this Json file are on [the official GitHub repository](https://github.com/LedgerHQ/clear-signing-format-spec/blob/master/spec.md). 
-- Peer reviews of the files on the public Ledger repository.
+- A Json file to map your smart contract data into human-readable information to be displayed on Ledger devices. The specifications for this Json file are on [the official GitHub repository](https://github.com/LedgerHQ/clear-signing-format-spec/blob/master/spec.md), 
+- Peer reviewing the files on the public Ledger repository.
 
-Other elements to take into account to ensure a full clear-signing experience:
+Other items to take into account to ensure a full clear signing experience:
 
 - For EPI-712 messages follow [this documentation](./tokens/eip712-messages#what-to-do-to-clear-sign-eip-712-messages-for-your-dapp)
-- [Add your token](./tokens/integrating-tokens) in Ledger Live
+- [Add your token](./tokens/integrating-tokens) in Ledger Live.
 
 
 ### Wallets
 
-- Use the latest version of the [LedgerJS Ethereum transport library](https://github.com/LedgerHQ/ledger-live/tree/b2163a6eaafd46390d4a14bad8e62fcc10454c05/libs/ledgerjs/packages/hw-app-eth). It has been updated to comply with the new standard. For more information on how to use the LedgerJS libraries read [this documentation](./connectivity/ledgerJS).
-- Review the json files to ensure the information is legitimate. 
+- Use the latest version of the [LedgerJS Ethereum transport library](https://github.com/LedgerHQ/ledger-live/tree/b2163a6eaafd46390d4a14bad8e62fcc10454c05/libs/ledgerjs/packages/hw-app-eth). It has been updated for the new standard. For more information on how to use the LedgerJS libraries read [this documentation](./connectivity/ledgerJS).
+- Review the Json files to ensure the information is legitimate. 
 
-### Rewatch the "Request for Comment Session"
+### Watch the "Request for Comment Session"
 
-To get more insight about our process and plan for the future of clear-signing, we recommend you watching the replay of our "Request for Comment Session". You can read [the slides](https://www.keepandshare.com/doc13/view.php?id=32202&da=y).
+To get an insight about our process and plan for the future of clear signing, we recommend you watching the "Request for Comment Session". You can read [the slides](https://www.keepandshare.com/doc13/view.php?id=32202&da=y).
 
 <br/>
 
@@ -44,14 +51,14 @@ To get more insight about our process and plan for the future of clear-signing, 
 
 ## What's next?
 
-- An Open source Json edition tool to be able to visualize the information that the user will get on their devices
-- The decentralization of the peer review process
-- The generalization of the Json standard to the Web3 ecosystem 
-- Extension of this process to other protocols
+- An Open source Json edit tool to display the information that the user will see on their devices
+- Decentralizing the peer review process, 
+- Generalizing the Json standard to the Web3 ecosystem, 
+- Extending this process to other protocols. 
 
-Stay tuned for further updates and evolutions on this topic as we continue to improve and expand our security measures, ensuring the highest level of protection for our users. 
+Stay tuned for further updates and evolutions on this topic as we continue to improve and expand our security measures, ensuring the highest protection for our users. 
 
-Want to know more? Join the conversation on [the Ethereum Magicians Forum](https://ethereum-magicians.org/t/eip-7730-proposal-for-a-clear-signing-standard-format-for-wallets/20403) and join [our Telegram group](https://t.me/+Saw4M8DRA_5mZTk0 ) dedicated to this subject. 
+Want to know more? Join the conversation on [the Ethereum Magicians Forum](https://ethereum-magicians.org/t/eip-7730-proposal-for-a-clear-signing-standard-format-for-wallets/20403) and join [our Telegram group](https://t.me/+Saw4M8DRA_5mZTk0 ), dedicated to this subject. 
 
 
 
