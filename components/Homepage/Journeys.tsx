@@ -20,7 +20,7 @@ export const Journeys = () => {
               className="w-full md:w-[48.5%]"
             />
             <JourneyCard 
-              title="Clear-sign your smart contracts"
+              title="Clear sign your smart contracts"
               description="and integrate your application quickly in Ledger Live." 
               type="services-dapps"
               className="w-full md:w-[48.5%]"
