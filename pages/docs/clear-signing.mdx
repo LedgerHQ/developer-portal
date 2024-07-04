@@ -5,10 +5,11 @@
 
 Blind signing is a significant vulnerability that scammers exploit to steal funds from unsuspecting users. If the only information given to the user is the transaction hash, it is challenging for users to verify the accuracy and authenticity of the transaction before signing, because it is unreadable.
 
+<br/>
+
 <div style={{width: "90%"}} className="center">
   <figure>
     <img src="/blind-signing-risk.png" alt="Blind sign risk"/>
-    <figcaption><i>Blind sign risk</i></figcaption>
   </figure>
 </div>
 
@@ -20,19 +21,20 @@ This implementation is currently for EVM chains only. Stay tuned for other proto
 
 ## How to implement clear signing?
 
-### DApps
+### dApps
 
-The traditional way is to develop an [Ethereum plugin](./device-app/develop/code/plugin) but the process gives dApps the possibility to whitelist their smart contract methods to be  clear signed. This allows any dApp to use to the new standard more quickly and easily.
+The clear signing standard that we have developped relies on the whitelisting of smart contracts methods and can be done easily and quickly.
 
-The whitelisting a smart contract method has two steps:
+*The whitelisting of a smart contract method has two steps:*
 
 - A Json file to map your smart contract data into human-readable information to be displayed on Ledger devices. The specifications for this Json file are on [the official GitHub repository](https://github.com/LedgerHQ/clear-signing-format-spec/blob/master/spec.md), 
-- Peer reviewing the files on the public Ledger repository.
+- A peer review of the files on the public Ledger repository.
 
 Other items to take into account to ensure a full clear signing experience:
 
 - For EPI-712 messages follow [this documentation](./tokens/eip712-messages#what-to-do-to-clear-sign-eip-712-messages-for-your-dapp)
 - [Add your token](./tokens/integrating-tokens) in Ledger Live.
+- Some special cases may require the development of an [Ethereum plugin](./device-app/develop/code/plugin). The Ledger team will guide you through this process if required.
 
 
 ### Wallets
@@ -51,10 +53,10 @@ To get an insight about our process and plan for the future of clear signing, we
 
 ## What's next?
 
-- An Open source Json edit tool to display the information that the user will see on their devices
-- Decentralizing the peer review process, 
-- Generalizing the Json standard to the Web3 ecosystem, 
-- Extending this process to other protocols. 
+- Publication of an open source Json edition tool to write the json description and visualize the information that the user will see on their devices,
+- Decentralization of the peer review process, 
+- Generalization of the Json standard to the Web3 ecosystem, 
+- Extension of this process to other protocols. 
 
 Stay tuned for further updates and evolutions on this topic as we continue to improve and expand our security measures, ensuring the highest protection for our users. 
 
