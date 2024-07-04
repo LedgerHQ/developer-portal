@@ -12,7 +12,7 @@
 	    }
   	},
 	"services-dapps": {
-	    "title": "Services & DApps",
+	    "title": "Services & dApps",
 	    "theme": {
 	      "layout": "raw"
 	    }
