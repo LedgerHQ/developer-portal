@@ -18,7 +18,7 @@ export const Numbers = () => {
           <NumberItem_1 number="170+" text="blockchain protocols secured" />
           <VerticalSeparator />
           <HorizontalSeparator />
-          <NumberItem_2 number="200+" text="compatible DApps" />
+          <NumberItem_2 number="200+" text="compatible dApps" />
           <VerticalSeparator />
           <HorizontalSeparator />
           <NumberItem_3 number="6500000+" text="devices sold worldwide" />
