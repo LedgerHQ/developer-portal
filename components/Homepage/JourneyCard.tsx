@@ -24,6 +24,9 @@ export const JourneyCard: FC<JourneyCardProps> = ({title, description, type, cla
 
   const handleClick = () => {
     switch (type) {
+      case "clear-signing":
+        router.push("/docs/clear-signing")
+        break;
       case "device":
         router.push("/docs/device-app")
         break;
@@ -43,7 +46,7 @@ export const JourneyCard: FC<JourneyCardProps> = ({title, description, type, cla
 
   return (
     <button type="button" onMouseOver={MouseOver} onMouseOut={MouseOut} onClick={handleClick} className={combination("group flex flex-col rounded border-[0.5px] border-grey-700 hover:border-white bg-grey-800/40 backdrop-blur-sm text-left duration-300 ease-linear", className)} {...props}>
-      <div className="relative w-full h-[160px] sm:h-[200px] md:h-[110px] lg:h-[170px] xl:h-[200px] overflow-hidden duration-300 ease-linear">
+      <div className="relative w-full h-[160px] sm:h-[160px] md:h-[110px] lg:h-[150px] xl:h-[160px] overflow-hidden duration-300 ease-linear">
         <Image 
           src={require(`../../public/homepage/bg-${type}.jpg`)} 
           alt="type"

@@ -18,6 +18,9 @@ export const Tag: FC<TagProps> = ({type, className, ...props}) => {
 
   useEffect(() => {
     switch (type) {
+      case "clear-signing":
+        setContainerStyle("border-grey-600 bg-grey-700");
+        break;
       case "device":
         setContainerStyle("border-grey-600 bg-grey-700");
         break;
