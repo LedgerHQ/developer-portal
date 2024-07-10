@@ -9,8 +9,8 @@ export const Journeys = () => {
           <div className="flex flex-wrap gap-y-8 md:gap-x-[3%] mt-16">
 
             <JourneyCard 
-              title="CLEAR SIGNING"
-              description="Test"
+              title="Clear Signing initiative"
+              description="Whitelist your smart contracts methods to enforce our new clear signing standard"
               type="clear-signing"
               className="w-full"
             />
