@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 interface JourneyCardProps extends HTMLAttributes<HTMLButtonElement> {
   title: string;
   description: string;
-  type: "device" | "connectivity" | "blockchain" | "live-app";
+  type: "clear-signing" | "device" | "connectivity" | "blockchain" | "live-app";
 }
 
 export const JourneyCard: FC<JourneyCardProps> = ({title, description, type, className, ...props}) => {  

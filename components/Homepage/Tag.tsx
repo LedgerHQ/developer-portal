@@ -3,6 +3,7 @@ import Image from "next/image"
 import { combination } from '../../lib/utils';
 
 const strings = {
+  "clear-signing": "Clear Signing",
   "device": "Device Apps",
   "connectivity": "Connectivity",
   "blockchain": "Blockchain",
@@ -10,7 +11,7 @@ const strings = {
 }
 
 interface TagProps extends HTMLAttributes<HTMLDivElement> {
-  type: "device" | "connectivity" | "blockchain" | "live-app"
+  type: "clear-signing"| "device" | "connectivity" | "blockchain" | "live-app"
 }
 
 export const Tag: FC<TagProps> = ({type, className, ...props}) => {  
@@ -19,16 +20,16 @@ export const Tag: FC<TagProps> = ({type, className, ...props}) => {
   useEffect(() => {
     switch (type) {
       case "clear-signing":
-        setContainerStyle("border-grey-600 bg-grey-700");
+        setContainerStyle("border-lime-500 bg-lime-700");
         break;
       case "device":
-        setContainerStyle("border-grey-600 bg-grey-700");
+        setContainerStyle("border-purple-light bg-purple-dark");
         break;
       case "connectivity":
         setContainerStyle("border-purple-light bg-purple-dark");
         break;
       case "blockchain":
-        setContainerStyle("border-grey-200 bg-grey-400 text-black");
+        setContainerStyle("border-primary bg-primary-dark");
         break;
       case "live-app":
         setContainerStyle("border-primary bg-primary-dark");
