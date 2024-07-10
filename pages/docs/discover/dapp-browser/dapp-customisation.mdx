@@ -1,21 +1,21 @@
 ---
-title: Update your DApp
-description: "It consists of two steps: updating your DApp, and smooth out the user experience"
+title: Update your dApp
+description: "It consists of two steps: updating your dApp, and smooth out the user experience"
 ---
 
-# Update your DApp
+# Update your dApp
 
-One of the most useful features of this DApp Browser is to be able to log-in automatically from a Ledger Live Ethereum account, therefore obviating the step to manually “Connect a Wallet”.
+One of the most useful features of this dApp Browser is to be able to log-in automatically from a Ledger Live Ethereum account, therefore obviating the step to manually “Connect a Wallet”.
 
-As a DApp developer, you can check if the `isLedgerLive` boolean is truthy in the injected provider (`window.ethereum` or from EIP-6963).
+As a dApp developer, you can check if the `isLedgerLive` boolean is truthy in the injected provider (`window.ethereum` or from EIP-6963).
 
-The DApp can submit a tx with or without gas fee set. If it is set, Ledger Live will use it as is, otherwise, Ledger Live will propose low/medium/high based on gas fee estimations.
+The dApp can submit a tx with or without gas fee set. If it is set, Ledger Live will use it as is, otherwise, Ledger Live will propose low/medium/high based on gas fee estimations.
 
 # Smooth out user experience
 
 - Please make sure basic cases are handled.
 
-  For instance, check what happens when you click on the **log out** or **disconnect** button in your Dapp. The user may be automatically logged back in Ledger Live injected provider or redirected to the standard list of providers (Metamask, connect wallet, and such…).
+  For instance, check what happens when you click on the **log out** or **disconnect** button in your dApp. The user may be automatically logged back in Ledger Live injected provider or redirected to the standard list of providers (Metamask, connect wallet, and such…).
 
 - We currently supports Ethereum mainnet, BSC, arbitrum, optimism, base, fantom and Polygon chains. We also support the Sepolia testnet: to use it, make sur you have a Sepolia testnet account available in Ledger Live. (To enable testnet networks, [head over to Settings -> Experimental features and turn on the Developer mode setting](../developer-mode/).)
 
