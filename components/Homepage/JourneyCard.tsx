@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 interface JourneyCardProps extends HTMLAttributes<HTMLButtonElement> {
   title: string;
   description: string;
-  type: "wallet" | "services-dapps" | "blockchain" | "nft";
+  type: "device" | "connectivity" | "blockchain" | "live-app";
 }
 
 export const JourneyCard: FC<JourneyCardProps> = ({title, description, type, className, ...props}) => {  
@@ -24,17 +24,17 @@ export const JourneyCard: FC<JourneyCardProps> = ({title, description, type, cla
 
   const handleClick = () => {
     switch (type) {
-      case "wallet":
-        router.push("/dev-journey/wallet")
+      case "device":
+        router.push("/docs/device-app")
         break;
-      case "services-dapps":
-        router.push("/dev-journey/services-dapps")
+      case "connectivity":
+        router.push("/docs/connectivity")
         break;
       case "blockchain":
-        router.push("/dev-journey/blockchain-foundation")
+        router.push("/docs/blockchain")
         break;
-      case "nft":
-        router.push("/dev-journey/nft-project")
+      case "live-app":
+        router.push("/docs/live-app")
         break;
       default:
         break;
