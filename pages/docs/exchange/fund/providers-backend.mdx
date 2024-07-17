@@ -39,13 +39,12 @@ There are 4 main endpoints needed for the fund:
     }
 
     message NewFundResponse {
-        string   user_id = 1;           
-        string   in_currency = 2;            
-        bytes    in_amount = 3;              
-        string   in_address = 4;             
-        string   out_currency = 5;           
-        UDecimal out_amount = 6;             
-        bytes    device_transaction_id = 7;  
+        string   user_id = 1;                // user ID           
+        string   account_name = 2;           // funded account name ex: Card 1234            
+        string   in_currency = 3;            // inCurrency
+        bytes    in_amount = 4;              // inAmount
+        string   in_address = 5;             // account
+        bytes    device_transaction_id = 6;  // nonce
     }
     ```
 
@@ -79,11 +78,10 @@ From the provider to Ledger Live. The payload is a protobuf message containing t
 ```go copy
 type Payload struct {
   user_id,
+  account_name,
   in_currency,
   in_amount,
   in_address,
-  out_currency,
-  out_amount,
   device_transaction_id,
 }
 R, S := Sign(payload, privKey)
