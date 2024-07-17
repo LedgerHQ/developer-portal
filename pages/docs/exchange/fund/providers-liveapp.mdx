@@ -1,0 +1,92 @@
+import { Tabs } from 'nextra/components'
+import { Callout } from 'nextra/components'
+
+# Provider's LiveApp
+
+As explained in the [Fund Integration](../fund) page, you need to modify your LiveApp with some particularities compared to the one that can be found in the Discover section.
+
+Your LiveApp must: 
+  - Use the Ledger's [exchangeSDK](https://github.com/LedgerHQ/exchange-sdk), in addition to the Wallet API.
+  - Respond to specific LiveApp URLs in order to adapt to the flow inside Ledger Live.
+  - Have a modified, slightly more complex, Manifest file.
+  - Follow specifics flow/ux requirements.
+
+
+## Ledger's exchange SDK
+
+To learn how to create (or embed if already existing) your user interface for the fund, please follow the [Discover documentation](../../discover).
+
+Your LiveApp will interact with Ledger Live, through the [ExchangeSDK](https://github.com/LedgerHQ/exchange-sdk), with the corresponding method.
+
+You will need to set up the SDK with your `providerId` attributed upon request by Ledger.
+
+### FUND method
+
+This method will need you to provide the following parameters:
+
+* `quoteId`: the id coming from your system and [forwarded to your LiveApp](./providers-liveapp) as a query parameter
+* `accountId`: user's account id, [previously given to the LiveApp](./providers-liveapp) as a query parameter
+* `amount`: amount that will be sold
+* `feeStrategy`: `SLOW`, `MEDIUM`, `FAST` or `CUSTOM`.
+* `getFundPayload`: callback method called by the fund process to retrieve the payload (see below)
+
+The `getFundPayload` is a callback that during the Fund process will be called with a `nonce`.
+This value is required to craft on your side the Fund Payload, which will be returned by the callback.
+
+```js copy
+  exchangeSDK.fund({
+    quoteId: "1234",
+    accountId: "07AB5930-C73A-433F-A2FA-920640AF3A02",
+    amount: "0.8",
+    feeStrategy: "SLOW",
+    getFundPayload: (nonce, fundAddress, amount) => {
+      // Crafting Payload...
+      return {
+        recipientAddress: "0xc0ffee254729296a45a3885639AC7E10F9d54979"
+        amount: BigInt("800000000000000000")
+        binaryPayload: "YiA1CuoMl_dH8dD3YIFGFKR1I4AbGut9C8u6oqT0a_gYSw==",
+        signature: "HA8qBfo8yFNzbV60Ws8GT54UWeing3kcDIdnov2nT9gFB58JybFE1sK0Ext3kARXhZ9J1sbltkBSeuzBdSkjVg==",
+      };
+    }
+  });
+```
+
+## LiveApp URL
+
+The LiveApp needs to respond to a URL with some parameters. LiveApp URLs are used to open your LiveApp with the quote values that the user already entered in Ledger Live.
+
+The LiveApp URL format is already fixed and will depend on the information you provided inside your [LiveApp manifest](../../../../docs/discover/wallet-api/appendix/manifest) (ex: `ledgerlive://discover/swapprovidername`).
+
+
+  * `account-id`: User’s selected account id, where the crypto he wants to fund is stored.
+  * `crypto-currency`: The crypto currency that the user wants to fund. It will contain the providerId value to identify the crypto.
+  * `fiat-currency`: The fiat currency that the user wants to be paid with.
+  * `crypto-amount`: The crypto amount that the user wants to fund.
+  * `payment-method`: The preferred payment method for the user.
+  * `mode`: `buy` , `sell` or `fund`. In this case always fund. Required you share the same base widget url for both usages.
+  * `ledger-transaction-id`: id used by ledger to track transactions and their completion statuses.
+
+__Example__:
+```
+https://fund.provider.widget.com?[account-id]=ua11-…&[crypto-currency]=BTC&[fiat-currency]=EUR&[crypto-amount]=0.04
+```
+
+<Callout type="info" emoji="👉">
+  Ledger needs to know how to send referral information through the widget.
+</Callout>
+
+
+## Manifest Permission
+Your [LiveApp manifest](../../../../docs/discover/wallet-api/appendix/manifest) should contains at least those permissions request:
+```json copy
+"permissions": [
+  "account.list",
+  "currency.list",
+  "custom.exchange.start", 
+  "custom.exchange.complete",
+]
+```
+
+## Flow/UX requirements
+
+Please refer to the [Flow Breakdown](../swap/flow) section for more information. 

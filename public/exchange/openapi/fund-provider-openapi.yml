@@ -1,0 +1,324 @@
+openapi: 3.0.3
+info:
+  title: Fund Provider Server
+  version: '1.0'
+paths:
+  /capabilities:
+    get:
+      operationId: getCapabilities
+      responses:
+        '200':
+          description: |
+            ### Sell Provider Capabilities
+            - "fiatCurrencyCapabilities.[].fiat": fiat currency supported at the ISO-4217 standard,
+            - cryptoCurrencyCapabilities.[].id: The provider id of the currency, this id will be used to call quote endpoint and in the widget url query parameter,
+            - cryptoCurrencyCapabilities.[].minAmount: Minimum amount of crypto the user can sell
+            - cryptoCurrencyCapabilities.[].maxAmount: Maximum amount of crypto the user can sell
+            - "countriesCapabilities.[].country": available at the Alpha-2 standard (ISO3166),
+            - "countriesCapabilities.[].paymentMethods.[].name": Available payment method, valid values : visa, mastercard, creditcard, sepa, bank, other
+          x-summary: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SellProviderCapabilities'
+              example:
+                fiatCurrencyCapabilities:
+                  - fiat: EUR
+                  - fiat: USD
+                  - fiat: GBP
+                cryptoCurrencyCapabilities:
+                  - id: BTC
+                    minAmount: 0.01
+                    maxAmount: 0.5
+                countriesCapabilities:
+                  - country: FR
+                    paymentMethods:
+                      - name: sepa
+                      - name: visa
+                  - country: US
+                    paymentMethods:
+                      - name: sepa
+                      - name: visa
+                  - country: GB
+                    paymentMethods:
+                      - name: sepa
+                      - name: visa
+        default:
+          description: Error sent by the provider
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderServerError'
+              example:
+                code: 400
+                message: Server isn't able to handle the request because of whatever.
+  /quote:
+    get:
+      operationId: getQuote
+      parameters:
+        - name: from
+          in: query
+          description: Crypto currency at the ledgerId format.
+          required: true
+          schema:
+            type: string
+          example: bitcoin
+        - name: to
+          in: query
+          description: Fiat currency at the ISO-4217 standard.
+          required: true
+          schema:
+            type: string
+          example: EUR
+        - name: payment-method
+          in: query
+          description: 'Payment method, valid values : visa, mastercard, creditcard,
+         pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay,
+         maestro, googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,
+         bank, gbpbank, eps, ideal, other.'
+          required: true
+          schema:
+            type: string
+          example: paypal
+        - name: amount
+          in: query
+          description: CryptoCurrency amount to sell.
+          required: true
+          schema:
+            type: integer
+          example: 0.3
+        - name: country
+          in: query
+          description: Country of the user at the Alpha-2 standard (ISO3166).
+          required: true
+          schema:
+            type: string
+          example: FR
+        - name: walletAddress
+          in: query
+          description: User's wallet address where he holds the cryptocurreny he wants to sell.
+          required: true
+          schema:
+            type: string
+          example: '0x000000000000000000000000000000'
+      responses:
+        '200':
+          description: |
+            ### Quote information about the the sell.
+            - "from": cryptocurrency sold,
+            - "to": fiat user expects to be paid in,
+            - "paymentMethod: method used to pay the user,
+            - "cryptoAmount": cryptocurrency amount to sell,
+            - "fiatAmount": fiat amount the user expects to receive (after all fees have been substracted),
+          x-summary: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderQuoteResponse'
+              example:
+                from: bitcoin
+                to: EUR
+                fiatAmount: 300
+                cryptoAmount: 0.01
+        '400':
+          description: |
+            Invalid value for: query parameter from,
+            Invalid value for:query parameter to,
+            Invalid value for: query parameter paymentMethod...
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderServerError'
+        default:
+          description: Error sent by the provider
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderServerError'
+  /crypto-currencies:
+    get:
+      operationId: getCrypto-currencies
+      responses:
+        '200':
+          description: |
+            ### Available crypto currencies
+            - "id" : your unique identifier of the currency
+            - "type" : possible values : coin, token
+            - "blockchain" : ledger's blockchain_name of the blockchain as listed in https://crypto-assets-service.api.ledger.com/v1/coins?output=blockchain_name,chain_id, for evm networks this field may be omitted when chainId is defined.
+            - "chainId" : for EVMs only, chain id of the blockchain, 1 for ethereum, 137 for polygon... See https://chainlist.org/
+            - "contract" : mapped only if type is token, the contract address of the token.
+            blockchain OR chainId should be defined. If chainId is defined, blockchain field is ignored.
+          x-summary: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CryptoCurrencies'
+              example:
+                - id: BTC
+                  type: coin
+                  blockchain: bitcoin
+                - id: USDC
+                  type: token
+                  chainId: 1
+                  contract: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+        default:
+          description: Error sent by the provider
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderServerError'
+              example:
+                code: 42
+                message: Server isn't able to handle the request because of whatever.
+components:
+  schemas:
+    Bank:
+      type: object
+    SellPaymentMethod:
+      required:
+        - name
+        - successRate
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/PaymentMethod'
+        successRate:
+          type: integer
+          format: int32
+    SellProviderCapabilities:
+      type: object
+      properties:
+        fiatCurrencyCapabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/FiatCurrencyCapability'
+        countriesCapabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/CountryCapability'
+        cryptoCurrencyCapabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/CryptoCurrencyCapability'
+      description: |
+        - "fiatCurrencyCapabilities.[].fiat": fiat currency supported at the ISO-4217 standard,
+        - cryptoCurrencyCapabilities.[].id: The provider id of the currency, this id will be used to call quote endpoint and in the widget url query parameter,
+        - cryptoCurrencyCapabilities.[].minAmount: Minimum amount of crypto the user can sell
+        - cryptoCurrencyCapabilities.[].maxAmount: Maximum amount of crypto the user can sell
+        - "countriesCapabilities.[].country": available at the Alpha-2 standard (ISO3166),
+        - "countriesCapabilities.[].paymentMethods.[].name": Available payment method, valid values : visa, mastercard, creditcard, sepa, bank, other
+    Coin:
+      type: object
+    CountryCapability:
+      required:
+        - country
+      type: object
+      properties:
+        country:
+          type: string
+        paymentMethods:
+          type: array
+          items:
+            $ref: '#/components/schemas/SellPaymentMethod'
+    CreditCard:
+      type: object
+    CryptoCurrencies:
+      required:
+        - id
+        - type
+        - blockchain
+        - chainId
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          $ref: '#/components/schemas/CryptoCurrencyType'
+        blockchain:
+          type: string
+        chainId:
+          type: integer
+          format: int32
+        contract:
+          type: string
+    CryptoCurrencyCapability:
+      required:
+        - id
+        - minAmount
+        - maxAmount
+      type: object
+      properties:
+        id:
+          type: string
+        minAmount:
+          type: number
+        maxAmount:
+          type: number
+    CryptoCurrencyType:
+      oneOf:
+        - $ref: '#/components/schemas/Coin'
+        - $ref: '#/components/schemas/Token'
+    FiatCurrencyCapability:
+      required:
+        - fiat
+        - minAmount
+        - maxAmount
+      type: object
+      properties:
+        fiat:
+          type: string
+    Mastercard:
+      type: object
+    Other:
+      type: object
+    PaymentMethod:
+      oneOf:
+        - $ref: '#/components/schemas/Bank'
+        - $ref: '#/components/schemas/CreditCard'
+        - $ref: '#/components/schemas/Mastercard'
+        - $ref: '#/components/schemas/Other'
+        - $ref: '#/components/schemas/Sepa'
+        - $ref: '#/components/schemas/Unknown'
+        - $ref: '#/components/schemas/Visa'
+    ProviderQuoteResponse:
+      required:
+        - from
+        - to
+        - fiatAmount
+        - cryptoAmount
+      type: object
+      properties:
+        from:
+          type: string
+        to:
+          type: string
+        fiatAmount:
+          type: number
+        cryptoAmount:
+          type: number
+    ProviderServerError:
+      required:
+        - code
+        - message
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Sepa:
+      type: object
+    Token:
+      type: object
+    Unknown:
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          type: string
+    Visa:
+      type: object
