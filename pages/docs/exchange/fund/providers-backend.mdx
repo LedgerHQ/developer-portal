@@ -39,12 +39,14 @@ There are 4 main endpoints needed for the fund:
     }
 
     message NewFundResponse {
-        string   user_id = 1;                // user ID           
-        string   account_name = 2;           // funded account name ex: Card 1234            
-        string   in_currency = 3;            // inCurrency
-        bytes    in_amount = 4;              // inAmount
-        string   in_address = 5;             // account
-        bytes    device_transaction_id = 6;  // nonce
+        string      user_id = 1;                // user ID           
+        string      account_name = 2;           // funded account name ex: Card 1234            
+        string      in_currency = 3;            // inCurrency
+        string      out_currency = 4;           // currency of the fund received
+        bytes       in_amount = 5;              // inAmount
+        UIDecimal   out_amount = 6;             // amount of the fund received
+        string      in_address = 7;             // account
+        bytes       device_transaction_id = 8;  // nonce
     }
     ```
 
@@ -80,7 +82,9 @@ type Payload struct {
   user_id,
   account_name,
   in_currency,
+  out_currency,
   in_amount,
+  out_amount,
   in_address,
   device_transaction_id,
 }

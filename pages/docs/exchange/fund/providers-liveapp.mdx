@@ -24,30 +24,18 @@ You will need to set up the SDK with your `providerId` attributed upon request b
 
 This method will need you to provide the following parameters:
 
-* `quoteId`: the id coming from your system and [forwarded to your LiveApp](./providers-liveapp) as a query parameter
-* `accountId`: user's account id, [previously given to the LiveApp](./providers-liveapp) as a query parameter
-* `amount`: amount that will be sold
+* `userId`: the id coming from your system to identify the end user.
+* `accountId`: user's account id, [previously given to the LiveApp](./providers-liveapp) as a query parameter.
+* `amount`: amount that will be sold.
 * `feeStrategy`: `SLOW`, `MEDIUM`, `FAST` or `CUSTOM`.
-* `getFundPayload`: callback method called by the fund process to retrieve the payload (see below)
 
-The `getFundPayload` is a callback that during the Fund process will be called with a `nonce`.
-This value is required to craft on your side the Fund Payload, which will be returned by the callback.
 
 ```js copy
   exchangeSDK.fund({
-    quoteId: "1234",
+    userId: "1234",
     accountId: "07AB5930-C73A-433F-A2FA-920640AF3A02",
     amount: "0.8",
     feeStrategy: "SLOW",
-    getFundPayload: (nonce, fundAddress, amount) => {
-      // Crafting Payload...
-      return {
-        recipientAddress: "0xc0ffee254729296a45a3885639AC7E10F9d54979"
-        amount: BigInt("800000000000000000")
-        binaryPayload: "YiA1CuoMl_dH8dD3YIFGFKR1I4AbGut9C8u6oqT0a_gYSw==",
-        signature: "HA8qBfo8yFNzbV60Ws8GT54UWeing3kcDIdnov2nT9gFB58JybFE1sK0Ext3kARXhZ9J1sbltkBSeuzBdSkjVg==",
-      };
-    }
   });
 ```
 
@@ -62,7 +50,6 @@ The LiveApp URL format is already fixed and will depend on the information you p
   * `crypto-currency`: The crypto currency that the user wants to fund. It will contain the providerId value to identify the crypto.
   * `fiat-currency`: The fiat currency that the user wants to be paid with.
   * `crypto-amount`: The crypto amount that the user wants to fund.
-  * `payment-method`: The preferred payment method for the user.
   * `mode`: `buy` , `sell` or `fund`. In this case always fund. Required you share the same base widget url for both usages.
   * `ledger-transaction-id`: id used by ledger to track transactions and their completion statuses.
 
