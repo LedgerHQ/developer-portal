@@ -9,18 +9,16 @@ paths:
       responses:
         '200':
           description: |
-            ### Sell Provider Capabilities
+            ### Fund Provider Capabilities
             - "fiatCurrencyCapabilities.[].fiat": fiat currency supported at the ISO-4217 standard,
             - cryptoCurrencyCapabilities.[].id: The provider id of the currency, this id will be used to call quote endpoint and in the widget url query parameter,
             - cryptoCurrencyCapabilities.[].minAmount: Minimum amount of crypto the user can sell
             - cryptoCurrencyCapabilities.[].maxAmount: Maximum amount of crypto the user can sell
-            - "countriesCapabilities.[].country": available at the Alpha-2 standard (ISO3166),
-            - "countriesCapabilities.[].paymentMethods.[].name": Available payment method, valid values : visa, mastercard, creditcard, sepa, bank, other
           x-summary: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SellProviderCapabilities'
+                $ref: '#/components/schemas/FundProviderCapabilities'
               example:
                 fiatCurrencyCapabilities:
                   - fiat: EUR
@@ -30,19 +28,6 @@ paths:
                   - id: BTC
                     minAmount: 0.01
                     maxAmount: 0.5
-                countriesCapabilities:
-                  - country: FR
-                    paymentMethods:
-                      - name: sepa
-                      - name: visa
-                  - country: US
-                    paymentMethods:
-                      - name: sepa
-                      - name: visa
-                  - country: GB
-                    paymentMethods:
-                      - name: sepa
-                      - name: visa
         default:
           description: Error sent by the provider
           content:
@@ -72,10 +57,11 @@ paths:
           example: EUR
         - name: payment-method
           in: query
-          description: 'Payment method, valid values : visa, mastercard, creditcard,
-         pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay,
-         maestro, googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,
-         bank, gbpbank, eps, ideal, other.'
+          description: |
+            Payment method, valid values : visa, mastercard, creditcard,
+            pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay,
+            maestro, googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,
+            bank, gbpbank, eps, ideal, other.
           required: true
           schema:
             type: string
@@ -172,32 +158,72 @@ paths:
               example:
                 code: 42
                 message: Server isn't able to handle the request because of whatever.
+  /fund:
+    post:
+      operationId: postFund
+      description: |
+        Generates a secure binary payload for the nano in order to authorize the transaction.
+      requestBody:
+        description: Info for generating payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FundRequest'
+      responses:
+        '200':
+          description: Fund ID with flattened JWS. `https://www.rfc-editor.org/rfc/rfc7515#section-7.2.2`
+          x-summary: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FundResponse'
+              example:
+                userId: ID-165940
+                payinAddress: '0xa0b86991c627e936c1d19d4a2e90a2ce3606eb48'
+                createdAt: '2030-05-26T14:13:39'
+                providerSig:
+                  payload: CgUweGZmZhoFMHhmZmYqBTB4ZmZmOgNCVENCA0JBVEoIMTIwMDAwMDBSCDExNTAwMDAwWhF2ZXJ5IGxvbmd1ZSBub25jZQ==
+                  payload_signature: MEUCIBRm4PrdgRw0aBwRepuOGGRmR/YPcCoyKNJ7UDjFO030AiEA/VT0anolum0a3X/9lGPeovZHqzeDG9brcUB4zhYmwbs=
+        '400':
+          description: Deposit wallet not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderServerError'
+              example:
+                messageKey: NO_DEPOSIT_WALLET_ERROR
+                message: Deposit wallet not available. (you can add any useful field as you want)
+        '404':
+          description: Not found error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderServerError'
+              examples:
+                CURRENCY_FROM_NOT_FOUND_ERROR:
+                  summary: CURRENCY_FROM_NOT_FOUND_ERROR
+                  value:
+                    messageKey: CURRENCY_FROM_NOT_FOUND_ERROR
+                    message: When the currency from is not found. (you can add any useful field as you want)
+                CURRENCY_TO_NOT_FOUND_ERROR:
+                  summary: CURRENCY_TO_NOT_FOUND_ERROR
+                  value:
+                    messageKey: CURRENCY_TO_NOT_FOUND_ERROR
+                    message: When the currency to is not found. (you can add any useful field as you want)
+                USER_ID_NOT_FOUND_ERROR:
+                  summary: USER_ID_NOT_FOUND_ERROR
+                  value:
+                    messageKey: USER_ID_NOT_FOUND_ERROR
+                    message: When the User's id is not found. (you can add any useful field as you want)
 components:
   schemas:
-    Bank:
-      type: object
-    SellPaymentMethod:
-      required:
-        - name
-        - successRate
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/PaymentMethod'
-        successRate:
-          type: integer
-          format: int32
-    SellProviderCapabilities:
+    FundProviderCapabilities:
       type: object
       properties:
         fiatCurrencyCapabilities:
           type: array
           items:
             $ref: '#/components/schemas/FiatCurrencyCapability'
-        countriesCapabilities:
-          type: array
-          items:
-            $ref: '#/components/schemas/CountryCapability'
         cryptoCurrencyCapabilities:
           type: array
           items:
@@ -209,20 +235,47 @@ components:
         - cryptoCurrencyCapabilities.[].maxAmount: Maximum amount of crypto the user can sell
         - "countriesCapabilities.[].country": available at the Alpha-2 standard (ISO3166),
         - "countriesCapabilities.[].paymentMethods.[].name": Available payment method, valid values : visa, mastercard, creditcard, sepa, bank, other
-    Coin:
-      type: object
-    CountryCapability:
+    FundRequest:
       required:
-        - country
+        - userId
+        - address
+        - currency
+        - payloadCurrency
+        - nonce
       type: object
       properties:
-        country:
+        userId:
           type: string
-        paymentMethods:
-          type: array
-          items:
-            $ref: '#/components/schemas/SellPaymentMethod'
-    CreditCard:
+          description: User Id in the provider system (linked to his account).
+        address:
+          type: string
+          description: User's crypto address. For possibly fees computation in provider's side.
+        currency:
+          type: string
+          description: Currency ID, using the provider's identifiers.
+        nonce:
+          type: string
+          description: Value for the `device_transaction_id_ng` field in the protobuf payload, in hex format of the byte array nonce received by the user.
+    FundResponse:
+      required:
+        - fundId
+        - address
+        - createdAt
+        - providerSig
+      type: object
+      properties:
+        fundId:
+          type: string
+          description: 'provider''s id of the ongoing fund transaction. This will be used by Ledger''s backend to retrieve the status of user swap transaction. A unique id must be generated each time this endpoint is called, even if called with a same quoteId : quoteId != swapId. This is a swap attempt id and several retries sharing the same quote id might be performed by a user.'
+        address:
+          type: string
+          description: User's custodian address (managed by the Provider).
+        createdAt:
+          type: string
+          description: Creation date of the swap payload in ISO-8601 format.
+        providerSig:
+          $ref: '#/components/schemas/ProviderSig'
+    Coin:
       type: object
     CryptoCurrencies:
       required:
@@ -269,19 +322,6 @@ components:
       properties:
         fiat:
           type: string
-    Mastercard:
-      type: object
-    Other:
-      type: object
-    PaymentMethod:
-      oneOf:
-        - $ref: '#/components/schemas/Bank'
-        - $ref: '#/components/schemas/CreditCard'
-        - $ref: '#/components/schemas/Mastercard'
-        - $ref: '#/components/schemas/Other'
-        - $ref: '#/components/schemas/Sepa'
-        - $ref: '#/components/schemas/Unknown'
-        - $ref: '#/components/schemas/Visa'
     ProviderQuoteResponse:
       required:
         - from
@@ -309,16 +349,17 @@ components:
           format: int32
         message:
           type: string
-    Sepa:
-      type: object
-    Token:
-      type: object
-    Unknown:
+    ProviderSig:
       required:
-        - message
+        - payload
+        - signature
       type: object
       properties:
-        message:
+        payload:
           type: string
-    Visa:
+          description: Protobuf payload (in binary format).
+        signature:
+          type: string
+          description: Payload signed in JWS format.
+    Token:
       type: object
