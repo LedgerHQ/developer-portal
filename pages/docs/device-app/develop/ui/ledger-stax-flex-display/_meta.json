@@ -1,5 +1,6 @@
 {  
-	"home":"App's home",
+	"intro": "Introduction",
+	"home":"App's homepage",
 	"info-settings": "Info and settings",
 	"transactions": "Transactions",
 	"address": "Address verification and sharing",

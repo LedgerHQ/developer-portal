@@ -1,0 +1,62 @@
+---
+title: App info and settings
+description: Provide helpful information to your users in the informations section. And for advanced use cases, provide app settings that unlock additional functionality or change the default behavior of your app.
+---
+
+import { Callout } from 'nextra/components'
+
+# App info and settings
+
+Provide info about your app, and expose settings if users need to change the default behavior of your app.
+
+## App informations
+
+Your app must provide at least its version number and the developer name or organization. This information is part of the app’s resources and will be used to automatically build a default version of the info screen.
+
+![App architecture](/device-app/stax-bitcoin-infos.png)
+
+<Callout emoji="💻">
+	<b>API</b><br/>
+  	<code>nbgl_useCaseHomeAndSettings()</code><br/>
+  	This high-level API contains structures describing the info and settings of your app. <a href="https://ledgerhq.github.io/ledger-secure-sdk/nbgl__use__case_8h.html#a438078d9be71706e0ad6a05f56658255">View API docs</a>.
+</Callout>
+
+If needed, you can provide more info with the same format: rows of key-value pairs.
+
+## App Settings
+
+<Callout type="warning" emoji="⚠️">
+  App settings are reset to their default values every time your app is updated, or reinstalled after an OS update.
+	Ledger is currently working on solving this limitation by providing a backup-and-restore mechanism for app data. These guidelines will be updated upon this mechanism’s release.
+</Callout>
+
+Your app can have settings that unlock new capabilities or alter its behavior. As soon as your app contains a setting, the icon on the app’s home changes to a wheel, instead of the “info” icon.
+
+Settings must always appear before the app’s info, as illustrated by the Ethereum app example below. Navigation arrows are automatically introduced to split sections on their respective pages.
+
+
+![App architecture](/device-app/stax-settings-01.png)
+
+Setting can use the following interactive elements:
+- toggle switches
+- radio buttons
+- and tappable rows for navigation.
+
+Tappable rows are used when introducing hierarchy and sub-settings.
+
+Don’t mix the types of the interactive elements on the same page (eg. showing both toggle switches and radio buttons on the same page):
+
+
+![App architecture](/device-app/stax-settings-02.png)
+
+
+## Key takeways
+
+<Callout>
+	<ul>
+		<li>- Rely on your app’s resources to create a default info page.</li>
+		<li>- Avoid app settings whenever possible, by choosing the best default behavior for the majority of your users.</li>
+		<li>- When settings are needed, provide default values that will suit the majority of users.</li>
+	</ul>
+</Callout>
+

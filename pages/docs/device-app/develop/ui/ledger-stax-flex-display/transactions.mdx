@@ -1,0 +1,232 @@
+---
+title: Signing transactions and messages
+description: Signing transactions is the core function of Ledger’s hardware wallets, and it’s a core function of your app. This section presents the fundamentals of transactions and the user experience that is expected for clear signing.
+---
+
+import { Callout } from 'nextra/components'
+
+# Signing transactions and messages
+
+Signing transactions is the core function of Ledger’s hardware wallets, and probably a core function of your app too.
+
+This chapter presents the expected user experience of clear signing, as well as the required UI elements to use when blind signing.
+
+## Definitions
+
+### Transactions, messages, and operations
+
+Throughout the Ledger documentation, you’ll find references to signing “transactions” and “messages”. They are defined as:
+- a transaction affects the state of a blockchain, like sending Bitcoin or transferring an NFT on Polygon;
+- a message is an off-chain payload that is signed and then either broadcasted later, bundled with another operation, or used for off-chain verification. This is typically encountered on EVM chains (e.g. EIP-191, EIP-712 such as permits, etc.).
+- an operation is a generic term that can describe a transaction or a message, and can be used as a generic fallback.
+
+### Clear signing and blind signing
+
+“Clear signing” transactions means that users fully understand what they’re signing. The transaction parameters must be presented in a complete and easy-to-understand way, so that the user’s consent is fully informed.
+
+Thanks to the Secure Display of their Ledger device and Ledger’s cryptographic infrastructure, users have the guarantee that what they see is what they sign.
+
+While this doesn’t always guarantee execution (which would require full smart contract audits, and more), clear signing is a must-have for security because it protects users against malware and man-in-the-middle attacks.
+
+User experience greatly benefits from clear signing too, as only the relevant fields to review are presented (conciseness) and they are well formatted (clarity and protection from mistakes).
+
+Because clear signing is crucial for security and user-friendliness, blind- signed transactions and messages must display a standard warning that asks for explicit user acknowledgement. This will be presented later in this section.
+
+
+## Anatomy of a transaction
+
+All transactions and messages must respect the following structure:
+
+![App architecture](/device-app/stax-transaction.png)
+
+The double-sided arrows represent the ability for users to navigate back and forth within the operation. Navigation edge-cases are discussed in the later chapter “Advanced interactions”.
+
+Here’s an illustration of this structure with the Bitcoin app on Ledger Flex: 
+
+<Callout type="warning" emoji="⚠️">
+  Users should be able to reject the operation at any time, if they see information they were not expecting. This can happen at every step, including the intent and signature.
+	Do not change the default UI elements that display the “Reject” or “Cancel” buttons at the bottom of each step of the transaction.
+</Callout>
+
+In the next sections, we’ll go step by step over the different parts of a canonical transaction.
+
+<Callout emoji="💻">
+	<b>API</b><br/>
+  	<code>nbgl_useCaseReview()</code><br/>
+  	This high-level API function covers the full standard transaction layout presented in this chapter. <a href="https://ledgerhq.github.io/ledger-secure-sdk/nbgl__use__case_8h.html#a303e3242b26535f74695f94a51d8cb6a">View API docs</a>.
+</Callout>
+
+## Loading transaction data
+
+**Most transactions and messages should feel instantaneous to load for users.**
+
+Sometimes though, the processing or data fetching durations might be noticeable. In these cases, use the standard loaders for Ledger Stax and Ledger Flex. As a rule of thumb, you can present the loader if the loading duration is 1 second or greater. Avoid showing the loader for only a few milliseconds, as the flashing may appear as a bug to users.
+
+![App architecture](/device-app/stax-loading.png)
+
+
+## Intent: giving context and information to users
+
+The transaction intent is the first page displayed to users. It is part of clear signing and shows crucial information
+- the nature of the operation: transaction or message;
+- the chain(s) or network(s) involved;
+- the type of the operation: send, swap, delegate, approve, list NFT, etc. ;
+- and any other useful information before getting into the detailed review of the fields.
+
+The intent acts both as an informational step and a safety net, because users can reject the operation as soon as the prompt is displayed, without even reviewing the fields.
+
+<Callout type="info" emoji="ℹ️">
+	When the intent appears, Ledger Stax and Ledger Flex play a sound to attracting the user’s attention to the device, where they’ll take action next. Keep this default behavior in your app unless you have a reason not to. And remember that users can disable sounds in the device settings.
+</Callout>
+
+Here are intent examples for different apps and operations.
+
+![App architecture](/device-app/stax-transaction-prompt.png)
+
+Here are more intent examples from other chains:
+
+![App architecture](/device-app/stax-transaction-prompt.png)
+
+When lacking information about the transaction or message, use a generic intent as a fallback:
+
+![App architecture](/device-app/stax-transaction-prompt.png)
+
+<Callout type="warning" emoji="⚠️">
+	Avoid falling back to generic intents as much as possible, and always favor more information and context so that users clear sign with confidence, or reject if anything is different from what they expected.
+</Callout>
+
+<Callout type="info" emoji="ℹ️">
+	The prompt sentence must start with “Review”. It is built either:
+	<ul>
+		<li>dynamically, composing the transaction type and other key informations;</li>
+		<li>or statically, by making a legible sentence with the available information for every transaction type.</li>
+	</ul>
+</Callout>
+
+## Presenting transaction fields for review
+
+Transaction fields must allow users to fully understand the operation they’re signing, while minimizing info that is not useful to their control or safety.
+
+Transaction or message fields are always structured in the same way: rows of key-value pairs. You don’t have to do any UI work here, as the default layout will automatically take care of page construction and pagination.
+
+![App architecture](/device-app/stax-transaction-fields.png)
+
+Ensure consistency by presenting common fields in a consistent order. For simple transfers, this ish
+1. “From” address
+2. “Amount” (value and currency)
+3. “To” addresOs
+4. “Fees” (value and currency).
+Here’s how the Ethereum app displays a transfer by following this guideline: 
+
+
+![App architecture](/device-app/stax-transaction-data.png)
+
+<Callout type="warning" emoji="⚠️">
+	<ul>
+		<li>Let your users navigate back and forth within transactions. Exceptions, such as streamed transactions, are discussed in a later chapter.</li>
+		<li> Pagination is automatically handled by the API, so you can just focus on providing your users with the right fields</li>
+		<li>Field names must be consistent and explicit. For example, use the term “To” over the generic “Address” to distinguish sender and receiver. Use “Amount” and “Fees” (or “Max fees”) consistently.</li>
+	</ul>
+</Callout>
+
+## Signing a transaction
+
+The signing page is always the last one because it ensures that your users went through all the critical fields they needed to review.
+
+The signing page recalls the intent by presenting similar data, to bring up the context during signing.
+
+Confirming a transaction always uses the same press-and-hold gesture on the dedicated area of the screen: “Hold to sign”. After 2 seconds, the transaction is signed and the user receives a success notification accompanied by a sound.
+
+The notification dismisses automatically after a few seconds, and the user is back on your app’s home screen.
+
+![App architecture](/device-app/stax-sign-01.png)
+![App architecture](/device-app/stax-sign-01.png)
+
+<Callout type="warning" emoji="⚠️">
+	<ul>
+		<li>Stick to the default “Hold to sign” wording, as the Ledger device cannot know if the transaction was properly transmitted to the software wallet and broadcasted on the blockchain.</li>
+		<li>Similarly, stick to the default “Transaction signed” or “message signed” wording, as the Ledger device cannot know if the transaction was successfully broadcasted.</li>
+	</ul>
+</Callout>
+
+## Rejecting transaction
+
+Rejecting a transaction is a safety action that must be accessible at all times. Thus, this action always sits at the bottom of every screen, from the transaction prompt to the signing step.
+
+When users tap on “Reject transaction”, a confirmation modal asks them to confirm. This is to prevent accidental touches.
+
+![App architecture](/device-app/stax-reject.png)
+
+
+## Page grouping
+
+To help your users navigate longer or more complex transactions, you might want to group several field pages into sections. You can achieve this by using divider pages, that simply show a section title and a section number:
+
+![App architecture](/device-app/advanced-transaction.png)
+
+## Fields details: adding context and info to addresses
+
+You can add a second layer of information for address fields, by using a progressive disclosure.
+
+Your users can tap on the whole row (not just the small arrow) associated with an address, to reveal more information:
+
+![App architecture](/device-app/advanced-transaction.png)
+
+Two use cases are currently supported
+- ENS domains (shown above on Ledger Flex)
+- and account labels, an upcoming feature tied to the Ledger Live Address Book (shown below on Ledger Stax),
+with more use cases potentially added in the future.
+
+![App architecture](/device-app/advanced-transaction.png)
+
+<Callout emoji="💻">
+	<b>API</b><br/>
+	While the use-case API doesn’t change, each field has an <code>alias</code> parameter that can be enabled to display the fields details presented above.
+</Callout>
+
+## Blind signing
+
+When a transaction cannot be fully decoded, a standard “blind signing warning sequence” must be presented to users. This sequence informs them about the risk they’re facing
+- First, a generic warning message lets them “go back to safety” as the primary action. Your app should not customize this screen and its wording, unless strictly necessary
+- Then, a detailed explanation of the risk is presented to users, with redirections to learn more about it. Your app should customize this detailed view, as it is likely dependent on your specific use cases and networks
+- On the transaction intent and signature pages, a warning icon is introduced. When tapped, it brings back the detailed risk review as a modal.
+
+The example below shows a blind signing sequence on Ledger Stax, where the Ethereum app presents the approval of an unknown ERC-20 token.
+
+![App architecture](/device-app/advanced-transaction.png)
+
+![App architecture](/device-app/advanced-transaction.png)
+
+Here’s the exact same sequence on Ledger Flex, for a comprehensive overview of this warning mechanism:
+
+![App architecture](/device-app/advanced-transaction.png)
+
+![App architecture](/device-app/advanced-transaction.png)
+
+<Callout emoji="💻">
+	<b>API</b><br/>
+	WIP
+</Callout>
+
+## Signing messages
+
+While this whole chapter mainly focused on transactions, the same principles apply to messages. The wording must reflect this change by consistently replacing “transaction” with “message”.
+
+When messages lack information about their type, structure, blockchain, or network, the prompt and signature screens must use this “scroll” icon:
+
+![App architecture](/device-app/advanced-transaction.png)
+
+## Key takeaways
+
+<Callout>
+	<ul>
+		<li>Rely on the default transaction structure and allow users to navigate freely within it. Use the default signing gesture and wording to make the experience consistent across all apps</li>
+		<li>Leverage the transaction intent and the transaction fields to craft a great clear signing experience for your specific use cases, balancing complete user control with digestible information.</li>
+		<li>When clear signing is not possible, you must use the standard “Blind signing” warning template.</li>
+		<li>Refer to the “Advanced interactions” chapter if your app needs to handle special cases outside the high-level API “use case” functions.</li>
+	</ul>
+</Callout>
+
+
+
+
