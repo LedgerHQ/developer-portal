@@ -1,9 +1,10 @@
 {  
 	"intro": "Introduction",
 	"home":"App's homepage",
-	"info-settings": "Info and settings",
-	"transactions": "Transactions",
-	"address": "Address verification and sharing",
+	"info-settings": "App info and settings",
+	"transactions": "Signing transactions and messages",
+	"address": "Address verification",
 	"messages": "Messages and advanced signing",
+	"advanced": "Advanced interactions",
 	"graphic-lib": "Stax graphic library"
 }
