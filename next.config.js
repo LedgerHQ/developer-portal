@@ -372,17 +372,28 @@ module.exports = {
        },
       {
         source: '/docs/embedded-app/stax-interactions',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display',
+        permanent: true,
+       },
+
+      {
+        source: '/docs/device-app/develop/ui/ledger-stax-display',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display',
         permanent: true,
        },
       {
         source: '/docs/device-app/develop/sdk/ui/ledger-stax-display',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/stax-home',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display/home',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/home',
+        permanent: true,
+       },       
+      {
+        source: '/docs/device-app/develop/ui/ledger-stax-display/home',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/home',
         permanent: true,
        },
       {
@@ -392,42 +403,62 @@ module.exports = {
        },
       {
         source: '/docs/embedded-app/stax-info-settings',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display/info-settings',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/info-settings',
         permanent: true,
        },
       {
         source: '/docs/device-app/coding-guidelines/ledger-stax-display/info-settings',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display/info-settings',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/info-settings',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/develop/ui/ledger-stax-display/info-settings',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/info-settings',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/stax-transactions',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display/transactions',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/transactions',
         permanent: true,
        },
       {
         source: '/docs/device-app/coding-guidelines/ledger-stax-display/transactions',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display/transactions',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/transactions',
+        permanent: true,
+       }, 
+      {
+        source: '/docs/device-app/develop/ui/ledger-stax-display/transactions',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/transactions',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/stax-address',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display/address',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/address',
         permanent: true,
        },
       {
         source: '/docs/device-app/coding-guidelines/ledger-stax-display/address',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display/address',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/address',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/develop/ui/ledger-stax-display/address',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/address',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/stax-messages',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display/messages',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/transactions',
         permanent: true,
        },
       {
         source: '/docs/device-app/coding-guidelines/ledger-stax-display/messages',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display/messages',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/transactions',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/develop/ui/ledger-stax-display/messages',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/transactions',
         permanent: true,
        },
       {
