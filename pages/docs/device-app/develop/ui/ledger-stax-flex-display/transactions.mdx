@@ -37,11 +37,13 @@ Because clear signing is crucial for security and user-friendliness, blind- sign
 
 All transactions and messages must respect the following structure:
 
-![App architecture](/device-app/stax-transaction.png)
+![Transaction Structure](/device-app/stax-flex-transaction-structure.jpg)
 
 The double-sided arrows represent the ability for users to navigate back and forth within the operation. Navigation edge-cases are discussed in the later chapter “Advanced interactions”.
 
 Here’s an illustration of this structure with the Bitcoin app on Ledger Flex: 
+
+![Transaction Structure](/device-app/stax-flex-bitcoin-structure.jpg)
 
 <Callout type="warning" emoji="⚠️">
   Users should be able to reject the operation at any time, if they see information they were not expecting. This can happen at every step, including the intent and signature.
@@ -62,7 +64,7 @@ In the next sections, we’ll go step by step over the different parts of a cano
 
 Sometimes though, the processing or data fetching durations might be noticeable. In these cases, use the standard loaders for Ledger Stax and Ledger Flex. As a rule of thumb, you can present the loader if the loading duration is 1 second or greater. Avoid showing the loader for only a few milliseconds, as the flashing may appear as a bug to users.
 
-![App architecture](/device-app/stax-loading.png)
+![Loading transaction](/device-app/stax-flex-loading.jpg)
 
 
 ## Intent: giving context and information to users
@@ -81,15 +83,15 @@ The intent acts both as an informational step and a safety net, because users ca
 
 Here are intent examples for different apps and operations.
 
-![App architecture](/device-app/stax-transaction-prompt.png)
+![Intent examples](/device-app/stax-flex-intent-example-01.jpg)
 
 Here are more intent examples from other chains:
 
-![App architecture](/device-app/stax-transaction-prompt.png)
+![Intent examples](/device-app/stax-flex-intent-example-02.jpg)
 
 When lacking information about the transaction or message, use a generic intent as a fallback:
 
-![App architecture](/device-app/stax-transaction-prompt.png)
+![Generic intant](/device-app/stax-flex-generic-intant.jpg)
 
 <Callout type="warning" emoji="⚠️">
 	Avoid falling back to generic intents as much as possible, and always favor more information and context so that users clear sign with confidence, or reject if anything is different from what they expected.
@@ -109,7 +111,7 @@ Transaction fields must allow users to fully understand the operation they’re 
 
 Transaction or message fields are always structured in the same way: rows of key-value pairs. You don’t have to do any UI work here, as the default layout will automatically take care of page construction and pagination.
 
-![App architecture](/device-app/stax-transaction-fields.png)
+![Layout differences](/device-app/stax-flex-layout-differences.jpg)
 
 Ensure consistency by presenting common fields in a consistent order. For simple transfers, this ish
 1. “From” address
@@ -119,7 +121,7 @@ Ensure consistency by presenting common fields in a consistent order. For simple
 Here’s how the Ethereum app displays a transfer by following this guideline: 
 
 
-![App architecture](/device-app/stax-transaction-data.png)
+![Ethereum transaction](/device-app/stax-flex-ethereum-transaction.jpg)
 
 <Callout type="warning" emoji="⚠️">
 	<ul>
@@ -139,8 +141,9 @@ Confirming a transaction always uses the same press-and-hold gesture on the dedi
 
 The notification dismisses automatically after a few seconds, and the user is back on your app’s home screen.
 
-![App architecture](/device-app/stax-sign-01.png)
-![App architecture](/device-app/stax-sign-01.png)
+![Bitcoin transfer](/device-app/stax-flex-bitcoin-transfer.jpg)
+<br/>
+![Permit 2 signing with the Ethereum App](/device-app/stax-flex-permit2-ethereum.jpg)
 
 <Callout type="warning" emoji="⚠️">
 	<ul>
@@ -155,34 +158,14 @@ Rejecting a transaction is a safety action that must be accessible at all times.
 
 When users tap on “Reject transaction”, a confirmation modal asks them to confirm. This is to prevent accidental touches.
 
-![App architecture](/device-app/stax-reject.png)
+![Rejecting a transaction](/device-app/stax-flex-rejecting-transaction.jpg)
 
 
 ## Page grouping
 
 To help your users navigate longer or more complex transactions, you might want to group several field pages into sections. You can achieve this by using divider pages, that simply show a section title and a section number:
 
-![App architecture](/device-app/advanced-transaction.png)
-
-## Fields details: adding context and info to addresses
-
-You can add a second layer of information for address fields, by using a progressive disclosure.
-
-Your users can tap on the whole row (not just the small arrow) associated with an address, to reveal more information:
-
-![App architecture](/device-app/advanced-transaction.png)
-
-Two use cases are currently supported
-- ENS domains (shown above on Ledger Flex)
-- and account labels, an upcoming feature tied to the Ledger Live Address Book (shown below on Ledger Stax),
-with more use cases potentially added in the future.
-
-![App architecture](/device-app/advanced-transaction.png)
-
-<Callout emoji="💻">
-	<b>API</b><br/>
-	While the use-case API doesn’t change, each field has an <code>alias</code> parameter that can be enabled to display the fields details presented above.
-</Callout>
+![Page grouping](/device-app/stax-flex-page-grouping.jpg)
 
 ## Blind signing
 
@@ -193,19 +176,17 @@ When a transaction cannot be fully decoded, a standard “blind signing warning 
 
 The example below shows a blind signing sequence on Ledger Stax, where the Ethereum app presents the approval of an unknown ERC-20 token.
 
-![App architecture](/device-app/advanced-transaction.png)
-
-![App architecture](/device-app/advanced-transaction.png)
+![Stax Blind Signing](/device-app/stax-blind-signing.jpg)
 
 Here’s the exact same sequence on Ledger Flex, for a comprehensive overview of this warning mechanism:
-
-![App architecture](/device-app/advanced-transaction.png)
-
-![App architecture](/device-app/advanced-transaction.png)
+![Flex Blind Signing](/device-app/flex-blind-signing.jpg)
 
 <Callout emoji="💻">
 	<b>API</b><br/>
-	WIP
+	<code>nbgl_useCaseChoice()</code><br/>
+	<code>nbgl_useCaseChoice()</code><br/>
+	<code>nbgl_useCaseReview(with BLIND_OPERATION flag)</code><br/>
+	These high-level API functions allow you to manually set the two warning screens preceding the transaction review, and enable the warning icon on the top right of Review transaction and Sign transaction pages. <a href="https://github.com/LedgerHQ/app-boilerplate/pull/127">View Boilerplate application PR example</a>.
 </Callout>
 
 ## Signing messages
@@ -214,7 +195,7 @@ While this whole chapter mainly focused on transactions, the same principles app
 
 When messages lack information about their type, structure, blockchain, or network, the prompt and signature screens must use this “scroll” icon:
 
-![App architecture](/device-app/advanced-transaction.png)
+![Review transaction](/device-app/stax-flex-review-transaction.jpg)
 
 ## Key takeaways
 
