@@ -1,6 +1,6 @@
 ---
 title: App info and settings
-description: Provide helpful information to your users in the informations section. And for advanced use cases, provide app settings that unlock additional functionality or change the default behavior of your app.
+description: Provide info about your app, and expose settings if users need to change the default behavior of your app.
 ---
 
 import { Callout } from 'nextra/components'
@@ -26,7 +26,8 @@ If needed, you can provide more info with the same format: rows of key-value pai
 ## App Settings
 
 <Callout type="warning" emoji="⚠️">
-  App settings are reset to their default values every time your app is updated, or reinstalled after an OS update.
+  App settings are reset to their default values every time your app is updated, or reinstalled after an OS update. 
+  
 	Ledger is currently working on solving this limitation by providing a backup-and-restore mechanism for app data. These guidelines will be updated upon this mechanism’s release.
 </Callout>
 
@@ -54,9 +55,9 @@ Don’t mix the types of the interactive elements on the same page (eg. showing 
 
 <Callout>
 	<ul>
-		<li>- Rely on your app’s resources to create a default info page.</li>
-		<li>- Avoid app settings whenever possible, by choosing the best default behavior for the majority of your users.</li>
-		<li>- When settings are needed, provide default values that will suit the majority of users.</li>
+		<li>· Rely on your app’s resources to create a default info page.</li>
+		<li>· Avoid app settings whenever possible, by choosing the best default behavior for the majority of your users.</li>
+		<li>· When settings are needed, provide default values that will suit the majority of users.</li>
 	</ul>
 </Callout>
 

@@ -1,6 +1,6 @@
 ---
 title: Address verification
-description: In addition to signing transactions, your app should let your users verify their receive addresses securely, leveraging the trusted display of Ledger Stax. This chapter goes over the best practices to show, share, and verify an address.
+description: To trust the receive addresses they’re manipulating, your users need to verify them on the Trusted Display of their Ledger device.
 ---
 
 import { Callout } from 'nextra/components'
@@ -19,6 +19,7 @@ Once the user continues, they’re shown the full address to compare with its so
 
 <Callout type="info" emoji="ℹ️">
 	A plain “Confirm” button is used here instead of the “Hold to sign” gesture, as this latter is reserved for signing transactions and messages which often have actual impact on the blockchain state and/ or user’s funds.
+	
 	The “Cancel” button dismisses address verification right away, without a need for another user confirmation.
 </Callout>
 

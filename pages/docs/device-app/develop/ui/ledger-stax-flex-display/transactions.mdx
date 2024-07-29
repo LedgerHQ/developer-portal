@@ -1,6 +1,6 @@
 ---
 title: Signing transactions and messages
-description: Signing transactions is the core function of Ledger’s hardware wallets, and it’s a core function of your app. This section presents the fundamentals of transactions and the user experience that is expected for clear signing.
+description: Signing transactions is the core function of Ledger’s hardware wallets, and probably a core function of your app too.
 ---
 
 import { Callout } from 'nextra/components'
@@ -16,13 +16,13 @@ This chapter presents the expected user experience of clear signing, as well as 
 ### Transactions, messages, and operations
 
 Throughout the Ledger documentation, you’ll find references to signing “transactions” and “messages”. They are defined as:
-- a transaction affects the state of a blockchain, like sending Bitcoin or transferring an NFT on Polygon;
-- a message is an off-chain payload that is signed and then either broadcasted later, bundled with another operation, or used for off-chain verification. This is typically encountered on EVM chains (e.g. EIP-191, EIP-712 such as permits, etc.).
-- an operation is a generic term that can describe a transaction or a message, and can be used as a generic fallback.
+- **a transaction** affects the state of a blockchain, like sending Bitcoin or transferring an NFT on Polygon;
+- **a message** is an off-chain payload that is signed and then either broadcasted later, bundled with another operation, or used for off-chain verification. This is typically encountered on EVM chains (e.g. EIP-191, EIP-712 such as permits, etc.).
+- **an operation** is a generic term that can describe a transaction or a message, and can be used as a generic fallback.
 
 ### Clear signing and blind signing
 
-“Clear signing” transactions means that users fully understand what they’re signing. The transaction parameters must be presented in a complete and easy-to-understand way, so that the user’s consent is fully informed.
+**“Clear signing”** transactions means that users fully understand what they’re signing. The transaction parameters must be presented in a complete and easy-to-understand way, so that the user’s consent is fully informed.
 
 Thanks to the Secure Display of their Ledger device and Ledger’s cryptographic infrastructure, users have the guarantee that what they see is what they sign.
 
@@ -47,6 +47,7 @@ Here’s an illustration of this structure with the Bitcoin app on Ledger Flex:
 
 <Callout type="warning" emoji="⚠️">
   Users should be able to reject the operation at any time, if they see information they were not expecting. This can happen at every step, including the intent and signature.
+
 	Do not change the default UI elements that display the “Reject” or “Cancel” buttons at the bottom of each step of the transaction.
 </Callout>
 
@@ -60,7 +61,7 @@ In the next sections, we’ll go step by step over the different parts of a cano
 
 ## Loading transaction data
 
-**Most transactions and messages should feel instantaneous to load for users.**
+Most transactions and messages should feel instantaneous to load for users.
 
 Sometimes though, the processing or data fetching durations might be noticeable. In these cases, use the standard loaders for Ledger Stax and Ledger Flex. As a rule of thumb, you can present the loader if the loading duration is 1 second or greater. Avoid showing the loader for only a few milliseconds, as the flashing may appear as a bug to users.
 
@@ -70,10 +71,10 @@ Sometimes though, the processing or data fetching durations might be noticeable.
 ## Intent: giving context and information to users
 
 The transaction intent is the first page displayed to users. It is part of clear signing and shows crucial information
-- the nature of the operation: transaction or message;
-- the chain(s) or network(s) involved;
-- the type of the operation: send, swap, delegate, approve, list NFT, etc. ;
-- and any other useful information before getting into the detailed review of the fields.
+- **the nature of the operation:** transaction or message;
+- **the chain(s) or network(s) involved;**
+- **the type of the operation:** send, swap, delegate, approve, list NFT, etc. ;
+- **and any other useful information** before getting into the detailed review of the fields.
 
 The intent acts both as an informational step and a safety net, because users can reject the operation as soon as the prompt is displayed, without even reviewing the fields.
 
@@ -100,8 +101,8 @@ When lacking information about the transaction or message, use a generic intent 
 <Callout type="info" emoji="ℹ️">
 	The prompt sentence must start with “Review”. It is built either:
 	<ul>
-		<li>dynamically, composing the transaction type and other key informations;</li>
-		<li>or statically, by making a legible sentence with the available information for every transaction type.</li>
+		<li>· dynamically, composing the transaction type and other key informations;</li>
+		<li>· or statically, by making a legible sentence with the available information for every transaction type.</li>
 	</ul>
 </Callout>
 
@@ -125,9 +126,9 @@ Here’s how the Ethereum app displays a transfer by following this guideline:
 
 <Callout type="warning" emoji="⚠️">
 	<ul>
-		<li>Let your users navigate back and forth within transactions. Exceptions, such as streamed transactions, are discussed in a later chapter.</li>
-		<li> Pagination is automatically handled by the API, so you can just focus on providing your users with the right fields</li>
-		<li>Field names must be consistent and explicit. For example, use the term “To” over the generic “Address” to distinguish sender and receiver. Use “Amount” and “Fees” (or “Max fees”) consistently.</li>
+		<li>· Let your users navigate back and forth within transactions. Exceptions, such as streamed transactions, are discussed in a later chapter.</li>
+		<li>· Pagination is automatically handled by the API, so you can just focus on providing your users with the right fields</li>
+		<li>· Field names must be consistent and explicit. For example, use the term “To” over the generic “Address” to distinguish sender and receiver. Use “Amount” and “Fees” (or “Max fees”) consistently.</li>
 	</ul>
 </Callout>
 
@@ -147,8 +148,8 @@ The notification dismisses automatically after a few seconds, and the user is ba
 
 <Callout type="warning" emoji="⚠️">
 	<ul>
-		<li>Stick to the default “Hold to sign” wording, as the Ledger device cannot know if the transaction was properly transmitted to the software wallet and broadcasted on the blockchain.</li>
-		<li>Similarly, stick to the default “Transaction signed” or “message signed” wording, as the Ledger device cannot know if the transaction was successfully broadcasted.</li>
+		<li>· Stick to the default “Hold to sign” wording, as the Ledger device cannot know if the transaction was properly transmitted to the software wallet and broadcasted on the blockchain.</li>
+		<li>· Similarly, stick to the default “Transaction signed” or “message signed” wording, as the Ledger device cannot know if the transaction was successfully broadcasted.</li>
 	</ul>
 </Callout>
 
@@ -201,10 +202,10 @@ When messages lack information about their type, structure, blockchain, or netwo
 
 <Callout>
 	<ul>
-		<li>Rely on the default transaction structure and allow users to navigate freely within it. Use the default signing gesture and wording to make the experience consistent across all apps</li>
-		<li>Leverage the transaction intent and the transaction fields to craft a great clear signing experience for your specific use cases, balancing complete user control with digestible information.</li>
-		<li>When clear signing is not possible, you must use the standard “Blind signing” warning template.</li>
-		<li>Refer to the “Advanced interactions” chapter if your app needs to handle special cases outside the high-level API “use case” functions.</li>
+		<li>· Rely on the default transaction structure and allow users to navigate freely within it. Use the default signing gesture and wording to make the experience consistent across all apps</li>
+		<li>· Leverage the transaction intent and the transaction fields to craft a great clear signing experience for your specific use cases, balancing complete user control with digestible information.</li>
+		<li>· When clear signing is not possible, you must use the standard “Blind signing” warning template.</li>
+		<li>· Refer to the “Advanced interactions” chapter if your app needs to handle special cases outside the high-level API “use case” functions.</li>
 	</ul>
 </Callout>
 
