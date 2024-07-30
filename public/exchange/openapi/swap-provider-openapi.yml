@@ -12,7 +12,6 @@ paths:
           description: |
             ### Available crypto currencies
             - "id": unique identifier of the currency
-            - "name": semantic name of the currency (bitcoin, ethereum, ripple...)
             - "type": possible values: coin, token
             - "blockchain": ledger's blockchain_name of the blockchain as listed in https://crypto-assets-service.api.ledger.com/v1/coins?output=blockchain_name,chain_id, for EVM networks this field may be omitted when chainId is defined.
             - "chainId": for EVMs only, chain id of the blockchain, 1 for ethereum, 137 for polygon... See https://chainlist.org/
@@ -27,7 +26,6 @@ paths:
                   $ref: "#/components/schemas/CryptoCurrencies"
               example:
                 - id: BTC
-                  name: bitcoin
                   type: coin
                   blockchain: bitcoin
                 - id: USDC
@@ -340,8 +338,6 @@ components:
       type: object
       properties:
         id:
-          type: string
-        name:
           type: string
         type:
           $ref: "#/components/schemas/CryptoCurrencyType"
