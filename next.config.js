@@ -25,7 +25,7 @@ module.exports = {
         permanent: true,
       },
       {
-        source: '/docs/nano-app/:slug',
+        source: '/docs/nano-app/:slug*',
         destination: '/docs/device-app',
         permanent: true,
       },
@@ -637,17 +637,17 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/device-app/tools/speculos/basic-usage/:slug',
+        source: '/docs/device-app/tools/speculos/basic-usage/:slug*',
         destination: '/docs/device-app/develop/tools',
         permanent: true,
        },
       {
-        source: '/docs/speculos/user/:slug',
+        source: '/docs/speculos/user/:slug*',
         destination: '/docs/device-app/develop/tools',
         permanent: true,
        },
       {
-        source: '/docs/device-app/tools/speculos/:slug',
+        source: '/docs/device-app/tools/speculos/:slug*',
         destination: '/docs/device-app/develop/tools',
         permanent: true,
        },
@@ -717,7 +717,7 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/device-app/cryptography-lib/:slug',
+        source: '/docs/device-app/cryptography-lib/:slug*',
         destination: '/docs/device-app/architecture/cryptography/reference',
         permanent: true,
        },
@@ -727,7 +727,7 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/embedded-app/crypto-api/:slug',
+        source: '/docs/embedded-app/crypto-api/:slug*',
         destination: '/docs/device-app/architecture/cryptography/reference',
         permanent: true,
        },
@@ -842,23 +842,23 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/dapp-connect-kit/:slug',
+        source: '/docs/dapp-connect-kit/:slug*',
         destination: '/docs/connectivity',
         permanent: true,
        },
       {
-        source: '/docs/connectivity/connect-kit/:slug',
+        source: '/docs/connectivity/connect-kit/:slug*',
         destination: '/docs/connectivity',
         permanent: true,
        },
       {
-        source: '/docs/connect/:slug',
+        source: '/docs/connect/:slug*',
         destination: '/docs/connectivity',
         permanent: true,
        },
       {
-        source: '/docs/nft/:slug',
-        destination: '/docs/nft-display/:slug',
+        source: '/docs/nft/:slug*',
+        destination: '/docs/nft-display/:slug*',
         permanent: true,
        },
       {
@@ -927,8 +927,8 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/device-app/develop/tutorials/:slug',
-        destination: '/docs/device-app/develop/code/:slug',
+        source: '/docs/device-app/develop/tutorials/:slug*',
+        destination: '/docs/device-app/develop/code/:slug*',
         permanent: true,
        },
       {
@@ -1087,8 +1087,8 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/APIs/:slug',
-        destination: '/docs/discover/:slug',
+        source: '/APIs/:slug*',
+        destination: '/docs/discover/:slug*',
         permanent: true,
        },
       {
@@ -1112,12 +1112,12 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/non-dapp/:slug',
+        source: '/docs/non-dapp/:slug*',
         destination: '/docs/discover',
         permanent: true,
        },        
       {
-        source: '/docs/coin/:slug',
+        source: '/docs/coin/:slug*',
         destination: '/docs/blockchain',
         permanent: true,
       },
@@ -1292,17 +1292,17 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/exchange/swap/:slug',
+        source: '/docs/exchange/swap/:slug*',
         destination: '/docs/exchange/swap',
         permanent: true,
        },
       {
-        source: '/docs/swap/:slug',
+        source: '/docs/swap/:slug*',
         destination: '/docs/exchange/swap',
         permanent: true,
        },
       {
-        source: '/docs/exchange/integration/:slug',
+        source: '/docs/exchange/integration/:slug*',
         destination: '/docs/exchange',
         permanent: true,
        },                                                                                                                                                                                                                                                           
