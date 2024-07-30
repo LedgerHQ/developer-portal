@@ -4,6 +4,7 @@ description: Signing transactions is the core function of Ledger’s hardware wa
 ---
 
 import { Callout } from 'nextra/components'
+import KeyTakeaway from '/components/features/key-takeaway';
 
 # Signing transactions and messages
 
@@ -218,14 +219,14 @@ When messages lack information about their type, structure, blockchain, or netwo
 
 ## Key takeaways
 
-<Callout type="info" emoji="✅">
+<KeyTakeaway>
 	<ul>
 		<li>· Rely on the default transaction structure and allow users to navigate freely within it. Use the default signing gesture and wording to make the experience consistent across all apps</li>
 		<li>· Leverage the transaction intent and the transaction fields to craft a great clear signing experience for your specific use cases, balancing complete user control with digestible information.</li>
 		<li>· When clear signing is not possible, you must use the standard “Blind signing” warning template.</li>
 		<li>· Refer to the “Advanced interactions” chapter if your app needs to handle special cases outside the high-level API “use case” functions.</li>
 	</ul>
-</Callout>
+</KeyTakeaway>
 
 
 
