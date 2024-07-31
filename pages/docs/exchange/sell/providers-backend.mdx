@@ -30,14 +30,14 @@ There are 4 main endpoints needed for the sell:
   Example request payload:
 ``` json copy
   {
-  "quoteId": "123abc", // 123
-  "amount": "string",
+  "quoteId": "123abc",
+  "amount": "number",
   "refundAddress": "string",
   "currencyFrom": "string",
   "fiatTo": "string",
   "payloadCurrencyFrom": "string",
   "payloadFiatTo": "string",
-  "nonce": "string",
+  "nonce": "number",
   }
 ```
 
@@ -63,7 +63,7 @@ There are 4 main endpoints needed for the sell:
         bytes    device_transaction_id = 7;  
     }
     ```
-An example response 
+An example response from the ledger backend to the exchange SDK
   
   ``` json copy
 {
