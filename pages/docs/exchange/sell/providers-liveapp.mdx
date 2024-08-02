@@ -24,11 +24,11 @@ You will need to set up the SDK with your `providerId` attributed upon request b
 
 This method will need you to provide the following parameters:
 
-* `quoteId`: the id coming from your system and [forwarded to your LiveApp](./providers-liveapp) as a query parameter
-* `fromAccountId`: user's account id, [previously given to the LiveApp](./providers-liveapp) as a query parameter
-* `fromAmount`: amount that will be sold
-* `tofiat`: fiat currency that the user wants to be paid with using provider id
-* `rate`: the rate of the sell
+* `quoteId`: The id coming from your system and [forwarded to your LiveApp](./providers-liveapp) as a query parameter.
+* `fromAccountId`: User's account id, [previously given to the LiveApp](./providers-liveapp) as a query parameter.
+* `fromAmount`: Amount that will be sold.
+* `tofiat`: Fiat currency that the user wants to be paid with using provider id.
+* `rate`: The rate of the sell.
 
 ```js copy
   exchangeSDK.sell({
