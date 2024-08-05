@@ -266,7 +266,7 @@ paths:
           example: 1234
       responses:
         "200":
-          description: Status of an executed swap transaction.
+          description: Status of an executed sell transaction.
           x-summary: OK
           content:
             application/json:
@@ -281,13 +281,13 @@ paths:
                 referralFees: "0.0001"
                 payoutNetworkFees: "0.0002"
         "404":
-          description: Swap transaction not found.
+          description: Sell transaction not found.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorPayload"
               examples:
-                SWAP_TRANSACTION_NOT_FOUND_ERROR:
+                SELL_TRANSACTION_NOT_FOUND_ERROR:
                   summary: SELL_TRANSACTION_NOT_FOUND_ERROR
                   value:
                     messageKey: SELL_TRANSACTION_NOT_FOUND_ERROR
@@ -504,13 +504,13 @@ components:
       properties:
         sellId:
           type: string
-          description: "provider's id of the ongoing swap transaction. This will be used by Ledger's backend to retrieve the status of user swap transaction. A unique id must be generated each time this endpoint is called, even if called with a same quoteId : quoteId != sellId. This is a sell attempt id and several retries sharing the same quote id might be performed by a user."
+          description: "provider's id of the ongoing sell transaction. This will be used by Ledger's backend to retrieve the status of user sell transaction. A unique id must be generated each time this endpoint is called, even if called with a same quoteId : quoteId != sellId. This is a sell attempt id and several retries sharing the same quote id might be performed by a user."
         payinAddress:
           type: string
           description: Provider's payin address.
         createdAt:
           type: string
-          description: Creation date of the swap payload in ISO-8601 format.
+          description: Creation date of the sell payload in ISO-8601 format.
         providerFees:
           type: string
           description: Fees paid to the provider, converted to currencyTo.
