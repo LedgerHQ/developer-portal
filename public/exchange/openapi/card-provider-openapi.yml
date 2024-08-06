@@ -1,0 +1,588 @@
+openapi: 3.0.3
+info:
+  title: Card Provider Server
+  version: '1.0'
+paths:
+  /capabilities:
+    get:
+      operationId: getCapabilities
+      responses:
+        '200':
+          description: |
+            ### Card Provider Capabilities
+            - "fiatCurrencyCapabilities.[].fiat": fiat currency supported at the ISO-4217 standard,
+            - cryptoCurrencyCapabilities.[].id: The provider id of the currency, this id will be used to call quote endpoint and in the widget url query parameter,
+            - cryptoCurrencyCapabilities.[].minAmount: Minimum amount of crypto the user can sell
+            - cryptoCurrencyCapabilities.[].maxAmount: Maximum amount of crypto the user can sell
+            - "countriesCapabilities.[].country": available at the Alpha-2 standard (ISO3166),
+            - "countriesCapabilities.[].paymentMethods.[].name": Available payment method, valid values : visa, mastercard, creditcard, sepa, bank, other
+          x-summary: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SellProviderCapabilities'
+              example:
+                fiatCurrencyCapabilities:
+                  - fiat: EUR
+                  - fiat: USD
+                  - fiat: GBP
+                cryptoCurrencyCapabilities:
+                  - id: BTC
+                    minAmount: 0.01
+                    maxAmount: 0.5
+                countriesCapabilities:
+                  - country: FR
+                    paymentMethods:
+                      - name: sepa
+                      - name: visa
+                  - country: US
+                    paymentMethods:
+                      - name: sepa
+                      - name: visa
+                  - country: GB
+                    paymentMethods:
+                      - name: sepa
+                      - name: visa
+        default:
+          description: Error sent by the provider
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderServerError'
+              example:
+                code: 400
+                message: Server isn't able to handle the request because of whatever.
+  /quote:
+    get:
+      operationId: getQuote
+      parameters:
+        - name: from
+          in: query
+          description: Crypto currency at the ledgerId format.
+          required: true
+          schema:
+            type: string
+          example: bitcoin
+        - name: to
+          in: query
+          description: Fiat currency at the ISO-4217 standard.
+          required: true
+          schema:
+            type: string
+          example: EUR
+        - name: payment-method
+          in: query
+          description: 'Payment method, valid values : visa, mastercard, creditcard,
+         pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay,
+         maestro, googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,
+         bank, gbpbank, eps, ideal, other.'
+          required: true
+          schema:
+            type: string
+          example: paypal
+        - name: amount
+          in: query
+          description: CryptoCurrency amount to sell.
+          required: true
+          schema:
+            type: integer
+          example: 0.3
+        - name: country
+          in: query
+          description: Country of the user at the Alpha-2 standard (ISO3166).
+          required: true
+          schema:
+            type: string
+          example: FR
+        - name: walletAddress
+          in: query
+          description: User's wallet address where he holds the cryptocurreny he wants to sell.
+          required: true
+          schema:
+            type: string
+          example: '0x000000000000000000000000000000'
+      responses:
+        '200':
+          description: |
+            ### Quote information about the the sell.
+            - "from": cryptocurrency sold,
+            - "to": fiat user expects to be paid in,
+            - "paymentMethod: method used to pay the user,
+            - "cryptoAmount": cryptocurrency amount to sell,
+            - "fiatAmount": fiat amount the user expects to receive (after all fees have been substracted),
+          x-summary: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderQuoteResponse'
+              example:
+                from: bitcoin
+                to: EUR
+                fiatAmount: 300
+                cryptoAmount: 0.01
+        '400':
+          description: |
+            Invalid value for: query parameter from,
+            Invalid value for:query parameter to,
+            Invalid value for: query parameter paymentMethod...
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderServerError'
+        default:
+          description: Error sent by the provider
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderServerError'
+  /crypto-currencies:
+    get:
+      operationId: getCrypto-currencies
+      responses:
+        '200':
+          description: |
+            ### Available crypto currencies
+            - "id" : your unique identifier of the currency
+            - "type" : possible values : coin, token
+            - "blockchain" : ledger's blockchain_name of the blockchain as listed in https://crypto-assets-service.api.ledger.com/v1/coins?output=blockchain_name,chain_id, for evm networks this field may be omitted when chainId is defined.
+            - "chainId" : for EVMs only, chain id of the blockchain, 1 for ethereum, 137 for polygon... See https://chainlist.org/
+            - "contract" : mapped only if type is token, the contract address of the token.
+            blockchain OR chainId should be defined. If chainId is defined, blockchain field is ignored.
+          x-summary: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CryptoCurrencies'
+              example:
+                - id: BTC
+                  type: coin
+                  blockchain: bitcoin
+                - id: USDC
+                  type: token
+                  chainId: 1
+                  contract: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+        default:
+          description: Error sent by the provider
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderServerError'
+              example:
+                code: 42
+                message: Server isn't able to handle the request because of whatever.
+  /fund:
+    post:
+      operationId: postFund
+      description: |
+        Generates a secure binary payload for the nano in order to authorize the transaction.
+        - We send on fund endpoint the quoteId (id generated with the previous call to `/quote` ). The partner should retrieve the quote data (amounts…) from this id.
+        - The final source of Truth for the user is the binary payload you generate.
+      requestBody:
+        description: Info for generating payload
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SellRequest"
+      responses:
+        "200":
+          description: Sell ID with flattened JWS. `https://www.rfc-editor.org/rfc/rfc7515#section-7.2.2`
+          x-summary: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SellResponse"
+              example:
+                sellId: "SELL-ID-165940"
+                amount: "1.337"
+                payinAddress: "0xa0b86991c627e936c1d19d4a2e90a2ce3606eb48"
+                createdAt: "2030-05-26T14:13:39"
+                providerFees: "0.0001"
+                referralFees: "0.0001"
+                payoutNetworkFees: "0.0002"
+                providerSig:
+                  payload: "CgUweGZmZhoFMHhmZmYqBTB4ZmZmOgNCVENCA0JBVEoIMTIwMDAwMDBSCDExNTAwMDAwWhF2ZXJ5IGxvbmd1ZSBub25jZQ=="
+                  payload_signature: "MEUCIBRm4PrdgRw0aBwRepuOGGRmR/YPcCoyKNJ7UDjFO030AiEA/VT0anolum0a3X/9lGPeovZHqzeDG9brcUB4zhYmwbs="
+        "400":
+          description: Deposit wallet not available.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              example:
+                messageKey: NO_DEPOSIT_WALLET_ERROR
+                message: Deposit wallet not available. (you can add any useful field as you want)
+        "404":
+          description: Not found error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              examples:
+                CURRENCY_FROM_NOT_FOUND_ERROR:
+                  summary: CURRENCY_FROM_NOT_FOUND_ERROR
+                  value:
+                    messageKey: CURRENCY_FROM_NOT_FOUND_ERROR
+                    message: When the currency from is not found. (you can add any useful field as you want)
+                CURRENCY_TO_NOT_FOUND_ERROR:
+                  summary: CURRENCY_TO_NOT_FOUND_ERROR
+                  value:
+                    messageKey: CURRENCY_TO_NOT_FOUND_ERROR
+                    message: When the currency to is not found. (you can add any useful field as you want)
+                SELL_QUOTE_NOT_FOUND_ERROR:
+                  summary: SELL_QUOTE_NOT_FOUND_ERROR
+                  value:
+                    messageKey: SELL_QUOTE_NOT_FOUND_ERROR
+                    message: When the sell quote is not found. (you can add any useful field as you want)
+        "451":
+          description: When the user's IP address is in a restricted region.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              examples:
+                REGION_RESTRICTED_ERROR:
+                  summary: REGION_RESTRICTED_ERROR
+                  value:
+                    messageKey: REGION_RESTRICTED_ERROR
+                    message: User's IP address is in a restricted region. (you can add any useful field as you want)
+                CURRENCY_REGION_RESTRICTED_ERROR:
+                  summary: CURRENCY_REGION_RESTRICTED_ERROR
+                  value:
+                    messageKey: CURRENCY_REGION_RESTRICTED_ERROR
+                    message: One of the currencies is disabled in user's region. (you can add any useful field as you want)
+
+  /status:
+    get:
+      operationId: getStatus
+      description: Returns the status of a quote / trade being executed.
+      parameters:
+        - name: sellId
+          in: query
+          required: true
+          schema:
+            type: string
+          example: 1234
+      responses:
+        "200":
+          description: Status of an executed sell transaction.
+          x-summary: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Status"
+              example:
+                status: "PENDING"
+                amount: "1.337"
+                payinTransactionId: "0xfffffffffffff"
+                payoutTransactionId: "0xfffffffffffff"
+                providerFees: "0.0001"
+                referralFees: "0.0001"
+                payoutNetworkFees: "0.0002"
+        "404":
+          description: Sell transaction not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              examples:
+                SELL_TRANSACTION_NOT_FOUND_ERROR:
+                  summary: SELL_TRANSACTION_NOT_FOUND_ERROR
+                  value:
+                    messageKey: SELL_TRANSACTION_NOT_FOUND_ERROR
+                    message: Sell transaction not found. (you can add any useful field as you want)
+components:
+  schemas:
+    Bank:
+      type: object
+    SellPaymentMethod:
+      required:
+        - name
+        - successRate
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/PaymentMethod'
+        successRate:
+          type: integer
+          format: int32
+    SellProviderCapabilities:
+      type: object
+      properties:
+        fiatCurrencyCapabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/FiatCurrencyCapability'
+        countriesCapabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/CountryCapability'
+        cryptoCurrencyCapabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/CryptoCurrencyCapability'
+      description: |
+        - "fiatCurrencyCapabilities.[].fiat": fiat currency supported at the ISO-4217 standard,
+        - cryptoCurrencyCapabilities.[].id: The provider id of the currency, this id will be used to call quote endpoint and in the widget url query parameter,
+        - cryptoCurrencyCapabilities.[].minAmount: Minimum amount of crypto the user can sell
+        - cryptoCurrencyCapabilities.[].maxAmount: Maximum amount of crypto the user can sell
+        - "countriesCapabilities.[].country": available at the Alpha-2 standard (ISO3166),
+        - "countriesCapabilities.[].paymentMethods.[].name": Available payment method, valid values : visa, mastercard, creditcard, sepa, bank, other
+    Coin:
+      type: object
+    CountryCapability:
+      required:
+        - country
+      type: object
+      properties:
+        country:
+          type: string
+        paymentMethods:
+          type: array
+          items:
+            $ref: '#/components/schemas/SellPaymentMethod'
+    CreditCard:
+      type: object
+    CryptoCurrencies:
+      required:
+        - id
+        - type
+        - blockchain
+        - chainId
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          $ref: '#/components/schemas/CryptoCurrencyType'
+        blockchain:
+          type: string
+        chainId:
+          type: integer
+          format: int32
+        contract:
+          type: string
+    CryptoCurrencyCapability:
+      required:
+        - id
+        - minAmount
+        - maxAmount
+      type: object
+      properties:
+        id:
+          type: string
+        minAmount:
+          type: number
+        maxAmount:
+          type: number
+    CryptoCurrencyType:
+      oneOf:
+        - $ref: '#/components/schemas/Coin'
+        - $ref: '#/components/schemas/Token'
+    FiatCurrencyCapability:
+      required:
+        - fiat
+        - minAmount
+        - maxAmount
+      type: object
+      properties:
+        fiat:
+          type: string
+    Mastercard:
+      type: object
+    Other:
+      type: object
+    PaymentMethod:
+      oneOf:
+        - $ref: '#/components/schemas/Bank'
+        - $ref: '#/components/schemas/CreditCard'
+        - $ref: '#/components/schemas/Mastercard'
+        - $ref: '#/components/schemas/Other'
+        - $ref: '#/components/schemas/Sepa'
+        - $ref: '#/components/schemas/Unknown'
+        - $ref: '#/components/schemas/Visa'
+    ProviderQuoteResponse:
+      required:
+        - from
+        - to
+        - fiatAmount
+        - cryptoAmount
+      type: object
+      properties:
+        from:
+          type: string
+        to:
+          type: string
+        fiatAmount:
+          type: number
+        cryptoAmount:
+          type: number
+    ProviderServerError:
+      required:
+        - code
+        - message
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Sepa:
+      type: object
+    Token:
+      type: object
+    Unknown:
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          type: string
+    Visa:
+      type: object
+
+    SellRequest:
+      required:
+        - quoteId
+        - amount
+        - refundAddress
+        - currencyFrom
+        - fiatTo
+        - payloadCurrencyFrom
+        - payloadFiatTo
+        - nonce
+      type: object
+      properties:
+        quoteId:
+          type: string
+          description: Previously generated quote ID.
+        amount:
+          type: string
+          description: Amount requested by the user to be sold.
+        refundAddress:
+          type: string
+          description: User's refund address, typically the fromAddress.
+        payoutAddress:
+          type: string
+          description: User's payout transaction address.
+        refundAddressExtraId:
+          type: string
+          description: Field used for blockchains that require a memo (e.g., XRP, XLM).
+        payoutAddressExtraId:
+          type: string
+          description: Field used for blockchains that require a memo (e.g., XRP, XLM).
+        currencyFrom:
+          type: string
+          description: From currency ID, using the provider's identifiers.
+        currencyTo:
+          type: string
+          description: To currency ID, using the provider's identifiers.
+        payloadCurrencyFrom:
+          type: string
+          description: From currency ID, using Ledger's referential. (representing currency_from in the protobuf payload)
+        payloadCurrencyTo:
+          type: string
+          description: To currency ID, using Ledger's referential. (representing currency_to in the protobuf payload)
+        nonce:
+          type: string
+          description: Value for the `device_transaction_id_ng` field in the protobuf payload, in hex format of the byte array nonce received by the user.
+        slippage:
+          type: string
+          description: Value between 0 to 1 (0.1 => 10%). Maximum difference between the quoted amount and the final amount received, as a ratio. If exceeded, user consent is required or a refund is made.
+    SellResponse:
+      required:
+        - sellId
+        - payinAddress
+        - createdAt
+        - providerFees
+        - referralFees
+        - payoutNetworkFees
+        - providerSig
+      type: object
+      properties:
+        sellId:
+          type: string
+          description: "provider's id of the ongoing sell transaction. This will be used by Ledger's backend to retrieve the status of user sell transaction. A unique id must be generated each time this endpoint is called, even if called with a same quoteId : quoteId != sellId. This is a sell attempt id and several retries sharing the same quote id might be performed by a user."
+        payinAddress:
+          type: string
+          description: Provider's payin address.
+        createdAt:
+          type: string
+          description: Creation date of the sell payload in ISO-8601 format.
+        providerFees:
+          type: string
+          description: Fees paid to the provider, converted to currencyTo.
+        referralFees:
+          type: string
+          description: Fees paid to Ledger, as a referral fee, converted to currencyTo.
+        payoutNetworkFees:
+          type: string
+          description: estimated gas fees that will be used for the payout transaction (as an output coin floating amount).
+        providerSig:
+          $ref: "#/components/schemas/ProviderSig"
+    ProviderSig:
+      required:
+        - payload
+        - signature
+      type: object
+      properties:
+        payload:
+          type: string
+          description: Protobuf payload (in binary format).
+        signature:
+          type: string
+          description: Payload signed in JWS format.
+    ErrorPayload:
+      type: object
+      properties:
+        messageKey:
+          type: string
+          description: Error code.
+        message:
+          type: string
+          description: Error message description.
+        additionalFields:
+          type: object
+          description: Provides further details on the error, including specific amounts involved in the request. All amounts are presented in their respective currency units.
+    Status:
+      required:
+        - status
+        - amount
+        - payinTransactionId
+        - payoutTransactionId
+        - providerFees
+        - referralFees
+        - payoutNetworkFees
+      type: object
+      properties:
+        quoteId:
+          type: string
+        status:
+          type: string
+          enum:
+            - FINISHED
+            - EXPIRED
+            - ON_HOLD
+            - PENDING
+            - REFUNDED
+            - UNKNOWN
+        amount:
+          type: string
+          description: as soon as this information is known, this should contain the final amount transferred to the user in output currency.
+        payinTransactionId:
+          type: string
+          description: as soon as this information is known, this should contain the payin transaction hash.
+        payoutTransactionId:
+          type: string
+          description: As soon as the transaction is submitted to the blockchain and the hash is generated, this field should contain the payout transaction hash.
+        providerFees:
+          type: string
+          description: Fees paid to the provider.
+        referralFees:
+          type: string
+          description: Fees paid to Ledger, as a referral fee.
+        payoutNetworkFees:
+          type: string
+          description: Gas fees used for the payout transaction, converted to currencyTo.
