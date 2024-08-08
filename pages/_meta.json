@@ -6,29 +6,22 @@
     },
     "display": "hidden"
   },
-  "dev-journey": {
-    "title": "Dev Journeys",
-    "type": "menu",
-    "items": {
-      "overview": {
-        "title": "Overview"
-      },
-      "blockchain-foundation": {
-        "title": "Blockchain foundation"
-      },
-      "services-dapps": {
-        "title": "Services & dApp"
-      },
-      "nft-project": {
-        "title": "NFT project"
-      },
-      "wallet": {
-        "title": "Wallet"
-      }
-    }
-  },
   "docs": {
     "title": "Documentation",
-    "type": "page"
+    "type": "menu",
+    "items": {
+      "device-app": {
+        "title": "Device App",
+        "href": "/docs/device-app/introduction/ledger-ecosystem"
+      },
+      "connectivity": {
+        "title": "Connectivity",
+        "href": "/docs/connectivity/introduction/ledger-ecosystem"
+      },
+      "blockchain": {
+        "title": "Blockchain",
+        "href": "/docs/blockchain/introduction/ledger-ecosystem"
+      }
+    }
   }
 }

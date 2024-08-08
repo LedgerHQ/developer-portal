@@ -1,6 +1,11 @@
 {
+    "---": {
+    "title": "Device App",
+    "type": "separator"
+    },
     "introduction": "Introduction",
-    "develop": "Develop & Test",
-    "deliver": "Deliver",
-    "architecture": "References"
+    "tutorials": "Tutorials",
+    "guides": "How-to guides",
+    "references": "References",
+    "explanation": "Explanation"
 }

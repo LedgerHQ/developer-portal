@@ -1,3 +1,11 @@
-{  
-	"ledgerJS": "LedgerJS packages"
+{
+    "---": {
+    "title": "Connectivity",
+    "type": "separator"
+    },
+    "introduction": "Introduction",
+    "tutorials": "Tutorials",
+    "guides": "How-to guides",
+    "references": "References",
+    "explanation": "Explanation"
 }
