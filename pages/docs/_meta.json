@@ -3,12 +3,16 @@
         "type": "page",
         "title": "Device App"
       },
-  "connectivity": {
+  "app-device-com": {
         "type": "page",
-        "title": "Connectivity"
+        "title": "App <-> Device communicatéion"
       },
-  "blockchain": {
+  "ledger-live-accounts": {
         "type": "page",
-        "title": "Blockchain Integration"
+        "title": "Ledger Live accounts"
+      },
+  "ledger-live-discover": {
+        "type": "page",
+        "title": "Ledger Live Discover"
       }
 }

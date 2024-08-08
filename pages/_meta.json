@@ -12,15 +12,19 @@
     "items": {
       "device-app": {
         "title": "Device App",
-        "href": "/docs/device-app/introduction/ledger-ecosystem"
+        "href": "/docs/device-app/getting-started"
       },
-      "connectivity": {
-        "title": "Connectivity",
-        "href": "/docs/connectivity/introduction/ledger-ecosystem"
+      "app-device-com": {
+        "title": "App <-> Device Communication",
+        "href": "/docs/app-device-com/getting-started"
       },
-      "blockchain": {
-        "title": "Blockchain",
-        "href": "/docs/blockchain/introduction/ledger-ecosystem"
+      "ledger-live-accounts": {
+        "title": "Ledger Live accounts",
+        "href": "/docs/ledger-live-accounts/getting-started"
+      },
+      "ledger-live-discover": {
+        "title": "Ledger Live Discover",
+        "href": "/docs/ledger-live-discover/getting-started"
       }
     }
   }

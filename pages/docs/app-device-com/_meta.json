@@ -1,9 +1,9 @@
 {
     "---": {
-    "title": "Blockchain",
+    "title": "App <-> Device communication",
     "type": "separator"
     },
-    "introduction": "Introduction",
+    "getting-started": "Getting started",
     "tutorials": "Tutorials",
     "guides": "How-to guides",
     "references": "References",
