@@ -1,5 +1,6 @@
 import { Tabs } from "nextra/components";
 import { Callout } from "nextra/components";
+import Zoom from "react-medium-image-zoom";
 
 # Provider's LiveApp
 
@@ -8,7 +9,11 @@ As explained in the [Buy Integration](../buy) section, you need to modify your L
 Your LiveApp must:
 
 - Respond to specific LiveApp URLs to adapt to the flow inside Ledger Live.
-- Follow specific flow/UX requirements.
+- Follow specific flow/UX requirements:
+
+<Zoom>
+  <img alt="Buy transaction flow" src="/exchange/buy-liveapp-flow.png" />
+</Zoom>
 
 ## LiveApp URL
 
@@ -48,7 +53,3 @@ Your [LiveApp manifest](../../../../docs/discover/wallet-api/appendix/manifest) 
   "account.receive"
 ]
 ```
-
-## Flow/UX requirements
-
-Please refer to the [Flow Breakdown](../swap/flow) section for more information.
