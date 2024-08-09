@@ -9,7 +9,7 @@ interface ExampleCardProps extends HTMLAttributes<HTMLButtonElement> {
   title: string;
   subtitle: string;
   description: string;
-  type: "wallet" | "services-dapps" | "blockchain" | "nft";
+  type: "device" | "connectivity" | "blockchain" | "live-app";
 }
 
 export const ExampleCard: FC<ExampleCardProps> = ({icon, title, subtitle, description, type, className, ...props}) => {  
@@ -17,17 +17,17 @@ export const ExampleCard: FC<ExampleCardProps> = ({icon, title, subtitle, descri
   
   const handleClick = () => {
     switch (type) {
-      case "wallet":
-        router.push("/dev-journey/wallet")
+      case "device":
+        router.push("/docs/device-app")
         break;
-      case "services-dapps":
-        router.push("/dev-journey/services-dapps")
+      case "connectivity":
+        router.push("/docs/connectivity")
         break;
       case "blockchain":
-        router.push("/dev-journey/blockchain-foundation")
+        router.push("/docs/blockchain")
         break;
-      case "nft":
-        router.push("/dev-journey/nft-project")
+      case "live-app":
+        router.push("/docs/discover")
         break;
       default:
         break;
@@ -45,9 +45,9 @@ export const ExampleCard: FC<ExampleCardProps> = ({icon, title, subtitle, descri
       <div className="text-p font-semibold text-grey-300 mt-6 !leading-[28px]">{subtitle}</div>
       <div className="text-p text-grey-300 !leading-[28px] mb-6">{description}</div>
       <div className="flex w-full place-content-between mt-auto">
-        <Tag type={type} />
+        {/* <Tag type={type} /> */}
         <div className="items-center gap-2 hidden md:flex opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 ease-linear duration-300">
-          <span className="text-p-caption underline whitespace-nowrap">Plan this journey</span>
+          <span className="text-p-caption underline whitespace-nowrap">Get your own project started</span>
           <img src="/icons/arrow-right-white.svg" alt="button icon" />
         </div>
       </div>
