@@ -25,6 +25,10 @@
       "ledger-live-discover": {
         "title": "Ledger Live Discover",
         "href": "/docs/ledger-live-discover/getting-started"
+      },
+      "exchange": {
+        "title": "Exchange",
+        "href": "/docs/exchange/#"
       }
     }
   }

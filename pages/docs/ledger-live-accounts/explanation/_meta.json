@@ -1,5 +1,7 @@
 {
 	"accounts-integration": "What is in Ledger Live (accounts, Live Apps)",
 	"for-who": "Does your project need an integration for Ledger Live accounts",
-	"terms-conditions": "Terms and conditions"	
+	"terms-conditions": "Terms and conditions",
+	"architecture-diagram": "Architecture diagram",
+	"glossary": "Glossary"
 }

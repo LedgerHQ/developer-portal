@@ -1,5 +1,5 @@
 {  
-	"integration": "Integration walkthrough",
-	"design-guidelines": "Design guidelines",
-	"testing": "Testing"
+	"dapp-browser": "DApp browser",
+	"wallet-api": "Wallet API",
+	"submission-process": "Submission process"
 }
