@@ -1,6 +1,6 @@
-import { Callout } from 'nextra/components'
-import Zoom from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
+import { Callout } from "nextra/components";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 # Detailed Technical Flows
 
@@ -9,28 +9,24 @@ import 'react-medium-image-zoom/dist/styles.css'
 This is a [C4 diagram](https://c4model.com/) that describes an overview of the exchange during the swap process.
 
 <Zoom>
-    <img
-      alt="Swap C4 diagram"
-      src="/exchange/swap-light-C4.png"
-    />
+  <img alt="Swap C4 diagram" src="/exchange/swap-light-C4.png" />
 </Zoom>
 
 <Callout type="info" emoji="ℹ️">
-    Although the provider's LiveApp is embedded inside Ledger Live, we describe it as running in a separate environment because it is sandboxed.
+  Although the provider's LiveApp is embedded inside Ledger Live, we describe it
+  as running in a separate environment because it is sandboxed.
 </Callout>
 
-## Detailled transaction flow
+## Detailed transaction flow
 
-Explanations about each step below the diagram. 
+Explanations about each step below the diagram.
 
 <Zoom>
-    <img
-      alt="Swap transaction flow"
-      src="/exchange/detailed-flow-2.png"
-    />
+  <img alt="Swap transaction flow" src="/exchange/detailed-flow-2.png" />
 </Zoom>
 
 1. Ledger Live opens the provider's LiveApp through a [deeplink](./providers-liveapp#deeplink). Example:
+
 ```
 ledgerlive://discover/swapprovidername?quoteId=CC14E626-CF1B-4EDA-AF5E-766FFD5A3457&
 fromAddress=bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq&
@@ -55,14 +51,10 @@ toAddressId=6EA9F270-91C5-4832-9A44-2713F9A6F6F0
 
 8. The LiveApp should call back Ledger Live with a deeplink. Example: `ledgerlive://swap?status=COMPLETED&swapId=123`
 
-
 ## Display quote information to user
 
 <Zoom>
-    <img
-      alt="Quote information flow"
-      src="/exchange/detailed-flow-1.png"
-    />
+  <img alt="Quote information flow" src="/exchange/detailed-flow-1.png" />
 </Zoom>
 
 [Details on the quote API needed](https://exchange-integration-swap.redoc.ly/#operation/postQuote).
@@ -70,9 +62,5 @@ toAddressId=6EA9F270-91C5-4832-9A44-2713F9A6F6F0
 ## Check swap status flow
 
 <Zoom>
-    <img
-      alt="Check swap status flow"
-      src="/exchange/detailed-flow-3.png"
-    />
+  <img alt="Check swap status flow" src="/exchange/detailed-flow-3.png" />
 </Zoom>
-

@@ -1,53 +1,56 @@
-import { Tabs } from 'nextra/components'
-import { Callout } from 'nextra/components'
+import { Tabs } from "nextra/components";
+import { Callout } from "nextra/components";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 # Provider's LiveApp
 
-As explained in the [Sell Integration](../sell) page, you need to modify your LiveApp with some particularities compared to the one that can be found in the Discover section.
+As explained in the [Buy Integration](../buy) section, you need to modify your LiveApp to recognize the parameters we are passing to you, with some particularities compared to the version found in the Discover section.
 
-Your LiveApp must: 
-  - Respond to specific LiveApp URLs in order to adapt to the flow inside Ledger Live.
-  - Follow specifics flow/ux requirements.
+Your LiveApp must:
 
+- Respond to specific LiveApp URLs to adapt to the flow inside Ledger Live.
+- Follow specific flow/UX requirements:
+
+<Zoom>
+  <img alt="Buy transaction flow" src="/exchange/buy-liveapp-flow.png" />
+</Zoom>
 
 ## LiveApp URL
 
-The LiveApp needs to respond to an URL with some parameters. LiveApp URLs are used to open your LiveApp with the quote values that the user already entered in Ledger Live.
+The LiveApp needs to respond to a URL with certain parameters. LiveApp URLs are used to open your LiveApp with the quote values that the user has already entered in Ledger Live.
 
-The LiveApp URL format is already fixed and will depend on the information you provided inside your [LiveApp manifest](../../../../docs/discover/wallet-api/appendix/manifest) (ex: `ledgerlive://discover/swapprovidername`).
+- `accountAddress`: Destination address to deposit the crypto.
+- `cryptoCurrency`: The cryptocurrency that the user wants to buy. It will contain the providerId value to identify the crypto.
+- `fiatCurrency`: The fiat currency that the user wants to spend.
+- `fiatAmount`: The fiat amount that the user wants to spend.
+- `cryptoAmount`: The crypto amount that the user wants to buy.
+- `mode`: `buy` or `sell`. In this case, always `buy`. It's required that you share the same base widget URL for both usages.
+- `paymentMethod`: The preferred payment method of the user.
+- `bankResidency` (optional): The bank residency of the user.
+- `buySessionid`: ID used by Ledger to track transactions and their completion statuses.
+- `language`: The language preference of the user set in Ledger Live.
+- `theme`: The theme preference of the user set in Ledger Live.
+- `platform`: The platform used by the user (mobile/desktop).
 
+**Example**:
 
-  * `account-address`: Destination address to deposit the crypto.
-  * `crypto-currency`: The crypto currency that the user wants to buy. It will contain the providerId value to identify the crypto.
-  * `fiat-currency`: The fiat cureency that the user wants to spend.
-  * `fiat-amount`: The fiat amount that the user wants to spend.
-  * `crypto-amount`: The crypto amount that the user wants to buy.
-  * `mode`: `buy` or `sell`. In this case always `buy`. Required you share the same base widget url for both usages.
-  * `payment-method`: The preferred payment method for the user.
-  * `bank-residency`(optional): The bank residency of the user.
-  * `ledger-transaction-id`: id used by ledger to track transactions and their completion statuses.
-
-__Example__:
 ```
-https://buy.provider.widget.com?[account-address]=x0…&[crypto-currency]=BTC&[fiat-currency]=EUR&[fiat-amount]=50&[payment-method]=visa
+https://buy.provider.widget.com?[accountAddress]=x0…&[cryptoCurrency]=bitcoin&[fiatCurrency]=EUR&[fiatAmount]=50&[cryptoAmount]=0.0009490481&[mode]=buy&[paymentMethod]=bank&[bankResidency]=fr&[buySessionid]=cd12538-b02a-4282-99de-4d90f10769a0&[language]=en&[theme]=dark&[platform]=desktop
 ```
-
 
 <Callout type="info" emoji="👉">
   Ledger needs to know how to send referral information through the widget.
 </Callout>
 
+## Manifest Permissions
 
-## Manifest Permission
-Your [LiveApp manifest](../../../../docs/discover/wallet-api/appendix/manifest) should contains at least those permissions request:
-```json copy
+Your [LiveApp manifest](../../../../docs/discover/wallet-api/appendix/manifest) should contain at least the following [permissions](../../../../docs/discover/wallet-api/appendix/manifest#permissions) request:
+
+```json
 "permissions": [
   "currency.list",
   "account.list",
   "account.receive"
 ]
 ```
-
-## Flow/UX requirements
-
-Please refer to the [Flow Breakdown](../swap/flow) section for more information. 
