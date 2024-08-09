@@ -114,12 +114,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProviderQuoteResponse'
+                $ref: '#/components/schemas/QuoteResponse'
               example:
-                from: bitcoin
-                to: EUR
-                fiatAmount: 300
-                cryptoAmount: 0.01
+                quoteId: "CC14E626-CF1B-4EDA-AF5E-766FFD5A3457"
+                amountFrom: "1"
+                amountTo: "270.864632"
+                providerFees: "0.0001"
+                referralFees: "0.0001"
+                payoutNetworkFees: "0.0002"
+                expiry: "2022-04-04T09:10:51+0000"
         '400':
           description: |
             Invalid value for: query parameter from,
@@ -402,22 +405,36 @@ components:
         - $ref: '#/components/schemas/Sepa'
         - $ref: '#/components/schemas/Unknown'
         - $ref: '#/components/schemas/Visa'
-    ProviderQuoteResponse:
+    QuoteResponse:
       required:
-        - from
-        - to
-        - fiatAmount
-        - cryptoAmount
+        - amountTo
+        - providerFees
+        - referralFees
+        - payoutNetworkFees
+        - expiry
       type: object
       properties:
-        from:
+        quoteId:
           type: string
-        to:
+          description: Unique identifier for the quote (Required only for fixed quotes).
+        amountFrom:
           type: string
-        fiatAmount:
-          type: number
-        cryptoAmount:
-          type: number
+          description: Should be the same as the input (optional, for consistency check).
+        amountTo:
+          type: string
+          description: Estimated output amount sent to the user, in currencyTo.
+        providerFees:
+          type: string
+          description: Amount paid to the provider, converted to currencyTo.
+        referralFees:
+          type: string
+          description: Amount paid to Ledger, as a referral fee, converted to currencyTo.
+        payoutNetworkFees:
+          type: string
+          description: Estimated gas fees for the payout transaction, converted to currencyTo.
+        expiry:
+          type: string
+          description: Quote expiration timestamp
     ProviderServerError:
       required:
         - code
