@@ -25,6 +25,11 @@ module.exports = {
         permanent: true,
       },
       {
+        source: '/docs',
+        destination: '/docs/sections',
+        permanent: true,
+      },
+      {
         source: '/docs/nano-app/:slug*',
         destination: '/docs/device-app',
         permanent: true,
@@ -308,6 +313,11 @@ module.exports = {
       {
         source: '/docs/embedded-app/display-management-flow',
         destination: '/docs/device-app/develop/ui/flows/display-management-flow',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/coding-guidelines/flows',
+        destination: '/docs/device-app/develop/ui/flows',
         permanent: true,
        },
       {
@@ -914,6 +924,11 @@ module.exports = {
       {
         source: '/docs/dapp/manifest',
         destination: '/docs/discover/dapp/manifest',
+        permanent: true,
+       }, 
+      {
+        source: '/docs/device-app/develop/tutorials',
+        destination: '/docs/device-app/develop/quickstart',
         permanent: true,
        }, 
       {
