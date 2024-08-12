@@ -115,11 +115,11 @@ paths:
                     additionalFields: 
                       minRequiredAmount: "0.01"
                       maxRequiredAmount: "10"
-                TO_CURRENCY_MAXIMUM_AMOUNT_ERROR:
-                  summary: TO_CURRENCY_MAXIMUM_AMOUNT_ERROR
+                FROM_CURRENCY_MAXIMUM_AMOUNT_ERROR:
+                  summary: FROM_CURRENCY_MAXIMUM_AMOUNT_ERROR
                   description: The amount of destination currency exceed the maximum amount.
                   value:
-                    messageKey: TO_CURRENCY_MAXIMUM_AMOUNT_ERROR
+                    messageKey: FROM_CURRENCY_MAXIMUM_AMOUNT_ERROR
                     message: Maximum error. (you can add any useful field as you want)
                     additionalFields: 
                       minRequiredAmount: "0.01"
@@ -378,7 +378,7 @@ components:
           description: the minimum amount of the source currency that can be swapped. This is the lowest quantity of the initial currency that can be exchanged in a single transaction.
           type: string
         maxSwapAmount:
-          description: the maximum amount of the destination currency that can be swapped. This represents the highest quantity of the destination currency that can be exchanged in a single transaction.
+          description: the maximum amount of the source currency that can be swapped. This represents the highest quantity of the initial currency that can be exchanged in a single transaction.
           type: string
     QuoteRequest:
       required:
