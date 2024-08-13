@@ -6,6 +6,10 @@
     },
     "display": "hidden"
   },
+  "overview": {
+    "title": "Overview",
+    "type" : "page"
+  },
   "docs": {
     "title": "Documentation",
     "type": "menu",

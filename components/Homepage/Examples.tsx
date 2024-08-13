@@ -25,21 +25,21 @@ export const Examples = () => {
               title="Coinbase Wallet"
               subtitle="Use Coinbase Wallet with your Ledger"
               description="Coinbase Wallet's browser extension is compatible with Ledger hardware wallets, providing an additional layer of security and greater peace of mind"
-              type="wallet"
+              type="connectivity"
             />
             <ExampleCard 
               icon="moonpay-purple" 
               title="MoonPay"
               subtitle="Buying crypto straight to your Ledger"
               description="MoonPay was integrated into Ledger Live, and allows assets to be directly deposited and secured in Ledger devices" 
-              type="services-dapps"
+              type="live-app"
             />
             <ExampleCard 
               icon="lido" 
               title="Lido"
               subtitle="Staking ETH on Ledger Live"
-              description="The LIDO dAPP was integrated into the Ledger Live ecosystem and improved security by providing clear signing to Ledger users" 
-              type="services-dapps"
+              description="The LIDO dAPP was integrated into the Ledger Live ecosystem and improved security by providing clear-signing to Ledger users" 
+              type="live-app"
             />
             <ExampleCard 
               icon="solana" 
@@ -53,7 +53,7 @@ export const Examples = () => {
               title="Objkt"
               subtitle="Neat connection to Objkt"
               description="Securely display your NFT collections directly within Ledger Live, for a neat and easy visualisation experience" 
-              type="nft"
+              type="live-app"
             />
             <ExampleCard 
               icon="cosmos" 
