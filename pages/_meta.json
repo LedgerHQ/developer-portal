@@ -14,6 +14,10 @@
     "title": "Documentation",
     "type": "menu",
     "items": {
+      "ledger-ecosystem": {
+        "title": "Ledger Ecosystem",
+        "href": "/docs/ledger-ecosystem/introduction"
+      },
       "device-app": {
         "title": "Device App",
         "href": "/docs/device-app/getting-started"
@@ -22,17 +26,9 @@
         "title": "App <-> Device Communication",
         "href": "/docs/app-device-com/getting-started"
       },
-      "ledger-live-accounts": {
-        "title": "Ledger Live accounts",
-        "href": "/docs/ledger-live-accounts/getting-started"
-      },
-      "ledger-live-discover": {
-        "title": "Ledger Live Discover",
-        "href": "/docs/ledger-live-discover/getting-started"
-      },
-      "exchange": {
-        "title": "Exchange",
-        "href": "/docs/exchange/#"
+      "ledger-live": {
+        "title": "Ledger Live",
+        "href": "/docs/ledger-live/getting-started"
       }
     }
   }

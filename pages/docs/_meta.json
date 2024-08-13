@@ -1,4 +1,8 @@
 {
+  "ledger-ecosystem": {
+        "type": "page",
+        "title": "Ledger Ecosystem"
+      },
   "device-app": {
         "type": "page",
         "title": "Device App"
@@ -7,12 +11,8 @@
         "type": "page",
         "title": "App <-> Device communicatéion"
       },
-  "ledger-live-accounts": {
+  "ledger-live": {
         "type": "page",
-        "title": "Ledger Live accounts"
-      },
-  "ledger-live-discover": {
-        "type": "page",
-        "title": "Ledger Live Discover"
+        "title": "Ledger Live"
       }
 }

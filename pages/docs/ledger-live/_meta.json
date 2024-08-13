@@ -1,0 +1,10 @@
+{
+    "---": {
+    "title": "Ledger Live",
+    "type": "separator"
+    },
+    "getting-started": "Getting started",
+    "accounts": "Accounts",
+    "discover": "Discover",
+    "exchange": "Exchange provider"
+}

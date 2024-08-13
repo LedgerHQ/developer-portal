@@ -1,0 +1,10 @@
+{
+    "---": {
+    "title": "Ledger Ecosystem",
+    "type": "separator"
+    },
+    "introduction": "Introduction",
+    "quickstart": "Quickstart guide",
+    "modules": "Documentation modules",
+    "community": "Community"
+}
