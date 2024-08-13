@@ -12,18 +12,18 @@ In order to become a native Swap provider in the Ledger Live ecosystem, you must
 </Callout>
 
 <Steps>
+### Adapt to our Backend
+ 
+- Adapt your API and endpoints to interact with our Backend.
+- Generate a structured Payload and a signature with a specific format.
+- Send your public key to Ledger and secure your private key.
+
 ### Develop/Modify your LiveApp
  
 - Use our Exchange SDK in addition to the Wallet API.
 - Provide a set of query parameters to access your LiveApp directly with the quote entered by the user in Ledger Live. 
 - Write/Modify the Manifest file. 
 - Follow our flow/UX requirements.
-
-### Adapt to our Backend
- 
-- Adapt your API and endpoints to interact with our Backend.
-- Generate a structured Payload and a signature with a specific format.
-- Send your public key to Ledger and secure your private key.
 
 ### Test and submit
 
@@ -35,8 +35,8 @@ Test end-to-end your integration by manually loading your LiveApp through Develo
 </Steps>
 
 In the following pages, you will find:
-- [LiveApp](swap/providers-liveapp): details on your LiveApp specifities, such as the LiveApp URL, the Manifest or the use of Exchange SDK instead of the Wallet API.
 - [Backend](swap/providers-backend): details on the main endpoints needed for the chosen operation, the payload, the signature, and your public/private key.
+- [LiveApp](swap/providers-liveapp): details on your LiveApp specifities, such as the LiveApp URL, the Manifest or the use of Exchange SDK instead of the Wallet API.
 - [Test & Submit](swap/providers-test-and-submit): details on how to use the Ledger Live Developer Mode and other tools (coming soon) to test your integration end-to-end, as well as how to submit it. 
 - [Flow Breakdown](swap/flow): Details UX, advanced flows and architecture diagrams.
 - [Supported Currencies](swap/providers-currencies): List of supported currencies.
