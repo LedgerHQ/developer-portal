@@ -17,13 +17,11 @@ In order to communicate with Ledger’s backend, you must provide standardised A
 You will find all the information regarding the CARD endpoints here: https://exchange-integration-fund.redoc.ly/, as well as additional details on some endpoints below.
 </Callout>
 
-There are 2 main endpoints needed for the card:
-    - To create a signed fund binary payload: [/sell](https://exchange-integration-fund.redoc.ly/#operation/postFund).
-    - To query a sell status: [/status](https://exchange-integration-fund.redoc.ly/#operation/getStatus).
-
+You need to implement following endpoint for the card:
+    - To create a signed fund binary payload: [/sell](https://exchange-integration-fund.redoc.ly/#operation/postSell).
 
 <details>
-  <summary>Additional Details: POST /fund</summary>
+  <summary>Additional Details: POST /sell</summary>
 
   Example request payload:
 ``` json copy
@@ -79,13 +77,18 @@ An example response from the ledger backend to the exchange SDK
   ```
 </details>
 
+## Real-time Status Updates:
+
+To ensure effective communication with Ledger's backend, you are required to implement a webhook [/transaction/\{sellId\}/status](https://exchange-integration-fund.redoc.ly/#operation/statusUpdate) update mechanism. This should notify Ledger real-time whenever there is a change in the status of a transaction. Ledger will provide partners with the necessary webhook URL or address to which the status updates should be sent.
+
 <details>
-  <summary>Additional Details: GET /status</summary>
+   <summary>Additional Details: POST /transaction/\{sellId\}/status</summary>
     Explanation of the different output `status`:
         - `FINISHED`: Trade has been completed successfully (user has received payout transaction).
         - `EXPIRED`: Payin transaction was not received in time, trade is cancelled. User will be refunded if payin transaction is received afterwards.
         - `ON_HOLD`: Trade has been put on hold (eg: for KYC reasons). User must contact support.
         - `PENDING`: Trade is in progress (provider is waiting to receive payin transaction, or user is waiting to receive payout transaction)
+        - `TRANSFER_IN_COMPLETED`: Transfer in completed and waiting for transfer out to be sent.
         - `REFUNDED`: Trade has been cancelled, refund transaction has been successfully received by user.
         - `UNKNOWN`: Trade is in unknown state. User must contact support.
 
