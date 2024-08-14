@@ -29,6 +29,10 @@
       "ledger-live": {
         "title": "Ledger Live",
         "href": "/docs/ledger-live/getting-started"
+      },
+      "clear-signing": {
+        "title": "Clear signing",
+        "href": "/docs/clear-signing"
       }
     }
   }
