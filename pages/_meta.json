@@ -28,11 +28,11 @@
       },
       "ledger-live": {
         "title": "Ledger Live",
-        "href": "/docs/ledger-live/getting-started"
+        "href": "/docs/ledger-live/introduction"
       },
       "clear-signing": {
-        "title": "Clear signing",
-        "href": "/docs/clear-signing"
+        "title": "The clear signing initiative",
+        "href": "/docs/clear-signing/getting-started"
       }
     }
   }

@@ -16,7 +16,7 @@
         "title": "Ledger Live"
       },
   "clear-signing": {
-        "type": "page",
-        "title": "Clear signing"
+      "type": "page",
+      "title": "Clear signing"
       }
 }

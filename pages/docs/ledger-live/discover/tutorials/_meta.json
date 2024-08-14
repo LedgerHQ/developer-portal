@@ -1,3 +1,4 @@
 {
-	"dev-mode": "Enable the developer mode"
+	"dev-mode": "Enable the developer mode",
+	"manifest": "Write and load the manifest"
 }

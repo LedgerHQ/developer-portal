@@ -1,7 +1,5 @@
 {
-	"ledger-ecosystem": "Ledger ecosystem",
-	"accounts-integration": "What is in Ledger Live (accounts, Live Apps)",
-	"for-who": "Does your project need an integration for Ledger Live accounts",
+	"types-accounts": "Type of accounts / transactions possibilites etc",
 	"terms-conditions": "Terms and conditions",
 	"architecture-diagram": "Architecture diagram",
 	"glossary": "Glossary"
