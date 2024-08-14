@@ -84,33 +84,27 @@ paths:
                     messageKey: CURRENCY_REGION_RESTRICTED_ERROR
                     message: One of the currencies is disabled in user's region. (you can add any useful field as you want)
 
-  /status:
-    get:
-      operationId: getStatus
-      description: Returns the status of a quote / trade being executed.
+  /transaction/{sellId}/status:
+    post:
+      operationId: statusUpdate
+      description: Updates the status of a sell transaction.
       parameters:
         - name: sellId
-          in: query
+          in: path
           required: true
           schema:
             type: string
           example: 1234
+      requestBody:
+        description: Status update payload
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StatusUpdate"
       responses:
         "200":
-          description: Status of an executed sell transaction.
+          description: Status updated.
           x-summary: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Status"
-              example:
-                status: "PENDING"
-                amount: "1.337"
-                payinTransactionId: "0xfffffffffffff"
-                payoutTransactionId: "0xfffffffffffff"
-                providerFees: "0.0001"
-                referralFees: "0.0001"
-                payoutNetworkFees: "0.0002"
         "404":
           description: Sell transaction not found.
           content:
@@ -228,19 +222,11 @@ components:
         additionalFields:
           type: object
           description: Provides further details on the error, including specific amounts involved in the request. All amounts are presented in their respective currency units.
-    Status:
+    StatusUpdate:
       required:
         - status
-        - amount
-        - payinTransactionId
-        - payoutTransactionId
-        - providerFees
-        - referralFees
-        - payoutNetworkFees
       type: object
       properties:
-        quoteId:
-          type: string
         status:
           type: string
           enum:
@@ -248,6 +234,7 @@ components:
             - EXPIRED
             - ON_HOLD
             - PENDING
+            - TRANSFER_IN_COMPLETED
             - REFUNDED
             - UNKNOWN
         amount:
@@ -256,9 +243,6 @@ components:
         payinTransactionId:
           type: string
           description: as soon as this information is known, this should contain the payin transaction hash.
-        payoutTransactionId:
-          type: string
-          description: As soon as the transaction is submitted to the blockchain and the hash is generated, this field should contain the payout transaction hash.
         providerFees:
           type: string
           description: Fees paid to the provider.

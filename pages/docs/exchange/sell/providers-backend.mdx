@@ -17,13 +17,11 @@ In order to communicate with Ledger’s backend, you must provide standardised A
 You will find all the information regarding the SELL endpoints here: https://exchange-integration-sell.redoc.ly/, as well as additional details on some endpoints below.
 </Callout>
 
-There are 5 main endpoints needed for the sell:
+There are 4 main endpoints needed for the sell:
     - To get the list of available fiat, country, payment, method and amount: [/capabilities](https://exchange-integration-sell.redoc.ly/#operation/getCapabilities).
     - To get the list of available crypto-currencies: [/crypto-currencies](https://exchange-integration-sell.redoc.ly/#operation/getCryptoCurrencies).
     - To get the fiat amount that the user should expect -after all fees are deducted - as a payment for the given crypto amount: [/quotes](https://exchange-integration-sell.redoc.ly/#operation/getQuote).
     - To create a signed sell binary payload: [/sell](https://exchange-integration-sell.redoc.ly/#operation/postSell).
-    - To query a sell status: [/status](https://exchange-integration-sell.redoc.ly/#operation/getStatus).
-
 
 <details>
   <summary>Additional Details: POST /sell</summary>
@@ -55,17 +53,17 @@ There are 5 main endpoints needed for the sell:
     }
 
     message NewSellResponse {
-        string   trader_email = 1;           
-        string   in_currency = 2;            
-        bytes    in_amount = 3;              
-        string   in_address = 4;             
-        string   out_currency = 5;           
-        UDecimal out_amount = 6;             
-        bytes    device_transaction_id = 7;  
+        string   trader_email = 1;
+        string   in_currency = 2;
+        bytes    in_amount = 3;
+        string   in_address = 4;
+        string   out_currency = 5;
+        UDecimal out_amount = 6;
+        bytes    device_transaction_id = 7;
     }
     ```
 An example response from the ledger backend to the exchange SDK
-  
+
   ``` json copy
 {
   "sellId": "SELL-ID-165940",
@@ -82,13 +80,18 @@ An example response from the ledger backend to the exchange SDK
   ```
 </details>
 
+## Real-time Status Updates:
+
+To ensure effective communication with Ledger's backend, you are required to implement a webhook [/transaction/\{sellId\}/status](https://exchange-integration-sell.redoc.ly/#operation/statusUpdate) update mechanism. This should notify Ledger real-time whenever there is a change in the status of a transaction. Ledger will provide partners with the necessary webhook URL or address to which the status updates should be sent.
+
 <details>
-  <summary>Additional Details: GET /status</summary>
+  <summary>Additional Details: POST /transaction/\{sellId\}/status</summary>
     Explanation of the different output `status`:
         - `FINISHED`: Trade has been completed successfully (user has received payout transaction).
         - `EXPIRED`: Payin transaction was not received in time, trade is cancelled. User will be refunded if payin transaction is received afterwards.
         - `ON_HOLD`: Trade has been put on hold (eg: for KYC reasons). User must contact support.
         - `PENDING`: Trade is in progress (provider is waiting to receive payin transaction, or user is waiting to receive payout transaction)
+        - `TRANSFER_IN_COMPLETED`: Transfer in completed and waiting for transfer out to be sent.
         - `REFUNDED`: Trade has been cancelled, refund transaction has been successfully received by user.
         - `UNKNOWN`: Trade is in unknown state. User must contact support.
 
