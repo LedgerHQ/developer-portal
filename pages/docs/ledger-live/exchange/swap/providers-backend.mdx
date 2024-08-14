@@ -1,0 +1,231 @@
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
+import { Tabs } from 'nextra/components'
+import { Callout } from 'nextra/components'
+import BackendIntro from '../../../../public/exchange/import/backend-intro.mdx'
+import PayloadAndSignature from '../../../../public/exchange/import/payload-and-signature.mdx'
+
+# Backend
+
+<BackendIntro />
+
+## Endpoints needed for Swap
+
+In order to communicate with Ledger’s backend, you must provide standardised APIs for Ledger's SWAP aggregator services to call.
+
+<Callout type="info" emoji="🔗">
+You will find all the information regarding the SWAP endpoints here: https://exchange-integration-swap.redoc.ly/, as well as additional details on some endpoints below.
+</Callout>
+
+There are 5 main endpoints needed for the swap:
+
+- To get the list of available currencies: [/currencies](https://exchange-integration-swap.redoc.ly/#operation/getCurrencies).
+- To get the list of tradable pairs: [/pairs](https://exchange-integration-swap.redoc.ly/#operation/getPairs).
+- To query a rate: [/quote](https://exchange-integration-swap.redoc.ly/#operation/postQuote).
+- To create a signed swap binary payload as Fixed trade method [/swap/fixed](https://exchange-integration-swap.redoc.ly/#operation/postSwapFixed).
+- To create a signed swap binary payload as Float trade method [/swap/float](https://exchange-integration-swap.redoc.ly/#operation/postSwapFloat).
+- To query a swap status: [/status](https://exchange-integration-swap.redoc.ly/#operation/getStatus).
+
+<details>
+  <summary>Additional Details: GET /pairs</summary>
+
+    This endpoint is not required if all permutations returned by [/currencies](https://exchange-integration-swap.redoc.ly/#operation/getCurrencies) are supported.
+
+    **Fixed quote**: The quote price is guaranteed until execution (or until end of quote validity period).
+
+    **Float quote**: The quote price is indicative only, real price is computed at execution time.
+
+</details>
+
+<details>
+  <summary>Additional Details: POST /quote</summary>
+
+    All fees are expressed in output currency. For example, during a ETH to USDT on ethereum swap, the fees are expressed in USDT on ethereum.
+
+    Some requirements about the **/quote** endpoint:
+    - The quote must work without user auth. It can require a Ledger auth.
+    - The quote must be valid long enough (at least a few minutes).
+
+</details>
+
+<details>
+  <summary>Additional Details: POST /swap</summary>
+
+    Your Protobuf message should have the following structure:
+
+    ```go copy
+    syntax = "proto3";
+    package ledger_swap;
+
+    message NewTransactionResponse {
+        string    payin_address = 1;
+        string    payin_extra_id = 2;
+        string    refund_address = 3;
+        string    refund_extra_id = 4;
+        string    payout_address = 5;
+        string    payout_extra_id = 6;
+        string    currency_from = 7;
+        string    currency_to = 8;
+        bytes     amount_to_provider = 9;
+        bytes     amount_to_wallet = 10;
+        string    device_transaction_id = 11; // Legacy nonce, no need to give a value
+        bytes     device_transaction_id_ng = 12; // nonce
+    }
+    ```
+
+    Explanation of each fields:
+    - `payin_address`: provider address to receive payment
+    - `payin_extra_id`: eventual memo for the payment (stellar payment, for instance)
+    - `refund_address`: client address to receive back the payment funds in case the provider is not able to execute the swap for some unpredictable reasons
+    - `refund_extra_id`: eventual memo for the payment (stellar payment, for instance)
+    - `payout_address`: client address to receive the money resulting from a successful swap
+    - `payout_extra_id`: eventual memo for the payment (stellar payment, for instance)
+    - `currency_from`: must be set to value of `payloadCurrencyFrom` from the [/swap API request](#post-swap)
+    - `currency_to`: must be set to value of `payloadCurrencyTo` from the [/swap API request](#post-swap)
+    - `amount_to_provider`: amount of `currency_from` that the provider expects to receive from client
+    - `amount_to_wallet`: amount of `currency_to` that the provider agrees to send to the client in exchange from `amount_to_provider`. This amount must also include the network fees that the provider will pay to send the crypto to the user.
+    - `device_transaction_id`: swap transaction nonce provided by client at initialization (must be set to value of `nonce` from the API request) - this is a legacy property, only used by historical parter
+    - `device_transaction_id_ng`: swap transaction nonce provided by client at initialization (must be set to value of `nonce` from the API request)
+
+    Amounts must be in the lowest unit of the coin, encoded into a 16 bytes array in big endian.
+
+    - 1 **BTC** would be `0x5F5E100` (100000000 in hexadecimal). The smallest unit is a **satoshi** which is `10^-8` **BTC**.
+    So multiply 1 **BTC** by `10^8` → `0x5F5E100`. 
+    And `0x5F5E100` encoded into a 16 bytes array in big endian is `[0x00, ... 0x00, 0x05, 0xF5, 0xE1, 0x00]`.
+    - 2 **ETH** would be `0x1BC16D674EC80000` (or 2000000000000000000). The smallest unit is a **wei** which is `10^-18` **ETH**.
+    So multiply 2 **ETH** by `10^18` → `0x1BC16D674EC80000`.
+    And `0x1BC16D674EC80000` encoded into a 16 bytes array in big endian is `[0x00, ... 0x00, 0x1B, 0xC1, 0x6D, 0x67, 0x4E, 0xC8, 0x00, 0x00]`.
+
+    You also should ensure the following fields length limitations :
+    ```
+    ledger_swap.NewTransactionResponse.payin_address max_size:63;
+    ledger_swap.NewTransactionResponse.payin_extra_id max_size:81;
+    ledger_swap.NewTransactionResponse.refund_address max_size:63;
+    ledger_swap.NewTransactionResponse.refund_extra_id max_size:20;
+    ledger_swap.NewTransactionResponse.payout_address max_size:63;
+    ledger_swap.NewTransactionResponse.payout_extra_id max_size:20;
+    ledger_swap.NewTransactionResponse.currency_from max_size:10;
+    ledger_swap.NewTransactionResponse.currency_to max_size:10;
+    ledger_swap.NewTransactionResponse.amount_to_provider max_size:16;
+    ledger_swap.NewTransactionResponse.amount_to_wallet max_size:16;
+    ledger_swap.NewTransactionResponse.device_transaction_id max_size:11;
+    ledger_swap.NewTransactionResponse.device_transaction_id_ng max_size:32;
+    ```
+</details>
+
+<details>
+  <summary>Additional Details: GET /status</summary>
+    Explanation of the different output `status`:
+        - `FINISHED`: Trade has been completed successfully (user has received payout transaction).
+        - `EXPIRED`: Payin transaction was not received in time, trade is cancelled. User will be refunded if payin transaction is received afterwards.
+        - `ON_HOLD`: Trade has been put on hold (eg: for KYC reasons). User must contact support.
+        - `PENDING`: Trade is in progress (provider is waiting to receive payin transaction, or user is waiting to receive payout transaction)
+        - `REFUNDED`: Trade has been cancelled, refund transaction has been successfully received by user.
+        - `UNKNOWN`: Trade is in unknown state. User must contact support.  
+
+</details>
+
+[//]: # (Info needed to be exchange with the provider, but not out loud publicly)
+[//]: # (**IP address checking** )
+[//]: # (Additionally, we also need a way to know if a user will be able to perform a coin swap given his IP.)
+[//]: # (Our back-end can adapt to how you decide to do this, but we recommend you use a dedicated endpoint. Our back-end will send the user’s IP address to that endpoint, without logging it. In response, your endpoint should tell us if the trade is accepted or rejected.)
+
+## Payload & Signature
+
+Here is a little diagram to explain how the `payload` and the `signature` are generated:
+
+<Zoom>
+    <img
+      alt="Payload and Payload Signature generation diagram"
+      src="/exchange/payload-signature-generation-swap.png"
+    />
+</Zoom>
+
+- `payload`: the trade parameters are assembled in a [protobuf](https://developers.google.com/protocol-buffers) message. Then using the protobuf tools we do a [binary encoding](https://developers.google.com/protocol-buffers/docs/encoding) of the protobuf (Byte Array). Finally, with [base64Url encoding](https://en.wikipedia.org/wiki/Base64) we get the `payload` field.
+- `signature`: From the binary encoding of the previous [protobuf](https://developers.google.com/protocol-buffers) (Byte Array), we sign it with [ES256](https://ldapwiki.com/wiki/Wiki.jsp?page=ES256) and the provider's private key to get a Signature Byte Array. Finally, with [base64Url encoding](https://en.wikipedia.org/wiki/Base64) we get the `signature` field ([more details](#jws-signature)).
+
+### Signature usage
+
+- Payload and Signature  
+From the provider to Ledger Live. The payload is a protobuf message containing the trade data. It is generated by the provider and sent to Ledger Live.
+
+```go copy
+type Payload struct {
+  payin_address,      // address (of provider)
+  refund_address,     // address (of customer)
+  payout_address,     // address (of customer)
+  currency_from,      // currency name (to provider)
+  currency_to,
+  amount_to_provider, // amount (to provider)
+  amount_to_wallet,   // amount (to customer)
+  device_transaction_id,
+  device_transaction_id_ng,
+  …
+}
+R, S := Sign(payload, privKey)
+```
+
+- Validate  
+Exchange app checks and validates the payload (signature and content).
+
+```go copy
+// Compare nonce in payload
+Verify((R, S), payload, pubKey)
+```
+
+- Display  
+Exchange app requests approval to the user by displaying the operation summary on screen.
+
+```c copy
+Validate?
+Send currency_from amount_to_provider
+Receive currency_to amount_to_wallet
+```
+
+<PayloadAndSignature />
+
+## Reference Error Codes
+
+REGION_RESTRICTED_ERROR
+- HTTP status code 451
+- Endpoints: `/quote`, `/swap`
+- Description: When the user's IP address is in a restricted region.
+FROM_CURRENCY_MINIMUM_AMOUNT_ERROR
+- HTTP status code 400
+- Endpoints: `/quote`
+- Context: \{ minSwapAmount: string }
+- Description: When the amount to swap is below the minimum amount.
+- Response
+TO_CURRENCY_MAXIMUM_AMOUNT_ERROR
+- HTTP status code 400
+- Endpoints: `/quote`
+- Context: \{ maxSwapAmount: string }
+- Description: When the amount to swap is above the maximum amount.
+SWAP_PAIR_NOT_FOUND_ERROR
+- HTTP status code 404
+- Endpoints: `/quote`
+- Description: When the pair is not found.
+CURRENCY_REGION_RESTRICTED_ERROR
+- HTTP status code 451
+- Endpoints: `/quote`
+- Description: When the currency is in a restricted region.
+NO_DEPOSIT_WALLET_ERROR
+- HTTP status code 400
+- Endpoints: `/swap`
+- Description: When the deposit wallet is not available.
+CURRENCY_FROM_NOT_FOUND_ERROR
+- HTTP status code 404
+- Endpoints: `/swap`
+- Description: When the currency from is not found.
+CURRENCY_TO_NOT_FOUND_ERROR
+- HTTP status code 404
+- Endpoints: `/swap`
+- Description: When the currency to is not found.
+SWAP_QUOTE_NOT_FOUND_ERROR
+- HTTP status code 404
+- Endpoints: `/swap`
+- Description: When the swap quote is not found.
+SWAP_TRANSACTION_NOT_FOUND_ERROR
+- HTTP status code 404
+- Endpoints: `/status`
+- Description: When the swap transaction is not found.
