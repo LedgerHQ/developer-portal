@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Card Provider Server
-  version: '1.0'
+  version: "1.0"
 paths:
   /sell:
     post:
@@ -88,6 +88,8 @@ paths:
     post:
       operationId: statusUpdate
       description: Updates the status of a sell transaction.
+      security:
+        - defaultApiKey: []
       parameters:
         - name: sellId
           in: path
@@ -118,6 +120,11 @@ paths:
                     messageKey: SELL_TRANSACTION_NOT_FOUND_ERROR
                     message: Sell transaction not found. (you can add any useful field as you want)
 components:
+  securitySchemes:
+    defaultApiKey:
+      type: apiKey
+      name: x-api-key
+      in: header
   schemas:
     SellRequest:
       required:

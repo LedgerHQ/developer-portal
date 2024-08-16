@@ -267,6 +267,8 @@ paths:
           schema:
             type: string
           example: 1234
+      security:
+        - defaultApiKey: []
       requestBody:
         description: Status update payload
         content:
@@ -290,6 +292,12 @@ paths:
                     messageKey: SELL_TRANSACTION_NOT_FOUND_ERROR
                     message: Sell transaction not found. (you can add any useful field as you want)
 components:
+  securitySchemes:
+    defaultApiKey:
+      type: apiKey
+      name: x-api-key
+      in: header
+
   schemas:
     Bank:
       type: object
