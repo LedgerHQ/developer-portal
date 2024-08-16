@@ -1,1 +1,3 @@
-_meta.json
+{
+	"ledger-js": "LedgerJS library (soon replaced by Device SDK)"
+}
