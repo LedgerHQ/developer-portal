@@ -1,0 +1,186 @@
+import { Callout } from 'nextra/components'
+
+
+# Embedded Tools
+
+## Development environment
+
+### Docker images
+
+As the device applications needs to run on a non-standard system, and thus need specific build chain and
+configuration, we provide `Docker` images so that building an app and loading it on a device has a minimal
+impact on one's computer - given `Docker` is installed.
+
+Several images are available depending on the developer's needs.
+
+<Callout emoji="📖">
+    These images are maintained and updated on [this repository](https://github.com/LedgerHQ/ledger-app-builder/).
+</Callout>
+
+
+### VScode extension
+
+The `VSCode` extension uses the most complete Docker image we provide and wires it into the `VScode` IDE for a
+frictionless development experience.
+
+It includes the following capabilities:
+
+- Build the device application for all existing devices
+- Test the app with `Speculos`
+- Load an app on your device
+- Execute functional tests
+- Open a terminal in your Docker container
+- Update the development environment
+
+<Callout emoji="📖">
+    The extension can be found [here](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools),
+    while the sources are updated [here](https://github.com/LedgerHQ/ledger-vscode-extension).
+</Callout>
+
+
+### GitHub Workflows
+
+Ledger provides several workflows to ease the integration of applications into the GitHub CI.
+
+[Some of them are mandatory for an application to be deployed](./requirements/development#workflows), but
+the others can still be useful.
+
+<Callout emoji="📖">
+    Documentation and sources can be found [here](https://github.com/ledgerhq/ledger-app-workflows).<br/>
+    Usage examples can be found in the CI of lots of applications, for instance the
+    [Boilerplate workflows](https://github.com/LedgerHQ/app-boilerplate/tree/master/.github/workflows), the
+    [Ethereum workflows](https://github.com/LedgerHQ/app-ethereum/tree/develop/.github/workflows) or the
+    [Exchange workflows](https://github.com/LedgerHQ/app-exchange/tree/develop/.github/workflows).
+</Callout>
+
+## `Speculos`
+
+`Speculos` is an emulator allowing to run and test an device application without loading it on a physical Ledger
+device. While it is not capable of emulating some constraints of the physical devices, it is still a very realistic
+and handy tool, and the pillar of any credible testing strategy.
+
+<Callout emoji="📖">
+    If you need more information about `Speculos`, read [its documentation](https://speculos.ledger.com/). <br/>
+    Sources can be found [here](https://github.com/ledgerhq/speculos).
+</Callout>
+
+## `Ragger`
+
+`Ragger` is Python library offering abstractions over an Ledger embedded device (Nano and Stax), either real or emulated
+(through `Speculos`). It aims at simplifying writing generic communication with an device application and managing
+high-level graphical interactions. It is widly used to write functional tests code
+
+
+<Callout emoji="📖">
+    You can read the full Ragger documentation [here](https://ledgerhq.github.io/ragger/). <br/>
+    Sources can be found [here](https://github.com/ledgerhq/ragger).
+</Callout>
+
+
+## Ledgered
+
+Ledgered is a Python package which goal is to be a collection of small, autonomous utilitaries and libraries.
+
+For now, it only contains a tool (`ledger-manifest`) allowing to check `ledger_app.toml` manifest files (which are a
+[requirement](./requirements/development#manifest) for an application to be deployed).
+
+<Callout emoji="📖">
+    Sources and documentation can be found [in the Ledgered repository](https://github.com/ledgerhq/ledgered).
+</Callout>
+
+## Ledgerblue
+
+<Callout emoji="📖">
+    The sources of this tool can be found [here](https://github.com/LedgerHQ/blue-loader-python).
+</Callout>
+
+In Ledger app development, it is necessary to enter your PIN code each time you install an unsigned app. However, BOLOS supports installing a custom developer certificate. With a custom certificate, you can avoid having to retype your PIN each time you adjust your app. Here are the steps for the Ledger Nano S:
+
+1.  Generate a public / private keypair using the following command:
+        ``` console copy
+        foo@bar:~$ python3 -m ledgerblue.genCAPair
+        Public key : 0495331cb86e961fc9cb5792a97737e4204b58be99321dcec463cec3057b3304e9875614004e6e540ab0610a1339fae22df6f6f3ec594912b409d69b72f0eaf390
+        Private key: 6c1f1df852255e113b23c2e977d6b5c3ea2aaf411f05a5fdab87a3e8f44468ee
+        ```
+
+2. Enter in recovery mode on your Ledger Nano S. Do this by unplugging it then holding down the right button (near the hinge, away from USB port) while plugging it in again. `recovery mode` should then appear on the screen. Enter your pin and continue.
+
+3. Load your public key onto the Ledger Nano S. Paste the public key generated at step 1 after `--public`. You may need to adjust the `--targetId` constant to match your device. Find the right targetId for your device [here](https://gist.github.com/TamtamHero/b7651ffe6f1e485e3886bf4aba673348). Notice that we must include a `--name` parameter containing the name of the custom certificate (any string will do):
+
+        python3 -m ledgerblue.setupCustomCA --targetId 0x31100004 --public yourPublicKey --name dev
+
+    If you receive the error `Invalid status 6985`, review [this link](https://github.com/LedgerHQ/blue-loader-python/issues/42) and go back to step 2. The above command is the simplest that can work however some developers may wish to use the optional `--rootPrivateKey` option to specify a secure channel encryption key (which is the private key generated at step 1) or use the `--name` option for convenient labeling according to local convention.
+
+4. Once you have loaded your custom certificate, load an app you compiled onto your Ledger device to see if you are able to bypass the PIN. Before you try it, set the `SCP_PRIVKEY` environment variable to contain the private key generated at step 1 in your shell or `.bashrc`:
+
+        export SCP_PRIVKEY=yourPrivateKey
+
+    and rebuild/load your app.
+
+<Callout type="warning" emoji="⚠️">
+  A Ledger device with a custom CA installed can not pass the Ledger Genuine Check, which is required to install applications from the Ledger Live. To make it pass the check, uninstall your custom CA and all the applications installed through it.
+</Callout>
+
+**Uninstalling a custom CA is very quick:**
+
+1. Enter in recovery mode on your Ledger Nano S: unplug the device and then plug it back while holding down the right button (near the hinge, away from USB port). `recovery mode` appears on the screen. Enter your pin and continue.
+
+2.  Type this command in your terminal:
+        ``` bash copy
+        foo@bar:~$ python3 -m ledgerblue.resetCustomCA --targetId 0x31100004
+        ```
+    Find the right targetId for your device [here](https://gist.github.com/TamtamHero/b7651ffe6f1e485e3886bf4aba673348).
+
+
+## Ledgerctl
+
+<Callout emoji="📖">
+    The sources of this too can be found [here](https://github.com/LedgerHQ/ledgerctl).
+</Callout>
+
+### Installation
+
+#### Install Ledgerctl
+
+Run:
+
+```bash copy
+pip3 install --upgrade protobuf setuptools ecdsa
+pip3 install ledgerwallet
+```
+
+And:
+```bash copy
+git clone https://github.com/LedgerHQ/ledgerctl.git
+pip3 install --upgrade protobuf setuptools ecdsa
+cd ledgerctl
+pip install -e .
+```
+
+#### (optional) Install a custom certificate authority
+
+Optionally, install a custom certificate authority (this will help to establish a custom secure channel between the computer and the device, and identifies ledgerctl as a "trusted manager" on the device):
+
+- a. To install a custom CA, boot the device in "Recovery" mode by pressing the right button at boot time.
+- b. Then run `ledgerctl install-ca <NAME>` where `<NAME>` is the name that will be displayed on the device to identify the CA. It can be any label, like "ledgerctl", "Dev", or "CA".
+
+The Ledger device will display to you a public key. Allow the “unsafe manager” on the device by pressing at the time the right and left buttons.
+
+### Usage
+
+You’re now ready to use ledgerctl to manage your Nano.
+
+To display the list of the application installed on your device:
+```bash copy
+ledgerctl list
+```
+
+To display the available space on the device:
+```bash copy
+ledgerctl meminfo
+```
+
+To delete an app (for example “Bitcoin Legacy”):
+```bash copy
+ledgerctl delete "Bitcoin Legacy"
+```
