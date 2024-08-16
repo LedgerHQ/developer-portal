@@ -1,0 +1,112 @@
+---
+title: Address derivation
+---
+
+# 3 - Address derivation
+
+From step 3 to step 6, you work will be implemented in the [Ledger Live repository](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledger-live-common).
+
+### Derive Address from device
+
+Before starting this step, make sure [you have setup your environment](../setup-build) to work with `ledger-live`.
+
+First define the signer interface, which will reflect your [embedded app js binding](./js-bindings):
+
+```ts copy
+export type MyCoinAddress = {
+  address: string,
+  publicKey: string,
+  returnCode: number,
+};
+export type MyCoinSignature = {
+  signature: Buffer | null,
+  returnCode: number
+};
+export interface MyCoinSigner {
+  getAddress(path: string, display?: bool): Promise<MyCoinAddress>;
+  sign(path: string, message: string): Promise<MyCoinSignature>;
+}
+```
+
+Then get an address from the device for <i>MyCoin</i>, by creating the `hw-getAddress.ts` Resolver:
+
+`libs/coin-mycoin/src/hw-getAddress.js`:
+
+```ts copy
+import type { GetAddressFn } from "@ledgerhq/coin-framework/bridge/getAddressWrapper";
+import type { SignerContext } from "@ledgerhq/coin-framework/signer";
+import type { GetAddressOptions } from "@ledgerhq/coin-framework/derivation";
+import type { MyCoinAddress, MyCoinSignature, MyCoinSigner } from "./signer";
+
+const resolver = (
+  signerContext: SignerContext<MyCoinSigner, MyCoinAddress | MyCoinSignature>,
+): GetAddressFn => {
+  return async (deviceId: string, { path, verify }: GetAddressOptions) => {
+    const address = (await signerContext(deviceId, signer =>
+      signer.getAddress(path, verify),
+    )) as PolkadotAddress;
+    return {
+      address: address.address,
+      publicKey: address.pubKey,
+      path,
+    };
+  };
+};
+
+export default resolver;
+```
+
+Test that you can derive an address:
+
+```sh
+ledger-live getAddress --currency mycoin --path "44'/8008'/0'/0/0" --derivationMode ""
+```
+
+### Derivation
+
+Ledger Live uses the BIP44 derivation mode by default (as `derivationMode=""`), which is standard and most common way for HD wallet.
+If <i>MyCoin</i> has a conventional derivation path (BIP44), Ledger Live should already be able to derive an address correctly.
+
+**If you need to use another derivation mode:**
+
+Make changes to [`libs/ledger-live-common/src/derivation.ts`](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/coin-framework/src/derivation.ts):
+
+1. Add a new derivation mode with `overridesDerivation`:
+  ```ts copy
+  // const modes = Object.freeze({
+  // ...
+    mycoinbip44h: { // Hardened BIP44 for MyCoin
+      overridesDerivation: "44'/8008'/<account>'/0'/<address>'",
+    },
+  // });
+  ```
+2. Add the mode to family in `legacyDerivations`:
+  ```ts copy
+  // const legacyDerivations: $Shape<CryptoCurrencyConfig<DerivationMode[]>> = {
+  // ...
+    mycoin: ["mycoinbip44h"],
+  // };
+  ```
+3. Disable the default use of BIP44 in `disableBIP44`:
+  ```ts copy
+  // const disableBIP44 = {
+  // ...
+    mycoin: true,
+  // };
+  ```
+4. Add the coin to `seedIdentifierPath`:
+  ```ts copy
+  // const seedIdentifierPath = {
+  // ...
+    mycoin: `${purpose}'/${coinType}'/0'/0'/0'`,
+  // };
+  ```
+
+See [Derivation documentation](https://github.com/LedgerHQ/ledger-live/wiki/LLC:derivation) for further details.
+
+You can check that the derivationMode is correct by executing:
+
+```sh copy
+pnpm build:cli
+pnpm run:cli  getAddress --currency=mycoin --path="44'/8008'/0'/0/0" --derivationMode=""
+```
