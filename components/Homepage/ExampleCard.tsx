@@ -18,16 +18,16 @@ export const ExampleCard: FC<ExampleCardProps> = ({icon, title, subtitle, descri
   const handleClick = () => {
     switch (type) {
       case "device":
-        router.push("/docs/device-app")
+        router.push("/docs/device-app/getting-started")
         break;
       case "connectivity":
-        router.push("/docs/connectivity")
+        router.push("/docs/app-device-com/getting-started")
         break;
       case "blockchain":
-        router.push("/docs/blockchain")
+        router.push("/docs/ledger-live/accounts/getting-started")
         break;
       case "live-app":
-        router.push("/docs/discover")
+        router.push("/docs/ledger-live/discover/getting-started")
         break;
       default:
         break;

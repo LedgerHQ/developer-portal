@@ -25,19 +25,19 @@ export const JourneyCard: FC<JourneyCardProps> = ({title, description, type, cla
   const handleClick = () => {
     switch (type) {
       case "clear-signing":
-        router.push("/docs/clear-signing")
+        router.push("/docs/clear-signing/getting-started")
         break;
       case "device":
-        router.push("/docs/device-app")
+        router.push("/docs/device-app/getting-started")
         break;
       case "connectivity":
-        router.push("/docs/connectivity")
+        router.push("/docs/app-device-com/getting-started")
         break;
       case "blockchain":
-        router.push("/docs/blockchain")
+        router.push("/docs/ledger-live/accounts/getting-started")
         break;
       case "live-app":
-        router.push("/docs/live-app")
+        router.push("/docs/ledger-live/discover/getting-started")
         break;
       default:
         break;
