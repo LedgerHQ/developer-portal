@@ -1,3 +1,5 @@
 {
-	"ledger-live-common": "Ledger Live library"
+	"ledger-live-common": "Ledger Live library",
+	"cli-commands": "Useful commands for the CLI"
+
 }

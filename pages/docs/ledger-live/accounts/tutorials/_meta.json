@@ -1,6 +1,5 @@
 {
 	"build-cli": "Build the CLI for development",
-	"cli-commands": "Useful commands for the CLI",
 	"live-build": "Build Ledger Live Desktop and mobile",
     "token-integration": "Add an unsupported token"
 }
