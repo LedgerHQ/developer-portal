@@ -18,5 +18,9 @@
   "clear-signing": {
       "type": "page",
       "title": "Clear signing"
+      },
+  "nft-display": {
+      "type": "page",
+      "title": "NFT display"
       }
 }

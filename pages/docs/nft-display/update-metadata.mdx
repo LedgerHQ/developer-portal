@@ -1,0 +1,151 @@
+---
+title: Update mutable metadata (in-depth guide)
+description: This guide will walk you through step-by-step instructions on how to update the JSON Metadata files of your NFTs to include the location (URL) of the Ledger Stax optimized image.
+---
+
+import { Callout } from 'nextra/components'
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
+
+# Update mutable metadata (in-depth guide)
+
+This guide will walk you through step-by-step instructions on how to update the JSON Metadata files of your NFTs to include the location (URL) of the Ledger Stax optimized image.
+
+<Callout type="info" emoji="ℹ️">
+	<ul>
+		<li>- If your NFT's metadata are immutable (non-editable), check out <a href='./metadata-tool'>this page</a>.</li>
+		<li>- Make sure that the dedicated secondary image of your NFT meets <a href='./image-requirements'>the Ledger Stax’s image requirements</a>.</li>
+	</ul>
+</Callout>
+
+
+This guide consists of two parts:
+1. Add the `ledger_stax_image` metadata to your JSON file.
+2. Upload the JSON file on your storage service (centralized or decentralized). 
+
+
+## 1. The <i>ledger_stax_image</i> Metadata
+
+You can update the metadata of your NFT(s) for a single file or in batch. 
+
+### 1.1. Update your Metadata for a single file
+
+1. Open the Metadata .JSON file of your NFT.
+2. Add 2 new properties:
+	- a. A wrapper `ledger_metadata` meant to include all Ledger specific metadata.
+	- b. JSON attribute `ledger_stax_image` that points to the location (URL) of your Ledger Stax image: 
+
+		```json copy
+		{
+			"ledger_metadata": {
+				"ledger_stax_image": "https://mystorage.com/25.jpeg" // Location of your Ledger Stax Image
+			}
+		}	
+		```
+
+		<Callout type="warning" emoji="⚠️">
+  			Please make sure that the image meets the <a href='./image-requirements'>Ledger Stax requirements</a>. 
+		</Callout>
+
+3\. Your JSON Metadata file contains now a reference to the Ledger Stax image:
+
+```json copy
+{
+	"name": "Sample NFT Title",
+	"description": "Learn how add the Ledger Stax image URL in the metadata file.", 
+	"image": "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/25.png", 
+	"attributes": [ ... ], 
+	"ledger_metadata": {
+		"ledger_stax_image": "https://mystorage.com/25.jpeg"
+	}
+}
+```
+
+### 1.2. Update your Metadata in bulk (Javascript)
+
+You can append the `ledger_stax_image` attribute to the metadata across the whole collection (batch update). It can be easily accomplished using JavaScript. 
+
+First, make sure to have the following settings on your local machine:
+- Folder `metadata` that includes the Metadata JSON files of your collection.
+- Folder `staxImages` that includes the Ledger Stax images files.
+- Script “update.js” in the root folder (see below).
+
+<Callout type="warning" emoji="⚠️">
+	<ul>
+		<li>- The script assumes that the file names of your Ledger Stax images match the token IDs.</li>
+		<li>- For example: if you have two token IDs <code>25</code> and <code>30</code>, the associated Ledger Stax images should be named <code>25.file_extension</code> and <code>30.file_extension</code>.</li>
+	</ul>
+</Callout>
+
+<Zoom>
+	<img
+	  alt="Folders organization"
+	  src="/nft-display/folders.png"
+	/>
+</Zoom>
+
+Below is a JS code snippet that will do the following operations:
+1. Fetch locally each metadata JSON file of your token collection.
+2. Verifiy if there is a Ledger Stax image available for this token.
+3. If yes, append the attribute `ledger_stax_image` to the JSON.
+
+```js copy
+const fs = require('fs');
+const path = require("path");
+const localMetadataFolder = __dirname + '/metadata'; // folder where the JSON metadata files are stored locally
+const localStaxFolder = __dirname + '/staxImages'; // folder where the Ledger Stax images are stored locally
+const remoteStaxFolder = "https://collectionName.s3.amazonaws.com/" // base url (folder) where the Ledger Stax images are stored on the cloud.
+
+const jsonsInDir = fs.readdirSync(localMetadataFolder);
+
+// check if localStaxFolder has a Ledger Stax image for a given tokenID
+function checkStaxImage(tokenId) {
+	var fileNames = fs.readdirSync(localStaxFolder); // put all file names into an array
+	
+	for (const fileName of fileNames){
+		const staxImageName =  path.parse(fileName).name; // remove file name extension
+		 if(staxImageName == tokenId) {
+			 return true; 
+			 }
+	}
+	return false; 
+}
+
+   jsonsInDir.forEach(file => {
+   const tokenId =  path.parse(file).name; 
+   
+   // "ledger_stax_image" is appended only if we found a Ledger Stax Image for a given tokenID
+   if (checkStaxImage(tokenId)) { 
+	const filePath = path.resolve(localMetadataFolder, file);
+	const data = fs.readFileSync(filePath);
+	const json = JSON.parse(data);
+
+	json.ledger_metadata = {"ledger_stax_image": remoteStaxFolder + file};
+	
+	fs.writeFileSync(filePath, JSON.stringify(json, null, 4)); 
+   }
+   else {
+	   console.log("No Ledger Stax Image found for" + tokenId);
+   }
+});
+```
+
+## 2. Upload the updated metadata
+
+Once your JSON files have been updated with the `ledger_stax_image` metadata, you need to upload them on the cloud. The upload process differs whether the JSON files are stored in a centralized storage service or not. 
+
+### 2.1. Centralized storage (S3, Google Cloud..)
+
+If the Metadata .JSON files of your NFT collection are stored in a centralized storage service (AWS, Google Cloud, etc.), simply upload the updated JSON file(s) (including the `ledger_stax_image`) to your storage service. 
+
+You’re all set!  It can take up to 24 hours for Ledger servers to process the changes.
+
+### 2.2. Decentralized storage (IPFS)
+
+If the Metadata .JSON files of your NFT collection are stored in a decentralized storage service like IPFS, please follow the below instructions: 
+
+1. Upload a new folder to IPFS that will include the JSON files of your `ledger_stax_image` Metadata. For the record, when you upload a folder to IPFS, it creates a [CID](https://docs.ipfs.tech/concepts/content-addressing/) that is a hash resultant from the actual contents of all of the files within your folder.
+2. Copy the CID from the clipboard. 
+3. In your smart contract, set your `baseTokenURI` to `ipfs://<your json folder CID>/`
+4. You’re all set! It can take up to 24 hours for Ledger servers to process the changes.
+
