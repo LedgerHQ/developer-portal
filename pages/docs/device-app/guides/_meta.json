@@ -1,6 +1,7 @@
 {  
 	"tools": "Tools overview",
+	"requirements": "Requirements",
 	"integration": "Integration walkthrough",
 	"design-guidelines": "Design guidelines",
-	"testing": "Testing"
+	"tests": "Tests"
 }

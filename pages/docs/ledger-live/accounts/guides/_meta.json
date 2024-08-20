@@ -1,6 +1,7 @@
 {  
-	"integration": "Integration walkthrough",
+	"tokens": "Token integration walkthrough",
+	"integration": "Blockchain Integration walkthrough",
 	"design-guidelines": "Design guidelines",
-	"testing": "Testing",
+	"tests": "Tests",
 	"submission-process": "Submission process"
 }
