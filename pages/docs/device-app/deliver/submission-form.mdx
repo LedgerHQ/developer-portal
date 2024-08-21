@@ -35,16 +35,21 @@ Please make sure you have understood what is expected. You may use this list as 
 - Legal Entity name
 - Postal address
 - Email address
-- The app compatibility with our devices (for device apps only)
+- The app compatibility with our devices (for device apps only, not for plugins)
 - The service the DApp provide and the smart contract addresses (for plugins only)
-- Link to the pull request or GitHub repository
 
-#### Clones (if applicable)
+#### Technical specifications for clones
 
-- The type of clone (Bitcoin, Cosmos, Ethereum)
-    - For Bitcoin clones: if your coin is a fork or not
-    - For Cosmos clones: if your app is a custom app or not
-    - For Ethereum clones: the derivation path you use
+- The type of clone (Bitcoin, Ethereum)
+- Link to the pull request
+
+#### Technical specifications for other device apps
+
+- If your app is a fork: the link to the repository's branch you have forked
+- Link to your pull request (for updates) or repository (for new apps)
+- If it is an aupdate: explanation about the purpose of the pull request
+- If it is a new app: explanation about the app features
+- If your blockchain is not in Ledger Live yet and you modified the `Transfer` or `Verify address` flow: explanation about your modifications
 
 
 #### Security and requirements
@@ -58,70 +63,17 @@ Please make sure you have understood what is expected. You may use this list as 
 #### Deliverables
 
 - The [Guidelines_enforcer and Build_and_functional_tests workflow](../develop/requirements/development#workflows) succeeds
-<<<<<<< HEAD
 - Two icons for the Ledger Stax, Nano and for "My Ledger" in Ledger Live, in PNG or GIF
  (see [Icons](./deliverables/icons/))
-- [Video](./deliverables/ui-flow-video/#video) of your application running on the Ledger device (for device apps only)
-- Link to the companion wallet (for device apps only)
+- [Video](./deliverables/ui-flow-video/#video) of your application running on the Ledger device (for device apps only, not for plugins)
+- Link to the companion wallet (for device apps only, not for plugins)
 - The Dapp working with the plugin (for plugins only)
-- Document in the App's repository the list of the app's APDUs and status words (for device apps only)
-- Link to a Google doc tutorial about how to install and use your app (see [Third Party Applications Support](./deliverables/support)). The doc must include the link to the published tutorial hosted on third party website. (for device apps only)
+- Document in the App's repository the list of the app's APDUs and status words (for device apps only, not for plugins)
+- Link to a Google doc tutorial about how to install and use your app (see [Third Party Applications Support](./deliverables/support)). The doc must include the link to the published tutorial hosted on third party website. (for device apps only, not for plugins)
 - Links to your ser application support (email address, Slack/Reddit/Telegram/Discord communities)
-- Marketing plan (optional) (for device apps only)
-=======
-
-
-#### 4 - Companion Wallet
-
-- A link to the Companion Wallet The wallet must give an option to verify the receiving address on a Ledger device. It should also have an affiliate link next to the "Connect with Ledger" option. You must provide either:
-  - a link to the CLI repository, or
-  - a link to the GUI running on Windows/MacOS/Linux (mandatory for Public release)
-
-#### 5- Documentation
-
-- Document in the App's repository the list of the app's APDUs and status words
-- Link to a Google doc tutorial about how to install and use your app (see [Third Party Applications Support](./deliverables/support))
-    - The doc must include the link to the published tutorial hosted on third party website
-
-
-
-#### 7 - Marketing (Mandatory for Public release)
-
-- I have read the [marketing page](./deliverables/marketing)
-- Marketing plan
-
-
-#### 8 - Warranty and liability
-
-- I have read and agree with information laid out the [warranty and liability disclaimer](./deliverables/legal/)
-
-## Plugin Form Checklist
-
-#### 1 - General information
-
-- Device app name
-- What service does the dApp provide
-- The smart contracts addresses
-- Legal Entity name
-- Postal address
-- Email address
-
-#### 3 - Security
-
-- I have met the [security requirements](../develop/requirements/security)
-- The application went [through a security audit](./deliverables/security-audit)
-- All vulnerabilities have been fixed
-
-#### 4 - Plugin
-
-- Plugin source code (GitHub repository)
-- Two icons for the Ledger Stax, Nano and for "My Ledger" in Ledger Live, in PNG or GIF
- (see [Icons](./deliverables/icons/))
-- Link of the dApp working with the plugin
->>>>>>> main
+- Marketing plan (optional) (for device apps only, not for plugins)
 
 
 #### Warranty and liability
 
 - I have read and agree with information laid out the [warranty and liability disclaimer](./deliverables/legal/)
-
