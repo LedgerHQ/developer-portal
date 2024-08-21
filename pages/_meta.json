@@ -17,7 +17,7 @@
         "title": "Blockchain foundation"
       },
       "services-dapps": {
-        "title": "Services & DApp"
+        "title": "Services & dApp"
       },
       "nft-project": {
         "title": "NFT project"
@@ -29,10 +29,6 @@
   },
   "docs": {
     "title": "Documentation",
-    "type": "page"
-  },
-  "APIs": {
-    "title": "APIs",
     "type": "page"
   }
 }

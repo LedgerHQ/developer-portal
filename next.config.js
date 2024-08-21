@@ -20,7 +20,17 @@ module.exports = {
         permanent: true,
       },
       {
-        source: '/docs/nano-app/:slug',
+        source: '/contact',
+        destination: 'https://discord.gg/Ledger',
+        permanent: true,
+      },
+      {
+        source: '/docs',
+        destination: '/docs/sections',
+        permanent: true,
+      },
+      {
+        source: '/docs/nano-app/:slug*',
         destination: '/docs/device-app',
         permanent: true,
       },
@@ -30,12 +40,42 @@ module.exports = {
         permanent: true,
       },
       {
-        source: '/docs/dapp/embedded-plugin/environment-setup/',
+        source: '/docs/dapp/embedded-plugin/environment-setup',
         destination: '/docs/device-app/introduction',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/introduction',
+        destination: '/docs/device-app',
+        permanent: true,
+      },
+      {
+        source: '/docs/embedded-app/case1',
+        destination: '/docs/device-app',
+        permanent: true,
+      },
+      {
+        source: '/docs/embedded-app/case2',
+        destination: '/docs/device-app',
+        permanent: true,
+      },
+      {
+        source: '/docs/embedded-app/case3',
+        destination: '/docs/device-app',
+        permanent: true,
+      },
+      {
+        source: '/docs/embedded-app/case4',
+        destination: '/docs/device-app',
+        permanent: true,
+      },
+      {
+        source: '/docs/embedded-app/case5',
+        destination: '/docs/device-app',
+        permanent: true,
+      },
+      {
+        source: '/docs/embedded-app/case6',
         destination: '/docs/device-app',
         permanent: true,
       },
@@ -112,7 +152,7 @@ module.exports = {
        },
       {
         source: '/docs/embedded-app/framework',
-        destination: '/docs/device-app/develop/tutorials/quickstart',
+        destination: '/docs/device-app/develop/quickstart',
         permanent: true,
        },
       {
@@ -122,52 +162,52 @@ module.exports = {
        },
       {
         source: '/docs/device-app/quickstart/framework',
-        destination: '/docs/device-app/develop/tutorials/quickstart',
+        destination: '/docs/device-app/develop/quickstart',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/build-load',
-        destination: '/docs/device-app/develop/tutorials/quickstart',
+        destination: '/docs/device-app/develop/quickstart',
         permanent: true,
        },
       {
         source: '/docs/device-app/quickstart/build-load',
-        destination: '/docs/device-app/develop/tutorials/quickstart',
+        destination: '/docs/device-app/develop/quickstart',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/load-linux',
-        destination: '/docs/device-app/develop/tutorials/quickstart',
+        destination: '/docs/device-app/develop/quickstart',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/clone-intro',
-        destination: '/docs/device-app/develop/tutorials/clone',
+        destination: '/docs/device-app/develop/code/clone',
         permanent: true,
        },
       {
         source: '/docs/device-app/clones',
-        destination: '/docs/device-app/develop/tutorials/clone',
+        destination: '/docs/device-app/develop/code/clone',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/eth-app-update',
-        destination: '/docs/device-app/develop/tutorials/clone',
+        destination: '/docs/device-app/develop/code/clone',
         permanent: true,
        },
       {
         source: '/docs/device-app/clones/eth-app-update',
-        destination: '/docs/device-app/develop/tutorials/clone',
+        destination: '/docs/device-app/develop/code/clone',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/eth-clones',
-        destination: '/docs/device-app/develop/tutorials/clone',
+        destination: '/docs/device-app/develop/code/clone',
         permanent: true,
        },
       {
         source: '/docs/device-app/clones/eth-clones',
-        destination: '/docs/device-app/develop/tutorials/clone',
+        destination: '/docs/device-app/develop/code/clone',
         permanent: true,
        },
       {
@@ -246,6 +286,11 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/embedded-app/memory',
+        destination: '/docs/device-app/architecture/memory',
+        permanent: true,
+       },
+      {
         source: '/docs/embedded-app/interaction-bolos-apps',
         destination: '/docs/device-app/architecture/psd/application-isolation',
         permanent: true,
@@ -271,18 +316,23 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/device-app/coding-guidelines/flows',
+        destination: '/docs/device-app/develop/ui/flows',
+        permanent: true,
+       },
+      {
         source: '/docs/device-app/coding-guidelines/flows/display-management-flow',
         destination: '/docs/device-app/develop/ui/flows/display-management-flow',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/advanced-display-management',
-        destination: '/docs/device-app/develop/ui/flows/advanced-display-management',
+        destination: '/docs/device-app/develop/ui/ledger-nano-display',
         permanent: true,
        },
       {
         source: '/docs/device-app/coding-guidelines/flows/advanced-display-management',
-        destination: '/docs/device-app/develop/ui/flows/advanced-display-management',
+        destination: '/docs/device-app/develop/ui/ledger-nano-display',
         permanent: true,
        },
       {
@@ -332,12 +382,28 @@ module.exports = {
        },
       {
         source: '/docs/embedded-app/stax-interactions',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display',
+        permanent: true,
+       },
+
+      {
+        source: '/docs/device-app/develop/ui/ledger-stax-display',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/develop/sdk/ui/ledger-stax-display',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/stax-home',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display/home',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/home',
+        permanent: true,
+       },       
+      {
+        source: '/docs/device-app/develop/ui/ledger-stax-display/home',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/home',
         permanent: true,
        },
       {
@@ -347,42 +413,62 @@ module.exports = {
        },
       {
         source: '/docs/embedded-app/stax-info-settings',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display/info-settings',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/info-settings',
         permanent: true,
        },
       {
         source: '/docs/device-app/coding-guidelines/ledger-stax-display/info-settings',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display/info-settings',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/info-settings',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/develop/ui/ledger-stax-display/info-settings',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/info-settings',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/stax-transactions',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display/transactions',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/transactions',
         permanent: true,
        },
       {
         source: '/docs/device-app/coding-guidelines/ledger-stax-display/transactions',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display/transactions',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/transactions',
+        permanent: true,
+       }, 
+      {
+        source: '/docs/device-app/develop/ui/ledger-stax-display/transactions',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/transactions',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/stax-address',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display/address',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/address',
         permanent: true,
        },
       {
         source: '/docs/device-app/coding-guidelines/ledger-stax-display/address',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display/address',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/address',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/develop/ui/ledger-stax-display/address',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/address',
         permanent: true,
        },
       {
         source: '/docs/embedded-app/stax-messages',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display/messages',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/transactions',
         permanent: true,
        },
       {
         source: '/docs/device-app/coding-guidelines/ledger-stax-display/messages',
-        destination: '/docs/device-app/develop/ui/ledger-stax-display/messages',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/transactions',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/develop/ui/ledger-stax-display/messages',
+        destination: '/docs/device-app/develop/ui/ledger-stax-flex-display/transactions',
         permanent: true,
        },
       {
@@ -561,17 +647,17 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/device-app/tools/speculos/basic-usage/:slug',
+        source: '/docs/device-app/tools/speculos/basic-usage/:slug*',
         destination: '/docs/device-app/develop/tools',
         permanent: true,
        },
       {
-        source: '/docs/speculos/user/:slug',
+        source: '/docs/speculos/user/:slug*',
         destination: '/docs/device-app/develop/tools',
         permanent: true,
        },
       {
-        source: '/docs/device-app/tools/speculos/:slug',
+        source: '/docs/device-app/tools/speculos/:slug*',
         destination: '/docs/device-app/develop/tools',
         permanent: true,
        },
@@ -641,7 +727,7 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/device-app/cryptography-lib/:slug',
+        source: '/docs/device-app/cryptography-lib/:slug*',
         destination: '/docs/device-app/architecture/cryptography/reference',
         permanent: true,
        },
@@ -651,12 +737,17 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/embedded-app/crypto-api/:slug',
+        source: '/docs/embedded-app/crypto-api/:slug*',
         destination: '/docs/device-app/architecture/cryptography/reference',
         permanent: true,
        },
       {
         source: '/docs/transport/overview',
+        destination: '/docs/connectivity/ledgerJS',
+        permanent: true,
+       },
+      {
+        source: '/docs/transport/choose-the-transport',
         destination: '/docs/connectivity/ledgerJS',
         permanent: true,
        },
@@ -761,23 +852,23 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/dapp-connect-kit/:slug',
+        source: '/docs/dapp-connect-kit/:slug*',
         destination: '/docs/connectivity',
         permanent: true,
        },
       {
-        source: '/docs/connectivity/connect-kit/:slug',
+        source: '/docs/connectivity/connect-kit/:slug*',
         destination: '/docs/connectivity',
         permanent: true,
        },
       {
-        source: '/docs/connect/:slug',
+        source: '/docs/connect/:slug*',
         destination: '/docs/connectivity',
         permanent: true,
        },
       {
-        source: '/docs/nft/:slug',
-        destination: '/docs/nft-display/:slug',
+        source: '/docs/nft/:slug*',
+        destination: '/docs/nft-display/:slug*',
         permanent: true,
        },
       {
@@ -834,6 +925,26 @@ module.exports = {
         source: '/docs/dapp/manifest',
         destination: '/docs/discover/dapp/manifest',
         permanent: true,
+       }, 
+      {
+        source: '/docs/device-app/develop/tutorials',
+        destination: '/docs/device-app/develop/quickstart',
+        permanent: true,
+       }, 
+      {
+        source: '/docs/device-app/develop/tutorials/quickstart',
+        destination: '/docs/device-app/develop/quickstart',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/develop/environment',
+        destination: '/docs/device-app/develop/quickstart',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/develop/tutorials/:slug*',
+        destination: '/docs/device-app/develop/code/:slug*',
+        permanent: true,
        },
       {
         source: '/docs/dapp/requirements',
@@ -842,7 +953,7 @@ module.exports = {
        },
       {
         source: '/docs/plugin',
-        destination: '/docs/device-app/develop/tutorials/plugin',
+        destination: '/docs/device-app/develop/code/plugin',
         permanent: true,
        },
       {
@@ -852,112 +963,117 @@ module.exports = {
        },
       {
         source: '/docs/dapp/embedded-plugin/overview',
-        destination: '/docs/device-app/develop/tutorials/plugin',
+        destination: '/docs/device-app/develop/code/plugin',
         permanent: true,
        },
       {
         source: '/docs/plugin/overview',
-        destination: '/docs/device-app/develop/tutorials/plugin',
+        destination: '/docs/device-app/develop/code/plugin',
         permanent: true,
        },
       {
         source: '/docs/dapp/embedded-plugin/code-overview',
-        destination: '/docs/device-app/develop/tutorials/plugin',
+        destination: '/docs/device-app/develop/code/plugin',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough',
-        destination: '/docs/device-app/develop/tutorials/plugin',
+        destination: '/docs/device-app/develop/code/plugin',
         permanent: true,
        },
       {
         source: '/docs/dapp/embedded-plugin/boilerplate-plugin',
-        destination: '/docs/device-app/develop/tutorials/pluginh',
+        destination: '/docs/device-app/develop/code/pluginh',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/boilerplate-plugin',
-        destination: '/docs/device-app/develop/tutorials/plugin',
+        destination: '/docs/device-app/develop/code/plugin',
         permanent: true,
        },
       {
         source: '/docs/dapp/embedded-plugin/selectors',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors',
+        destination: '/docs/device-app/develop/code/plugin/selectors',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/selectors',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors',
+        destination: '/docs/device-app/develop/code/plugin/selectors',
         permanent: true,
        },
       {
         source: '/docs/dapp/embedded-plugin/init-contract',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/init-contract',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/init-contract',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/selectors-detailed/init-contract',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/init-contract',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/init-contract',
         permanent: true,
        },
       {
         source: '/docs/dapp/embedded-plugin/provide-parameter',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/provide-parameter',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/provide-parameter',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/selectors-detailed/provide-parameter',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/provide-parameter',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/provide-parameter',
         permanent: true,
        },
       {
         source: '/docs/dapp/embedded-plugin/finalize',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/finalize',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/finalize',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/selectors-detailed/finalize',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/finalize',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/finalize',
         permanent: true,
        },
       {
         source: '/docs/dapp/embedded-plugin/provide-token',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/provide-token',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/provide-token',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/selectors-detailed/provide-token',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/provide-token',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/provide-token',
         permanent: true,
        },
       {
         source: '/docs/dapp/embedded-plugin/query-contract-ui',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/query-contract-ui',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/query-contract-ui',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/selectors-detailed/query-contract-ui',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/query-contract-ui',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/query-contract-ui',
+        permanent: true,
+       },
+      {
+        source: '/docs/dapp/embedded-plugin/query-contract-id',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/query-contract-id',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/selectors-detailed/query-contract-id',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/query-contract-id',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/query-contract-id',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/selectors-detailed/query-contract-id',
-        destination: '/docs/device-app/develop/tutorials/plugin/selectors-detailed/query-contract-id',
+        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/query-contract-id',
         permanent: true,
        },
       {
         source: '/docs/dapp/embedded-plugin/testing',
-        destination: '/docs/device-app/develop/tutorials/plugin/testing',
+        destination: '/docs/device-app/develop/code/plugin/testing',
         permanent: true,
        },
       {
         source: '/docs/plugin/code-walkthrough/testing',
-        destination: '/docs/device-app/develop/tutorials/plugin/testing',
+        destination: '/docs/device-app/develop/code/plugin/testing',
         permanent: true,
        },
       {
@@ -967,31 +1083,56 @@ module.exports = {
        },              
       {
         source: '/docs/non-dapp/introduction',
-        destination: '/docs/discover/web3-app',
+        destination: '/docs/discover',
+        permanent: true,
+       },              
+      {
+        source: '/docs/non-dapp/howto/test/',
+        destination: '/docs/discover',
         permanent: true,
        },
       {
         source: '/docs/non-dapp/use-cases',
-        destination: '/docs/discover/web3-app/use-cases',
+        destination: '/docs/discover',
         permanent: true,
        },
       {
         source: '/docs/non-dapp/ux-req',
-        destination: '/docs/discover/web3-app/ux-requirements',
+        destination: '/docs/discover',
+        permanent: true,
+       },
+      {
+        source: '/APIs/:slug*',
+        destination: '/docs/discover/:slug*',
         permanent: true,
        },
       {
         source: '/docs/non-dapp/reference/manifest',
-        destination: '/docs/discover/non-dapp',
+        destination: '/docs/discover/wallet-api/appendix/manifest',
+        permanent: true,
+       },
+      {
+        source: '/docs/non-dapp/tutorial/introduction',
+        destination: '/docs/discover',
         permanent: true,
        },
       {
         source: '/docs/non-dapp/tutorial/1-setup',
-        destination: '/docs/connectivity/ledgerJS/tutorials/tutorial-1-hid-ethereum',
+        destination: '/docs/discover',
         permanent: true,
-       },     
+       },
       {
-        source: '/docs/coin/:slug',
+        source: '/docs/non-dapp/tutorial/3-import/',
+        destination: '/docs/discover',
+        permanent: true,
+       },
+      {
+        source: '/docs/non-dapp/:slug*',
+        destination: '/docs/discover',
+        permanent: true,
+       },        
+      {
+        source: '/docs/coin/:slug*',
         destination: '/docs/blockchain',
         permanent: true,
       },
@@ -1161,75 +1302,25 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/swap/introduction',
-        destination: '/docs/exchange/integration',
+        source: '/docs/exchange/swap/glossary',
+        destination: '/docs/exchange/glossary',
         permanent: true,
        },
       {
-        source: '/docs/swap/flow',
-        destination: '/docs/exchange/integration/flow',
+        source: '/docs/exchange/swap/:slug*',
+        destination: '/docs/exchange/swap',
         permanent: true,
        },
       {
-        source: '/docs/swap/howto',
-        destination: '/docs/exchange/integration/howto/requirements',
+        source: '/docs/swap/:slug*',
+        destination: '/docs/exchange/swap',
         permanent: true,
        },
       {
-        source: '/docs/swap/how-to/test/',
-        destination: '/docs/exchange/integration/providers-test-and-submit',
+        source: '/docs/exchange/integration/:slug*',
+        destination: '/docs/exchange',
         permanent: true,
-       },
-      {
-        source: '/docs/swap/howto/providers-endpoints',
-        destination: '/docs/exchange/integration/howto/providers-endpoints',
-        permanent: true,
-       },  
-      {
-        source: '/docs/swap/howto/providers-liveapp',
-        destination: '/docs/exchange/integration/howto/providers-liveapp',
-        permanent: true,
-       },  
-      {
-        source: '/docs/swap/howto/ledger-exchange-sdk',
-        destination: '/docs/exchange/integration',
-        permanent: true,
-       },  
-      {
-        source: '/docs/exchange/integration/howto/ledger-exchange-sdk',
-        destination: '/docs/exchange/integration',
-        permanent: true,
-       },
-      {
-        source: '/docs/swap/live-app/start-here',
-        destination: '/docs/exchange/flow/start-here',
-        permanent: true,
-       },
-      {
-        source: '/docs/swap/live-app/quote',
-        destination: '/docs/exchange/flow/quote',
-        permanent: true,
-       },
-      {
-        source: '/docs/swap/live-app/partner-live-app',
-        destination: '/docs/exchange/flow/partner-live-app',
-        permanent: true,
-       },
-      {
-        source: '/docs/swap/live-app/device-flow',
-        destination: '/docs/exchange/flow/device-flow',
-        permanent: true,
-       },
-      {
-        source: '/docs/swap/live-app/transaction-status',
-        destination: '/docs/exchange/flow/transaction-status',
-        permanent: true,
-       },
-      {
-        source: '/docs/swap/live-app/edge-cases',
-        destination: '/docs/exchange/flow/edge-cases',
-        permanent: true,
-       },                                                                                                                                                                                                                                                              
+       },                                                                                                                                                                                                                                                           
     ];
   },
 }

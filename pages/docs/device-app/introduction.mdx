@@ -1,46 +1,47 @@
 ---
-title: Developing and submitting a device app
+title: What is a device app?
 Description: "The steps to code your device app and submit it for a Ledger Live integration." 
 ---
 
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
+import Glossary from '/components/features/tooltip-glossary'
 
-# Developing and submitting a device app
 
-## Development and submission phases
+# Introduction
 
-<div style={{width: "100%"}} className="center">
-  <div style={{position: "relative", paddingBottom: "56.25%", paddingTop: 0, height: 0}}>
-    <iframe title="Live App Structure" frameBorder="0" style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}} src="https://view.genial.ly/65521d0b3f30120011106193" type="text/html" allowscriptaccess="always" allowFullScreen={true} scrolling="yes" allownetworking="all"></iframe>
-  </div>
+## What is a device app?
+
+<img style={{width: "250px", float:"right"}} src="/device-app/nanosplus.png"/>
+
+There are three types of device apps: Classical <Glossary word="device apps"></Glossary>, dApp plugins, and utility applications.
+
+<br/>
+<br/>
+
+<div style={{width: "80%"}} className="center desktop">
+	<div style={{position: "relative", paddingBottom: "56.25%", paddingTop: 0, height: 0}}>
+		<iframe title="Blockchain Foundation Dev Journey" frameBorder="0" style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}} src="https://view.genial.ly/6630a9cf5ef56b0014673b98" type="text/html" allowscriptaccess="always" allowFullScreen={true} scrolling="yes" allownetworking="all"></iframe> 
+	</div> 
 </div>
 
+<div className="mobile">
+### Classical device apps
 
-See the complete submission flow [here](./deliver/process).
+This is the application that allows the users to manage their crypto-assets with their Ledger devices. It is the first step to an integration of your coin or token to the Ledger environment and to an integration of your blockchain to Ledger Live. The following sections will help you develop this type of application. For more information about the role of the Ledger device app, read [this Academy article](https://www.ledger.com/academy/hardwarewallet/what-are-ledger-applications-and-why-do-i-need-them).
 
+### DApp plugins
 
-## Your developer journey
+DApp Plugins are developed to integrate an Ethereum dApp to Ledger live. Ledger Live has a dApp browser where your dApp will be visible and usable through an iframe. Ethereum dApps can be developed for example to lend or borrow, swap, trade, pay with cryptoassets or manage your portfolio. The documentation for dApp plugins is in the [Live App section](../../../docs/discover).
 
+For a dApp Plugins to be able to sign transactions on a Ledger Device, one needs to develop a small, specific application relying on the Ethereum application environment. This type of application is called a **plugin**.
 
-### Engage with the Ledger developer community
+### Utility applications
 
-Joining Discord is not required to code your device application, but it will be easier to meet with our team and discuss the specifics of your project. Join us on the [Ledger's Discord server](https://developers.ledger.com/discord/) and introduce your project in the **#embedded-app** channel.
+These applications leverage Ledger technology but are not involved in managing crypto assets. They can be, for example, a password manager application, or a two-factor authentication application.
 
-
-### Understand the process & meet the requirements
-
-Ensure that you have a clear understanding of the [Process](./deliver/process) and are able to meet the [Requirements](./develop/requirements) and produce the [deliverables](./deliver/deliverables).
-
-
-### Begin Coding
-
-Device applications are primarily developed in C using the Blockchain Open Ledger Operating System (BOLOS).
-
-To develop a device application, ensure that you:
-- Use Linux, Mac or Windows
-- Know about the [Ledger Framework](./develop/tutorials/quickstart) and all the [environment tools](./develop/tools)
-- Know how to test your application, using either a physical device or the [Speculos emulator](./develop/tools#speculos)
+**You are developing a classical device App, a utility application or a plugin, you are in the right section!**
+</div>
 
 ## Used languages and format
 

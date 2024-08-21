@@ -38,7 +38,7 @@ export const Examples = () => {
               icon="lido" 
               title="Lido"
               subtitle="Staking ETH on Ledger Live"
-              description="The LIDO dAPP was integrated into the Ledger Live ecosystem and improved security by providing clear-signing to Ledger users" 
+              description="The LIDO dAPP was integrated into the Ledger Live ecosystem and improved security by providing clear signing to Ledger users" 
               type="services-dapps"
             />
             <ExampleCard 

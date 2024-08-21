@@ -1,0 +1,49 @@
+---
+title: Address verification
+description: To trust the receive addresses they’re manipulating, your users need to verify them on the Trusted Display of their Ledger device.
+---
+
+import { Callout } from 'nextra/components'
+import KeyTakeaway from '/components/features/key-takeaway';
+
+# Address verification
+
+To trust the receive addresses they’re manipulating, your users need to verify them on the Trusted Display of their Ledger device.
+
+## Basic address verification
+
+Just like for transactions, address verification starts with an intent that attracts the user’s attention and lets them know what action they’re going to perform.
+
+Once the user continues, they’re shown the full address to compare with its software counterpart.
+
+![Address verification](/device-app/stax-flex-address-verification.png)
+|:--:| 
+| *Verification prompt, followed by address display, and the QR code display.* |
+
+<Callout type="info" emoji="ℹ️">
+	A plain “Confirm” button is used here instead of the “Hold to sign” gesture, as this latter is reserved for signing transactions and messages which often have actual impact on the blockchain state and/ or user’s funds.
+	
+	The “Cancel” button dismisses address verification right away, without a need for another user confirmation.
+</Callout>
+
+A button lets users show the address as a QR code, when they need to scan it from their mobile. By using the high-level API, your app will benefit from this capability automatically.
+
+<Callout emoji="💻">
+	<b>API</b><br/>
+	<code>nbgl_useCaseAddressReview()</code><br/>
+	This high-level API function builds the default template for address verification. It also handles the enriched version presented in the section below. <a href="https://ledgerhq.github.io/ledger-secure-sdk/nbgl__use__case_8h.html#abb0d60831b55936803dd477cfffa226c">View API docs</a>.
+</Callout>
+
+## Enriched address verification
+
+In advanced use cases, you may want to show additional information alongside the address, such as derivations paths. Use a transaction-like flow with pagination, starting with the address on the first page. Here’s an example with Cardano address verification:
+
+![Enriched address verification](/device-app/stax-flex-enriched-address-verification.png)
+
+## Key Takeaway
+
+<KeyTakeaway>
+	Make address verification simple and fast by conforming to the standard templates. This will also let your users show their address as a QR code for convenient sharing.
+</KeyTakeaway>
+
+

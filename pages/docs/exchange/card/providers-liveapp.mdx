@@ -1,0 +1,61 @@
+import { Tabs } from 'nextra/components'
+import { Callout } from 'nextra/components'
+
+# Provider's LiveApp
+
+As explained in the [Card Integration](../card) page, you need to modify your LiveApp with some specific adjustments compared to the one found in the Discover section.
+
+Your LiveApp must: 
+  - Use the Ledger's [exchangeSDK](https://github.com/LedgerHQ/exchange-sdk), in addition to the Wallet API.
+  - Have a modified, slightly more complex, Manifest file.
+  - Follow specific flow/ux requirements.
+
+
+## Ledger's exchange SDK
+
+To learn how to create (or embed if already existing) your user interface for the card, please follow the [Discover documentation](../../discover).
+
+Your LiveApp will interact with Ledger Live, through the [ExchangeSDK](https://github.com/LedgerHQ/exchange-sdk), with the corresponding method.
+
+You will need to set up the SDK with your `providerId` attributed upon request by Ledger.
+
+### CARD method
+
+This method will need you to provide the following parameters:
+
+* `quoteId`: The id coming from your system.
+* `fromAccountId`: User's Ledger account id.
+* `fromAmount`: Amount that will be sold.
+* `toFiat`: Fiat currency that the user wants to be paid with using provider id.
+* `rate`: The rate of the fund.
+
+```js copy
+  exchangeSDK.sell({
+  quoteId: "123abc",
+  fromAccountId: "97f06be9-6fb2-5da3-be71-4e762ed6e115",// Ledger Live uuid4 account (can be a BTC account)
+  fromAmount: new BigNumber(1),
+  toFiat: "EUR", // provider fiat id
+  rate: 90000, // crypto/fiat rate [BTC/EUR]
+  });
+```
+
+
+<Callout type="info" emoji="👉">
+  Ledger needs to know how to send referral information through the widget.
+</Callout>
+
+
+## Manifest Permission
+Your [LiveApp manifest](../../../../docs/discover/wallet-api/appendix/manifest) should contains at least those permissions request:
+```json copy
+"permissions": [
+  "account.list",
+  "currency.list",
+  "custom.exchange.start", 
+  "custom.exchange.complete",
+]
+```
+
+{/* <!-- ## Flow/UX requirements -->*/}
+
+{/*Please refer to the [Flow Breakdown](../card/flow) section for more information. (should add the proper card flow later)*/}

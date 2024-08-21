@@ -1,21 +1,21 @@
 openapi: 3.0.3
 info:
-  title: Partner Swap service
+  title: Partner Swap Service
   version: "2.0"
 paths:
-  /crypto-currencies:
+  /currencies:
     get:
-      operationId: getCrypto-currencies
+      operationId: getCryptoCurrencies
       description: Return a list of supported currencies.
       responses:
         "200":
           description: |
             ### Available crypto currencies
-            - "id" : your unique identifier of the currency
-            - "type" : possible values : coin, token
-            - "blockchain" : ledger's blockchain_name of the blockchain as listed in https://crypto-assets-service.api.ledger.com/v1/coins?output=blockchain_name,chain_id, for evm networks this field may be omitted when chainId is defined.
-            - "chainId" : for EVMs only, chain id of the blockchain, 1 for ethereum, 137 for polygon... See https://chainlist.org/
-            - "contract" : mapped only if type is token, the contract address of the token.
+            - "id": unique identifier of the currency
+            - "type": possible values: coin, token
+            - "blockchain": ledger's blockchain_name of the blockchain as listed in https://crypto-assets-service.api.ledger.com/v1/coins?output=blockchain_name,chain_id, for EVM networks this field may be omitted when chainId is defined.
+            - "chainId": for EVMs only, chain id of the blockchain, 1 for ethereum, 137 for polygon... See https://chainlist.org/
+            - "contract": mapped only if type is token, the contract address of the token.
             blockchain OR chainId should be defined. If chainId is defined, blockchain field is ignored.
           x-summary: OK
           content:
@@ -53,24 +53,30 @@ paths:
                   tradeMethod:
                     - fixed
                     - float
+                  minSwapAmount: "1"
+                  maxSwapAmount: "20"
                 - from: bat
                   to: btc
                   tradeMethod:
                     - fixed
                     - float
+                  minSwapAmount: "5"
+                  maxSwapAmount: "10"
   /quote:
     post:
       operationId: postQuote
-      description: Return a quote for a pair and amount.
+      description: | 
+        Return a quote for a pair and amount.
+        - For fixed trade method, the quoteId is returned.
       requestBody:
-        description: Info for generating payload
+        description: Information required for generating the payload.
         content:
-          "application/json":
+          application/json:
             schema:
-              $ref: "#/components/schemas/Quote"
+              $ref: "#/components/schemas/QuoteRequest"
       responses:
         "200":
-          description: TODO
+          description: Successful quote response.
           x-summary: OK
           content:
             application/json:
@@ -85,6 +91,201 @@ paths:
                 payoutNetworkFees: "0.0002"
                 tradeMethod: "float"
                 expiry: "2022-04-04T09:10:51+0000"
+                minAmountFrom: "1"
+                maxAmountFrom: "3"
+                defaultSlippage: "0.1"
+                minSlippage: "0.1"
+                maxSlippage: "0.3"
+        "400":
+          description: | 
+              This error indicates a violation of one or more constraints within the partner's system regarding the quote request. 
+              It is essential for the partner to specify the breached constraint to facilitate correction of the request. 
+              You can express any other constraints in your system by extending the error payload.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              examples:
+                FROM_CURRENCY_MINIMUM_AMOUNT_ERROR:
+                  summary: FROM_CURRENCY_MINIMUM_AMOUNT_ERROR
+                  description: The amount of source currency is less that the minimum amount.
+                  value:
+                    messageKey: FROM_CURRENCY_MINIMUM_AMOUNT_ERROR
+                    message: Minimum error. (you can add any useful field as you want)
+                    additionalFields: 
+                      minRequiredAmount: "0.01"
+                      maxRequiredAmount: "10"
+                FROM_CURRENCY_MAXIMUM_AMOUNT_ERROR:
+                  summary: FROM_CURRENCY_MAXIMUM_AMOUNT_ERROR
+                  description: The amount of destination currency exceed the maximum amount.
+                  value:
+                    messageKey: FROM_CURRENCY_MAXIMUM_AMOUNT_ERROR
+                    message: Maximum error. (you can add any useful field as you want)
+                    additionalFields: 
+                      minRequiredAmount: "0.01"
+                      maxRequiredAmount: "10"
+        "404":
+          description: The pair might be currently unavailable on your end, or you might not recognize one of the currencies. Please add relevant details about the causes.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              example:
+                messageKey: SWAP_PAIR_NOT_FOUND_ERROR
+                message: Swap pair not found. (you can add any useful field as you want)
+        "451":
+          description: User's IP address or currency is in a restricted region.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              examples:
+                REGION_RESTRICTED_ERROR:
+                  summary: Region Restricted Error
+                  value:
+                    messageKey: REGION_RESTRICTED_ERROR
+                    message: User's IP address is in a restricted region. (you can add any useful field as you want)
+                CURRENCY_REGION_RESTRICTED_ERROR:
+                  summary: Currency Region Restricted Error
+                  value:
+                    messageKey: CURRENCY_REGION_RESTRICTED_ERROR
+                    message: One of the swapped currencies is disabled in user's region. (you can add any useful field as you want)
+  /swap/fixed:
+    post:
+      operationId: postSwapFixed
+      description: |
+         Generates a secure binary payload for the nano in order to authorize the transaction.
+         - For swap with fixed trade method, we send on swap endpoint the quoteId (id generated with the previouse call to `/quote` ). The partner should retrieve the quote data (amounts…) from this id.
+         - The final source of Truth for the user is the binary payload you generate. 
+      requestBody:
+        description: Info for generating payload
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SwapRequestFixed"
+      responses:
+        "200":
+          description: Swap ID with flattened JWS. `https://www.rfc-editor.org/rfc/rfc7515#section-7.2.2`
+          x-summary: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SwapResponse"
+              example:
+                swapId: "SWAP-ID-165940"
+                payinAddress: "0xa0b86991c627e936c1d19d4a2e90a2ce3606eb48"
+                createdAt: "2030-05-26T14:13:39"
+                providerFees: "0.0001"
+                referralFees: "0.0001"
+                payoutNetworkFees: "0.0002"
+                providerSig:
+                  payload: "CgUweGZmZhoFMHhmZmYqBTB4ZmZmOgNCVENCA0JBVEoIMTIwMDAwMDBSCDExNTAwMDAwWhF2ZXJ5IGxvbmd1ZSBub25jZQ=="
+                  payload_signature: "MEUCIBRm4PrdgRw0aBwRepuOGGRmR/YPcCoyKNJ7UDjFO030AiEA/VT0anolum0a3X/9lGPeovZHqzeDG9brcUB4zhYmwbs="
+        "400":
+          description: Deposit wallet not available.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              example:
+                messageKey: NO_DEPOSIT_WALLET_ERROR
+                message: Deposit wallet not available. (you can add any useful field as you want)
+        "404":
+          description: Not found error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              examples:
+                CURRENCY_FROM_NOT_FOUND_ERROR:
+                  summary: CURRENCY_FROM_NOT_FOUND_ERROR
+                  value:
+                    messageKey: CURRENCY_FROM_NOT_FOUND_ERROR
+                    message: When the currency from is not found. (you can add any useful field as you want)
+                CURRENCY_TO_NOT_FOUND_ERROR:
+                  summary: CURRENCY_TO_NOT_FOUND_ERROR
+                  value:
+                    messageKey: CURRENCY_TO_NOT_FOUND_ERROR
+                    message: When the currency to is not found. (you can add any useful field as you want)
+                SWAP_QUOTE_NOT_FOUND_ERROR:
+                  summary: SWAP_QUOTE_NOT_FOUND_ERROR
+                  value:
+                    messageKey: SWAP_QUOTE_NOT_FOUND_ERROR
+                    message: When the swap quote is not found. (you can add any useful field as you want)
+        "451":
+          description: When the user's IP address is in a restricted region.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              examples:
+                REGION_RESTRICTED_ERROR:
+                  summary: REGION_RESTRICTED_ERROR
+                  value:
+                    messageKey: REGION_RESTRICTED_ERROR
+                    message: User's IP address is in a restricted region. (you can add any useful field as you want)
+                CURRENCY_REGION_RESTRICTED_ERROR:
+                  summary: CURRENCY_REGION_RESTRICTED_ERROR
+                  value:
+                    messageKey: CURRENCY_REGION_RESTRICTED_ERROR
+                    message: One of the swapped currencies is disabled in user's region. (you can add any useful field as you want)
+  /swap/float:
+    post:
+      operationId: postSwapFloat
+      description: |
+          Generates a secure binary payload for the nano in order to authorize the transaction.
+          - For swap with floating trade method, we send on swap endpoint the amount. This exact value should be used to generate the swap order and the binary payload, but the amount to might be updated.
+          - The final source of Truth for the user is the binary payload you generate. 
+      requestBody:
+        description: Info for generating payload
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SwapRequestFloat"
+      responses:
+        "200":
+          description: Swap ID with flattened JWS. `https://www.rfc-editor.org/rfc/rfc7515#section-7.2.2`
+          x-summary: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SwapResponse"
+              example:
+                swapId: "SWAP-ID-165940"
+                payinAddress: "0xa0b86991c627e936c1d19d4a2e90a2ce3606eb48"
+                createdAt: "2030-05-26T14:13:39"
+                providerFees: "0.0001"
+                referralFees: "0.0001"
+                payoutNetworkFees: "0.0002"
+                providerSig:
+                  payload: "CgUweGZmZhoFMHhmZmYqBTB4ZmZmOgNCVENCA0JBVEoIMTIwMDAwMDBSCDExNTAwMDAwWhF2ZXJ5IGxvbmd1ZSBub25jZQ=="
+                  payload_signature: "MEUCIBRm4PrdgRw0aBwRepuOGGRmR/YPcCoyKNJ7UDjFO030AiEA/VT0anolum0a3X/9lGPeovZHqzeDG9brcUB4zhYmwbs="
+        "400":
+          description: Deposit wallet not available.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              example:
+                messageKey: NO_DEPOSIT_WALLET_ERROR
+                message: Deposit wallet not available. (you can add any useful field as you want)
+        "451":
+          description: When the user's IP address is in a restricted region.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              examples:
+                REGION_RESTRICTED_ERROR:
+                  summary: REGION_RESTRICTED_ERROR
+                  value:
+                    messageKey: REGION_RESTRICTED_ERROR
+                    message: User's IP address is in a restricted region. (you can add any useful field as you want)
+                CURRENCY_REGION_RESTRICTED_ERROR:
+                  summary: CURRENCY_REGION_RESTRICTED_ERROR
+                  value:
+                    messageKey: CURRENCY_REGION_RESTRICTED_ERROR
+                    message: User's currency is in a restricted region. (you can add any useful field as you want)
   /status:
     get:
       operationId: getStatus
@@ -98,7 +299,7 @@ paths:
           example: 1234
       responses:
         "200":
-          description: Status of an executed swap transaction
+          description: Status of an executed swap transaction.
           x-summary: OK
           content:
             application/json:
@@ -106,41 +307,25 @@ paths:
                 $ref: "#/components/schemas/Status"
               example:
                 status: "PENDING"
-                amount: 1.337
+                amount: "1.337"
                 payinTransactionId: "0xfffffffffffff"
                 payoutTransactionId: "0xfffffffffffff"
-                providerFees`: "0.0001"
-                referralFees`: "0.0001"
-                payoutNetworkFees: "0.0002"
-  /swap:
-    post:
-      operationId: postSwap
-      description: Generates a secure binary payload for the nano in order to authorize the transaction. The provider should validate consistency between `quoteId` and other inputs (addresses, amounts and currencies).
-      requestBody:
-        description: Info for generating payload
-        content:
-          "application/json":
-            schema:
-              $ref: "#/components/schemas/PayloadInfo"
-      responses:
-        "200":
-          description: SwapId with flatten JWS `https://www.rfc-editor.org/rfc/rfc7515#section-7.2.2`
-          x-summary: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SwapPayload"
-              example:
-                swapId: "SWAP-ID-165940"
-                payinAddress: "0xa0b86991c627e936c1d19d4a2e90a2ce3606eb48"
-                createAt: "2030-05-26T14:13:39"
                 providerFees: "0.0001"
                 referralFees: "0.0001"
                 payoutNetworkFees: "0.0002"
-                providerSig:
-                  payload: "CgUweGZmZhoFMHhmZmYqBTB4ZmZmOgNCVENCA0JBVEoIMTIwMDAwMDBSCDExNTAwMDAwWhF2ZXJ5IGxvbmd1ZSBub25jZQ=="
-                  payload_signature: "MEUCIBRm4PrdgRw0aBwRepuOGGRmR/YPcCoyKNJ7UDjFO030AiEA/VT0anolum0a3X/9lGPeovZHqzeDG9brcUB4zhYmwbs="
-
+        "404":
+          description: Swap transaction not found.
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              examples:
+                SWAP_TRANSACTION_NOT_FOUND_ERROR:
+                  summary: SWAP_TRANSACTION_NOT_FOUND_ERROR
+                  value:
+                    messageKey: SWAP_TRANSACTION_NOT_FOUND_ERROR
+                    message: Swap transaction not found. (you can add any useful field as you want)
+                
 components:
   schemas:
     Coin:
@@ -172,11 +357,15 @@ components:
         - from
         - to
         - tradeMethod
+        - minSwapAmount
+        - maxSwapAmount
       type: object
       properties:
         from:
+          description: source currency ID in the partner's system.
           type: string
         to:
+          description: destination currency ID in the partner's system.
           type: string
         tradeMethod:
           type: array
@@ -185,7 +374,13 @@ components:
             enum:
               - fixed
               - float
-    Quote:
+        minSwapAmount:
+          description: the minimum amount of the source currency that can be swapped. This is the lowest quantity of the initial currency that can be exchanged in a single transaction.
+          type: string
+        maxSwapAmount:
+          description: the maximum amount of the source currency that can be swapped. This represents the highest quantity of the initial currency that can be exchanged in a single transaction.
+          type: string
+    QuoteRequest:
       required:
         - from
         - to
@@ -194,66 +389,106 @@ components:
       properties:
         from:
           type: string
-          description: currency id in your system.
+          description: Currency ID in the partner's system.
           example: "btc"
         to:
           type: string
-          description: currency id in your system.
+          description: Currency ID in the partner's system.
           example: "eth"
         amount:
           type: string
-          description: amount requested by the user, without the gas fee.
+          description: Or the amountTo, it's the amount that user will spend for the swap. (required only for float quotes)
           example: "1"
-
-    PayloadInfo:
+    SwapRequestFixed:
       required:
         - quoteId
         - refundAddress
-        - refundAddressExtraId
         - payoutAddress
-        - payoutAddressExtraId
         - currencyFrom
         - currencyTo
         - payloadCurrencyFrom
         - payloadCurrencyTo
-        - amountToProvider
-        - amountToWallet
         - nonce
       type: object
       properties:
         quoteId:
           type: string
-          description: previously generated quote id
+          description: Previously generated quote ID.
         refundAddress:
           type: string
-          description: user's refund address. This address is generaly the fromAddress.
-        refundAddressExtraId:
-          type: string
-          description: tag or memo (optional).
+          description: User's refund address, typically the fromAddress.
         payoutAddress:
           type: string
-          description: user's payout transaction address.
+          description: User's payout transaction address.
+        refundAddressExtraId:
+          type: string
+          description: Field used for blockchains that require a memo (e.g., XRP, XLM).
         payoutAddressExtraId:
           type: string
-          description: tag or memo (optional).
+          description: Field used for blockchains that require a memo (e.g., XRP, XLM).
         currencyFrom:
           type: string
-          description: from currency id, using your identifiers (for checking purpose on your side only).
+          description: From currency ID, using the provider's identifiers.
         currencyTo:
           type: string
-          description: to currency id, using you identifiers (for checking purpose on your side only).
+          description: To currency ID, using the provider's identifiers.
         payloadCurrencyFrom:
           type: string
-          description: from currency id, using ledger's referencial. This value has to be used for currency_from field in the protobuf payload.
+          description: From currency ID, using Ledger's referential. (representing currency_from in the protobuf payload)
         payloadCurrencyTo:
           type: string
-          description: to currency id, using ledger's referencial. This value has to used for currency_to field in the protobuf payload.
-        amountToWallet:
-          type: string
-          description: amount of `currencyTo` that the provider agrees to send to the client in exchange from
+          description: To currency ID, using Ledger's referential. (representing currency_to in the protobuf payload)
         nonce:
           type: string
-          description: value to use for `device_transaction_id_ng` field in the protobuf payload. It will be an hex format of the byte array nonce received by the user.
+          description: Value for the `device_transaction_id_ng` field in the protobuf payload, in hex format of the byte array nonce received by the user.
+        slippage:
+          type: string
+          description: Value between 0 to 1 (0.1 => 10%). Maximum difference between the quoted amount and the final amount received, as a ratio. If exceeded, user consent is required or a refund is made.
+    SwapRequestFloat:
+      required:
+        - amount
+        - refundAddress
+        - payoutAddress
+        - currencyFrom
+        - currencyTo
+        - payloadCurrencyFrom
+        - payloadCurrencyTo
+        - nonce
+      type: object
+      properties:
+        amount:
+          type: string
+          description: Amount requested by the user to be swap (or amountFrom).
+        refundAddress:
+          type: string
+          description: User's refund address, typically the fromAddress.
+        payoutAddress:
+          type: string
+          description: User's payout transaction address.
+        refundAddressExtraId:
+          type: string
+          description: Field used for blockchains that require a memo (e.g., XRP, XLM).
+        payoutAddressExtraId:
+          type: string
+          description: Field used for blockchains that require a memo (e.g., XRP, XLM).
+        currencyFrom:
+          type: string
+          description: From currency ID, using the provider's identifiers.
+        currencyTo:
+          type: string
+          description: To currency ID, using the provider's identifiers.
+        payloadCurrencyFrom:
+          type: string
+          description: From currency ID, using Ledger's referential. (representing currency_from in the protobuf payload)
+        payloadCurrencyTo:
+          type: string
+          description: To currency ID, using Ledger's referential. (representing currency_to in the protobuf payload)
+        nonce:
+          type: string
+          description: Value for the `device_transaction_id_ng` field in the protobuf payload, in hex format of the byte array nonce received by the user.
+        slippage:
+          type: string
+          description: Value between 0 to 1 (0.1 => 10%). Maximum difference between the quoted amount and the final amount received, as a ratio. If exceeded, user consent is required or a refund is made.
     ProviderSig:
       required:
         - payload
@@ -262,51 +497,68 @@ components:
       properties:
         payload:
           type: string
-          description: protobuf payload (in a binary format)
+          description: Protobuf payload (in binary format).
         signature:
           type: string
-          description: payload signed in a JWS format
+          description: Payload signed in JWS format.
     QuoteResponse:
       required:
         - amountTo
         - providerFees
         - referralFees
         - payoutNetworkFees
+        - tradeMethod
+        - expiry
       type: object
       properties:
         quoteId:
           type: string
-          description: quote unique identifier (optional, only required for fixed quotes)
+          description: Unique identifier for the quote (Required only for fixed quotes).
         amount:
           type: string
-          description: should be same as the input one (optional, only required for consistency check) (as an input coin floating amount)
+          description: Should be the same as the input (optional, for consistency check).
         amountTo:
           type: string
-          description: estimated output amount that will be sent to user (as an output coin floating amount)
+          description: Estimated output amount sent to the user, in currencyTo.
         providerFees:
           type: string
-          description: amount, expressed in currencyTo, that is paid to the provider.
+          description: Amount paid to the provider, converted to currencyTo.
         referralFees:
           type: string
-          description: amount, expressed in currencyTo, that is paid to Ledger (as a referral fee).
+          description: Amount paid to Ledger, as a referral fee, converted to currencyTo.
         payoutNetworkFees:
           type: string
-          description: estimated gas fees that will be used for the payout transaction (as an output coin floating amount)
+          description: Estimated gas fees for the payout transaction, converted to currencyTo.
         tradeMethod:
           type: string
           enum:
             - fixed
             - float
-          description: fixed or float (optional, only required for consistency check)
+          description: Fixed or float
         expiry:
           type: string
-          description: quote expiration timestamp (optional, only required for fixed quotes)
-        minAmountFrom:
+          description: Quote expiration timestamp (required for fixed quotes)
+        defaultSlippage:
           type: string
-          description: minimum valid `amount` for this pair (optional, only required if amount is too low)
-        maxAmountFrom:
+          description: Value between 0 to 1 (0.1 => 10%). Maximum difference between the amount the user has seen in his quote and the amount he might finally receive, as a ratio of the quoted amount. Otherwise, the user should be asked for his consent to the new trade or reimbursed in original coin.
+        minSlippage:
           type: string
-          description: maximum valid `amount` for this pair (optional, only required if amount is too large)
+          description: Minimum allowable slippage. (0.1)
+        maxSlippage:
+          type: string
+          description: Maximum allowable slippage. (0.3)
+    ErrorPayload:
+      type: object
+      properties:
+        messageKey:
+          type: string
+          description: Error code.
+        message:
+          type: string
+          description: Error message description.
+        additionalFields:
+          type: object
+          description: Provides further details on the error, including specific amounts involved in the request. All amounts are presented in their respective currency units.
     ServerError:
       required:
         - code
@@ -348,17 +600,17 @@ components:
           description: as soon as this information is known, this should contain the payin transaction hash.
         payoutTransactionId:
           type: string
-          description: as soon as this information is known, this should contain the payout transaction hash.
+          description: As soon as the transaction is submitted to the blockchain and the hash is generated, this field should contain the payout transaction hash.
         providerFees:
           type: string
-          description: fees amount that has been paid to the provider.
+          description: Fees paid to the provider.
         referralFees:
           type: string
-          description: fees amount that has been paid to Ledger (as a referral fee).
+          description: Fees paid to Ledger, as a referral fee.
         payoutNetworkFees:
           type: string
-          description: gas fees that has been be used for the payout transaction (as an output coin floating amount).
-    SwapPayload:
+          description: Gas fees used for the payout transaction, converted to currencyTo.
+    SwapResponse:
       required:
         - swapId
         - payinAddress
@@ -371,19 +623,19 @@ components:
       properties:
         swapId:
           type: string
-          description: provider's id of the ongoing swap transaction. This will be used by Ledger's backend to retrieve the status of user swap transaction.
+          description: "provider's id of the ongoing swap transaction. This will be used by Ledger's backend to retrieve the status of user swap transaction. A unique id must be generated each time this endpoint is called, even if called with a same quoteId : quoteId != swapId. This is a swap attempt id and several retries sharing the same quote id might be performed by a user."
         payinAddress:
           type: string
-          description: provider's address.
+          description: Provider's payin address.
         createdAt:
           type: string
-          description: date of creation of the swap payload in ISO-8601 format.
+          description: Creation date of the swap payload in ISO-8601 format.
         providerFees:
           type: string
-          description: amount, expressed in currencyTo, that is paid to the provider.
+          description: Fees paid to the provider, converted to currencyTo.
         referralFees:
           type: string
-          description: amount, expressed in currencyTo, that is paid to Ledger (as a referral fee).
+          description: Fees paid to Ledger, as a referral fee, converted to currencyTo.
         payoutNetworkFees:
           type: string
           description: estimated gas fees that will be used for the payout transaction (as an output coin floating amount).
@@ -391,4 +643,3 @@ components:
           $ref: "#/components/schemas/ProviderSig"
     Token:
       type: string
-

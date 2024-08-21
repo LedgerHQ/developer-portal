@@ -46,7 +46,7 @@ This method will need you to provide the following parameters:
 
 The LiveApp needs to respond to an URL with some parameters. LiveApp URLs are used to open your LiveApp with the quote values that the user already entered in Ledger Live.
 
-The LiveApp URL format is already fixed and will depend on the information you provided inside your [LiveApp manifest](../../../../APIs/wallet-api/appendix/manifest) (ex: `ledgerlive://discover/swapprovidername`).
+The LiveApp URL format is already fixed and will depend on the information you provided inside your [LiveApp manifest](../../../../docs/discover/wallet-api/appendix/manifest) (ex: `ledgerlive://discover/swapprovidername`).
 
 
   * `quoteId`: The id retrieved by Ledger's backend during a quote request.
@@ -58,6 +58,9 @@ The LiveApp URL format is already fixed and will depend on the information you p
   * `initFeeTotalValue`: initial transaction total fee.
   * `customFeeConfig`(optional, required for `CUSTOM` feeStrategy): Custom fee configuration in case the strategy is of type `CUSTOM`. The key-value object is encoded in URI parameter.
   * `ledger-transaction-id`: id used by ledger to track transactions and their completion statuses.
+  * `fiatCurrencyId`: The fiat currency id used as reference for the quote.
+  * `theme`: The theme used in Ledger Live.
+  * `displayLanguage`: The language used in Ledger Live.
 
 __Example__:
 ```
@@ -71,7 +74,7 @@ ledgerlive://discover/swapprovidername?quoteId=1234&fromAmount=0.09&fromAccountI
 
 
 ## Manifest Permission
-Your [LiveApp manifest](../../../../APIs/wallet-api/appendix/manifest) should contains at least those permissions request:
+Your [LiveApp manifest](../../../../docs/discover/wallet-api/appendix/manifest) should contains at least those permissions request:
 ```json copy
 "permissions": [
   "account.list",

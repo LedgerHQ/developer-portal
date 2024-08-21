@@ -13,7 +13,7 @@ import 'react-medium-image-zoom/dist/styles.css'
 ![App architecture](/blockchain/general-architecture-live.png)
 
 - The Ledger device acts as a signing box and it defers most of the technical complexity to Ledger Live (Ledger's official **wallet application**). Ledger Live contains the business logic and is (typically) a GUI, running on a computer or a phone connected to the device.
-- The Leddger embedded application acts as a transaction signer key in a deterministic way. Having an embedded application publicly listed in Ledger Live is a mandatory requirement before getting your blockchain supported on Ledger Live.
+- The Ledger embedded application acts as a transaction signer key in a deterministic way. Having an embedded application publicly listed in Ledger Live is a mandatory requirement before getting your blockchain supported on Ledger Live.
 - In the case of Ledger Live, and for performance reason, a third layer is handling the indexing of transaction for a given blockchain.
 
 

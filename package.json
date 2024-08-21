@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start"
   },
   "repository": {
@@ -19,9 +20,11 @@
   "homepage": "https://github.com/shuding/nextra-docs-template#readme",
   "dependencies": {
     "@docsly/react": "^1.8.6",
+    "@next/third-parties": "^14.2.1",
     "clsx": "^2.0.0",
-    "next": "^13.0.6",
+    "next": "14.3.0-canary.21",
     "next-auth": "^4.23.2",
+    "next-sitemap": "^4.2.3",
     "nextra": "^2.13.2",
     "nextra-theme-blog": "^2.13.2",
     "nextra-theme-docs": "latest",
@@ -30,6 +33,7 @@
     "react-medium-image-zoom": "5.1.8",
     "react-scroll": "^1.8.9",
     "react-spring": "^9.7.3",
+    "react-tooltip": "^5.26.4",
     "sharp": "^0.33.0",
     "tailwind-merge": "^1.14.0"
   },

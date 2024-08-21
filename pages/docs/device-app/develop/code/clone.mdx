@@ -1,0 +1,139 @@
+---
+title: Clone Applications
+description: Follow this process for your application is your project is a Ethereum clone using all other paths than the 44/60 path.
+---
+import { Callout, Cards, Card } from 'nextra/components'
+
+# Clone Applications
+
+### What is a clone?
+
+A variant, or clone, device app is developed when all the logic for signing transactions can be contained in the parent coin Device Application.
+
+As for any Device Application, you must follow our guidelines to comply with Ledger publication requirements.
+
+On this page you will find the information for Bitcoin and Ethereum clones.
+
+## Bitcoin clones
+
+If you want to create a new bitcoin clone, instead of forking the boilerplate app you should fork [app-bitcoin-clone-boilerplate](https://github.com/LedgerHQ/app-bitcoin-clone-boilerplate).
+
+If your Bitcoin clone was included in the Bitcoin Device App and you need to update it, you should
+create a new application by forking [app-bitcoin-clone-boilerplate](https://github.com/LedgerHQ/app-bitcoin-clone-boilerplate).
+
+You can then add your icon, customize the makefile, update the README, add your tests, make sure
+your CI is green and you should be good to go !
+
+Note that all APDU handlers have been defined with `WEAK` attribute, so they can be overwritten if your app requires you to do so.
+
+## Ethereum clones
+
+Depending on your derivation path, the process will vary.
+
+### A - Using the 44/60 path
+
+#### Prerequisites
+
+Follow this process if your chain uses the 44/60 path.
+
+#### Start here
+
+Instead of building your application in a separate repository, you will make changes to the [Ethereum app](https://github.com/LedgerHQ/app-ethereum).
+
+- Fork the [Ethereum app](https://github.com/LedgerHQ/app-ethereum)
+- Before committing your changes remember to sign your commits.
+- Please make your changes to the `develop` branch
+
+<Callout type="warning" emoji="⚠️">
+  For security reasons, the repository is set up to accept only pull requests with signed commits. To sign your commits, use the -S flag : <code>$ git commit -S -m your commit message</code>
+</Callout>
+
+#### 1. Modify app-ethereum/src_common/network.c
+
+Add your chain ID, chain name and Ticker to [network.c](https://github.com/LedgerHQ/app-ethereum/blob/develop/src/network.c) following this example:
+
+```js copy
+{.chain_id = 592, .name = "Astar", .ticker = "ASTR"},
+```
+
+#### 2. Add an icon for Ledger Stax
+
+Add your 64x64px gif icon in the `glyphs` folder following this naming convention: `chain_yourchainid_64px.gif`.
+Use the template provided [here](../../deliver/deliverables/icons#stax-template).
+
+#### 3. Add your Network to Chainlist.org and SLIP-0044
+
+- Chainlist.org: Click "Add Your Network +" on [the Chainlist homepage](https://chainlist.org/) and follow the ReadMe to add your Network.
+
+- SLIP-0044: Open a PR to add your network [in this file](https://github.com/satoshilabs/slips/blob/master/slip-0044.md)
+
+#### 4. Open a pull request
+
+When your application is ready, open a pull request on the Ethereum application repository.
+
+Please get in touch with our team on the [Ledger's Discord server](https://developers.ledger.com/discord/) to get your PR reviewed.
+
+### B - All other paths
+
+Follow this process if your chain uses another path than 44/60.
+
+<Callout type="warning" emoji="⚠️">
+  If your chain does not use the `44/60` path, you won't be able to use Metamask with your device app.
+</Callout>
+
+#### Start here
+
+Instead of building your application in a separate repository, you will make changes to the [Ethereum app](https://github.com/LedgerHQ/app-ethereum).
+
+- Fork the [Ethereum app](https://github.com/LedgerHQ/app-ethereum)
+- Before committing your changes remember to sign your commits.
+- Please make your changes to the `develop` branch
+
+The following page uses the Walton Chain as an example, please replace every `WaltonChain` occurence with the name of your coin and chain.
+
+<Callout type="warning" emoji="⚠️">
+  For security reasons, the repository is set up to accept only pull requests with signed commits. To sign your commits, use the -S flag : <code>$ git commit -S -m your commit message</code>
+</Callout>
+
+#### 1. Create a file in app-ethereum/makefile_conf/chain
+
+Following the next example, add a `.mk` file in `app-ethereum/makefile_conf/chain`
+
+``` c copy
+APP_LOAD_PARAMS += --path "44'/999999'"
+TICKER = "WTC"
+CHAIN_ID = 15
+APPNAME = "WaltonChain"
+```
+
+<Callout type="error" emoji="🚨">
+    It is necessary to choose a Derivation Path and a Chain ID specific to your network to prevent the risk of replay attack (Introduced by EIP155) that can happen when using the same Derivation Path ( m/44'/60'/0') and Chain ID as Ethereum. This could expose your users to loss of funds.<br/>
+    You can either use the same Derivation Path but define a new chain ID (make sure this is not used by another network) or use slip44/BIP44 standard to reserve a dedicated coin type that will allow you to define a new derivation path.
+</Callout>
+
+#### 2. Upload your app's icons
+
+- Add your 16x16px Nanos , 14x14px Nano S Plus / Nano X and 32x32 Stax gif icons in the `icons` folder following these naming conventions: `nanos_app_chain_yourchainid.gif`, `nanox_app_chain_yourchainid.gif`, `stax_app_chain_yourchainid.gif`
+- Add your 64x64px gif icon in the `icons` folder following this naming convention: `stax_yourchainid_64px.gif`.
+Use the template provided [here](../../deliver/deliverables/icons).
+
+#### 3. Build the application
+
+To build the clone application, [follow these guidelines](../quickstart).
+1. First run the `make` command for the Ethereum App and run `make load`
+2. Run `make clean`
+2. Load the Device App clone with the name of your chain. E.g: `make load CHAIN=tomochain`
+
+#### 4. Add your Network to SLIP-0044
+
+Open a PR to add your network [in this file](https://github.com/satoshilabs/slips/blob/master/slip-0044.md)
+
+#### 5. Open a pull request
+
+When your application is ready, open a pull request on the Ethereum application repository.
+
+Please get in touch with our team on the [Ledger's Discord server](https://developers.ledger.com/discord/) to get your PR reviewed.
+
+## Publishing the application
+
+If you want to publish a clone application, follow the process in [Publishing an application](../../deliver).

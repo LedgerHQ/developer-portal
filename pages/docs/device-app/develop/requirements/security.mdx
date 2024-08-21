@@ -57,7 +57,7 @@ More information [here](../../architecture/cryptography/general-concepts#signing
 
 ### Blind Signing
 
-As a general rule, [blind signing should be avoided](../../architecture/crypto#avoid-blindly-signing-data), however it is tolerated under some circumstances.
+As a general rule, [blind signing should be avoided](../../architecture/cryptography/general-concepts#avoid-blindly-signing-data), however it is tolerated under some circumstances.
 
 
 For every transaction, the users must be able to verify on the device the amount being transferred and the destination address or the validator/nominator address(es) in the case of a staking operation.
@@ -71,12 +71,12 @@ To implement this requirement it is recommended to have a setting menu with the 
 </Callout>
 
 
-You can find implementation example inside [Ethereum](https://github.com/LedgerHQ/app-ethereum), [Solana](https://github.com/LedgerHQ/app-solana) or [Elrond](https://github.com/LedgerHQ/app-elrond) code base.
+You can find implementation example inside [Ethereum](https://github.com/LedgerHQ/app-ethereum) code base.
 
-## Nice to have: CodeQL
+## CodeQL
 
-In order to increase code security, use static analysis based on [CodeQL](https://codeql.github.com/docs/) to perform security checks.
-CodeQL can be directly integrated into your project by creating a new YAML file: `.github/workflows/codeql-workflow.yaml` in your repository.
+[CodeQL](https://codeql.github.com/docs/) is required to perform security checks and detect vulnerabilities.
+It can be directly integrated into your project by creating a new YAML file: `.github/workflows/codeql-workflow.yaml` in your repository.
 
 A complete [codeql-workflow.yml](https://github.com/LedgerHQ/app-boilerplate/blob/0cdb0059e4f374b796b25ed347202c5e4e3e558a/.github/workflows/codeql-workflow.yml) file is available in the repository of the Boilerplate app.
 
@@ -127,3 +127,5 @@ Next the results of CodeQL are displayed on your GitHub security view, in the â€
 ![Code Scanning view](/device-app/codeql_codescanning_view.png)
 
 ![Pull request view](/device-app/codeql_pr_view.png)
+
+The security issues with a severity level higher than low must be fixed before going through the security audit. The quality issues with a level set to error must also be fixed.
