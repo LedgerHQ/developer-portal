@@ -1307,11 +1307,6 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/exchange/swap/:slug*',
-        destination: '/docs/exchange/swap',
-        permanent: true,
-       },
-      {
         source: '/docs/swap/:slug*',
         destination: '/docs/exchange/swap',
         permanent: true,
