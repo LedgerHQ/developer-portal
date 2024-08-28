@@ -15,55 +15,8 @@ Blind signing is a significant vulnerability that scammers exploit to steal fund
 
 At Ledger, we are committed to building a secure Web3 ecosystem. That is why we have introduced clear signing standards and tools to address this issue. These tools provide user-readable and understandable data, making it easier for users to identify potential risks and verify transactions accurately.
 
-## Prerequisite
+## Where to go next?
 
-This implementation is currently for EVM chains only. Stay tuned for other protocols.
-
-## How to implement clear signing?
-
-### dApps
-
-The clear signing standard that we have developped relies on the whitelisting of smart contracts methods and can be done easily and quickly.
-
-**The whitelisting of a smart contract method has two steps:**
-
-- A Json file to map your smart contract data into human-readable information to be displayed on Ledger devices. The specifications for this Json file are on [the official GitHub repository](https://github.com/LedgerHQ/clear-signing-format-spec/blob/master/spec.md), 
-- A peer review of the files on the public Ledger repository.
-
-Other items to take into account to ensure a full clear signing experience:
-
-- For EIP-712 messages follow [this documentation](./tokens/eip712-messages#what-to-do-to-clear-sign-eip-712-messages-for-your-dapp)
-- [Add your token](./tokens/integrating-tokens) in Ledger Live.
-- Some special cases may require the development of an [Ethereum plugin](./device-app/develop/code/plugin). The Ledger team will guide you through this process if required.
-
-
-### Wallets
-
-- Use the latest version of the [LedgerJS Ethereum transport library](https://github.com/LedgerHQ/ledger-live/tree/b2163a6eaafd46390d4a14bad8e62fcc10454c05/libs/ledgerjs/packages/hw-app-eth). It has been updated for the new standard. For more information on how to use the LedgerJS libraries read [this documentation](./connectivity/ledgerJS).
-- Review the Json files to ensure the information is legitimate. 
-
-### Watch the "Request for Comment Session"
-
-To get an insight about our process and plan for the future of clear signing, we recommend you watching the "Request for Comment Session". You can read [the slides](https://www.keepandshare.com/doc13/view.php?id=32202&da=y).
-
-<br/>
-
-<iframe width="100%" height="315" src="https://www.youtube-nocookie.com//embed/-O7aX6vUvs8?si=ypUZmsQyyGPYcNn7" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-
-
-## What's next?
-
-- Publication of an open source Json edition tool to write the json description and display the information that the user will see on their devices,
-- Decentralization of the peer review process, 
-- Generalization of the Json standard to the Web3 ecosystem, 
-- Extension of this process to other protocols. 
-
-Stay tuned for further updates and evolutions on this topic as we continue to improve and expand our security measures, ensuring the highest protection for our users. 
-
-Want to know more? Join the conversation on [the Ethereum Magicians Forum](https://ethereum-magicians.org/t/eip-7730-proposal-for-a-clear-signing-standard-format-for-wallets/20403) and join [our Telegram group](https://t.me/+Saw4M8DRA_5mZTk0 ), dedicated to this subject. 
-
-
-
-
-
-
+- If you work on a DApp or a wallet and want to follow the new Clear Signing initiative, [read this documentation](./eip7730)
+- If you work on a DApp and want add EIP-712 messages Clear Signing support, [read this documentation](./eip712)
+- For ERC721, ERC1155 and ERC20 NFTs, follow [this documentation](./nft)
