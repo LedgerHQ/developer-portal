@@ -20,8 +20,8 @@ export const Journeys = () => {
               className="w-full md:w-[48.5%]"
             />
             <JourneyCard 
-              title="Clear sign your smart contracts"
-              description="and integrate your application quickly in Ledger Live." 
+              title="Get your DApp in the Discover section"
+              description="and create an Ethereum plugin for safer transactions" 
               type="services-dapps"
               className="w-full md:w-[48.5%]"
             />
