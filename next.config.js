@@ -823,7 +823,12 @@ module.exports = {
        },
       {
         source: '/docs/transport/clear-signing',
-        destination: '/docs/connectivity/ledgerJS/clear-signing',
+        destination: '/docs/clear-signing/eip712',
+        permanent: true,
+       },
+      {
+        source: '/docs/connectivity/ledgerJS/clear-signing',
+        destination: '/docs/clear-signing/eip712',
         permanent: true,
        },
       {
@@ -1298,7 +1303,12 @@ module.exports = {
        },
       {
         source: '/docs/token/eip712-messages',
-        destination: '/docs/tokens/eip712-messages',
+        destination: '/docs/clear-signing/nft',
+        permanent: true,
+       },
+      {
+        source: '/docs/tokens/eip712-messages',
+        destination: '/docs/clear-signing/nft',
         permanent: true,
        },
       {
