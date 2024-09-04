@@ -202,6 +202,16 @@ We tried to cover as many cases as possible that are in `getTransactionStatus`.
 
 You are free to define your own extra tests in `bridge.integration.test.ts` (or any other integration test file) for more advanced tests that would not be covered by the bridge generic tests.
 
+### Launch the test
+
+To launch the test do:
+
+```bash copy
+pnpm common jest --runTestsByPath src/families/<mycoin>/bridge.integration.test.ts 
+```
+
+Replace `<mycoin>` with the name of your coin.
+
 ## Testing the transaction broadcast with the bot
 
 Transaction broadcast is an exception, it is tested differently, by a tool that we call "the bot". See below.
@@ -215,18 +225,6 @@ Transaction broadcast is an exception, it is tested differently, by a tool that 
 ### What is this testing?
 
 We are testing the broadcast part and sync part.
-
-### How it works
-
-```sh copy
-pnpm run:cli cleanSpeculos; SEED="generate a seed for testing" COINAPPS="/path/to/coin/apps/folder" pnpm run:cli bot -c mycoin
-```
-
-- Generate a 24 words SEED, [iancoleman.io/bip39/](https://iancoleman.io/bip39/). Use this seed for testing purpose only, then use the command before to have an adresse and send some currencies into it
-
-- The bot will execute each scenario if it met the requirement, then it will wait until the sync find the broadcasted transaction
-
-- You also need to specify how the bot will react when he encounter certain screen, create `speculos-deviceActions.ts`
 
 ### How to define a test
 
@@ -386,12 +384,14 @@ For instance you can customize the embedded app version using the `appQuery` obj
 
 You can find the full list of available parameters [here](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/coin-framework/src/bot/types.ts) for AppSpec and MutationSpec.
 
-### Launch the test
+### Launch the bot
 
-To launch the test do:
-
-```bash copy
-pnpm common jest --runTestsByPath src/families/<mycoin>/bridge.integration.test.ts 
+```sh copy
+pnpm run:cli cleanSpeculos; SEED="generate a seed for testing" COINAPPS="/path/to/coin/apps/folder" pnpm run:cli bot -c mycoin
 ```
 
-Replace `<mycoin>` with the name of your coin.
+- Generate a 24 words SEED, [iancoleman.io/bip39/](https://iancoleman.io/bip39/). Use this seed for testing purpose only, then use the command before to have an adresse and send some currencies into it
+
+- The bot will execute each scenario if it met the requirement, then it will wait until the sync find the broadcasted transaction
+
+- You also need to specify how the bot will react when he encounter certain screen, create `speculos-deviceActions.ts`
