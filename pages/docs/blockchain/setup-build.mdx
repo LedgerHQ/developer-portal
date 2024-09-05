@@ -97,6 +97,9 @@ Here is a typical family folder structure (TS integration):
 </Callout>
 
 #### Coin-module
+
+In the coin module, there is shared logic but blockchain specific, and how signer needs to be injected.
+
  * `src/api` directory: Contains all the logic to send requests to the explorer.
  * `src/bridge/js.ts` file: Entry point of Ledger Live integration of the coin-module. This file lists `BridgeCurrency` and `BridgeAccount` implementation.
  * `src/hw-getAddress.ts` file: Logic on how to interact with device-app to retrieve addresses.
@@ -105,6 +108,10 @@ Here is a typical family folder structure (TS integration):
  * `src/specs.ts` file: Definition of tests to be run on the bot.
 
 #### Ledger live-common
+
+In live-common, there is the signer implementation, the logic shared between Ledger Live Desktop and mobile, and device app specific code.
+
+
  * `src/logic.ts`: Lists coin specific business logic.
  * `src/react.ts`: Defines and lists coin specfic react hooks for UI.
  * `src/setup.ts`: Declares the signer in LLC.

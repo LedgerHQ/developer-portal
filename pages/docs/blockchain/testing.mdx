@@ -226,17 +226,37 @@ Transaction broadcast is an exception, it is tested differently, by a tool that 
 
 We are testing the broadcast part and sync part.
 
+The bot executes each possible `mutation` on one account as long as it is possible and will stop if the `maxRun` is reached, or if it encounter an `invariant`.
+
+The bot will then move to the next account and execute the same actions, until it reaches the configured `maxAccount`.
+
+Then it will execute all the `updates` of the `Transaction` object.
+
+The bot will try to sign the transaction using instructions that you provided in `speculos-deviceActions.ts`
+
+Eventually it will broadcast the transaction in the blockchain and wait for the `sync` to find the operation and its optimisic version.
+
 ### How to define a test
 
-`speculos-deviceActions.ts`
+#### speculos-deviceActions.ts
 
-It is required to know every screen that your embedded app contains, it will use the `title` of the screen then optionally check if the `expectedValue` of that screen is what it expects, then eventually execute the `button` action.
+It is required to know every screen that your device app contains, it will use the `title` of the screen then optionally check if the `expectedValue` of that screen is what it expects, then eventually execute the `button` action.
+
 
 ```ts copy
 title : name of the screen title
 button: "Rr" for the bot to push the Right button of the nano || "Ll" same for left || "LRlr" same but for both
 expectedValue: string of what we want to compare
 ```
+
+
+<Callout type="warning" emoji="⚠️">
+  The bot only supports Nano S Plus compatible device apps. Stax/Flex bot specs support to be included in the future. <br/>
+  To migrate from nanoS speculos deviceActions to nanoS+, execute the spec manually adapt the screen. 
+</Callout>
+
++ EXEMPLE
+
 
 You can use the following example to help you start to write how the bot will react :
 
@@ -286,17 +306,16 @@ const acceptTransaction: DeviceAction<Transaction, *> = deviceActionFlow({
 export default { acceptTransaction };
 ```
 
-`specs.ts`
+#### specs.ts
 
-You can check the following example to help you write your specs.
+##### Mutation configuration
 
-The bot will execute all the `mutations` if it doesn't encounter an invariant.
+`name`: description of the mutation (will be included in the report)
+`maxRun`: max number of executions of the spec itself
+`transaction`: code to be executed for the spec
+`test` : checks / expectations after the transaction execution
 
-Then it will execute all the `updates` of the `Transaction` object.
-
-The bot will try to sign the transaction using instructions that you provided in `speculos-deviceActions.ts`
-
-Eventually it will broadcast the transaction in the blockchain and wait for the `sync` to find the operation and its optimisic version.
+##### Standard send/receive
 
 ```ts copy
 import expect from "expect";
@@ -362,6 +381,12 @@ const mycoin: AppSpec<Transaction> = {
 export default { mycoin };
 ```
 
+##### Staking
+
+
+##### Token support
+
+
 ### Optional parameters
 
 Some optional parameters can be configured in the bot spec.
@@ -395,3 +420,16 @@ pnpm run:cli cleanSpeculos; SEED="generate a seed for testing" COINAPPS="/path/t
 - The bot will execute each scenario if it met the requirement, then it will wait until the sync find the broadcasted transaction
 
 - You also need to specify how the bot will react when he encounter certain screen, create `speculos-deviceActions.ts`
+
+### Common errors
+
+`⚠️ TEST waiting operation id to appear after broadcast`
+
+-> Operation that has been broadcasted, for some reason, after the timeout delay , does not end up in the history (timeout delay is not enough or operation gets lost in the process).
+
+`⚠️ Error: device action timeout. Recent events was:`
+
+An update is required on the screens:
+
+
+
