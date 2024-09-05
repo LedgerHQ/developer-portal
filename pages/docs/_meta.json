@@ -7,9 +7,9 @@
         "type": "page",
         "title": "Device App"
       },
-  "app-device-com": {
+  "device-interaction": {
         "type": "page",
-        "title": "App <-> Device communicatéion"
+        "title": "Device interaction"
       },
   "ledger-live": {
         "type": "page",

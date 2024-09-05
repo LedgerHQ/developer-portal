@@ -22,9 +22,9 @@
         "title": "Device App",
         "href": "/docs/device-app/getting-started"
       },
-      "app-device-com": {
-        "title": "App <-> Device Communication",
-        "href": "/docs/app-device-com/getting-started"
+      "device-interaction": {
+        "title": "Device interaction",
+        "href": "/docs/device-interaction/getting-started"
       },
       "ledger-live": {
         "title": "Ledger Live",
