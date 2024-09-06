@@ -308,12 +308,18 @@ export default { acceptTransaction };
 
 #### specs.ts
 
+<Callout type="warning" emoji="⚠️">
+  You should force a specific Nano version only if mandatory, in general it is always better to let the bot target the latest version.
+</Callout>
+
+You can find the full list of available parameters [here](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/coin-framework/src/bot/types.ts) for AppSpec and MutationSpec.
+
 ##### Mutation configuration
 
-`name`: description of the mutation (will be included in the report)
-`maxRun`: max number of executions of the spec itself
-`transaction`: code to be executed for the spec
-`test` : checks / expectations after the transaction execution
+- `name`: description of the mutation (will be included in the report)
+- `maxRun`: max number of executions of the spec itself
+- `transaction`: code to be executed for the spec
+- `test` : checks / expectations after the transaction execution
 
 ##### Standard send/receive
 
@@ -347,33 +353,76 @@ const mycoin: AppSpec<Transaction> = {
   },
   mutations: [
     {
-      name: "move ~50%",
+      name: "send max",
+      maxRun: 1,
+      testDestination: genericTestDestination,
+      transaction: ({ account, siblings, bridge, maxSpendable }) => {
+        invariant(maxSpendable.gt(0), "Spendable balance is too low");
+        const sibling = pickSiblings(siblings, 4);
+        // Send the full spendable balance
+        const amount = maxSpendable;
+        checkSendableToEmptyAccount(amount, sibling);
+        return {
+          transaction: bridge.createTransaction(account),
+          updates: [
+            {
+              recipient: sibling.freshAddress,
+            },
+            {
+              useAllAmount: true,
+            },
+          ],
+        };
+      },
+      test: ({ account }) => {
+        // Ensure that there is no more than 20 μALGOs (discretionary value)
+        // between the actual balance and the expected one to take into account
+        // the eventual pending rewards added _after_ the transaction
+        botTest("account spendable balance is very low", () =>
+          expect(account.spendableBalance.lt(20)).toBe(true),
+        );
+      },
+      name: "send ASA ~50%",
       maxRun: 2,
       transaction: ({ account, siblings, bridge, maxSpendable }) => {
-        const sibling = pickSiblings(siblings, 4);
-        const recipient = sibling.freshAddress;
-
-        let transaction = bridge.createTransaction(account);
-
-        let amount = spendableBalance
-          .div(1.9 + 0.2 * Math.random())
-          .integerValue();
-
-        checkSendableToEmptyAccount(amount, sibling);
-
-        const updates = [{ amount }, { recipient }];
+        invariant(maxSpendable.gt(0), "Spendable balance is too low");
+        const subAccount = sample(getAssetsWithBalance(account));
+        invariant(subAccount && subAccount.type === "TokenAccount", "no subAccount with ASA");
+        const assetId = subAccount.token.id;
+        const sibling = pickSiblingsOptedIn(siblings, assetId);
+        const transaction = bridge.createTransaction(account);
+        const recipient = (sibling as Account).freshAddress;
+        const mode = "send";
+        const amount = subAccount.balance.div(1.9 + 0.2 * Math.random()).integerValue();
+        const updates: Array<Partial<AlgorandTransaction>> = [
+          {
+            mode,
+            subAccountId: subAccount.id,
+          },
+          {
+            recipient,
+          },
+          {
+            amount,
+          },
+        ];
         return {
           transaction,
           updates,
         };
       },
-      test: ({ account, accountBeforeTransaction, operation }) => {
-        botTest("account balance decreased with operation value", () =>
-          expect(account.balance.toString()).toBe(
-            accountBeforeTransaction.balance.minus(operation.value).toString()
-          )
+      test: ({ account, accountBeforeTransaction, transaction, status }) => {
+        const subAccountId = transaction.subAccountId;
+        const subAccount = account.subAccounts?.find(sa => sa.id === subAccountId);
+        const subAccountBeforeTransaction = accountBeforeTransaction.subAccounts?.find(
+          sa => sa.id === subAccountId,
         );
-      },
+        botTest("subAccount balance moved with the tx status amount", () =>
+          expect(subAccount?.balance.toString()).toBe(
+            subAccountBeforeTransaction?.balance.minus(status.amount).toString(),
+          ),
+        );
+      }
     },
   ],
 };
@@ -383,31 +432,236 @@ export default { mycoin };
 
 ##### Staking
 
-
-##### Token support
-
-
-### Optional parameters
-
-Some optional parameters can be configured in the bot spec.
-
-For instance you can customize the embedded app version using the `appQuery` object:
-
 ```ts copy
-  // a query to select one embedded app. the most up to date version is selected when fields aren't set.
-  appQuery: {
-    model?: DeviceModelId;
-    appName?: string;
-    firmware?: string;
-    appVersion?: string;
-  };
+    name: "delegate new validators",
+      maxRun: 1,
+      transaction: ({ account, bridge, siblings }) => {
+        expectSiblingsHaveSpendablePartGreaterThan(siblings, 0.5);
+        invariant(account.index % 2 > 0, "only one out of 2 accounts is not going to delegate");
+        invariant(canDelegate(account as CosmosAccount), "can delegate");
+        const { cosmosResources } = account as CosmosAccount;
+        invariant(cosmosResources, "cosmos");
+        invariant(
+          (cosmosResources as CosmosResources).delegations.length < 3,
+          "already enough delegations",
+        );
+        const data = getCurrentCosmosPreloadData()[account.currency.id];
+        const count = 1; // we'r always going to have only one validator because of the new delegation flow.
+        let remaining = getMaxDelegationAvailable(account as CosmosAccount, count)
+          .minus(minimalTransactionAmount.times(2))
+          .times(0.1 * Math.random());
+        invariant(remaining.gt(0), "not enough funds in account for delegate");
+        const all = data.validators.filter(
+          v =>
+            !(cosmosResources as CosmosResources).delegations.some(
+              // new delegations only
+              d => d.validatorAddress === v.validatorAddress,
+            ),
+        );
+        invariant(all.length > 0, "no validators found");
+        const validators = sampleSize(all, count)
+          .map(delegation => {
+            // take a bit of remaining each time (less is preferred with the random() square)
+            const amount = remaining.times(Math.random() * Math.random()).integerValue();
+            remaining = remaining.minus(amount);
+            return {
+              address: delegation.validatorAddress,
+              amount,
+            };
+          })
+          .filter(v => v.amount.gt(0));
+        invariant(validators.length > 0, "no possible delegation found");
+        return {
+          transaction: bridge.createTransaction(account),
+          updates: [
+            {
+              memo: "LedgerLiveBot",
+              mode: "delegate",
+            },
+            {
+              validators: validators,
+            },
+            { amount: validators[0].amount },
+          ],
+        };
+      },
+      test: ({ account, transaction }) => {
+        const { cosmosResources } = account as CosmosAccount;
+        invariant(cosmosResources, "cosmos");
+        transaction.validators.forEach(v => {
+          const d = (cosmosResources as CosmosResources).delegations.find(
+            d => d.validatorAddress === v.address,
+          );
+          invariant(d, "delegated %s must be found in account", v.address);
+          botTest("delegator have planned address and amount", () => {
+            expect(v.address).toBe((d as CosmosDelegation).validatorAddress);
+            checkAmountsCloseEnough(v.amount, (d as CosmosDelegation).amount);
+          });
+        });
+      },
+    {
+      name: "undelegate",
+      maxRun: 5,
+      transaction: ({ account, bridge, maxSpendable }) => {
+        invariant(canUndelegate(account as CosmosAccount), "can undelegate");
+        const { cosmosResources } = account as CosmosAccount;
+        invariant(cosmosResources, "cosmos");
+        invariant(maxSpendable.gt(minimalTransactionAmount.times(2)), "balance is too low");
+        invariant(
+          (cosmosResources as CosmosResources).delegations.length > 0,
+          "already enough delegations",
+        );
+        const undelegateCandidate = sample(
+          (cosmosResources as CosmosResources).delegations.filter(
+            d =>
+              !(cosmosResources as CosmosResources).redelegations.some(
+                r =>
+                  r.validatorSrcAddress === d.validatorAddress ||
+                  r.validatorDstAddress === d.validatorAddress,
+              ) &&
+              !(cosmosResources as CosmosResources).unbondings.some(
+                r => r.validatorAddress === d.validatorAddress,
+              ),
+          ),
+        );
+        invariant(undelegateCandidate, "already pending");
+
+        const amount = (undelegateCandidate as CosmosDelegation).amount
+          .times(Math.random() > 0.2 ? 1 : Math.random()) // most of the time, undelegate all
+          .integerValue();
+        invariant(amount.gt(0), "random amount to be positive");
+
+        return {
+          transaction: bridge.createTransaction(account),
+          updates: [
+            {
+              mode: "undelegate",
+              memo: "LedgerLiveBot",
+            },
+            {
+              validators: [
+                {
+                  address: (undelegateCandidate as CosmosDelegation).validatorAddress,
+                  amount,
+                },
+              ],
+            },
+          ],
+        };
+      },
+      test: ({ account, transaction }) => {
+        const { cosmosResources } = account as CosmosAccount;
+        invariant(cosmosResources, "cosmos");
+        transaction.validators.forEach(v => {
+          const d = (cosmosResources as CosmosResources).unbondings.find(
+            d => d.validatorAddress === v.address,
+          );
+          invariant(d, "undelegated %s must be found in account", v.address);
+          botTest("validator have planned address and amount", () => {
+            expect(v.address).toBe((d as CosmosUnbonding).validatorAddress);
+            checkAmountsCloseEnough(v.amount, (d as CosmosUnbonding).amount);
+          });
+        });
+      },
+    },
+    name: "claim rewards",
+      maxRun: 1,
+      transaction: ({ account, bridge, maxSpendable }) => {
+        const { cosmosResources } = account as CosmosAccount;
+        invariant(cosmosResources, "cosmos");
+        invariant(
+          maxSpendable.gt(minimalTransactionAmount.times(2)),
+          "balance is too low for claim rewards",
+        );
+        const delegation = sample(
+          (cosmosResources as CosmosResources).delegations.filter(d => d.pendingRewards.gt(1000)),
+        ) as CosmosDelegation;
+        invariant(delegation, "no delegation to claim");
+        return {
+          transaction: bridge.createTransaction(account),
+          updates: [
+            {
+              mode: "claimReward",
+              memo: "LedgerLiveBot",
+              validators: [
+                {
+                  address: delegation.validatorAddress,
+                  amount: delegation.pendingRewards,
+                },
+              ],
+            },
+          ],
+        };
+      },
+      test: ({ account, transaction }) => {
+        const { cosmosResources } = account as CosmosAccount;
+        invariant(cosmosResources, "cosmos");
+        transaction.validators.forEach(v => {
+          const d = (cosmosResources as CosmosResources).delegations.find(
+            d => d.validatorAddress === v.address,
+          );
+          botTest("delegation exists in account", () =>
+            invariant(d, "delegation %s must be found in account", v.address),
+          );
+          botTest("reward is no longer claimable after claim", () =>
+            invariant(
+              d?.pendingRewards.lte(d.amount.multipliedBy(0.1)),
+              "pending reward is not reset",
+            ),
+          );
+        });
+      }
 ```
 
-<Callout type="warning" emoji="⚠️">
-  You should force a specific Nano version only if mandatory, in general it is always better to let the bot target the latest version.
-</Callout>
+#### Token support
 
-You can find the full list of available parameters [here](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/coin-framework/src/bot/types.ts) for AppSpec and MutationSpec.
+```ts copy
+  name: "move some ERC20 like (ERC20, BEP20, etc...)",
+  maxRun: 1,
+  testDestination: testTokenDestination,
+  transaction: ({ account, siblings, bridge }): TransactionRes<EvmTransaction> => {
+    const erc20Account = sample((account.subAccounts || []).filter(a => a.balance.gt(0)));
+    invariant(erc20Account, "no erc20 account");
+    const sibling = pickSiblings(siblings, 3);
+    const recipient = sibling.freshAddress;
+    return {
+      transaction: bridge.createTransaction(account),
+      updates: [
+        {
+          recipient,
+          subAccountId: erc20Account!.id,
+        },
+        Math.random() < 0.5
+          ? {
+              useAllAmount: true,
+            }
+          : {
+              amount: erc20Account!.balance.times(Math.random()).integerValue(),
+            },
+      ],
+    };
+  },
+  test: ({ accountBeforeTransaction, account, transaction }): void => {
+    invariant(accountBeforeTransaction.subAccounts, "sub accounts before");
+    const erc20accountBefore = accountBeforeTransaction.subAccounts?.find(
+      s => s.id === transaction.subAccountId,
+    );
+    invariant(erc20accountBefore, "erc20 acc was here before");
+    invariant(account.subAccounts, "sub accounts");
+    const erc20account = account.subAccounts!.find(s => s.id === transaction.subAccountId);
+    invariant(erc20account, "erc20 acc is still here");
+
+    if (transaction.useAllAmount) {
+      botTest("erc20 account is empty", () => expect(erc20account!.balance.toString()).toBe("0"));
+    } else {
+      botTest("account balance moved with tx amount", () =>
+        expect(erc20account!.balance.toString()).toBe(
+          erc20accountBefore!.balance.minus(transaction.amount).toString(),
+        ),
+      );
+    }
+  }
+```
 
 ### Launch the bot
 
@@ -427,9 +681,100 @@ pnpm run:cli cleanSpeculos; SEED="generate a seed for testing" COINAPPS="/path/t
 
 -> Operation that has been broadcasted, for some reason, after the timeout delay , does not end up in the history (timeout delay is not enough or operation gets lost in the process).
 
-`⚠️ Error: device action timeout. Recent events was:`
+``` 
+⚠️ Error: device action timeout. Recent events was:
+{"text":"TFAG598RAS3di4UiTE","x":7,"y":17,"w":115,"h":32}
+{"text":"From Address (2/2)","x":16,"y":3,"w":106,"h":32}
+{"text":"MtTEqGfWf7zptyiT","x":14,"y":17,"w":108,"h":32}
+{"text":"To (1/2)","x":45,"y":3,"w":77,"h":32}
+{"text":"TRtxvsTwcrabLwwE4","x":9,"y":17,"w":113,"h":32}
+(totally spent 61.6s – ends at 2024-04-04T05:55:53.966Z)
+```
 
-An update is required on the screens:
+-> An update is required on the screens
 
+``` 
+necessary accounts resynced in 0.18ms
+▬ Filecoin 0.24.1 on nanoSP 1.1.1
+→ FROM Filecoin 2 cross [bip44]: 0.616356 FIL (25ops) (f1a57ukatezm5aiuahhdrip3eyf7hzoj73u3ieyrq on 44'/461'/1'/0/0) filecoinBIP44#1 js:2:filecoin:f1a57ukatezm5aiuahhdrip3eyf7hzoj73u3ieyrq:filecoinBIP44 (! sum of ops 0.616356356693009588 FIL)
+max spendable ~0.616356
+★ using mutation 'Transfer Max'
+→ TO Filecoin 7 [bip44]: 0 FIL (6ops) (f1bw4zwsefo5rwk3t536tq6wlgdhivrt5ucmdttji on 44'/461'/6'/0/0) filecoinBIP44#6 js:2:filecoin:f1bw4zwsefo5rwk3t536tq6wlgdhivrt5ucmdttji:filecoinBIP44
+✔️ transaction 
+SEND MAX
+TO f1bw4zwsefo5rwk3t536tq6wlgdhivrt5ucmdttji
+STATUS (1435ms)
+  amount: 0.616356203626308647 FIL
+  estimated fees: 0.000000153066700962 FIL
+  total spent: 0.616356356693009609 FIL
+errors: 
+errors: 
+⚠️ TEST deviceAction confirm step 'Value'
+Error: expect(received).toMatchObject(expected)
 
+- Expected  - 1
++ Received  + 1
 
+  Object {
+-   "Value": "0.616356203626308647",
++   "Value": "FIL 0.616356203626308647",
+  }
+(totally spent 5.2s – ends at 2024-04-04T05:55:53.928Z)
+```
+
+-> An update updated is required on the screens (new prefix)
+
+```
+necessary accounts resynced in 0.24ms
+▬ Cosmos 2.35.19 on nanoS 2.1.0
+→ FROM Cosmos 2: 0.034471 ATOM (0ops) (cosmos1k2d965a5clx7327n9zx30ewz39ms7kyj9rs935 on 44'/118'/1'/0/0) #1 js:2:cosmos:cosmos1k2d965a5clx7327n9zx30ewz39ms7kyj9rs935: (! sum of ops 0 ATOM) 0.034471 ATOM spendable. 
+
+max spendable ~0.03276
+★ using mutation 'send max'
+→ TO Cosmos 4: 0.02964 ATOM (0ops) (cosmos17s09a0jyp24hl7w3vcn8padz6efwmrpjwy3uf4 on 44'/118'/3'/0/0) #3 js:2:cosmos:cosmos17s09a0jyp24hl7w3vcn8padz6efwmrpjwy3uf4:
+✔️ transaction 
+SEND MAX
+TO cosmos17s09a0jyp24hl7w3vcn8padz6efwmrpjwy3uf4
+
+with fees=0.001713
+STATUS (816ms)
+  amount: 0.032758 ATOM
+  estimated fees: 0.001713 ATOM
+  total spent: 0.034471 ATOM
+errors: 
+errors: 
+✔️ has been signed! (7.9s) 
+✔️ broadcasted! (120ms) optimistic operation: 
+  -0.034471 ATOM     OUT        8893674CA6DD3A513111B253D8D3AB4150F83CF318297B197D12BB20238ABB99 2024-04-04T05:33
+⚠️ TEST waiting operation id to appear after broadcast
+Error: could not find optimisticOperation js:2:cosmos:cosmos1k2d965a5clx7327n9zx30ewz39ms7kyj9rs935:-8893674CA6DD3A513111B253D8D3AB4150F83CF318297B197D12BB20238ABB99-OUT
+(totally spent 2min 9s – ends at 2024-04-04T05:55:53.870Z)
+```
+
+-> Backend issue
+
+```
+necessary accounts resynced in 0.16ms
+▬ Cosmos 2.35.19 on nanoS 2.1.0
+→ FROM Osmosis 7: 0.02492 OSMO (1ops) (osmo1n6vccpa77x7xyhnk98jy6gg3rmgjkazxuyk2ng on 44'/118'/6'/0/0) #6 js:2:osmo:osmo1n6vccpa77x7xyhnk98jy6gg3rmgjkazxuyk2ng: (! sum of ops -0.043349 OSMO) 0.02492 OSMO spendable. 
+
+max spendable ~0.022518
+★ using mutation 'send some'
+→ TO Osmosis 3: 0 OSMO (0ops) (osmo1vvzwc6l3wfdaqa9rncex8k2uwtpwztswsm7kkv on 44'/118'/2'/0/0) #2 js:2:osmo:osmo1vvzwc6l3wfdaqa9rncex8k2uwtpwztswsm7kkv:
+✔️ transaction 
+SEND  0.007005 OSMO
+TO osmo1vvzwc6l3wfdaqa9rncex8k2uwtpwztswsm7kkv
+
+with fees=0.002006
+  memo=LedgerLiveBot
+STATUS (24.4s)
+  amount: 0.007005 OSMO
+  estimated fees: 0.002006 OSMO
+  total spent: 0.009011 OSMO
+errors: 
+errors: 
+✔️ has been signed! (13.6s) {"operation":{"id":"js:2:osmo:osmo1n6vccpa77x7xyhnk98jy6gg3rmgjkazxuyk2ng:--OUT","hash":"","type":"OUT","senders":["osmo1n6vccpa77x7xyhnk98jy6gg3rmgjkazxuyk2ng"],"recipients":["osmo1vvzwc6l3wfdaqa9rncex8k2uwtpwztswsm7kkv"],"accountId":"js:2:osmo:osmo1n6vccpa77x7xyhnk98jy6gg3rmgjkazxuyk2ng:","blockHash":null,"blockHeight":null,"extra":{},"date":"2024-04-03T11:28:05.878Z","value":"9011","fee":"2006","transactionSequenceNumber":41},"signature":"0a9b010a89010a1c2f636f736d6f732e62616e6b2e763162657461312e4d736753656e6412690a2b6f736d6f316e367663637061373778377879686e6b39386a7936676733726d676a6b617a7875796b326e67122b6f736d6f3176767a7763366c3377666461716139726e636578386b3275777470777a747377736d376b6b761a0d0a05756f736d6f120437303035120d4c65646765724c697665426f7412670a500a460a1f2f636f736d6f732e63727970746f2e736563703235366b312e5075624b657912230a210311e0d6cbe3a70b35428e38731b044d68614832fc25e293894cf3e26459312a7012040a02087f182912130a0d0a05756f736d6f12043230303610daf2041a40161aa02d9a42a76549f266102998c6135c76923360ea2a92b8119d36bc067d276a0d6682390d1d8716f86410a0eb94f4bb612ece9f36d89d66cdcff87bd63f02"}
+⚠️ TEST during broadcast
+LedgerAPI5xx: API HTTP 504
+(totally spent 98s – ends at 2024-04-03T11:32:38.725Z)
+```

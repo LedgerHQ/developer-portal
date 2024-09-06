@@ -98,7 +98,7 @@ Here is a typical family folder structure (TS integration):
 
 #### Coin-module
 
-In the coin module, there is shared logic but blockchain specific, and how signer needs to be injected.
+In the coin module, there is lockchain specific code, and how the signer needs to be injected.
 
  * `src/api` directory: Contains all the logic to send requests to the explorer.
  * `src/bridge/js.ts` file: Entry point of Ledger Live integration of the coin-module. This file lists `BridgeCurrency` and `BridgeAccount` implementation.
