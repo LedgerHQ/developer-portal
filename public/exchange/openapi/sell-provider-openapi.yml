@@ -85,7 +85,7 @@ paths:
           description: CryptoCurrency amount to sell.
           required: true
           schema:
-            type: integer
+            type: string
           example: 0.3
         - name: country
           in: query
@@ -409,6 +409,7 @@ components:
         - $ref: '#/components/schemas/Visa'
     QuoteResponse:
       required:
+        - quoteId
         - amountTo
         - providerFees
         - referralFees
@@ -467,10 +468,8 @@ components:
         - quoteId
         - amount
         - refundAddress
-        - currencyFrom
-        - fiatTo
-        - payloadCurrencyFrom
-        - payloadFiatTo
+        - fromCryptoCurrency
+        - toFiatCurrency
         - nonce
       type: object
       properties:
@@ -483,33 +482,19 @@ components:
         refundAddress:
           type: string
           description: User's refund address, typically the fromAddress.
-        payoutAddress:
+        fromCryptoCurrency:
           type: string
-          description: User's payout transaction address.
-        refundAddressExtraId:
+          description: From currency ID, using Ledger's referential. (representing in_currency in the protobuf payload)
+        toFiatCurrency:
           type: string
-          description: Field used for blockchains that require a memo (e.g., XRP, XLM).
-        payoutAddressExtraId:
-          type: string
-          description: Field used for blockchains that require a memo (e.g., XRP, XLM).
-        currencyFrom:
-          type: string
-          description: From currency ID, using the provider's identifiers.
-        currencyTo:
-          type: string
-          description: To currency ID, using the provider's identifiers.
-        payloadCurrencyFrom:
-          type: string
-          description: From currency ID, using Ledger's referential. (representing currency_from in the protobuf payload)
-        payloadCurrencyTo:
-          type: string
-          description: To currency ID, using Ledger's referential. (representing currency_to in the protobuf payload)
+          description: Fiat currency at the ISO-4217 standard.
         nonce:
           type: string
           description: Value for the `device_transaction_id_ng` field in the protobuf payload, in hex format of the byte array nonce received by the user.
         slippage:
           type: string
-          description: Value between 0 to 1 (0.1 => 10%). Maximum difference between the quoted amount and the final amount received, as a ratio. If exceeded, user consent is required or a refund is made.
+          description: Value between 0 to 1 (0.1 => 10%). Maximum difference between the quoted amount and the final amount received, as a ratio. If exceeded, user consent is required or a refund is made.\
+
     SellResponse:
       required:
         - sellId
