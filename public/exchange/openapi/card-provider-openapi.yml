@@ -133,6 +133,7 @@ components:
         - refundAddress
         - fromCryptoCurrency
         - toFiatCurrency
+        - payloadCryptoCurrency
         - nonce
       type: object
       properties:
@@ -147,10 +148,13 @@ components:
           description: User's refund address, typically the fromAddress.
         fromCryptoCurrency:
           type: string
-          description: From currency ID, using Ledger's referential. (representing in_currency in the protobuf payload)
+          description: From currency ID, using the provider's identifiers.
         toFiatCurrency:
           type: string
           description: Fiat currency at the ISO-4217 standard.
+        payloadCryptoCurrency:
+          type: string
+          description: From currency ID, using Ledger's referential. (representing currency_from in the protobuf payload
         nonce:
           type: string
           description: Value for the `device_transaction_id_ng` field in the protobuf payload, in hex format of the byte array nonce received by the user.
