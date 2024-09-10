@@ -1273,32 +1273,54 @@ module.exports = {
        },
       {
         source: '/docs/token/faq',
-        destination: '/docs/tokens/integrating-tokens/faq',
+        destination: '/docs/tokens/faq',
+        permanent: true,
+       },
+
+      {
+        source: '/docs/tokens/integrating-tokens/faq',
+        destination: '/docs/tokens/faq',
         permanent: true,
        },
       {
         source: '/docs/token/erc20-bep20',
-        destination: '/docs/tokens/integrating-tokens/evm-chains-tokens',
+        destination: '/docs/tokens/evm-chains-tokens',
         permanent: true,
        },
       {
         source: '/docs/token/erc20',
-        destination: '/docs/tokens/integrating-tokens/evm-chains-tokens',
+        destination: '/docs/tokens/evm-chains-tokens',
         permanent: true,
        },
       {
         source: '/docs/token/evm-chains-tokens',
-        destination: '/docs/tokens/integrating-tokens/evm-chains-tokens',
+        destination: '/docs/tokens/evm-chains-tokens',
+        permanent: true,
+       },
+
+      {
+        source: '/docs/tokens/integrating-tokens/evm-chains-tokenss',
+        destination: '/docs/tokens/evm-chains-tokens',
+        permanent: true,
+       },
+      {
+        source: '/docs/tokens/integrating-tokens/asa',
+        destination: '/docs/tokens/asa',
         permanent: true,
        },
       {
         source: '/docs/token/asa',
-        destination: '/docs/tokens/integrating-tokens/asa',
+        destination: '/docs/tokens/asa',
         permanent: true,
        },
       {
         source: '/docs/token/trc',
         destination: '/docs/tokens/integrating-tokens/trc',
+        permanent: true,
+       },
+      {
+        source: '/docs/tokens/integrating-tokens/trcc',
+        destination: '/docs/tokens/trc',
         permanent: true,
        },
       {
