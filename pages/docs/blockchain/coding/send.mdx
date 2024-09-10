@@ -128,22 +128,16 @@ It is designed for the end user frontend interface and is agnostic of the way it
 
 ### Transactions
 
+#### Create
+
 `Transaction` objects are created from a default state (`createTransaction`), that will then be updated according to the flow and inputs of the user.
 
-Everytime the transaction is updated through a patch (`updateTransaction`), its parameters will need to be validated to check if transaction can be signed and broadcasted (see [Validating Transactions](#validating-transactions)).
-
-In some cases, this transaction will need to be prepared to correctly check status (`prepareTransaction`), like fetching the network fees, transforming some parameters, or setting default values, ...
-
-`libs/coin-modules/coin-mycoin/src/js-transaction.ts`:
+`libs/coin-modules/coin-mycoin/src/bridge/createTransaction.ts`:
 
 ```ts copy
 import { BigNumber } from "bignumber.js";
 import type { Account } from "@ledgerhq/types-live";
-import type { Transaction } from "./types";
-
-import getEstimatedFees from "./js-getFeesForTransaction";
-
-const sameFees = (a, b) => (!a || !b ? a === b : a.eq(b));
+import type { Transaction } from "../types";
 
 /**
  * Create an empty transaction
@@ -158,7 +152,16 @@ export const createTransaction = (): Transaction => ({
   useAllAmount: false,
   fees: null,
 });
+```
 
+
+#### Update
+
+Everytime the transaction is updated through a patch (`updateTransaction`), its parameters will need to be validated to check if transaction can be signed and broadcasted (see [Validating Transactions](#validating-transactions)).
+
+`libs/coin-modules/coin-mycoin/src/bridge/updateTransaction.ts`:
+
+```ts copy
 /**
  * Apply patch to transaction
  *
@@ -169,6 +172,25 @@ export const updateTransaction = (
   t: Transaction,
   patch: $Shape<Transaction>
 ) => ({ ...t, ...patch });
+```
+
+if your update logic is similar as the above example, use directly the `defaultUpdateTransaction` from CoinFramework.
+
+
+#### Prepare
+
+In some cases, this transaction will need to be prepared to correctly check status (`prepareTransaction`), like fetching the network fees, transforming some parameters, or setting default values, ...
+
+`libs/coin-modules/coin-mycoin/src/bridge/prepareTransaction.ts`:
+
+```ts copy
+import { BigNumber } from "bignumber.js";
+import type { Account } from "@ledgerhq/types-live";
+import type { Transaction } from "../types";
+
+import { estimateFees } from "./estimateFees";
+
+const sameFees = (a, b) => (!a || !b ? a === b : a.eq(b));
 
 /**
  * Prepare transaction before checking status
@@ -179,7 +201,7 @@ export const updateTransaction = (
 export const prepareTransaction = async (a: Account, t: Transaction) => {
   let fees = t.fees;
 
-  fees = await getEstimatedFees({ a, t });
+  fees = await estimateFees({ a, t });
 
   if (!sameFees(t.fees, fees)) {
     return { ...t, fees };
@@ -217,7 +239,7 @@ This validation is done everytime the user updates the transaction (any input ch
 
 `errors` and `warnings` are key - value (error) objects that would have for each input (in the user perspective) the eventual error or notice that has been detected. To each key then it is expected that an input in Ledger Live Desktop and Mobile will exists to display the error.
 
-`libs/coin-modules/coin-mycoin/src/js-getTransactionStatus.ts`:
+`libs/coin-modules/coin-mycoin/src/bridge/getTransactionStatus.ts`:
 
 ```ts copy
 import { BigNumber } from "bignumber.js";
@@ -228,9 +250,8 @@ import {
   FeeNotLoaded,
 } from "@ledgerhq/errors";
 import type { Account, TransactionStatus } from "@ledgerhq/types-live";
-import type { Transaction } from "./types";
-
-import { isValidAddress, specificCheck } from "./logic";
+import type { Transaction } from "../types";
+import { isValidAddress, specificCheck } from "../logic";
 import { MyCoinSpecificError } from "./errors";
 
 const getTransactionStatus = async (
@@ -289,7 +310,7 @@ Those are user-dependent errors handled in the UI for each input displayed, and 
 
 But some errors can occur in a different context, and not be caused by user. Try as much as possible to handle all failing cases and throw coin-specific errors (if not generic error already exist), that you may define in an `errors.ts` file (for reusablity).
 
-`libs/coin-modules/coin-mycoin/src/errors.ts`:
+`libs/coin-modules/coin-mycoin/src/types/errors.ts`:
 
 ```ts copy
 import { createCustomErrorClass } from "@ledgerhq/errors";
@@ -311,7 +332,7 @@ export * from "./families/mycoin/errors";
 
 Also, to avoid repeating code and facilitate usage of checks and constants, gather all your coin-specific logic functions in a single file (calculations, getters, boolean checks...). This will also ease maintenance, for instance when the blockchain's logic changes (constants or additional checks added).
 
-`libs/coin-mycoin/src/logic.ts`:
+`libs/coin-modules/coin-mycoin/src/logic.ts`:
 
 ```ts copy
 import { BigNumber } from "bignumber.js";
@@ -362,12 +383,12 @@ export const getNonce = (a: Account): number => {
 
 The `Transaction` object is not exactly the transaction in the shape of the blockchain's protocol (which is generally serialized into a blob of bytes). So for convenience, you may implement a `buildTransaction` method to serialized it using <i>MyCoin</i> SDK, that could be reused for instance for estimating fees through the API.
 
-`libs/coin-modules/coin-mycoin/src/js-buildTransaction.ts`:
+`libs/coin-modules/coin-mycoin/src/bridge/buildTransaction.ts`:
 
 ```ts copy
-import type { Transaction } from "./types";
 import type { Account } from "@ledgerhq/types-live";
 
+import type { Transaction } from "./types";
 import { getNonce } from "./logic";
 
 const getTransactionParams = (a: Account, t: Transaction) => {
@@ -413,74 +434,34 @@ export const buildTransaction = async (a: Account, t: Transaction) => {
 };
 ```
 
-This `buildTransaction` function would return an unsigned transaction blob that would be signed with the <i>MyCoin</i> App on device:
+This `buildTransaction` function would return an unsigned transaction blob that would be signed with the <i>MyCoin</i> App on device.
 
-`libs/coin-modules/coin-mycoin/src/js-signOperation.ts`:
+However, the signOperation function (example below), in charge to this signature process, will not have a direct access to this <i>MyCoin</i>.
+Instead, you will need to use a `SignerContext` (more details in [setup chapter TODO](./TBD)).
+
+`libs/coin-modules/coin-mycoin/src/bridge/signOperation.ts`:
 
 ```ts copy
 import { BigNumber } from "bignumber.js";
 import { Observable } from "rxjs";
+import { encodeOperationId } from "@ledgerhq/coin-framework/operation";
 import { FeeNotLoaded } from "@ledgerhq/errors";
-
-import type { Transaction } from "./types";
 import type { Account, Operation, SignOperationEvent } from "@ledgerhq/types-live";
 
-import { withDevice } from "../../hw/deviceAccess";
-import { encodeOperationId } from "@ledgerhq/coin-framework/operation";
-import MyCoin from "./hw-app-mycoin/MyCoin";
+import type { Transaction } from "../types";
 
-import { buildTransaction } from "./js-buildTransaction";
+import { buildTransaction } from "./buildTransaction";
 import { getNonce } from "./logic";
-
-const buildOptimisticOperation = (
-  account: Account,
-  transaction: Transaction,
-  fee: BigNumber
-): Operation => {
-  const type = "OUT";
-
-  const value = BigNumber(transaction.amount).plus(fee);
-
-  const operation: $Exact<Operation> = {
-    id: encodeOperationId(account.id, "", type),
-    hash: "",
-    type,
-    value,
-    fee,
-    blockHash: null,
-    blockHeight: null,
-    senders: [account.freshAddress],
-    recipients: [transaction.recipient].filter(Boolean),
-    accountId: account.id,
-    transactionSequenceNumber: getNonce(account),
-    date: new Date(),
-    extra: { additionalField: transaction.amount },
-  };
-
-  return operation;
-};
-
-/**
- * Adds signature to unsigned transaction. Will likely be a call to MyCoin SDK
- */
-const signTx = (unsigned: string, signature: any) => {
-  return `${unsigned}:${signature}`;
-};
 
 /**
  * Sign Transaction with Ledger hardware
  */
-const signOperation = ({
-  account,
-  deviceId,
-  transaction,
-}: {
-  account: Account,
-  deviceId: *,
-  transaction: Transaction,
-}): Observable<SignOperationEvent> =>
-  withDevice(deviceId)((transport) =>
-    Observable.create((o) => {
+export const buildSignOperation =
+  (
+    signerContext: SignerContext<MyCoinSigner>,
+  ): AccountBridge<Transaction, MyCoinAccount>["signOperation"] =>
+  ({ account, deviceId, transaction }): Observable<SignOperationEvent> =>
+    new Observable(o => {
       async function main() {
         o.next({
           type: "device-signature-requested",
@@ -493,10 +474,11 @@ const signOperation = ({
         const unsigned = await buildTransaction(account, transaction);
 
         // Sign by device
-        const myCoin = new MyCoin(transport);
-        const r = await myCoin.signTransaction(
-          account.freshAddressPath,
-          unsigned
+        const r = await signerContext(deviceId, signer =>
+          signer.signTransaction(
+            account.freshAddressPath,
+            unsigned
+          );
         );
 
         const signed = signTx(unsigned, r.signature);
@@ -519,14 +501,11 @@ const signOperation = ({
         });
       }
 
-    main().then(
-      () => o.complete(),
-      (e) => o.error(e)
-    );
-  })
-);
-
-export default signOperation;
+      main().then(
+        () => o.complete(),
+        (e) => o.error(e)
+      );
+    });
 ```
 
 The `signOperation` function returns an Observable that will notify its subscriber when the user grated the signature.
@@ -544,7 +523,7 @@ When signing a transaction, the user is shown on his device all the parameters o
 
 The list of all displayed fields on device are provided by the `getDeviceTransactionConfig` function, which must return all transaction fields for a given transaction.
 
-`libs/coin-modules/coin-mycoin/src/deviceTransactionConfig.ts`:
+`libs/coin-modules/coin-mycoin/src/bridge/deviceTransactionConfig.ts`:
 ```ts copy
 import type { AccountLike, Account, TransactionStatus } from "@ledgerhq/types-live";
 import type { Transaction } from "./types";
@@ -604,13 +583,13 @@ export default getDeviceTransactionConfig;
 
 Once the transaction is signed, it must be broadcasted to MyCoin network. This is pretty easy if you correctly wrapped your API.
 
-`libs/coin-modules/coin-mycoin/src/js-broadcast.ts`
+`libs/coin-modules/coin-mycoin/src/bridge/broadcast.ts`
 
 ```ts copy
 import type { Operation, SignedOperation } from "@ledgerhq/types-live";
 import { patchOperationWithHash } from "../../operation";
 
-import { submit } from "./api";
+import { submit } from "../network";
 
 /**
  * Broadcast the signed transaction
@@ -642,25 +621,25 @@ The maximum spendable amount is the total balance in an account that is availabl
 
 See this [support article about Maximum Spendable Amount](https://support.ledger.com/hc/en-us/articles/360012960679-Maximum-spendable-amount).
 
-`libs/coin-modules/coin-mycoin/src/js-estimateMaxSpendable.ts`
+`libs/coin-modules/coin-mycoin/src/bridge/estimateMaxSpendable.ts`
 
 ```ts copy
 import { BigNumber } from "bignumber.js";
 
-import type { AccountLike, Account } from ".@ledgerhq/types-live";
 import { getMainAccount } from "@ledgerhq/coin-framework/account/index";
+import type { AccountLike, Account } from "@ledgerhq/types-live";
 
-import type { Transaction } from "./types";
+import type { Transaction } from "../types";
 
-import { createTransaction } from "./js-transaction";
-import getEstimatedFees from "./js-getFeesForTransaction";
+import { createTransaction } from "./transaction";
+import getEstimatedFees from "./getFeesForTransaction";
 
 /**
  * Returns the maximum possible amount for transaction
  *
  * @param {Object} param - the account, parentAccount and transaction
  */
-const estimateMaxSpendable = async ({
+export const estimateMaxSpendable = async ({
   account,
   parentAccount,
   transaction,
@@ -680,26 +659,25 @@ const estimateMaxSpendable = async ({
 
   return a.spendableBalance.minus(fees);
 };
-
-export default estimateMaxSpendable;
 ```
 
 <Callout>
   If it takes a long time for transactions to be confirmed on-chain and included in a sync, you might need to include the pending operations in this calculation.
 </Callout>
 
-Here, we only return the spendableBalance, but without the fees. Since Fee estimation can be used elsewhere (like in the `prepareTransaction`), you can put it's logic in a dedicated `js-getFeesForTransaction.ts` file. Here is an example for a fee fetched from network from an unsigned transaction (a bit like Polkadot), but you can also have specific calculation, with fee-per-byte value provided by the blockchain.
+Here, we only return the spendableBalance, but without the fees. Since Fee estimation can be used elsewhere (like in the `prepareTransaction`), you can put it's logic in a dedicated `getFeesForTransaction.ts` file.
+Here is an example for a fee fetched from network from an unsigned transaction (a bit like Polkadot), but you can also have specific calculation, with fee-per-byte value provided by the blockchain.
 
-`libs/coin-modules/coin-mycoin/src/js-getFeesForTransaction.ts`:
+`libs/coin-modules/coin-mycoin/src/bridge/getFeesForTransaction.ts`:
 
 ```ts copy
 import { BigNumber } from "bignumber.js";
 
 import type { Account } from "@ledgerhq/types-live";
-import type { Transaction } from "./types";
+import type { Transaction } from "../types";
+import { getFees } from "../network";
 
-import { getFees } from "./api";
-import { buildTransaction } from "./js-buildTransaction";
+import { buildTransaction } from "./buildTransaction";
 
 /**
  * Fetch the transaction fees for a transaction
@@ -707,7 +685,7 @@ import { buildTransaction } from "./js-buildTransaction";
  * @param {Account} a
  * @param {Transaction} t
  */
-const getEstimatedFees = async ({
+export const getEstimatedFees = async ({
   a,
   t,
 }: {
@@ -719,15 +697,14 @@ const getEstimatedFees = async ({
 
   return fees;
 };
-
-export default getEstimatedFees;
 ```
 
 ### Testing send with CLI
 
-Before being able to test a `send` operation with CLI you will need to bind arguments and infer a transaction from it. Since we defined a "mode" field in the transaction, this will be the only argument that will be necessary to test a send.
+Before being able to test a `send` operation with CLI you will need to bind arguments and infer a transaction from it.
+Since we defined a "mode" field in the transaction, this will be the only argument that will be necessary to test a send.
 
-`libs/coin-modules/coin-mycoin/src/cli-transaction.ts`:
+`libs/coin-modules/coin-mycoin/src/test/cli.ts`:
 
 ```ts copy
 import flatMap from "lodash/flatMap";
@@ -768,7 +745,8 @@ export default {
 };
 ```
 
-Of course if <i>MyCoin</i> has more complex transactions, you can add many arguments to CLI. You can also define you own cli commands for any specific data you would like to fetch. See [Polkadot CLI commands](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/coin-polkadot/src/cli-transaction.tss).
+Of course if <i>MyCoin</i> has more complex transactions, you can add many arguments to CLI. You can also define you own cli commands for any specific data you would like to fetch.
+See [Polkadot CLI commands](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/coin-polkadot/src/cli-transaction.ts).
 
 Now you can try a `getTransactionStatus` or a `send`:
 
