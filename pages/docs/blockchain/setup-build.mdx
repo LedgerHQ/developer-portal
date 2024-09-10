@@ -48,48 +48,68 @@ All integrated coins are implemented in their own package in the `libs` director
 
 ## Structure
 
-Your whole implementation of <i>MyCoin</i> must reside in a `mycoin` folder in `libs/ledger-live-common/src/families/` with the exception of some changes to apply in shared code.
+Your whole implementation of <i>MyCoin</i> must reside in a `mycoin` folder in `libs/coin-modules/coin-mycoin`.
+You will also need some code in `libs/ledger-live-common/src/families/mycoin`, for injection, setup and UI specific requirements.
 
 Here is a typical family folder structure (TS integration):
 
 ```plaintext copy
 ./libs
-├── coin-mycoin/src
+├── coin-modules/coin-mycoin/src
 │   ├── api
-│   │   ├── cache.ts
 │   │   └── index.ts
 │   ├── bridge
-│   │   └── js.ts
-│   ├── account.ts
-│   ├── bridge.integration.test.ts
-│   ├── buildTransaction.ts
-│   ├── cli-transaction.ts
-│   ├── deviceTransactionConfig.ts
-│   ├── errors.ts
-│   ├── hw-getAddress.ts
-│   ├── js-broadcast.ts
-│   ├── js-createTransaction.ts
-│   ├── js-estimateMaxSpendable.ts
-│   ├── js-getFeesForTransaction.ts
-│   ├── js-getTransactionStatus.ts
-│   ├── js-prepareTransaction.ts
-│   ├── js-signOperation.ts
-│   ├── js-synchronization.ts
-│   ├── logic.ts
-│   ├── serialization.ts
-│   ├── signer.ts
-│   ├── specs.ts
-│   ├── speculos-deviceActions.ts
-│   ├── transaction.ts
-│   └── types.ts
+│   │   ├── broadcast.ts
+│   │   ├── buildTransaction.ts
+│   │   ├── createTransaction.ts
+│   │   ├── estimateMaxSpendable.ts
+│   │   ├── formatters.ts
+│   │   ├── getFeesForTransaction.ts
+│   │   ├── getTransactionStatus.ts
+│   │   ├── prepareTransaction.ts
+│   │   ├── signOperation.ts
+│   │   ├── synchronization.ts
+│   │   └── index.ts
+│   ├── logic
+│   │   ├── broadcast.ts
+│   │   ├── craftTransaction.ts
+│   │   ├── estimateFees.ts
+│   │   ├── getBalance.ts
+│   │   ├── lastBlock.ts
+│   │   ├── listOperations.ts
+│   │   ├── signTransaction.ts
+│   │   └── index.ts
+│   ├── network
+│   │   ├── explorer.ts
+│   │   └── index.ts
+│   ├── signer
+│   │   ├── getAddress.ts
+│   │   └── index.ts
+│   ├── test
+│   │   ├── bot-deviceActions.ts
+│   │   ├── bot-specs.ts
+│   │   ├── bridgeDatasetTest.ts
+│   │   ├── cli.ts
+│   │   └── index.ts
+│   ├── types
+│   │   ├── bridge.ts
+│   │   ├── errors.ts
+│   │   ├── model.ts
+│   │   ├── signer.ts
+│   │   └── index.ts
+│   ├── config.ts
+│   └── index.ts
 ├── ledger-live-common/src/families/mycoin
 │   ├── bridge.integration.test.ts
+│   ├── config.ts
 │   ├── logic.ts
 │   ├── react.ts
 │   ├── setup.ts
-│   └── types.ts
+│   ├── types.ts
+│   └── walletApiAdapter.ts
 └── ledgerjs/packages/hw-app-mycoin/src
-    └── MyCoin.ts
+│   ├── MyCoin.ts
+│   └── index.ts
 ```
 
 <Callout type="info" emoji="ℹ️">
@@ -97,18 +117,21 @@ Here is a typical family folder structure (TS integration):
 </Callout>
 
 #### Coin-module
- * `src/api` directory: Contains all the logic to send requests to the explorer.
- * `src/bridge/js.ts` file: Entry point of Ledger Live integration of the coin-module. This file lists `BridgeCurrency` and `BridgeAccount` implementation.
- * `src/hw-getAddress.ts` file: Logic on how to interact with device-app to retrieve addresses.
- * `src/js-*` files: Split of `BridgeCurrency` and `BridgeAccount` logic in dedicated files.
- * `src/signer.ts` file: Interface definition of the ledger device-app related to this coin.
- * `src/specs.ts` file: Definition of tests to be run on the bot.
+ * `src/api` directory: Contains the implementation of B2B interface (a.k.a. Alpaca) - TBD.
+ * `src/bridge/*` files: Split of `CurrencyBridge` and `AccountBridge` logic in dedicated files.
+ * `src/bridge/index.ts` file: Entry point of Ledger Live integration of the coin-module. This file lists `CurrencyBridge` and `AccountBridge` implementation.
+ * `src/network` directory: Contains all the logic to send requests to the explorer.
+ * `src/signer/getAddress.ts` file: Logic on how to interact with device-app to retrieve addresses.
+ * `src/test/bot-specs.ts` file: Definition of tests to be run on the bot.
+ * `src/types/signer.ts` file: Interface definition of the ledger device-app related to this coin.
 
 #### Ledger live-common
+ * `src/config.ts`: TBD.
  * `src/logic.ts`: Lists coin specific business logic.
  * `src/react.ts`: Defines and lists coin specfic react hooks for UI.
  * `src/setup.ts`: Glue file for coin integration.
  * `src/types.ts`: Lists coin specific types.
+ * `src/walletApiAdapter.ts`: TBD.
 
 #### LedgerJS
 All files related to communication with the device-app.

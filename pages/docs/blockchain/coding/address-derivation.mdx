@@ -4,13 +4,9 @@ title: Address derivation
 
 # 3 - Address derivation
 
-From step 3 to step 6, you work will be implemented in the [Ledger Live repository](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledger-live-common).
-
 ### Derive Address from device
 
-Before starting this step, make sure [you have setup your environment](../setup-build) to work with `ledger-live`.
-
-First define the signer interface, which will reflect your [embedded app js binding](./js-bindings):
+First define the signer interface in dedicated `libs/coin-module/coin-mycoin/src/types/signer.ts` file, which will reflect your [embedded app js binding](./js-bindings):
 
 ```ts copy
 export type MyCoinAddress = {
@@ -30,7 +26,7 @@ export interface MyCoinSigner {
 
 Then get an address from the device for <i>MyCoin</i>, by creating the `hw-getAddress.ts` Resolver:
 
-`libs/coin-mycoin/src/hw-getAddress.js`:
+`libs/coin-module/coin-mycoin/src/signer/getAddress.ts`:
 
 ```ts copy
 import type { GetAddressFn } from "@ledgerhq/coin-framework/bridge/getAddressWrapper";
@@ -44,7 +40,7 @@ const resolver = (
   return async (deviceId: string, { path, verify }: GetAddressOptions) => {
     const address = (await signerContext(deviceId, signer =>
       signer.getAddress(path, verify),
-    )) as PolkadotAddress;
+    )) as MyCoinAddress;
     return {
       address: address.address,
       publicKey: address.pubKey,
