@@ -1299,7 +1299,7 @@ module.exports = {
        },
 
       {
-        source: '/docs/tokens/integrating-tokens/evm-chains-tokenss',
+        source: '/docs/tokens/integrating-tokens/evm-chains-tokens',
         destination: '/docs/tokens/evm-chains-tokens',
         permanent: true,
        },
