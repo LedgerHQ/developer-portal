@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Card Provider Server
-  version: '1.0'
+  version: "1.0"
 paths:
   /sell:
     post:
@@ -88,6 +88,8 @@ paths:
     post:
       operationId: statusUpdate
       description: Updates the status of a sell transaction.
+      security:
+        - defaultApiKey: [ ]
       parameters:
         - name: sellId
           in: path
@@ -118,16 +120,20 @@ paths:
                     messageKey: SELL_TRANSACTION_NOT_FOUND_ERROR
                     message: Sell transaction not found. (you can add any useful field as you want)
 components:
+  securitySchemes:
+    defaultApiKey:
+      type: apiKey
+      name: x-api-key
+      in: header
   schemas:
     SellRequest:
       required:
         - quoteId
         - amount
         - refundAddress
-        - currencyFrom
-        - fiatTo
-        - payloadCurrencyFrom
-        - payloadFiatTo
+        - fromCryptoCurrency
+        - toFiatCurrency
+        - payloadCryptoCurrency
         - nonce
       type: object
       properties:
@@ -140,33 +146,22 @@ components:
         refundAddress:
           type: string
           description: User's refund address, typically the fromAddress.
-        payoutAddress:
-          type: string
-          description: User's payout transaction address.
-        refundAddressExtraId:
-          type: string
-          description: Field used for blockchains that require a memo (e.g., XRP, XLM).
-        payoutAddressExtraId:
-          type: string
-          description: Field used for blockchains that require a memo (e.g., XRP, XLM).
-        currencyFrom:
+        fromCryptoCurrency:
           type: string
           description: From currency ID, using the provider's identifiers.
-        currencyTo:
+        toFiatCurrency:
           type: string
-          description: To currency ID, using the provider's identifiers.
-        payloadCurrencyFrom:
+          description: Fiat currency at the ISO-4217 standard.
+        payloadCryptoCurrency:
           type: string
-          description: From currency ID, using Ledger's referential. (representing currency_from in the protobuf payload)
-        payloadCurrencyTo:
-          type: string
-          description: To currency ID, using Ledger's referential. (representing currency_to in the protobuf payload)
+          description: From currency ID, using Ledger's referential. (representing currency_from in the protobuf payload
         nonce:
           type: string
           description: Value for the `device_transaction_id_ng` field in the protobuf payload, in hex format of the byte array nonce received by the user.
         slippage:
           type: string
           description: Value between 0 to 1 (0.1 => 10%). Maximum difference between the quoted amount and the final amount received, as a ratio. If exceeded, user consent is required or a refund is made.
+
     SellResponse:
       required:
         - sellId

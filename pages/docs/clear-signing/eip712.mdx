@@ -5,15 +5,13 @@ description: It is possible to clear sign EIP-712 messages with a Ledger device.
 
 # EIP-712 messages
 
-## What to do to clear sign EIP-712 messages for your dApp?
+## What to do to whitelist a smart contract for EIP-712 messages clear signing?
 
 It is possible to clear sign EIP-712 messages with a Ledger device. The clear signing is possible on the contracts that are whitelisted in the [Ledger Dapps asset repository](https://github.com/LedgerHQ/ledger-asset-dapps). 
 
-To add your contract to the list, you need to open a PR on this repository (see [Contributing](https://github.com/LedgerHQ/ledger-asset-dapps/blob/main/CONTRIBUTING.md)).
+To add your contract to the list, open a PR on this repository (see [Contributing](https://github.com/LedgerHQ/ledger-asset-dapps/blob/main/CONTRIBUTING.md)). 
 
-On the Ledger dApps asset repository, we will need to input the contract address and the relevant fields that should be displayed to the users (on the device).
-
-[Here is an example of PR](https://github.com/LedgerHQ/ledger-asset-dapps/pull/78/files).
+On the Ledger dApps asset repository, we will need to input the contract address and the relevant fields that should be displayed to the users (on the device). [Here is an example of PR](https://github.com/LedgerHQ/ledger-asset-dapps/pull/78/files).
 
 
 ## How does it work?
@@ -78,7 +76,7 @@ A filter for it would look like this :
 			"fields": {
 				"contents": "Message",
 				"from.name": "Sender",
-				"to.[].name": "Recipient"
+				"to.[].name": "Recipients"
 			}
 		}
 	}

@@ -1,4 +1,7 @@
 {  
 	"integrating-tokens": "Integrating tokens", 
-	"eip712-messages": "Tokens & Messages: EIP-712 messages"
+	"evm-chains-tokens": "Tokens on EVM chains",
+	"asa": "ASA",
+	"trc": "TRC10 and TRC20",
+	"faq": "Frequently Asked Questions"
 }

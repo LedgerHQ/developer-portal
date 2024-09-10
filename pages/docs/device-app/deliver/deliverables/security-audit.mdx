@@ -1,6 +1,6 @@
 ---
 title: Security Audit
-description: 
+description:
 ---
 
 import { Callout } from 'nextra/components'
@@ -28,12 +28,12 @@ Provided your project fulfills the [conditions](#conditions), this is how an ext
 
 To go through an external security audit, ensure your project fulfills the following conditions:
 
-- Your Device App works with all our devices (Ledger Nano S, S Plus, X and Stax)
+- Your Device App works with all our devices (Ledger Nano S, S Plus, X, Stax and Flex)
 - Your Device App has been functionally validated by Ledger team
 
 <Callout type="warning" emoji="⚠️">
     <ul>
-        <li>- Do not start a security audit process if your Device App is not ready for all Ledger devices (Ledger Nano S, S Plus, X and Stax).</li>
+        <li>- Do not start a security audit process if your Device App is not ready for all Ledger devices (Ledger Nano S, S Plus, X, Stax and Flex).</li>
         <li>- Your Device App must still be functional after the security audit </li>
     </ul>
 </Callout>
@@ -42,14 +42,14 @@ To go through an external security audit, ensure your project fulfills the follo
 
 Ledger has established and made public a detailed specification of what needs to be checked during a security audit following Ledger's standards.
 
-When the word **must** is used, it indicates a requirement.  
-When the word **should** is used, it indicates a recommendation. It means that there are reasons not to follow the recommendation and it can be justified.  
+When the word **must** is used, it indicates a requirement.
+When the word **should** is used, it indicates a recommendation. It means that there are reasons not to follow the recommendation and it can be justified.
 
 Do not hesistate to use the following specification as a checklist.
 
 ### Application privileges
 
-- The application flags must abide by the principle of least privilege. 
+- The application flags must abide by the principle of least privilege.
 - When required, privileges must be justified.
 - The application derivation paths must be restricted to coin-specific BIP32 prefixes.
 - The application derivation paths must be declared in the Ledger app database.
