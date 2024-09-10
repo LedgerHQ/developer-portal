@@ -10,6 +10,42 @@ Transaction broadcast is an exception, it is tested differently, by a tool that 
 - An elf of the embedded app for Nano S (create a empty folder with like : `<device>/<firmware version>/<appName>` example `nanos/1.6.1/mycoin`. The build of your embedded app must have the following format: `app_VERSION.elf`, for example `app_1.2.3.elf`)
 - Some currencies of the coin
 
+<Callout type="warning" emoji="⚠️">
+  The bot only supports Nano S Plus compatible device apps. Stax/Flex bot specs support to be included in the future. <br/>
+</Callout>
+
+To migrate from nanoS speculos deviceActions to nanoS+, execute the spec manually and adapt the screen, see example below :
+
+```ts
+ {
+     title: "Send to address (1/3)",
+     button: SpeculosButton.RIGHT,
+   },
+   {
+     title: "Send to address (2/3)",
+     button: SpeculosButton.RIGHT,
+   },
+   {
+     title: "Send to address (3/3)",
+     button: SpeculosButton.BOTH,
+   },
+   {
+     title: "Send to address (1/2)",
+     button: SpeculosButton.RIGHT,
+   },
+   {
+     title: "Send to address (2/2)",
+     button: SpeculosButton.BOTH,
+   },
+   
+{
+     title: "Send to address",
+     button: SpeculosButton.RIGHT,
+   },
+
+```
+
+
 ## What is this testing?
 
 We are testing the broadcast part and sync part.
@@ -36,15 +72,6 @@ title : name of the screen title
 button: "Rr" for the bot to push the Right button of the nano || "Ll" same for left || "LRlr" same but for both
 expectedValue: string of what we want to compare
 ```
-
-
-<Callout type="warning" emoji="⚠️">
-  The bot only supports Nano S Plus compatible device apps. Stax/Flex bot specs support to be included in the future. <br/>
-  To migrate from nanoS speculos deviceActions to nanoS+, execute the spec manually adapt the screen. 
-</Callout>
-
-+ EXEMPLE
-
 
 You can use the following example to help you start to write how the bot will react :
 
@@ -542,6 +569,35 @@ Error: could not find optimisticOperation js:2:cosmos:cosmos1k2d965a5clx7327n9zx
 -> Backend issue
 
 ```
+necessary accounts resynced in 0.24ms
+▬ Cosmos 2.35.19 on nanoS 2.1.0
+→ FROM Cosmos 2: 0.034471 ATOM (0ops) (cosmos1k2d965a5clx7327n9zx30ewz39ms7kyj9rs935 on 44'/118'/1'/0/0) #1 js:2:cosmos:cosmos1k2d965a5clx7327n9zx30ewz39ms7kyj9rs935: (! sum of ops 0 ATOM) 0.034471 ATOM spendable. 
+
+max spendable ~0.03276
+★ using mutation 'send max'
+→ TO Cosmos 4: 0.02964 ATOM (0ops) (cosmos17s09a0jyp24hl7w3vcn8padz6efwmrpjwy3uf4 on 44'/118'/3'/0/0) #3 js:2:cosmos:cosmos17s09a0jyp24hl7w3vcn8padz6efwmrpjwy3uf4:
+✔️ transaction 
+SEND MAX
+TO cosmos17s09a0jyp24hl7w3vcn8padz6efwmrpjwy3uf4
+
+with fees=0.001713
+STATUS (816ms)
+  amount: 0.032758 ATOM
+  estimated fees: 0.001713 ATOM
+  total spent: 0.034471 ATOM
+errors: 
+errors: 
+✔️ has been signed! (7.9s) 
+✔️ broadcasted! (120ms) optimistic operation: 
+  -0.034471 ATOM     OUT        8893674CA6DD3A513111B253D8D3AB4150F83CF318297B197D12BB20238ABB99 2024-04-04T05:33
+⚠️ TEST waiting operation id to appear after broadcast
+Error: could not find optimisticOperation js:2:cosmos:cosmos1k2d965a5clx7327n9zx30ewz39ms7kyj9rs935:-8893674CA6DD3A513111B253D8D3AB4150F83CF318297B197D12BB20238ABB99-OUT
+(totally spent 2min 9s – ends at 2024-04-04T05:55:53.870Z)
+```
+
+-> Backend issue
+
+```
 necessary accounts resynced in 0.16ms
 ▬ Cosmos 2.35.19 on nanoS 2.1.0
 → FROM Osmosis 7: 0.02492 OSMO (1ops) (osmo1n6vccpa77x7xyhnk98jy6gg3rmgjkazxuyk2ng on 44'/118'/6'/0/0) #6 js:2:osmo:osmo1n6vccpa77x7xyhnk98jy6gg3rmgjkazxuyk2ng: (! sum of ops -0.043349 OSMO) 0.02492 OSMO spendable. 
@@ -565,4 +621,10 @@ errors:
 ⚠️ TEST during broadcast
 LedgerAPI5xx: API HTTP 504
 (totally spent 98s – ends at 2024-04-03T11:32:38.725Z)
-```
+``` 
+
+### How to update required screens
+
+Open `libs/coin-modules/coin-bitcoin/src/speculos-deviceActions.ts` and update screens according to what you see on the device app, if `expectedValue` does not make sense anymore just delete it.
+
+You can do a test run to see what screens fail (but the best way is to directly compare with real device app screens).
