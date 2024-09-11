@@ -1,75 +1,20 @@
 ---
-title: Overview
+title: Ethereum plugins
 description: Let’s start with a high-level overview of what a plugin is, how it interacts with the Ethereum app, and the steps required to write your plugin.
 ---
 
-import { Callout } from 'nextra/components'
+# Ethereum plugins
 
-# Overview
+## Why plugins?
 
-Let’s start with a high-level overview of what a plugin is, how it interacts with the Ethereum app, and the steps required to write your plugin.
+Plugins display specific smart contracts information to the users to avoid blind signing. They work hand-in-hand with the Ethereum App.
 
-<Callout type="info" emoji="ℹ️">
-  Even though this guide is relatively beginner-friendly, you need to have prior experience of C and Solidity development.
-</Callout>
-
-## Why Plugins?
-
-If you’ve already interacted with any smart contract using a Ledger Device, then you’ve already seen this screen:
-
-![Blind Signing](/plugin/blind-signing.png)
-
-<Callout type="warning" emoji="⚠️">Blind signing transactions pose a significant security risk and result in a poor user experience by not providing users with clear transaction details.</Callout>
-
-This is a UX disaster. The user has no guarantee of interacting with the right smart contract, nor of signing the correct data. The only user action is literally to blind-sign the transaction.
-
-Display information is specific to each smart contract: so when swapping on a decentralised exchange, you probably want to see information such as “Swapping X ETH for Y DAI”. When depositing DAI on Aave, you need to see the amount in DAI. So, the information is specific to the smart contract.
-
-
-![Plugin](/plugin/contract-data.png)
-
-Modifying the Ethereum App would not do because its size would quickly go out of control. Instead, the solution lies in a small and versatile parser of smart contract data, which works hand-in-hand with the Ethereum App and decides what to display for the best user experience.
-
-This is precisely what a plugin is: a small app that the user installs on their device to show just what needs to be signed. Since plugins are very small, users can install many without worrying about memory.
-
-Ledger designed and implemented Paraswap, the first Ethereum plugin.
-
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/18lLOVoQtNo" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-
-<Callout type="info" emoji="ℹ️">
-  The second mandatory requirement to obtain official support by Ledger for your dApp is using a plugin to verify transaction details on the Ledger.
-</Callout>
-
-## Example
-
-Plugins work hand-in-hand with the Ethereum App, and implementation is straightforward. The Ethereum App handles parsing, signing, screen display etc. The only thing your plugin needs to do is:
+The Ethereum App handles parsing, signing, screen display etc. The only thing your plugin needs to do is:
 
 1. Extract the relevant information from the data.
 2. Send the string to be displayed back to the Ethereum App.
 
-Here is an overview of what the flow looks like:
 
-```mermaid
-    sequenceDiagram
-    Eth App ->> Plugin: Are you installed on this device?
-    Note right of Plugin: Fail if<br>no plugin found
-    Plugin -->> Eth App: Yes, bring it on!
-    Note left of Eth App: Parse transaction
-    Eth App ->> Plugin: Here is the contract data
-    Note right of Plugin: Extract<br>important fields
-    Plugin -->> Eth App: Ok
-    Note left of Eth App: Compute stuff
-    Note left of Eth App: Prepare the display
-    Eth App ->> Plugin: What must I display with this?
-    Note right of Plugin: Decide<br>what to display
-    Plugin -->> Eth App: 'Swap ETH 1 for DAI 10000'
-    Note left of Eth App: Display<br>the message
-```
+## Integration walkthrough
 
-As you can see, the flow is a series of back-and-forth messages between the Ethereum App and the plugin.
-
-Before we start to code, let's set up the development environment.
-
-## What now?
-
-For further details on plugin development, please refer to [this tutorial](../develop/tutorials/plugin).
+Follow [this documentation](https://ethereum-plugin-sdk.ledger.com/) to integrate your Ethereum Plugin.
