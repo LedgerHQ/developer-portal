@@ -1,3 +1,5 @@
+import { Callout } from 'nextra/components'
+
 # ERC7730: the new Clear Signing initiative
 
 ## Prerequisite
@@ -10,16 +12,23 @@ This implementation is currently for EVM chains only. Stay tuned for other proto
 
 The clear signing standard that we have developped relies on the whitelisting of smart contracts methods and can be done easily and quickly.
 
-**The whitelisting of a smart contract method has two steps:**
+**To whitelist a smart contract method:**
 
-- A Json file to map your smart contract data into human-readable information to be displayed on Ledger devices. The specifications for this Json file are on [the official GitHub repository](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc-7730.md), 
-- A peer review of the files on the public Ledger repository.
+1. Submit a Json file to map your smart contract data into human-readable information to be displayed on Ledger devices. 
+	- The specifications for this Json file are on [the official GitHub repository](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc-7730.md)
+	- The PR requirements are [on the Repository ReadMe](https://github.com/LedgerHQ/clear-signing-erc7730-registry).
+2. Ledger reviews your PR
 
-Other items to take into account to ensure a full clear signing experience:
+<Callout type="info" emoji="ℹ️">
+	Be aware that at the moment it is possible to submit your PRs but the Generic Parser is not released yet. This means the transactions will not be clear signed yet. We recommend you submit the PR in advance so everything is ready when the generic parser is released. 
+</Callout>
+
+
+#### Special cases
 
 - For EIP-712 messages follow [this documentation](./eip712)
 - For for ERC721, ERC1155 and ERC20 follow [this documentation](./nft)
-- [Add your token](..tokens/integrating-tokens) in Ledger Live.
+- If applicable,[add your token](..tokens/integrating-tokens) in Ledger Live.
 - Some special cases may require the development of an [Ethereum plugin](../device-app/develop/code/plugin). The Ledger team will guide you through this process if required.
 
 
@@ -27,7 +36,7 @@ Other items to take into account to ensure a full clear signing experience:
 
 All you have to do is use the latest version of the [LedgerJS Ethereum transport library](https://github.com/LedgerHQ/ledger-live/tree/b2163a6eaafd46390d4a14bad8e62fcc10454c05/libs/ledgerjs/packages/hw-app-eth). It has been updated for the new standard. For more information on how to use the LedgerJS libraries read [this documentation](./connectivity/ledgerJS).
 
-### Watch the "Request for Comment Session"
+## Watch the "Request for Comment Session"
 
 To get an insight about our process and plan for the future of clear signing, we recommend you watching the "Request for Comment Session". You can read [the slides](https://www.keepandshare.com/doc13/view.php?id=32202&da=y).
 
@@ -45,5 +54,5 @@ To get an insight about our process and plan for the future of clear signing, we
 
 Stay tuned for further updates and evolutions on this topic as we continue to improve and expand our security measures, ensuring the highest protection for our users. 
 
-Want to know more? Join the conversation on [the Ethereum Magicians Forum](https://ethereum-magicians.org/t/eip-7730-proposal-for-a-clear-signing-standard-format-for-wallets/20403) and join [our Telegram group](https://t.me/+Saw4M8DRA_5mZTk0 ), dedicated to this subject. 
+Want to know more? Join the conversation on [the Ethereum Magicians Forum](https://ethereum-magicians.org/t/eip-7730-proposal-for-a-clear-signing-standard-format-for-wallets/20403). 
 
