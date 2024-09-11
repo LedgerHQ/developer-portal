@@ -822,6 +822,11 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/clear-signing/eip7730',
+        destination: '/docs/clear-signing/erc712',
+        permanent: true,
+       },
+      {
         source: '/docs/transport/clear-signing',
         destination: '/docs/clear-signing/eip712',
         permanent: true,
