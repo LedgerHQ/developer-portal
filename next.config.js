@@ -823,7 +823,7 @@ module.exports = {
        },
       {
         source: '/docs/clear-signing/eip7730',
-        destination: '/docs/clear-signing/erc712',
+        destination: '/docs/clear-signing/erc7730',
         permanent: true,
        },
       {
