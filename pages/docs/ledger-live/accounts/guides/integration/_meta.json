@@ -6,6 +6,6 @@
   "sync": "5 - Add accounts: full sync",
   "send": "6 - Send",
   "desktop-mobile": "7 - Ledger Live Desktop and Mobile",
-  "wallet-api": "8 - Wallet API",
+  "ledger-live-kit": "8 - Ledger Live Kit",
   "bugs-troubleshooting": "Ledger Live common bugs"
 }
