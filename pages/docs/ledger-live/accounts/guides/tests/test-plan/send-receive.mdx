@@ -1,0 +1,36 @@
+# Send/receive test plan
+
+## Synchronization
+
+- Add an account
+- Migrate an account : Add an account in prod, don’t crash using tested version
+- Synchronizing manually does not throw an error (green check)
+- Synchronizing of a big account
+
+## Receive/Address verification
+
+- User can verify his address with the nano
+- User can verify his address without the nano
+
+## Balance
+
+- Available balance is right
+
+## Broadcast
+
+- Send max operation empties the account
+- Send operation sends the right amount
+- User cannot send more than his balance
+
+## Operations
+
+- Optimistic operation is filled correctly
+- Operation history has every transactions of the account
+- Operation has the right transaction ID
+- User can reach the tx details by clicking on the “view on explorer” button
+- Operation account is right
+
+## Account details
+
+- Fiat value fetched from countervalues is right
+- User can favorite his account and it is shown
