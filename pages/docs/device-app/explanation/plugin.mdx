@@ -1,86 +1,13 @@
-import { Callout } from 'nextra/components'
-
+---
+title: Ethereum plugins
+description: Let’s start with a high-level overview of what a plugin is, how it interacts with the Ethereum app, and the steps required to write your plugin.
+---
 
 # Ethereum plugins
 
+Plugins display specific smart contracts information to the users to avoid blind signing. They work hand-in-hand with the Ethereum App.
 
-## Overview
-
-Let’s start with a high-level overview of what a plugin is, how it interacts with the Ethereum app, and the steps required to write your plugin.
-
-<Callout type="info" emoji="ℹ️">
-  Even though this guide is relatively beginner-friendly, you need to have prior experience of C and Solidity development.
-</Callout>
-
-
-### Why Plugins?
-
-If you’ve already interacted with any smart contract using a Ledger Device, then you’ve already seen this screen:
-
-![Blind Signing](/plugin/blind-signing.png)
-
-This is a UX disaster. The user has no guarantee of interacting with the right smart contract, nor of signing the correct data. The only user action is literally to blind-sign the transaction.
-
-Display information is specific to each smart contract: so when swapping on a decentralised exchange, you probably want to see information such as “Swapping X ETH for Y DAI”. When depositing DAI on Aave, you need to see the amount in DAI. So, the information is specific to the smart contract.
-
-![Plugin](/plugin/contract-data.png)
-
-Modifying the Ethereum App would not do because its size would quickly go out of control. Instead, the solution lies in a small and versatile parser of smart contract data, which works hand-in-hand with the Ethereum App and decides what to display for the best user experience.
-
-This is precisely what a plugin is: a small app that the user installs on their device to show just what needs to be signed. Since plugins are very small, users can install many without worrying about memory.
-
-Ledger designed and implemented Paraswap, the first Ethereum plugin.
-
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/18lLOVoQtNo" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-
-<Callout type="info" emoji="ℹ️">
-  The second mandatory requirement to obtain official support by Ledger for your dApp is using a plugin to verify transaction details on the Ledger.
-</Callout>
-
-### Example
-
-Plugins work hand-in-hand with the Ethereum App, and implementation is straightforward. The Ethereum App handles parsing, signing, screen display etc. The only thing your plugin needs to do is:
+The Ethereum App handles parsing, signing, screen display etc. The only thing your plugin needs to do is:
 
 1. Extract the relevant information from the data.
 2. Send the string to be displayed back to the Ethereum App.
-
-Here is the detailed sequence diagram of the interaction between the Ethereum application and the plugin:
-
-```mermaid
-sequenceDiagram
-    Note left of Eth App: Receive transaction
-    Eth App -> Plugin: ETH_PLUGIN_CHECK_PRESENCE
-    Plugin --> Eth App : 
-    Note left of Eth App: Plugin exists<br>so initialize it
-    Eth App -> Plugin: ETH_PLUGIN_INITIALIZE
-    Note right of Plugin: Initialize context
-    Plugin --> Eth App: 
-    Note left of Eth App: Split contract data<br>in chunks
-    Note left of Eth App: Send chunks<br>to plugin
-    Eth App -> Plugin: ETH_PLUGIN_PROVIDE_PARAMETER
-    Note right of Plugin: Parse the chunk
-    Plugin --> Eth App: 
-    Note left of Eth App: Repeat call<br>for every chunk
-    Eth App -> Plugin: 
-    Plugin --> Eth App: 
-    Note left of Eth App: Finish parsing Tx
-    Eth App -> Plugin: ETH_PLUGIN_FINALIZE
-    Note right of Plugin: Note which ERC20<br>are needed
-    Plugin --> Eth App: Ask for info on ERC20
-    Note left of Eth App: Get info on ERC20
-    Note left of Eth App: Send it back<br>to plugin
-    Eth App -> Plugin: ETH_PLUGIN_PROVIDE_TOKEN
-    Note right of Plugin: Store ERC20 info
-    Plugin --> Eth App: 
-    Eth App -> Plugin: ETH_PLUGIN_QUERY_CONTRACT_ID
-    Note right of Plugin: Prepare screen
-    Plugin --> Eth App: 
-    Note left of Eth App: Display<br>contract ID screen
-    Eth App -> Plugin: ETH_PLUGIN_QUERY_CONTRACT_UI
-    Note right of Plugin: Prepare screen
-    Plugin --> Eth App: 
-    Note left of Eth App: Repeat call<br>for every screen
-    Eth App -> Plugin: 
-    Plugin --> Eth App: 
-    Note left of Eth App: Sign/Reject<br>the transaction
-```
