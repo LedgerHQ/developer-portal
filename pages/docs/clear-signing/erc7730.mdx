@@ -20,7 +20,8 @@ The clear signing standard that we have developped relies on the whitelisting of
 2. Ledger reviews your PR
 
 <Callout type="info" emoji="ℹ️">
-	Be aware that at the moment it is possible to submit your PRs but the Generic Parser is not released yet. This means the transactions will not be clear signed yet. We recommend you submit the PR in advance so everything is ready when the generic parser is released. 
+	It is possible to submit your PRs but since the Generic Parser is not released yet, the transactions will not be clear signed. The Generic Parser serves as the middle-layer deployed on the Ledger infrastructure to read and parse the JSON files. 
+	We recommend you submit the PR nonetheless so everything is ready when the generic parser is released. 
 </Callout>
 
 
@@ -28,7 +29,7 @@ The clear signing standard that we have developped relies on the whitelisting of
 
 - For EIP-712 messages follow [this documentation](./eip712)
 - For for ERC721, ERC1155 and ERC20 follow [this documentation](./nft)
-- If applicable,[add your token](..tokens/integrating-tokens) in Ledger Live.
+- If applicable, [add your token](..tokens/integrating-tokens) in Ledger Live.
 - Some special cases may require the development of an [Ethereum plugin](../device-app/develop/code/plugin). The Ledger team will guide you through this process if required.
 
 
