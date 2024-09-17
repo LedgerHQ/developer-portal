@@ -1,4 +1,3 @@
 {
-	"dev-mode": "Enable the developer mode",
-	"manifest": "Write and load the manifest"
+	"live-app": "Load a  dApp in Ledger Live Discover"
 }
