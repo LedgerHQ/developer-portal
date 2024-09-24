@@ -14,9 +14,7 @@ Please make sure you followed this [process](./) and the coding requirements, an
 
 ### Ready to submit your App or Plugin for review?
 
-Once you have finished your work and you have collected all the App or Plugin items you must enter them in:
-- The Device App [form](https://ledger.typeform.com/app-submission) or
-- The Plugin [form](https://ledger.typeform.com/to/YZZCHEB8)
+Once you have finished your work and you have collected all the App or Plugin items you must enter them in [this form](https://tally.so/r/w8QKbr).
 
 Make sure you thoroughly complete the form to ensure a speedy release process.
 
@@ -27,92 +25,55 @@ Make sure you thoroughly complete the form to ensure a speedy release process.
 
 ## App Form Checklist
 
-This section is a summary outline of what is needed in the process od developing a device app. The list below is organised by category and some items are quite varied.
+This section is a summary outline of what is needed in the process od developing a device app or a plugin. The list below is organised by category and some items are quite varied.
 Please make sure you have understood what is expected. You may use this list as a checklist.
 
-#### 1 - General information
+#### General information
 
-- Device app name
-- The name of your token as displayed in [CoinMarketCap](https://coinmarketcap.com/)
+- App or Plugin Name
+- The name of your token (if any) as displayed in [CoinMarketCap](https://coinmarketcap.com/)
 - Legal Entity name
 - Postal address
 - Email address
+- The app compatibility with our devices (for device apps only, not for plugins)
+- The service the DApp provide and the smart contract addresses (for plugins only)
+
+#### Technical specifications for clones
+
+- The type of clone (Bitcoin, Ethereum)
+- Link to the pull request
+
+#### Technical specifications for other device apps
+
+- If your app is a fork: the link to the repository's branch you have forked
+- Link to your pull request (for updates) or repository (for new apps)
+- If it is an update: explanation about the purpose of the pull request
+- If it is a new app: explanation about the app features
+- If your blockchain is not in Ledger Live yet and you modified the `Transfer` or `Verify address` flow: explanation about your modifications
 
 
-#### 2 - Security
+#### Security and requirements
 
-- I have met the [security requirements](../develop/requirements/security)
-- The application went [through a security audit](./deliverables/security-audit)
-- All vulnerabilities have been fixed
+- I certify that I have read the [coding guidelines](../develop/tutorials) and the [requirements](../develop/requirements)
+- I certify that my app repository has a test folder that contains Unit Tests list and functional Tests (for device apps only)
+- I certify that the App has been fully tested with a [companion wallet](./deliverables/companion-wallet) (for device apps only)
+- All vulnerabilities have been fixed (for device apps only)
 
 
-#### 3 - Device app
+#### Deliverables
 
-- I have read the [coding tutorials](../develop/tutorials)
-- Device app source code (GitHub repository)
-- My app repository has a test folder that contains the Functional tests and Unit tests
-- The App has been fully tested with a companion wallet (CLI or GUI)
-- Two icons for the Ledger Stax, Nano and for "My Ledger" in Ledger Live, in PNG or GIF
- (see [Icons](./deliverables/icons/))
-- [Video](./deliverables/ui-flow-video/#video) of your application running on the Ledger device (for Ledger Nano only)
-- The App has a [Blind Signing](../develop/requirements/security#signing-settings) setting (if applicable)
 - The [Guidelines_enforcer and Build_and_functional_tests workflow](../develop/requirements/development#workflows) succeeds
-
-
-#### 4 - Companion Wallet
-
-- A link to the Companion Wallet The wallet must give an option to verify the receiving address on a Ledger device. It should also have an affiliate link next to the "Connect with Ledger" option. You must provide either:
-  - a link to the CLI repository, or
-  - a link to the GUI running on Windows/MacOS/Linux (mandatory for Public release)
-
-#### 5- Documentation
-
-- Document in the App's repository the list of the app's APDUs and status words
-- Link to a Google doc tutorial about how to install and use your app (see [Third Party Applications Support](./deliverables/support))
-    - The doc must include the link to the published tutorial hosted on third party website
-
-
-
-#### 7 - Marketing (Mandatory for Public release)
-
-- I have read the [marketing page](./deliverables/marketing)
-- Marketing plan
-
-
-#### 8 - Warranty and liability
-
-- I have read and agree with information laid out the [warranty and liability disclaimer](./deliverables/legal/)
-
-## Plugin Form Checklist
-
-#### 1 - General information
-
-- Device app name
-- What service does the dApp provide
-- The smart contracts addresses
-- Legal Entity name
-- Postal address
-- Email address
-
-#### 3 - Security
-
-- I have met the [security requirements](../develop/requirements/security)
-- The application went [through a security audit](./deliverables/security-audit)
-- All vulnerabilities have been fixed
-
-#### 4 - Plugin
-
-- Plugin source code (GitHub repository)
 - Two icons for the Ledger Stax, Nano and for "My Ledger" in Ledger Live, in PNG or GIF
  (see [Icons](./deliverables/icons/))
-- Link of the dApp working with the plugin
+- [Video](./deliverables/ui-flow-video/#video) of your application running on the Ledger device (for device apps only, not for plugins)
+- Link to the companion wallet (for device apps only, not for plugins)
+- The Dapp working with the plugin (for plugins only)
+- Document in the App's repository the list of the app's APDUs and status words (for device apps only, not for plugins)
+- Link to a Google doc tutorial about how to install and use your app (see [Third Party Applications Support](./deliverables/support)). The doc must include the link to the published tutorial hosted on third party website. (for device apps only, not for plugins)
+- Links to your ser application support (email address, Slack/Reddit/Telegram/Discord communities)
+- Marketing plan (optional) (for device apps only, not for plugins)
 
-#### 5 - Support
 
-- I have read the [support page](./deliverables/support)
-- Main support contact (mail address, Slack/Reddit/Telegram/Discord communities)
-
-#### 6 - Warranty and liability
+#### Warranty and liability
 
 - I have read and agree with information laid out the [warranty and liability disclaimer](./deliverables/legal/)
-

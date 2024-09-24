@@ -3,7 +3,7 @@ import 'react-medium-image-zoom/dist/styles.css'
 import { Tabs } from 'nextra/components'
 import { Callout } from 'nextra/components'
 import BackendIntro from '../../../../public/exchange/import/backend-intro.mdx'
-import PayloadAndSignature from '../../../../public/exchange/import/payload-and-signature.mdx'
+import PayloadAndSignature from '../../../../public/exchange/import/sell-payload-and-signature.mdx'
  
 # Backend
 
@@ -29,13 +29,29 @@ You need to implement following endpoint for the card:
   "quoteId": "string",
   "amount": "string",
   "refundAddress": "string",
-  "currencyFrom": "string",
-  "fiatTo": "string",
-  "payloadCurrencyFrom": "string",
-  "payloadFiatTo": "string",
+  "fromCryptoCurrency": "string",
+  "toFiatCurrency": "string",
+  "payloadCryptoCurrency": "string",
   "nonce": "number",
   }
 ```
+
+An example response from the your backend to the Ledger backend
+
+  ``` json copy
+{
+  "sellId": "SELL-ID-165940",
+  "payinAddress": "0xa0b86991c627e936c1d19d4a2e90a2ce3606eb48",
+  "createdAt": "2030-05-26T14:13:39",
+  "providerFees": "0.0001",
+  "referralFees": "0.0001",
+  "payoutNetworkFees": "0.0002",
+  "providerSig": {
+    "payload": "CgUweGZmZhoFMHhmZmYqBTB4ZmZmOgNCVENCA0JBVEoIMTIwMDAwMDBSCDExNTAwMDAwWhF2ZXJ5IGxvbmd1ZSBub25jZQ==",
+    "signature": "MEUCIBRm4PrdgRw0aBwRepuOGGRmR/YPcCoyKNJ7UDjFO030AiEA/VT0anolum0a3X/9lGPeovZHqzeDG9brcUB4zhYmwbs="
+  }
+}
+  ```
 
     Your Protobuf message should have the following structure:
 
@@ -59,22 +75,6 @@ You need to implement following endpoint for the card:
         bytes    device_transaction_id = 7;  
     }
     ```
-An example response from the ledger backend to the exchange SDK
-  
-  ``` json copy
-{
-  "sellId": "SELL-ID-165940",
-  "payinAddress": "0xa0b86991c627e936c1d19d4a2e90a2ce3606eb48",
-  "createdAt": "2030-05-26T14:13:39",
-  "providerFees": "0.0001",
-  "referralFees": "0.0001",
-  "payoutNetworkFees": "0.0002",
-  "providerSig": {
-    "payload": "CgUweGZmZhoFMHhmZmYqBTB4ZmZmOgNCVENCA0JBVEoIMTIwMDAwMDBSCDExNTAwMDAwWhF2ZXJ5IGxvbmd1ZSBub25jZQ==",
-    "payload_signature": "MEUCIBRm4PrdgRw0aBwRepuOGGRmR/YPcCoyKNJ7UDjFO030AiEA/VT0anolum0a3X/9lGPeovZHqzeDG9brcUB4zhYmwbs="
-  }
-}
-  ```
 </details>
 
 ## Real-time Status Updates:
@@ -96,7 +96,7 @@ To ensure effective communication with Ledger's backend, you are required to imp
 
 [//]: # (Info needed to be exchange with the provider, but not out loud publicly)
 [//]: # (**IP address checking** )
-[//]: # (Additionally, we also need a way to know if a user will be able to perform a coin swap given his IP.)
+[//]: # (Additionally, we also need a way to know if a user will be able to perform a coin sell given his IP.)
 [//]: # (Our back-end can adapt to how you decide to do this, but we recommend you use a dedicated endpoint. Our back-end will send the user’s IP address to that endpoint, without logging it. In response, your endpoint should tell us if the trade is accepted or rejected.)
 
 

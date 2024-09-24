@@ -7,5 +7,6 @@
   "send": "6 - Send",
   "desktop-mobile": "7 - Ledger Live Desktop and Mobile",
   "wallet-api": "8 - Wallet API",
+  "create-module": "X - Create Coin Module",
   "bugs-troubleshooting": "Ledger Live common bugs"
 }

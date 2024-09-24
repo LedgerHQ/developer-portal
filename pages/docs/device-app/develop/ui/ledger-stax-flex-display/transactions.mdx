@@ -183,30 +183,31 @@ To help your users navigate longer or more complex transactions, you might want 
 
 ## Blind signing
 
-When a transaction cannot be fully decoded, a standard “blind signing warning sequence” must be presented to users. This sequence informs them about the risk they’re facing
-- First, a generic warning message lets them “go back to safety” as the primary action. Your app should not customize this screen and its wording, unless strictly necessary
-- Then, a detailed explanation of the risk is presented to users, with redirections to learn more about it. Your app should customize this detailed view, as it is likely dependent on your specific use cases and networks
+When a transaction cannot be fully decoded, a standard “blind signing warning sequence” must be presented to users. It should be accompanied by a dedicated setting that the user must enable in order to sign non-decoded transactions or messages.
+
+- The “blind signing” setting should be off by default. When that’s the case, the user is presented with a specific warning when trying to sign an non-decoded transaction.
+- After enabling the setting, users must still be warned of every blind transaction.
 - On the transaction intent and signature pages, a warning icon is introduced. When tapped, it brings back the detailed risk review as a modal.
 
-The example below shows a blind signing sequence on Ledger Stax, where the Ethereum app presents the approval of an unknown ERC-20 token.
-
+The example below shows a blind signing sequence on Ledger Stax, where the Ethereum app presents the approval of an unknown ERC-20 token, and after the blind signing setting was enabled:
 
 
 ![Stax Blind Signing](/device-app/stax-blind-signing-01.png)
 |:--:| 
 ![Stax Blind Signing](/device-app/stax-blind-signing-02.png)
-| *Note the null amount and lack of token info. The last screen is the modal that appears whenever the user taps on the warning icon.* |
+| *Note the null amount and lack of token info: the user cannot understand that they are signing a token approval in this example. The last screen is displayed when the user touches the warning icon in the top-right corner, displayed on the intent and signing pages.* |
 
-Here’s the exact same sequence on Ledger Flex, for a comprehensive overview of this warning mechanism:
-![Flex Blind Signing](/device-app/flex-blind-signing-01.png)
-![Flex Blind Signing](/device-app/flex-blind-signing-02.png)
+If the “blind signing” setting is disabled, a dedicated warning message redirects the user when attempting to sign a transaction that cannot be fully decoded:
+
+![Flex Blind Signing](/device-app/flex-blind-signing.png)
+|:--:| 
+| *The term “transaction” must be replaced with “message” when relevant.* |
+
 
 <Callout emoji="💻">
 	<b>API</b><br/>
-	<code>nbgl_useCaseChoice()</code><br/>
-	<code>nbgl_useCaseChoice()</code><br/>
-	<code>nbgl_useCaseReview(with BLIND_OPERATION flag)</code><br/>
-	These high-level API functions allow you to manually set the two warning screens preceding the transaction review, and enable the warning icon on the top right of Review transaction and Sign transaction pages. <a href="https://github.com/LedgerHQ/app-boilerplate/pull/127">View Boilerplate application PR example</a>.
+	<code>nbgl_useCaseReviewBlindSigning()</code><br/>
+	This high-level API function covers the special case of blind-signed transactions and messages, presented in this section. <a href="https://ledgerhq.github.io/ledger-secure-sdk/nbgl__use__case_8h.html#aad9da84942ed4c248b8aa18e52b0c321">View API doc</a>.
 </Callout>
 
 ## Signing messages
