@@ -117,19 +117,23 @@ Here is a typical family folder structure (TS integration):
 </Callout>
 
 #### Coin-module
- * `src/api` directory: Contains the implementation of B2B interface (a.k.a. Alpaca) - TBD.
- * `src/bridge/*` files: Split of `CurrencyBridge` and `AccountBridge` logic in dedicated files.
- * `src/bridge/index.ts` file: Entry point of Ledger Live integration of the coin-module. This file lists `CurrencyBridge` and `AccountBridge` implementation.
- * `src/network` directory: Contains all the logic to send requests to the explorer.
- * `src/signer/getAddress.ts` file: Logic on how to interact with device-app to retrieve addresses.
- * `src/test/bot-specs.ts` file: Definition of tests to be run on the bot.
- * `src/types/signer.ts` file: Interface definition of the ledger device-app related to this coin.
+
+In the coin module, there is lockchain specific code, and how the signer needs to be injected.
+
+ * `src/api` directory: Contains all the logic to send requests to the explorer.
+ * `src/bridge/js.ts` file: Entry point of Ledger Live integration of the coin-module. This file lists `BridgeCurrency` and `BridgeAccount` implementation.
+ * `src/hw-getAddress.ts` file: Logic on how to interact with device-app to retrieve addresses.
+ * `src/js-*` files: Split of `BridgeCurrency` and `BridgeAccount` logic in dedicated files.
+ * `src/signer.ts` file: Interface definition of the ledger device-app related to this coin.
+ * `src/specs.ts` file: Definition of tests to be run on the bot.
 
 #### Ledger live-common
- * `src/config.ts`: TBD.
+
+In live-common, there is the signer implementation, the logic shared between Ledger Live Desktop and mobile, and device app specific code.
+
  * `src/logic.ts`: Lists coin specific business logic.
  * `src/react.ts`: Defines and lists coin specfic react hooks for UI.
- * `src/setup.ts`: Glue file for coin integration.
+ * `src/setup.ts`: Declares the signer in LLC.
  * `src/types.ts`: Lists coin specific types.
  * `src/walletApiAdapter.ts`: TBD.
 
