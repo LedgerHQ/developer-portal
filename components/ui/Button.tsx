@@ -97,10 +97,10 @@ const Button: FC<ButtonProps> = ({
   const handleClick = () => {
     switch (type) {
           case "primary":
-            router.push("/overview/overview")
+            router.push("/docs/ledger-ecosystem/overview")
             break;
           case "white":
-            router.push("/overview/overview")
+            router.push("/docs/ledger-ecosystem/overvieww")
             break;
           default:
             break;

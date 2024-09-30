@@ -8,7 +8,8 @@
   },
   "overview": {
     "title": "Overview",
-    "type" : "page"
+    "type" : "page",
+    "href": "docs/ledger-ecosystem/overview"
   },
   "docs": {
     "title": "Documentation",
