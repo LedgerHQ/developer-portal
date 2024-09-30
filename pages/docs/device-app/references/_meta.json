@@ -1,6 +1,7 @@
 {  
 	"framework": "Development framework",
 	"tools":"Developing tools overview",
+	"app-permissions": "App permissions",
 	"cryptography-api": "Criptography API",
 	"cryptography-api-examples": "Criptography API examples"
 }

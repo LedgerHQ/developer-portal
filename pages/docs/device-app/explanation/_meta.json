@@ -2,5 +2,11 @@
 	"device-app-role": "What is the role of the device app?",
 	"plugin": "What is a plugin?",
 	"architecture-diagram": "Architecture diagram",
-	"glossary": "Glossary"
+	"architecture-good-practices": "Architecture good practices",
+	"io": "Application Structure and I/O",
+	"cryptography": "Cryptography general concepts",
+	"ledger-os": "LedgerOS",
+	"psd": "Personal Security Devices",
+	"memory": "Memory constraints",
+	"security-specificities": "Security specificities"
 }
