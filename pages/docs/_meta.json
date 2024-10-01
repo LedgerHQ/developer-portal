@@ -1,7 +1,7 @@
 {
-  "ledger-ecosystem": {
+  "development-paths": {
         "type": "page",
-        "title": "Ledger Ecosystem"
+        "title": "Development paths"
       },
   "device-app": {
         "type": "page",

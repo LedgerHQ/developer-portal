@@ -15,9 +15,9 @@
     "title": "Documentation",
     "type": "menu",
     "items": {
-      "ledger-ecosystem": {
-        "title": "Ledger Ecosystem",
-        "href": "/docs/ledger-ecosystem/introduction/ecosystem"
+      "development-paths": {
+        "title": "Development paths",
+        "href": "/docs/development-paths/overview"
       },
       "device-app": {
         "title": "Device App",

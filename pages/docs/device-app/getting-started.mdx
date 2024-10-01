@@ -1,61 +1,19 @@
-- Technical requirements
-- Quick process explanation : delay/budget etc 
-- Where to start -> link to boilerplates/repositories
-- Links to How-to Guides and Tutorials
-
 import { Callout } from 'nextra/components'
 
+# Getting started
 
+In this section of the Developer Portal, you will find the resources to build, test and submit C device apps, Rust device apps, Ethereum plugins and Cloned coins apps. 
 
-## Used languages and format
+## Tools and boilerplates
 
+- To learn how to quickstart a project the Ledger VS code extension, read [this guide](/beginner/vscode-extension). The extension makes the environment set up, the app building, and the tests very easy.
+- To start developing your project with the boilerplates, go in the How-to section in "Integration walkthroughs" and you will find [the C Boilerplate](integration/how-to/c-boilerplate), [the Rust Boilerplate](/integration/how-to/rust-boilerplate), [the Ethereum plugin doc](/integration/how-to/plugin) and [the Cloned coins apps integration process](/integration/how-to/clone).
 
-### Languages
+## Development process and security audit
 
-| Component               | Developing language |
-| ----------------------- | ------------------- |
-| OS [Bolos](./architecture/bolos)    | `C`                 |
-| Applications            | `C` or `Rust`       |
-| Plugins                 | `C`                 |
-| Tools (including tests) | `Python` (mostely)  |
+Before publication, an application must go through a functional and security review. We recommend you get in touch _____ before starting your development process.
 
-
-### Data formats
-
-| Component                   | Format   |
-| --------------------------- | -------- |
-| CI (GitHub Workflows)       | `YAML`   |
-| `ledger_app.toml` manifests | `TOML`   |
-| App database                | `JSON`   |
-
-The available SDK is for Apps written in C
-
-For the Apps written in Rust, a Rust SDK is available (only for Nano S/S+/X devices, Stax not supported yet).
-
-
-## Partners
-
-### External Development: need a team to build your Device App?
-
-You need an device app but don't have an application developer in your team?
-
-The following companies have experience building Device Apps, feel free to contact them to talk about your project:
-- [Blooo](https://blooo.io/en/ledger-wallet-integration/)
-- [Obsidian Systems](https://obsidian.systems/)
-- [Vacuumlabs](https://vacuumlabs.com/ledger )
-- [Zondax](https://zondax.ch/)
-
-If you need more information, don't hesitate to contact us on Discord.
-
-You can still try to start your project on your own, using our development framework that contains the basis you need to
-build an application, load it on a device or on the Speculos emulator, and test your application with Ragger. Get started [here](../develop/quickstart/).
-
-
-### Security audit: your agreement with our partners
-
-<Callout type="info" emoji="ℹ️">
-  Ensure your device app meets all necessary requirements and is fully tested before initiating a security audit with our partners
-</Callout>
+To know more about the submission steps, read the [App deployment process documentation](./submission-process/process).
 
 When your device app is ready to go through the security audit, you can contact one of our partners:
 
@@ -63,6 +21,10 @@ When your device app is ready to go through the security audit, you can contact 
 - [Quarkslab](https://www.quarkslab.com/), contact them [here](mailto:qb_ledger@quarkslab.com).
 
 They both follow Ledger specifications and will provide a full report with potential vulnerabilites.
+
+<Callout type="info" emoji="ℹ️">
+  Ensure your device app meets all necessary requirements and is fully tested before initiating a security audit with our partners
+</Callout>
 
 Important aspects of your agreement:
 - Time: When the auditors will be able to start the review.
@@ -73,22 +35,39 @@ Important aspects of your agreement:
   Ledger is not a stakeholder in the contract between you and our partners.
 </Callout>
 
+## Need to hire a team to develop your device app?
 
-## Get in touch with the Ledger developer community
+You need an device app but don't have an application developer in your team?
 
-Joining Discord is not required to code your Device Application, but it will be easier to meet with our team and
-discuss the specifics of your project.
+The following companies have experience building Device Apps, feel free to contact them to talk about your project:
+- [Blooo](https://blooo.io/en/ledger-wallet-integration/)
+- [Obsidian Systems](https://obsidian.systems/)
+- [Vacuumlabs](https://vacuumlabs.com/ledger )
+- [Zondax](https://zondax.ch/)
 
-Join us on the [Ledger's Discord server](https://developers.ledger.com/discord/) and introduce your project in the
-**#dev-support** channel.
+## Technical information
 
-The following channels might interest you:
+### Languages
 
-- [dev-support](https://discord.com/channels/885256081289379850/1007621744732950590) is the place if you have
-  a technical question for the devs. Don't forget the `Embedded app` flag if it's related with the application
-  development
-- [embedded-app-updates](https://discord.com/channels/885256081289379850/907623554542080070) is the channel the
-  embedded app developers use to communicate about SDK releases, Boilerplate evolutions, or anything which could impact
-  our development environment or tools.
-- [rust-sdk](https://discord.com/channels/885256081289379850/912241185677000704) is a channel dedicated to the
-  applications using the WIP Rust SDK.
+| Component               | Developing language |
+| ----------------------- | ------------------- |
+| OS [Bolos](./architecture/bolos)    | `C`                 |
+| Applications            | `C` or `Rust`       |
+| Plugins                 | `C`                 |
+| Tools (including tests) | `Python` (mostely)  |
+
+The available SDK is for Apps written in C
+
+For the Apps written in Rust, a Rust SDK is available (only for Nano S/S+/X devices, Stax not supported yet).
+
+### Data formats
+
+| Component                   | Format   |
+| --------------------------- | -------- |
+| CI (GitHub Workflows)       | `YAML`   |
+| `ledger_app.toml` manifests | `TOML`   |
+| App database                | `JSON`   |
+
+
+
+
