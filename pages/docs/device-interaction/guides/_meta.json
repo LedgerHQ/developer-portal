@@ -1,4 +1,5 @@
 {  
-	"integration": "Integration walkthrough",
-	"tests": "Tests"
+	"web-application": "Web Application",
+	"mobile-application": "Mobile Application",
+	"desktop-application": "Desktop Application"
 }
