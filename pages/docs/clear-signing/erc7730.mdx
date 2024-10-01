@@ -10,18 +10,18 @@ This implementation is currently for EVM chains only. Stay tuned for other proto
 
 ### dApps
 
-The clear signing standard that we have developped relies on the whitelisting of smart contracts methods and can be done easily and quickly.
+The clear signing standard that we have developped relies on the whitelisting of smart contracts methods and messages and can be done easily and quickly.
 
 #### Whitelisting process
 
-1. Submit a Json file to map your smart contract data into human-readable information to be displayed on Ledger devices. 
+1. Submit a Json file to describe formatting for your smart contract data, transforming it into human-readable information to be displayed on Ledger devices. 
 	- The specifications for this Json file are on [the official GitHub repository](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc-7730.md)
 	- The PR requirements are [on the Repository ReadMe](https://github.com/LedgerHQ/clear-signing-erc7730-registry).
 2. Ledger reviews your PR
 
 <Callout type="info" emoji="ℹ️">
 	It is possible to submit your PRs but since the Generic Parser is not released yet, the transactions will not be clear signed. The Generic Parser serves as the middle-layer deployed on the Ledger infrastructure to read and parse the JSON files. 
-	We recommend you submit the PR nonetheless so everything is ready when the generic parser is released. 
+	We recommend you submit the PR nonetheless so that your contract is clear signed as soon as the generic parser is released. 
 </Callout>
 
 
