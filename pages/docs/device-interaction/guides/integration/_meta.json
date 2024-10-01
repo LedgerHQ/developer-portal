@@ -1,5 +1,5 @@
 {  
-	"web-app": "Web application",
-	"mobile-app": "Mobile application",
-	"desktop-app": "Desktop application"
+	"web-application": "Web Application",
+	"mobile-application": "Mobile Application",
+	"desktop-application": "Desktop Application"
 }
