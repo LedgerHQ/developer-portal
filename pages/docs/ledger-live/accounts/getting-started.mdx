@@ -1,81 +1,23 @@
----
-title: Agreeing on a Framework
-description: Assuming you are on course for a Participant Integration, here is how we suggest working together.
----
+# Adding your blockchain to Ledger Live
 
-import { Callout } from 'nextra/components'
+## Process
 
-# Agreeing on a Framework
+______
 
-Assuming you are on course for a Participant Integration, here is how we suggest working together.
+## Integration
 
+## Tools
 
-### Phase 1 - You introduce your project
+- Follow [this tutorial](./tutorials/build-cli) to learn how build the CLI for development.
+- Follow [this tutorial](./tutorials/live-build) to learn how to build Ledger Live Desktop and Ledger Live mobile.
 
-To start, please fill up the [**Ledger Live Integration application form**](https://ledger.typeform.com/LiveIntegration).
+## Languages
 
-In this questionnaire, you will answer a set of questions that will help our team get a better understanding of the following aspects of your project:
-- Technical specificities of your Blockchain and its ecosystem
-- Connectivity to Third Party Services
-- Scope of the desired integration
+| Development step   |  Required skills  |
+|--------------------|-------------------|
+| Creation of new coin-module | TypeScript, RxJS   |
+| Modification of live-common, LLD and LLM | TypeScript, React Native  |
+| RPC Node access  | DevOps and server hosting/cloud   |
+| Data indexers  | Backend data processing programming language |
+| Block Explorer (if needed) | Web framework like RoR or a JS stack |
 
-<Callout type="warning" emoji="⚠️">
-    <ul>
-        <li>- The validation of the scope AND of the technical feasibility of the integration are required before starting the development phase.</li>
-        <li>- Do not start the development phase before getting an official GO from the Ledger team.</li>
-        <li>- We will not provide any technical support and/or code review to teams who did not get vetted by Ledger team upfront</li>
-    </ul>
-</Callout>
-
-
-<Callout type="info" emoji="ℹ️">
-    <ul>
-        <li>- Please be mindful when filling in this questionnaire, any unanswered or unclear question will delay the review process.</li>
-        <li>- Ledger keeps the right to refuse and/or cancel any Participant Integration at any time without further notice or explanation.</li>
-    </ul>
-</Callout>
-
-### Phase 2 - Ledger reviews your project candidature
-
-
-Upon reception of your project information, Ledger will start reviewing it. 
-Please note that we do receive a lot of submissions and our bandwidth is limited so it can take some time before you hear back from us, but don’t worry we do review all the applications. 
-
-
-### Phase 3 - We clarify together the scope and technical specificities of your project
-
-Upon review of your project information, Ledger will share a Google sheet document with your team.
-This document is a breakdown of all questions / answers you provided in the Application form.
-
-Most of the time, Ledger will require further clarifications about the information provided.
-Ledger will use the “comment” feature of Google sheet to interact with your team.
-
-Phase 4 ends when all items of the shared Gsheet are in status “validated”
-
-### Phase 4 - Ledger gives you a final answer
-
-Now that our team at Ledger have a full understanding of the technical specificities of your Blockchain and of the scope of the desired integration. There will be 3 options: 
-
-**Option 1**: Ledger gives you an official GO and you can start working on Ledger Live integration on the full desired scope.
-
-**Option 2**: Ledger gives you an official GO and you can start working on Ledger Live integration BUT on a reduced scope. 
-For example, we could reduce the scope to send & receive only if we identify technical blockers that could put the integration process at risk. 
-
-**Option 3**: Ledger considers that for technical or business reasons your Blockchain can’t be integrated within Ledger Live. 
-This decision can be taken at Ledger sole discretion.
-
-
-### Phase 5 - Integration kickoff
-
-The Ledger team will plan a kickoff meeting in order to discuss the following:
-
-- Scope and Blockchain specificities
-- Integration steps and milestones
-- How to get support from the Ledger team
-- When to submit a PR
-- Code review
-- Maintenance
-
-Our team will also be able to answer all the questions you might have. 
-
-After this meeting, you are finally ready to start! 
