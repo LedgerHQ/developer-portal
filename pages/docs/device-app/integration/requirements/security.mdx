@@ -6,7 +6,7 @@ import { Callout } from 'nextra/components'
 
 ## Application parameters: minimal and declared
 
-Refer to [this section](../../architecture/flags) for further information.
+Refer to [this section](../../references/app-permissions) for further information.
 
 
 ### App permissions
@@ -52,12 +52,12 @@ The coherence between these derivation path and the app `Makefile` is verified a
   All signing transactions/messages action must ask for the user approval before happening.
 </Callout>
 
-More information [here](../../architecture/cryptography/general-concepts#signingdisclosing-keys).
+More information [here](../../explanation/cryptography#signingdisclosing-keys).
 
 
 ### Blind Signing
 
-As a general rule, [blind signing should be avoided](../../architecture/cryptography/general-concepts#avoid-blindly-signing-data), however it is tolerated under some circumstances.
+As a general rule, [blind signing should be avoided](../../explanation/cryptography#avoid-blindly-signing-data), however it is tolerated under some circumstances.
 
 
 For every transaction, the users must be able to verify on the device the amount being transferred and the destination address or the validator/nominator address(es) in the case of a staking operation.
