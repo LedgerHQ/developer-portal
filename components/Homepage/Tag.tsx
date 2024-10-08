@@ -42,7 +42,7 @@ export const Tag: FC<TagProps> = ({type, className, ...props}) => {
 
   return (
     <div className={combination("w-fit flex gap-2 border rounded px-4 py-2 items-center", containerStyle, className)} {...props}>
-        <Image src={require(`../../public/icons/${type}.svg`)} alt="icon" className="h-5 w-5" />
+        <Image src={require(`/icons/${type}.svg`)} alt="icon" className="h-5 w-5" />
         <div className="tagText">{strings[type]}</div>
     </div>
   )

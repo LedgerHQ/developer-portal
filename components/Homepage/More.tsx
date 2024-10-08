@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes } from 'react'
 import Image from "next/image"
-import PlusIcon from "../../public/icons/plus.svg"
+import PlusIcon from "/icons/plus.svg"
 
 interface MoreProps extends HTMLAttributes<HTMLDivElement> {}
 

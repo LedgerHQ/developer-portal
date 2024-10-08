@@ -38,7 +38,7 @@ export const ExampleCard: FC<ExampleCardProps> = ({icon, title, subtitle, descri
     <button type="button" onClick={handleClick} className={combination("group flex flex-col w-[384px] px-6 py-8 rounded border-[0.5px] border-grey-700 hover:border-white bg-grey-900 text-left ease-linear duration-300", className)} {...props}>
       <div className="flex gap-4 items-center">
         <div className="flex items-center justify-center w-8 h-8 bg-white rounded-md">
-          <Image src={require(`../../public/icons/${icon}.png`)} alt="icon" className="w-6" />
+          <Image src={require(`/icons/${icon}.png`)} alt="icon" className="w-6" />
         </div>
         <div className="text-heading-6 font-semibold tracking-tight-1">{title}</div>
       </div>
