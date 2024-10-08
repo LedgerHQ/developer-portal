@@ -2,8 +2,8 @@ import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { Tabs } from 'nextra/components'
 import { Callout } from 'nextra/components'
-import BackendIntro from '/public/exchange/import/backend-intro.mdx'
-import PayloadAndSignature from '/public/exchange/import/payload-and-signature.mdx'
+import BackendIntro from '../../../../public/exchange/import/backend-intro.mdx'
+import PayloadAndSignature from '../../../../public/exchange/import/sell-payload-and-signature.mdx'
  
 # Backend
 
@@ -17,27 +17,41 @@ In order to communicate with Ledger’s backend, you must provide standardised A
 You will find all the information regarding the CARD endpoints here: https://exchange-integration-fund.redoc.ly/, as well as additional details on some endpoints below.
 </Callout>
 
-There are 2 main endpoints needed for the card:
-    - To create a signed fund binary payload: [/sell](https://exchange-integration-fund.redoc.ly/#operation/postFund).
-    - To query a sell status: [/status](https://exchange-integration-fund.redoc.ly/#operation/getStatus).
-
+You need to implement following endpoint for the card:
+    - To create a signed fund binary payload: [/sell](https://exchange-integration-fund.redoc.ly/#operation/postSell).
 
 <details>
-  <summary>Additional Details: POST /fund</summary>
+  <summary>Additional Details: POST /sell</summary>
 
   Example request payload:
 ``` json copy
   {
   "quoteId": "string",
-  "amount": "number",
+  "amount": "string",
   "refundAddress": "string",
-  "currencyFrom": "string",
-  "fiatTo": "string",
-  "payloadCurrencyFrom": "string",
-  "payloadFiatTo": "string",
+  "fromCryptoCurrency": "string",
+  "toFiatCurrency": "string",
+  "payloadCryptoCurrency": "string",
   "nonce": "number",
   }
 ```
+
+An example response from the your backend to the Ledger backend
+
+  ``` json copy
+{
+  "sellId": "SELL-ID-165940",
+  "payinAddress": "0xa0b86991c627e936c1d19d4a2e90a2ce3606eb48",
+  "createdAt": "2030-05-26T14:13:39",
+  "providerFees": "0.0001",
+  "referralFees": "0.0001",
+  "payoutNetworkFees": "0.0002",
+  "providerSig": {
+    "payload": "CgUweGZmZhoFMHhmZmYqBTB4ZmZmOgNCVENCA0JBVEoIMTIwMDAwMDBSCDExNTAwMDAwWhF2ZXJ5IGxvbmd1ZSBub25jZQ==",
+    "signature": "MEUCIBRm4PrdgRw0aBwRepuOGGRmR/YPcCoyKNJ7UDjFO030AiEA/VT0anolum0a3X/9lGPeovZHqzeDG9brcUB4zhYmwbs="
+  }
+}
+  ```
 
     Your Protobuf message should have the following structure:
 
@@ -61,31 +75,20 @@ There are 2 main endpoints needed for the card:
         bytes    device_transaction_id = 7;  
     }
     ```
-An example response from the ledger backend to the exchange SDK
-  
-  ``` json copy
-{
-  "sellId": "SELL-ID-165940",
-  "payinAddress": "0xa0b86991c627e936c1d19d4a2e90a2ce3606eb48",
-  "createdAt": "2030-05-26T14:13:39",
-  "providerFees": "0.0001",
-  "referralFees": "0.0001",
-  "payoutNetworkFees": "0.0002",
-  "providerSig": {
-    "payload": "CgUweGZmZhoFMHhmZmYqBTB4ZmZmOgNCVENCA0JBVEoIMTIwMDAwMDBSCDExNTAwMDAwWhF2ZXJ5IGxvbmd1ZSBub25jZQ==",
-    "payload_signature": "MEUCIBRm4PrdgRw0aBwRepuOGGRmR/YPcCoyKNJ7UDjFO030AiEA/VT0anolum0a3X/9lGPeovZHqzeDG9brcUB4zhYmwbs="
-  }
-}
-  ```
 </details>
 
+## Real-time Status Updates:
+
+To ensure effective communication with Ledger's backend, you are required to implement a webhook [/transaction/\{sellId\}/status](https://exchange-integration-fund.redoc.ly/#operation/statusUpdate) update mechanism. This should notify Ledger real-time whenever there is a change in the status of a transaction. Ledger will provide partners with the necessary webhook URL or address to which the status updates should be sent.
+
 <details>
-  <summary>Additional Details: GET /status</summary>
+   <summary>Additional Details: POST /transaction/\{sellId\}/status</summary>
     Explanation of the different output `status`:
         - `FINISHED`: Trade has been completed successfully (user has received payout transaction).
         - `EXPIRED`: Payin transaction was not received in time, trade is cancelled. User will be refunded if payin transaction is received afterwards.
         - `ON_HOLD`: Trade has been put on hold (eg: for KYC reasons). User must contact support.
         - `PENDING`: Trade is in progress (provider is waiting to receive payin transaction, or user is waiting to receive payout transaction)
+        - `TRANSFER_IN_COMPLETED`: Transfer in completed and waiting for transfer out to be sent.
         - `REFUNDED`: Trade has been cancelled, refund transaction has been successfully received by user.
         - `UNKNOWN`: Trade is in unknown state. User must contact support.
 
@@ -93,7 +96,7 @@ An example response from the ledger backend to the exchange SDK
 
 [//]: # (Info needed to be exchange with the provider, but not out loud publicly)
 [//]: # (**IP address checking** )
-[//]: # (Additionally, we also need a way to know if a user will be able to perform a coin swap given his IP.)
+[//]: # (Additionally, we also need a way to know if a user will be able to perform a coin sell given his IP.)
 [//]: # (Our back-end can adapt to how you decide to do this, but we recommend you use a dedicated endpoint. Our back-end will send the user’s IP address to that endpoint, without logging it. In response, your endpoint should tell us if the trade is accepted or rejected.)
 
 

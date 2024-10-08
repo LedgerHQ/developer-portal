@@ -2,8 +2,8 @@ import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { Tabs } from 'nextra/components'
 import { Callout } from 'nextra/components'
-import BackendIntro from '/public/exchange/import/backend-intro.mdx'
-import PayloadAndSignature from '/public/exchange/import/payload-and-signature.mdx'
+import BackendIntro from '../../../../public/exchange/import/backend-intro.mdx'
+import PayloadAndSignature from '../../../../public/exchange/import/payload-and-signature.mdx'
 
 # Backend
 
@@ -184,47 +184,56 @@ Receive currency_to amount_to_wallet
 
 <PayloadAndSignature />
 
-## Reference Error Codes
+## Error Codes Reference
 
 REGION_RESTRICTED_ERROR
 - HTTP status code 451
 - Endpoints: `/quote`, `/swap`
 - Description: When the user's IP address is in a restricted region.
+
 FROM_CURRENCY_MINIMUM_AMOUNT_ERROR
 - HTTP status code 400
 - Endpoints: `/quote`
 - Context: \{ minSwapAmount: string }
 - Description: When the amount to swap is below the minimum amount.
 - Response
+
 TO_CURRENCY_MAXIMUM_AMOUNT_ERROR
 - HTTP status code 400
 - Endpoints: `/quote`
 - Context: \{ maxSwapAmount: string }
 - Description: When the amount to swap is above the maximum amount.
+
 SWAP_PAIR_NOT_FOUND_ERROR
 - HTTP status code 404
 - Endpoints: `/quote`
 - Description: When the pair is not found.
+
 CURRENCY_REGION_RESTRICTED_ERROR
 - HTTP status code 451
 - Endpoints: `/quote`
 - Description: When the currency is in a restricted region.
+
 NO_DEPOSIT_WALLET_ERROR
 - HTTP status code 400
 - Endpoints: `/swap`
 - Description: When the deposit wallet is not available.
+
 CURRENCY_FROM_NOT_FOUND_ERROR
 - HTTP status code 404
 - Endpoints: `/swap`
 - Description: When the currency from is not found.
+
 CURRENCY_TO_NOT_FOUND_ERROR
 - HTTP status code 404
 - Endpoints: `/swap`
 - Description: When the currency to is not found.
+
 SWAP_QUOTE_NOT_FOUND_ERROR
 - HTTP status code 404
 - Endpoints: `/swap`
 - Description: When the swap quote is not found.
+
 SWAP_TRANSACTION_NOT_FOUND_ERROR
 - HTTP status code 404
 - Endpoints: `/status`

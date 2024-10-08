@@ -8,21 +8,21 @@ import { Callout } from 'nextra/components'
 In order to become a native Card provider in the Ledger Live ecosystem, you must:
 
 <Steps>
-### Develop/Modify your LiveApp
- 
-- Use our Exchange SDK in addition to the Ledger Live Kit.
-- Write/Modify the Manifest file. 
-- Follow some flow/UX requirements.
-
 ### Adapt to our Backend
  
 - Adapt your API endpoint to interact with our Backend.
 - Generate a structured payload and a signature with a specific format.
 - Send your public key to Ledger and secure your private key.
 
+### Develop/Modify your LiveApp
+ 
+- Use our Exchange SDK in addition to the Wallet API.
+- Write/Modify the Manifest file. 
+- Follow some flow/UX requirements.
+
 ### Test and submit
 
-Test end-to-end your integration by manually loading your LiveApp through Developer Mode (see [Ledger Live Kit doc](https://wallet.api.live.ledger.com/docs/discover/dapp-browser/manifest#load-your-live-app-locally-on-desktop)) and submit:
+Test end-to-end your integration by manually loading your LiveApp through Developer Mode (see [Wallet API doc](https://wallet.api.live.ledger.com/docs/discover/dapp-browser/manifest#load-your-live-app-locally-on-desktop)) and submit:
   - Your API, 
   - Your LiveApp Manifest,
   - Your public key.
@@ -30,6 +30,6 @@ Test end-to-end your integration by manually loading your LiveApp through Develo
 </Steps>
 
 In the following pages, you will find:
-- [LiveApp](card/providers-liveapp): Details about your LiveApp, such as the LiveApp URL, the Manifest, or the use of the Exchange SDK alongside the Ledger Live Kit.
 - [Backend](card/providers-backend): Details on the main endpoint required, including the payload, the signature, and your public/private key.
+- [LiveApp](card/providers-liveapp): Details about your LiveApp, such as the LiveApp URL, the Manifest, or the use of the Exchange SDK alongside the Wallet API.
 - [Test & Submit](card/providers-test-and-submit): Details on how to use the Ledger Live Developer Mode and other tools (coming soon) to test your integration end-to-end, as well as how to submit it.
