@@ -1,0 +1,71 @@
+import { Callout } from 'nextra/components'
+
+# Coin folder structure
+
+Your whole implementation of <i>MyCoin</i> must reside in a `mycoin` folder in `libs/coin-modules/coin-mycoin`.
+You will also need some code in `libs/ledger-live-common/src/families/mycoin`, for injection, setup and UI specific requirements.
+
+Here is a typical family folder structure (TS integration):
+
+```plaintext copy
+./libs
+├── coin-modules/coin-mycoin/src
+│   ├── api
+│   │   └── index.ts
+│   ├── bridge
+│   │   ├── broadcast.ts
+│   │   ├── buildTransaction.ts
+│   │   ├── createTransaction.ts
+│   │   ├── estimateMaxSpendable.ts
+│   │   ├── formatters.ts
+│   │   ├── getFeesForTransaction.ts
+│   │   ├── getTransactionStatus.ts
+│   │   ├── prepareTransaction.ts
+│   │   ├── signOperation.ts
+│   │   ├── synchronization.ts
+│   │   └── index.ts
+│   ├── logic
+│   │   ├── broadcast.ts
+│   │   ├── craftTransaction.ts
+│   │   ├── estimateFees.ts
+│   │   ├── getBalance.ts
+│   │   ├── lastBlock.ts
+│   │   ├── listOperations.ts
+│   │   ├── signTransaction.ts
+│   │   └── index.ts
+│   ├── network
+│   │   ├── explorer.ts
+│   │   └── index.ts
+│   ├── signer
+│   │   ├── getAddress.ts
+│   │   └── index.ts
+│   ├── test
+│   │   ├── bot-deviceActions.ts
+│   │   ├── bot-specs.ts
+│   │   ├── bridgeDatasetTest.ts
+│   │   ├── cli.ts
+│   │   └── index.ts
+│   ├── types
+│   │   ├── bridge.ts
+│   │   ├── errors.ts
+│   │   ├── model.ts
+│   │   ├── signer.ts
+│   │   └── index.ts
+│   ├── config.ts
+│   └── index.ts
+├── ledger-live-common/src/families/mycoin
+│   ├── bridge.integration.test.ts
+│   ├── config.ts
+│   ├── logic.ts
+│   ├── react.ts
+│   ├── setup.ts
+│   ├── types.ts
+│   └── walletApiAdapter.ts
+└── ledgerjs/packages/hw-app-mycoin/src
+│   ├── MyCoin.ts
+│   └── index.ts
+```
+
+<Callout type="info" emoji="ℹ️">
+    You can refer to existing implementations to complete given examples, like <a href='https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledger-live-common/src/families/polkadot'>Polkadot integration</a>.
+</Callout>

@@ -14,7 +14,7 @@ A CoinModule has the following directories/modules:
 - `bridge`: implementation of Bridges interface (cf. [Bridge](light-sync))
 - `logic`: contains all core logic of the blockchain. The code here is agnostic of all external interface (i.e. Bridge or Api) and relies only on external libs and `network` directory
 - `network`: communication logic with explorer/index/node (cf. [How to wrap you api](light-sync#wrap-your-api))
-- `signer`: defines the interface definition to the Embedded App and the logic to retrieve [derive address](addrss-derivation)
+- `signer`: defines the interface definition to the Embedded App and the logic to retrieve [derive address](address-derivation)
 
 ## Some architectural decision
 For consistency among all the CoinModule, please consider the following principles:
@@ -32,4 +32,4 @@ For consistency among all the CoinModule, please consider the following principl
 
 The following steps (3-A to 3-D), your work will have some impact on the [Ledger Live repository](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledger-live-common).
 
-Therefore, make sure [you have setup your environment](../setup-build) to work with `ledger-live`.
+Therefore, make sure [you have setup your environment](../../getting-started#setup) to work with `ledger-live`.
