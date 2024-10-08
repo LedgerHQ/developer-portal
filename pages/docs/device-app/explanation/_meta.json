@@ -5,8 +5,8 @@
 	"architecture-good-practices": "Architecture good practices",
 	"io": "Application Structure and I/O",
 	"cryptography": "Cryptography general concepts",
-	"ledger-os": "LedgerOS",
 	"psd": "Personal Security Devices",
+	"ledger-os": "LedgerOS",
 	"memory": "Memory constraints",
 	"security-specificities": "Security specificities"
 }

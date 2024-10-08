@@ -18,7 +18,7 @@ When an application performs a syscall, the Secure Element switches to Superviso
 ## Accessing secrets
 
 The access that applications have to cryptographic secrets managed by the operating system can be configured when
-loading an application onto the device (this is actually [a required metadata for an application to be deployed](../../develop/requirements/security#derivation-path)).
+loading an application onto the device (this is actually [a required metadata for an application to be deployed](../../integration/requirements/security#derivation-path)).
 Instead of accessing secrets like the device's master seed directly, applications instead have to use syscalls, i.e to
 request the operating system to derive a node from the master seed by providing the operating system with a path to the
 requested node. When the application is loaded, the BIP 32 paths that the application is permitted to derive nodes from

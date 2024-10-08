@@ -9,10 +9,10 @@ import { Callout } from 'nextra/components'
 
 ## Introduction
 
-To be listed on the Ledger Live “My Ledger“ section, Device Apps and Plugins must go through our integration process that includes a security audit performed by one of our [trusted partners](../partners#security-audit-your-agreement-with-our-partners).
+To be listed on the Ledger Live “My Ledger“ section, Device Apps and Plugins must go through our integration process that includes a security audit performed by one of our [trusted partners](../../getting-started#development-process-and-security-audit).
 
 Provided your project fulfills the [conditions](#conditions), this is how an external audit unfolds:
-1. You get in touch with the auditers and sign a contract with them. [Read more](../partners#security-audit-your-agreement-with-our-partners).
+1. You get in touch with the auditers and sign a contract with them. [Read more](../../getting-started#development-process-and-security-audit).
 2. The auditors review your app based on Ledger specifications. [Read more](#security-audit-specifications).
 3. Ledger reviews the security audit report
 4. Ledger publishes your app
@@ -20,7 +20,7 @@ Provided your project fulfills the [conditions](#conditions), this is how an ext
 <Callout type="warning" emoji="⚠️">
     The security audit is mandatory for an application to be available on our production providers (accessible by
     default from the LedgerLive). However it is possible to deploy without security audit on other providers, for test
-    purposes. However, the application [will need to display a warning message when starting](../process#release-types).
+    purposes. However, the application will need to display a warning message when starting.
 </Callout>
 
 
@@ -56,8 +56,8 @@ Do not hesistate to use the following specification as a checklist.
 - Curves usage must be restricted.
 
 **References:**
-- [BIP32 prefix restrictions](../../architecture/flags#restrict-apps-to-coin-specific-bip32-prefix)
-- [Application parameters](../../develop/requirements/security#application-parameters-minimal-and-declared)
+- [BIP32 prefix restrictions](../../references/app-permissions#restrict-apps-to-coin-specific-bip32-prefix)
+- [Application parameters](../../integration/requirements/security#application-parameters-minimal-and-declared)
 
 ### Clear signing
 
@@ -72,7 +72,7 @@ Do not hesistate to use the following specification as a checklist.
   - Every possible flow is functionally tested (associated snapshots are present).
 
 **References:**
-- [Signing settings](../../develop/requirements/security#signing-settings)
+- [Signing settings](../../integration/requirements/security#signing-settings)
 
 ### Compilation
 
@@ -85,7 +85,7 @@ Do not hesistate to use the following specification as a checklist.
   - No deprecated functions are being used.
 
 **References:**
-- [Development requirements](../../develop/requirements/development)
+- [Development requirements](../../integration/requirements/development)
 
 ### Continuous integration
 
@@ -93,7 +93,7 @@ Do not hesistate to use the following specification as a checklist.
 - All pipelines must succeed for all supported devices.
 
 **References:**
-- [Development requirements](../../develop/requirements/development)
+- [Development requirements](../../integration/requirements/development)
 
 ### Tests
 
@@ -106,9 +106,9 @@ Do not hesistate to use the following specification as a checklist.
 - Fuzzing should be done using libfuzzer to integrate with ClusterFuzzLite as shown in the boilerplate apps and plugins.
 
 **References:**
-- [Development requirements](../../develop/requirements/development)
-- [Be wary of unstrusted input](../../architecture/security#be-wary-of-untrusted-input)
-- [Good practices for transaction handling](../../architecture/ui#good-practices-for-transaction-handling)
+- [Development requirements](../../integration/requirements/development)
+- [Be wary of unstrusted input](../../explanation/security-specificities#be-wary-of-untrusted-input)
+- [Good practices for transaction handling](../../explanation/architecture-good-practices#good-practices-for-transaction-handling)
 
 ### Static analysis
 
@@ -121,7 +121,7 @@ Do not hesistate to use the following specification as a checklist.
 - Other tools may be used as part of the static analysis process.
 
 **References:**
-- [Security requirements](../../develop/requirements/security)
+- [Security requirements](../../integration/requirements/security)
 
 ### Vulnerabilities and weaknesses
 - The application or its dependencies must not contain any medium or high severity vulnerabilities.
@@ -163,9 +163,9 @@ Do not hesistate to use the following specification as a checklist.
 - Authenticated encryption scheme must be used for data being cached on the client.
 
 **References:**
-- [General cryptography concepts](../../architecture/cryptography/general-concepts)
-- [Cryptography reference](../../architecture/cryptography/reference)
-- [Cryptography examples](../../architecture/cryptography/examples)
+- [General cryptography concepts](../../explanation/cryptography)
+- [Cryptography reference](../../references/cryptography-api)
+- [Cryptography examples](../../references/cryptography-api-examples)
 
 ### Deliverables
 
