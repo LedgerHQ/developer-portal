@@ -30,7 +30,7 @@ export const JourneyButton: FC<JourneyButtonProps> = ({hovered, className, ...pr
           Get Started
         </span>
         <img
-          src={`/icons/arrow-right-${color}.svg`}
+          src={`../../public/icons/arrow-right-${color}.svg`}
           className="transition-right duration-300"
           alt="button icon"
         />
