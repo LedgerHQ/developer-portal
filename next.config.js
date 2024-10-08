@@ -25,6 +25,11 @@ module.exports = {
         permanent: true,
       },
       {
+        source: '/docs',
+        destination: '/docs/sections',
+        permanent: true,
+      },
+      {
         source: '/docs/nano-app/:slug*',
         destination: '/docs/device-app',
         permanent: true,
@@ -308,6 +313,11 @@ module.exports = {
       {
         source: '/docs/embedded-app/display-management-flow',
         destination: '/docs/device-app/develop/ui/flows/display-management-flow',
+        permanent: true,
+       },
+      {
+        source: '/docs/device-app/coding-guidelines/flows',
+        destination: '/docs/device-app/develop/ui/flows',
         permanent: true,
        },
       {
@@ -812,8 +822,18 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/clear-signing/eip7730',
+        destination: '/docs/clear-signing/erc7730',
+        permanent: true,
+       },
+      {
         source: '/docs/transport/clear-signing',
-        destination: '/docs/connectivity/ledgerJS/clear-signing',
+        destination: '/docs/clear-signing/eip712',
+        permanent: true,
+       },
+      {
+        source: '/docs/connectivity/ledgerJS/clear-signing',
+        destination: '/docs/clear-signing/eip712',
         permanent: true,
        },
       {
@@ -914,6 +934,11 @@ module.exports = {
       {
         source: '/docs/dapp/manifest',
         destination: '/docs/discover/dapp/manifest',
+        permanent: true,
+       }, 
+      {
+        source: '/docs/device-app/develop/tutorials',
+        destination: '/docs/device-app/develop/quickstart',
         permanent: true,
        }, 
       {
@@ -1253,27 +1278,44 @@ module.exports = {
        },
       {
         source: '/docs/token/faq',
-        destination: '/docs/tokens/integrating-tokens/faq',
+        destination: '/docs/tokens/faq',
+        permanent: true,
+       },
+
+      {
+        source: '/docs/tokens/integrating-tokens/faq',
+        destination: '/docs/tokens/faq',
         permanent: true,
        },
       {
         source: '/docs/token/erc20-bep20',
-        destination: '/docs/tokens/integrating-tokens/evm-chains-tokens',
+        destination: '/docs/tokens/evm-chains-tokens',
         permanent: true,
        },
       {
         source: '/docs/token/erc20',
-        destination: '/docs/tokens/integrating-tokens/evm-chains-tokens',
+        destination: '/docs/tokens/evm-chains-tokens',
         permanent: true,
        },
       {
         source: '/docs/token/evm-chains-tokens',
-        destination: '/docs/tokens/integrating-tokens/evm-chains-tokens',
+        destination: '/docs/tokens/evm-chains-tokens',
+        permanent: true,
+       },
+
+      {
+        source: '/docs/tokens/integrating-tokens/evm-chains-tokens',
+        destination: '/docs/tokens/evm-chains-tokens',
+        permanent: true,
+       },
+      {
+        source: '/docs/tokens/integrating-tokens/asa',
+        destination: '/docs/tokens/asa',
         permanent: true,
        },
       {
         source: '/docs/token/asa',
-        destination: '/docs/tokens/integrating-tokens/asa',
+        destination: '/docs/tokens/asa',
         permanent: true,
        },
       {
@@ -1282,18 +1324,23 @@ module.exports = {
         permanent: true,
        },
       {
+        source: '/docs/tokens/integrating-tokens/trcc',
+        destination: '/docs/tokens/trc',
+        permanent: true,
+       },
+      {
         source: '/docs/token/eip712-messages',
-        destination: '/docs/tokens/eip712-messages',
+        destination: '/docs/clear-signing/nft',
+        permanent: true,
+       },
+      {
+        source: '/docs/tokens/eip712-messages',
+        destination: '/docs/clear-signing/nft',
         permanent: true,
        },
       {
         source: '/docs/exchange/swap/glossary',
         destination: '/docs/exchange/glossary',
-        permanent: true,
-       },
-      {
-        source: '/docs/exchange/swap/:slug*',
-        destination: '/docs/exchange/swap',
         permanent: true,
        },
       {
