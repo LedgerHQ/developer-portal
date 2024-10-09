@@ -18,7 +18,7 @@ Before starting, make sure you have gone through the [prerequisites](../getting-
 - Create an Ethereum Sepolia account in Ledger Live
 - Send Sepolia Eth to your account with [Infura faucet](https://www.infura.io/faucet/sepolia). You will need to create an account that  will be useful later for the API key.
 
-![Sepolia Ethereum Faucet](/connectivity/tutorial-infura-sepolia-faucet.png)
+![Sepolia Ethereum Faucet](/device-interaction/tutorial-infura-sepolia-faucet.png)
 *Fig. 1: Sepolia Ethereum Faucet*
 
 ## Web App Bluetooth (only Nano X)
@@ -59,7 +59,7 @@ rm -r src
 
 The folder will contain these files:  
 
-![Folder of the Application](/connectivity/tutorial-2-folder.png)
+![Folder of the Application](/device-interaction/tutorial-2-folder.png)
 *Fig. 1: Folder of the Application*
 
 To implement the Ledger connexion you will only modify "App.js", "index.js", "ConnectLedger.js”,"SmartContract.js", and ethereum.js”
@@ -402,7 +402,7 @@ npm run dev
 
 Now the application is up and running. Open the browser and go to `localhost:3000`, it will display :
 
-![Application Running on Browser](/connectivity/tutorial-2-connect.png)
+![Application Running on Browser](/device-interaction/tutorial-2-connect.png)
 *Fig. 2: Application Running on Browser*  
 
 Don't click on the button yet.
@@ -443,20 +443,20 @@ The steps are described below.
 ### Connect Your Nano to the Application
 Now you can click on the button and a popup opens. Choose your Ledger Nano X and click connexion.
 
-![Connect the Ledger with Bluetooth](/connectivity/tutorial-2-pairing.png)
+![Connect the Ledger with Bluetooth](/device-interaction/tutorial-2-pairing.png)
 *Fig. 6: Connect the Ledger with Bluetooth*
 
 ### Read the data of a Smart Contract
 Now you can click on the button "Get Data" to read the data of the smart contract. Then the data will be displayed on the screen.
 
-![Get data from a smart contract](/connectivity/tutorial-2-getdata.png)
+![Get data from a smart contract](/device-interaction/tutorial-2-getdata.png)
 *Fig. 7: Get data from a smart contract*
 
 
 ### Update the data of a Smart Contract
 Now instead of reading data, we will overwrite the data by calling a function of the smart contract which is "UpdateData".
 
-![Change data from a smart contract](/connectivity/tutorial-2-changedata.png)
+![Change data from a smart contract](/device-interaction/tutorial-2-changedata.png)
 *Fig. 8: Change data from a smart contract*
 
 ### Verify the Address on your Nano
@@ -504,22 +504,22 @@ For security reasons, the address will also be displayed on your Ledger Nano X t
 ### Review the Transaction on Sepolia Etherscan
 By updating the data a transaction is created to change this data, it can be verified on Sepolia Etherscan.
 
-![Sepolia Etherscan](/connectivity/tutorial-2-etherscan1.png)    
+![Sepolia Etherscan](/device-interaction/tutorial-2-etherscan1.png)    
 *Fig. 15: Sepolia Etherscan*
 
 Wait till the status passes to Success.
 
-![Sepolia Etherscan](/connectivity/tutorial-2-etherscan2.png)    
+![Sepolia Etherscan](/device-interaction/tutorial-2-etherscan2.png)    
 *Fig. 16: Sepolia Etherscan*
 
 ### Verify the update of data
 
 Finally, to verify if data was updated, open the web application and click on "Get data".
 
-![Verify the data](/connectivity/tutorial-2-getdata2.png)  
+![Verify the data](/device-interaction/tutorial-2-getdata2.png)  
 *Fig. 17: Verify the data*
 
-![Verify the data](/connectivity/tutorial-2-getdata3.png)   
+![Verify the data](/device-interaction/tutorial-2-getdata3.png)   
 *Fig. 18: Verify the data*
 
 Congratulations, you have successfully built your first application connected with Ledger!
