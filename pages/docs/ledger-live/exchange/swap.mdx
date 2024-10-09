@@ -20,14 +20,14 @@ In order to become a native Swap provider in the Ledger Live ecosystem, you must
 
 ### Develop/Modify your LiveApp
  
-- Use our Exchange SDK in addition to the Wallet API.
+- Use our Ledger Exchange Services Kit in addition to the Ledger Services Kit.
 - Provide a set of query parameters to access your LiveApp directly with the quote entered by the user in Ledger Live. 
 - Write/Modify the Manifest file. 
 - Follow our flow/UX requirements.
 
 ### Test and submit
 
-Test end-to-end your integration by manually loading your LiveApp through Developer Mode (see [Wallet API doc](https://wallet.api.live.ledger.com/docs/discover/dapp-browser/manifest#load-your-live-app-locally-on-desktop)) and submit:
+Test end-to-end your integration by manually loading your LiveApp through Developer Mode (see [Ledger Services Kit doc](https://wallet.api.live.ledger.com/docs/discover/dapp-browser/manifest#load-your-live-app-locally-on-desktop)) and submit:
   - your API, 
   - your LiveApp Manifest,
   - your Public key.
@@ -36,7 +36,7 @@ Test end-to-end your integration by manually loading your LiveApp through Develo
 
 In the following pages, you will find:
 - [Backend](swap/providers-backend): details on the main endpoints needed for the chosen operation, the payload, the signature, and your public/private key.
-- [LiveApp](swap/providers-liveapp): details on your LiveApp specifities, such as the LiveApp URL, the Manifest or the use of Exchange SDK instead of the Wallet API.
+- [LiveApp](swap/providers-liveapp): details on your LiveApp specifities, such as the LiveApp URL, the Manifest or the use of the Ledger Exchange Services Kit instead of the Ledger Services Kit.
 - [Test & Submit](swap/providers-test-and-submit): details on how to use the Ledger Live Developer Mode and other tools (coming soon) to test your integration end-to-end, as well as how to submit it. 
 - [Flow Breakdown](swap/flow): Details UX, advanced flows and architecture diagrams.
 - [Supported Currencies](swap/providers-currencies): List of supported currencies.

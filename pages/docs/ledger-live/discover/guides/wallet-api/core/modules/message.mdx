@@ -1,4 +1,4 @@
-# Using the Message Module in Wallet API Core Client
+# Using the Message Module in Services Kit Core Client
 
 The Message Module enables users to sign messages using Ledger Live. In the Ethereum context, the messages can be [EIP-191](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-191.md) or [EIP-712](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md) messages.
 
@@ -43,4 +43,4 @@ async function signMessage(walletApiClient, accountId, message, meta) {
 
 ## Handling Errors
 
-Make sure to handle errors gracefully and provide appropriate feedback to the user. Additionally, always remember to disconnect the `WindowMessageTransport` when you're done interacting with the Ledger Wallet API to free up resources.
+Make sure to handle errors gracefully and provide appropriate feedback to the user. Additionally, always remember to disconnect the `WindowMessageTransport` when you're done interacting with the Ledger Services Kit to free up resources.

@@ -1,6 +1,6 @@
 # Using the `useRequestAccount` hook
 
-The `useRequestAccount` hook is part of the Ledger Wallet API Client for React. It is used to request an account from the Ledger Wallet. When the hook is called, the user will be prompted to select the desired account.
+The `useRequestAccount` hook is part of the Ledger Services Kit Client for React. It is used to request an account from the Ledger Wallet. When the hook is called, the user will be prompted to select the desired account.
 
 ### Introduction
 
@@ -8,7 +8,7 @@ The `useRequestAccount` hook facilitates requesting access to a user’s account
 
 ### Usage
 
-1. Import the necessary dependencies and hooks from the Wallet API Client.
+1. Import the necessary dependencies and hooks from the Ledger Services Kit Client.
 
 2. Use the `useRequestAccount` hook in your component.
 
@@ -54,7 +54,7 @@ function App() {
 
   return (
     <div>
-      <h1>Test Live App - Wallet API</h1>
+      <h1>Test Live App - Services Kit</h1>
       <div className="card">
         {response ? (
           <p>Selected Account: {response}</p>

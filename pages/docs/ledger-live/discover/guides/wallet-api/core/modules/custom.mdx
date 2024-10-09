@@ -1,6 +1,6 @@
 import { Callout, Steps } from "nextra/components";
 
-# Using the Custom Module in Wallet API Client
+# Using the Custom Module in Services Kit Client
 
 The Custom Module allows you to interact with any Custom Handler supported by the server.
 
@@ -39,7 +39,7 @@ class CustomLog extends CustomModule {
 
 ### Step 2
 
-Go back to your transport declaration from your [Wallet API Configuration](../configuration).
+Go back to your transport declaration from your [Services Kit Configuration](../configuration).
 
 You need to adapt the WalletAPIClient by passing a function that returns your custom handler.
 
@@ -96,4 +96,4 @@ const res2 = await walletApiClient.custom.log.log("test");
 ## Handling Errors
 
 Make sure to handle errors gracefully and provide appropriate feedback to the user.  
-Additionally, always remember to disconnect the `WindowMessageTransport` when you're done interacting with the Ledger Wallet API to free up resources.
+Additionally, always remember to disconnect the `WindowMessageTransport` when you're done interacting with the Ledger Services Kit to free up resources.

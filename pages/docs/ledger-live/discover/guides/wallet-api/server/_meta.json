@@ -9,7 +9,7 @@
     }
   },
   "wallet-api-server": {
-    "title": "Wallet API Server",
+    "title": "Ledger Services Kit Server",
     "theme": {
       "toc": true
     }
