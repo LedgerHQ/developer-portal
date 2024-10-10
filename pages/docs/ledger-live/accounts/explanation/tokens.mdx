@@ -1,0 +1,37 @@
+---
+title: How Ledger Live manages token
+description:
+---
+
+import { Callout } from 'nextra/components'
+
+
+# How Ledger Live manages token
+
+In Ledger Live, there is a main account, and there are sub-accounts. 
+
+The main account is where Ledger Live does the main currency transactions.
+
+There is a sub-account for each token. Sub-accounts can be either "token accounts" or "child accounts", the primary difference being that token accounts share the same address as their parent account, while child accounts have their own address.
+
+These account types are defined in the code in [account.ts](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/ledgerjs/packages/types-live/src/account.ts)
+
+Token operations are defined both as operations in the sub-accounts, and as sub-operations in the parent account operations, as defined in [operation.ts](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/ledgerjs/packages/types-live/src/operation.ts)
+
+
+Similarly to transferring native assets, transferring tokens requires the end-user to confirm the transaction details on the Ledger devices’ screens. Such verification is a security requirement and must be made available before the application is released by Ledger. Expected information to verify are (at least) : the amount transferred, the token name and/or ticker, the recipient address.
+
+Different tokens imply multiple names, multiple tickers, multiple identifiers and, sometimes, different magnitudes (or decimals). As an example, BAT and USDT tokens are both ERC20 tokens on the Ethereum network and have each their own set of characteristics :
+
+|     BAT       |     USDT     |
+|---------------|--------------|
+| `{"ticker": "BAT","name": "BAT","contract_address": "0x0D8775F648430679A709E98d2b0Cb6250d2887EF","decimals": 18}` | `{"ticker": "USDT","name": "Tether USDT","contract_address": "0xdAC17F958D2ee523a2206206994597C13D831ec7","decimals": 6}` |
+
+<Callout type="warning" emoji="⚠️">
+    <ul>
+        <li><b>The smart contract address is important</b> as this information will allow the Ethereum or Algorand embedded application to correctly determine the token being transferred and its characteristics.</li>
+        <li><b>The decimals information is important</b> as an error in its value will result in the wrong amount being displayed on the Ledger screen. A user may approve a transaction to transfer 10 USDT, when in reality, they are approving a transaction for 1000 USDT.</li>
+    </ul>
+</Callout>
+
+Ledger applies a specific signature to the triplet `{"ticker”,"contract_address","decimals”}`. As a consequence, the Ledger is able to verify the information has not been tampered with.

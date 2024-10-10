@@ -1,4 +1,8 @@
 {  
+	"---": {
+    "title": "NFT display",
+    "type": "separator"
+    },
 	"optimized-images": "How-to Create Images Optimized For Ledger Stax", 
 	"metadata-tool": "How-to use the Ledger Stax Metadata tool",
 	"update-metadata": "Update mutable metadata (in-depth guide)",

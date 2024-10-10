@@ -3,14 +3,15 @@ import Image from "next/image"
 import { combination } from '../../lib/utils';
 
 const strings = {
-  "wallet": "Wallet",
-  "services-dapps": "Services & Dapps",
+  "clear-signing": "Clear Signing",
+  "device": "Device Apps",
+  "connectivity": "Connectivity",
   "blockchain": "Blockchain",
-  "nft": "NFT"
+  "live-app": "Live Apps"
 }
 
 interface TagProps extends HTMLAttributes<HTMLDivElement> {
-  type: "wallet" | "services-dapps" | "blockchain" | "nft"
+  type: "clear-signing"| "device" | "connectivity" | "blockchain" | "live-app"
 }
 
 export const Tag: FC<TagProps> = ({type, className, ...props}) => {  
@@ -18,16 +19,19 @@ export const Tag: FC<TagProps> = ({type, className, ...props}) => {
 
   useEffect(() => {
     switch (type) {
-      case "wallet":
-        setContainerStyle("border-grey-600 bg-grey-700");
+      case "clear-signing":
+        setContainerStyle("border-lime-500 bg-lime-700");
         break;
-      case "services-dapps":
+      case "device":
+        setContainerStyle("border-purple-light bg-purple-dark");
+        break;
+      case "connectivity":
         setContainerStyle("border-purple-light bg-purple-dark");
         break;
       case "blockchain":
-        setContainerStyle("border-grey-200 bg-grey-400 text-black");
+        setContainerStyle("border-primary bg-primary-dark");
         break;
-      case "nft":
+      case "live-app":
         setContainerStyle("border-primary bg-primary-dark");
         break;
       default:

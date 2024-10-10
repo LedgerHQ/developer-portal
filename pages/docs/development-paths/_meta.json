@@ -1,0 +1,10 @@
+{
+    "---": {
+    "title": "Development paths",
+    "type": "separator"
+    },
+    "overview": "Overview",
+    "quickstart": "Quickstart guide",
+    "modules": "Documentation modules",
+    "community": "Community"
+}

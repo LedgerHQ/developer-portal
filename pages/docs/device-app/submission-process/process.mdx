@@ -1,0 +1,60 @@
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
+import { Callout } from 'nextra/components'
+
+# How the submission of an app goes?
+
+## Development and submission phases
+
+<div style={{width: "100%"}} className="center">
+  <div style={{position: "relative", paddingBottom: "56.25%", paddingTop: 0, height: 0}}>
+    <iframe title="Live App Structure" frameBorder="0" style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}} src="https://view.genial.ly/65521d0b3f30120011106193" type="text/html" allowscriptaccess="always" allowFullScreen={true} scrolling="yes" allownetworking="all"></iframe>
+  </div>
+</div>
+
+
+### 1. Make sure your app followed the coding requirements
+
+For an app to be deployed, it must comply with a list of requirements, which are expressed in [Security](../integration/requirements/security), [Cryptography](../integration/requirements/cryptography) and [Developement](../integration/requirements/development) requirements documentation.
+
+### 2. Make sure you have all the deliverables ready
+
+For an app to be deployed, you must provide a list of deliverables, which are detailed in the next section.
+
+### 3. Fill in the submission form
+
+When your app or plugin and deliverables are ready, [fill in the submission form](./submission-form).
+
+### Disclaimer
+
+Ledger's release of a third party application must not be considered as any form of partnership or endorsement.
+
+## Release flow
+
+This process is applicable to first submissions and to App updates.
+
+<div style={{width: "100%"}} className="center desktop">
+  <div style={{position: "relative", paddingBottom: "56.25%", paddingTop: 0, height: "1000px"}}>
+    <iframe title="Live App Structure" frameBorder="0" style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}} src="https://view.genial.ly/655389953d9cc90010ff9fbc" type="text/html" allowscriptaccess="always" allowFullScreen={true} scrolling="yes" allownetworking="all"></iframe>
+  </div>
+</div>
+
+<div className="mobile">
+  <iframe title="Ledger Dev Journey" frameBorder="0" style={{position: "absolute", left: "15px", width: "100%", height: "100%"}} src="https://view.genial.ly/655389953d9cc90010ff9fbc" type="text/html" allowscriptaccess="always" allowFullScreen={true} scrolling="yes" allownetworking="all"></iframe>
+</div>
+
+## Application repository flow
+
+To be able to deploy an application (and sometimes test or apply modifications), Ledger will fork the application's repository.
+
+Our fork will have its own Git flow, which will help us keep track of what code is deployed in production or not, through branches and tags.
+
+Basically, all of the work and PR is made into or against a `develop` branch. Ledger will also deploy application from develop to specific, test providers (number 4 except for Stax application which usually are deployed on 12).
+
+This application will not be available for most Ledger Live users which use the default, production provider (number 1),
+but it is available for anyone changing the provider number ("Settings > Experimental features > My Ledger provider"),
+so that it allows real-life testing and qualification.
+
+Further fixes or modification before the application is deemed ready will be merged from the developer's repository into this `develop` branch.
+
+<img src="/device-app/fork-app.png"/>

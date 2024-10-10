@@ -1,0 +1,60 @@
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
+
+# General architecture
+
+![App architecture](/blockchain/general-architecture-live.png)
+
+- The Ledger device acts as a signing box and it defers most of the technical complexity to Ledger Live (Ledger's official **wallet application**). Ledger Live contains the business logic and is (typically) a GUI, running on a computer or a phone connected to the device.
+- The Ledger embedded application acts as a transaction signer key in a deterministic way. Having an embedded application publicly listed in Ledger Live is a mandatory requirement before getting your blockchain supported on Ledger Live.
+- In the case of Ledger Live, and for performance reason, a third layer is handling the indexing of transaction for a given blockchain.
+
+<Zoom>
+	<img
+	  alt="LLM Send"
+	  src="/blockchain/global-architecture.png"
+	/>
+</Zoom>
+
+
+All the JavaScript code related to the Ledger Live applications is in the `ledger-live` monorepository. 
+
+This library is built upon a pretty standard ES6 + Typescript stack and relies on a bunch of [ledgerjs](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs) packages, [RxJS 6.x](https://github.com/ReactiveX/rxjs/tree/6.x), [bignumber.js](https://github.com/MikeMcl/bignumber.js) and [React](https://github.com/facebook/react/) + [Redux](https://github.com/reduxjs/redux) for some front-end utilities and hooks.
+
+#### Coin Framework
+
+The [Coin Framework](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/coin-framework) library is dedicated to coin integration. It provides utilities to help create Coin Modules with generic functions and a common interface signature.
+
+#### Coin Modules
+
+All integrated coins are implemented in their own coin module in the `libs` directory, following the naming convention. To be fully integrated, a `libs/ledger-live-common/src/families` dedicated folder needs to contain a few "glue" files - that can be shared by multiple crypto-assets that use the same implementation (i.e. Bitcoin-like coins share the same `bitcoin` family).
+
+#### Live Common
+
+The Common library of Ledger Live is called [Ledger-live-common](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledger-live-common). It provides a single library compatible with both desktop and mobile version of Ledger Live.
+
+It includes a CLI for testing purpose or for using Ledger Live features directly from a terminal (in a limited way).
+
+It is designed to have very generic models and mechanics (for currencies, accounts, storage, synchronisation, events...) that also facilitates new blockchain integrations through flexibility.
+
+
+#### Communication with the Device
+
+[ledgerjs](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs) is a set of packages. It allows a JavaScript
+application to use the API of an embedded app. Ledger embedded apps are using APDU to
+transfer data and commands to and from the external world. `ledgerjs` only
+allows to use commands developed on the embedded app.
+
+
+#### Communication with the different blockchains
+
+The Ledger Live application will retrieve transaction history and broadcast new transactions using different explorers.
+
+As part of a Ledger Live blockchain integration, you should provide an indexer allowing a Ledger Live user to synchronize his account in a timely manner. It can be an open source project or your own explorer.
+
+The Ledger Live application uses our own explorers for Bitcoin and Ethereum forks.
+
+
+
+
+
