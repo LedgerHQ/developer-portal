@@ -9,7 +9,7 @@
   "overview": {
     "title": "Overview",
     "type" : "page",
-    "href": "docs/development-paths/overview"
+    "href": "/docs/development-paths/quickstart"
   },
   "docs": {
     "title": "Documentation",

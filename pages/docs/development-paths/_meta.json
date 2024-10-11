@@ -3,8 +3,7 @@
     "title": "Development paths",
     "type": "separator"
     },
-    "overview": "Overview",
     "quickstart": "Quickstart guide",
-    "modules": "Documentation modules",
+    "dev-journeys": "Developer journeys",
     "community": "Community"
 }
