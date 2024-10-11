@@ -46,9 +46,9 @@ A significant part of the work can be automated. We make extensive use of static
 To use these tools correctly, the security team adapts, most of the time, the application code. This task is tedious, and is the main reason why security reviews take, sometimes, a longer time than expected. Here are a few recommendations to write robust code, with better security guarantees:
 
 
-- **Do not rely on the BOLOS SDK to handle transaction data**
+- **Do not rely on the Ledger OS SDK to handle transaction data**
 
-Transaction handlers can be split, as seen above, in 5 parts. Only very specific areas require using the BOLOS SDK: receiving data from USB or BLE, displaying a formatted field on the screen, and signing the transaction data. These parts should be clearly separated from the rest of the core library responsible to handle transactions.
+Transaction handlers can be split, as seen above, in 5 parts. Only very specific areas require using the Ledger OS SDK: receiving data from USB or BLE, displaying a formatted field on the screen, and signing the transaction data. These parts should be clearly separated from the rest of the core library responsible to handle transactions.
 
 This library should be portable. This will result in modular and testable code. Hence, a good practice for transaction parsers and printers is to put them in dedicated files. Such files should not include headers from the SDK. Do not include "`os.h`", "`cx.h`" nor "`os_io_seproxyhal.h`" in such files.
 

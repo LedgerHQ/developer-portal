@@ -1,17 +1,17 @@
 ---
 title: Position-Independent Code
-description: PIC stands for Position-Independent Code. The BOLOS toolchain produces PIC to allow the code Link address to be different from the code Execution address.
+description: PIC stands for Position-Independent Code. The Ledger OS toolchain produces PIC to allow the code Link address to be different from the code Execution address.
 ---
 
 # Position-Independent Code
 
 ## PIC and Model Implications
 
-PIC stands for Position-Independent Code. The BOLOS toolchain produces PIC to allow the code **Link address** to be different from the code **Execution address**. For example, the `main` function is linked in the generated application at address `0xC0D00000`. However, the slot used when loaded into the Secure Element could be `0x10E40400`. Therefore, if the code makes a reference to `0xC0D00000`, even with an offset, it would be denied access as the application is locked by the Memory Protection Unit (not to mention, this is not the correct address of the `main` function at runtime).
+PIC stands for Position-Independent Code. The Ledger OS toolchain produces PIC to allow the code **Link address** to be different from the code **Execution address**. For example, the `main` function is linked in the generated application at address `0xC0D00000`. However, the slot used when loaded into the Secure Element could be `0x10E40400`. Therefore, if the code makes a reference to `0xC0D00000`, even with an offset, it would be denied access as the application is locked by the Memory Protection Unit (not to mention, this is not the correct address of the `main` function at runtime).
 
 The PIC assembly generator makes sure every dereference is relative to the Program Counter, and never to an arbitrary address resolved during the link stage. This behaviour is supported by clang versions 4.0.0 and later.
 
-Traditionally, PIC code implies the BSS segment (RAM variables) is at a constant offset of the code. For example, if code is at `0xC0D00000`, then global vars may be at `0xC2D00000`, so if loaded at `0x10E00000` then global vars would be at `0x12E00000`. However, BOLOS uses a fixed address for global vars. The global variables start address and length are defined in the link script. Only the code is meant to be placed at different addresses (in flash memory, rather than RAM).
+Traditionally, PIC code implies the BSS segment (RAM variables) is at a constant offset of the code. For example, if code is at `0xC0D00000`, then global vars may be at `0xC2D00000`, so if loaded at `0x10E00000` then global vars would be at `0x12E00000`. However, Ledger OS uses a fixed address for global vars. The global variables start address and length are defined in the link script. Only the code is meant to be placed at different addresses (in flash memory, rather than RAM).
 
 The model we choose has limitations, which are related to the way `const` data and code is referenced in other `const` data. Here is a simple example:
 

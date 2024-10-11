@@ -97,7 +97,7 @@ Do not hesistate to use the following specification as a checklist.
 
 ### Tests
 
-- Unit tests should be implemented for functions that do not require BOLOS syscalls mocking.
+- Unit tests should be implemented for functions that do not require Ledger OS syscalls mocking.
 - All unit tests must succeed.
 - Functional tests must be written to cover at least the nominal cases (features provided by the applications) and common errors (for example clear signing cancellation).
 - All functional tests must succeed for all devices.
@@ -156,7 +156,7 @@ Do not hesistate to use the following specification as a checklist.
 - Secrets derived from seed must not be stored, exported or shown.
 - Structure integrity of messages must be verified before signature (never allow signing attacker controlled messages).
 - User supplied messages must use a prefix if they are to be signed.
-- Cryptographic primitives must not be re-implemented if they already exist in BOLOS or the SDK.
+- Cryptographic primitives must not be re-implemented if they already exist in Ledger OS or the SDK.
 - Cryptographic functions that can throw exceptions are deprecated and must not be used (can be reviewed through the CI results).
 - Cryptographic helpers and ledger assertions provided by the SDK should be used to handle cryptographic operations.
 - The client must not be able to freely manipulate keypairs.
@@ -191,6 +191,6 @@ Do not hesistate to use the following specification as a checklist.
 - [ ] The review process looked into technical vulnerabilities as well as logical ones and weaknesses.
 - [ ] Secrets are correctly erased from memory, not exported or shown to the user.
 - [ ] User supplied messages use a prefix and are validated before signature.
-- [ ] No cryptographic primitives are re-implemented if they already exist in BOLOS or the SDK.
+- [ ] No cryptographic primitives are re-implemented if they already exist in Ledger OS or the SDK.
 - [ ] The client is not able to freely manipulate the device keypairs.
 - [ ] An authenticated encryption scheme is used for data being cached on the client.

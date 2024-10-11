@@ -7,14 +7,14 @@ description: Due to its limited amount of RAM, the Secure Element is designed to
 
 ## Introduction
 
-Due to its limited amount of RAM, the Secure Element is designed to only support one application running at a time. This isolated model implies that once the application is running, no other application can spuriously disturb the SE-MCU link. It also means that BOLOS can give the currently running application full control of I/O with the device's peripherals.
+Due to its limited amount of RAM, the Secure Element is designed to only support one application running at a time. This isolated model implies that once the application is running, no other application can spuriously disturb the SE-MCU link. It also means that Ledger OS can give the currently running application full control of I/O with the device's peripherals.
 
-This model allowed the BOLOS architecture to be designed in a way that gives applications as much control over the device's features as possible. In essence, each application runs in a "virtual" device and can reconfigure all of the hardware as it pleases. BOLOS [isolates the application](../psd/application-isolation/) from the other applications on the device, and restricts access to all areas of flash memory other than those exclusively allocated for the running application.
+This model allowed the Ledger OS architecture to be designed in a way that gives applications as much control over the device's features as possible. In essence, each application runs in a "virtual" device and can reconfigure all of the hardware as it pleases. Ledger OS [isolates the application](../psd/application-isolation/) from the other applications on the device, and restricts access to all areas of flash memory other than those exclusively allocated for the running application.
 
 This model has the tremendous advantage of not limiting what the application can do, however it also implies that every application has to do **all** of the heavy lifting involved in managing every layer of the transport protocols used to communicate with the world outside of the SE. Luckily, the SDK implements all I/O handling that typical applications need to do. However, developers have the option to customize I/O protocols for more specialized applications.
 
-![The application-centric view of the BOLOS environment](/device-app/app_centric_view.png)
-*The application-centric view of the BOLOS environment*
+![The application-centric view of the Ledger OS environment](/device-app/app_centric_view.png)
+*The application-centric view of the Ledger OS environment*
 
 
 The above diagram shows a view of the system as seen by the application. The app directly accesses multiple peripherals and is the real brain of the device while it is running. Each box can be seen as a coprocessor, under direct command of the application.
@@ -28,7 +28,7 @@ In this model, the application is at the center, and does not rely on any other 
 ![An overview of the USB delegation model](/device-app/usb_delegation_overview.png)
 *An overview of the USB delegation model*
 
-Once BOLOS boots the application, BOLOS is not reachable anymore, it only provides basic services to the application during its execution via system calls. As a consequence, BOLOS does not process commands sent to the device from peripherals (like USB) and therefore BOLOS does not play a role in I/O handling.
+Once Ledger OS boots the application, Ledger OS is not reachable anymore, it only provides basic services to the application during its execution via system calls. As a consequence, Ledger OS does not process commands sent to the device from peripherals (like USB) and therefore Ledger OS does not play a role in I/O handling.
 
 Featuring these two key points, applications are in charge on the device. This allows them to customize not only the display, but user input actions, and by extension, the way the device is enumerated on USB. If an application requires Mass Storage emulation, or being seen as a WinUSB peripheral, it’s only a matter of event handling.
 

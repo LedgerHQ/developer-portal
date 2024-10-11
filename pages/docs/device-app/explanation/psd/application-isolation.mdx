@@ -10,9 +10,9 @@ Ledger solves these problems by utilizing the application isolation technology a
 
 ## Syscall
 
-Since BOLOS was designed based on a single-task model where only one app runs at any given time, an application is independently responsible for a lot of the things a typical OS would do. These things include managing hardware like the device screen, buttons, timer, etc. as well as handling all I/O with peripherals. However, there are many instances where a BOLOS application has to request the operating system to perform a certain operation. This is done using a syscall.
+Since Ledger OS was designed based on a single-task model where only one app runs at any given time, an application is independently responsible for a lot of the things a typical OS would do. These things include managing hardware like the device screen, buttons, timer, etc. as well as handling all I/O with peripherals. However, there are many instances where a Ledger OS application has to request the operating system to perform a certain operation. This is done using a syscall.
 
-When an application performs a syscall, the Secure Element switches to Supervisor mode and the OS performs the requested task before giving control back to the application, in User mode. All syscalls have a wrapper function in the SDK that can be used to invoke them. A syscall may be used to access hardware accelerated cryptographic primitives (most of these functions are defined in `include/cx.h` in the SDKs), to perform low-level I/O operations (like receiving / transmitting to the MCU), or to access cryptographic secrets managed by BOLOS (for example, to derive a node from the BIP 32 master node).
+When an application performs a syscall, the Secure Element switches to Supervisor mode and the OS performs the requested task before giving control back to the application, in User mode. All syscalls have a wrapper function in the SDK that can be used to invoke them. A syscall may be used to access hardware accelerated cryptographic primitives (most of these functions are defined in `include/cx.h` in the SDKs), to perform low-level I/O operations (like receiving / transmitting to the MCU), or to access cryptographic secrets managed by Ledger OS (for example, to derive a node from the BIP 32 master node).
 
 
 ## Accessing secrets

@@ -1,6 +1,6 @@
 ---
 title: Persistent Storage
-description: BOLOS applications have access to two different types of memory in the Secure Element (SE). Discover how they work.
+description: Ledger OS applications have access to two different types of memory in the Secure Element (SE). Discover how they work.
 ---
 
 import { Callout } from 'nextra/components'
@@ -10,11 +10,11 @@ import { Callout } from 'nextra/components'
 
 ## Introduction
 
-BOLOS applications have access to two different types of memory in the Secure Element (SE):
+Ledger OS applications have access to two different types of memory in the Secure Element (SE):
 - A small amount of RAM for the call stack and certain global variables
 - A considerably larger amount of flash memory for persistent storage
 
-Access to flash memory is regulated by the Memory Protection Unit, which is configured by BOLOS to prevent applications from tampering with parts of flash memory that they shouldn't. However, applications are able to access the part of flash memory where their constant data and code is defined. This data includes code and `const` variables, but applications may also allocate extra space in NVRAM to be used at runtime for persistent storage.
+Access to flash memory is regulated by the Memory Protection Unit, which is configured by Ledger OS to prevent applications from tampering with parts of flash memory that they shouldn't. However, applications are able to access the part of flash memory where their constant data and code is defined. This data includes code and `const` variables, but applications may also allocate extra space in NVRAM to be used at runtime for persistent storage.
 
 ## Types of Memory
 

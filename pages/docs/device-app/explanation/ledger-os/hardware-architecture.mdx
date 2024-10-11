@@ -9,18 +9,18 @@ description: Ledger devices have a very unique architecture in order to leverage
 
 Ledger devices have a very unique architecture in order to leverage the security of the Secure Element while still being able to interface with many different peripherals such as the screen, buttons, the host computer over USB, or Bluetooth & NFC in the case of the Ledger Blue.
 
-In order to accomplish this, we attached an additional STM32 microcontroller (the MCU) to the Secure Element (the SE) which acts as a "dumb router" between the Secure Element and the peripherals. The microcontroller doesn't perform any application logic and it doesn't store any of the cryptographic secrets used by BOLOS, it simply manages the peripherals and notifies the Secure Element whenever new data is ready to be received. BOLOS applications are executed entirely on the Secure Element. In this section, we'll take a look at the hardware architecture to better embrace the hardware related constraints before analyzing their software implications.
+In order to accomplish this, we attached an additional STM32 microcontroller (the MCU) to the Secure Element (the SE) which acts as a "dumb router" between the Secure Element and the peripherals. The microcontroller doesn't perform any application logic and it doesn't store any of the cryptographic secrets used by Ledger OS, it simply manages the peripherals and notifies the Secure Element whenever new data is ready to be received. Ledger OS applications are executed entirely on the Secure Element. In this section, we'll take a look at the hardware architecture to better embrace the hardware related constraints before analyzing their software implications.
 
 ## Multiple Processors: Secure Element Proxy
 
-![A detailed BOLOS architecture diagram](/device-app/bolos_architecture.png)
-*A detailed BOLOS architecture diagram*
+![A detailed Ledger OS architecture diagram](/device-app/bolos_architecture.png)
+*A detailed Ledger OS architecture diagram*
 
-BOLOS is split between two hardware chips, one being secure (the ST31 Secure Element), and the other having JTAG enabled and acting as a proxy (the STM32 MCU).
+Ledger OS is split between two hardware chips, one being secure (the ST31 Secure Element), and the other having JTAG enabled and acting as a proxy (the STM32 MCU).
 
-Furthermore, the Secure Element is also split into two parts: the firmware which is under NDA and is therefore closed-source, and the SDK & application-loaded code which is open source friendly. The BOLOS firmware is responsible for low-level I/O operations and implements the SE-MCU link (though the handling of the protocol between the SE and the MCU is done by the currently running app).
+Furthermore, the Secure Element is also split into two parts: the firmware which is under NDA and is therefore closed-source, and the SDK & application-loaded code which is open source friendly. The Ledger OS firmware is responsible for low-level I/O operations and implements the SE-MCU link (though the handling of the protocol between the SE and the MCU is done by the currently running app).
 
-BOLOS relies on the collaboration of both chips to empower Secure Element applications. At first glance, and even at second and all following, the Secure Element is a very powerful piece of hardware but lacks inputs / outputs. In our architecture, we solved this problem by appending the MCU which is full of inputs / outputs so it can act as a proxy for the Secure Element to explore new horizons. In a sense, the MCU can be seen as a supercharged coprocessor of the Secure Element. Not considering security implications (which is beyond the scope of this section), and thanks to a simple asynchronous protocol, the Secure Element drives the proxy.
+Ledger OS relies on the collaboration of both chips to empower Secure Element applications. At first glance, and even at second and all following, the Secure Element is a very powerful piece of hardware but lacks inputs / outputs. In our architecture, we solved this problem by appending the MCU which is full of inputs / outputs so it can act as a proxy for the Secure Element to explore new horizons. In a sense, the MCU can be seen as a supercharged coprocessor of the Secure Element. Not considering security implications (which is beyond the scope of this section), and thanks to a simple asynchronous protocol, the Secure Element drives the proxy.
 
 The SE-MCU link protocol is called SEPROXYHAL or SEPH in source code and documentation. The "HAL" stands for Hardware Abstraction Layer.
 

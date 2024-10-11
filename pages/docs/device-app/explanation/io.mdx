@@ -1,13 +1,13 @@
 ---
 title: Application Structure and I/O
-description: Many of the existing BOLOS applications are based on a smartcard architecture. This is because BOLOS applications are not meant to run standalone, but rather assist a host process. Therefore the device is commonly addressed using a command / response scheme.
+description: Many of the existing Ledger OS applications are based on a smartcard architecture. This is because Ledger OS applications are not meant to run standalone, but rather assist a host process. Therefore the device is commonly addressed using a command / response scheme.
 ---
 
 # Application Structure and I/O
 
 ## Introduction
 
-Many of the existing BOLOS applications are based on a smartcard architecture. This is because BOLOS applications are not meant to run standalone, but rather assist a host process (on a computer / smartphone) to perform a secure task (signing a message, encryption / decryption, etc.). Therefore the device is commonly addressed using a command / response scheme. Numerous design decisions have been made when developing the SDKs in order to support this model.
+Many of the existing Ledger OS applications are based on a smartcard architecture. This is because Ledger OS applications are not meant to run standalone, but rather assist a host process (on a computer / smartphone) to perform a secure task (signing a message, encryption / decryption, etc.). Therefore the device is commonly addressed using a command / response scheme. Numerous design decisions have been made when developing the SDKs in order to support this model.
 
 However, the Event / Commands / Status model is designed to avoid limitations on the application, as it does not follow the command / response synchronous model. Developers are free to work around the model and redesign a custom event processing loop to suit their needs.
 
@@ -23,7 +23,7 @@ For an example of this feature, refer to [blue-app-samplesign](https://github.co
 
 ## Protocols
 
-It's important to understand that the APDU protocol used by most BOLOS applications is not implemented by BOLOS itself. Instead, the APDU interpretation is performed entirely by the SDK. This means that applications can choose to implement another protocol on top of the transport layer (USB HID, USB CCID, BLE, ...) instead of APDU. In fact, the same is true for the transport layer protocols. Applications can customize the way the application is enumerated as a USB device by the host.
+It's important to understand that the APDU protocol used by most Ledger OS applications is not implemented by Ledger OS itself. Instead, the APDU interpretation is performed entirely by the SDK. This means that applications can choose to implement another protocol on top of the transport layer (USB HID, USB CCID, BLE, ...) instead of APDU. In fact, the same is true for the transport layer protocols. Applications can customize the way the application is enumerated as a USB device by the host.
 
-![Common protocols across BOLOS applications](/device-app/common_protocols.png)
-*Common protocols across BOLOS applications*
+![Common protocols across Ledger OS applications](/device-app/common_protocols.png)
+*Common protocols across Ledger OS applications*
