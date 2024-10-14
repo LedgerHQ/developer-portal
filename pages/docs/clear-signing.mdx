@@ -1,19 +1,26 @@
 # Enhancing Security through Clear Signing
 
-
 ## Why does your dApp or Wallet need clear signing?
 
 Blind signing is a significant vulnerability that scammers exploit to steal funds from unsuspecting users. If the only information given to the user is the transaction hash, it is challenging for users to verify the accuracy and authenticity of the transaction before signing, because it is unreadable.
 
-<br/>
+<br />
 
-<div style={{width: "90%"}} className="center">
+<div style={{ width: "90%" }} className="center">
   <figure>
-    <img src="/blind-signing-risk.png" alt="Blind sign risk"/>
+    <img src="/blind-signing-risk.png" alt="Blind sign risk" />
   </figure>
 </div>
 
 At Ledger, we are committed to building a secure Web3 ecosystem. That is why we have introduced clear signing standards and tools to address this issue. These tools provide user-readable and understandable data, making it easier for users to identify potential risks and verify transactions accurately.
+
+<div style={{ width: "90%" }} className="center">
+  <figure>
+    <img src="/clear-signing-cover.png" alt="Clear signing example" />
+  </figure>
+</div>
+
+Using the ABI of the contract and metadata around the different fields, we can format a transaction for human readability. This way, users can verify the transaction before signing it, ensuring that they are not being scammed.
 
 ## Where to go next?
 
