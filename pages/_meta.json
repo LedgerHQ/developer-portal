@@ -7,7 +7,7 @@
     "display": "hidden"
   },
   "overview": {
-    "title": "Dev tracks",
+    "title": "Dev Tracks",
     "type" : "page",
     "href": "/docs/dev-tracks/quickstart"
   },
@@ -20,7 +20,7 @@
         "href": "/docs/device-app/getting-started"
       },
       "device-interaction": {
-        "title": "Device interaction",
+        "title": "Device Interaction",
         "href": "/docs/device-interaction/getting-started"
       },
       "ledger-live": {
@@ -28,7 +28,7 @@
         "href": "/docs/ledger-live/introduction"
       },
       "clear-signing": {
-        "title": "The clear signing initiative",
+        "title": "Clear Signing",
         "href": "/docs/clear-signing/getting-started"
       }
     }
