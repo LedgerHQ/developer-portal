@@ -26,7 +26,7 @@ export const Journeys = () => {
             <JourneyCard 
               title="Get your app connected with Ledger devices"
               description="Use the Device Management Kit to easily handle connection and communication between your app and Ledger devices" 
-              type="connectivity"
+              type="interaction"
               className="w-full md:w-[48.5%]"
             />
 

@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 interface JourneyCardProps extends HTMLAttributes<HTMLButtonElement> {
   title: string;
   description: string;
-  type: "clear-signing" | "device" | "connectivity" | "blockchain" | "live-app";
+  type: "clear-signing" | "device" | "interaction" | "blockchain" | "live-app";
 }
 
 export const JourneyCard: FC<JourneyCardProps> = ({title, description, type, className, ...props}) => {  
@@ -30,8 +30,8 @@ export const JourneyCard: FC<JourneyCardProps> = ({title, description, type, cla
       case "device":
         router.push("/docs/device-app/getting-started")
         break;
-      case "connectivity":
-        router.push("/docs/app-device-com/getting-started")
+      case "interaction":
+        router.push("/docs/device-interaction/getting-started")
         break;
       case "blockchain":
         router.push("/docs/ledger-live/accounts/getting-started")

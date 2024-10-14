@@ -9,7 +9,7 @@ interface ExampleCardProps extends HTMLAttributes<HTMLButtonElement> {
   title: string;
   subtitle: string;
   description: string;
-  type: "device" | "connectivity" | "blockchain" | "live-app";
+  type: "device" | "interaction" | "blockchain" | "live-app";
 }
 
 export const ExampleCard: FC<ExampleCardProps> = ({icon, title, subtitle, description, type, className, ...props}) => {  
@@ -20,7 +20,7 @@ export const ExampleCard: FC<ExampleCardProps> = ({icon, title, subtitle, descri
       case "device":
         router.push("/docs/device-app/getting-started")
         break;
-      case "connectivity":
+      case "interaction":
         router.push("/docs/device-interaction/getting-started")
         break;
       case "blockchain":
@@ -48,7 +48,7 @@ export const ExampleCard: FC<ExampleCardProps> = ({icon, title, subtitle, descri
         {/* <Tag type={type} /> */}
         <div className="items-center gap-2 hidden md:flex opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 ease-linear duration-300">
           <span className="text-p-caption underline whitespace-nowrap">Get your own project started</span>
-          <img src="../../public/icons/arrow-right-white.svg" alt="button icon" />
+          <img src="/icons/arrow-right-white.svg" alt="button icon" />
         </div>
       </div>
       <div className="items-center gap-2 mt-6 flex md:hidden">

@@ -5,13 +5,13 @@ import { combination } from '../../lib/utils';
 const strings = {
   "clear-signing": "Clear Signing",
   "device": "Device Apps",
-  "connectivity": "Connectivity",
+  "interaction": "Device Interaction",
   "blockchain": "Blockchain",
   "live-app": "Live Apps"
 }
 
 interface TagProps extends HTMLAttributes<HTMLDivElement> {
-  type: "clear-signing"| "device" | "connectivity" | "blockchain" | "live-app"
+  type: "clear-signing"| "device" | "interaction" | "blockchain" | "live-app"
 }
 
 export const Tag: FC<TagProps> = ({type, className, ...props}) => {  
@@ -25,7 +25,7 @@ export const Tag: FC<TagProps> = ({type, className, ...props}) => {
       case "device":
         setContainerStyle("border-purple-light bg-purple-dark");
         break;
-      case "connectivity":
+      case "interaction":
         setContainerStyle("border-purple-light bg-purple-dark");
         break;
       case "blockchain":

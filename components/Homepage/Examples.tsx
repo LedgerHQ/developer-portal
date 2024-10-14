@@ -25,7 +25,7 @@ export const Examples = () => {
               title="Coinbase Wallet"
               subtitle="Use Coinbase Wallet with your Ledger"
               description="Coinbase Wallet's browser extension is compatible with Ledger hardware wallets, providing an additional layer of security and greater peace of mind"
-              type="connectivity"
+              type="interaction"
             />
             <ExampleCard 
               icon="moonpay-purple" 
