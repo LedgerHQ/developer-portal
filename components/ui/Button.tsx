@@ -100,7 +100,7 @@ const Button: FC<ButtonProps> = ({
             router.push("/docs/dev-tracks/quickstart")
             break;
           case "white":
-            router.push("/docs/dev-tracks/quickstart")
+            router.push("/docs/dev-tracks/community")
             break;
           default:
             break;

@@ -20,7 +20,7 @@ export const Hero = ({ journeyId }: HeroProps) => {
             <p><span className="text-purple">Build</span> with Ledger to bring <span className="text-purple">security</span> to your community.</p>
             <p><span className="text-purple">Easy. Accessible. Proven.</span></p>
           </div>
-          <Button label="Discover" link={journeyId} svgIcon="arrow-right" type="white" className="relative mt-10 z-10" />
+          <Button label="Discover" link={journeyId} svgIcon="arrow-right" type="primary" className="relative mt-10 z-10" />
           <div className="absolute w-full hidden md:block h-28 bottom-0 left-0 bg-black-gradient-bottom" />
         </div>
       </div>
