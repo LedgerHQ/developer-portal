@@ -7,17 +7,17 @@
     "display": "hidden"
   },
   "overview": {
-    "title": "Overview",
+    "title": "Dev tracks",
     "type" : "page",
-    "href": "/docs/development-paths/quickstart"
+    "href": "/docs/dev-tracks/quickstart"
   },
   "docs": {
     "title": "Documentation",
     "type": "menu",
     "items": {
-      "development-paths": {
-        "title": "Development paths",
-        "href": "/docs/development-paths/overview"
+      "dev-tracks": {
+        "title": "Dev tracks",
+        "href": "/docs/dev-tracks/quickstart"
       },
       "device-app": {
         "title": "Device App",

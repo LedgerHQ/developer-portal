@@ -1,7 +1,7 @@
 {
-  "development-paths": {
+  "dev-tracks": {
         "type": "page",
-        "title": "Development paths"
+        "title": "Dev tracks"
       },
   "device-app": {
         "type": "page",

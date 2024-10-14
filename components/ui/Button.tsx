@@ -97,10 +97,10 @@ const Button: FC<ButtonProps> = ({
   const handleClick = () => {
     switch (type) {
           case "primary":
-            router.push("/docs/development-paths/overview")
+            router.push("/docs/development-paths/quickstart")
             break;
           case "white":
-            router.push("/docs/development-paths/overvieww")
+            router.push("/docs/development-paths/quickstart")
             break;
           default:
             break;

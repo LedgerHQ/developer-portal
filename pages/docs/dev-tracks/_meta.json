@@ -1,9 +1,9 @@
 {
     "---": {
-    "title": "Development paths",
+    "title": "Dev tracks",
     "type": "separator"
     },
     "quickstart": "Quickstart guide",
-    "dev-journeys": "Developer journeys",
+    "dev-journeys": "What dev journey should you follow?",
     "community": "Community"
 }
