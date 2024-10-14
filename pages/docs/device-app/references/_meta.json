@@ -2,6 +2,6 @@
 	"framework": "Development framework",
 	"tools":"Developing tools overview",
 	"app-permissions": "App permissions",
-	"cryptography-api": "Criptography API",
-	"cryptography-api-examples": "Criptography API examples"
+	"cryptography-api": "Cryptography API",
+	"cryptography-api-examples": "Cryptography API examples"
 }

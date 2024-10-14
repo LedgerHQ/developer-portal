@@ -21,7 +21,7 @@ export const ExampleCard: FC<ExampleCardProps> = ({icon, title, subtitle, descri
         router.push("/docs/device-app/getting-started")
         break;
       case "connectivity":
-        router.push("/docs/app-device-com/getting-started")
+        router.push("/docs/device-interaction/getting-started")
         break;
       case "blockchain":
         router.push("/docs/ledger-live/accounts/getting-started")
@@ -48,12 +48,12 @@ export const ExampleCard: FC<ExampleCardProps> = ({icon, title, subtitle, descri
         {/* <Tag type={type} /> */}
         <div className="items-center gap-2 hidden md:flex opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 ease-linear duration-300">
           <span className="text-p-caption underline whitespace-nowrap">Get your own project started</span>
-          <img src="../../public//icons/arrow-right-white.svg" alt="button icon" />
+          <img src="../../public/icons/arrow-right-white.svg" alt="button icon" />
         </div>
       </div>
       <div className="items-center gap-2 mt-6 flex md:hidden">
         <span className="text-p-caption underline whitespace-nowrap">Plan this journey</span>
-        <img src="../../public//icons/arrow-right-white.svg" alt="button icon" />
+        <img src="../../public/icons/arrow-right-white.svg" alt="button icon" />
       </div>
     </button>
   )
