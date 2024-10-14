@@ -15,10 +15,6 @@
     "title": "Documentation",
     "type": "menu",
     "items": {
-      "dev-tracks": {
-        "title": "Dev tracks",
-        "href": "/docs/dev-tracks/quickstart"
-      },
       "device-app": {
         "title": "Device App",
         "href": "/docs/device-app/getting-started"
