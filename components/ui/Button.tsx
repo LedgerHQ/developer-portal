@@ -1,6 +1,7 @@
 import { FC, HTMLAttributes } from 'react'
-import { Link } from "react-scroll";
 import { combination } from '../../lib/utils';
+import { useRouter } from 'next/navigation';
+
 
 interface ButtonChildrenProps {
   label: string;
@@ -91,72 +92,32 @@ const Button: FC<ButtonProps> = ({
     return "black";
   };
 
+  const router = useRouter();
+
+  const handleClick = () => {
+    switch (type) {
+          case "primary":
+            router.push("/docs/dev-tracks/quickstart")
+            break;
+          case "white":
+            router.push("/docs/dev-tracks/community")
+            break;
+          default:
+            break;
+        }
+  }
+
   const buttonClasses = combination(
     `group w-max px-6 py-4 rounded-full flex items-center gap-4 ${typeStyles()}`,
     className
   );
-
-  if (href) {
-    return (
-      <a
-        className={combination(`${buttonClasses} cursor-pointer`)}
-        href={href}
-        target="_blank"
-        rel="noreferrer"
-      >
-        <ButtonChildren
-          label={label}
-          svgIcon={svgIcon}
-          jsxIcon={jsxIcon}
-          textColor={color()}
-          textClassName={textClassName}
-        />
-      </a>
-    );
-  }
-
-  if (link) {
-    return (
-      <Link
-        to={link}
-        smooth
-        className={combination(`${buttonClasses} cursor-pointer`)}
-        offset={-80}
-      >
-        <ButtonChildren
-          label={label}
-          svgIcon={svgIcon}
-          jsxIcon={jsxIcon}
-          textColor={color()}
-          textClassName={textClassName}
-        />
-      </Link>
-    );
-  }
-
-  if (onClick) {
-    return (
-      <button
-        type="button"
-        onClick={onClick}
-        className={buttonClasses}
-        disabled={disabled}
-      >
-        <ButtonChildren
-          label={label}
-          svgIcon={svgIcon}
-          jsxIcon={jsxIcon}
-          disabled={disabled}
-          textColor={color()}
-          textClassName={textClassName}
-        />
-      </button>
-    );
-  }
-
+  
   return (
-    <div
+    <button
+      type="button"
+      onClick={handleClick}
       className={buttonClasses}
+      disabled={disabled}
     >
       <ButtonChildren
         label={label}
@@ -166,7 +127,7 @@ const Button: FC<ButtonProps> = ({
         textColor={color()}
         textClassName={textClassName}
       />
-    </div>
+    </button>
   );
 }
 

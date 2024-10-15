@@ -1,0 +1,47 @@
+---
+title: Turn your app into a Live App
+description: If you want to embed your web app into Ledger's Live's Market place, also known as our Discover section, you've come to the right place. 
+---
+
+# Adding a Live App to the Discover section
+
+## Integration process
+
+The integration of an app in the Discover section of Ledger is done on an invitation only basis.
+
+## Pathways to integration: dAppBrowser vs. Ledger Services Kit
+
+There are two options when it comes to integrating into Ledger Live
+
+- **The dAppBrowser (EVM Only for now)**
+
+This one is only available to EVM based dApps for now. By crafting a manifest, directing it to the dAppBrowser, and incorporating the Iframe Provider in their app, developers can quickly add their application to Ledger Live.
+
+- **the Ledger Services Kit**
+
+The Ledger Services Kit pathway is more code-intensive, requiring a deeper engagement from developers. However, it grants a more granular control over the core wallet features within Ledger Live. A thorough understanding of the Ledger Services Kit can be gleaned from the official documentation.  
+
+
+<div style={{width: "100%"}} className="center">
+	<div style={{position: "relative", paddingBottom: "56.25%", paddingTop: 0, height: 0}}>
+		<iframe title="Live App Structure" frameBorder="0" style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}} src="https://view.genial.ly/65241621e3a92300127e47e8" type="text/html" allowscriptaccess="always" allowFullScreen={true} scrolling="yes" allownetworking="all"></iframe> 
+	</div> 
+</div>
+
+The path you chose is yours to decide, we'll provide you guidelines for both roads in the how-to guides.
+
+## Tools
+
+Follow [this tutorial](./tutorials/live-app) to learn how to use the Developer mode and how to craete a manifest.
+
+## Languages
+
+
+|  Development step               |  Required skills           |
+|---------------------------------|----------------------------|
+| Services Kit                    |  React                     | 
+| dApp browser                    |  JavaScript and TypeScript |
+| [Ethereum Plugin](../../device-app/integration/how-to/plugin)| [Ledger OS](../../device-app/explanation/ledger-os/introduction) and C |
+
+
+

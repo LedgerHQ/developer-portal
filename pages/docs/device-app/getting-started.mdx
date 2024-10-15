@@ -1,0 +1,83 @@
+import { Callout } from 'nextra/components'
+
+# Getting started
+
+In this section of the Developer Portal, you will find the resources to build, test and submit C device apps, Rust device apps, Ethereum plugins and Cloned coins apps. 
+
+## Things to know before starting
+
+### Contact us 
+
+We recommend you get in touch with us before starting your development process.
+  - For general device applications, post a message in the #dev-support channel [on our Discord server](https://discord.gg/Ledger).
+  - For Ethereum plugins, fill in [this form](https://docs.google.com/forms/d/e/1FAIpQLSd2e4BAfuZJOUYKhqcxMvMGNY12ShZ-UG5Lu0Se8AIVdlu2lA/viewform) and contact us at discover@ledger.fr.
+
+This will ensure you do not lose time and get on the right track.
+
+
+### Security audit
+
+Before publication, an application must go through a functional and security audit. This security audit is made by one of our parterns at your expense.
+
+When your device app is ready to go through the security audit, you can contact one of our partners:
+
+- [Kudelski IoT]( https://www.kudelski-iot.com/services-and-systems/ledger-security-audit).
+- [Quarkslab](https://www.quarkslab.com/), contact them [here](mailto:qb_ledger@quarkslab.com).
+
+They both follow Ledger specifications and will provide a full report with potential vulnerabilites.
+
+<Callout type="info" emoji="ℹ️">
+  Ensure your device app meets all necessary requirements and is fully tested before initiating a security audit with our partners
+</Callout>
+
+Important aspects of your agreement:
+- Time: When the auditors will be able to start the review.
+- Cost: The external audit will be entirely at your expense.
+- Maintenance: You must include a clause for updates or sign a new contract for any major update. If you don't, your app will not be updated by Ledger and might be delisted from My Ledger apps store if it is breaking.
+
+<Callout type="info" emoji="ℹ️">
+  Ledger is not a stakeholder in the contract between you and our partners.
+</Callout>
+
+## Need to hire a team to develop your device app?
+
+You need an device app but don't have an application developer in your team?
+
+The following companies have experience building Device Apps, feel free to contact them to talk about your project:
+- [Blooo](https://blooo.io/en/ledger-wallet-integration/)
+- [Obsidian Systems](https://obsidian.systems/)
+- [Vacuumlabs](https://vacuumlabs.com/ledger )
+- [Zondax](https://zondax.ch/)
+
+## Tools and boilerplates
+
+- To learn how to quickstart a project the Ledger VS code extension, read [this guide](./beginner/vscode-extension). The extension makes the environment set up, the app building, and the tests very easy.
+- To start developing your project with the boilerplates, go in the How-to section in "Integration walkthroughs" and you will find [the C Boilerplate](./integration/how-to/c-boilerplate), [the Rust Boilerplate](./integration/how-to/rust-boilerplate), [the Ethereum plugin doc](./integration/how-to/plugin) and [the Cloned coins apps integration process](./integration/how-to/clone).
+
+
+## Technical information
+
+### Languages
+
+| Component               | Developing language |
+| ----------------------- | ------------------- |
+| [Ledger OS](./explanation/ledger-os/introduction) | `C` |
+| Applications            | `C` or `Rust`       |
+| Plugins                 | `C`                 |
+| Tools (including tests) | `Python` (mostely)  |
+
+The available SDK is for Apps written in C
+
+For the Apps written in Rust, a Rust SDK is available (only for Nano S/S+/X devices, Stax not supported yet).
+
+### Data formats
+
+| Component                   | Format   |
+| --------------------------- | -------- |
+| CI (GitHub Workflows)       | `YAML`   |
+| `ledger_app.toml` manifests | `TOML`   |
+| App database                | `JSON`   |
+
+
+
+

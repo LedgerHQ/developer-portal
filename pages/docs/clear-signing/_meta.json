@@ -1,4 +1,9 @@
 {	
+	"---": {
+    "title": "Clear Signing",
+    "type": "separator"
+    },
+	"getting-started": "Getting started",
 	"erc7730": "ERC7730: the new Clear Signing initiative",
 	"eip712": "EIP-712 messages",
 	"nft": "ERC721, ERC1155 and ERC20"

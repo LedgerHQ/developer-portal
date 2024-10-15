@@ -6,29 +6,31 @@
     },
     "display": "hidden"
   },
-  "dev-journey": {
-    "title": "Dev Journeys",
-    "type": "menu",
-    "items": {
-      "overview": {
-        "title": "Overview"
-      },
-      "blockchain-foundation": {
-        "title": "Blockchain foundation"
-      },
-      "services-dapps": {
-        "title": "Services & dApp"
-      },
-      "nft-project": {
-        "title": "NFT project"
-      },
-      "wallet": {
-        "title": "Wallet"
-      }
-    }
+  "overview": {
+    "title": "Dev Tracks",
+    "type" : "page",
+    "href": "/docs/dev-tracks/quickstart"
   },
   "docs": {
     "title": "Documentation",
-    "type": "page"
+    "type": "menu",
+    "items": {
+      "device-app": {
+        "title": "Device App",
+        "href": "/docs/device-app/getting-started"
+      },
+      "device-interaction": {
+        "title": "Device Interaction",
+        "href": "/docs/device-interaction/getting-started"
+      },
+      "ledger-live": {
+        "title": "Ledger Live",
+        "href": "/docs/ledger-live/introduction"
+      },
+      "clear-signing": {
+        "title": "Clear Signing",
+        "href": "/docs/clear-signing/getting-started"
+      }
+    }
   }
 }

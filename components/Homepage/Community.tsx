@@ -10,7 +10,7 @@ export const Community = () => {
             <div className="text-heading-5 md:text-heading-3 font-semibold tracking-tight-3 text-center">Join the Ledger Developer Community</div>
             <div className="text-p-emphasis-mobile md:text-p-emphasis text-center">The top Web3 developers and security experts are here to help, debate, share and build with you what shapes the future of blockchain.</div>
           </div>
-          <Button label="Join us on Discord" type="white" svgIcon="arrow-external" href="https://discord.gg/Ledger" />
+          <Button label="Join us on Discord" type="white" svgIcon="arrow-external" />
         </div>
       </div>
     </div>
