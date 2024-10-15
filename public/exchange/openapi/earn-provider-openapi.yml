@@ -1,0 +1,741 @@
+openapi: 3.1.0
+info:
+  title: Earn Provider Server
+  version: '1.0'
+paths:
+  /v0/network/{network}/address/{address}/stakes:
+    get:
+      description: Get details about a user's staking position based on the provided
+        address and network.
+      operationId: getV0NetworkNetworkAddressAddressStakes
+      parameters:
+      - name: network
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - ethereum
+          - cosmos
+          - solana
+          - cardano
+          - tezos
+          - near
+          - osmo
+          - injective
+        examples:
+          Injective:
+            value: injective
+          Cardano:
+            value: cardano
+          Tezos:
+            value: tezos
+          Ethereum:
+            value: ethereum
+          Solana:
+            value: solana
+          Near:
+            value: near
+          Cosmos:
+            value: cosmos
+          Osmosis:
+            value: osmo
+      - name: address
+        in: path
+        required: true
+        schema:
+          type: string
+        examples:
+          Cardano:
+            value: addr1qxpdw2zxxhu0xgkav63765ns3yzfxg4vcdn3es3t8re6eedp0eejr90mjuma3wwhwt5967nyl5k2r79yfh9x8r0rvlas5e0gxq
+          Near:
+            value: 790083d225bf1ee9fbf5b0fc7efb7eaa05e23c4a565edb113b54e2af446563d1
+          Osmosis:
+            value: osmo1k8yj59yfnslcfjkcqja67lg0g5r6syk4m7addl
+          Cosmos:
+            value: cosmos1rm28f4qg5jhw9cd32qm3j30qwnkf2qq5kt9hsr
+          Solana:
+            value: 2S4wKimi4PHKjdTYdzqN5HcEcNBM4Hv9db9QWKaZCxEr
+          Tezos:
+            value: KT1Pk5qgduGPsE5qVocTwgZssBJ96ph2ryiL
+          Ethereum:
+            value: '0x4dac23030b3ce359681fb7c00426f989a84e5298'
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StakeView'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequest'
+              example:
+                msg: Invalid request
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+              example:
+                realm: earn
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+              example:
+                what: 0x00000000000 not found
+        '500':
+          description: External API error
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/InvalidResponse'
+                - $ref: '#/components/schemas/ServerError'
+                - $ref: '#/components/schemas/Unknown'
+              example:
+                response: Invalid response
+        '503':
+          description: External API error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalDependencyError'
+              example:
+                msg: Invalid response
+  /v0/grow:
+    get:
+      description: Get interest rates for all available networks
+      operationId: getV0Grow
+      responses:
+        '200':
+          description: ''
+          headers:
+            Cache-Control:
+              required: true
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GrowResponse'
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - type: string
+                - $ref: '#/components/schemas/Map_String'
+components:
+  schemas:
+    AdaDetailsView:
+      title: AdaDetailsView
+      type: object
+      required:
+      - poolId
+      - activationEpoch
+      - activationDate
+      properties:
+        poolId:
+          type: string
+        activationEpoch:
+          type: integer
+          format: int32
+        activationDate:
+          type: string
+          format: date-time
+    CommissionView:
+      title: CommissionView
+      description: The commission type
+      oneOf:
+      - $ref: '#/components/schemas/Gross'
+      - $ref: '#/components/schemas/Net'
+    CosmosDetailsView:
+      title: CosmosDetailsView
+      type: object
+      required:
+      - validator_address
+      - delegator_address
+      - rewards
+      - available_rewards
+      - balance
+      - net_apy
+      - updated_at
+      properties:
+        validator_address:
+          type: string
+        delegator_address:
+          type: string
+        delegated_at:
+          type: string
+          format: date-time
+        undelegated_at:
+          type: string
+          format: date-time
+        rewards:
+          type: integer
+        available_rewards:
+          type: integer
+        balance:
+          type: integer
+        net_apy:
+          type: number
+          format: double
+        updated_at:
+          type: string
+          format: date-time
+    DetailsView:
+      title: DetailsViewa
+      oneOf:
+      - $ref: '#/components/schemas/AdaDetailsView'
+      - $ref: '#/components/schemas/CosmosDetailsView'
+      - $ref: '#/components/schemas/EthDeFiDetailsView'
+      - $ref: '#/components/schemas/EthNativeDetailsView'
+      - $ref: '#/components/schemas/InjectiveDetailsView'
+      - $ref: '#/components/schemas/KilnEthereumPoolingDetailsView'
+      - $ref: '#/components/schemas/NearDetailsView'
+      - $ref: '#/components/schemas/OsmosisDetailsView'
+      - $ref: '#/components/schemas/SolanaDetailsView'
+      - $ref: '#/components/schemas/TezosDetailsView'
+    EthDeFiDetailsView:
+      title: EthDeFiDetailsView
+      type: object
+      required:
+      - contractAddress
+      properties:
+        contractAddress:
+          type: string
+    EthNativeDetailsView:
+      title: EthNativeDetailsView
+      type: object
+      required:
+      - validator_address
+      - consensus_rewards
+      - execution_rewards
+      properties:
+        validator_address:
+          description: The Ethereum address of the validator.
+          type: string
+        withdrawal_credentials:
+          description: The withdrawal credentials for accessing staked ETH and rewards.
+            This can be a BLS public key or an Ethereum address.
+          type: string
+        deposit_tx_sender:
+          description: TThe Ethereum address that initiated the deposit transaction
+            to the staking contract. This indicates the source of the staked ETH.
+          type: string
+        execution_fee_recipient:
+          description: The Ethereum address that will receive execution layer rewards,
+            including transaction fees and Maximal Extractable Value (MEV).
+          type: string
+        consensus_rewards:
+          description: The total rewards earned from validating blocks and participating
+            in consensus, represented in wei.
+          type: string
+        execution_rewards:
+          description: The total execution layer rewards earned from transaction fees
+            and MEV, represented in wei.
+          type: string
+    ExternalDependencyError:
+      title: ExternalDependencyError
+      type: object
+      required:
+      - msg
+      properties:
+        msg:
+          type: string
+    Failure:
+      title: Failure
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/FailureView'
+    Failure1:
+      title: Failure
+      type: object
+      required:
+      - network
+      - error
+      properties:
+        network:
+          type: string
+        error:
+          $ref: '#/components/schemas/FailureView'
+    FailureView:
+      title: FailureView
+      type: object
+      required:
+      - code
+      - reason
+      - details
+      properties:
+        code:
+          description: The error code
+          type: integer
+          format: int32
+        reason:
+          description: The error reason
+          type: string
+        details:
+          $ref: '#/components/schemas/Map_String'
+          description: The error details
+    Gross:
+      title: Gross
+      type: object
+    GrowResponse:
+      title: GrowResponse
+      oneOf:
+      - $ref: '#/components/schemas/Success1'
+      - $ref: '#/components/schemas/Failure1'
+
+    InjectiveDetailsView:
+      title: InjectiveDetailsView
+      type: object
+      required:
+      - validator_address
+      - delegator_address
+      - rewards
+      - available_rewards
+      - balance
+      - net_apy
+      - updated_at
+      properties:
+        validator_address:
+          type: string
+        delegator_address:
+          type: string
+        delegated_at:
+          type: string
+          format: date-time
+        undelegated_at:
+          type: string
+          format: date-time
+        rewards:
+          type: integer
+        available_rewards:
+          type: integer
+        balance:
+          type: integer
+        net_apy:
+          type: number
+          format: double
+        updated_at:
+          type: string
+          format: date-time
+    InterestView:
+      title: InterestView
+      type: object
+      required:
+      - type
+      - value
+      - currency
+      properties:
+        type:
+          description: The type of interest - APY or APR
+          type: string
+        value:
+          description: The interest rate
+          type: string
+        currency:
+          description: The currency of the interest
+          type: string
+    InvalidRequest:
+      title: InvalidRequest
+      type: object
+      required:
+      - msg
+      properties:
+        msg:
+          type: string
+    InvalidResponse:
+      title: InvalidResponse
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          type: string
+    KilnEthereumPoolingDetailsView:
+      title: KilnEthereumPoolingDetailsView
+      type: object
+      required:
+      - owner
+      - delegated_block
+      - delegated_at
+      properties:
+        owner:
+          type: string
+        delegated_block:
+          type: integer
+        delegated_at:
+          type: string
+          format: date-time
+    Map_String:
+      title: Map_String
+      type: object
+      additionalProperties:
+        type: string
+    NearDetailsView:
+      title: NearDetailsView
+      type: object
+      required:
+      - stakeAccount
+      - canWithdraw
+      - validator
+      - netApy
+      - activatedEpoch
+      - activatedAt
+      - updatedAt
+      properties:
+        stakeAccount:
+          type: string
+        canWithdraw:
+          type: boolean
+        validator:
+          type: string
+        netApy:
+          type: number
+          format: double
+        activatedEpoch:
+          type: integer
+          format: int32
+        activatedAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    Net:
+      title: Net
+      type: object
+    NotFound:
+      title: NotFound
+      type: object
+      required:
+      - what
+      properties:
+        what:
+          type: string
+    OsmosisDetailsView:
+      title: OsmosisDetailsView
+      type: object
+      required:
+      - delegator_address
+      - rewards
+      - available_rewards
+      - balance
+      - net_apy
+      - updated_at
+      properties:
+        delegator_address:
+          type: string
+        rewards:
+          type: integer
+        available_rewards:
+          type: integer
+        balance:
+          type: integer
+        net_apy:
+          type: number
+          format: double
+        updated_at:
+          type: string
+          format: date-time
+    RewardsView:
+      title: RewardsView
+      oneOf:
+      - $ref: '#/components/schemas/RewardsViewSuccess'
+      - $ref: '#/components/schemas/RewardsViewError'
+
+    RewardsViewError:
+      title: RewardsViewError
+      type: object
+      required:
+      - code
+      - reason
+      properties:
+        code:
+          description: Error code
+          type: integer
+          format: int32
+        reason:
+          description: Error message
+          type: string
+    RewardsViewSuccess:
+      title: RewardsViewSuccess
+      type: object
+      required:
+      - total
+      - last24H
+      - last7D
+      - last30D
+      - lastYear
+      properties:
+        total:
+          description: Total rewards earned
+          type: string
+        last24H:
+          description: Rewards earned in the last 24 hours
+          type: string
+        last7D:
+          description: Rewards earned in the last 7 days
+          type: string
+        last30D:
+          description: Rewards earned in the last 30 days
+          type: string
+        lastYear:
+          description: Rewards earned in the last year
+          type: string
+    ServerError:
+      title: ServerError
+      type: object
+      required:
+      - msg
+      properties:
+        msg:
+          type: string
+    SolanaDetailsView:
+      title: SolanaDetailsView
+      type: object
+      required:
+      - stake_account
+      - withdraw_pubkey
+      - balance
+      - activated_epoch
+      - activated_at
+      - net_apy
+      - validator_address
+      - updated_at
+      properties:
+        stake_account:
+          type: string
+        withdraw_pubkey:
+          type: string
+        balance:
+          type: integer
+        activated_epoch:
+          type: integer
+          format: int32
+        activated_at:
+          type: string
+          format: date-time
+        net_apy:
+          type: number
+          format: double
+        validator_address:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+    SolanaValidatorDetailsView:
+      title: SolanaValidatorDetailsView
+      description: The details of a Solana validator
+      type: object
+      properties:
+        active_stake:
+          description: The amount of active stake delegated to this validator. Represents
+            the total value of tokens actively voting or contributing to network consensus.
+          type: integer
+        commission:
+          description: The commission rate (as a percentage) charged by the validator
+            on rewards earned by delegators. Typically set by the validator to compensate
+            for their operations.
+          type: number
+          format: double
+        total_score:
+          description: A performance score assigned to the validator based on metrics
+            such as uptime, stake performance, and other network-specific factors.
+          type: number
+          format: double
+        vote_account:
+          description: The account associated with the validator used for submitting
+            votes or participating in consensus activities.
+          type: string
+        name:
+          description: The validator's name or identifier, which may be used by the
+            validator's team for branding or identification purposes in the network.
+          type: string
+        avatar_url:
+          $ref: '#/components/schemas/Uri'
+          description: A URL pointing to the validator's avatar or logo, used for
+            visual representation in interfaces like explorers or dashboards.
+        delinquent:
+          description: Indicates whether the validator is currently delinquent or
+            underperforming. This can include missing votes, being offline, or failing
+            other consensus-related criteria.
+          type: boolean
+        www_url:
+          description: A website URL where additional information about the validator
+            or their operations can be found. The URL may not always be in a standardized
+            format.
+          type: string
+    StakeView:
+      title: StakeView
+      oneOf:
+      - $ref: '#/components/schemas/Success'
+      - $ref: '#/components/schemas/Failure'
+    StatusView:
+      title: StatusView
+      description: The status of the stake
+      oneOf:
+      - $ref: '#/components/schemas/activated'
+      - $ref: '#/components/schemas/activating'
+      - $ref: '#/components/schemas/archived'
+      - $ref: '#/components/schemas/deactivated'
+      - $ref: '#/components/schemas/deactivating'
+      - $ref: '#/components/schemas/unknown'
+    Success:
+      title: Success
+      type: object
+      required:
+      - protocol_name
+      - currency
+      - interest
+      - status
+      - commission
+      - details
+      properties:
+        protocol_name:
+          description: The name of the protocol
+          type: string
+        currency:
+          description: The currency of the staked asset in Ledger's crypto currency
+            ID
+          type: string
+        interest:
+          $ref: '#/components/schemas/InterestView'
+          description: The interest rate
+        effective_interest:
+          $ref: '#/components/schemas/InterestView'
+          description: The effective (aka calculated from rewards) interest rate
+        logo:
+          $ref: '#/components/schemas/Uri'
+          description: The logo of the protocol
+        since:
+          description: The date when the stake was created
+          type: string
+          format: date-time
+        staked_balance:
+          description: The staked balance
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusView'
+        commission:
+          $ref: '#/components/schemas/CommissionView'
+        rewards:
+          $ref: '#/components/schemas/RewardsView'
+        details:
+          $ref: '#/components/schemas/DetailsView'
+    Success1:
+      title: Success
+      type: object
+      required:
+      - network
+      - interest
+      properties:
+        network:
+          description: The network name
+          type: string
+        interest:
+          $ref: '#/components/schemas/InterestView'
+          description: The interest information
+    TezosDetailsView:
+      title: TezosDetailsView
+      type: object
+      required:
+      - stake_address
+      - backer_address
+      - balance
+      - rewards
+      - gross_apy
+      - delegated_cycle
+      - updated_at
+      properties:
+        stake_address:
+          type: string
+        backer_address:
+          type: string
+        balance:
+          type: integer
+        rewards:
+          type: integer
+        gross_apy:
+          type: number
+          format: double
+        delegated_at:
+          type: string
+          format: date-time
+        delegated_block:
+          type: integer
+        delegated_cycle:
+          type: integer
+          format: int32
+        activated_cycle:
+          type: integer
+          format: int32
+        activated_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    Unauthorized:
+      title: Unauthorized
+      type: object
+      required:
+      - realm
+      properties:
+        realm:
+          type: string
+    Unknown:
+      title: Unknown
+      type: object
+      required:
+      - msg
+      properties:
+        msg:
+          type: string
+    Uri:
+      title: Uri
+      type: string
+    ValidatorDetailsView:
+      title: ValidatorDetailsView
+      oneOf:
+      - $ref: '#/components/schemas/SolanaValidatorDetailsView'
+    activated:
+      title: activated
+      type: object
+    activating:
+      title: activating
+      type: object
+    archived:
+      title: archived
+      type: object
+    deactivated:
+      title: deactivated
+      type: object
+    deactivating:
+      title: deactivating
+      type: object
+    unknown:
+      title: unknown
+      type: object
