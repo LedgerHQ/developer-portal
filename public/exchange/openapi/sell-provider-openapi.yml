@@ -291,6 +291,37 @@ paths:
                   value:
                     messageKey: SELL_TRANSACTION_NOT_FOUND_ERROR
                     message: Sell transaction not found. (you can add any useful field as you want)
+    get:
+      operationId: getStatusUpdate
+      description: Get status of a sell transaction.
+      parameters:
+        - name: sellId
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 1234
+      security:
+        - defaultApiKey: [ ]
+      responses:
+        "200":
+          description: Status of transaction returned
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+        "404":
+          description: Sell transaction not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorPayload"
+              examples:
+                SELL_TRANSACTION_NOT_FOUND_ERROR:
+                  summary: SELL_TRANSACTION_NOT_FOUND_ERROR
+                  value:
+                    messageKey: SELL_TRANSACTION_NOT_FOUND_ERROR
+                    message: Sell transaction not found. (you can add any useful field as you want)
 components:
   securitySchemes:
     defaultApiKey:
@@ -584,3 +615,23 @@ components:
         payoutNetworkFees:
           type: string
           description: Gas fees used for the payout transaction, converted to currencyTo.
+    StatusResponse:
+      type: object
+      properties:
+        deviceStatus:
+          type: string
+          enum:
+            - ACCEPTED
+            - CANCELLED
+          description: Status of the transaction from the user device
+        providerStatus:
+          type: string
+          enum:
+            - FINISHED
+            - EXPIRED
+            - ON_HOLD
+            - PENDING
+            - TRANSFER_IN_COMPLETED
+            - REFUNDED
+            - UNKNOWN
+          description: Status of the transaction from the provider updates

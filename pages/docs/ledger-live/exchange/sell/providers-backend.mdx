@@ -97,6 +97,8 @@ To ensure effective communication with Ledger's backend, you are required to imp
 
 </details>
 
+Additionally, if your backend needs to know the transaction status from our system (e.g., whether the transaction was approved or rejected by the user’s device), we provide an optional endpoint [/transaction/\{sellId\}/status](https://exchange-integration-sell.redoc.ly/#operation/getStatusUpdate)
+
 [//]: # (Info needed to be exchange with the provider, but not out loud publicly)
 [//]: # (**IP address checking** )
 [//]: # (Additionally, we also need a way to know if a user will be able to perform a coin sell given his IP.)
