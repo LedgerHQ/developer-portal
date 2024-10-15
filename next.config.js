@@ -45,6 +45,16 @@ module.exports = {
         permanent: true,
       },
       {
+        source: '/docs/plugin',
+        destination: '/docs/device-app/develop/code/plugin',
+        permanent: true,
+      },
+      {
+        source: '/docs/plugin/:slug*',
+        destination: '/docs/device-app/develop/code/plugin',
+        permanent: true,
+      },
+      {
         source: '/docs/device-app',
         destination: '/docs/device-app/getting-started',
         permanent: true,
@@ -185,465 +195,48 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/nft/:slug*',
-        destination: '/docs/nft-display/:slug*',
-        permanent: true,
-       },
-      {
         source: '/discover',
-        destination: '/docs/discover',
+        destination: '/docs/ledger-live/discover/getting-started',
         permanent: true,
        },
       {
-        source: '/docs/live-app/start-here',
-        destination: '/docs/discover',
+        source: '/docs/discover',
+        destination: '/docs/ledger-live/discover/getting-started',
         permanent: true,
        },
       {
-        source: '/docs/live-app/nano-less-part-02',
-        destination: '/docs/discover',
+        source: '/docs/live-app/:slug*',
+        destination: '/docs/ledger-live/discover/getting-started',
         permanent: true,
        },
       {
-        source: '/docs/live-app/nano-less-part-01',
-        destination: '/docs/discover',
-        permanent: true,
-       },
-      {
-        source: '/docs/live-app/guidelines',
-        destination: '/docs/discover/guidelines',
-        permanent: true,
-       },
-      {
-        source: '/docs/live-app/required-skills',
-        destination: '/docs/discover/required-skills',
-        permanent: true,
-       },
-      {
-        source: '/docs/live-app/faq',
-        destination: '/docs/discover/faq',
-        permanent: true,
-       },
-      {
-        source: '/docs/live-app/developer-mode',
-        destination: '/docs/discover/developer-mode',
-        permanent: true,
-       },
-      {
-        source: '/docs/dapp/process',
-        destination: '/docs/discover/dapp',
-        permanent: true,
-       },
-      {
-        source: '/docs/dapp/dapp-customisation',
-        destination: '/docs/discover/dapp/dapp-customisation',
-        permanent: true,
-       },
-      {
-        source: '/docs/dapp/manifest',
-        destination: '/docs/discover/dapp/manifest',
-        permanent: true,
-       }, 
-      {
-        source: '/docs/device-app/develop/tutorials',
-        destination: '/docs/device-app/develop/quickstart',
-        permanent: true,
-       }, 
-      {
-        source: '/docs/device-app/develop/tutorials/quickstart',
-        destination: '/docs/device-app/develop/quickstart',
-        permanent: true,
-       },
-      {
-        source: '/docs/device-app/develop/environment',
-        destination: '/docs/device-app/develop/quickstart',
-        permanent: true,
-       },
-      {
-        source: '/docs/device-app/develop/tutorials/:slug*',
-        destination: '/docs/device-app/develop/code/:slug*',
-        permanent: true,
-       },
-      {
-        source: '/docs/dapp/requirements',
-        destination: '/docs/device-app/deliver',
-        permanent: true,
-       },
-      {
-        source: '/docs/plugin',
-        destination: '/docs/device-app/develop/code/plugin',
-        permanent: true,
-       },
-      {
-        source: '/docs/plugin/requirements',
-        destination: '/docs/device-app/deliver',
-        permanent: true,
-       },
-      {
-        source: '/docs/dapp/embedded-plugin/overview',
-        destination: '/docs/device-app/develop/code/plugin',
-        permanent: true,
-       },
-      {
-        source: '/docs/plugin/overview',
-        destination: '/docs/device-app/develop/code/plugin',
-        permanent: true,
-       },
-      {
-        source: '/docs/dapp/embedded-plugin/code-overview',
-        destination: '/docs/device-app/develop/code/plugin',
-        permanent: true,
-       },
-      {
-        source: '/docs/plugin/code-walkthrough',
-        destination: '/docs/device-app/develop/code/plugin',
-        permanent: true,
-       },
-      {
-        source: '/docs/dapp/embedded-plugin/boilerplate-plugin',
-        destination: '/docs/device-app/develop/code/pluginh',
-        permanent: true,
-       },
-      {
-        source: '/docs/plugin/code-walkthrough/boilerplate-plugin',
-        destination: '/docs/device-app/develop/code/plugin',
-        permanent: true,
-       },
-      {
-        source: '/docs/dapp/embedded-plugin/selectors',
-        destination: '/docs/device-app/develop/code/plugin/selectors',
-        permanent: true,
-       },
-      {
-        source: '/docs/plugin/code-walkthrough/selectors',
-        destination: '/docs/device-app/develop/code/plugin/selectors',
-        permanent: true,
-       },
-      {
-        source: '/docs/dapp/embedded-plugin/init-contract',
-        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/init-contract',
-        permanent: true,
-       },
-      {
-        source: '/docs/plugin/code-walkthrough/selectors-detailed/init-contract',
-        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/init-contract',
-        permanent: true,
-       },
-      {
-        source: '/docs/dapp/embedded-plugin/provide-parameter',
-        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/provide-parameter',
-        permanent: true,
-       },
-      {
-        source: '/docs/plugin/code-walkthrough/selectors-detailed/provide-parameter',
-        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/provide-parameter',
-        permanent: true,
-       },
-      {
-        source: '/docs/dapp/embedded-plugin/finalize',
-        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/finalize',
-        permanent: true,
-       },
-      {
-        source: '/docs/plugin/code-walkthrough/selectors-detailed/finalize',
-        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/finalize',
-        permanent: true,
-       },
-      {
-        source: '/docs/dapp/embedded-plugin/provide-token',
-        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/provide-token',
-        permanent: true,
-       },
-      {
-        source: '/docs/plugin/code-walkthrough/selectors-detailed/provide-token',
-        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/provide-token',
-        permanent: true,
-       },
-      {
-        source: '/docs/dapp/embedded-plugin/query-contract-ui',
-        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/query-contract-ui',
-        permanent: true,
-       },
-      {
-        source: '/docs/plugin/code-walkthrough/selectors-detailed/query-contract-ui',
-        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/query-contract-ui',
-        permanent: true,
-       },
-      {
-        source: '/docs/dapp/embedded-plugin/query-contract-id',
-        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/query-contract-id',
-        permanent: true,
-       },
-      {
-        source: '/docs/plugin/code-walkthrough/selectors-detailed/query-contract-id',
-        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/query-contract-id',
-        permanent: true,
-       },
-      {
-        source: '/docs/plugin/code-walkthrough/selectors-detailed/query-contract-id',
-        destination: '/docs/device-app/develop/code/plugin/selectors-detailed/query-contract-id',
-        permanent: true,
-       },
-      {
-        source: '/docs/dapp/embedded-plugin/testing',
-        destination: '/docs/device-app/develop/code/plugin/testing',
-        permanent: true,
-       },
-      {
-        source: '/docs/plugin/code-walkthrough/testing',
-        destination: '/docs/device-app/develop/code/plugin/testing',
-        permanent: true,
-       },
-      {
-        source: '/docs/dapp/embedded-plugin/flow',
-        destination: '/docs/plugin/code-walkthrough/flow',
-        permanent: true,
-       },              
-      {
-        source: '/docs/non-dapp/introduction',
-        destination: '/docs/discover',
-        permanent: true,
-       },              
-      {
-        source: '/docs/non-dapp/howto/test/',
-        destination: '/docs/discover',
-        permanent: true,
-       },
-      {
-        source: '/docs/non-dapp/use-cases',
-        destination: '/docs/discover',
-        permanent: true,
-       },
-      {
-        source: '/docs/non-dapp/ux-req',
-        destination: '/docs/discover',
-        permanent: true,
-       },
-      {
-        source: '/APIs/:slug*',
-        destination: '/docs/discover/:slug*',
-        permanent: true,
-       },
-      {
-        source: '/docs/non-dapp/reference/manifest',
-        destination: '/docs/discover/wallet-api/appendix/manifest',
-        permanent: true,
-       },
-      {
-        source: '/docs/non-dapp/tutorial/introduction',
-        destination: '/docs/discover',
-        permanent: true,
-       },
-      {
-        source: '/docs/non-dapp/tutorial/1-setup',
-        destination: '/docs/discover',
-        permanent: true,
-       },
-      {
-        source: '/docs/non-dapp/tutorial/3-import/',
-        destination: '/docs/discover',
+        source: '/docs/dapp/:slug*',
+        destination: '/docs/ledger-live/discover/getting-started',
         permanent: true,
        },
       {
         source: '/docs/non-dapp/:slug*',
-        destination: '/docs/discover',
+        destination: '/docs/ledger-live/discover/getting-started',
         permanent: true,
-       },        
+       },           
+      {
+        source: '/APIs/:slug*',
+        destination: '/docs/ledger-live/discover/getting-started',
+        permanent: true,
+       },
       {
         source: '/docs/coin/:slug*',
-        destination: '/docs/blockchain',
+        destination: '/docs/ledger-live/accounts/getting-started',
         permanent: true,
       },
       {
-        source: '/docs/coin/general-process',
-        destination: '/docs/blockchain/getting-started',
+        source: '/docs/blockchain',
+        destination: '/docs/ledger-live/accounts/getting-started',
         permanent: true,
-       },
+      },
       {
-        source: '/docs/coin/general-architecture',
-        destination: '/docs/blockchain/getting-started/general-architecture',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/work-breakdown',
-        destination: '/docs/blockchain/coding',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/required-skills',
-        destination: '/docs/blockchain/getting-started/required-skills',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/live-common',
-        destination: '/docs/blockchain/setup-build',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/ledger-live-cli',
-        destination: '/docs/blockchain/setup-build/ledger-live-cli',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/mostusefulcmd',
-        destination: '/docs/blockchain/setup-build/mostusefulcmd',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/ll-setup',
-        destination: '/docs/blockchain/setup-build/ll-setup',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/ui-ux-guidelines',
-        destination: '/docs/blockchain/ui-ux-guidelines',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/lld-ui-guidelines',
-        destination: '/docs/blockchain/ui-ux-guidelines/lld-ui-guidelines',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/llm-ui-guidelines',
-        destination: '/docs/blockchain/ui-ux-guidelines/llm-ui-guidelines',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/cryptoassets-library',
-        destination: '/docs/blockchain/coding/cryptoassets-library',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/js-bindings',
-        destination: '/docs/blockchain/coding/js-bindings',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/address-derivation',
-        destination: '/docs/blockchain/coding/address-derivation',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/sync',
-        destination: '/docs/blockchain/coding/light-sync',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/sync',
-        destination: '/docs/blockchain/coding/sync',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/send',
-        destination: '/docs/blockchain/coding/send',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/desktop-mobile',
-        destination: '/docs/blockchain/coding/desktop-mobile',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/bugs-troubleshooting',
-        destination: '/docs/blockchain/coding/bugs-troubleshooting',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/writing-tests',
-        destination: '/docs/blockchain/testing',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/bridge-tests',
-        destination: '/docs/blockchain/testing/bridge-test',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/generic-test-plan',
-        destination: '/docs/blockchain/testing/generic-test-plan',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/ui-tests',
-        destination: '/docs/blockchain/testing/ui-tests',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/faq',
-        destination: '/docs/blockchain/testing/ui-tests',
-        permanent: true,
-       },
-      {
-        source: '/docs/coin/terms-conditions',
-        destination: '/docs/blockchain/terms-conditions',
-        permanent: true,
-       },
-      {
-        source: '/docs/token/introduction',
-        destination: '/docs/tokens',
-        permanent: true,
-       },
-      {
-        source: '/docs/token/faq',
-        destination: '/docs/tokens/faq',
-        permanent: true,
-       },
-
-      {
-        source: '/docs/tokens/integrating-tokens/faq',
-        destination: '/docs/tokens/faq',
-        permanent: true,
-       },
-      {
-        source: '/docs/token/erc20-bep20',
-        destination: '/docs/tokens/evm-chains-tokens',
-        permanent: true,
-       },
-      {
-        source: '/docs/token/erc20',
-        destination: '/docs/tokens/evm-chains-tokens',
-        permanent: true,
-       },
-      {
-        source: '/docs/token/evm-chains-tokens',
-        destination: '/docs/tokens/evm-chains-tokens',
-        permanent: true,
-       },
-
-      {
-        source: '/docs/tokens/integrating-tokens/evm-chains-tokens',
-        destination: '/docs/tokens/evm-chains-tokens',
-        permanent: true,
-       },
-      {
-        source: '/docs/tokens/integrating-tokens/asa',
-        destination: '/docs/tokens/asa',
-        permanent: true,
-       },
-      {
-        source: '/docs/token/asa',
-        destination: '/docs/tokens/asa',
-        permanent: true,
-       },
-      {
-        source: '/docs/token/trc',
-        destination: '/docs/tokens/integrating-tokens/trc',
-        permanent: true,
-       },
-      {
-        source: '/docs/tokens/integrating-tokens/trcc',
-        destination: '/docs/tokens/trc',
-        permanent: true,
-       },
-      {
-        source: '/docs/token/eip712-messages',
-        destination: '/docs/clear-signing/nft',
-        permanent: true,
-       },
-      {
-        source: '/docs/tokens/eip712-messages',
-        destination: '/docs/clear-signing/nft',
+        source: '/docs/token/:slug*',
+        destination: '/docs/ledger-live/accounts/integration/tokens/evm-chains-tokens',
         permanent: true,
        },
       {
@@ -657,10 +250,20 @@ module.exports = {
         permanent: true,
        },
       {
-        source: '/docs/exchange/integration/:slug*',
-        destination: '/docs/exchange',
+        source: '/docs/exchange/swap',
+        destination: '/docs/ledger-live/exchange/swap',
         permanent: true,
-       },                                                                                                                                                                                                                                                           
+       },
+      {
+        source: '/docs/exchange/integration/:slug*',
+        destination: '/docs/ledger-live/exchange',
+        permanent: true,
+       }, 
+      {
+        source: '/docs/exchange/:slug*',
+        destination: '/docs/ledger-live/exchange/:slug*',
+        permanent: true,
+       }                                                                                                                                                                                                                                                          
     ];
   },
 }
