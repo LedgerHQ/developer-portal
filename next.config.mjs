@@ -1,14 +1,13 @@
-const withNextra = require('nextra')({
+import nextra from 'nextra'
+ 
+
+const withNextra = nextra({
   theme: 'nextra-theme-docs',
-  themeConfig: './theme.config.tsx'
-});
+  themeConfig: './theme.config.tsx',
+})
 
-
-
-module.exports = {
-  ...withNextra(),
-  async redirects() {
-    return [
+export default withNextra({
+  redirects: () => [
       {
         source: '/discord',
         destination: 'https://discord.gg/Ledger',
@@ -264,6 +263,5 @@ module.exports = {
         destination: '/docs/ledger-live/exchange/:slug*',
         permanent: true,
        }                                                                                                                                                                                                                                                          
-    ];
-  },
-}
+    ]
+  })
