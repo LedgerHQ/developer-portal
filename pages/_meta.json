@@ -6,7 +6,7 @@
     },
     "display": "hidden"
   },
-  "overview": {
+  "dev-tracks": {
     "title": "Dev Tracks",
     "type" : "page",
     "href": "/docs/dev-tracks/quickstart"
