@@ -1,6 +1,7 @@
 import { FC, HTMLAttributes } from 'react'
 import { combination } from '../../lib/utils';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image'
 
 
 interface ButtonChildrenProps {

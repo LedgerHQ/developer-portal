@@ -1,6 +1,8 @@
 import { Cards } from 'nextra/components'
 import Zoom from 'react-medium-image-zoom'
 import { Callout } from 'nextra/components'
+import Image from 'next/image'
+
 
 # Get your exchange services in Ledger Live
 
@@ -28,27 +30,31 @@ To see if this integration is a good fit for your service, please get in touch w
     arrow
     title="Swap Integration" 
     href="/docs/exchange/swap">
-    <>![Cryptoassets Library](/blockchain-cover.jpg)</> 
-  />
+    /> 
+    <Image src={"/blockchain-cover.jpg"} />
+  </Cards.Card>
   <Cards.Card 
     image
     arrow
     title="Sell Integration" 
     href="/docs/exchange/sell">
-    <>![Cryptoassets Library](/blockchain-cover.jpg)</> 
-  />
+    /> 
+    <Image src={"/blockchain-cover.jpg"} />
+  </Cards.Card>
   <Cards.Card 
     image
     arrow
     title="Buy Integration" 
     href="/docs/exchange/buy">
-    <>![Cryptoassets Library](/blockchain-cover.jpg)</> 
-  />
+    /> 
+    <Image src={"/blockchain-cover.jpg"} />
+  </Cards.Card>
   <Cards.Card 
     image
     arrow
     title="Card Integration" 
     href="/docs/exchange/card">
-    <>![Cryptoassets Library](/blockchain-cover.jpg)</> 
-  />
+    /> 
+    <Image src={"/blockchain-cover.jpg"} />
+  </Cards.Card>
 </Cards>
