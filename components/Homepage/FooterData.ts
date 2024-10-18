@@ -13,7 +13,7 @@ export const FooterData: FooterDataType = [
       },
       {
         label: "Docs",
-        link: "/docs/sections",
+        link: "/docs/dev-tracks/quickstart",
         scrollLink: null,
       },
       {

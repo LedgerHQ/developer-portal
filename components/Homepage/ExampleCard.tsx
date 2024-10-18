@@ -49,7 +49,7 @@ export const ExampleCard: FC<ExampleCardProps> = ({icon, title, subtitle, descri
         {/* <Tag type={type} /> */}
         <div className="items-center gap-2 hidden md:flex opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 ease-linear duration-300">
           <span className="text-p-caption underline whitespace-nowrap">Get your own project started</span>
-          <img src="/icons/arrow-right-white.svg" alt="button icon" />
+          <img src="../../public/icons/arrow-right-white.svg" alt="button icon" />
         </div>
       </div>
       <div className="items-center gap-2 mt-6 flex md:hidden">
