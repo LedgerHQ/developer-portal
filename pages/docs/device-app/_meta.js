@@ -1,6 +1,6 @@
 export default {
-    index: 'Device App',
-        '---': {
+    '---': {
+        title: 'Device App',
         type: 'separator'
     },
     'getting-started': 'Getting started',

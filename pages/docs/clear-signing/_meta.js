@@ -1,6 +1,6 @@
 export default {
-  index: 'Clear Signing',
   '---': {
+    title: "Clear Signing",
     type: 'separator'
   },
   'getting-started': 'Getting started',

@@ -1,6 +1,6 @@
 export default {
-    index: 'NFT Display',
-        '---': {
+	'---': {
+        title: 'NFT Display',
         type: 'separator'
     },
 	'optimized-images': "How-to Create Images Optimized For Ledger Stax", 
