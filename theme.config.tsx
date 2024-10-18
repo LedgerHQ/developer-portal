@@ -17,7 +17,7 @@ const config: DocsThemeConfig = {
   },
   docsRepositoryBase: 'https://github.com/LedgerHQ/developer-portal/blob/main',
   footer: {
-    text: 'Ledger Developer Portal',
+    content: 'Ledger Developer Portal',
     component: () => (
       <>
         {/* Your footer code */}
@@ -66,20 +66,22 @@ const config: DocsThemeConfig = {
       </>
     )
   },
-  useNextSeoProps() {
-    const { asPath } = useRouter()
-    if (asPath !== '/') {
-      return {
-        titleTemplate: '%s – Ledger Developer Portal'
-      }
-    }
-    else {
-      return {
-        titleTemplate: 'Ledger Developer Portal'
-      }
-    }
+  // useNextSeoProps() {
+  //   const { asPath } = useRouter()
+  //   if (asPath !== '/') {
+  //     return {
+  //       titleTemplate: '%s – Ledger Developer Portal'
+  //     }
+  //   }
+  //   else {
+  //     return {
+  //       titleTemplate: 'Ledger Developer Portal'
+  //     }
+  //   }
+  // },
+  color: { 
+    hue: 35
   },
-  primaryHue: { dark: 35, light: 270 },
   nextThemes: {
     forcedTheme: 'dark'
   },

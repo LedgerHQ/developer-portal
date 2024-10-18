@@ -1,6 +1,8 @@
 import { FC, HTMLAttributes } from 'react'
 import { Link } from "react-scroll";
 import { combination } from '../../lib/utils';
+import Image from 'next/image'
+
 
 interface ButtonChildrenProps {
   label: string;

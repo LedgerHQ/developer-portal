@@ -1,4 +1,6 @@
 import { useState, useEffect, FC, HTMLAttributes } from 'react'
+import Image from 'next/image'
+
 
 interface JourneyButtonProps extends HTMLAttributes<HTMLDivElement> {
   hovered: boolean;
