@@ -6,7 +6,7 @@ export default {
       toc: true
     }
   },
-  migration-guide: {
+  'migration-guide': {
     title: "Migration Guide",
     theme: {
       toc: true
@@ -18,7 +18,7 @@ export default {
       toc: true
     }
   },
-  working-with-ledger-live: {
+  'working-with-ledger-live': {
     title: "Working with Ledger Live",
     theme: {
       toc: true

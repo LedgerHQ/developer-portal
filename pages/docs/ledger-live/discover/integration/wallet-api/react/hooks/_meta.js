@@ -1,4 +1,4 @@
-{
+export default {
   useAccounts: {
     title: "useAccounts",
     theme: {

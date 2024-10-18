@@ -6,7 +6,7 @@ export default {
     }
   },
 
-getting-started: {
+'getting-started': {
     title: "Getting Started",
     theme: {
       toc: true

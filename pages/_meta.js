@@ -6,7 +6,7 @@ export default {
       layout: 'raw'
     }
   },
-  dev-tracks: {
+  'dev-tracks': {
     type: 'page',
     title: 'Dev Tracks',
     href: '/docs/dev-tracks/quickstart'
@@ -15,19 +15,19 @@ export default {
     type: 'menu',
     title: 'Documentation',
     items: {
-      device-app: {
+      'device-app': {
         title: 'Device App',
         href: '/docs/device-app/getting-started'
       },
-      device-interaction: {
+      'device-interaction': {
         title: 'Device Interaction',
         href: '/docs/device-interaction/getting-started'
       },
-      ledger-live: {
+      'ledger-live': {
         title: 'Ledger Live',
         href: '/docs/ledger-live/introduction'
       },
-      clear-signing: {
+      'clear-signing': {
         title: 'Clear Signing',
         href: '/docs/clear-signing/getting-started'
       }

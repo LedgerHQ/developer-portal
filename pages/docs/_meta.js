@@ -1,25 +1,25 @@
 export default {
-  dev-tracks: {
+  'dev-tracks': {
         type: 'page',
         title: 'Dev tracks'
       },
-  device-app: {
+  'device-app': {
         type: 'page',
         title: 'Device App'
       },
-  device-interaction: {
+  'device-interaction': {
         type: 'page',
         title: 'Device interaction'
       },
-  ledger-live: {
+  'ledger-live': {
         type: 'page',
         title: 'Ledger Live'
       },
-  clear-signing: {
+  'clear-signing': {
       type: 'page',
       title: 'Clear signing'
       },
-  nft-display: {
+  'nft-display': {
       type: 'page',
       title: 'NFT display'
       }

@@ -1,6 +1,6 @@
-{
+export default {
     process: 'App deployment process',
     deliverables: 'Deliverables',
-    submission-form: 'Submission',
+    'submission-form': 'Submission',
     maintenance: 'Maintenance'
 }

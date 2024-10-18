@@ -3,5 +3,5 @@ export default {
 	masterseed: 'The master seed',
 	keys: 'HD key generation',
 	applications: 'Application for HD trees',
-	application-isolation: 'Application isolation'
+	'application-isolation': 'Application isolation'
 }

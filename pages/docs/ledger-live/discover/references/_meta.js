@@ -1,4 +1,4 @@
 export default {
-	developer-mode: "The developer mode",
+	'developer-mode': "The developer mode",
 	manifest: "Example of a manifest"
 }
