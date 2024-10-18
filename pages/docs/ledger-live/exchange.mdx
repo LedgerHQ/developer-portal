@@ -1,4 +1,4 @@
-import { Card, Cards } from 'nextra/components'
+import { Cards } from 'nextra/components'
 import Zoom from 'react-medium-image-zoom'
 import { Callout } from 'nextra/components'
 
@@ -23,32 +23,32 @@ To see if this integration is a good fit for your service, please get in touch w
 
 
 <Cards num={3}>
-  <Card 
+  <Cards.Card 
     image
     arrow
     title="Swap Integration" 
     href="/docs/exchange/swap">
     <>![Cryptoassets Library](/blockchain-cover.jpg)</> 
-  </Card>
-  <Card 
+  />
+  <Cards.Card 
     image
     arrow
     title="Sell Integration" 
     href="/docs/exchange/sell">
     <>![Cryptoassets Library](/blockchain-cover.jpg)</> 
-  </Card>
-  <Card 
+  />
+  <Cards.Card 
     image
     arrow
     title="Buy Integration" 
     href="/docs/exchange/buy">
     <>![Cryptoassets Library](/blockchain-cover.jpg)</> 
-  </Card>
-  <Card 
+  />
+  <Cards.Card 
     image
     arrow
     title="Card Integration" 
     href="/docs/exchange/card">
     <>![Cryptoassets Library](/blockchain-cover.jpg)</> 
-  </Card>
+  />
 </Cards>
