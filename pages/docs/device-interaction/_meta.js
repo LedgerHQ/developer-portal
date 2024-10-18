@@ -1,6 +1,6 @@
 export default {
-    index: 'Device Interaction',
-        '---': {
+    '---': {
+        title: 'Device Interaction',
         type: 'separator'
     },
     'getting-started': "Getting started",

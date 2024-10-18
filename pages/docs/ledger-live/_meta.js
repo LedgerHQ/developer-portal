@@ -1,6 +1,6 @@
 export default {
-    index: 'Ledger Live',
-        '---': {
+    '---': {
+        title: 'Ledger Live',
         type: 'separator'
     },
     introduction: "Introduction",

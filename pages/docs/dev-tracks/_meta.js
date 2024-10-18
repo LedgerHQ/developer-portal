@@ -1,6 +1,6 @@
 export default {
-    index: 'Dev Tracks',
-        '---': {
+    '---': {
+        title: 'Dev Tracks',
         type: 'separator'
     },
     quickstart: 'Quickstart guide',
