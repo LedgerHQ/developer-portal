@@ -274,7 +274,13 @@ export default withNextra({
       permanent: false,
     },
     {
-      source: "/docs/integrating-tokens",
+      source: "/docs/tokens/evm-chains-tokens",
+      destination:
+        "/docs/ledger-live/accounts/integration/tokens/evm-chains-tokens",
+      permanent: false,
+    },
+    {
+      source: "/docs/tokens/integrating-tokens",
       destination:
         "/docs/ledger-live/accounts/integration/tokens/evm-chains-tokens",
       permanent: false,
