@@ -336,6 +336,8 @@ components:
       required:
         - name
         - successRate
+        - minAmount
+        - maxAmount
       type: object
       properties:
         name:
@@ -343,6 +345,10 @@ components:
         successRate:
           type: integer
           format: int32
+        minAmount:
+          type: number
+        maxAmount:
+          type: number
     SellProviderCapabilities:
       type: object
       properties:
