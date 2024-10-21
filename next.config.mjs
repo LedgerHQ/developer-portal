@@ -239,6 +239,11 @@ export default withNextra({
         permanent: true,
        },
       {
+        source: '/docs/tokens/:slug*',
+        destination: '/docs/ledger-live/accounts/integration/tokens/evm-chains-tokens',
+        permanent: true,
+       },
+      {
         source: '/docs/exchange/swap/glossary',
         destination: '/docs/exchange/glossary',
         permanent: true,
