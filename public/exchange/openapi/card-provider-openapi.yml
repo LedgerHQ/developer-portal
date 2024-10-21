@@ -31,7 +31,6 @@ paths:
                 createdAt: "2030-05-26T14:13:39"
                 providerFees: "0.0001"
                 referralFees: "0.0001"
-                payoutNetworkFees: "0.0002"
                 providerSig:
                   payload: "CgUweGZmZhoFMHhmZmYqBTB4ZmZmOgNCVENCA0JBVEoIMTIwMDAwMDBSCDExNTAwMDAwWhF2ZXJ5IGxvbmd1ZSBub25jZQ=="
                   signature: "MEUCIBRm4PrdgRw0aBwRepuOGGRmR/YPcCoyKNJ7UDjFO030AiEA/VT0anolum0a3X/9lGPeovZHqzeDG9brcUB4zhYmwbs="
@@ -200,7 +199,6 @@ components:
         - createdAt
         - providerFees
         - referralFees
-        - payoutNetworkFees
         - providerSig
       type: object
       properties:
@@ -219,9 +217,6 @@ components:
         referralFees:
           type: string
           description: Fees paid to Ledger, as a referral fee, converted to currencyTo.
-        payoutNetworkFees:
-          type: string
-          description: estimated gas fees that will be used for the payout transaction (as an output coin floating amount).
         providerSig:
           $ref: "#/components/schemas/ProviderSig"
     ProviderSig:
@@ -275,9 +270,6 @@ components:
         referralFees:
           type: string
           description: Fees paid to Ledger, as a referral fee.
-        payoutNetworkFees:
-          type: string
-          description: Gas fees used for the payout transaction, converted to currencyTo.
 
     StatusResponse:
       type: object
