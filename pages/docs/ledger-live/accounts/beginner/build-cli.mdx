@@ -3,15 +3,16 @@ title: Building the CLI for development
 description: Using a local version of Ledger Live to test your integration can be time consuming. If you would rather have a faster process, you can use the CLI.
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from 'nextra/components'
 
 # Building the CLI for development
 
-Using a local version of Ledger Live to test your integration can be time consuming. If you would rather have a faster process, you can use the CLI.
+Using a local version of <Glossary word="Ledger Live"></Glossary> to test your <Glossary word="integration"></Glossary> can be time consuming. If you would rather have a faster process, you can use the <Glossary word="CLI"></Glossary>.
 
 ## Set up
 
-To install the CLI do:
+To install the <Glossary word="CLI"></Glossary> do:
 
 ```sh copy
 pnpm i
@@ -29,7 +30,7 @@ To use it:
 pnpm run:cli <command> args
 ```
 
-You can test that your local Live Common and your device works correctly by executing a CLI command like:
+You can test that your local Live Common and your device works correctly by executing a <Glossary word="CLI"></Glossary> command like:
 
 ```sh copy
 pnpm run:cli version      # should print live-common version
@@ -49,7 +50,7 @@ pnpm run:cli send -i 0 -s segwit --recipient 13LcRWZyZnZu1xrABuAK9Ayftg4kfVs1AA 
 ```
 
 <Callout type="info" emoji="ℹ️">
-  Be aware that the CLI has some limitations compared to Ledger Live. For example, every sync with the CLI will sync the entire account history.
+  Be aware that the <Glossary word="CLI"></Glossary> has some limitations compared to <Glossary word="Ledger Live"></Glossary>. For example, every sync with the <Glossary word="CLI"></Glossary> will sync the entire account history.
 </Callout>
 
 You will find a complete list of commands [here](https://github.com/LedgerHQ/ledger-live/tree/develop/apps/cli#documentation).
@@ -64,7 +65,7 @@ To list them all, you can execute:
 pnpm run:cli envs
 ```
 
-The one you will use the most before releasing you integration is:
+The one you will use the most before releasing you <Glossary word="integration"></Glossary> is:
 
 ```sh copy
 EXPERIMENTAL_CURRENCIES=mycoin
@@ -100,6 +101,6 @@ If needed, you can add your own in `src/env.ts` (always try to add a MYCOIN\_ pr
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XnbC5w5lBS0" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
-- **00:00** Ledger Live Installation
-- **00:38** CLI Build
-- **01:20** CLI Usage
+- **00:00** <Glossary word="Ledger Live"></Glossary> Installation
+- **00:38** <Glossary word="CLI"></Glossary> Build
+- **01:20** <Glossary word="CLI"></Glossary> Usage

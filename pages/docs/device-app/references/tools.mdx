@@ -1,3 +1,4 @@
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from 'nextra/components'
 
 
@@ -25,7 +26,7 @@ frictionless development experience.
 
 It includes the following capabilities:
 
-- Build the device application for all existing devices
+- Build the <Glossary word="device application"></Glossary> for all existing devices
 - Test the app with `Speculos`
 - Load an app on your device
 - Execute functional tests
@@ -40,14 +41,14 @@ It includes the following capabilities:
 
 ### GitHub Workflows
 
-Ledger provides several workflows to ease the integration of applications into the GitHub CI.
+Ledger provides several workflows to ease the <Glossary word="integration"></Glossary> of applications into the GitHub <Glossary word="CI"></Glossary>.
 
 [Some of them are mandatory for an application to be deployed](../integration/requirements/development#workflows), but
 the others can still be useful.
 
 <Callout emoji="📖">
     Documentation and sources can be found [here](https://github.com/ledgerhq/ledger-app-workflows).<br/>
-    Usage examples can be found in the CI of lots of applications, for instance the
+    Usage examples can be found in the <Glossary word="CI"></Glossary> of lots of applications, for instance the
     [Boilerplate workflows](https://github.com/LedgerHQ/app-boilerplate/tree/master/.github/workflows), the
     [Ethereum workflows](https://github.com/LedgerHQ/app-ethereum/tree/develop/.github/workflows) or the
     [Exchange workflows](https://github.com/LedgerHQ/app-exchange/tree/develop/.github/workflows).
@@ -55,7 +56,7 @@ the others can still be useful.
 
 ## `Speculos`
 
-`Speculos` is an emulator allowing to run and test an device application without loading it on a physical Ledger
+`Speculos` is an emulator allowing to run and test an <Glossary word="device application"></Glossary> without loading it on a physical Ledger
 device. While it is not capable of emulating some constraints of the physical devices, it is still a very realistic
 and handy tool, and the pillar of any credible testing strategy.
 
@@ -67,7 +68,7 @@ and handy tool, and the pillar of any credible testing strategy.
 ## `Ragger`
 
 `Ragger` is Python library offering abstractions over an Ledger embedded device (Nano and Stax), either real or emulated
-(through `Speculos`). It aims at simplifying writing generic communication with an device application and managing
+(through `Speculos`). It aims at simplifying writing generic communication with an <Glossary word="device application"></Glossary> and managing
 high-level graphical interactions. It is widly used to write functional tests code
 
 
@@ -81,7 +82,7 @@ high-level graphical interactions. It is widly used to write functional tests co
 
 Ledgered is a Python package which goal is to be a collection of small, autonomous utilitaries and libraries.
 
-For now, it only contains a tool (`ledger-manifest`) allowing to check `ledger_app.toml` manifest files (which are a
+For now, it only contains a tool (`ledger-manifest`) allowing to check `ledger_app.toml` <Glossary word="manifest"></Glossary> files (which are a
 [requirement](../integration/requirements/development#manifest) for an application to be deployed).
 
 <Callout emoji="📖">
@@ -118,7 +119,7 @@ In Ledger app development, it is necessary to enter your PIN code each time you 
     and rebuild/load your app.
 
 <Callout type="warning" emoji="⚠️">
-  A Ledger device with a custom CA installed can not pass the Ledger Genuine Check, which is required to install applications from the Ledger Live. To make it pass the check, uninstall your custom CA and all the applications installed through it.
+  A Ledger device with a custom CA installed can not pass the Ledger Genuine Check, which is required to install applications from the <Glossary word="Ledger Live"></Glossary>. To make it pass the check, uninstall your custom CA and all the applications installed through it.
 </Callout>
 
 **Uninstalling a custom CA is very quick:**

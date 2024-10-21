@@ -1,3 +1,4 @@
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from "nextra/components";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
@@ -15,7 +16,7 @@ This is a [C4 diagram](https://c4model.com/) that describes an overview of the e
 </Zoom>
 
 <Callout type="info" emoji="ℹ️">
-  Although the provider's LiveApp is embedded inside Ledger Live, we describe it
+  Although the provider's LiveApp is embedded inside <Glossary word="Ledger Live"></Glossary>, we describe it
   as running in a separate environment because it is sandboxed.
 </Callout>
 
@@ -37,21 +38,21 @@ fromAddressId=AF1A7BD4-6A9A-4491-A540-98B1C7AD2407&
 toAddressId=6EA9F270-91C5-4832-9A44-2713F9A6F6F0
 ```
 
-    The `quoteId` sent is the one coming from a previous request to the `/quote` endpoint of the Provider's backend. This id is linked to the `fromCurrency` and `toCurrency` wanted by the user.
+    The `quoteId` sent is the one coming from a previous request to the `/quote` endpoint of the Provider's <Glossary word="backend"></Glossary>. This id is linked to the `fromCurrency` and `toCurrency` wanted by the user.
 
 2. The provider's LiveApp starts Ledger's swap process through a call to ExchangeSDK method call: `swap`.
 
 3. After asking the user to start the process, Ledger's Swap Service will call the Provider's backend to generate and sign the `payload`. The backend will also returns a `swapId`, for [status tracking purpose](#check-swap-status-flow).
 
-4. The Provider's backend will generate the payload with Ledger's currency id. This part is important as Ledger's device only knows Ledger's referential currency.
+4. The Provider's <Glossary word="backend"></Glossary> will generate the payload with Ledger's currency id. This part is important as Ledger's device only knows Ledger's referential currency.
 
-5. The Provider's backend will sign the payload with its private key. The public part must be previously sent to Ledger and must use secp256k1 curve.
+5. The Provider's <Glossary word="backend"></Glossary> will sign the payload with its private key. The public part must be previously sent to Ledger and must use secp256k1 curve.
 
-6. As soon as the user signs the transaction within his Ledger's device, Ledger Live will broadcast the transaction.
+6. As soon as the user signs the <Glossary word="transaction"></Glossary> within his Ledger's device, <Glossary word="Ledger Live"></Glossary> will broadcast the <Glossary word="transaction"></Glossary>.
 
 7. The `transactionId` is returned in the response of the `swap` method, called by the LiveApp.
 
-8. The LiveApp should call back Ledger Live with a deeplink. Example: `ledgerlive://swap?status=COMPLETED&swapId=123`
+8. The LiveApp should call back <Glossary word="Ledger Live"></Glossary> with a deeplink. Example: `ledgerlive://swap?status=COMPLETED&swapId=123`
 
 ## Display quote information to user
 

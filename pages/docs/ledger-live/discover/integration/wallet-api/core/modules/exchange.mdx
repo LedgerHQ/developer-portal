@@ -1,6 +1,8 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 # Using the Exchange Module in Services Kit Core Client
 
-The Exchange Module facilitates various exchange operations such as starting the exchange process, completing swap, sell, and fund transactions using Ledger Live.
+The Exchange Module facilitates various exchange operations such as starting the exchange process, completing swap, sell, and fund transactions using <Glossary word="Ledger Live"></Glossary>.
 
 ## Exchange Module Overview
 
@@ -10,7 +12,7 @@ Access the Exchange module via `walletApiClient.exchange`.
 
 #### 1. Start Exchange
 
-Start the exchange process by generating a nonce on Ledger device. This method is typically called before completing the exchange process.
+Start the exchange process by generating a <Glossary word="nonce"></Glossary> on Ledger device. This method is typically called before completing the exchange process.
 
 ```javascript
 walletApiClient.exchange.start(exchangeType: 'SWAP' | 'SELL' | 'FUND'): Promise<{ transactionId: string }>
@@ -59,18 +61,18 @@ walletApiClient.exchange.complete(params: {
 
 **Parameters**: An object containing:
 - `provider` (required): A string used to verify the signature.
-- `fromAccountId` (required): Identifier of the account used as a source for the transaction.
-- `rawTransaction` (required): A RawTransaction object containing the transaction details.
+- `fromAccountId` (required): Identifier of the account used as a source for the <Glossary word="transaction"></Glossary>.
+- `rawTransaction` (required): A RawTransaction object containing the <Glossary word="transaction"></Glossary> details.
 - `hexBinaryPayload` (required): Hexadecimal string representing the blueprint of the data that will be allowed for signing.
 - `hexSignature` (required): Hexadecimal string ensuring the source of the payload.
 - `feeStrategy` (required): A string representing the fee strategy (`"SLOW"`, `"MEDIUM"`, or `"FAST"`).
 - `exchangeType` (required): A string specifying the type of exchange operation (`"SWAP"`, `"SELL"`, or `"FUND"`).
 - `toAccountId` (optional): Identifier of the account used as a destination (required for `"SWAP"`).
-- `swapId` (optional): Identifier of the backend swap used (required for `"SWAP"`).
-- `rate` (optional): Swap rate used in the transaction (required for `"SWAP"`).
+- `swapId` (optional): Identifier of the <Glossary word="backend"></Glossary> swap used (required for `"SWAP"`).
+- `rate` (optional): Swap rate used in the <Glossary word="transaction"></Glossary> (required for `"SWAP"`).
 - `tokenCurrency` (optional): Swap tokenCurrency is used when we want point a new token, as id does not exists in wallet-api (optional for `"SWAP"` and `"FUND"`).
 
-**Returns**: A promise that resolves with an object containing the `transactionHash` of the broadcasted transaction.
+**Returns**: A promise that resolves with an object containing the `transactionHash` of the broadcasted <Glossary word="transaction"></Glossary>.
 
 [**Required permission**:](https://developers.ledger.com/docs/ledger-live/discover/guides/wallet-api/appendix/manifest#permissions)
  `exchange.complete`

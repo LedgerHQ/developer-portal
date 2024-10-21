@@ -3,22 +3,23 @@ title: Live Common Bridge Test
 description: This page describes how tests are implemented in order to test live-common bridge.
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from 'nextra/components'
 
 # Live Common Bridge Test
 
 This page describes how tests are implemented in order to test live-common bridge.
 
-- Transaction status
+- <Glossary word="Transaction"></Glossary> status
 - Account synchronisation
 
-The approach is to test transactions and accounts synchronisation for the different currencies supported in Ledger Live. The transactions are not Broadcasted to the blockchain. We just verify that the bridge behave properly regarding to a tx inputs (recipient address, amount, fee…).
+The approach is to test transactions and accounts synchronisation for the different currencies supported in <Glossary word="Ledger Live"></Glossary>. The transactions are not Broadcasted to the <Glossary word="blockchain"></Glossary>. We just verify that the bridge behave properly regarding to a <Glossary word="tx"></Glossary> inputs (recipient address, amount, fee…).
 
 We record the synchronisation state to produce an expected output (Number of accounts, account balance, fresh address…).
 
 For a specific currency, the seed used needs to be frozen, it’s mean that no new operation should be on the accounts used in the dataset as been recorded neither new accounts created.
 
-By doing so we can ensure that the account synchronisation and the transaction status will always provide the same results.
+By doing so we can ensure that the account synchronisation and the <Glossary word="transaction"></Glossary> status will always provide the same results.
 
 <Callout type="warning" emoji="⚠️">
   <b>Prerequisite</b> - Your computer is expected to have been set up accordingly. Please follow the following guides for this purpose:
@@ -48,7 +49,7 @@ Then copy the result in:
 
 ### Send (get transaction status)
 
-Only verify that transaction status is OK, sign and broadcast are out of the scope of those tests.
+Only verify that <Glossary word="transaction"></Glossary> status is OK, sign and broadcast are out of the scope of those tests.
 
 Test cases: [TestRail](https://ledger.testrail.io/index.php?/suites/overview/9)
 
@@ -130,7 +131,7 @@ pnpm common build
 
 **Record new outputs**:
 
-When running the integration tests, new snapshots will be generated that you can commit as expected results for the tests.
+When running the <Glossary word="integration"></Glossary> tests, new snapshots will be generated that you can commit as expected results for the tests.
 
 ```sh copy
 pnpm common ci-test-integration <family>

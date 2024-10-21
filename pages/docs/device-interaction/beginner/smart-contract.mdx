@@ -4,6 +4,7 @@ description: In this section, we will guide you through the creation of an appli
 ---
 
 import { Callout } from 'nextra/components'
+import Glossary from '/components/features/tooltip-glossary'
 import Image from 'next/image'
 
 
@@ -17,11 +18,11 @@ Before starting, make sure you have gone through the [prerequisites](../getting-
 
 ### Receive Ether token in your Ledger Nano Ethereum Sepolia account
 
-- Create an Ethereum Sepolia account in Ledger Live
+- Create an <Glossary word="Ethereum"></Glossary> Sepolia account in Ledger Live
 - Send Sepolia Eth to your account with [Infura faucet](https://www.infura.io/faucet/sepolia). You will need to create an account that  will be useful later for the API key.
 
 ![Sepolia Ethereum Faucet](/device-interaction/tutorial-infura-sepolia-faucet.png)
-*Fig. 1: Sepolia Ethereum Faucet*
+*Fig. 1: Sepolia <Glossary word="Ethereum"></Glossary> Faucet*
 
 ## Web App Bluetooth (only Nano X)
 
@@ -64,7 +65,7 @@ The folder will contain these files:
 ![Folder of the Application](/device-interaction/tutorial-2-folder.png)
 *Fig. 1: Folder of the Application*
 
-To implement the Ledger connexion you will only modify "App.js", "index.js", "ConnectLedger.js”,"SmartContract.js", and ethereum.js”
+To implement the Ledger connexion you will only modify "App.js", "index.js", "ConnectLedger.js”,"SmartContract.js", and <Glossary word="ethereum"></Glossary>.js”
 
 
 ### Code Implementation
@@ -140,7 +141,7 @@ export default ConnectLedger;
 
 #### SmartContract.js
 
-In "SmartContract.js", copy-paste the following code and replace `{YOUR_INFURA_APIKEY}` by the API key you will find on your Infura account:
+In "SmartContract.js", copy-paste the following code and replace `{YOUR_INFURA_APIKEY}` by the <Glossary word="API"></Glossary> key you will find on your Infura account:
 
 ```javascript copy
 import React, { useState } from 'react';
@@ -205,7 +206,7 @@ function SmartContract({eth,address}) {
     signature.from = address;
     console.log(signature);
  
-    //Serialize the same transaction as before, but adding the signature on it
+    //Serialize the same <Glossary word="transaction"></Glossary> as before, but adding the signature on it
     const signedTx = ethers.utils.serializeTransaction(unsignedTx, signature);
     console.log(signedTx);
  
@@ -410,7 +411,7 @@ Now the application is up and running. Open the browser and go to `localhost:300
 Don't click on the button yet.
 
 ### Launch the Ethereum App
-Before clicking on the button, unlock your Nano X and run the Ethereum application.
+Before clicking on the button, unlock your Nano X and run the <Glossary word="Ethereum"></Glossary> application.
 The steps are described below.
 
 <br/>
@@ -438,7 +439,7 @@ The steps are described below.
 </div>
 
 <Callout type="warning" emoji="⚠️">
-  For the tutorial to work, go to the Ethereum app settings and enable Blind Signing.
+  For the tutorial to work, go to the <Glossary word="Ethereum"></Glossary> app settings and enable <Glossary word="Blind Signing"></Glossary>.
 </Callout>
 
 
@@ -473,7 +474,7 @@ For security reasons, the address will also be displayed on your Ledger Nano X t
     <br/>
     <img src="/device-interaction/ledger-tx-amount.jpg" alt="Nano Amount Screen"/>
     <figcaption><i>Fig. 9: Nano Review Screen</i></figcaption>
-    <figcaption><i>Fig. 10: Blind Signing info Screen</i></figcaption>
+    <figcaption><i>Fig. 10: <Glossary word="Blind Signing"></Glossary> info Screen</i></figcaption>
     <figcaption><i>Fig. 11: Nano Amount Screen</i></figcaption>
   </figure>
 </div>
@@ -499,12 +500,12 @@ For security reasons, the address will also be displayed on your Ledger Nano X t
 </div>
 
 <Callout type="warning" emoji="⚠️">
-  For the Smart Contract call you need to allow blind signing because the smart contract that is called in the tutorial is not yet verified and reviewed by Ledger. But if the smart contract you are calling is accepted by Ledger do not enable blind signing. Moreover, we do not recommend enabling blind signing in other situations as the main purpose to sign with Ledger is the 'Sign what you see' system. And by enabling blind signing it can not ensure that what you see is what you get.
+  For the Smart Contract call you need to allow <Glossary word="blind signing"></Glossary> because the smart contract that is called in the tutorial is not yet verified and reviewed by Ledger. But if the smart contract you are calling is accepted by Ledger do not enable <Glossary word="blind signing"></Glossary>. Moreover, we do not recommend enabling <Glossary word="blind signing"></Glossary> in other situations as the main purpose to sign with Ledger is the 'Sign what you see' system. And by enabling <Glossary word="blind signing"></Glossary> it can not ensure that what you see is what you get.
 </Callout>
 
 
 ### Review the Transaction on Sepolia Etherscan
-By updating the data a transaction is created to change this data, it can be verified on Sepolia Etherscan.
+By updating the data a <Glossary word="transaction"></Glossary> is created to change this data, it can be verified on Sepolia Etherscan.
 
 ![Sepolia Etherscan](/device-interaction/tutorial-2-etherscan1.png)    
 *Fig. 15: Sepolia Etherscan*

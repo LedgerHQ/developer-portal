@@ -1,7 +1,9 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 ## overview
 
 The Account handlers allows the server to interact with the user's accounts.  
-It can list accounts, request an account, and verify account addresses on a Ledger device through Ledger Live.
+It can list accounts, request an account, and verify account addresses on a Ledger device through <Glossary word="Ledger Live"></Glossary>.
 
 ## request handlers:
 
@@ -38,7 +40,7 @@ It can list accounts, request an account, and verify account addresses on a Ledg
 | ------------------ | ------------------------------------------------------------------------------------------ |
 | _account.receive_  | Allows the user to verify an account's address on their Ledger device through Ledger Live. |
 
-Allows the user to verify an account's address on their Ledger device through Ledger Live.
+Allows the user to verify an account's address on their Ledger device through <Glossary word="Ledger Live"></Glossary>.
 
 - Let's the user verify an account with _account.receive_ walletHandler
 - **Returns**: A promise that resolves with the verified address as a string.

@@ -1,3 +1,5 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 # Using the Message Module in Services Kit Core Client
 
 The Message Module enables users to sign messages using Ledger Live. In the Ethereum context, the messages can be [EIP-191](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-191.md) or [EIP-712](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md) messages.
@@ -17,7 +19,7 @@ walletApiClient.message.sign(accountId: string, message: Buffer, meta?: Record<s
 ```
 
 **Parameters**:
-- `accountId` (required): A string representing the Ledger Live ID of the account that should be used to sign the message.
+- `accountId` (required): A string representing the <Glossary word="Ledger Live"></Glossary> ID of the account that should be used to sign the message.
 - `message` (required): A Buffer containing the message that should be signed.
 - `meta` (optional): An object with additional data associated with the message.
 

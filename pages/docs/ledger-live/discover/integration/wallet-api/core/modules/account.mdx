@@ -1,6 +1,8 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 # Using the Account Module in Services Kit Core Client
 
-The Account Module allows you to interact with the user's accounts. You can list accounts, request an account, and verify account addresses on a Ledger device through Ledger Live.
+The Account Module allows you to interact with the user's accounts. You can list accounts, request an account, and verify account addresses on a Ledger device through <Glossary word="Ledger Live"></Glossary>.
 
 ## Account Module Overview
 
@@ -72,7 +74,7 @@ async function requestAccount(walletApiClient) {
 
 #### 3. Verify Account Address
 
-Allows the user to verify an account's address on their Ledger device through Ledger Live.
+Allows the user to verify an account's address on their Ledger device through <Glossary word="Ledger Live"></Glossary>.
 
 ```javascript
 walletApiClient.account.receive(accountId: string): Promise<string>

@@ -1,3 +1,5 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 # Using the `useAccounts` Hook
 
 In this section, we will be looking at how to use the `useAccounts` hook to retrieve a list of available crypto asset accounts. This method is essential when you need to query information on user's account.
@@ -102,19 +104,19 @@ Here is an example of a partial response from the `useAccounts` hook:
 
 Each object in the array represents an account and contains the following properties:
 
-- `id` (string): The unique identifier of this account used internally by Ledger Live software
+- `id` (string): The unique identifier of this account used internally by <Glossary word="Ledger Live"></Glossary> software
 
 - `name` (string): The account’s name set by the user.
 
 - `address` (string): The "next" public address where a user should receive funds. In the context of Bitcoin, the address is "renewed" each time funds are received in order to allow some privacy. In other blockchains, the address might never change
 
-- `currency` (string): The associated cryptocurrency id of the Account
+- `currency` (string): The associated <Glossary word="cryptocurrency"></Glossary> id of the Account
 
 - `balance` (BigNumber): The total amount of assets that this account holds
 
 - `spendableBalance` (BigNumber): The amount of the balance that can be spent. Most of the time it will be equal to the balance, but this can vary in some blockchains
 
-- `blockHeight` (number): Tracks the current blockchain block height
+- `blockHeight` (number): Tracks the current <Glossary word="blockchain"></Glossary> block height
 
 - `lastSyncData` (Date): The date of the last time a synchronization was performed. In other words, tracks how up-to-date the Account data is
 

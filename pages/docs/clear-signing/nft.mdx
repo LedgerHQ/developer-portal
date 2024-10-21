@@ -5,11 +5,11 @@ description: For the clear signing to be possible with your App when buying or s
 
 # Clear Signing for ERC-721, ERC-1155 and ERC-20
 
-For every transaction, the users must be able to verify on the device the amount being transferred and the destination address or the validator/nominator address(es) in the case of a staking operation.
+For every <Glossary word="transaction"></Glossary>, the users must be able to verify on the device the amount being transferred and the destination address or the validator/nominator address(es) in the case of a staking operation.
 
-When the display of those parameters (Token, smart contract management) is not possible, the transaction should be rejected by the device unless the user has acknowledged that they will be blind signing.
+When the display of those parameters (Token, smart contract management) is not possible, the <Glossary word="transaction"></Glossary> should be rejected by the device unless the user has acknowledged that they will be <Glossary word="blind signing"></Glossary>.
 
-For the clear signing to be possible with your App when buying or selling NFTs, you will need to instantiate the const `resolution` with `nft` set to `true` and then pass it when requesting the signature.
+For the <Glossary word="clear signing"></Glossary> to be possible with your App when buying or selling NFTs, you will need to instantiate the const `resolution` with `nft` set to `true` and then pass it when requesting the signature.
 
 Here is an example with a ERC-20 transaction:
 
@@ -29,7 +29,7 @@ const ethersTx: ethers.Transaction = {
   type: 0,
 };
 
-// Get the serialized transaction as an hex string
+// Get the serialized <Glossary word="transaction"></Glossary> as an hex string
 const serializedTxHexString = ethers.utils
   .serializeTransaction(ethersTx)
   .slice(2); // Remove 0x prefix

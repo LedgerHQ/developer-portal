@@ -1,3 +1,4 @@
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from 'nextra/components'
 
 # Testing the transaction broadcast with the bot
@@ -7,7 +8,7 @@ Transaction broadcast is an exception, it is tested differently, by a tool that 
 ## Requirements
 
 - Docker
-- An elf of the embedded app for Nano S (create a empty folder with like : `<device>/<firmware version>/<appName>` example `nanos/1.6.1/mycoin`. The build of your embedded app must have the following format: `app_VERSION.elf`, for example `app_1.2.3.elf`)
+- An elf of the <Glossary word="embedded app"></Glossary> for Nano S (create a empty folder with like : `<device>/<firmware version>/<appName>` example `nanos/1.6.1/mycoin`. The build of your <Glossary word="embedded app"></Glossary> must have the following format: `app_VERSION.elf`, for example `app_1.2.3.elf`)
 - Some currencies of the coin
 
 <Callout type="warning" emoji="⚠️">
@@ -56,15 +57,15 @@ The bot will then move to the next account and execute the same actions, until i
 
 Then it will execute all the `updates` of the `Transaction` object.
 
-The bot will try to sign the transaction using instructions that you provided in `speculos-deviceActions.ts`
+The bot will try to sign the <Glossary word="transaction"></Glossary> using instructions that you provided in `speculos-deviceActions.ts`
 
-Eventually it will broadcast the transaction in the blockchain and wait for the `sync` to find the operation and its optimisic version.
+Eventually it will broadcast the <Glossary word="transaction"></Glossary> in the <Glossary word="blockchain"></Glossary> and wait for the `sync` to find the operation and its optimisic version.
 
 ## How to define a test
 
 ### speculos-deviceActions.ts
 
-It is required to know every screen that your device app contains, it will use the `title` of the screen then optionally check if the `expectedValue` of that screen is what it expects, then eventually execute the `button` action.
+It is required to know every screen that your <Glossary word="device app"></Glossary> contains, it will use the `title` of the screen then optionally check if the `expectedValue` of that screen is what it expects, then eventually execute the `button` action.
 
 
 ```ts copy
@@ -77,7 +78,7 @@ You can use the following example to help you start to write how the bot will re
 
 ```ts copy
 import type { DeviceAction } from "../../bot/types";
-import type { Transaction } from "./types";
+import type { <Glossary word="Transaction"></Glossary> } from "./types";
 import { formatCurrencyUnit } from "../../currencies";
 import { deviceActionFlow } from "../../bot/specs";
 
@@ -109,7 +110,7 @@ const acceptTransaction: DeviceAction<Transaction, *> = deviceActionFlow({
     {
       title: "Destination",
       button: "Rr",
-      expectedValue: ({ transaction }) => transaction.recipient,
+      expectedValue: ({ <Glossary word="transaction"></Glossary> }) => <Glossary word="transaction"></Glossary>.recipient,
     },
     {
       title: "Accept",
@@ -134,7 +135,7 @@ You can find the full list of available parameters [here](https://github.com/Led
 - `name`: description of the mutation (will be included in the report)
 - `maxRun`: max number of executions of the spec itself
 - `transaction`: code to be executed for the spec
-- `test` : checks / expectations after the transaction execution
+- `test` : checks / expectations after the <Glossary word="transaction"></Glossary> execution
 
 #### Standard send/receive
 
@@ -142,7 +143,7 @@ You can find the full list of available parameters [here](https://github.com/Led
 import expect from "expect";
 import invariant from "invariant";
 import type { AppSpec } from "../../bot/types";
-import type { Transaction } from "./types";
+import type { <Glossary word="Transaction"></Glossary> } from "./types";
 import type { Account } from "../../types";
 import { pickSiblings, botTest } from "../../bot/specs";
 import { isAccountEmpty } from "../../account";
@@ -205,7 +206,7 @@ const mycoin: AppSpec<Transaction> = {
         invariant(subAccount && subAccount.type === "TokenAccount", "no subAccount with ASA");
         const assetId = subAccount.token.id;
         const sibling = pickSiblingsOptedIn(siblings, assetId);
-        const transaction = bridge.createTransaction(account);
+        const <Glossary word="transaction"></Glossary> = bridge.createTransaction(account);
         const recipient = (sibling as Account).freshAddress;
         const mode = "send";
         const amount = subAccount.balance.div(1.9 + 0.2 * Math.random()).integerValue();
@@ -222,17 +223,17 @@ const mycoin: AppSpec<Transaction> = {
           },
         ];
         return {
-          transaction,
+          <Glossary word="transaction"></Glossary>,
           updates,
         };
       },
-      test: ({ account, accountBeforeTransaction, transaction, status }) => {
-        const subAccountId = transaction.subAccountId;
+      test: ({ account, accountBeforeTransaction, <Glossary word="transaction"></Glossary>, status }) => {
+        const subAccountId = <Glossary word="transaction"></Glossary>.subAccountId;
         const subAccount = account.subAccounts?.find(sa => sa.id === subAccountId);
         const subAccountBeforeTransaction = accountBeforeTransaction.subAccounts?.find(
           sa => sa.id === subAccountId,
         );
-        botTest("subAccount balance moved with the tx status amount", () =>
+        botTest("subAccount balance moved with the <Glossary word="tx"></Glossary> status amount", () =>
           expect(subAccount?.balance.toString()).toBe(
             subAccountBeforeTransaction?.balance.minus(status.amount).toString(),
           ),
@@ -300,10 +301,10 @@ export default { mycoin };
           ],
         };
       },
-      test: ({ account, transaction }) => {
+      test: ({ account, <Glossary word="transaction"></Glossary> }) => {
         const { cosmosResources } = account as CosmosAccount;
         invariant(cosmosResources, "cosmos");
-        transaction.validators.forEach(v => {
+        <Glossary word="transaction"></Glossary>.validators.forEach(v => {
           const d = (cosmosResources as CosmosResources).delegations.find(
             d => d.validatorAddress === v.address,
           );
@@ -364,10 +365,10 @@ export default { mycoin };
           ],
         };
       },
-      test: ({ account, transaction }) => {
+      test: ({ account, <Glossary word="transaction"></Glossary> }) => {
         const { cosmosResources } = account as CosmosAccount;
         invariant(cosmosResources, "cosmos");
-        transaction.validators.forEach(v => {
+        <Glossary word="transaction"></Glossary>.validators.forEach(v => {
           const d = (cosmosResources as CosmosResources).unbondings.find(
             d => d.validatorAddress === v.address,
           );
@@ -408,10 +409,10 @@ export default { mycoin };
           ],
         };
       },
-      test: ({ account, transaction }) => {
+      test: ({ account, <Glossary word="transaction"></Glossary> }) => {
         const { cosmosResources } = account as CosmosAccount;
         invariant(cosmosResources, "cosmos");
-        transaction.validators.forEach(v => {
+        <Glossary word="transaction"></Glossary>.validators.forEach(v => {
           const d = (cosmosResources as CosmosResources).delegations.find(
             d => d.validatorAddress === v.address,
           );
@@ -456,20 +457,20 @@ export default { mycoin };
       ],
     };
   },
-  test: ({ accountBeforeTransaction, account, transaction }): void => {
+  test: ({ accountBeforeTransaction, account, <Glossary word="transaction"></Glossary> }): void => {
     invariant(accountBeforeTransaction.subAccounts, "sub accounts before");
     const erc20accountBefore = accountBeforeTransaction.subAccounts?.find(
-      s => s.id === transaction.subAccountId,
+      s => s.id === <Glossary word="transaction"></Glossary>.subAccountId,
     );
     invariant(erc20accountBefore, "erc20 acc was here before");
     invariant(account.subAccounts, "sub accounts");
-    const erc20account = account.subAccounts!.find(s => s.id === transaction.subAccountId);
+    const erc20account = account.subAccounts!.find(s => s.id === <Glossary word="transaction"></Glossary>.subAccountId);
     invariant(erc20account, "erc20 acc is still here");
 
     if (transaction.useAllAmount) {
       botTest("erc20 account is empty", () => expect(erc20account!.balance.toString()).toBe("0"));
     } else {
-      botTest("account balance moved with tx amount", () =>
+      botTest("account balance moved with <Glossary word="tx"></Glossary> amount", () =>
         expect(erc20account!.balance.toString()).toBe(
           erc20accountBefore!.balance.minus(transaction.amount).toString(),
         ),
@@ -515,7 +516,7 @@ necessary accounts resynced in 0.18ms
 max spendable ~0.616356
 ★ using mutation 'Transfer Max'
 → TO Filecoin 7 [bip44]: 0 FIL (6ops) (f1bw4zwsefo5rwk3t536tq6wlgdhivrt5ucmdttji on 44'/461'/6'/0/0) filecoinBIP44#6 js:2:filecoin:f1bw4zwsefo5rwk3t536tq6wlgdhivrt5ucmdttji:filecoinBIP44
-✔️ transaction 
+✔️ <Glossary word="transaction"></Glossary> 
 SEND MAX
 TO f1bw4zwsefo5rwk3t536tq6wlgdhivrt5ucmdttji
 STATUS (1435ms)
@@ -547,7 +548,7 @@ necessary accounts resynced in 0.24ms
 max spendable ~0.03276
 ★ using mutation 'send max'
 → TO Cosmos 4: 0.02964 ATOM (0ops) (cosmos17s09a0jyp24hl7w3vcn8padz6efwmrpjwy3uf4 on 44'/118'/3'/0/0) #3 js:2:cosmos:cosmos17s09a0jyp24hl7w3vcn8padz6efwmrpjwy3uf4:
-✔️ transaction 
+✔️ <Glossary word="transaction"></Glossary> 
 SEND MAX
 TO cosmos17s09a0jyp24hl7w3vcn8padz6efwmrpjwy3uf4
 
@@ -566,7 +567,7 @@ Error: could not find optimisticOperation js:2:cosmos:cosmos1k2d965a5clx7327n9zx
 (totally spent 2min 9s – ends at 2024-04-04T05:55:53.870Z)
 ```
 
--> Backend issue
+-> <Glossary word="Backend"></Glossary> issue
 
 ```
 necessary accounts resynced in 0.24ms
@@ -576,7 +577,7 @@ necessary accounts resynced in 0.24ms
 max spendable ~0.03276
 ★ using mutation 'send max'
 → TO Cosmos 4: 0.02964 ATOM (0ops) (cosmos17s09a0jyp24hl7w3vcn8padz6efwmrpjwy3uf4 on 44'/118'/3'/0/0) #3 js:2:cosmos:cosmos17s09a0jyp24hl7w3vcn8padz6efwmrpjwy3uf4:
-✔️ transaction 
+✔️ <Glossary word="transaction"></Glossary> 
 SEND MAX
 TO cosmos17s09a0jyp24hl7w3vcn8padz6efwmrpjwy3uf4
 
@@ -595,7 +596,7 @@ Error: could not find optimisticOperation js:2:cosmos:cosmos1k2d965a5clx7327n9zx
 (totally spent 2min 9s – ends at 2024-04-04T05:55:53.870Z)
 ```
 
--> Backend issue
+-> <Glossary word="Backend"></Glossary> issue
 
 ```
 necessary accounts resynced in 0.16ms
@@ -605,7 +606,7 @@ necessary accounts resynced in 0.16ms
 max spendable ~0.022518
 ★ using mutation 'send some'
 → TO Osmosis 3: 0 OSMO (0ops) (osmo1vvzwc6l3wfdaqa9rncex8k2uwtpwztswsm7kkv on 44'/118'/2'/0/0) #2 js:2:osmo:osmo1vvzwc6l3wfdaqa9rncex8k2uwtpwztswsm7kkv:
-✔️ transaction 
+✔️ <Glossary word="transaction"></Glossary> 
 SEND  0.007005 OSMO
 TO osmo1vvzwc6l3wfdaqa9rncex8k2uwtpwztswsm7kkv
 
@@ -619,12 +620,12 @@ errors:
 errors: 
 ✔️ has been signed! (13.6s) {"operation":{"id":"js:2:osmo:osmo1n6vccpa77x7xyhnk98jy6gg3rmgjkazxuyk2ng:--OUT","hash":"","type":"OUT","senders":["osmo1n6vccpa77x7xyhnk98jy6gg3rmgjkazxuyk2ng"],"recipients":["osmo1vvzwc6l3wfdaqa9rncex8k2uwtpwztswsm7kkv"],"accountId":"js:2:osmo:osmo1n6vccpa77x7xyhnk98jy6gg3rmgjkazxuyk2ng:","blockHash":null,"blockHeight":null,"extra":{},"date":"2024-04-03T11:28:05.878Z","value":"9011","fee":"2006","transactionSequenceNumber":41},"signature":"0a9b010a89010a1c2f636f736d6f732e62616e6b2e763162657461312e4d736753656e6412690a2b6f736d6f316e367663637061373778377879686e6b39386a7936676733726d676a6b617a7875796b326e67122b6f736d6f3176767a7763366c3377666461716139726e636578386b3275777470777a747377736d376b6b761a0d0a05756f736d6f120437303035120d4c65646765724c697665426f7412670a500a460a1f2f636f736d6f732e63727970746f2e736563703235366b312e5075624b657912230a210311e0d6cbe3a70b35428e38731b044d68614832fc25e293894cf3e26459312a7012040a02087f182912130a0d0a05756f736d6f12043230303610daf2041a40161aa02d9a42a76549f266102998c6135c76923360ea2a92b8119d36bc067d276a0d6682390d1d8716f86410a0eb94f4bb612ece9f36d89d66cdcff87bd63f02"}
 ⚠️ TEST during broadcast
-LedgerAPI5xx: API HTTP 504
+LedgerAPI5xx: <Glossary word="API"></Glossary> HTTP 504
 (totally spent 98s – ends at 2024-04-03T11:32:38.725Z)
 ``` 
 
 ### How to update required screens
 
-Open `libs/coin-modules/coin-bitcoin/src/speculos-deviceActions.ts` and update screens according to what you see on the device app, if `expectedValue` does not make sense anymore just delete it.
+Open `libs/coin-modules/coin-bitcoin/src/speculos-deviceActions.ts` and update screens according to what you see on the <Glossary word="device app"></Glossary>, if `expectedValue` does not make sense anymore just delete it.
 
-You can do a test run to see what screens fail (but the best way is to directly compare with real device app screens).
+You can do a test run to see what screens fail (but the best way is to directly compare with real <Glossary word="device app"></Glossary> screens).

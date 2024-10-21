@@ -4,6 +4,8 @@ description: In this article, we'll discuss some of the features that are built 
 ---
 
 import { Callout } from 'nextra/components'
+import Glossary from '/components/features/tooltip-glossary'
+
 
 # Ledger OS Features
 
@@ -23,7 +25,7 @@ Both of these secrets are stored by Ledger OS and are not directly accessible to
 
 Since firmware version 1.3 on the Ledger Nano S, Ledger OS allows users to load multiple [BIP 39 passphrases](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki/#from-mnemonic-to-seed) onto the device at once. As described in [the previous chapter](../psd/introduction), passphrases are a method to add additional entropy to the BIP 39 master seed in order to completely change the [HD tree](../psd/keys/). Users can set a temporary passphrase which is activated until the device is disconnected, or store a passphrase on the device by attaching it to a PIN. When a passphrase is attached to a PIN, it is only activated when the user unlocks the device using the PIN corresponding to that passphrase. See our [Help Center article on the advanced passphrase options](https://support.ledger.com/hc/en-us/articles/115005214529-Advanced-passphrase-security) for more information about using passphrases.
 
-When a passphrase is activated, the binary seed derived according to BIP 39 is changed and consequently the entire HD tree is changed. This means that using a different passphrase causes applications that derive information from the HD tree (like cryptocurrency wallet applications) to derive entirely different information (different cryptocurrency addresses will be generated).
+When a passphrase is activated, the binary seed derived according to <Glossary word="BIP 39"></Glossary> is changed and consequently the entire HD tree is changed. This means that using a different passphrase causes applications that derive information from the HD tree (like <Glossary word="cryptocurrency"></Glossary> wallet applications) to derive entirely different information (different <Glossary word="cryptocurrency"></Glossary> addresses will be generated).
 
 ## Attestation
 
@@ -33,13 +35,13 @@ Attestation is a process used by Ledger devices to prove that they are genuine L
 
 ![](/device-app/wallet_not_genuine.png)
 
-Ledger devices are protected from interdiction attacks (being tampered with while en route from Ledger's warehouses to your home) due to anti-tampering technology built into the firmware. Using attestation, the authenticity of the device is verified in software every time you plug it into one of the Ledger Live applications.
+Ledger devices are protected from interdiction attacks (being tampered with while en route from Ledger's warehouses to your home) due to anti-tampering technology built into the <Glossary word="firmware"></Glossary>. Using attestation, the authenticity of the device is verified in software every time you plug it into one of the <Glossary word="Ledger Live"></Glossary> applications.
 
 When all Ledger devices are provisioned in the factory, they first generate a unique `Device` public-private keypair. The Device's public key is then signed by Ledger's `Issuer` key to create an Issuer Certificate which is stored in the device. This certificate is a digital seal of authenticity of the Ledger device. By providing the Device's public key and Issuer Certificate, the device can prove that it is a genuine Ledger device.
 
 When the Ledger device connects to one of the Ledger Live applications, the device uses the Issuer Certificate to prove that it is an authentic device (this takes place during establishment of the [Secure Channel](#secure-channel), as we'll discuss later in this section). If an attacker created a clone of the device running rogue firmware, this attestation process would fail and the device would be rejected as non-genuine. It is impossible for an attacker to replace the firmware on the device and have it pass attestation without having a Device private key and the corresponding Issuer Certificate, signed by Ledger.
 
-It is extremely unlikely for the Device private key to become compromised, because the Secure Element is designed to be a stronghold against such physical attacks. It is theoretically possible to extract the private key, but only with great expense and time, so only an organization such as the NSA could do it.
+It is extremely unlikely for the Device private key to become compromised, because the <Glossary word="Secure Element"></Glossary> is designed to be a stronghold against such physical attacks. It is theoretically possible to extract the private key, but only with great expense and time, so only an organization such as the NSA could do it.
 
 <Callout type="info" emoji="ℹ️">
   For more information about the benefits of Ledger's use of a Secure Element for verifying device authenticity, see our blog post <a href='https://www.ledger.com/how-to-protect-hardware-wallets-against-tampering/' className='alert-link'> How to protect hardware wallets against tampering </a> (though keep in mind that not all of the information in this article applies to Ledger's latest products).
@@ -82,7 +84,7 @@ As discussed in `anti-tampering`, the authenticity of a Ledger device can be ver
 
 The Secure Channel protocol is built on top of the APDU (Application Protocol Data Unit) protocol used to communicate with the device over USB. As such, the protocol consists of a series of Command APDUs being sent from the host computer, and then associated Response APDUs being sent back from the device, with a one-to-one correspondence. The Secure Channel exists between two parties: the Signer and the Device. The Signer is the remote host connecting to the device. This may be the Issuer (Ledger) connecting to the device through our APIs, a [Custom Certificate Authority](#custom-ca) connecting to the device using a previously [enrolled Custom CA public key](#custom-ca-public-key-enrollment), or another end-user using a randomly generated keypair.
 
-When establishing the Secure Channel, both parties (the Signer and the Device) generate an ephemeral keypair which is later used to calculate a shared secret using ECDH for encrypted communications between the two parties. Both parties prove that they trust their respective ephemeral public keys by each providing a certificate chain. These certificate chains incorporate both a Signer nonce and a Device nonce to avoid reuse of the certificates by an eavesdropper. If the root certificate in the certificate chain provided by the Signer is signed by a party that is trusted by the device, then the device grants the remote host special permissions after establishing the Secure Channel. For example, if the root certificate in the Signer's certificate chain is signed by a previously enrolled Custom CA keypair or Ledger's Issuer keypair, then the host can add or remove apps from the device without the user's confirmation.
+When establishing the Secure Channel, both parties (the Signer and the Device) generate an ephemeral keypair which is later used to calculate a shared secret using ECDH for encrypted communications between the two parties. Both parties prove that they trust their respective ephemeral public keys by each providing a certificate chain. These certificate chains incorporate both a Signer <Glossary word="nonce"></Glossary> and a Device <Glossary word="nonce"></Glossary> to avoid reuse of the certificates by an eavesdropper. If the root certificate in the certificate chain provided by the Signer is signed by a party that is trusted by the device, then the device grants the remote host special permissions after establishing the Secure Channel. For example, if the root certificate in the Signer's certificate chain is signed by a previously enrolled Custom CA keypair or Ledger's Issuer keypair, then the host can add or remove apps from the device without the user's confirmation.
 
 The process of establishing a Secure Channel is illustrated in the following diagram.
 

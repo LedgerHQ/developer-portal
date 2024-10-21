@@ -4,13 +4,15 @@ description: Ledger OS applications have access to two different types of memory
 ---
 
 import { Callout } from 'nextra/components'
+import Glossary from '/components/features/tooltip-glossary'
+
 
 # Persistent Storage
 
 
 ## Introduction
 
-Ledger OS applications have access to two different types of memory in the Secure Element (SE):
+Ledger OS applications have access to two different types of memory in the <Glossary word="Secure Element"></Glossary> (SE):
 - A small amount of RAM for the call stack and certain global variables
 - A considerably larger amount of flash memory for persistent storage
 
@@ -23,7 +25,7 @@ It is up to the developer to decide which parts of the code must be stored in RA
 - All global variables that are declared as `const` are stored in read-only flash memory, right next to code. In most Ledger device apps for example, general settings are stored in flash memory.
 - All normal global variables that are declared as non-`const` are stored in RAM. 
 	
-	However, thanks to the link script (`script.ld`) in the SDK, global variables that are declared as non-`const` and are given the prefix `N_` are placed in a special write-permitted location of NVRAM. This data can be read in the same way that regular global variables are read. However, writing to NVRAM variables must be done using the `nvm_write(...)` function defined by the SDK, which performs a syscall. When loading the app, NVRAM variables are initialized with data specified in the app's hex file (this is usually just zero bytes).
+	However, thanks to the link script (`script.ld`) in the <Glossary word="SDK"></Glossary>, global variables that are declared as non-`const` and are given the prefix `N_` are placed in a special write-permitted location of NVRAM. This data can be read in the same way that regular global variables are read. However, writing to NVRAM variables must be done using the `nvm_write(...)` function defined by the <Glossary word="SDK"></Glossary>, which performs a syscall. When loading the app, NVRAM variables are initialized with data specified in the app's hex file (this is usually just zero bytes).
 
 <Callout type="warning" emoji="⚠️">
   Initializers of global non-<code>const</code> variables (including NVRAM variables) are ignored. As such, this data must be initialized by application code.

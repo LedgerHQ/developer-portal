@@ -3,6 +3,8 @@ title: Introduction to Ledger OS
 description: These pages contain detailed documentation about the core features offered by Ledger OS, and how they can be utilized by Ledger OS applications and end-users.
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
+
 # Introduction
 
 These pages contain detailed documentation about the core features offered by Ledger OS, and how they can be utilized by Ledger OS applications and end-users. We'll discuss how Ledger OS manages the master device seed and the device private key, and how it can be used for attestation purposes. We'll also describe the hardware architecture that is common between all Ledger OS devices.
@@ -22,4 +24,4 @@ Ledger OS is organized into the following modules:
 
 ### The Dashboard
 
-All Ledger OS devices have a special app installed that runs on the OS with certain special privileges called the Dashboard application or the PSD Content Manager. The dashboard app contains the main GUI that the user sees when they aren't in any other app. This is what the users use to enter their master seed, and it is what they use to launch other applications. The dashboard application is also what the host computer communicates with when loading or deleting apps off of the device.
+All Ledger OS devices have a special app installed that runs on the OS with certain special privileges called the Dashboard application or the PSD Content Manager. The dashboard app contains the main GUI that the user sees when they aren't in any other app. This is what the users use to enter their <Glossary word="master seed"></Glossary>, and it is what they use to launch other applications. The dashboard application is also what the host computer communicates with when loading or deleting apps off of the device.

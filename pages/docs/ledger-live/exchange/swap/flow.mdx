@@ -1,3 +1,4 @@
+import Glossary from '/components/features/tooltip-glossary'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { Cards } from 'nextra/components'
@@ -6,13 +7,13 @@ import Image from 'next/image'
 
 # Swap : CEX integrated as a LiveApp 
 
-Our goal is to offer the best swap experience for our users in Ledger Live, by providing competitive quotes and security.
+Our goal is to offer the best swap experience for our users in <Glossary word="Ledger Live"></Glossary>, by providing competitive quotes and security.
 
 To offer our centralize exchange partners the best time-to-market and and our users the best swap experience, we have built an hybrid solution:
-- Native swap marketplace: An aggregator on Ledger Live listing our partners depending on the region, token coverage and prices.
-- Partner Web app: A LiveApp experience (embedded web app) where users interact with the partner web app in Ledger Live, once they want to finalize the swap. The transaction is performed with ExchangeSDK.
+- Native swap marketplace: An aggregator on <Glossary word="Ledger Live"></Glossary> listing our partners depending on the region, token coverage and prices.
+- Partner Web app: A LiveApp experience (embedded web app) where users interact with the partner web app in <Glossary word="Ledger Live"></Glossary>, once they want to finalize the swap. The <Glossary word="transaction"></Glossary> is performed with ExchangeSDK.
 
-This section of the documentation explains how the swap feature is displayed to the user in Ledger Live and how your web app is integrated into this hybrid solution.
+This section of the documentation explains how the swap feature is displayed to the user in <Glossary word="Ledger Live"></Glossary> and how your web app is integrated into this hybrid solution.
 
 ## Full transaction flow
 

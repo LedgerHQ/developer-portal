@@ -1,3 +1,5 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 # Application Isolation
 
 So how do I know that the apps I'm running on my Ledger devices are doing what I intend them to do? What protects me from getting a virus on my Ledger devices?
@@ -12,15 +14,15 @@ Ledger solves these problems by utilizing the application isolation technology a
 
 Since Ledger OS was designed based on a single-task model where only one app runs at any given time, an application is independently responsible for a lot of the things a typical OS would do. These things include managing hardware like the device screen, buttons, timer, etc. as well as handling all I/O with peripherals. However, there are many instances where a Ledger OS application has to request the operating system to perform a certain operation. This is done using a syscall.
 
-When an application performs a syscall, the Secure Element switches to Supervisor mode and the OS performs the requested task before giving control back to the application, in User mode. All syscalls have a wrapper function in the SDK that can be used to invoke them. A syscall may be used to access hardware accelerated cryptographic primitives (most of these functions are defined in `include/cx.h` in the SDKs), to perform low-level I/O operations (like receiving / transmitting to the MCU), or to access cryptographic secrets managed by Ledger OS (for example, to derive a node from the BIP 32 master node).
+When an application performs a syscall, the <Glossary word="Secure Element"></Glossary> switches to Supervisor mode and the OS performs the requested task before giving control back to the application, in User mode. All syscalls have a wrapper function in the <Glossary word="SDK"></Glossary> that can be used to invoke them. A syscall may be used to access hardware accelerated cryptographic primitives (most of these functions are defined in `include/cx.h` in the SDKs), to perform low-level I/O operations (like receiving / transmitting to the MCU), or to access cryptographic secrets managed by Ledger OS (for example, to derive a node from the BIP 32 master node).
 
 
 ## Accessing secrets
 
 The access that applications have to cryptographic secrets managed by the operating system can be configured when
 loading an application onto the device (this is actually [a required metadata for an application to be deployed](../../integration/requirements/security#derivation-path)).
-Instead of accessing secrets like the device's master seed directly, applications instead have to use syscalls, i.e to
-request the operating system to derive a node from the master seed by providing the operating system with a path to the
+Instead of accessing secrets like the device's <Glossary word="master seed"></Glossary> directly, applications instead have to use syscalls, i.e to
+request the operating system to derive a node from the <Glossary word="master seed"></Glossary> by providing the operating system with a path to the
 requested node. When the application is loaded, the BIP 32 paths that the application is permitted to derive nodes from
 are specified. If the application requests the operating system to derive a node on a path that it is not permitted to
 use, the request is denied.

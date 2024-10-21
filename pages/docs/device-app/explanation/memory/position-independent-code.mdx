@@ -3,11 +3,14 @@ title: Position-Independent Code
 description: PIC stands for Position-Independent Code. The Ledger OS toolchain produces PIC to allow the code Link address to be different from the code Execution address.
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
+
+
 # Position-Independent Code
 
 ## PIC and Model Implications
 
-PIC stands for Position-Independent Code. The Ledger OS toolchain produces PIC to allow the code **Link address** to be different from the code **Execution address**. For example, the `main` function is linked in the generated application at address `0xC0D00000`. However, the slot used when loaded into the Secure Element could be `0x10E40400`. Therefore, if the code makes a reference to `0xC0D00000`, even with an offset, it would be denied access as the application is locked by the Memory Protection Unit (not to mention, this is not the correct address of the `main` function at runtime).
+PIC stands for Position-Independent Code. The Ledger OS toolchain produces PIC to allow the code **Link address** to be different from the code **Execution address**. For example, the `main` function is linked in the generated application at address `0xC0D00000`. However, the slot used when loaded into the <Glossary word="Secure Element"></Glossary> could be `0x10E40400`. Therefore, if the code makes a reference to `0xC0D00000`, even with an offset, it would be denied access as the application is locked by the Memory Protection Unit (not to mention, this is not the correct address of the `main` function at runtime).
 
 The PIC assembly generator makes sure every dereference is relative to the Program Counter, and never to an arbitrary address resolved during the link stage. This behaviour is supported by clang versions 4.0.0 and later.
 

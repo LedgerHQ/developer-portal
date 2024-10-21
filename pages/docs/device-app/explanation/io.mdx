@@ -3,6 +3,9 @@ title: Application Structure and I/O
 description: Many of the existing Ledger OS applications are based on a smartcard architecture. This is because Ledger OS applications are not meant to run standalone, but rather assist a host process. Therefore the device is commonly addressed using a command / response scheme.
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
+
+
 # Application Structure and I/O
 
 ## Introduction
@@ -15,7 +18,7 @@ However, the Event / Commands / Status model is designed to avoid limitations on
 
 The command / response scheme used to address the device is similar to the [ISO/IEC 7816-4](https://en.wikipedia.org/wiki/Smart_card_application_protocol_data_unit) smartcard protocol. Each command / response packet is called an APDU (application protocol data unit). The application is driven by a never-ending APDU interpretation loop called straight from the application main function.
 
-Each cycle of the APDU interpretation loop calls `io_exchange(...)` from the SDK, which first sends a response APDU (unless it's the first call, in which case it sends nothing), and then receives the next APDU command.
+Each cycle of the APDU interpretation loop calls `io_exchange(...)` from the <Glossary word="SDK"></Glossary>, which first sends a response APDU (unless it's the first call, in which case it sends nothing), and then receives the next APDU command.
 
 However, sometimes, a user confirmation to perform a security action must be performed before replying to an APDU (for example, when signing a message). Such behaviour is handled by replying no data to the command in the APDU interpreter by using the `IO_ASYNCH_REPLY` flag, then following the user action calling `io_exchange` with the `IO_RETURN_AFTER_TX` flag and with the amount of data to reply to the stalled command.
 
@@ -23,7 +26,7 @@ For an example of this feature, refer to [blue-app-samplesign](https://github.co
 
 ## Protocols
 
-It's important to understand that the APDU protocol used by most Ledger OS applications is not implemented by Ledger OS itself. Instead, the APDU interpretation is performed entirely by the SDK. This means that applications can choose to implement another protocol on top of the transport layer (USB HID, USB CCID, BLE, ...) instead of APDU. In fact, the same is true for the transport layer protocols. Applications can customize the way the application is enumerated as a USB device by the host.
+It's important to understand that the APDU protocol used by most Ledger OS applications is not implemented by Ledger OS itself. Instead, the APDU interpretation is performed entirely by the <Glossary word="SDK"></Glossary>. This means that applications can choose to implement another protocol on top of the transport layer (USB HID, USB CCID, BLE, ...) instead of APDU. In fact, the same is true for the transport layer protocols. Applications can customize the way the application is enumerated as a USB device by the host.
 
 ![Common protocols across Ledger OS applications](/device-app/common_protocols.png)
 *Common protocols across Ledger OS applications*

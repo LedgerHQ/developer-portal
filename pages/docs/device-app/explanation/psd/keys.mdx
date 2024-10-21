@@ -4,6 +4,8 @@ description: The process used to derive a theoretically infinite number of crypt
 ---
 
 import { Callout } from 'nextra/components'
+import Glossary from '/components/features/tooltip-glossary'
+
 
 # HD Key Generation
 
@@ -17,19 +19,19 @@ Here's how it works.
 
 ## The Master Node
 
-Hierarchical deterministic key generation involves creating a theoretically infinite tree of cryptographic secrets. The root of this tree from which everything is generated is called the master node. The master node is derived directly from the master binary seed described in the previous section using HMAC-SHA512. The master node of your wallet is all the information you need to access an infinite hierarchy of private keys. As such, you should take good care to keep your mnemonic seed safe.
+Hierarchical deterministic key generation involves creating a theoretically infinite tree of cryptographic secrets. The root of this tree from which everything is generated is called the master node. The master node is derived directly from the master binary seed described in the previous section using HMAC-SHA512. The master node of your wallet is all the information you need to access an infinite hierarchy of private keys. As such, you should take good care to keep your <Glossary word="mnemonic"></Glossary> seed safe.
 
 ### Passphrases
 
-Passphrases are a standard feature of BIP 39 supported by many HD wallets. Passphrases are an optional way of adding additional data to the master seed before deriving the master node of the HD wallet. By specifying a different passphrase (or no passphrase at all), the value of the master node is completely changed. As you will discover as you read the rest of this section, changing the master node of the HD wallet completely changes all of the information derived from it (for example, your Bitcoin addresses). In this way, you can keep the same master seed on a device, but use different passphrases to access completely unique, separated wallets.
+Passphrases are a standard feature of <Glossary word="BIP 39"></Glossary> supported by many HD wallets. Passphrases are an optional way of adding additional data to the <Glossary word="master seed"></Glossary> before deriving the master node of the HD wallet. By specifying a different passphrase (or no passphrase at all), the value of the master node is completely changed. As you will discover as you read the rest of this section, changing the master node of the HD wallet completely changes all of the information derived from it (for example, your Bitcoin addresses). In this way, you can keep the same <Glossary word="master seed"></Glossary> on a device, but use different passphrases to access completely unique, separated wallets.
 
 ## An Infinite Tree
 
-Descending from the master node is a tree of an infinite number of private keys. All you need to determine a particular key is the master node (your mnemonic seed) and the location of the key in the tree (called its "path"). This tree is created using an incredibly powerful algorithm defined by BIP 32 called the CKD function. All you need to know about this magical algorithm is that it can be used to calculate any node on the HD tree given the node's position and the value of the master node. Essentially, the CKD function is applied to the master node a number of times in order to "scramble" its bits and output a brand new node. This algorithm is magical because **it is impossible to reverse**. Given a private key on your tree, it is impossible to go backwards up the tree and determine your master node.[^1]
+Descending from the master node is a tree of an infinite number of private keys. All you need to determine a particular key is the master node (your <Glossary word="mnemonic"></Glossary> seed) and the location of the key in the tree (called its "path"). This tree is created using an incredibly powerful algorithm defined by BIP 32 called the CKD function. All you need to know about this magical algorithm is that it can be used to calculate any node on the HD tree given the node's position and the value of the master node. Essentially, the CKD function is applied to the master node a number of times in order to "scramble" its bits and output a brand new node. This algorithm is magical because **it is impossible to reverse**. Given a private key on your tree, it is impossible to go backwards up the tree and determine your master node.[^1]
 
 ## Child Key Derivation Function
 
-The HD tree is made up of "nodes". Using the CKD function, many "child" nodes can be derived from a single "parent" node. Each node contains three pieces of information: a private key, a public key, and a chain code. In the case of a cryptocurrency wallet, the private key is the part that is used to sign transactions and the public key is used to generate the corresponding cryptocurrency address. The node's chain code is an extra little bit to prevent someone from determining the children of a node using only the node's public and private keys.
+The HD tree is made up of "nodes". Using the CKD function, many "child" nodes can be derived from a single "parent" node. Each node contains three pieces of information: a private key, a public key, and a chain code. In the case of a <Glossary word="cryptocurrency"></Glossary> wallet, the private key is the part that is used to sign transactions and the public key is used to generate the corresponding <Glossary word="cryptocurrency"></Glossary> address. The node's chain code is an extra little bit to prevent someone from determining the children of a node using only the node's public and private keys.
 
 The CKD function has been designed in a way that provides great flexibility in the way child nodes are derived. Specifically, instead of requiring the public key, private key, and chain code to derive a child node, the CKD function can be used to derive child public keys from the parent public key and child private keys from the parent private key. Additionally, BIP 32 defines the concept of "hardened" child nodes. If a child node is "hardened", then its public key cannot be determined from its parent node's public key.
 

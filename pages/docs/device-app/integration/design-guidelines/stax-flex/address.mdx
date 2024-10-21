@@ -3,6 +3,7 @@ title: Address verification
 description: To trust the receive addresses they’re manipulating, your users need to verify them on the Trusted Display of their Ledger device.
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from 'nextra/components'
 import KeyTakeaway from '/components/features/key-takeaway';
 
@@ -21,12 +22,12 @@ Once the user continues, they’re shown the full address to compare with its so
 | *Verification prompt, followed by address display, and the QR code display.* |
 
 <Callout type="info" emoji="ℹ️">
-	A plain “Confirm” button is used here instead of the “Hold to sign” gesture, as this latter is reserved for signing transactions and messages which often have actual impact on the blockchain state and/ or user’s funds.
+	A plain “Confirm” button is used here instead of the “Hold to sign” gesture, as this latter is reserved for signing transactions and messages which often have actual impact on the <Glossary word="blockchain"></Glossary> state and/ or user’s funds.
 	
 	The “Cancel” button dismisses address verification right away, without a need for another user confirmation.
 </Callout>
 
-A button lets users show the address as a QR code, when they need to scan it from their mobile. By using the high-level API, your app will benefit from this capability automatically.
+A button lets users show the address as a QR code, when they need to scan it from their mobile. By using the high-level <Glossary word="API"></Glossary>, your app will benefit from this capability automatically.
 
 <Callout emoji="💻">
 	<b>API</b><br/>

@@ -1,3 +1,4 @@
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from "nextra/components";
 
 ## properties
@@ -6,7 +7,7 @@ import { Callout } from "nextra/components";
 
 Represents all available wallet accounts
 
-`Account` is a slightly modified subject of the Account type used by the Ledger Live platform
+`Account` is a slightly modified subject of the Account type used by the <Glossary word="Ledger Live"></Glossary> platform
 
 <details>
     <summary>details of the Account type</summary>
@@ -14,7 +15,7 @@ Represents all available wallet accounts
 ```js
 export type Account = {
   /**
-   * The unique identifier of this account used internally by Ledger Live software
+   * The unique identifier of this account used internally by <Glossary word="Ledger Live"></Glossary> software
    */
   id: string;
   /**
@@ -26,7 +27,7 @@ export type Account = {
    */
   address: string;
   /**
-   * The associated cryptocurrency id of the Account
+   * The associated <Glossary word="cryptocurrency"></Glossary> id of the Account
    */
   currency: string;
   /**
@@ -38,7 +39,7 @@ export type Account = {
    */
   spendableBalance: BigNumber;
   /**
-   * Tracks the current blockchain block height
+   * Tracks the current <Glossary word="blockchain"></Glossary> block height
    */
   blockHeight: number | undefined;
   /**
@@ -69,7 +70,7 @@ type Currency = {
     color: string;
     ticker: string;
     decimals: number;
-    family: "bitcoin" | "ethereum" | "algorand" | "crypto_org" | "ripple" | "cosmos" | "celo" | ... 10 more ... | "solana";
+    family: "bitcoin" | "<Glossary word="ethereum"></Glossary>" | "algorand" | "crypto_org" | "ripple" | "cosmos" | "celo" | ... 10 more ... | "solana";
 }
 
 ```

@@ -1,3 +1,4 @@
+import Glossary from '/components/features/tooltip-glossary'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { Callout } from 'nextra/components'
@@ -21,7 +22,7 @@ For an app to be deployed, it must comply with a list of requirements, which are
 
 ### 2. Make sure you have all the deliverables ready
 
-For an app to be deployed, you must provide a list of deliverables, which are detailed in the next section.
+For an app to be deployed, you must provide a list of <Glossary word="deliverables"></Glossary>, which are detailed in the next section.
 
 ### 3. Fill in the submission form
 
@@ -53,7 +54,7 @@ Our fork will have its own Git flow, which will help us keep track of what code 
 
 Basically, all of the work and PR is made into or against a `develop` branch. Ledger will also deploy application from develop to specific, test providers (number 4 except for Stax application which usually are deployed on 12).
 
-This application will not be available for most Ledger Live users which use the default, production provider (number 1),
+This application will not be available for most <Glossary word="Ledger Live"></Glossary> users which use the default, production provider (number 1),
 but it is available for anyone changing the provider number ("Settings > Experimental features > My Ledger provider"),
 so that it allows real-life testing and qualification.
 

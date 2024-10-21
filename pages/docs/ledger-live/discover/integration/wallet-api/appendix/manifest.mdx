@@ -1,18 +1,20 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 # Manifest
 
 _If you want to know more about the Discover tab and the Live Apps in general, you can read this page : [Start here](https://developers.ledger.com/docs/live-app/start-here/)_
 
 ### What is a manifest ?
 
-A Manifest is a config file that allows external applications and decentralized applications (dApps) to be integrated inside the Ledger Live software as a Live app and interact with all provided features.
+A <Glossary word="Manifest"></Glossary> is a config file that allows external applications and decentralized applications (dApps) to be integrated inside the <Glossary word="Ledger Live"></Glossary> software as a <Glossary word="Live app"></Glossary> and interact with all provided features.
 
 If you have followed instructions on the [How to create a Live app](../examples/live-app-creation/start) page, you should now be ready to interact with the dApp directly from Ledger Live interface to make sure all the basic features work as expected.
 
 ### Manifest properties
 
-To test and integrate your application, you first need to write your application Manifest file. This file must contain some mandatory information, such as the app package names, the components, the permissions needed, the hardware and software features, etc.
+To test and integrate your application, you first need to write your application <Glossary word="Manifest"></Glossary> file. This file must contain some mandatory information, such as the app package names, the components, the permissions needed, the hardware and software features, etc.
 
-You don't have to fill in all the fields; we'll fill them in once your integration has been confirmed.
+You don't have to fill in all the fields; we'll fill them in once your <Glossary word="integration"></Glossary> has been confirmed.
 
 However, here are a few elements you'll need to fill in yourself and their descriptions :
 
@@ -81,7 +83,7 @@ Permissions that allow your app to interact with methods :
 
 #### Default values
 
-_Complete manifest.json file with default or examples values :_
+_Complete <Glossary word="manifest"></Glossary>.json file with default or examples values :_
 
 ```json
 {
@@ -116,13 +118,13 @@ _Complete manifest.json file with default or examples values :_
 
 ### Introduction to Overrides
 
-In the context of app manifests, the **overrides** feature offers a powerful mechanism to create conditional modifications to your manifest. With this feature, you can specify different values for specific conditions, such as Ledger Live versions (`llVersion`) and device (`platform`). This ensures a tailored experience across multiple versions and platforms without the need for separate manifest files.
+In the context of app manifests, the **overrides** feature offers a powerful mechanism to create conditional modifications to your <Glossary word="manifest"></Glossary>. With this feature, you can specify different values for specific conditions, such as <Glossary word="Ledger Live"></Glossary> versions (`llVersion`) and device (`platform`). This ensures a tailored experience across multiple versions and platforms without the need for separate <Glossary word="manifest"></Glossary> files.
 
 ### Structure of Overrides
 
-Inside your manifest, you can include an `overrides` section to define conditions and their corresponding modifications. Here's how you can structure them:
+Inside your <Glossary word="manifest"></Glossary>, you can include an `overrides` section to define conditions and their corresponding modifications. Here's how you can structure them:
 
-1. **ledgerLiveVersion Overrides**: Allows you to define variations of the manifest specific to different Ledger Live versions.
+1. **ledgerLiveVersion Overrides**: Allows you to define variations of the <Glossary word="manifest"></Glossary> specific to different <Glossary word="Ledger Live"></Glossary> versions.
 
 `Request: /api/v1/apps?llVersion=1.0.0`
 
@@ -137,9 +139,9 @@ Inside your manifest, you can include an `overrides` section to define condition
 ]
 ```
 
-In this example, users with Ledger Live version `1.0.0` will see the app name as "overridden manifest".
+In this example, users with <Glossary word="Ledger Live"></Glossary> version `1.0.0` will see the app name as "overridden manifest".
 
-2. **Platform Overrides**: Enables you to tailor the manifest for specific platforms like iOS, Android, etc.
+2. **Platform Overrides**: Enables you to tailor the <Glossary word="manifest"></Glossary> for specific platforms like iOS, Android, etc.
 
 Request param:
 
@@ -203,7 +205,7 @@ Instead, you need to redefine the entire `params` field:
 
 ## Activating Overrides
 
-Overrides are activated when the manifest is requested with specific parameters. Here are the supported parameters and how they activate the overrides:
+Overrides are activated when the <Glossary word="manifest"></Glossary> is requested with specific parameters. Here are the supported parameters and how they activate the overrides:
 
 1. **ledgerLiveVersion**: Activated by calling with the `llVersion` parameter.
 
@@ -211,19 +213,19 @@ Overrides are activated when the manifest is requested with specific parameters.
 
    `http://localhost:3000/api/v1/apps?llVersion=1.0.0`
 
-2. **Platform**: Activated by calling with the `platform` parameter. The `platforms` field inside the manifest will be replaced accordingly.
+2. **Platform**: Activated by calling with the `platform` parameter. The `platforms` field inside the <Glossary word="manifest"></Glossary> will be replaced accordingly.
 
-   Will return all defaults manifests and override for iOS and replace the `platforms` field in the manifest with `["ios"]` if it exist inside the manifest :
+   Will return all defaults manifests and override for iOS and replace the `platforms` field in the <Glossary word="manifest"></Glossary> with `["ios"]` if it exist inside the <Glossary word="manifest"></Glossary> :
 
    `http://localhost:3000/api/v1/apps?platform=ios`
 
 3. **Combining Parameters**: You can combine multiple parameters to activate multiple overrides.
-   Apply overrides for both Ledger Live version `1.0.0` and the `iOS` platform :
+   Apply overrides for both <Glossary word="Ledger Live"></Glossary> version `1.0.0` and the `iOS` platform :
    `http://localhost:3000/api/v1/apps?llVersion=1.0.0&platform=ios`
 
 ## Priority in Overrides
 
-In cases where both `ledgerLiveVersion` and `platform` might have overriding values for the same field, the priority is determined by their order in the manifest. Whichever is listed first takes precedence.
+In cases where both `ledgerLiveVersion` and `platform` might have overriding values for the same field, the priority is determined by their order in the <Glossary word="manifest"></Glossary>. Whichever is listed first takes precedence.
 
 ## Override Process for Specific Platform Requests
 
@@ -246,11 +248,11 @@ Manifest before override:
 }
 ```
 
-It begins with the main manifest as the default.
-Searches for any overrides within the manifest relevant to the requested platform (here "platform": "ios"), and applies them to the default fields.
-Returns a manifest specific for the requested platform, in this case 'ios'.
+It begins with the main <Glossary word="manifest"></Glossary> as the default.
+Searches for any overrides within the <Glossary word="manifest"></Glossary> relevant to the requested platform (here "platform": "ios"), and applies them to the default fields.
+Returns a <Glossary word="manifest"></Glossary> specific for the requested platform, in this case 'ios'.
 
-```Resulting manifest.json:
+```Resulting <Glossary word="manifest"></Glossary>.json:
 {
     "platforms": ["ios"],
     "visibility": "searchable"

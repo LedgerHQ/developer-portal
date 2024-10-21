@@ -1,3 +1,4 @@
+import Glossary from '/components/features/tooltip-glossary'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { Steps } from 'nextra/components'
@@ -5,31 +6,31 @@ import { Callout } from 'nextra/components'
 
 # What do we need
 
-In order to become a native Swap provider in the Ledger Live ecosystem, you must:
+In order to become a native Swap provider in the <Glossary word="Ledger Live"></Glossary> ecosystem, you must:
 
 <Callout type="info" emoji="👉">
-  Note that if you are a non-KYC exchange and don't specifically wish to keep an UI of your own, we can use a pure API integration and you can skip section 1 & 3.
+  Note that if you are a non-KYC exchange and don't specifically wish to keep an UI of your own, we can use a pure <Glossary word="API"></Glossary> <Glossary word="integration"></Glossary> and you can skip section 1 & 3.
 </Callout>
 
 <Steps>
 ### Adapt to our Backend
  
-- Adapt your API and endpoints to interact with our Backend.
+- Adapt your <Glossary word="API"></Glossary> and endpoints to interact with our <Glossary word="Backend"></Glossary>.
 - Generate a structured Payload and a signature with a specific format.
 - Send your public key to Ledger and secure your private key.
 
 ### Develop/Modify your LiveApp
  
 - Use our Ledger Exchange Services Kit in addition to the Ledger Services Kit.
-- Provide a set of query parameters to access your LiveApp directly with the quote entered by the user in Ledger Live. 
-- Write/Modify the Manifest file. 
+- Provide a set of query parameters to access your LiveApp directly with the quote entered by the user in <Glossary word="Ledger Live"></Glossary>. 
+- Write/Modify the <Glossary word="Manifest"></Glossary> file. 
 - Follow our flow/UX requirements.
 
 ### Test and submit
 
 Test end-to-end your integration by manually loading your LiveApp through Developer Mode (see [Ledger Services Kit doc](https://wallet.api.live.ledger.com/docs/discover/dapp-browser/manifest#load-your-live-app-locally-on-desktop)) and submit:
-  - your API, 
-  - your LiveApp Manifest,
+  - your <Glossary word="API"></Glossary>, 
+  - your LiveApp <Glossary word="Manifest"></Glossary>,
   - your Public key.
 
 </Steps>

@@ -1,3 +1,4 @@
+import Glossary from '/components/features/tooltip-glossary'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { Tabs } from 'nextra/components'
@@ -13,7 +14,7 @@ import Image from 'next/image'
 
 ## Endpoints needed for Swap
 
-In order to communicate with Ledger’s backend, you must provide standardised APIs for Ledger's SWAP aggregator services to call.
+In order to communicate with Ledger’s <Glossary word="backend"></Glossary>, you must provide standardised APIs for Ledger's SWAP aggregator services to call.
 
 <Callout type="info" emoji="🔗">
 You will find all the information regarding the SWAP endpoints here: https://exchange-integration-swap.redoc.ly/, as well as additional details on some endpoints below.
@@ -42,7 +43,7 @@ There are 5 main endpoints needed for the swap:
 <details>
   <summary>Additional Details: POST /quote</summary>
 
-    All fees are expressed in output currency. For example, during a ETH to USDT on ethereum swap, the fees are expressed in USDT on ethereum.
+    All fees are expressed in output currency. For example, during a ETH to USDT on <Glossary word="ethereum"></Glossary> swap, the fees are expressed in USDT on <Glossary word="ethereum"></Glossary>.
 
     Some requirements about the **/quote** endpoint:
     - The quote must work without user auth. It can require a Ledger auth.
@@ -70,7 +71,7 @@ There are 5 main endpoints needed for the swap:
         string    currency_to = 8;
         bytes     amount_to_provider = 9;
         bytes     amount_to_wallet = 10;
-        string    device_transaction_id = 11; // Legacy nonce, no need to give a value
+        string    device_transaction_id = 11; // Legacy <Glossary word="nonce"></Glossary>, no need to give a value
         bytes     device_transaction_id_ng = 12; // nonce
     }
     ```
@@ -86,8 +87,8 @@ There are 5 main endpoints needed for the swap:
     - `currency_to`: must be set to value of `payloadCurrencyTo` from the [/swap API request](#post-swap)
     - `amount_to_provider`: amount of `currency_from` that the provider expects to receive from client
     - `amount_to_wallet`: amount of `currency_to` that the provider agrees to send to the client in exchange from `amount_to_provider`. This amount must also include the network fees that the provider will pay to send the crypto to the user.
-    - `device_transaction_id`: swap transaction nonce provided by client at initialization (must be set to value of `nonce` from the API request) - this is a legacy property, only used by historical parter
-    - `device_transaction_id_ng`: swap transaction nonce provided by client at initialization (must be set to value of `nonce` from the API request)
+    - `device_transaction_id`: swap <Glossary word="transaction"></Glossary> <Glossary word="nonce"></Glossary> provided by client at initialization (must be set to value of `nonce` from the <Glossary word="API"></Glossary> request) - this is a legacy property, only used by historical parter
+    - `device_transaction_id_ng`: swap <Glossary word="transaction"></Glossary> <Glossary word="nonce"></Glossary> provided by client at initialization (must be set to value of `nonce` from the <Glossary word="API"></Glossary> request)
 
     Amounts must be in the lowest unit of the coin, encoded into a 16 bytes array in big endian.
 
@@ -119,10 +120,10 @@ There are 5 main endpoints needed for the swap:
   <summary>Additional Details: GET /status</summary>
     Explanation of the different output `status`:
         - `FINISHED`: Trade has been completed successfully (user has received payout transaction).
-        - `EXPIRED`: Payin transaction was not received in time, trade is cancelled. User will be refunded if payin transaction is received afterwards.
+        - `EXPIRED`: Payin <Glossary word="transaction"></Glossary> was not received in time, trade is cancelled. User will be refunded if payin <Glossary word="transaction"></Glossary> is received afterwards.
         - `ON_HOLD`: Trade has been put on hold (eg: for KYC reasons). User must contact support.
-        - `PENDING`: Trade is in progress (provider is waiting to receive payin transaction, or user is waiting to receive payout transaction)
-        - `REFUNDED`: Trade has been cancelled, refund transaction has been successfully received by user.
+        - `PENDING`: Trade is in progress (provider is waiting to receive payin <Glossary word="transaction"></Glossary>, or user is waiting to receive payout transaction)
+        - `REFUNDED`: Trade has been cancelled, refund <Glossary word="transaction"></Glossary> has been successfully received by user.
         - `UNKNOWN`: Trade is in unknown state. User must contact support.  
 
 </details>
@@ -149,7 +150,7 @@ Here is a little diagram to explain how the `payload` and the `signature` are ge
 ### Signature usage
 
 - Payload and Signature  
-From the provider to Ledger Live. The payload is a protobuf message containing the trade data. It is generated by the provider and sent to Ledger Live.
+From the provider to <Glossary word="Ledger Live"></Glossary>. The payload is a protobuf message containing the trade data. It is generated by the provider and sent to <Glossary word="Ledger Live"></Glossary>.
 
 ```go copy
 type Payload struct {
@@ -171,7 +172,7 @@ R, S := Sign(payload, privKey)
 Exchange app checks and validates the payload (signature and content).
 
 ```go copy
-// Compare nonce in payload
+// Compare <Glossary word="nonce"></Glossary> in payload
 Verify((R, S), payload, pubKey)
 ```
 
@@ -239,4 +240,4 @@ SWAP_QUOTE_NOT_FOUND_ERROR
 SWAP_TRANSACTION_NOT_FOUND_ERROR
 - HTTP status code 404
 - Endpoints: `/status`
-- Description: When the swap transaction is not found.
+- Description: When the swap <Glossary word="transaction"></Glossary> is not found.

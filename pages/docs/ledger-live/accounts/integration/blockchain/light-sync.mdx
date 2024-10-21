@@ -3,6 +3,7 @@ title: "Add accounts: light sync"
 description: An account represents a wallet where a user detains crypto assets for a given crypto currency. Ledger Live model is essentially an array of Account because many accounts can be created, even within a same crypto currency.
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from 'nextra/components'
 
 # 4 - Add accounts: light sync
@@ -13,22 +14,22 @@ Generic types can be found in [ledgerjs/packages/types-live](https://github.com/
 
 ### Account
 
-An account represents a wallet where a user detains crypto assets for a given crypto currency.
+An account represents a wallet where a user detains <Glossary word="crypto assets"></Glossary> for a given crypto currency.
 
 Ledger Live model is essentially an array of `Account` because many accounts can be created, even within a same crypto currency.
 
-More technically, an account is a view of the blockchain in the context of a specific user. While blockchain tracks the series of transactions, assets motions that happen between addresses, an account essentializes that from the point of view of a user that owns a set of addresses and wants to view the associated funds they detain and be able to perform transactions with it.
+More technically, an account is a view of the <Glossary word="blockchain"></Glossary> in the context of a specific user. While <Glossary word="blockchain"></Glossary> tracks the series of transactions, assets motions that happen between addresses, an account essentializes that from the point of view of a user that owns a set of addresses and wants to view the associated funds they detain and be able to perform transactions with it.
 
-Essentially what the user wants to see at the end is his balance, a historic graph, and a series of past operations that were performed. Moving from the blockchain to the concept of account is not necessarily trivial (in blockchains like Bitcoin, the concept of account does not exist – you don't create or destroy, this concept is a view, a lense, that we abstract for the user).
+Essentially what the user wants to see at the end is his balance, a historic graph, and a series of past operations that were performed. Moving from the <Glossary word="blockchain"></Glossary> to the concept of account is not necessarily trivial (in blockchains like Bitcoin, the concept of account does not exist – you don't create or destroy, this concept is a view, a lense, that we abstract for the user).
 
 In Live Common, there are currently 2 types of accounts:
 
 - `Account` which is a top level account associated to a `CryptoCurrency` - the "main" account.
 - `TokenAccount` which is a nested level account, **inside** an Account and that is associated to a `TokenCurrency`.
 
-They are aggregated as a single `AccountLike` type, used across Ledger Live implementations.
+They are aggregated as a single `AccountLike` type, used across <Glossary word="Ledger Live"></Glossary> implementations.
 
-We will focus only on the `Account` type as we won't cover the Token integration in this document.
+We will focus only on the `Account` type as we won't cover the Token <Glossary word="integration"></Glossary> in this document.
 
 All main accounts share a common ground, that you will find defined and commented [here](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/ledgerjs/packages/types-live/src/account.ts).
 
@@ -42,17 +43,17 @@ If needed by the blockchain, an account can also contain coin-specific resources
 
 Note the wording "Operation" is used instead of "Transaction". An account does not have transactions, it has **operations**.
 
-The same abstraction applies as for Account on top of blockchain: an Operation is a view of a transaction that happened in the blockchain that **concerns** the contextual account. It's always in the context of an account, in other words, an operation does not exist on its own.
+The same abstraction applies as for Account on top of blockchain: an Operation is a view of a <Glossary word="transaction"></Glossary> that happened in the <Glossary word="blockchain"></Glossary> that **concerns** the contextual account. It's always in the context of an account, in other words, an operation does not exist on its own.
 
-Most of the time, a transaction yield of one operation. But in some blockchains (like Ethereum) one transaction that concerns the account associated addresses can result in 0 to N operations. A typical example is contract or token transfers (one transaction to move a token generate a token operation and a fee operation in the ethereum account). Another example that is possible in most blockchains is a "self" transaction yields two operations (sending out, sending in). But in fact, that's semantic, we, Ledger, have put. We could also have allowed the concept of "SELF" operation.
+Most of the time, a <Glossary word="transaction"></Glossary> yield of one operation. But in some blockchains (like Ethereum) one <Glossary word="transaction"></Glossary> that concerns the account associated addresses can result in 0 to N operations. A typical example is contract or token transfers (one <Glossary word="transaction"></Glossary> to move a token generate a token operation and a fee operation in the <Glossary word="ethereum"></Glossary> account). Another example that is possible in most blockchains is a "self" <Glossary word="transaction"></Glossary> yields two operations (sending out, sending in). But in fact, that's semantic, we, Ledger, have put. We could also have allowed the concept of "SELF" operation.
 
-In short, transactions history in Ledger Live is a list of `Operation`, that are confirmed, unconfirmed or pending (not yet fetched from explorer).
+In short, transactions history in <Glossary word="Ledger Live"></Glossary> is a list of `Operation`, that are confirmed, unconfirmed or pending (not yet fetched from explorer).
 
 They all share the same model, with an `extra` field that can store any additional data you may need to display. You will find the detailed and commented fields [here](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/ledgerjs/packages/types-live/src/operation.ts).
 
 If <i>MyCoin</i> has specific operation fields (like `additionalField` we added for example), you will be able to display them later. They are not meant to be useful in any flow, only for UI.
 
-If <i>MyCoin</i> uses a "nonce", then `transactionSequenceNumber` must be filled correctly, as it will be necessary for signing new transactions (and will interpreted to clear pending operations). Only outgoing transaction must have this value though.
+If <i>MyCoin</i> uses a "nonce", then `transactionSequenceNumber` must be filled correctly, as it will be necessary for signing new transactions (and will interpreted to clear pending operations). Only outgoing <Glossary word="transaction"></Glossary> must have this value though.
 
 ### Operation Type
 
@@ -60,15 +61,15 @@ An `Operation` has a `type` which is generic string typed as `OperationType`, gi
 
 - `OUT`: A send / transfer amount transaction
 - `IN`: A received / incoming amount transaction
-- `FEES`: A transaction that only charges fees
-- `NONE`: A transaction that does not affect balance
-- `REWARD`: A claimed reward (as an outgoing transaction with fees)
+- `FEES`: A <Glossary word="transaction"></Glossary> that only charges fees
+- `NONE`: A <Glossary word="transaction"></Glossary> that does not affect balance
+- `REWARD`: A claimed reward (as an outgoing <Glossary word="transaction"></Glossary> with fees)
 - `REWARD_PAYOUT`: A received reward (as an incoming transaction)
 - `SLASH`: A staking slash (with slashed amount generally)
 
 There are more types available, existing one will have predefined icons, translations and behaviours (i.e. `getOperationAmountNumber()` in [src/operation.ts](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/ledgerjs/packages/types-live/src/operation.ts)).
 
-<i>MyCoin</i> could have also specific operation types, if you need to add a type that is not yet implemented, add them in `libs/ledgerjs/packages/types-live/src/operation.ts`. You will later need to implement some specific code for the Ledger Live Desktop and Mobile to display them correctly.
+<i>MyCoin</i> could have also specific operation types, if you need to add a type that is not yet implemented, add them in `libs/ledgerjs/packages/types-live/src/operation.ts`. You will later need to implement some specific code for the <Glossary word="Ledger Live"></Glossary> Desktop and Mobile to display them correctly.
 
 You will be asked to add an svg for the icon of your type and a label to be translated, you can check for "OPT_IN" operation in Algorand.
 
@@ -91,13 +92,13 @@ src/icons/OperationStatusIcon/index.js
   This type may not be required at light sync step.
 </Callout>
 
-In Ledger Live, the "Transaction" is the data model that is created and updated in order to build the final blob to be signed by the device, and then broadcasted to the blockchain.
+In <Glossary word="Ledger Live"></Glossary>, the "<Glossary word="Transaction"></Glossary>" is the data model that is created and updated in order to build the final blob to be signed by the device, and then broadcasted to the <Glossary word="blockchain"></Glossary>.
 
-It is highly specific to the blockchain protocol, and contains any data that will need to be serialized into the transmission format of the blockchain. It only lives for a short period of time in the application - during which the user is choosing the parameters of its transaction before it is signed and sent to the blockchain, after which it will be transformed into an Operation.
+It is highly specific to the <Glossary word="blockchain"></Glossary> protocol, and contains any data that will need to be serialized into the transmission format of the <Glossary word="blockchain"></Glossary>. It only lives for a short period of time in the application - during which the user is choosing the parameters of its <Glossary word="transaction"></Glossary> before it is signed and sent to the <Glossary word="blockchain"></Glossary>, after which it will be transformed into an Operation.
 
 Note that this Operation will be considered "pending", as it is an optimistic version of the real Operation that will appear in the account history, after being synchronized.
 
-`Transaction` will contains any data needed to create a transaction on the blockchain. It is created as soon as the user initiates a transaction flow on Ledger Live, and will be updated according to its inputs, like the amount or choosing a recipient.
+`Transaction` will contains any data needed to create a <Glossary word="transaction"></Glossary> on the <Glossary word="blockchain"></Glossary>. It is created as soon as the user initiates a <Glossary word="transaction"></Glossary> flow on <Glossary word="Ledger Live"></Glossary>, and will be updated according to its inputs, like the amount or choosing a recipient.
 
 It shares a common shape between all coins, to which we will add specific-fields:
 
@@ -105,12 +106,12 @@ It shares a common shape between all coins, to which we will add specific-fields
 - `recipient: string`: the recipient of this amount
 - `useAllAmount?: boolean`: indicated if user wants to transfer whole available balance
 - `subAccountId?: ?string`: the child/token account id if relevant
-- `family: string`: the coin-family of the transaction (as a coin discriminator)
+- `family: string`: the coin-family of the <Glossary word="transaction"></Glossary> (as a coin discriminator)
 
 Some coins also have some fields generally respecting the same semantics, here are some provided as example:
 
-- `mode: string`: type of transaction to be broadcasted (`"send"`, `"freeze"`, `"delegate"`, `"claimReward"`...)
-- `fees: BigNumber`: fees (provided by blockchain, or filled by user)
+- `mode: string`: type of <Glossary word="transaction"></Glossary> to be broadcasted (`"send"`, `"freeze"`, `"delegate"`, `"claimReward"`...)
+- `fees: BigNumber`: fees (provided by <Glossary word="blockchain"></Glossary>, or filled by user)
 - `memo: ?string`: memo if required by exchange
 
 Although some fields are required, they can be emptied (recipent = "" and amount = 0) and ignored for transactions not using them.
@@ -121,7 +122,7 @@ See existing implementations for inspiration: [Polkadot types](https://github.co
 
 ### Family-specific types
 
-You will be implementing types that will be used in your integration, like the Transaction type or the additional data needed to be added to the Account shared type, but also any other types that you will need (remember to always type your functions with typescript).
+You will be implementing types that will be used in your <Glossary word="integration"></Glossary>, like the <Glossary word="Transaction"></Glossary> type or the additional data needed to be added to the Account shared type, but also any other types that you will need (remember to always type your functions with typescript).
 
 `libs/coin-modules/coin-mycoin/src/types/bridge.ts`:
 
@@ -151,7 +152,7 @@ export type MyCoinResourcesRaw = {
 /**
  * MyCoin transaction
  */
-export type Transaction = TransactionCommon & {
+export type <Glossary word="Transaction"></Glossary> = TransactionCommon & {
   mode: string;
   family: "mycoin";
   fees?: BigNumber;
@@ -159,13 +160,13 @@ export type Transaction = TransactionCommon & {
 };
 
 /**
- * MyCoin transaction from a raw JSON
+ * MyCoin <Glossary word="transaction"></Glossary> from a raw JSON
  */
 export type TransactionRaw = TransactionCommonRaw & {
   family: "mycoin";
   mode: string;
   fees?: string;
-  // also the transaction fields as raw JSON data
+  // also the <Glossary word="transaction"></Glossary> fields as raw JSON data
 };
 
 /**
@@ -187,23 +188,23 @@ import { BigNumber } from "bignumber.js";
 import type { MyCoinResourcesRaw, MyCoinResources } from "./types";
 
 export function toMyCoinResourcesRaw(r: MyCoinResources): MyCoinResourcesRaw {
-  const { nonce, additionalBalance } = r;
+  const { <Glossary word="nonce"></Glossary>, additionalBalance } = r;
   return {
-    nonce,
+    <Glossary word="nonce"></Glossary>,
     additionalBalance: additionalBalance.toString(),
   };
 }
 
 export function fromMyCoinResourcesRaw(r: MyCoinResourcesRaw): MyCoinResources {
-  const { nonce, additionalBalance } = r;
+  const { <Glossary word="nonce"></Glossary>, additionalBalance } = r;
   return {
-    nonce,
+    <Glossary word="nonce"></Glossary>,
     additionalBalance: BigNumber(additionalBalance),
   };
 }
 ```
 
-Because of Account being generic, you may need to add your specific resources to your `libs/coin-modules/coin-mycoin/src/types/bridge.ts` file, if you need to store specific information related to the blockchain (like staking, validators, or frozen balance, etc) that are not handle in Account.
+Because of Account being generic, you may need to add your specific resources to your `libs/coin-modules/coin-mycoin/src/types/bridge.ts` file, if you need to store specific information related to the <Glossary word="blockchain"></Glossary> (like staking, validators, or frozen balance, etc) that are not handle in Account.
 
 ```ts
 // ...
@@ -213,7 +214,7 @@ export type MyCoinResourcesRaw = {}
 
 export type Account = {
 // ...
-// // On some blockchain, an account can have resources (gained, delegated, ...)
+// // On some <Glossary word="blockchain"></Glossary>, an account can have resources (gained, delegated, ...)
   myCoinResources?: MyCoinResources;
 };
 
@@ -257,14 +258,14 @@ export function assignFromAccountRaw(accountRaw: AccountRaw, account: Account) {
 ```
 
 <Callout>
-  If your integration of <i>MyCoin</i> does not require coin-specific data in an account, you will not need to define <code>MyCoinResources</code>.
+  If your <Glossary word="integration"></Glossary> of <i>MyCoin</i> does not require coin-specific data in an account, you will not need to define <code>MyCoinResources</code>.
 </Callout>
 
 ### Display Format
 
 Since `Operation` will be stored as JSON, you will need to implement specific serializers for the `extra` field.
 
-We also would like the `Operation` and `Account` to be displayed in CLI with their specifics, so you must provide formatters to display them.
+We also would like the `Operation` and `Account` to be displayed in <Glossary word="CLI"></Glossary> with their specifics, so you must provide formatters to display them.
 
 <Callout type="info" emoji="ℹ️">
   In this code sample, all references to operations are not needed at light sync step. They are currently necessary but will soon be removed from this section.
@@ -366,7 +367,7 @@ export default {
 ```
 
 <Callout type="info" emoji="ℹ️">
-  <code>formatOperationSpecifics()</code> and <code>formatAccountSpecifics()</code> are used in the CLI to display account-specific fields and extras of the transaction history, useful for debugging.
+  <code>formatOperationSpecifics()</code> and <code>formatAccountSpecifics()</code> are used in the <Glossary word="CLI"></Glossary> to display account-specific fields and extras of the <Glossary word="transaction"></Glossary> history, useful for debugging.
 </Callout>
 
 The same idea applies also to the `Transaction` type which needs to be serialized and formatted for CLI:
@@ -386,10 +387,10 @@ import {
   toTransactionCommonRaw,
 } from "@ledgerhq/coin-framework/transaction/common";
 import { BigNumber } from "bignumber.js";
-import type { Transaction, TransactionRaw } from "./types";
+import type { <Glossary word="Transaction"></Glossary>, TransactionRaw } from "./types";
 
 export const formatTransaction = (
-  { mode, amount, recipient, useAllAmount }: Transaction,
+  { mode, amount, recipient, useAllAmount }: <Glossary word="Transaction"></Glossary>,
   account: Account
 ): string =>
   `
@@ -405,7 +406,7 @@ ${mode.toUpperCase()} ${
         })
   }${recipient ? `\nTO ${recipient}` : ""}`;
 
-export const fromTransactionRaw = (tr: TransactionRaw): Transaction => {
+export const fromTransactionRaw = (tr: TransactionRaw): <Glossary word="Transaction"></Glossary> => {
   const common = fromTransactionCommonRaw(tr);
   return {
     ...common,
@@ -434,22 +435,22 @@ export default { formatTransaction, fromTransactionRaw, toTransactionRaw };
   In the code samples below, all references to operations are not needed at light sync step. They are currently necessary but will soon be removed from this section.
 </Callout>
 
-Before this part, you will need a node/explorer to get the state of an account on the blockchain, such as balances, nonce (if your blockchain uses something similar), and any data relevant to show or fetch in Ledger Live.
+Before this part, you will need a node/explorer to get the state of an account on the <Glossary word="blockchain"></Glossary>, such as balances, <Glossary word="nonce"></Glossary> (if your <Glossary word="blockchain"></Glossary> uses something similar), and any data relevant to show or fetch in <Glossary word="Ledger Live"></Glossary>.
 
-For the example, we will assume that <i>MyCoin</i> provides a SDK that is able to do both getting the state and the account history.
+For the example, we will assume that <i>MyCoin</i> provides a <Glossary word="SDK"></Glossary> that is able to do both getting the state and the account history.
 
-The best way to implement your API in Live Common is to create a dedicated `api` subfolder, that exports all functions that require calls to 3rd-party and map their responses to Ledger Live types.
+The best way to implement your <Glossary word="API"></Glossary> in Live Common is to create a dedicated `api` subfolder, that exports all functions that require calls to 3rd-party and map their responses to <Glossary word="Ledger Live"></Glossary> types.
 
 ```plaintext
 ./libs/coin-modules/coin-mycoin/src
 └── network
   ├── index.ts
-  ├── sdk.ts
+  ├── <Glossary word="sdk"></Glossary>.ts
   └── types.ts
 ```
 
 <Callout>
-  Try to separate as much as possible your different network calls (if you use multiple providers) and use typings to ensure you map correctly API responses to Ledger Live types.
+  Try to separate as much as possible your different network calls (if you use multiple providers) and use typings to ensure you map correctly <Glossary word="API"></Glossary> responses to <Glossary word="Ledger Live"></Glossary> types.
 </Callout>
 
 You will likely need to export thoses functions, but implemention is up-to-developer:
@@ -467,13 +468,13 @@ export {
 } from "./sdk";
 ```
 
-Basically, in the next sections, `getAccount` will be called to create an `Account` with balances and any additional resources, and `getOperations` will be called to fill the `operations[]` of this account, with the whole history of operations that can be requested incrementally. Then `getFees` before sending a transaction to let the user know of the network cost (estimated or effective), and `submit` to broadcast its transaction after signing.
+Basically, in the next sections, `getAccount` will be called to create an `Account` with balances and any additional resources, and `getOperations` will be called to fill the `operations[]` of this account, with the whole history of operations that can be requested incrementally. Then `getFees` before sending a <Glossary word="transaction"></Glossary> to let the user know of the network cost (estimated or effective), and `submit` to broadcast its <Glossary word="transaction"></Glossary> after signing.
 
 See [Polkadot Coin Integration's api](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/coin-modules/coin-polkadot/src/network) for good inspiration.
 
 ### API Example
 
-Here is an example of a <i>MyCoin</i> API implementation using a fictive SDK that uses something like WebSocket to fetch data.
+Here is an example of a <i>MyCoin</i> <Glossary word="API"></Glossary> implementation using a fictive <Glossary word="SDK"></Glossary> that uses something like WebSocket to fetch data.
 
 <Callout>
   We don't recommend using WebSocket as it could have drawbacks and is more difficult to scale up and put behind a reverse proxy. If possible, use HTTPS requests as much as possible.
@@ -491,7 +492,7 @@ type AsyncApiFunction = (api: typeof MyCoinApi) => Promise<any>;
 
 const MYCOIN_API_ENDPOINT = () => getEnv("MYCOIN_API_ENDPOINT");
 
-let api = null;
+let <Glossary word="api"></Glossary> = null;
 
 /**
  * Connects to MyCoin Api
@@ -500,19 +501,19 @@ async function withApi(execute: AsyncApiFunction): Promise<any> {
   // If client is instanciated already, ensure it is connected & ready
   if (api) {
     try {
-      await api.isReady;
+      await <Glossary word="api"></Glossary>.isReady;
     } catch (err) {
-      api = null;
+      <Glossary word="api"></Glossary> = null;
     }
   }
 
   if (!api) {
-    api = new MyCoinApi(MYCOIN_API_ENDPOINT);
-    api.connect();
-    api.onClose(() => {
-      api = null;
+    <Glossary word="api"></Glossary> = new MyCoinApi(MYCOIN_API_ENDPOINT);
+    <Glossary word="api"></Glossary>.connect();
+    <Glossary word="api"></Glossary>.onClose(() => {
+      <Glossary word="api"></Glossary> = null;
     });
-    await api.isReady;
+    await <Glossary word="api"></Glossary>.isReady;
   }
 
   try {
@@ -531,7 +532,7 @@ async function withApi(execute: AsyncApiFunction): Promise<any> {
 export const disconnect = async () => {
   if (api) {
     const disconnecting = api;
-    api = null;
+    <Glossary word="api"></Glossary> = null;
     await disconnecting.close();
   }
 };
@@ -541,17 +542,17 @@ export const disconnect = async () => {
  */
 export const getAccount = async (addr: string) =>
   withApi(async (api) => {
-    const [balance, nonce, blockHeight] = await Promise.all([
-      api.getBalance(addr),
-      api.getTransactionCount(addr),
-      api.getBlockNumber(),
+    const [balance, <Glossary word="nonce"></Glossary>, blockHeight] = await Promise.all([
+      <Glossary word="api"></Glossary>.getBalance(addr),
+      <Glossary word="api"></Glossary>.getTransactionCount(addr),
+      <Glossary word="api"></Glossary>.getBlockNumber(),
     ]);
 
     return {
       blockHeight,
       balance: BigNumber(balance),
       additionalBalance: BigNumber(additionalBalance),
-      nonce,
+      <Glossary word="nonce"></Glossary>,
     };
   });
 
@@ -559,11 +560,11 @@ export const getAccount = async (addr: string) =>
  * Returns true if account is the signer
  */
 function isSender(transaction: MyCoinTransaction, addr: string): boolean {
-  return transaction.sender === addr;
+  return <Glossary word="transaction"></Glossary>.sender === addr;
 }
 
 /**
- * Map transaction to an Operation Type
+ * Map <Glossary word="transaction"></Glossary> to an Operation Type
  */
 function getOperationType(
   transaction: MyCoinTransaction,
@@ -573,7 +574,7 @@ function getOperationType(
 }
 
 /**
- * Map transaction to a correct Operation Value (affecting account balance)
+ * Map <Glossary word="transaction"></Glossary> to a correct Operation Value (affecting account balance)
  */
 function getOperationValue(
   transaction: MyCoinTransaction,
@@ -585,16 +586,16 @@ function getOperationValue(
 }
 
 /**
- * Extract extra from transaction if any
+ * Extract extra from <Glossary word="transaction"></Glossary> if any
  */
 function getOperationExtra(transaction: MyCoinTransaction): Object {
   return {
-    additionalField: transaction.additionalField,
+    additionalField: <Glossary word="transaction"></Glossary>.additionalField,
   };
 }
 
 /**
- * Map the MyCoin history transaction to a Ledger Live Operation
+ * Map the MyCoin history <Glossary word="transaction"></Glossary> to a <Glossary word="Ledger Live"></Glossary> Operation
  */
 function transactionToOperation(
   accountId: string,
@@ -604,21 +605,21 @@ function transactionToOperation(
   const type = getOperationType(transaction, addr);
 
   return {
-    id: encodeOperationId(accountId, transaction.hash, type),
+    id: encodeOperationId(accountId, <Glossary word="transaction"></Glossary>.hash, type),
     accountId,
     fee: BigNumber(transaction.fees || 0),
     value: getOperationValue(transaction, addr),
     type,
     // This is where you retrieve the hash of the transaction
-    hash: transaction.hash,
+    hash: <Glossary word="transaction"></Glossary>.hash,
     blockHash: null,
-    blockHeight: transaction.blockNumber,
+    blockHeight: <Glossary word="transaction"></Glossary>.blockNumber,
     date: new Date(transaction.timestamp),
     extra: getOperationExtra(transaction),
     senders: [transaction.sender],
-    recipients: transaction.recipient ? [transaction.recipient] : [],
+    recipients: <Glossary word="transaction"></Glossary>.recipient ? [transaction.recipient] : [],
     transactionSequenceNumber: isSender(transaction, addr)
-      ? transaction.nonce
+      ? <Glossary word="transaction"></Glossary>.nonce
       : undefined,
     hasFailed: !transaction.success,
   };
@@ -633,7 +634,7 @@ export const getOperations = async (
   startAt: number
 ): Promise<Operation[]> =>
   withApi(async (api) => {
-    const rawTransactions = await api.getHistory(addr, startAt);
+    const rawTransactions = await <Glossary word="api"></Glossary>.getHistory(addr, startAt);
 
     return rawTransactions.map((transaction) =>
       transactionToOperation(accountId, addr, transaction)
@@ -641,7 +642,7 @@ export const getOperations = async (
   });
 ```
 
-If you need to disconnect from your API after using it, update `src/network/index.ts` to add your api disconnect in the `disconnectAll` function, it will avoid tests and CLI to hang.
+If you need to disconnect from your <Glossary word="API"></Glossary> after using it, update `src/network/index.ts` to add your <Glossary word="api"></Glossary> disconnect in the `disconnectAll` function, it will avoid tests and <Glossary word="CLI"></Glossary> to hang.
 
 ## Account Bridge
 
@@ -686,8 +687,8 @@ const getAccountShape: GetAccountShape = async (info) => {
     derivationMode,
   });
 
-  // get the current account balance state depending your api implementation
-  const { blockHeight, balance, additionalBalance, nonce } = await getAccount(
+  // get the current account balance state depending your <Glossary word="api"></Glossary> implementation
+  const { blockHeight, balance, additionalBalance, <Glossary word="nonce"></Glossary> } = await getAccount(
     address
   );
 
@@ -702,7 +703,7 @@ const getAccountShape: GetAccountShape = async (info) => {
     operationsCount: operations.length,
     blockHeight,
     myCoinResources: {
-      nonce,
+      <Glossary word="nonce"></Glossary>,
       additionalBalance,
     },
   };
@@ -719,19 +720,19 @@ export const sync = makeSync({ getAccountShape, postSync });
 
 The `scanAccounts` function performs the derivation of addresses for a given `currency` and `deviceId`, and returns an Observable that will notify every `Account` that it discovered.
 
-With the `makeScanAccounts` helper, you only have to pass a `getAccountShape` function to execute the generic scan that Ledger Live use with the correct derivation modes for <i>MyCoin</i>, and it will determine when to stop (generally as soon as an empty account was found).
+With the `makeScanAccounts` helper, you only have to pass a `getAccountShape` function to execute the generic scan that <Glossary word="Ledger Live"></Glossary> use with the correct derivation modes for <i>MyCoin</i>, and it will determine when to stop (generally as soon as an empty account was found).
 
-The `sync` function performs one "Account synchronisation" which consists of refreshing all fields of a (previously created) Account from your api.
+The `sync` function performs one "Account synchronisation" which consists of refreshing all fields of a (previously created) Account from your <Glossary word="api"></Glossary>.
 
 It is executed every 2 minutes if everything works as expected, but if it fails, a retry strategy will be executed with an increasing delay (to avoid burdening a failing API).
 
 Under the hood of the `makeSync` helper, the returned value is an Observable of an updater function (Account=>Account), which is a pattern having some advantages:
 
 - it avoids race conditions
-- the updater is called in a reducer, and allows to produce an immutable state by applying the update to the latest account instance (with reconciliation on Ledger Live Desktop)
+- the updater is called in a reducer, and allows to produce an immutable state by applying the update to the latest account instance (with reconciliation on <Glossary word="Ledger Live"></Glossary> Desktop)
 - it's an observable, so we can interrupt it when/if multiple updates occurs
 
-In some cases, you might need to do a `postSync` patch to add some update logic after sync (<i>before the reconciliation that occurs on Ledger Live Desktop</i>). If this `postSync` function is complex, you should split this function in a `libs/coin-modules/coin-mycoin/src/bridge/postSyncPatch.js` file.
+In some cases, you might need to do a `postSync` patch to add some update logic after sync (<i>before the reconciliation that occurs on <Glossary word="Ledger Live"></Glossary> Desktop</i>). If this `postSync` function is complex, you should split this function in a `libs/coin-modules/coin-mycoin/src/bridge/postSyncPatch.js` file.
 
 ## Currency Bridge
 
@@ -754,7 +755,7 @@ If you need to add your own, they must respect those requirements:
 - No background or decorative shape added
 - No `<g>` or `transform`, `style` attributes...
 
-Name should be the coin's ticker (e.g. `MYC.svg`) and must not conflict with an existing coin or token.
+Name should be the coin's <Glossary word="ticker"></Glossary> (e.g. `MYC.svg`) and must not conflict with an existing coin or token.
 
 When building ledger-live-common, a [script](https://github.com/LedgerHQ/ledger-live-common/blob/master/scripts/buildReactIcons.js) automatically converts them to React and React Native components.
 
@@ -774,7 +775,7 @@ import {
   InvalidAddress,
   FeeTooHigh,
 } from "@ledgerhq/errors";
-import type { Transaction } from "../types";
+import type { <Glossary word="Transaction"></Glossary> } from "../types";
 import type { AccountBridge, CurrencyBridge } from "@ledgerhq/types-live";
 import {
   scanAccounts,
@@ -788,7 +789,7 @@ import { makeAccountBridgeReceive } from "../../../bridge/mockHelpers";
 
 const receive = makeAccountBridgeReceive();
 
-const createTransaction = (): Transaction => ({
+const createTransaction = (): <Glossary word="Transaction"></Glossary> => ({
   family: "mycoin",
   mode: "send",
   amount: BigNumber(0),
@@ -801,7 +802,7 @@ const updateTransaction = (t, patch) => ({ ...t, ...patch });
 
 const prepareTransaction = async (a, t) => t;
 
-const estimateMaxSpendable = ({ account, parentAccount, transaction }) => {
+const estimateMaxSpendable = ({ account, parentAccount, <Glossary word="transaction"></Glossary> }) => {
   const mainAccount = getMainAccount(account, parentAccount);
   const estimatedFees = transaction?.fees || BigNumber(5000);
   return Promise.resolve(
@@ -870,7 +871,7 @@ export default { currencyBridge, accountBridge };
 
 ## Split your code
 
-You can now start to implement the JS bridge for <i>MyCoin</i>. It may need some changes back and forth between the types, your api wrapper, and the different files.
+You can now start to implement the JS bridge for <i>MyCoin</i>. It may need some changes back and forth between the types, your <Glossary word="api"></Glossary> wrapper, and the different files.
 
 The skeleton of `libs/coin-modules/coin-mycoin/src/bridge/index.ts` should look something like this:
 
@@ -886,7 +887,7 @@ import { SignerContext } from "@ledgerhq/coin-framework/signer";
 import type { AccountBridge, CurrencyBridge } from "@ledgerhq/types-live";
 import myCoinConfig, { type MyCoinConfig } from "../config";
 import signerGetAddress from "../signer";
-import { MyCoinAccount, MyCoinSigner, TransactionStatus, type Transaction } from "../types";
+import { MyCoinAccount, MyCoinSigner, TransactionStatus, type <Glossary word="Transaction"></Glossary> } from "../types";
 import { broadcast } from "./broadcast";
 import { createTransaction } from "./createTransaction";
 import { estimateMaxSpendable } from "./estimateMaxSpendable";
@@ -965,7 +966,7 @@ export function createBridges(
 
 It is important to keep in mind that all currencies work independently and that Live Common provides a common framework to synchronize accounts with a polling strategy, and that network connectivity is not always stable and optimal.
 
-Hence, the more cryptocurrencies Ledger Live is using, the more requests and calculations are executed, which can take time.
+Hence, the more cryptocurrencies <Glossary word="Ledger Live"></Glossary> is using, the more requests and calculations are executed, which can take time.
 
 To avoid making the same requests several times, we recommend using a local cache in your implementation (e.g. fees estimations, some currency data to preload, etc) in a `libs/coin-modules/coin-mycoin/src/network/cache.ts` file.
 
@@ -979,7 +980,7 @@ See for example the [Polkadot's cache usage](https://github.com/LedgerHQ/ledger-
   CoinModules don't rely on any UI framework. They are UI-agnostic. Therefore, if you need to add React Hooks (or any UI specific behaviour), please add them in `libs/ledger-live-common/src/families/myCoin` directory.
 </Callout>
 
-If you are adding specific features to Ledger Live (like staking), you may need to access data through React hooks, that could provide common logic reusable for React components.
+If you are adding specific features to <Glossary word="Ledger Live"></Glossary> (like staking), you may need to access data through React hooks, that could provide common logic reusable for React components.
 
 You are then free to add them in a `libs/ledger-live-common/src/families/mycoin/react.ts` file.
 

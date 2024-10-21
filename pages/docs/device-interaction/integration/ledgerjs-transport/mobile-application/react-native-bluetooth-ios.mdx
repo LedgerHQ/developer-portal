@@ -6,6 +6,7 @@ description: In this section, you will see how to create a React Native applicat
 import { Callout } from 'nextra/components'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
+import Glossary from '/components/features/tooltip-glossary'
 import Image from 'next/image'
 
 
@@ -27,7 +28,7 @@ Make sure you go through:
 
 ## App Coding
 Now that we have set up the prerequisites, you can now create the application.
-In this integration, we will use the ethereum application.
+In this <Glossary word="integration"></Glossary>, we will use the <Glossary word="ethereum"></Glossary> application.
 
 ### App setup
 First, open a terminal and create a new project. For this tutorial the project will be named “myiOSBTApp”.
@@ -379,7 +380,7 @@ class ShowAddressScreen extends Component {
       if (this.unmounted) return;
       this.setState({ address });
     } catch (error) {
-      // in this case, user is likely not on Ethereum app
+      // in this case, user is likely not on <Glossary word="Ethereum"></Glossary> app
       if (this.unmounted) return;
       this.setState({ error });
       return null;
@@ -393,10 +394,10 @@ class ShowAddressScreen extends Component {
       <View style={styles.ShowAddressScreen}>
         {!address ? (
           <>
-            <Text style={styles.loading}>Loading your Ethereum address...</Text>
+            <Text style={styles.loading}>Loading your <Glossary word="Ethereum"></Glossary> address...</Text>
             {error ? (
               <Text style={styles.error}>
-                A problem occurred, make sure to open the Ethereum application
+                A problem occurred, make sure to open the <Glossary word="Ethereum"></Glossary> application
                 on your Ledger Nano X. (
                 {String((error && error.message) || error)})
               </Text>
@@ -404,7 +405,7 @@ class ShowAddressScreen extends Component {
           </>
         ) : (
           <>
-            <Text style={styles.title}>Ledger Live Ethereum Account 1</Text>
+            <Text style={styles.title}>Ledger Live <Glossary word="Ethereum"></Glossary> Account 1</Text>
             <QRCode value={address} size={300} />
             <Text style={styles.address}>{address}</Text>
           </>
@@ -700,8 +701,8 @@ The pairing code displayed on your Ledger Nano X needs to be confirmed.
   </figure>
 </div>
 
-Now that the pairing is done, the Nano X is ready with the ethereum application.
-If all goes well you must see the address of your ethereum account displayed.
+Now that the pairing is done, the Nano X is ready with the <Glossary word="ethereum"></Glossary> application.
+If all goes well you must see the address of your <Glossary word="ethereum"></Glossary> account displayed.
 
 
 <br/>
@@ -715,7 +716,7 @@ If all goes well you must see the address of your ethereum account displayed.
 </div>
 
 ### Verify the Address
-For security purposes, we display on your Nano X the same ethereum address for you to confirm.
+For security purposes, we display on your Nano X the same <Glossary word="ethereum"></Glossary> address for you to confirm.
 
 
 <br/>

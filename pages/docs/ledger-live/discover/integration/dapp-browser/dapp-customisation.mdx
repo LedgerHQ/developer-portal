@@ -3,22 +3,24 @@ title: Update your dApp
 description: "It consists of two steps: updating your dApp, and smooth out the user experience"
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
+
 # Update your dApp
 
-One of the most useful features of this dApp Browser is to be able to log-in automatically from a Ledger Live Ethereum account, therefore obviating the step to manually “Connect a Wallet”.
+One of the most useful features of this dApp Browser is to be able to log-in automatically from a <Glossary word="Ledger Live"></Glossary> <Glossary word="Ethereum"></Glossary> account, therefore obviating the step to manually “Connect a Wallet”.
 
 As a dApp developer, you can check if the `isLedgerLive` boolean is truthy in the injected provider (`window.ethereum` or from EIP-6963).
 
-The dApp can submit a tx with or without gas fee set. If it is set, Ledger Live will use it as is, otherwise, Ledger Live will propose low/medium/high based on gas fee estimations.
+The dApp can submit a <Glossary word="tx"></Glossary> with or without gas fee set. If it is set, <Glossary word="Ledger Live"></Glossary> will use it as is, otherwise, <Glossary word="Ledger Live"></Glossary> will propose low/medium/high based on <Glossary word="gas fee estimations"></Glossary>.
 
 # Smooth out user experience
 
 - Please make sure basic cases are handled.
 
-  For instance, check what happens when you click on the **log out** or **disconnect** button in your dApp. The user may be automatically logged back in Ledger Live injected provider or redirected to the standard list of providers (Metamask, connect wallet, and such…).
+  For instance, check what happens when you click on the **log out** or **disconnect** button in your dApp. The user may be automatically logged back in <Glossary word="Ledger Live"></Glossary> injected provider or redirected to the standard list of providers (Metamask, connect wallet, and such…).
 
 - We currently supports Ethereum mainnet, BSC, arbitrum, optimism, base, fantom and Polygon chains. We also support the Sepolia testnet: to use it, make sur you have a Sepolia testnet account available in Ledger Live. (To enable testnet networks, [head over to Settings -> Experimental features and turn on the Developer mode setting](../../references/developer-mode).)
 
-- Please **remove any references to third-party services** that are not part of the current Ledger environment. You are free however to redirect to Ledger Live Buy or Swap services.
+- Please **remove any references to third-party services** that are not part of the current Ledger environment. You are free however to redirect to <Glossary word="Ledger Live"></Glossary> Buy or Swap services.
 
 - UI must be **responsive** and available for both **Desktop** and **Mobile** screen sizes.

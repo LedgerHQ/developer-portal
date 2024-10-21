@@ -1,3 +1,4 @@
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from 'nextra/components'
 
 
@@ -21,11 +22,11 @@ Even in encrypted form, those secrets **must not** be stored outside of the devi
 
 ### Avoid blindly signing data
 
-**You should never allow signing of any attacker-controlled message unless it has been verified for structural validity. Importantly, you should never sign a message that might be a hash of transaction.**
+**You should never allow signing of any attacker-controlled message unless it has been verified for structural validity. Importantly, you should never sign a message that might be a hash of <Glossary word="transaction"></Glossary>.**
 
-Rationale: If you allow an attacker to blindly sign a message, it can easily supply a hash of a valid transaction. Your signature could then be used to send an unauthorized transaction.
+Rationale: If you allow an attacker to blindly sign a message, it can easily supply a hash of a valid <Glossary word="transaction"></Glossary>. Your signature could then be used to send an unauthorized <Glossary word="transaction"></Glossary>.
 
-If you want to sign user-supplied "personal" messages, prefix them with a fixed string (which shouldn't be a valid transaction prefix). It is also a good practice to include message length in the text to be signed. Ledger-app-eth has a good example in function `handleSignPersonalMessage`. Note that sometimes cryptocurrencies have a standardized way of signing such personal messages and in that case you should use the approved scheme.
+If you want to sign user-supplied "personal" messages, prefix them with a fixed string (which shouldn't be a valid <Glossary word="transaction"></Glossary> prefix). It is also a good practice to include message length in the text to be signed. Ledger-app-eth has a good example in function `handleSignPersonalMessage`. Note that sometimes cryptocurrencies have a standardized way of signing such personal messages and in that case you should use the approved scheme.
 
 Warning: If you allow signing untrusted hashes (while displaying a prompt to the user), be aware that
 
@@ -61,9 +62,9 @@ Rationale: It is a purpose of Ledger OS operating system to perform these in a s
 
 ### Avoid Exceptions for Cryptographic Code
 
-From the 2.0 version of the SDK every cryptographic function has a version that returns an error code instead of raising an exception. As an example `cx_ecdsa_sign_no_throw` performs the same computation as `cx_ecdsa_sign` but does not raise any exception and returns CX_OK if everything went fine.
+From the 2.0 version of the <Glossary word="SDK"></Glossary> every cryptographic function has a version that returns an error code instead of raising an exception. As an example `cx_ecdsa_sign_no_throw` performs the same computation as `cx_ecdsa_sign` but does not raise any exception and returns CX_OK if everything went fine.
 
-We enforce using all `_no_throw` equivalents when available, as the ones raising exceptions are deprecated in a future SDK release.
+We enforce using all `_no_throw` equivalents when available, as the ones raising exceptions are deprecated in a future <Glossary word="SDK"></Glossary> release.
 
 Rationale: the exception mechanism is not standard C, and is difficult to use, particularly for error management. There were errors related to this exception model in every single app we reviewed in 2020.
 

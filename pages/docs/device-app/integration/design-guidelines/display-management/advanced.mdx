@@ -10,7 +10,7 @@ This article talks about more advanced flows that are sometimes needed when writ
 
 In [the previous page](./flows) you learned how to use the `UX_FLOW` macro. This is quite handy but it comes with its drawbacks: everything needs to be declared at compilation time. What if you wished to change the `flow` at runtime?
 
-Imagine an app where you have a flow for a transaction signature.
+Imagine an app where you have a flow for a <Glossary word="transaction"></Glossary> signature.
 
 ``` c copy
 UX_FLOW(ux_transaction_signature,
@@ -23,7 +23,7 @@ UX_FLOW(ux_transaction_signature,
       );
 ```
 
-This works for a transaction signature. But suppose there's an update to the protocol: now some transactions can also sign some arbitrary data. However, not all transactions are required to sign the arbitrary data, so you need two flows:
+This works for a <Glossary word="transaction"></Glossary> signature. But suppose there's an update to the protocol: now some transactions can also sign some arbitrary data. However, not all transactions are required to sign the arbitrary data, so you need two flows:
 
 ``` c copy
 // The standard signature, nothing has changed.
@@ -60,9 +60,9 @@ void launch_flow() {
 }
 ```
 
-Great, this works. But imagine that advanced users in the community also wants to be able to see the nonce for the transaction. But they want it to be optional.
+Great, this works. But imagine that advanced users in the community also wants to be able to see the <Glossary word="nonce"></Glossary> for the <Glossary word="transaction"></Glossary>. But they want it to be optional.
 
-You then need a flow for the vanilla signature, as well as a flow for the vanilla signature where you show the nonce. You also need the option to display the nonce when there is arbitrary data to sign, so you **also** need the "data signature" flow **and** the "data signature + nonce" flow.
+You then need a flow for the vanilla signature, as well as a flow for the vanilla signature where you show the <Glossary word="nonce"></Glossary>. You also need the option to display the <Glossary word="nonce"></Glossary> when there is arbitrary data to sign, so you **also** need the "data signature" flow **and** the "data signature + nonce" flow.
 
 ``` c copy
 // The standard signature, nothing has changed.
@@ -75,7 +75,7 @@ UX_FLOW(ux_vanilla_transaction_signature,
          &step_reject
       );
 
-// The vanilla flow with a step to display the nonce.
+// The vanilla flow with a step to display the <Glossary word="nonce"></Glossary>.
 UX_FLOW(ux_vanilla_nonce_transaction_signature,
          &step_review,
          &step_amount,
@@ -97,7 +97,7 @@ UX_FLOW(ux_data_transaction_signature,
          &step_reject
       );
 
-// This is identical to the flow just above, except there is step to display the nonce.
+// This is identical to the flow just above, except there is step to display the <Glossary word="nonce"></Glossary>.
 UX_FLOW(ux_data_nonce_transaction_signature,
          &step_review,
          &step_amount,
@@ -130,11 +130,11 @@ void launch_flow() {
 }
 ```
 
-Here the app has been updated to support the protocol and the advanced users in the community can display the nonce. But imagine a new upgrade to the protocol allows the fees to be paid by another user of the blockchain, called a relayer. Some transactions would need to **hide** the fees (displaying a fee of 0.000 is not an option because it would confuse users more than anything).
+Here the app has been updated to support the protocol and the advanced users in the community can display the <Glossary word="nonce"></Glossary>. But imagine a new upgrade to the protocol allows the fees to be paid by another user of the <Glossary word="blockchain"></Glossary>, called a relayer. Some transactions would need to **hide** the fees (displaying a fee of 0.000 is not an option because it would confuse users more than anything).
 
 So you need **8 different flows**. That escalated quickly! Indeed, for every little <i>upgrade</i>, the number of flows is doubled. Soon enough you'll end up with 16 or even 32 different flows. Notice that whilst the number of flows will grow exponentially, the number of different steps will only grow linearly (one for every new feature).
 
-To fix this problem, you would need to define the `UX_FLOW` at runtime, cherry-picking which steps you wish to include depending on the details of our transaction.
+To fix this problem, you would need to define the `UX_FLOW` at runtime, cherry-picking which steps you wish to include depending on the details of our <Glossary word="transaction"></Glossary>.
 
 Don't worry, Ledger has got your back! The fix is quite simple, so let's dive right into it.
 
@@ -287,7 +287,7 @@ Add all the business logic in the `.c` file. A helper function is used throughou
 
 ``` c copy
 // This is a special function you must call for bnnn_paging to work properly in an edgecase.
-// It does some weird stuff with the `G_ux` global which is defined by the SDK.
+// It does some weird stuff with the `G_ux` global which is defined by the <Glossary word="SDK"></Glossary>.
 // No need to dig deeper into the code, a simple copy-paste will do.
 void bnnn_paging_edgecase() {
     G_ux.flow_stack[G_ux.stack_count - 1].prev_index = G_ux.flow_stack[G_ux.stack_count - 1].index - 2;

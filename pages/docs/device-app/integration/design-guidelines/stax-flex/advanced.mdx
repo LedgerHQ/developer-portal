@@ -3,6 +3,7 @@ title: Advanced interactions
 description: This chapter presents additional templates your app can use when limitations prevents you to follow the standard templates presented in previous chapters.
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from 'nextra/components'
 import KeyTakeaway from '/components/features/key-takeaway';
 
@@ -12,11 +13,11 @@ This chapter presents additional templates your app can use when limitations pre
 
 ## Streamed transactions
 
-For some operations, your app may not be able to fully load the data in memory before presenting it to your users. When streaming transaction data to your app device page by page, the navigation has to change
+For some operations, your app may not be able to fully load the data in memory before presenting it to your users. When streaming <Glossary word="transaction"></Glossary> data to your app device page by page, the navigation has to change
 - if the total number of pages isn’t known, you should hide it
 - if the user cannot go back to previous pages, the “back” button should be hidden.
 
-Here’s what an EIP-712 streamed message looks like in the Ethereum app, for Ledger Stax and Ledger Flex:
+Here’s what an EIP-712 streamed message looks like in the <Glossary word="Ethereum"></Glossary> app, for Ledger Stax and Ledger Flex:
 
 ![Streamed transactions](/device-app/stax-flex-streamed-transactions.png)
 |:--:| 
@@ -31,7 +32,7 @@ Here’s what an EIP-712 streamed message looks like in the Ethereum app, for Le
 </Callout>
 
 <Callout type="warning" emoji="⚠️">
-  Try avoiding transaction streaming in your app whenever possible, since blocking your users in a forward-only progression is not recommended UX.
+  Try avoiding <Glossary word="transaction"></Glossary> streaming in your app whenever possible, since blocking your users in a forward-only progression is not recommended <Glossary word="UX"></Glossary>.
 </Callout>
 
 ## Progressive disclosure of long fields
@@ -46,7 +47,7 @@ When the user taps on the “More” button, a modal containing the entirety of 
 
 <Callout emoji="💻">
 	<b>API</b><br/>
-	There’s no specific graphical API to display this “More” button. It is handled automatically by the <code>nbgl_useCaseReview()</code> and <code>nbgl_useCaseReviewStreamingContinue()</code> functions.
+	There’s no specific graphical <Glossary word="API"></Glossary> to display this “More” button. It is handled automatically by the <code>nbgl_useCaseReview()</code> and <code>nbgl_useCaseReviewStreamingContinue()</code> functions.
 </Callout>
 
 <Callout type="warning" emoji="⚠️">

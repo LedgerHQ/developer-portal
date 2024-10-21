@@ -4,6 +4,7 @@ description: In this section, we will guide you through the creation of an appli
 ---
 
 import { Callout } from 'nextra/components'
+import Glossary from '/components/features/tooltip-glossary'
 import Image from 'next/image'
 
 
@@ -11,7 +12,7 @@ import Image from 'next/image'
 
 ## Introduction
 In this section, we will guide you through the creation of an application.  
-This application will connect to your Ledger Nano X to display the address of your account (eg. bitcoin account, ethereum account). 
+This application will connect to your Ledger Nano X to display the address of your account (eg. bitcoin account, <Glossary word="ethereum"></Glossary> account). 
 
 <Callout type="warning" emoji="⚠️">
 **This walkthrough will only work with a Ledger Nano X**.  
@@ -144,7 +145,7 @@ class ShowAddressScreen extends Component {
       if (this.unmounted) return;
       this.setState({ address });
     } catch (error) {
-      // in this case, user is likely not on Ethereum app
+      // in this case, user is likely not on <Glossary word="Ethereum"></Glossary> app
       console.warn("Failed: " + error.message);
       if (this.unmounted) return;
       this.setState({ error });
@@ -169,10 +170,10 @@ class ShowAddressScreen extends Component {
       <div className={styles.ShowAddressScreen}>
         {!address ? (
           <>
-            <p className={styles.loading}>Loading your Ethereum address...</p>
+            <p className={styles.loading}>Loading your <Glossary word="Ethereum"></Glossary> address...</p>
             {error ? (
               <p className={styles.error}>
-                A problem occurred, make sure to open the Ethereum application
+                A problem occurred, make sure to open the <Glossary word="Ethereum"></Glossary> application
                 on your Ledger Nano X. (
                 {String((error && error.message) || error)})
               </p>
@@ -180,7 +181,7 @@ class ShowAddressScreen extends Component {
           </>
         ) : (
           <>
-            <strong>Ledger Live Ethereum Account 1</strong>
+            <strong>Ledger Live <Glossary word="Ethereum"></Glossary> Account 1</strong>
             <strong>{address}</strong>
             <div id="qrcode"></div>
           </>
@@ -373,7 +374,7 @@ Now the application is up and running. Open the browser and go to `localhost:300
 *Fig. 2: Application Running on Browser*  
 
 ### Launch Ethereum App
-Before clicking on the button, unlock it and run the Ethereum application.
+Before clicking on the button, unlock it and run the <Glossary word="Ethereum"></Glossary> application.
 The steps are described below.
 
 <br/>

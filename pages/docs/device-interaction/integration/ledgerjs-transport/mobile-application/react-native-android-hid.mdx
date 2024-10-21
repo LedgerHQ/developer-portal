@@ -4,6 +4,7 @@ description: In this section, you will see how to create a React Native applicat
 ---
 
 import { Callout } from 'nextra/components'
+import Glossary from '/components/features/tooltip-glossary'
 import Image from 'next/image'
 
 
@@ -45,7 +46,7 @@ Do the same if you are using zsh or anything else. Remember the file will be nam
 ## App Coding
 
 Now that we have set up the prerequisites, you can now create the application.
-In this integration, we will use the ethereum application.
+In this <Glossary word="integration"></Glossary>, we will use the <Glossary word="ethereum"></Glossary> application.
 
 ### App setup
 First, open a terminal and create a new project. For this tutorial the project will be named “myAndroidHidApp”.
@@ -152,7 +153,7 @@ class App extends Component {
       );
     }else{
       return (<View style={styles.header}>
-        <Text style={styles.title}>Ledger Live Ethereum Account 1</Text>
+        <Text style={styles.title}>Ledger Live <Glossary word="Ethereum"></Glossary> Account 1</Text>
         <Text style={styles.headerTitle}>
           {transport}
         </Text>
@@ -324,7 +325,7 @@ When launching the application it will be displayed as the image below.
 </div>
 
 ### Plug Your Nano
-Connect your Ledger Nano to your android device, unlock it and open the ethereum application.
+Connect your Ledger Nano to your android device, unlock it and open the <Glossary word="ethereum"></Glossary> application.
 The steps are described below.
 
 <br/>

@@ -3,6 +3,7 @@ title: Transfer of Ethers between accounts
 description: In this section, we will guide you through the creation of an application. This application will create a transaction that will be signed with the Ledger Nano before sending it to the blockchain.
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
 import Image from 'next/image'
 
 
@@ -10,22 +11,22 @@ import Image from 'next/image'
 
 ## Introduction
 In this section, we will guide you through the creation of an application that:  
-- creates a transaction 
+- creates a <Glossary word="transaction"></Glossary> 
 - signs it using the Ledger Nano then 
-- sends it to the blockchain.  
+- sends it to the <Glossary word="blockchain"></Glossary>.  
 
-The purpose of the application is to transfer ethers from your ethereum account on your Ledger to another account.
+The purpose of the application is to transfer ethers from your <Glossary word="ethereum"></Glossary> account on your Ledger to another account.
 
 ## Tutorial Prerequisites
 Before starting, make sure you have gone through the [prerequisites](../getting-started#prerequisites).
 
 ### Receive Ether token in your Ledger Nano Ethereum Sepolia account
 
-- Create an Ethereum Sepolia account in Ledger Live
+- Create an <Glossary word="Ethereum"></Glossary> Sepolia account in Ledger Live
 - Send Sepolia Eth to your account with [Infura faucet](https://www.infura.io/faucet/sepolia). You will need to create an account that  will be useful later for the API key.
 
 ![Sepolia Ethereum Faucet](/device-interaction/tutorial-infura-sepolia-faucet.png)
-*Fig. 1: Sepolia Ethereum Faucet*
+*Fig. 1: Sepolia <Glossary word="Ethereum"></Glossary> Faucet*
 
 
 ## Tutorial implementation
@@ -150,7 +151,7 @@ In index.html copy-paste the following code :
 
 #### index.js
 
-In index.js copy-paste the following code and replace `{YOUR_INFURA_APIKEY}` by the API key you will find on your Infura account:
+In index.js copy-paste the following code and replace `{YOUR_INFURA_APIKEY}` by the <Glossary word="API"></Glossary> key you will find on your Infura account:
 
 ```javascript copy
 import { ethers } from "ethers";
@@ -179,7 +180,7 @@ document.getElementById("connect-ledger").onclick = async function () {
     //Connecting to the Ledger Nano with HID protocol
     const transport = await TransportWebHID.create();
     
-    //Getting an Ethereum instance and get the Ledger Nano ethereum account public key
+    //Getting an <Glossary word="Ethereum"></Glossary> instance and get the Ledger Nano <Glossary word="ethereum"></Glossary> account public key
     _eth = new Eth(transport);
     const { address } = await _eth.getAddress("44'/60'/0'/0/0", false);
 
@@ -203,27 +204,27 @@ document.getElementById("tx-transfer").onclick = async function () {
     recipient =  document.getElementById("recipient").value;
     value =  document.getElementById("value").value;
     gasLimit =  parseInt(document.getElementById("gasLimit").value);
-    nonce =  await provider.getTransactionCount(addressWallet, "latest");
+    <Glossary word="nonce"></Glossary> =  await provider.getTransactionCount(addressWallet, "latest");
 
-    //Building transaction with the information gathered
-    const transaction = {
+    //Building <Glossary word="transaction"></Glossary> with the information gathered
+    const <Glossary word="transaction"></Glossary> = {
         to: recipient,
         gasPrice: "0x" + parseInt(gasPrice).toString(16),
         gasLimit: ethers.toBeHex(gasLimit),
-        nonce: nonce,
+        nonce: <Glossary word="nonce"></Glossary>,
         chainId: chainId,
         data: "0x00",
         value: ethers.toBeHex(ethers.parseUnits(value, "ether")),
     }
 
-    //Serializing the transaction to pass it to Ledger Nano for signing
+    //Serializing the <Glossary word="transaction"></Glossary> to pass it to Ledger Nano for signing
     let unsignedTx = ethers.Transaction.from(transaction).unsignedSerialized.substring(2);
     const resolution = await ledgerService.resolveTransaction(unsignedTx, {}, {});
 
     //Sign with the Ledger Nano (Sign what you see)
     const signature = await _eth.signTransaction("44'/60'/0'/0/0",unsignedTx, resolution);
 
-    //Serialize the same transaction as before, but adding the parsed signature on it
+    //Serialize the same <Glossary word="transaction"></Glossary> as before, but adding the parsed signature on it
     let signedTx = ethers.Transaction.from({...transaction, 
         signature: {
         r: "0x"+signature.r,
@@ -232,7 +233,7 @@ document.getElementById("tx-transfer").onclick = async function () {
         },
     }).serialized;
 
-    //Sending the transaction to the blockchain
+    //Sending the <Glossary word="transaction"></Glossary> to the blockchain
     const hash = (await provider.broadcastTransaction(signedTx)).hash;
 
     //Display the Sepolia etherscan on the screen
@@ -356,7 +357,7 @@ Now the application is up and running. Open the browser and go to `localhost:123
 *Fig. 5: Application Running on Browser*
 
 ### Plug Your Ledger Device
-Before clicking on the text connect your Ledger to the USB port, unlock it and run the ethereum application.
+Before clicking on the text connect your Ledger to the USB port, unlock it and run the <Glossary word="ethereum"></Glossary> application.
 The steps are described below.
 
 <br/>
@@ -371,7 +372,7 @@ The steps are described below.
 <div className="center">
   <figure>
       <img src="/device-interaction/ledgerEth.jpg" alt="Run Ethereum Application on Ledger Nano"/>
-    <figcaption><i>Fig. 7: Run Ethereum Application on Ledger Nano</i></figcaption>
+    <figcaption><i>Fig. 7: Run <Glossary word="Ethereum"></Glossary> Application on Ledger Nano</i></figcaption>
   </figure>
 </div>
 
@@ -379,7 +380,7 @@ The steps are described below.
 <div className="center">
   <figure>
       <img src="/device-interaction/ledgerReady.jpg" alt="Ethereum Application is Running on Ledger Nano"/>
-    <figcaption><i>Fig. 8:  Ethereum Application is Running on Ledger Nano</i></figcaption>
+    <figcaption><i>Fig. 8:  <Glossary word="Ethereum"></Glossary> Application is Running on Ledger Nano</i></figcaption>
   </figure>
 </div>
 
@@ -395,7 +396,7 @@ Now choose the Ledger Nano to connect it to the browser.
 ![Connect the Ledger Nano](/device-interaction/tutorial-1-pairing.png)
 *Fig. 10: Connect the Ledger Nano*
 
-If all goes well, the input fields will be filled with data. The greyed input is not to be changed and it is directly extracted either from the blockchain or from your Ledger Embedded application.
+If all goes well, the input fields will be filled with data. The greyed input is not to be changed and it is directly extracted either from the <Glossary word="blockchain"></Glossary> or from your Ledger Embedded application.
 
 ![Application After Connecting Ledger Nano](/device-interaction/tutorial-1-view2.png)
 *Fig. 11: Application After Connecting Ledger Nano*
@@ -403,22 +404,22 @@ If all goes well, the input fields will be filled with data. The greyed input is
 
 ### Create a transaction to transfer ethereum
 
-Now that the inputs are filled with data. It is time to transfer some ether tokens from your Ledger ethereum account to another account (you can keep the default account on the "index.js" file).  
-Therefore, click on "Create Transaction" to create the transaction which will be signed by your ledger before sending it to the blockchain.  
+Now that the inputs are filled with data. It is time to transfer some ether tokens from your Ledger <Glossary word="ethereum"></Glossary> account to another account (you can keep the default account on the "index.js" file).  
+Therefore, click on "Create Transaction" to create the <Glossary word="transaction"></Glossary> which will be signed by your ledger before sending it to the <Glossary word="blockchain"></Glossary>.  
 
 ![Application After Connecting Ledger Nano](/device-interaction/tutorial-1-view2.png)
 *Fig. 12: Application After Connecting Ledger Nano*
 
-When the transaction proceed and finalize, an URL will be displayed on the screen. This URL is a link to Ropsten Etherscan to review the transaction.  
-There you can find all the information concerning the transaction you have previously sent.
+When the <Glossary word="transaction"></Glossary> proceed and finalize, an URL will be displayed on the screen. This URL is a link to Ropsten Etherscan to review the <Glossary word="transaction"></Glossary>.  
+There you can find all the information concerning the <Glossary word="transaction"></Glossary> you have previously sent.
 
 ![Result after Sending Transaction](/device-interaction/tutorial-1-result.png)
 *Fig. 13: Result after Sending Transaction*
 
-If you go on Etherscan you can see the information of your transaction.
+If you go on Etherscan you can see the information of your <Glossary word="transaction"></Glossary>.
 
 ![Result after Sending Transaction](/device-interaction/tutorial-1-etherscan.png)
-*Fig. 14: Transaction Information on Sepolia Etherscan*
+*Fig. 14: <Glossary word="Transaction"></Glossary> Information on Sepolia Etherscan*
 
 
 Congratulations, you have successfully built your first transfer application connected with Ledger !!!

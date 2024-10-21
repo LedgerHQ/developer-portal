@@ -1,10 +1,12 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 # Examples of the Cryptography Library and Syscalls usage
 
 ## Preliminary
 
 In this document, we introduce concepts of **asymmetric cryptography** (also known as public key cryptography) and **symmetric cryptography** (known as secret key cryptography). In public key cryptography, a pair of keys is used: a **private key** which is kept secret and a **public key** which can be made public. One application of public key cryptography is **digital signature** when one needs to authenticate the origin of a message. In secret key cryptography, a **single secret key** is shared between two parties and is used to encrypt and decrypt a message: it is used to ensure the *confidentiality* of a message.
 
-Elliptic curve cryptography is an implementation of public key cryptography that brings together the systems based on a specific mathematical object: an elliptic curve. The purpose of this document is to describe how the functions from the cryptography API should be called, so we won't deep dive into the technical details of elliptic curves.
+Elliptic curve cryptography is an implementation of public key cryptography that brings together the systems based on a specific mathematical object: an elliptic curve. The purpose of this document is to describe how the functions from the cryptography <Glossary word="API"></Glossary> should be called, so we won't deep dive into the technical details of elliptic curves.
 
 In the first section of the document, we will give examples of digital signatures with the curves **Secp256k1**, **Ed25519** and **Ed448** but there are many other curves that are supported.
 

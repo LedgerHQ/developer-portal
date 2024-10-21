@@ -1,10 +1,12 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 # Using the `useSignAndBroadcastTransaction` Hook
 
-The `useSignAndBroadcastTransaction` hook is part of the Ledger Services Kit Client for React. It allows the user to sign a transaction and immediately broadcast it to the network using the connected wallet. This documentation provides a detailed explanation of how to use this hook in your application.
+The `useSignAndBroadcastTransaction` hook is part of the Ledger Services Kit Client for React. It allows the user to sign a <Glossary word="transaction"></Glossary> and immediately broadcast it to the network using the connected wallet. This documentation provides a detailed explanation of how to use this hook in your application.
 
 ### Introduction
 
-`useSignAndBroadcastTransaction` returns an object with a function to sign and broadcast transactions, along with the state of the process. This is useful when you want to both sign a transaction and send it to the network in a single step.
+`useSignAndBroadcastTransaction` returns an object with a function to sign and broadcast transactions, along with the state of the process. This is useful when you want to both sign a <Glossary word="transaction"></Glossary> and send it to the network in a single step.
 
 ### Usage
 
@@ -16,7 +18,7 @@ The `useSignAndBroadcastTransaction` hook is part of the Ledger Services Kit Cli
 
 ### Example
 
-Below is an example demonstrating how to use the `useSignAndBroadcastTransaction` hook to sign and broadcast an Ethereum transaction.
+Below is an example demonstrating how to use the `useSignAndBroadcastTransaction` hook to sign and broadcast an <Glossary word="Ethereum"></Glossary> <Glossary word="transaction"></Glossary>.
 
 [**Required permission**:](https://developers.ledger.com/docs/ledger-live/discover/guides/wallet-api/appendix/manifest#permissions)
   `transaction.signAndBroadcast`
@@ -63,13 +65,13 @@ function App() {
 
   return (
     <>
-      <h1>Test Live App - Services Kit</h1>
+      <h1>Test <Glossary word="Live App"></Glossary> - Services Kit</h1>
       <div className="card">
         <button
           onClick={handleSignAndBroadcastTransaction}
           disabled={pending}
         >
-          Sign and Broadcast Ethereum Transaction
+          Sign and Broadcast <Glossary word="Ethereum"></Glossary> Transaction
         </button>
 
         {pending && <p>Broadcasting...</p>}
@@ -89,19 +91,19 @@ export default App;
 
 The `signAndBroadcastTransaction` function takes three parameters:
 
-- `accountId`: The ID of the account you want to sign the transaction with.
-- `transaction`: The transaction object in the currency family-specific format.
-- `options` (optional): Extra parameters that may be required by certain blockchain implementations.
+- `accountId`: The ID of the account you want to sign the <Glossary word="transaction"></Glossary> with.
+- `transaction`: The <Glossary word="transaction"></Glossary> object in the currency family-specific format.
+- `options` (optional): Extra parameters that may be required by certain <Glossary word="blockchain"></Glossary> implementations.
 
-In the example above, `accountId` is obtained through the `useRequestAccount` hook, and `transaction` is an object representing an Ethereum transaction.
+In the example above, `accountId` is obtained through the `useRequestAccount` hook, and `transaction` is an object representing an <Glossary word="Ethereum"></Glossary> <Glossary word="transaction"></Glossary>.
 
 ### Return Value
 
 The `useSignAndBroadcastTransaction` hook returns an object with the following properties:
 
-- `signAndBroadcastTransaction`: Function to call for signing and broadcasting a transaction.
+- `signAndBroadcastTransaction`: Function to call for signing and broadcasting a <Glossary word="transaction"></Glossary>.
 - `pending`: Boolean indicating if the process is ongoing.
-- `transactionHash`: The hash of the transaction once it's successfully broadcasted.
+- `transactionHash`: The hash of the <Glossary word="transaction"></Glossary> once it's successfully broadcasted.
 - `error`: An error object if the process failed.
 
 ### Error Handling

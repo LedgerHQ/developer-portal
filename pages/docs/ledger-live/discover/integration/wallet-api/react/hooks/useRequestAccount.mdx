@@ -1,3 +1,5 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 # Using the `useRequestAccount` hook
 
 The `useRequestAccount` hook is part of the Ledger Services Kit Client for React. It is used to request an account from the Ledger Wallet. When the hook is called, the user will be prompted to select the desired account.
@@ -54,7 +56,7 @@ function App() {
 
   return (
     <div>
-      <h1>Test Live App - Services Kit</h1>
+      <h1>Test <Glossary word="Live App"></Glossary> - Services Kit</h1>
       <div className="card">
         {response ? (
           <p>Selected Account: {response}</p>

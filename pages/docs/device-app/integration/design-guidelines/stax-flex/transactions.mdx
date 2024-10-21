@@ -3,6 +3,7 @@ title: Signing transactions and messages
 description: Signing transactions is the core function of Ledger’s hardware wallets, and probably a core function of your app too.
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from 'nextra/components'
 import KeyTakeaway from '/components/features/key-takeaway';
 
@@ -10,28 +11,28 @@ import KeyTakeaway from '/components/features/key-takeaway';
 
 Signing transactions is the core function of Ledger’s hardware wallets, and probably a core function of your app too.
 
-This chapter presents the expected user experience of clear signing, as well as the required UI elements to use when blind signing.
+This chapter presents the expected user experience of <Glossary word="clear signing"></Glossary>, as well as the required UI elements to use when <Glossary word="blind signing"></Glossary>.
 
 ## Definitions
 
 ### Transactions, messages, and operations
 
 Throughout the Ledger documentation, you’ll find references to signing “transactions” and “messages”. They are defined as:
-- **a transaction** affects the state of a blockchain, like sending Bitcoin or transferring an NFT on Polygon;
+- **a transaction** affects the state of a <Glossary word="blockchain"></Glossary>, like sending Bitcoin or transferring an NFT on Polygon;
 - **a message** is an off-chain payload that is signed and then either broadcasted later, bundled with another operation, or used for off-chain verification. This is typically encountered on EVM chains (e.g. EIP-191, EIP-712 such as permits, etc.).
-- **an operation** is a generic term that can describe a transaction or a message, and can be used as a generic fallback.
+- **an operation** is a generic term that can describe a <Glossary word="transaction"></Glossary> or a message, and can be used as a generic fallback.
 
 ### Clear signing and blind signing
 
-**“Clear signing”** transactions means that users fully understand what they’re signing. The transaction parameters must be presented in a complete and easy-to-understand way, so that the user’s consent is fully informed.
+**“Clear signing”** transactions means that users fully understand what they’re signing. The <Glossary word="transaction"></Glossary> parameters must be presented in a complete and easy-to-understand way, so that the user’s consent is fully informed.
 
 Thanks to the Secure Display of their Ledger device and Ledger’s cryptographic infrastructure, users have the guarantee that what they see is what they sign.
 
-While this doesn’t always guarantee execution (which would require full smart contract audits, and more), clear signing is a must-have for security because it protects users against malware and man-in-the-middle attacks.
+While this doesn’t always guarantee execution (which would require full smart contract audits, and more), <Glossary word="clear signing"></Glossary> is a must-have for security because it protects users against malware and man-in-the-middle attacks.
 
-User experience greatly benefits from clear signing too, as only the relevant fields to review are presented (conciseness) and they are well formatted (clarity and protection from mistakes).
+User experience greatly benefits from <Glossary word="clear signing"></Glossary> too, as only the relevant fields to review are presented (conciseness) and they are well formatted (clarity and protection from mistakes).
 
-Because clear signing is crucial for security and user-friendliness, blind- signed transactions and messages must display a standard warning that asks for explicit user acknowledgement. This will be presented later in this section.
+Because <Glossary word="clear signing"></Glossary> is crucial for security and user-friendliness, blind- signed transactions and messages must display a standard warning that asks for explicit user acknowledgement. This will be presented later in this section.
 
 
 ## Anatomy of a transaction
@@ -49,10 +50,10 @@ Here’s an illustration of this structure with the Bitcoin app on Ledger Flex:
 <Callout type="warning" emoji="⚠️">
   Users should be able to reject the operation at any time, if they see information they were not expecting. This can happen at every step, including the intent and signature.
 
-	Do not change the default UI elements that display the “Reject” or “Cancel” buttons at the bottom of each step of the transaction.
+	Do not change the default UI elements that display the “Reject” or “Cancel” buttons at the bottom of each step of the <Glossary word="transaction"></Glossary>.
 </Callout>
 
-In the next sections, we’ll go step by step over the different parts of a canonical transaction.
+In the next sections, we’ll go step by step over the different parts of a canonical <Glossary word="transaction"></Glossary>.
 
 <Callout emoji="💻">
 	<b>API</b><br/>
@@ -71,8 +72,8 @@ Sometimes though, the processing or data fetching durations might be noticeable.
 
 ## Intent: giving context and information to users
 
-The transaction intent is the first page displayed to users. It is part of clear signing and shows crucial information
-- **the nature of the operation:** transaction or message;
+The <Glossary word="transaction"></Glossary> intent is the first page displayed to users. It is part of <Glossary word="clear signing"></Glossary> and shows crucial information
+- **the nature of the operation:** <Glossary word="transaction"></Glossary> or message;
 - **the chain(s) or network(s) involved;**
 - **the type of the operation:** send, swap, delegate, approve, list NFT, etc. ;
 - **and any other useful information** before getting into the detailed review of the fields.
@@ -93,7 +94,7 @@ Here are more intent examples from other chains:
 
 ![Intent examples](/device-app/stax-flex-intent-example-02.png)
 
-When lacking information about the transaction or message, use a generic intent as a fallback:
+When lacking information about the <Glossary word="transaction"></Glossary> or message, use a generic intent as a fallback:
 
 ![Generic intant](/device-app/stax-flex-generic-intant.png)
 |:--:| 
@@ -106,8 +107,8 @@ When lacking information about the transaction or message, use a generic intent 
 <Callout type="info" emoji="ℹ️">
 	The prompt sentence must start with “Review”. It is built either:
 	<ul>
-		<li>· dynamically, composing the transaction type and other key informations;</li>
-		<li>· or statically, by making a legible sentence with the available information for every transaction type.</li>
+		<li>· dynamically, composing the <Glossary word="transaction"></Glossary> type and other key informations;</li>
+		<li>· or statically, by making a legible sentence with the available information for every <Glossary word="transaction"></Glossary> type.</li>
 	</ul>
 </Callout>
 
@@ -126,7 +127,7 @@ Ensure consistency by presenting common fields in a consistent order. For simple
 2. “Amount” (value and currency)
 3. “To” addresOs
 4. “Fees” (value and currency).
-Here’s how the Ethereum app displays a transfer by following this guideline: 
+Here’s how the <Glossary word="Ethereum"></Glossary> app displays a transfer by following this guideline: 
 
 
 ![Ethereum transaction](/device-app/stax-flex-ethereum-transaction.png)
@@ -134,7 +135,7 @@ Here’s how the Ethereum app displays a transfer by following this guideline:
 <Callout type="warning" emoji="⚠️">
 	<ul>
 		<li>· Let your users navigate back and forth within transactions. Exceptions, such as streamed transactions, are discussed in a later chapter.</li>
-		<li>· Pagination is automatically handled by the API, so you can just focus on providing your users with the right fields</li>
+		<li>· Pagination is automatically handled by the <Glossary word="API"></Glossary>, so you can just focus on providing your users with the right fields</li>
 		<li>· Field names must be consistent and explicit. For example, use the term “To” over the generic “Address” to distinguish sender and receiver. Use “Amount” and “Fees” (or “Max fees”) consistently.</li>
 	</ul>
 </Callout>
@@ -145,7 +146,7 @@ The signing page is always the last one because it ensures that your users went 
 
 The signing page recalls the intent by presenting similar data, to bring up the context during signing.
 
-Confirming a transaction always uses the same press-and-hold gesture on the dedicated area of the screen: “Hold to sign”. After 2 seconds, the transaction is signed and the user receives a success notification accompanied by a sound.
+Confirming a <Glossary word="transaction"></Glossary> always uses the same press-and-hold gesture on the dedicated area of the screen: “Hold to sign”. After 2 seconds, the <Glossary word="transaction"></Glossary> is signed and the user receives a success notification accompanied by a sound.
 
 The notification dismisses automatically after a few seconds, and the user is back on your app’s home screen.
 
@@ -159,14 +160,14 @@ The notification dismisses automatically after a few seconds, and the user is ba
 
 <Callout type="warning" emoji="⚠️">
 	<ul>
-		<li>· Stick to the default “Hold to sign” wording, as the Ledger device cannot know if the transaction was properly transmitted to the software wallet and broadcasted on the blockchain.</li>
-		<li>· Similarly, stick to the default “Transaction signed” or “message signed” wording, as the Ledger device cannot know if the transaction was successfully broadcasted.</li>
+		<li>· Stick to the default “Hold to sign” wording, as the Ledger device cannot know if the <Glossary word="transaction"></Glossary> was properly transmitted to the software wallet and broadcasted on the <Glossary word="blockchain"></Glossary>.</li>
+		<li>· Similarly, stick to the default “Transaction signed” or “message signed” wording, as the Ledger device cannot know if the <Glossary word="transaction"></Glossary> was successfully broadcasted.</li>
 	</ul>
 </Callout>
 
 ## Rejecting transaction
 
-Rejecting a transaction is a safety action that must be accessible at all times. Thus, this action always sits at the bottom of every screen, from the transaction prompt to the signing step.
+Rejecting a <Glossary word="transaction"></Glossary> is a safety action that must be accessible at all times. Thus, this action always sits at the bottom of every screen, from the <Glossary word="transaction"></Glossary> prompt to the signing step.
 
 When users tap on “Reject transaction”, a confirmation modal asks them to confirm. This is to prevent accidental touches.
 
@@ -183,13 +184,13 @@ To help your users navigate longer or more complex transactions, you might want 
 
 ## Blind signing
 
-When a transaction cannot be fully decoded, a standard “blind signing warning sequence” must be presented to users. It should be accompanied by a dedicated setting that the user must enable in order to sign non-decoded transactions or messages.
+When a <Glossary word="transaction"></Glossary> cannot be fully decoded, a standard “blind signing warning sequence” must be presented to users. It should be accompanied by a dedicated setting that the user must enable in order to sign non-decoded transactions or messages.
 
-- The “blind signing” setting should be off by default. When that’s the case, the user is presented with a specific warning when trying to sign an non-decoded transaction.
-- After enabling the setting, users must still be warned of every blind transaction.
-- On the transaction intent and signature pages, a warning icon is introduced. When tapped, it brings back the detailed risk review as a modal.
+- The “blind signing” setting should be off by default. When that’s the case, the user is presented with a specific warning when trying to sign an non-decoded <Glossary word="transaction"></Glossary>.
+- After enabling the setting, users must still be warned of every blind <Glossary word="transaction"></Glossary>.
+- On the <Glossary word="transaction"></Glossary> intent and signature pages, a warning icon is introduced. When tapped, it brings back the detailed risk review as a modal.
 
-The example below shows a blind signing sequence on Ledger Stax, where the Ethereum app presents the approval of an unknown ERC-20 token, and after the blind signing setting was enabled:
+The example below shows a <Glossary word="blind signing"></Glossary> sequence on Ledger Stax, where the <Glossary word="Ethereum"></Glossary> app presents the approval of an unknown ERC-20 token, and after the <Glossary word="blind signing"></Glossary> setting was enabled:
 
 
 ![Stax Blind Signing](/device-app/stax-blind-signing-01.png)
@@ -197,7 +198,7 @@ The example below shows a blind signing sequence on Ledger Stax, where the Ether
 ![Stax Blind Signing](/device-app/stax-blind-signing-02.png)
 | *Note the null amount and lack of token info: the user cannot understand that they are signing a token approval in this example. The last screen is displayed when the user touches the warning icon in the top-right corner, displayed on the intent and signing pages.* |
 
-If the “blind signing” setting is disabled, a dedicated warning message redirects the user when attempting to sign a transaction that cannot be fully decoded:
+If the “blind signing” setting is disabled, a dedicated warning message redirects the user when attempting to sign a <Glossary word="transaction"></Glossary> that cannot be fully decoded:
 
 ![Flex Blind Signing](/device-app/flex-blind-signing.png)
 |:--:| 
@@ -214,7 +215,7 @@ If the “blind signing” setting is disabled, a dedicated warning message redi
 
 While this whole chapter mainly focused on transactions, the same principles apply to messages. The wording must reflect this change by consistently replacing “transaction” with “message”.
 
-When messages lack information about their type, structure, blockchain, or network, the prompt and signature screens must use this “scroll” icon:
+When messages lack information about their type, structure, <Glossary word="blockchain"></Glossary>, or network, the prompt and signature screens must use this “scroll” icon:
 
 ![Review transaction](/device-app/stax-flex-review-transaction.png)
 
@@ -222,10 +223,10 @@ When messages lack information about their type, structure, blockchain, or netwo
 
 <KeyTakeaway>
 	<ul>
-		<li>· Rely on the default transaction structure and allow users to navigate freely within it. Use the default signing gesture and wording to make the experience consistent across all apps</li>
-		<li>· Leverage the transaction intent and the transaction fields to craft a great clear signing experience for your specific use cases, balancing complete user control with digestible information.</li>
-		<li>· When clear signing is not possible, you must use the standard “Blind signing” warning template.</li>
-		<li>· Refer to the “Advanced interactions” chapter if your app needs to handle special cases outside the high-level API “use case” functions.</li>
+		<li>· Rely on the default <Glossary word="transaction"></Glossary> structure and allow users to navigate freely within it. Use the default signing gesture and wording to make the experience consistent across all apps</li>
+		<li>· Leverage the <Glossary word="transaction"></Glossary> intent and the <Glossary word="transaction"></Glossary> fields to craft a great <Glossary word="clear signing"></Glossary> experience for your specific use cases, balancing complete user control with digestible information.</li>
+		<li>· When <Glossary word="clear signing"></Glossary> is not possible, you must use the standard “Blind signing” warning template.</li>
+		<li>· Refer to the “Advanced interactions” chapter if your app needs to handle special cases outside the high-level <Glossary word="API"></Glossary> “use case” functions.</li>
 	</ul>
 </KeyTakeaway>
 

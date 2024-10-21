@@ -1,3 +1,4 @@
+import Glossary from '/components/features/tooltip-glossary'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { Steps } from 'nextra/components'
@@ -5,27 +6,27 @@ import { Callout } from 'nextra/components'
 
 # What do we need
 
-In order to become a native Sell provider in the Ledger Live ecosystem, you must:
+In order to become a native Sell provider in the <Glossary word="Ledger Live"></Glossary> ecosystem, you must:
 
 <Steps>
 ### Adapt to our Backend
  
-- Adapt your API and endpoints to interact with our Backend.
+- Adapt your <Glossary word="API"></Glossary> and endpoints to interact with our <Glossary word="Backend"></Glossary>.
 - Generate a structured payload and a signature with a specific format.
 - Send your public key to Ledger and secure your private key.
 
 ### Develop/Modify your LiveApp
  
 - Use our Leger Exchange Services Kit in addition to the Ledger Services Kit.
-- Provide a set of query parameters to access your LiveApp directly with the quote entered by the user in Ledger Live. 
-- Write/Modify the Manifest file. 
+- Provide a set of query parameters to access your LiveApp directly with the quote entered by the user in <Glossary word="Ledger Live"></Glossary>. 
+- Write/Modify the <Glossary word="Manifest"></Glossary> file. 
 - Follow some flow/UX requirements.
 
 ### Test and submit
 
 Test end-to-end your integration by manually loading your LiveApp through Developer Mode (see [Ledger Services Kit doc](https://wallet.api.live.ledger.com/docs/discover/dapp-browser/manifest#load-your-live-app-locally-on-desktop)) and submit:
-  - Your API, 
-  - Your LiveApp Manifest,
+  - Your <Glossary word="API"></Glossary>, 
+  - Your LiveApp <Glossary word="Manifest"></Glossary>,
   - Your public key.
 
 </Steps>

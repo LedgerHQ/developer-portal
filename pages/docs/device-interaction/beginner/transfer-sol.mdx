@@ -3,13 +3,14 @@ title: Transfer of Sol between accounts
 description: In this section, we will guide you through the creation of an application. This application will create a transaction that will be signed with the Ledger Nano before sending it to the blockchain.
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
 import Image from 'next/image'
 
 
 # Transfer of Sol between accounts
 
 ## Introduction
-In this section, we will guide you through the creation of an application. This application will create a transaction that will be signed with the Ledger Nano before sending it to the blockchain.
+In this section, we will guide you through the creation of an application. This application will create a <Glossary word="transaction"></Glossary> that will be signed with the Ledger Nano before sending it to the <Glossary word="blockchain"></Glossary>.
 The purpose of the application is to transfer sol from your solana account on your Ledger to another account.
 
 ## Tutorial Prerequisites
@@ -190,10 +191,10 @@ document.getElementById("tx-transfer").onclick = async function () {
     recipient = new SolanaWeb3.PublicKey(document.getElementById("recipient").value);
     value = document.getElementById("value").value;
 
-    //Building transaction with the information gathered
+    //Building <Glossary word="transaction"></Glossary> with the information gathered
     try {
         const recentBlockhash = await connection.getRecentBlockhash();
-        const transaction = new SolanaWeb3.Transaction({ feePayer: addressWallet, recentBlockhash: recentBlockhash.blockhash}).add(
+        const <Glossary word="transaction"></Glossary> = new SolanaWeb3.Transaction({ feePayer: addressWallet, recentBlockhash: recentBlockhash.blockhash}).add(
             SolanaWeb3.SystemProgram.transfer({
                 fromPubkey: addressWallet,
                 toPubkey: recipient,
@@ -202,18 +203,18 @@ document.getElementById("tx-transfer").onclick = async function () {
         );
 
 
-        //Serializing the transaction to pass it to Ledger Nano for signing
-        const unsignedTx = transaction.serializeMessage();
+        //Serializing the <Glossary word="transaction"></Glossary> to pass it to Ledger Nano for signing
+        const unsignedTx = <Glossary word="transaction"></Glossary>.serializeMessage();
 
         //Sign with the Ledger Nano (Sign what you see)
         const { signature } = await _sol.signTransaction("44'/501'/0'", unsignedTx);
-        transaction.addSignature(addressWallet,signature);
+        <Glossary word="transaction"></Glossary>.addSignature(addressWallet,signature);
 
-        //Serialize the same transaction as before, but added the signature on it
-        const signedTx = transaction.serialize();
+        //Serialize the same <Glossary word="transaction"></Glossary> as before, but added the signature on it
+        const signedTx = <Glossary word="transaction"></Glossary>.serialize();
 
 
-        //Sending the transaction to the blockchain
+        //Sending the <Glossary word="transaction"></Glossary> to the blockchain
         const hash = await connection.sendRawTransaction(signedTx, {preflightCommitment:"confirmed", skipPreflight: false});
 
         //Display the Solana explorer url on the screen
@@ -387,7 +388,7 @@ Now choose the Ledger Nano to connect it to the browser.
 ![Connect the Ledger Nano](/device-interaction/tutorial-1-solana-pairing.png)
 *Fig. 7: Connect the Ledger Nano*
 
-After connecting the Nano, click on "Get Information". If all goes well, the input fields will be filled with data. The greyed input is not to be changed and it is directly extracted either from the blockchain or from your Ledger Embedded application.
+After connecting the Nano, click on "Get Information". If all goes well, the input fields will be filled with data. The greyed input is not to be changed and it is directly extracted either from the <Glossary word="blockchain"></Glossary> or from your Ledger Embedded application.
 
 ![Application After Connecting Ledger Nano](/device-interaction/tutorial-1-solana-info.png)
 *Fig. 8: Application After Connecting Ledger Nano*
@@ -421,18 +422,18 @@ solana airdrop 1 72tCcW6F4gRWJLCXf3RGejNDZBwUvWCfxHTdxoLGV4ht --url https://api.
 ### Create a transaction to transfer sol
 
 Now that the inputs are filled with data. It is time to transfer some sol tokens from your Ledger solana account to another account (you can keep the default account on the "index.js" file).  
-Therefore, click on "Create Transaction" to create the transaction which will be signed by your ledger before sending it to the blockchain.  
+Therefore, click on "Create Transaction" to create the <Glossary word="transaction"></Glossary> which will be signed by your ledger before sending it to the <Glossary word="blockchain"></Glossary>.  
 
 ![Application After Connecting Ledger Nano](/device-interaction/tutorial-1-solana-create.png)
 *Fig. 10: Application After Connecting Ledger Nano*
 
-When the transaction proceed and finalize, an URL will be displayed on the screen. This URL is a link to Solana Explorer to review the transaction.  
-There you can find all the information concerning the transaction you have previously sent.
+When the <Glossary word="transaction"></Glossary> proceed and finalize, an URL will be displayed on the screen. This URL is a link to Solana Explorer to review the <Glossary word="transaction"></Glossary>.  
+There you can find all the information concerning the <Glossary word="transaction"></Glossary> you have previously sent.
 
 ![Result after Sending Transaction](/device-interaction/tutorial-1-solana-transaction.png)
-*Fig. 11: Transaction Information URL*
+*Fig. 11: <Glossary word="Transaction"></Glossary> Information URL*
 
-If you go on Solana Explorer you can see the information of your transaction.
+If you go on Solana Explorer you can see the information of your <Glossary word="transaction"></Glossary>.
 
 ![Result after Sending Transaction](/device-interaction/solana-explorer-1.png)
 *Fig. 12: Result on Solana Explorer after Sending Transaction*

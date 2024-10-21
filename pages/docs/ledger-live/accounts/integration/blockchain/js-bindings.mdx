@@ -7,7 +7,7 @@ import { Callout } from 'nextra/components'
 
 # 2 - Embedded App JS Bindings
 
-You will need to provide a JS implementation to interact with your coin embedded app on a Ledger.
+You will need to provide a JS implementation to interact with your coin <Glossary word="embedded app"></Glossary> on a Ledger.
 These bindings can either be implemented directly into live-common (as a folder in your coin family folder), or published in [LedgerJS/packages](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs) as a package - i.e. `hw-app-mycoin`.
 
 ## Minimal Implementation
@@ -17,14 +17,14 @@ The app implementation should provide at least 2 methods:
 * `signTransaction(path: string, message: string)`: sign a raw message for provided BIP32 path
 
 <Callout type="warning" emoji="⚠️">
-  If the <code>display</code> argument in <code>getAddress</code> doesn't work, get in touch with us - a necessary change may need to be made to the Ledger embedded app.
+  If the <code>display</code> argument in <code>getAddress</code> doesn't work, get in touch with us - a necessary change may need to be made to the Ledger <Glossary word="embedded app"></Glossary>.
 </Callout>
 
 <Callout>
-  Arguments are provided as example, but try to follow as much as possible other implementations for easy integration. If stuck, find and read your coin's embedded app documentation (<code>doc/api.asc</code>).
+  Arguments are provided as example, but try to follow as much as possible other implementations for easy <Glossary word="integration"></Glossary>. If stuck, find and read your coin's <Glossary word="embedded app"></Glossary> documentation (<code>doc/api.asc</code>).
 </Callout>
 
-Any features provided by the embedded app should be provided through these JS bindings, such as `getAppConfiguration` or any blockchain-specific capabilities.
+Any features provided by the <Glossary word="embedded app"></Glossary> should be provided through these JS bindings, such as `getAppConfiguration` or any blockchain-specific capabilities.
 
 ## Example
 
@@ -145,10 +145,10 @@ export default class MyCoin {
   }
 
   /**
-   * Sign a MyCoin transaction with a given BIP 32 path
+   * Sign a MyCoin <Glossary word="transaction"></Glossary> with a given BIP 32 path
    *
    * @param path a path in BIP 32 format
-   * @param message a raw hex string representing a serialized transaction.
+   * @param message a raw hex string representing a serialized <Glossary word="transaction"></Glossary>.
    * @return an object with signature and returnCode
    */
   async signTransaction(
@@ -252,16 +252,16 @@ export default class MyCoin {
  }
 
  function signTransaction(myCoin, deviceData, nonce) {
-     let tx = {
+     let <Glossary word="tx"></Glossary> = {
          type: "send",
          from: deviceData.address,
          to: "destination-address",
          amount: "1000000",
-         nonce,
+         <Glossary word="nonce"></Glossary>,
      };
      const serialized = MyCoinSdk.encode(tx);
 
-     console.log('Sending transaction to device for approval...');
+     console.log('Sending <Glossary word="transaction"></Glossary> to device for approval...');
      return myCoin.signTransaction("44'/8008'/0'/0/0", serialized);
  }
 
