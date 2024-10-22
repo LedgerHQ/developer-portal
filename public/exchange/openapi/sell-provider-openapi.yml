@@ -82,8 +82,15 @@ paths:
       parameters:
         - name: from
           in: query
-          description: Crypto currency at the ledgerId format.
+          description: Crypto currency at the provider format.
           required: true
+          schema:
+            type: string
+          example: bitcoin
+        - name: network
+          in: query
+          description: Crypto currency network
+          required: false
           schema:
             type: string
           example: bitcoin
@@ -430,6 +437,8 @@ components:
       type: object
       properties:
         id:
+          type: string
+        network:
           type: string
         minAmount:
           type: number
