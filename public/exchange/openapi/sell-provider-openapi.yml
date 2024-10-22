@@ -34,15 +34,39 @@ paths:
                   - country: FR
                     paymentMethods:
                       - name: sepa
+                        minMaxRestrictions:
+                          - fiat: EUR
+                            minAmount: 30
+                            maxAmount: 3000
                       - name: visa
+                        minMaxRestrictions:
+                           - fiat: EUR
+                             minAmount: 10
+                             maxAmount: 1000
                   - country: US
                     paymentMethods:
                       - name: sepa
+                        minMaxRestrictions:
+                          - fiat: USD
+                            minAmount: 30
+                            maxAmount: 3000
                       - name: visa
+                        minMaxRestrictions:
+                          - fiat: USD
+                            minAmount: 10
+                            maxAmount: 1000
                   - country: GB
                     paymentMethods:
                       - name: sepa
+                        minMaxRestrictions:
+                          - fiat: GBP
+                            minAmount: 10
+                            maxAmount: 3000
                       - name: visa
+                        minMaxRestrictions:
+                          - fiat: GBP
+                            minAmount: 30
+                            maxAmount: 1000
         default:
           description: Error sent by the provider
           content:
@@ -333,20 +357,15 @@ components:
     SellPaymentMethod:
       required:
         - name
-        - successRate
-        - minAmount
-        - maxAmount
+        - minMaxRestrictions
       type: object
       properties:
         name:
           $ref: '#/components/schemas/PaymentMethod'
-        successRate:
-          type: integer
-          format: int32
-        minAmount:
-          type: number
-        maxAmount:
-          type: number
+        minMaxRestrictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/FiatCurrencyCapabilityPaymentMethods'
     SellProviderCapabilities:
       type: object
       properties:
@@ -423,12 +442,27 @@ components:
     FiatCurrencyCapability:
       required:
         - fiat
+      type: object
+      properties:
+        fiat:
+          type: string
+          description: Currency code of the ISO-4217 standard.
+    FiatCurrencyCapabilityPaymentMethods:
+      required:
+        - fiat
         - minAmount
         - maxAmount
       type: object
       properties:
         fiat:
           type: string
+          description: Currency code of the ISO-4217 standard.
+        minAmount:
+          type: string
+          description: Miniumum supported amount of this currency
+        maxAmount:
+          type: string
+          description: Maximum supported amount of this currency
     Mastercard:
       type: object
     Other:
