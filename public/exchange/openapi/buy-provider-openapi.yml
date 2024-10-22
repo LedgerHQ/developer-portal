@@ -15,7 +15,6 @@ paths:
             - "fiatCurrencyCapabilities.[].maxAmount ": minimum amount in fiat the user can buy crypto,
             - "countryCapabilities.[].country": available at the Alpha-2 standard (ISO3166),
             - "countryCapabilities.[].paymentMethods.[].name": Available payment method, valid values : visa, mastercard, creditcard, pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay, maestro, googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank, bank, gbpbank, eps, ideal, revolut
-            - "countryCapabilities.[].paymentMethods.[].successRate": percentage of success of the transaction.
           content:
             application/json:
               schema:
@@ -35,27 +34,18 @@ paths:
                   - country: FR
                     paymentMethods:
                       - name: paypal
-                        successRate: 50
                       - name: pix
-                        successRate: 20
                       - name: visa
-                        successRate: 50
                   - country: US
                     paymentMethods:
                       - name: paypal
-                        successRate: 50
                       - name: pix
-                        successRate: 20
                       - name: visa
-                        successRate: 50
                   - country: GB
                     paymentMethods:
                       - name: paypal
-                        successRate: 50
                       - name: pix
-                        successRate: 20
                       - name: visa
-                        successRate: 50
         default:
           description: Error sent by the provider
           content:
@@ -272,14 +262,10 @@ components:
     BuyPaymentMethod:
       required:
         - name
-        - successRate
       type: object
       properties:
         name:
           $ref: '#/components/schemas/PaymentMethod'
-        successRate:
-          type: integer
-          format: int32
     BuyProviderCapabilities:
       type: object
       properties:
