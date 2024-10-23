@@ -7,7 +7,7 @@ paths:
     get:
       description: Get details about a user's staking position based on the provided
         address and network.
-      operationId: getV0NetworkkAddressStakes
+      operationId: getV0NetworkAddressStakes
       parameters:
       - name: network
         in: path
@@ -438,7 +438,6 @@ components:
           type: string
           format: date-time
     RewardsView:
-      title: RewardsView
       oneOf:
       - $ref: '#/components/schemas/RewardsViewSuccess'
       - $ref: '#/components/schemas/RewardsViewError'
