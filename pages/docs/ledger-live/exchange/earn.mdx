@@ -1,18 +1,22 @@
-import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import { Steps } from "nextra/components";
+import { Callout } from 'nextra/components'
 
 # What do we need
 
 An Earn application lets Ledger Live users stake their crypto assets to earn rewards.
 
-To integrate your staking services into Ledger Live, your Earn application requires the integration of three key components:
+To integrate your Earn application into Ledger Live, three key components are required:
 
-- A **LiveApp**: a LiveApp is a web application loaded within Ledger Live that can interact with Ledger wallet devices (for instance, to sign a transaction) and access information from the connected Ledger wallet (such as the wallet address). 
+1. A **LiveApp**: a LiveApp is a web application loaded within Ledger Live that can interact with Ledger wallet devices (for instance, to sign a transaction) and access information from the connected Ledger wallet (such as the wallet address). 
 Your LiveApp provides a user interface that displays information, accepts user inputs, and communicates with your application's backend and smart contracts.
-- A **plugin**: ensures that instead of signing raw and often unintelligible blockchain data (blind signing), the user will be provided with a clear, human-readable summary of the transaction details on his Ledger device (clear signing). 
+2. A **plugin**: ensures that instead of signing raw and often unintelligible blockchain data (blind signing), the user will be provided with a clear, human-readable summary of the transaction details on his Ledger device (clear signing). 
 To integrate clear signing in your LiveApp, you must write a specific Ledger plugin that translates raw blockchain transaction data into understandable summaries, displaying it on the Ledger device itself. This step is required for your LiveApp to be integrated within Ledger Live.
-- **Earn dashboard integration**: The Earn section in Ledger Live allows users to track their staking positions (APY, rewards, etc.). Users staking assets through your service must be able to view their positions in the Earn dashboard.
+3. **Earn dashboard integration**: The Earn section in Ledger Live allows users to track their staking positions (APY, rewards, etc.). Users staking assets through your service must be able to view their positions in the Earn dashboard.
+
+<Callout type="info" emoji="ℹ️">
+Each component can be developed simultaneously. For example, you can work on your plugin even if your LiveApp isn't finished yet. However, all components must be fully developped (and tested) for your Earn application to be deployed to Ledger Live.
+</Callout>
 
 In the following pages, you will find:
 

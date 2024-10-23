@@ -23,8 +23,8 @@ To learn how to create (or embed if already existing) your user interface for Le
 
 ## LiveApp UX requirements
 
-Your LiveApp must respect some general UX requirements:
-- 0-click connect to the wallet (user's wallet must be automatically connected when opening your LiveApp)
+Your LiveApp must respect some UX requirements:
+- 0-click connect to the wallet (users wallet must be automatically connected when opening your LiveApp)
 - Login through other wallets must not be possible
 - Design must be responsive for optimal display on all devices
 - After a successful transaction (staking/unstaking, delegation, rewards claiming..), a confirmation page with the transaction hash must be displayed to users, allowing them to easily confirm its status.
@@ -33,14 +33,14 @@ Your LiveApp must respect some general UX requirements:
 The Ledger team will review and validate your LiveApp’s user flow and ensure compliance with the guidelines mentioned above.
 
 <Callout type="info" emoji="👉">
-If a token representing the staking position is issued to users (wether it is liquid or not), please inform Ledger of the token's name and address.
+If a token (wether it is liquid or not) representing the staking position is issued to users, please inform Ledger of the token's name and address.
 </Callout>
 
 ## Manifest update
 
-If your liveApp interacts with smart contracts that you don't own and are already clear signed by another LiveApp, you must update your manifest to specify this dependency. 
+In some cases, your LiveApp might interact with third-party smart contracts that you don't own and are already clear signed. If that is the case, you must update your manifest to specify this dependency. 
 
-For example, if your LiveApp interacts with eigenlayer smart contracts (that have already been clear signed and used by other LiveApps), then your LiveApp's manifest must include the following:
+For example, if your LiveApp interacts with eigenlayer smart contracts (that are already clear signed and used by other LiveApps), then your LiveApp's manifest must include the following:
 
 ```json
 "dependency": [
