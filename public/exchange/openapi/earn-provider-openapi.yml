@@ -7,7 +7,7 @@ paths:
     get:
       description: Get details about a user's staking position based on the provided
         address and network.
-      operationId: getV0NetworkNetworkAddressAddressStakes
+      operationId: getV0NetworkkAddressStakes
       parameters:
       - name: network
         in: path
@@ -99,24 +99,11 @@ paths:
               example:
                 what: 0x00000000000 not found
         '500':
-          description: External API error
+          description: Server error
           content:
             application/json:
               schema:
-                anyOf:
-                - $ref: '#/components/schemas/InvalidResponse'
-                - $ref: '#/components/schemas/ServerError'
-                - $ref: '#/components/schemas/Unknown'
-              example:
-                response: Invalid response
-        '503':
-          description: External API error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExternalDependencyError'
-              example:
-                msg: Invalid response
+                $ref: '#/components/schemas/ServerError'
   /v0/grow:
     get:
       description: Get interest rates for all available networks
@@ -135,14 +122,28 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/GrowResponse'
-        default:
-          description: ''
+        '401':
+          description: Unauthorized
           content:
             application/json:
               schema:
-                anyOf:
-                - type: string
-                - $ref: '#/components/schemas/Map_String'
+                $ref: '#/components/schemas/Unauthorized'
+              example:
+                realm: earn
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+              example:
+                what: 0x00000000000 not found
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
 components:
   schemas:
     AdaDetailsView:
@@ -164,9 +165,8 @@ components:
     CommissionView:
       title: CommissionView
       description: The commission type
-      oneOf:
-      - $ref: '#/components/schemas/Gross'
-      - $ref: '#/components/schemas/Net'
+      type: string
+      enum: [Gross, Net]
     CosmosDetailsView:
       title: CosmosDetailsView
       type: object
@@ -202,7 +202,6 @@ components:
           type: string
           format: date-time
     DetailsView:
-      title: DetailsViewa
       oneOf:
       - $ref: '#/components/schemas/AdaDetailsView'
       - $ref: '#/components/schemas/CosmosDetailsView'
@@ -253,14 +252,6 @@ components:
           description: The total execution layer rewards earned from transaction fees
             and MEV, represented in wei.
           type: string
-    ExternalDependencyError:
-      title: ExternalDependencyError
-      type: object
-      required:
-      - msg
-      properties:
-        msg:
-          type: string
     Failure:
       title: Failure
       type: object
@@ -298,9 +289,6 @@ components:
         details:
           $ref: '#/components/schemas/Map_String'
           description: The error details
-    Gross:
-      title: Gross
-      type: object
     GrowResponse:
       title: GrowResponse
       oneOf:
@@ -366,14 +354,6 @@ components:
       properties:
         msg:
           type: string
-    InvalidResponse:
-      title: InvalidResponse
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          type: string
     KilnEthereumPoolingDetailsView:
       title: KilnEthereumPoolingDetailsView
       type: object
@@ -424,9 +404,6 @@ components:
         updatedAt:
           type: string
           format: date-time
-    Net:
-      title: Net
-      type: object
     NotFound:
       title: NotFound
       type: object
@@ -546,48 +523,6 @@ components:
         updated_at:
           type: string
           format: date-time
-    SolanaValidatorDetailsView:
-      title: SolanaValidatorDetailsView
-      description: The details of a Solana validator
-      type: object
-      properties:
-        active_stake:
-          description: The amount of active stake delegated to this validator. Represents
-            the total value of tokens actively voting or contributing to network consensus.
-          type: integer
-        commission:
-          description: The commission rate (as a percentage) charged by the validator
-            on rewards earned by delegators. Typically set by the validator to compensate
-            for their operations.
-          type: number
-          format: double
-        total_score:
-          description: A performance score assigned to the validator based on metrics
-            such as uptime, stake performance, and other network-specific factors.
-          type: number
-          format: double
-        vote_account:
-          description: The account associated with the validator used for submitting
-            votes or participating in consensus activities.
-          type: string
-        name:
-          description: The validator's name or identifier, which may be used by the
-            validator's team for branding or identification purposes in the network.
-          type: string
-        avatar_url:
-          $ref: '#/components/schemas/Uri'
-          description: A URL pointing to the validator's avatar or logo, used for
-            visual representation in interfaces like explorers or dashboards.
-        delinquent:
-          description: Indicates whether the validator is currently delinquent or
-            underperforming. This can include missing votes, being offline, or failing
-            other consensus-related criteria.
-          type: boolean
-        www_url:
-          description: A website URL where additional information about the validator
-            or their operations can be found. The URL may not always be in a standardized
-            format.
-          type: string
     StakeView:
       title: StakeView
       oneOf:
@@ -595,14 +530,9 @@ components:
       - $ref: '#/components/schemas/Failure'
     StatusView:
       title: StatusView
+      type: string
       description: The status of the stake
-      oneOf:
-      - $ref: '#/components/schemas/activated'
-      - $ref: '#/components/schemas/activating'
-      - $ref: '#/components/schemas/archived'
-      - $ref: '#/components/schemas/deactivated'
-      - $ref: '#/components/schemas/deactivating'
-      - $ref: '#/components/schemas/unknown'
+      enum: [activated, activating, archived, deactivated, deactivating]
     Success:
       title: Success
       type: object
@@ -717,25 +647,3 @@ components:
     Uri:
       title: Uri
       type: string
-    ValidatorDetailsView:
-      title: ValidatorDetailsView
-      oneOf:
-      - $ref: '#/components/schemas/SolanaValidatorDetailsView'
-    activated:
-      title: activated
-      type: object
-    activating:
-      title: activating
-      type: object
-    archived:
-      title: archived
-      type: object
-    deactivated:
-      title: deactivated
-      type: object
-    deactivating:
-      title: deactivating
-      type: object
-    unknown:
-      title: unknown
-      type: object
