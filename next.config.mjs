@@ -8,6 +8,11 @@ const withNextra = nextra({
 export default withNextra({
   redirects: () => [
     {
+      source: "/dev-tracks",
+      destination: "/docs/dev-tracks/quickstart",
+      permanent: true,
+    },
+    {
       source: "/discord",
       destination: "https://discord.gg/Ledger",
       permanent: true,
