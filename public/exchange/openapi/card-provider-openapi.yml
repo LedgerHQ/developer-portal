@@ -233,6 +233,9 @@ components:
           description: Payload signed in JWS format.
     ErrorPayload:
       type: object
+      required:
+        - messageKey
+        - message
       properties:
         messageKey:
           type: string

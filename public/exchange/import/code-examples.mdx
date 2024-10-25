@@ -1,0 +1,100 @@
+# Java
+```java
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import java.security.*;
+import java.util.Base64;
+
+public class App {
+
+    static {
+        Security.addProvider(new BouncyCastleProvider());
+    }
+
+    public static void main(String[] args) throws Exception {
+        byte[] payloadBytes = response.toByteArray();
+        String payload = Base64.getUrlEncoder().withoutPadding().encodeToString(payloadBytes);
+        PrivateKey key = getPrivateKeyFromPEMFile("<path to your private key>");
+        byte[] sign = signPayload(("." + payload).getBytes(), key);
+        String signature = Base64.getUrlEncoder().withoutPadding().encodeToString(sign);
+    }
+
+    public static byte[] signPayload(byte[] payloadBytes, PrivateKey privateKey) throws Exception {
+        Signature signer = Signature.getInstance("SHA256withPlain-ECDSA", "BC");
+        signer.initSign(privateKey);
+        signer.update(payloadBytes);
+        return signer.sign();
+    }
+}
+```
+
+# Python
+```python
+import base64
+import os
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives.asymmetric import ec
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives import hashes
+from google.protobuf import message
+import sell_pb2  # Import the generated protobuf classes
+from cryptography.hazmat.primitives.asymmetric.utils import decode_dss_signature
+
+
+def base64_url_encode(data):
+    return base64.urlsafe_b64encode(data).rstrip(b'=').decode('utf-8')
+
+
+def sign_payload(payload, private_key):
+    # Sign the payload using ECDSA with SHA-256
+    der_signature = private_key.sign(
+        payload,
+        ec.ECDSA(hashes.SHA256())
+    )
+    # Decode the DER-encoded signature to get r and s
+    r, s = decode_dss_signature(der_signature)
+    # Convert r and s to bytes
+    r_bytes = r.to_bytes(32, byteorder='big')
+    s_bytes = s.to_bytes(32, byteorder='big')
+    return r_bytes + s_bytes
+
+
+if __name__ == "__main__":
+    payload = response.SerializeToString()
+    encoded_payload = base64_url_encode(payload)
+    # Sign the payload
+    signature = sign_payload(("." + encoded_payload).encode('utf-8'), private_key)
+    # Base64 URL encode the signature
+    encoded_signature = base64_url_encode(signature)
+    provider_sig = {
+        "payload": encoded_payload,
+        "signature": encoded_signature
+    }
+```
+
+# typescript
+```typescript
+const base64EncodedPayload = base64url.encode(
+   Buffer.from(uInt8ArrayEncodedPayload), // this is encoded payload using protobuf
+);
+
+function signProviderSignaturePayload(base64EncodedPayload: string): string {
+    const ec = new EC('secp256k1');
+    const keyPair = ec.keyFromPrivate(
+      <PRIVATE_KEY_GOES_HERE>,
+      'hex',
+    );
+    const hashedMessage = crypto
+      .createHash('sha256')
+      .update(`.${base64EncodedPayload}`)
+      .digest();
+    const signature = keyPair.sign(hashedMessage);
+
+    const r = signature.r.toString('hex').padStart(64, '0');
+    const s = signature.s.toString('hex').padStart(64, '0');
+
+    const signatureBuffer = Buffer.from(r + s, 'hex');
+    const signatureBase64 = signatureBuffer.toString('base64url');
+
+    return signatureBase64;
+}
+```

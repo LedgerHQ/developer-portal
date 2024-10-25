@@ -72,7 +72,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProviderServerError'
+                $ref: '#/components/schemas/ErrorPayload'
               example:
                 code: 400
                 message: Server isn't able to handle the request because of whatever.
@@ -161,13 +161,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProviderServerError'
+                $ref: '#/components/schemas/ErrorPayload'
         default:
           description: Error sent by the provider
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProviderServerError'
+                $ref: '#/components/schemas/ErrorPayload'
   /crypto-currencies:
     get:
       operationId: getCrypto-currencies
@@ -201,7 +201,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProviderServerError'
+                $ref: '#/components/schemas/ErrorPayload'
               example:
                 code: 42
                 message: Server isn't able to handle the request because of whatever.
@@ -512,17 +512,6 @@ components:
         expiry:
           type: string
           description: Quote expiration timestamp
-    ProviderServerError:
-      required:
-        - code
-        - message
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
     Sepa:
       type: object
     Token:
@@ -614,6 +603,9 @@ components:
           description: Payload signed in JWS format.
     ErrorPayload:
       type: object
+      required:
+        - message
+        - messageKey
       properties:
         messageKey:
           type: string
