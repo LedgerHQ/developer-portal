@@ -1,0 +1,51 @@
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
+import { Tabs } from 'nextra/components'
+import { Callout } from 'nextra/components'
+import BackendIntro from '../../../../../public/exchange/import/backend-intro.mdx'
+import PayloadAndSignature from '../../../../../public/exchange/import/payload-and-signature.mdx'
+ 
+# Earn Provider's LiveApp
+
+A LiveApp is your dapp (web application) running within Ledger Live's embedded browser. 
+
+A LiveApp offering Ledger Live users staking services can be accessible through various entry points in Ledger Live:
+- The **Accounts** section: where users can view the list of their accounts and are provided with options to stake available assets.
+- The **Discover** section: where users can explore a curated catalog of dapps.
+- The **Earn** section: where users can track their current staking positions and stake additional assets on eligible accounts.
+
+## How to create your LiveApp
+There are two ways to integrate your dapp into Ledger Live:
+1. **dAppBrowser (EVM only)**: by creating a manifest, pointing it to the dAppBrowser, you can easily integrate your dApp into Ledger Live.
+2. **The Ledger Services Kit**: a Javascript library allowing your dapp to interact with Ledger wallet devices (for instance, to sign a transaction) and access information from the connected Ledger wallet (such as the wallet address).
+
+To learn how to create (or embed if already existing) your user interface for Ledger Live, please follow the [Discover documentation](https://developers.ledger.com/docs/ledger-live/discover/getting-started).
+
+## LiveApp UX requirements
+
+Your LiveApp must respect some UX requirements:
+- 0-click connect to the wallet (users wallet must be automatically connected when opening your LiveApp)
+- Login through other wallets must not be possible
+- Design must be responsive for optimal display on all devices
+- After a successful transaction (staking/unstaking, delegation, rewards claiming..), a confirmation page with the transaction hash must be displayed to users, allowing them to easily confirm its status.
+- If applicable, the staking method (such as native staking, liquid staking, etc.) should be displayed to users, along with the names of the validators to whom the assets are delegated to.
+
+The Ledger team will review and validate your LiveApp’s user flow and ensure compliance with the guidelines mentioned above.
+
+<Callout type="info" emoji="👉">
+If a token (wether it is liquid or not) representing the staking position is issued to users, please inform Ledger of the token's name and address.
+</Callout>
+
+## Manifest update
+
+In some cases, your LiveApp might interact with third-party smart contracts that you don't own and are already clear signed. If that is the case, you must update your manifest to specify this dependency. 
+
+For example, if your LiveApp interacts with eigenlayer smart contracts (that are already clear signed and used by other LiveApps), then your LiveApp's manifest must include the following:
+
+```json
+"dependency": [
+  "eigenlayer"
+]
+```
+
+Please contact the Ledger team to confirm whether a third-party smart contract is already clear signed, and which value to use in your manifest for it.

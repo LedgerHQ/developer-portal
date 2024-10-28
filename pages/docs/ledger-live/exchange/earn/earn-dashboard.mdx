@@ -1,0 +1,30 @@
+import { Callout } from 'nextra/components'
+
+# Earn dashboard integration
+
+The Earn section in Ledger Live allows users to track their staking positions. Users staking assets through Ledger Live must be able to view their positions for each account used for staking:
+<br />
+
+<img alt="Earn section screenshot" src="/exchange/screen-ledger-live-earn-dashboard.png" />
+
+To display such information, Ledger Live's backend needs to communicate with your service through standardised APIs.
+
+## Endpoints needed
+
+For each account used for staking, the Earn section in Ledger Live provides users with the following information:
+- **The staked amount**: total staked assets in the account.
+- **The rewards %**: can be APY or APR, depending on the assets and the blockchain.
+- **Rewards earned**: total reward earned to date. Includes any rewards that were claimed.
+
+These information must be accessible through your API.
+Moreover, depending on the staking protocols, this data should be exposed by your API for each validator address and/or pool ID, along with a detailed breakdown of rewards for specified periods (e.g., 24 hours, last 7 days, etc.).
+
+<Callout type="info" emoji="🔗">
+You will find all the information regarding the Earn endpoints here: https://exchange-integration-earn.redoc.ly/
+</Callout>
+
+In addition, Ledger also needs to know:
+
+- The base url of the API,
+- Any backend authentication information needed to use the api (token in header…),
+- Any API limits that are in place

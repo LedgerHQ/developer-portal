@@ -1,0 +1,37 @@
+import { Tabs } from "nextra/components";
+import { Callout } from "nextra/components";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
+import Image from 'next/image';
+
+
+# Earn Provider's plugin
+
+A plugin (or Leger device plugin) ensures that, instead of signing raw and often confusing blockchain data (blind signing), the user receives a clear, human-readable summary of the transaction details on their Ledger device (clear signing). 
+
+To implement clear signing in your LiveApp, you need to develop your own dedicated Ledger plugin. This is a requirement for your LiveApp to be integrated with Ledger Live.
+
+<Callout type="info" emoji="👉">
+All smart contracts your LiveApp interacts with must be clear signed (staking/unstaking, rewards claiming, or any delegation operations).
+</Callout>
+
+
+## How to create your own plugin
+
+To create your own plugin, please refer to the documentation available in the [Plugin section](https://developers.ledger.com/docs/device-app/explanation/device-app-role) of the Developer Portal.
+
+Here is the overall process:
+1. Plugin development is done by your team.
+2. Once the plugin is developed, an external security lab conducts the plugin security audit (you must contact the auditor yourself).
+3. You submit the Audit security report to Ledger. 
+4. Ledger will then perform a review and complete the final validation before releasing the plugin in production.
+
+Note: a plugin can be developed for EVM-compatible blockchains, as it works in tandem with the Ethereum App installed on Ledger devices. If your LiveApp allows staking on non-EVM blockchains, please reach out to the Ledger team for assistance with this process.
+
+
+## Ressources
+
+- Plugin technical documentation: https://ethereum-plugin-sdk.ledger.com/ 
+- Plugin boilerplate: https://github.com/LedgerHQ/app-plugin-boilerplate 
+- Kiln plugin example: https://github.com/LedgerHQ/app-plugin-kiln
+
