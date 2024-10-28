@@ -2,6 +2,8 @@
 title: FApp Browser v3 migration
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
+
 # DApp Browser v3 migration
 
 We are in the process of deprecating the dApp Browser live-app v1 and v2.
@@ -12,7 +14,7 @@ Ledger Live will now support injecting a compatible provider in the webview.
 
 - [GitHub - LedgerHQ/iframe-provider](https://github.com/LedgerHQ/iframe-provider)
 - [GitHub - LedgerHQ/eth-dapp-browser](https://github.com/LedgerHQ/eth-dapp-browser)
-- `params` field in the manifest used by Ledger Live (replaced by the `dapp` field)
+- `params` field in the <Glossary word="manifest"></Glossary> used by <Glossary word="Ledger Live"></Glossary> (replaced by the `dapp` field)
 
 ## Changes
 
@@ -20,7 +22,7 @@ Ledger Live will now inject the needed provider in the WebView directly avoiding
 
 The new provider is EIP 6963 compliant if there is a need for it but you can also use the injected `window.ethereum`
 
-The provider exposes a boolean `provider.isLedgerLive` to inform when you are in the Ledger Live environment, in that case we expect the dApp to auto connect using this provider, thus improving the user experience and avoid unnecessary clicks
+The provider exposes a boolean `provider.isLedgerLive` to inform when you are in the <Glossary word="Ledger Live"></Glossary> environment, in that case we expect the dApp to auto connect using this provider, thus improving the user experience and avoid unnecessary clicks
 
 Manifest for dApps can now use the `url` field directly instead of `params.dappUrl` and must use the `dapp` field instead of the `params` for the `provider`, `networks` and `nanoApp` fields
 
@@ -134,10 +136,10 @@ Manifest for dApps can now use the `url` field directly instead of `params.dappU
   "currencies": ["ethereum", "bsc", "polygon", "arbitrum", "optimism"],
   "content": {
     "shortDescription": {
-      "en": "Exchange crypto via a Defi/DEX aggregator on Ethereum mainnet, BSC or Polygon"
+      "en": "Exchange crypto via a Defi/DEX aggregator on <Glossary word="Ethereum"></Glossary> mainnet, BSC or Polygon"
     },
     "description": {
-      "en": "Exchange crypto via a Defi/DEX aggregator on Ethereum mainnet, BSC or Polygon"
+      "en": "Exchange crypto via a Defi/DEX aggregator on <Glossary word="Ethereum"></Glossary> mainnet, BSC or Polygon"
     }
   },
   "permissions": [],

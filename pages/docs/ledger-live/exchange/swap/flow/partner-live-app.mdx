@@ -1,3 +1,4 @@
+import Glossary from '/components/features/tooltip-glossary'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import Image from 'next/image'
@@ -18,17 +19,17 @@ When the user selects a quote among partners and clicks on the exchange to acces
 
 ### Summary screen before login
 
-The user is first redirected to a summary screen to check their transaction information.
+The user is first redirected to a summary screen to check their <Glossary word="transaction"></Glossary> information.
 
 Following information is displayed:
-- **Swap**: The input amount in cryptocurrency to swap
-- **Receive**: The output amount in cryptocurrency to receive
+- **Swap**: The input amount in <Glossary word="cryptocurrency"></Glossary> to swap
+- **Receive**: The output amount in <Glossary word="cryptocurrency"></Glossary> to receive
 - **Slippage** (only valid for floating rates): The acceptable slippage up to which a refund is requested. Slippage can either be fixed by the partner and/or set by the user
-- **Fee**: The breakdown of the transaction (withdrawal fee, partner fee, Ledger fee)
+- **Fee**: The breakdown of the <Glossary word="transaction"></Glossary> (withdrawal fee, partner fee, Ledger fee)
 - **To account**: The account name on which the user will receive the cryptocurrency
 - **Account address**: The address of the account on which the user will receive cryptocurrency
 
-The user cannot change their choice on this page. For any change, they need to come back to the Ledger Live swap app.
+The user cannot change their choice on this page. For any change, they need to come back to the <Glossary word="Ledger Live"></Glossary> swap app.
 
 To make sure the user has the last up to date quote, a timer must be set to update the quote at least every 10 seconds.
 
@@ -53,7 +54,7 @@ After the user completes login and KYC, they are redirected to the summary scree
 
 ### Design
 
-The design choices belong to the partner but some guidelines need to be followed to make sure that the UX is clear for the user.
+The design choices belong to the partner but some guidelines need to be followed to make sure that the <Glossary word="UX"></Glossary> is clear for the user.
 
 As such, a design guideline can be found [here](https://www.figma.com/proto/hx4Sxd5WRuTls5gM0hft76/LIVE-APP-%2F-Swap-provider%27s-flow?page-id=3865%3A60210&node-id=3867-69274&viewport=4418%2C3010%2C1&scaling=scale-down&starting-point-node-id=3867%3A72294).
 

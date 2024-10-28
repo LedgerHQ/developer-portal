@@ -1,3 +1,4 @@
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout} from 'nextra/components'
 
 # The `Rust` 🦀 boilerplate application
@@ -20,9 +21,9 @@ With very little changes, you should be able to quickly have an application of y
 ## Continuous Integration (CI)
 
 In the Rust boilerplate application repository you will find [a list of workflows](https://github.com/LedgerHQ/app-boilerplate-rust/tree/main/.github/workflows) 
-to set up an efficient CI pipeline for your project.
+to set up an efficient <Glossary word="CI"></Glossary> pipeline for your project.
 
-<Callout type="warning" emoji="⚠️">Setting up an efficient CI pipeline is crucial for your project's success. The <b>Guidelines enforcer</b> and <b>Build and Run functional tests</b> workflows are <b>mandatory</b> for submitting your device application for review.</Callout>
+<Callout type="warning" emoji="⚠️">Setting up an efficient <Glossary word="CI"></Glossary> pipeline is crucial for your project's success. The <b>Guidelines enforcer</b> and <b>Build and Run functional tests</b> workflows are <b>mandatory</b> for submitting your <Glossary word="device application"></Glossary> for review.</Callout>
 
 - [Guidelines_enforcer](https://github.com/LedgerHQ/app-boilerplate-rust/blob/main/.github/workflows/guidelines_enforcer.yml):
   this workflow calls a reusable workflow developed by Ledger's internal developer team,

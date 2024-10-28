@@ -3,6 +3,7 @@ title: Designing blockchain applications for Ledger Stax and Ledger Flex
 description: 
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from 'nextra/components'
 import KeyTakeaway from '/components/features/key-takeaway';
 
@@ -10,7 +11,7 @@ import KeyTakeaway from '/components/features/key-takeaway';
 
 These guidelines contain best practices to design a great experience for users of your apps, whether they have a Ledger Stax or a Ledger Flex.
 
-If you’re developing your app using Ledger’s high-level APIs and standard transaction templates, then it will already conform to these design guidelines.
+If you’re developing your app using Ledger’s high-level APIs and standard <Glossary word="transaction"></Glossary> templates, then it will already conform to these design guidelines.
 
 ## Which apps are covered in these guidelines?
 
@@ -27,9 +28,9 @@ Whether you start developing your app on Ledger Stax or Ledger Flex, porting it 
 |:--:| 
 | *The same app code scales to both Ledger Stax and Ledger Flex UI, including interaction and navigation changes.* |
 
-Your app’s UI will be automatically adapted to the device model you target when building your app, dynamically adjusting the size, elements, and number of pages. This works best if you use the high-level API endpoints known as “use cases”. 
+Your app’s UI will be automatically adapted to the device model you target when building your app, dynamically adjusting the size, elements, and number of pages. This works best if you use the high-level <Glossary word="API"></Glossary> endpoints known as “use cases”. 
 
-Throughout these guidelines, the API endpoints will be linked within “API” sections like this:
+Throughout these guidelines, the <Glossary word="API"></Glossary> endpoints will be linked within “API” sections like this:
 
 <Callout emoji="💻">
 	<b>API</b><br/>

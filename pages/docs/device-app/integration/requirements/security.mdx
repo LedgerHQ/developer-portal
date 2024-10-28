@@ -1,3 +1,4 @@
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from 'nextra/components'
 
 
@@ -60,14 +61,14 @@ More information [here](../../explanation/cryptography#signingdisclosing-keys).
 As a general rule, [blind signing should be avoided](../../explanation/cryptography#avoid-blindly-signing-data), however it is tolerated under some circumstances.
 
 
-For every transaction, the users must be able to verify on the device the amount being transferred and the destination address or the validator/nominator address(es) in the case of a staking operation.
+For every <Glossary word="transaction"></Glossary>, the users must be able to verify on the device the amount being transferred and the destination address or the validator/nominator address(es) in the case of a staking operation.
 
-When the display of those parameters (Token, smart contract management) is not possible, the transaction should be rejected by the device unless the user has acknowledged that they will be blind signing.
+When the display of those parameters (Token, smart contract management) is not possible, the <Glossary word="transaction"></Glossary> should be rejected by the device unless the user has acknowledged that they will be <Glossary word="blind signing"></Glossary>.
 
-To implement this requirement it is recommended to have a setting menu with the possibility to enable/disable blind signing.
+To implement this requirement it is recommended to have a setting menu with the possibility to enable/disable <Glossary word="blind signing"></Glossary>.
 
 <Callout type="warning" emoji="⚠️">
-    If blind signing is implemented, it must be **disabled** by default.
+    If <Glossary word="blind signing"></Glossary> is implemented, it must be **disabled** by default.
 </Callout>
 
 
@@ -128,4 +129,4 @@ Next the results of CodeQL are displayed on your GitHub security view, in the �
 
 ![Pull request view](/device-app/codeql_pr_view.png)
 
-The security issues with a severity level higher than low must be fixed before going through the security audit. The quality issues with a level set to error must also be fixed.
+The security issues with a severity level higher than low must be fixed before going through the <Glossary word="security audit"></Glossary>. The quality issues with a level set to error must also be fixed.

@@ -2,6 +2,8 @@
 title: Address derivation
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
+
 # 3 - Address derivation
 
 ### Derive Address from device
@@ -61,7 +63,7 @@ ledger-live getAddress --currency mycoin --path "44'/8008'/0'/0/0" --derivationM
 ### Derivation
 
 Ledger Live uses the BIP44 derivation mode by default (as `derivationMode=""`), which is standard and most common way for HD wallet.
-If <i>MyCoin</i> has a conventional derivation path (BIP44), Ledger Live should already be able to derive an address correctly.
+If <i>MyCoin</i> has a conventional derivation path (BIP44), <Glossary word="Ledger Live"></Glossary> should already be able to derive an address correctly.
 
 **If you need to use another derivation mode:**
 

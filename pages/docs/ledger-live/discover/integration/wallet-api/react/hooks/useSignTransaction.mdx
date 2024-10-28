@@ -1,10 +1,12 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 # Using the `useSignTransaction` hook
 
-The `useSignTransaction` hook is part of the Ledger Services Kit Client for React. It allows the user to sign a transaction without broadcasting it using the connected wallet. This documentation provides a detailed explanation of how to use this hook in your application.
+The `useSignTransaction` hook is part of the Ledger Services Kit Client for React. It allows the user to sign a <Glossary word="transaction"></Glossary> without broadcasting it using the connected wallet. This documentation provides a detailed explanation of how to use this hook in your application.
 
 ### Introduction
 
-`useSignTransaction` returns an object with a function to sign transactions, along with the state of the signature process. This is useful when you want to sign a transaction programmatically without sending it to the network.
+`useSignTransaction` returns an object with a function to sign transactions, along with the state of the signature process. This is useful when you want to sign a <Glossary word="transaction"></Glossary> programmatically without sending it to the network.
 
 ### Usage
 
@@ -16,7 +18,7 @@ The `useSignTransaction` hook is part of the Ledger Services Kit Client for Reac
 
 ### Example
 
-Below is an example demonstrating how to use the `useSignTransaction` hook to sign an Ethereum transaction.
+Below is an example demonstrating how to use the `useSignTransaction` hook to sign an <Glossary word="Ethereum"></Glossary> <Glossary word="transaction"></Glossary>.
 
 [**Required permission**:](https://developers.ledger.com/docs/ledger-live/discover/guides/wallet-api/appendix/manifest#permissions)
   `transaction.sign`
@@ -61,10 +63,10 @@ function App() {
 
   return (
     <>
-      <h1>Test Live App - Services Kit</h1>
+      <h1>Test <Glossary word="Live App"></Glossary> - Services Kit</h1>
       <div className="card">
         <button onClick={handleSignTransaction} disabled={pending}>
-          Sign Ethereum Transaction
+          Sign <Glossary word="Ethereum"></Glossary> Transaction
         </button>
 
         {pending && <p>Signing...</p>}
@@ -82,19 +84,19 @@ export default App;
 
 The `signTransaction` function takes three parameters:
 
-- `accountId`: The ID of the account you want to sign the transaction with.
+- `accountId`: The ID of the account you want to sign the <Glossary word="transaction"></Glossary> with.
 - `transaction`: The [transaction object](../../appendix/transaction) in the currency family-specific format.
-- `options` (optional): Extra parameters that may be required by certain blockchain implementations.
+- `options` (optional): Extra parameters that may be required by certain <Glossary word="blockchain"></Glossary> implementations.
 
-In the example above, `accountId` is obtained through the `useRequestAccount` hook, and `transaction` is an object representing an Ethereum transaction.
+In the example above, `accountId` is obtained through the `useRequestAccount` hook, and `transaction` is an object representing an <Glossary word="Ethereum"></Glossary> <Glossary word="transaction"></Glossary>.
 
 ### Return Value
 
 The `useSignTransaction` hook returns an object with the following properties:
 
-- `signTransaction`: Function to call for signing a transaction.
+- `signTransaction`: Function to call for signing a <Glossary word="transaction"></Glossary>.
 - `pending`: Boolean indicating if the signing process is ongoing.
-- `signature`: The raw signed transaction as a Buffer, if successful.
+- `signature`: The raw signed <Glossary word="transaction"></Glossary> as a Buffer, if successful.
 - `error`: An error object if the signing process failed.
 
 ### Error Handling

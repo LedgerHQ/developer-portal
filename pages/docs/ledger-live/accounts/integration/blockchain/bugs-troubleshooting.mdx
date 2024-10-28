@@ -3,6 +3,9 @@ title: Ledger Live common bugs
 description: Fix the most commong bugs.
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
+
+
 # Ledger Live common bugs
 
 ## Dependency missing when installing the application
@@ -19,7 +22,7 @@ Run `pnpm clean` and then `pnpm install` at the root folder of the application.
 
 ### Explanation
 
-This bug may appear if you have an older version of the Ledger Live application, and when you sync with the latest version, some dependencies are missing, or there are conflicts between them.
+This bug may appear if you have an older version of the <Glossary word="Ledger Live"></Glossary> application, and when you sync with the latest version, some dependencies are missing, or there are conflicts between them.
 
 ## Javascript Heap Out Of Memory
 
@@ -49,7 +52,7 @@ Error: Cannot find module 'node: path'
 
 ### Quick fix
 
-Run `nvm use 16` and then build Ledger Live again.
+Run `nvm use 16` and then build <Glossary word="Ledger Live"></Glossary> again.
 
 ### Explanation
 

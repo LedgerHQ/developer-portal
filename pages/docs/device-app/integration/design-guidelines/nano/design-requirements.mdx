@@ -3,6 +3,7 @@ title: Interface
 description: It can be challenging to build a user-friendly interface, because of the few inputs and the screen size. The following guidelines will give a good basis to ensure user-friendliness.
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from 'nextra/components'
 
 # Interface
@@ -40,7 +41,7 @@ The graphical pointers (glyphs) indicates which action can be performed on a scr
 
 To propose a binary choice to the user, 2 glyphs representing the 2 choices should be placed on each side of the screen:
 - a cross symbol to cancel 
-- a validation symbol to accept 
+- a <Glossary word="validation"></Glossary> symbol to accept 
 You can display a question and relevant information in between the glyphs, like in the upper example.
 
 **Browse**
@@ -60,13 +61,13 @@ This is a consistent behaviour across the device, so you can assume that users a
 
 The sections "About" and "Settings" must only be created if they contain more than one screen. If you have only one screen to display, include it in the Dashboard flow.
 
-In the "Settings" section, follow this flow: Blind signing (if applicable) → Debug data (if applicable) → Nonce (if applicable) → Back
+In the "Settings" section, follow this flow: <Glossary word="Blind signing"></Glossary> (if applicable) → Debug data (if applicable) → <Glossary word="Nonce"></Glossary> (if applicable) → Back
 
 ## Design Warranty
 
 The design of your app must be free from any encumbrances and must not infringe upon any third party intellectual property right, in particular trademark and design rights. You grant Ledger the right to use such design for free with the right to reproduce and exploit the design for the duration of its display on Ledger website.
 
-You represent and warrant that the app you are making available on Ledger Live is in compliance with all relevant laws and regulations.
+You represent and warrant that the app you are making available on <Glossary word="Ledger Live"></Glossary> is in compliance with all relevant laws and regulations.
 
 You agree to hold Ledger harmless of any claim arising out of the use of the design and or distribution of your app .
 

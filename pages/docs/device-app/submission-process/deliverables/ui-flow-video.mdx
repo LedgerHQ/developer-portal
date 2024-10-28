@@ -4,11 +4,11 @@ description: For any app submission, you are required to submit a video demo of 
 ---
 
 import Image from 'next/image'
-
+import Glossary from '/components/features/tooltip-glossary'
 
 # Demo
 
-You are required to submit a video demo of your Device App as described below (For Ledger Nano only).
+You are required to submit a video demo of your <Glossary word="Device App"></Glossary> as described below (For Ledger Nano only).
 
 ## UI Flows
 
@@ -18,27 +18,27 @@ To create the flow you will show in the video, we recommend you follow the UI fl
 
 Please create your flow following the given [Ethereum example](/device-app/eth-flow.pdf).
 
-It contains the basic functions App information, Receive and send operations. Include the main operations that your device app contains. Try to apply the same kind of flow design for all of them.
+It contains the basic functions App information, Receive and send operations. Include the main operations that your <Glossary word="device app"></Glossary> contains. Try to apply the same kind of flow design for all of them.
 
 ![](/device-app/eth-flow.png)
 
 ### Blind signing
 
-In case you need the users to blind sign transactions, you will need to include the blind signing flows.
+In case you need the users to blind sign transactions, you will need to include the <Glossary word="blind signing"></Glossary> flows.
 
-- This screen should be displayed when blind signing is not enabled and the user wants to sign a transaction requiring blind signing:
+- This screen should be displayed when <Glossary word="blind signing"></Glossary> is not enabled and the user wants to sign a <Glossary word="transaction"></Glossary> requiring blind signing:
 
 <br/>
 <div className="center">
 	<img src="/device-app/blind-signing-not-enabled.png" alt="Blind signing not enabled"/>
 </div>
 
-- How to modify the blind signing settings:
+- How to modify the <Glossary word="blind signing"></Glossary> settings:
 
 ![](/device-app/blind-signing-settings.png)
 
 
-- When blind signing is enabled:
+- When <Glossary word="blind signing"></Glossary> is enabled:
 
 ![](/device-app/blind-signing-enabled.png)
 
@@ -60,8 +60,8 @@ If applicable :
 - Transfer a token
 - Delegate/Stake/Vote
 
-If blind signing is implemented:
-- Sign a blind signed transaction while setting is disabled
-- Sign a blind signed transaction while setting is enabled
+If <Glossary word="blind signing"></Glossary> is implemented:
+- Sign a blind signed <Glossary word="transaction"></Glossary> while setting is disabled
+- Sign a blind signed <Glossary word="transaction"></Glossary> while setting is enabled
 
 *Reminder : Blind signed operations must only be accessible behind a setting that must be disabled by default ([see blind signing section](../../integration/requirements/security#blind-signing))*

@@ -1,3 +1,5 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 # Using the `useSignMessage` hook
 
 The `useSignMessage` hook is part of the Ledger Services Kit Client for React. It allows the application to request the user to sign a message with their Ledger Wallet.
@@ -47,7 +49,7 @@ function App() {
 
   return (
     <div>
-      <h1>Test Live App - Services Kit</h1>
+      <h1>Test <Glossary word="Live App"></Glossary> - Services Kit</h1>
       <div className="card">
         <button onClick={handleSignMessage}>Sign Message</button>
         {response && (

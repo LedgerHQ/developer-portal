@@ -1,37 +1,39 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 # Transaction Type Reference
 
-In the Ledger Services Kit Core Client, the `Transaction` type is a crucial part of transaction management. This reference guide aims to provide an in-depth understanding of the structure of the `Transaction` type.
+In the Ledger Services Kit Core Client, the `Transaction` type is a crucial part of <Glossary word="transaction"></Glossary> management. This reference guide aims to provide an in-depth understanding of the structure of the `Transaction` type.
 
 ## Overview
 
-The `Transaction` type is used to describe an unsigned transaction. It's an umbrella type that can represent transactions of various cryptocurrency families. For example, it could be an Ethereum transaction, a Bitcoin transaction, or others.
+The `Transaction` type is used to describe an unsigned <Glossary word="transaction"></Glossary>. It's an umbrella type that can represent transactions of various <Glossary word="cryptocurrency"></Glossary> families. For example, it could be an <Glossary word="Ethereum"></Glossary> <Glossary word="transaction"></Glossary>, a Bitcoin <Glossary word="transaction"></Glossary>, or others.
 
 ## Common Fields for All Transactions
 
-Regardless of the specific cryptocurrency, all transactions share some common fields.
+Regardless of the specific <Glossary word="cryptocurrency"></Glossary>, all transactions share some common fields.
 
 ### Fields:
 
-- `family` (string): The cryptocurrency family to which the transaction belongs. This could be 'ethereum', 'bitcoin', etc.
-- `amount` (BigNumber): The amount of cryptocurrency to be sent in the transaction, represented in the smallest unit of the currency. For instance, in Bitcoin, an `amount` of 1 represents 0.00000001 BTC.
-- `recipient` (string): The address of the recipient of the transaction.
+- `family` (string): The <Glossary word="cryptocurrency"></Glossary> family to which the <Glossary word="transaction"></Glossary> belongs. This could be 'ethereum', 'bitcoin', etc.
+- `amount` (BigNumber): The amount of <Glossary word="cryptocurrency"></Glossary> to be sent in the <Glossary word="transaction"></Glossary>, represented in the smallest unit of the currency. For instance, in Bitcoin, an `amount` of 1 represents 0.00000001 BTC.
+- `recipient` (string): The address of the recipient of the <Glossary word="transaction"></Glossary>.
 
 ## Cryptocurrency Specific Fields
 
-In addition to the common fields, each cryptocurrency family might have additional fields specific to its network.
+In addition to the common fields, each <Glossary word="cryptocurrency"></Glossary> family might have additional fields specific to its network.
 
 ### Ethereum Transaction Example
 
-For instance, an Ethereum transaction could have the following fields:
+For instance, an <Glossary word="Ethereum"></Glossary> <Glossary word="transaction"></Glossary> could have the following fields:
 
 - `nonce` (number, optional): This is the number of transactions sent from the sender's address.
-- `data` (Buffer, optional): Input data of the transaction. This is often used for contract interactions.
+- `data` (Buffer, optional): Input data of the <Glossary word="transaction"></Glossary>. This is often used for contract interactions.
 - `gasPrice` (BigNumber, optional): The price per gas in wei.
-- `gasLimit` (BigNumber, optional): The maximum amount of gas provided for the transaction.
-- `maxPriorityFeePerGas` (BigNumber, optional): Maximum fee per gas to be paid for a transaction to be included in a block.
-- `maxFeePerGas` (BigNumber, optional): Maximum fee per gas willing to be paid for a transaction.
+- `gasLimit` (BigNumber, optional): The maximum amount of gas provided for the <Glossary word="transaction"></Glossary>.
+- `maxPriorityFeePerGas` (BigNumber, optional): Maximum fee per gas to be paid for a <Glossary word="transaction"></Glossary> to be included in a block.
+- `maxFeePerGas` (BigNumber, optional): Maximum fee per gas willing to be paid for a <Glossary word="transaction"></Glossary>.
 
-Here is how a typical Ethereum transaction might look:
+Here is how a typical <Glossary word="Ethereum"></Glossary> <Glossary word="transaction"></Glossary> might look:
 
 ```javascript
 const ethereumTransaction = {
@@ -47,23 +49,23 @@ const ethereumTransaction = {
 
 ## Raw Transactions
 
-There are also raw representations of transactions, often used when serializing the transaction data. The common fields in raw transactions are similar to the regular transaction type but serialized into strings or other primitive types.
+There are also raw representations of transactions, often used when serializing the <Glossary word="transaction"></Glossary> data. The common fields in raw transactions are similar to the regular <Glossary word="transaction"></Glossary> type but serialized into strings or other primitive types.
 
 ## TransactionSign and TransactionSignAndBroadcast Types
 
-`TransactionSign` and `TransactionSignAndBroadcast` are types that define the parameters and the expected results for the respective functions, `sign` and `signAndBroadcast` in the Ledger Services Kit Core Client's Transaction module.
+`TransactionSign` and `TransactionSignAndBroadcast` are types that define the parameters and the expected results for the respective functions, `sign` and `signAndBroadcast` in the Ledger Services Kit Core Client's <Glossary word="Transaction"></Glossary> module.
 
 ### TransactionSign Type
 
 #### Parameters:
-- `accountId` (string, required): The ID of the account where the transaction will be made.
-- `rawTransaction` (RawTransaction, required): The transaction object in a raw, serialized format specific to the cryptocurrency family.
+- `accountId` (string, required): The ID of the account where the <Glossary word="transaction"></Glossary> will be made.
+- `rawTransaction` (RawTransaction, required): The <Glossary word="transaction"></Glossary> object in a raw, serialized format specific to the <Glossary word="cryptocurrency"></Glossary> family.
 - `options` (object, optional):
 - `hwAppId` (string, optional): A hardware wallet application ID.
-- `meta` (object, optional): Metadata for the transaction in the format `{ [key: string]: unknown }`.
+- `meta` (object, optional): Metadata for the <Glossary word="transaction"></Glossary> in the format `{ [key: string]: unknown }`.
 
 #### Results:
-- `signedTransactionHex` (string): The hexadecimal string representation of the signed transaction.
+- `signedTransactionHex` (string): The hexadecimal string representation of the signed <Glossary word="transaction"></Glossary>.
 
 #### Type Definition:
 
@@ -86,14 +88,14 @@ type TransactionSign = {
 ### TransactionSignAndBroadcast Type
 
 #### Parameters:
-- `accountId` (string, required): The ID of the account where the transaction will be made.
-- `rawTransaction` (RawTransaction, required): The transaction object in a raw, serialized format specific to the cryptocurrency family.
+- `accountId` (string, required): The ID of the account where the <Glossary word="transaction"></Glossary> will be made.
+- `rawTransaction` (RawTransaction, required): The <Glossary word="transaction"></Glossary> object in a raw, serialized format specific to the <Glossary word="cryptocurrency"></Glossary> family.
 - `options` (object, optional):
 - `hwAppId` (string, optional): A hardware wallet application ID.
-- `meta` (object, optional): Metadata for the transaction in the format `{ [key: string]: unknown }`.
+- `meta` (object, optional): Metadata for the <Glossary word="transaction"></Glossary> in the format `{ [key: string]: unknown }`.
 
 #### Results:
-- `transactionHash` (string): The hash of the transaction once it's been broadcasted to the network.
+- `transactionHash` (string): The hash of the <Glossary word="transaction"></Glossary> once it's been broadcasted to the network.
 
 #### Type Definition:
 
@@ -115,6 +117,6 @@ type TransactionSignAndBroadcast = {
 
 ### Notes
 
-- The `rawTransaction` parameter in both types expects the transaction object to be in a raw, serialized format, which is different from the regular `Transaction` object. You may need to convert your transaction object into this raw format before calling these functions.
+- The `rawTransaction` parameter in both types expects the <Glossary word="transaction"></Glossary> object to be in a raw, serialized format, which is different from the regular `Transaction` object. You may need to convert your <Glossary word="transaction"></Glossary> object into this raw format before calling these functions.
 
 - The `hwAppId` option can be used if you are interacting with a hardware wallet. It is an optional field, and is not required if you are not using a hardware wallet.

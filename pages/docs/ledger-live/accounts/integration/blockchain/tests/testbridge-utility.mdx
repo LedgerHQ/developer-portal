@@ -1,10 +1,12 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 # Using the `testBridge` utility
 
 ## Write the bridge.integration.test.ts
 
-Any test that requires HTTP to work should be moved in an integration test using the file name convention `.integration.test.ts`. In the case of testing a coin integration, we usually name that file `bridge.integration.test.ts` and we recommend to use the `testBridge` utility.
+Any test that requires HTTP to work should be moved in an <Glossary word="integration"></Glossary> test using the file name convention `.integration.test.ts`. In the case of testing a coin <Glossary word="integration"></Glossary>, we usually name that file `bridge.integration.test.ts` and we recommend to use the `testBridge` utility.
 
-The `testBridge` utility takes a "DatasetTest" as a parameter which will conduct many kind of integration tests.
+The `testBridge` utility takes a "DatasetTest" as a parameter which will conduct many kind of <Glossary word="integration"></Glossary> tests.
 
 First, create a `bridge.integration.test.ts` file and fill it with this empty template:
 
@@ -12,7 +14,7 @@ First, create a `bridge.integration.test.ts` file and fill it with this empty te
 import "../../__tests__/test-helpers/setup";
 import { testBridge } from "../../__tests__/test-helpers/bridge";
 import type { DatasetTest } from "../../types";
-import type { Transaction } from "./types";
+import type { <Glossary word="Transaction"></Glossary> } from "./types";
 
 const dataset: DatasetTest<Transaction> = {
   implementations: ["js"],
@@ -22,7 +24,7 @@ const dataset: DatasetTest<Transaction> = {
 };
 ```
 
-You can also generate it with a Ledger device, with a seed that you want to freeze (meaning you don't want to do anymore transaction with that seed, or you will need to regenerate the snapshot everytime) and execute in the CLI the command:
+You can also generate it with a Ledger device, with a seed that you want to freeze (meaning you don't want to do anymore <Glossary word="transaction"></Glossary> with that seed, or you will need to regenerate the snapshot everytime) and execute in the <Glossary word="CLI"></Glossary> the command:
 
 ```sh copy
 pnpm run:cli generateTestScanAccounts -c mycoin
@@ -34,7 +36,7 @@ The expected output is:
 import "../../__tests__/test-helpers/setup";
 import { testBridge } from "../../__tests__/test-helpers/bridge";
 import type { CurrenciesData } from "../../../types";
-import type { Transaction } from "../types";
+import type { <Glossary word="Transaction"></Glossary> } from "../types";
 
 const dataset: CurrenciesData<Transaction> = {
   scanAccounts: [
@@ -64,7 +66,7 @@ Just keep the part with the scanAccounts and put it the `mycoin` part :
 import "../../__tests__/test-helpers/setup";
 import { testBridge } from "../../__tests__/test-helpers/bridge";
 import type { DatasetTest } from "../../types";
-import type { Transaction } from "./types";
+import type { <Glossary word="Transaction"></Glossary> } from "./types";
 
 const dataset: DatasetTest<Transaction> = {
   implementations: ["js"],
@@ -100,7 +102,7 @@ It should look something like this:
 import "../../__tests__/test-helpers/setup";
 import { testBridge } from "../../__tests__/test-helpers/bridge";
 import type { DatasetTest } from "../../types";
-import type { Transaction } from "./types";
+import type { <Glossary word="Transaction"></Glossary> } from "./types";
 
 const dataset: DatasetTest<Transaction> = {
   implementations: ["js"],
@@ -159,7 +161,7 @@ The `accounts` part is manual. This allow you to chose the best parameters for t
 
 We tried to cover as many cases as possible that are in `getTransactionStatus`.
 
-You are free to define your own extra tests in `bridge.integration.test.ts` (or any other integration test file) for more advanced tests that would not be covered by the bridge generic tests.
+You are free to define your own extra tests in `bridge.integration.test.ts` (or any other <Glossary word="integration"></Glossary> test file) for more advanced tests that would not be covered by the bridge generic tests.
 
 ### Launch the test
 
@@ -174,14 +176,14 @@ Replace `<mycoin>` with the name of your coin.
 
 ### How does a test work?
 
-The transaction tests simulate an object `Transaction` as input, and a `TransactionStatus` as an output that we compare with an expected status.
+The <Glossary word="transaction"></Glossary> tests simulate an object `Transaction` as input, and a `TransactionStatus` as an output that we compare with an expected status.
 
 There's some generic tests that are already made in `src/__tests__/test-helpers/bridge.ts` that are mandatory to pass.
 
 To implement your own test in `test-dataset.ts`, add an Object typed like this in the array of `transactions`:
 
 ```ts copy
-import Transaction from "./types";
+import <Glossary word="Transaction"></Glossary> from "./types";
 
 type TestTransaction = {
   name: string;

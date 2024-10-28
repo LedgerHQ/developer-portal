@@ -3,6 +3,7 @@ title: Send
 description: How to configure your send feature by starting with a mock and using AccountBridge.
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from 'nextra/components'
 
 # 6 - Send
@@ -22,7 +23,7 @@ import {
   InvalidAddress,
   FeeTooHigh,
 } from "@ledgerhq/errors";
-import type { Transaction } from "../types";
+import type { <Glossary word="Transaction"></Glossary> } from "../types";
 import type { AccountBridge, CurrencyBridge } from "@ledgerhq/types-live";
 import {
   scanAccounts,
@@ -36,7 +37,7 @@ import { makeAccountBridgeReceive } from "../../../bridge/mockHelpers";
 
 const receive = makeAccountBridgeReceive();
 
-const createTransaction = (): Transaction => ({
+const createTransaction = (): <Glossary word="Transaction"></Glossary> => ({
   family: "mycoin",
   mode: "send",
   amount: BigNumber(0),
@@ -49,7 +50,7 @@ const updateTransaction = (t, patch) => ({ ...t, ...patch });
 
 const prepareTransaction = async (a, t) => t;
 
-const estimateMaxSpendable = ({ account, parentAccount, transaction }) => {
+const estimateMaxSpendable = ({ account, parentAccount, <Glossary word="transaction"></Glossary> }) => {
   const mainAccount = getMainAccount(account, parentAccount);
   const estimatedFees = transaction?.fees || BigNumber(5000);
   return Promise.resolve(
@@ -137,14 +138,14 @@ It is designed for the end user frontend interface and is agnostic of the way it
 ```ts copy
 import { BigNumber } from "bignumber.js";
 import type { Account } from "@ledgerhq/types-live";
-import type { Transaction } from "../types";
+import type { <Glossary word="Transaction"></Glossary> } from "../types";
 
 /**
  * Create an empty transaction
  *
  * @returns {Transaction}
  */
-export const createTransaction = (): Transaction => ({
+export const createTransaction = (): <Glossary word="Transaction"></Glossary> => ({
   family: "mycoin",
   mode: "send",
   amount: BigNumber(0),
@@ -169,7 +170,7 @@ Everytime the transaction is updated through a patch (`updateTransaction`), its 
  * @param {*} patch
  */
 export const updateTransaction = (
-  t: Transaction,
+  t: <Glossary word="Transaction"></Glossary>,
   patch: $Shape<Transaction>
 ) => ({ ...t, ...patch });
 ```
@@ -179,21 +180,21 @@ if your update logic is similar as the above example, use directly the `defaultU
 
 #### Prepare
 
-In some cases, this transaction will need to be prepared to correctly check status (`prepareTransaction`), like fetching the network fees, transforming some parameters, or setting default values, ...
+In some cases, this <Glossary word="transaction"></Glossary> will need to be prepared to correctly check status (`prepareTransaction`), like fetching the network fees, transforming some parameters, or setting default values, ...
 
 `libs/coin-modules/coin-mycoin/src/bridge/prepareTransaction.ts`:
 
 ```ts copy
 import { BigNumber } from "bignumber.js";
 import type { Account } from "@ledgerhq/types-live";
-import type { Transaction } from "../types";
+import type { <Glossary word="Transaction"></Glossary> } from "../types";
 
 import { estimateFees } from "./estimateFees";
 
 const sameFees = (a, b) => (!a || !b ? a === b : a.eq(b));
 
 /**
- * Prepare transaction before checking status
+ * Prepare <Glossary word="transaction"></Glossary> before checking status
  *
  * @param {Account} a
  * @param {Transaction} t
@@ -223,21 +224,21 @@ For instance we will check that:
 - the recipient address is valid
 - the recipient exists
 - user have enough funds for the transaction
-- user have enough funds to pay transaction fees
+- user have enough funds to pay <Glossary word="transaction"></Glossary> fees
 - the amount is strictly positive (avoiding zero sends)
 - the minimum balance or existential deposit is respected if relevant
 - etc
 
-This validation is done everytime the user updates the transaction (any input changes) to give him immediate and contextual feedback. The status object returned by the `getTransactionStatus` follows this definition:
+This <Glossary word="validation"></Glossary> is done everytime the user updates the <Glossary word="transaction"></Glossary> (any input changes) to give him immediate and contextual feedback. The status object returned by the `getTransactionStatus` follows this definition:
 
 - `errors: { [string]: Error }`: potential error for each (user) field of the transaction
 - `warnings: { [string]: Error }`: potential warning for each (user) field for a transaction
-- `estimatedFees: BigNumber`: estimated total fees the tx is going to cost (in the mainAccount currency)
+- `estimatedFees: BigNumber`: estimated total fees the <Glossary word="tx"></Glossary> is going to cost (in the mainAccount currency)
 - `amount: BigNumber`: actual amount that the recipient will receive (in account currency)
 - `totalSpent: BigNumber`: total amount that the sender will spend (in account currency)
 - `recipientIsReadOnly?: boolean`: should the recipient be non editable
 
-`errors` and `warnings` are key - value (error) objects that would have for each input (in the user perspective) the eventual error or notice that has been detected. To each key then it is expected that an input in Ledger Live Desktop and Mobile will exists to display the error.
+`errors` and `warnings` are key - value (error) objects that would have for each input (in the user perspective) the eventual error or notice that has been detected. To each key then it is expected that an input in <Glossary word="Ledger Live"></Glossary> Desktop and Mobile will exists to display the error.
 
 `libs/coin-modules/coin-mycoin/src/bridge/getTransactionStatus.ts`:
 
@@ -250,7 +251,7 @@ import {
   FeeNotLoaded,
 } from "@ledgerhq/errors";
 import type { Account, TransactionStatus } from "@ledgerhq/types-live";
-import type { Transaction } from "../types";
+import type { <Glossary word="Transaction"></Glossary> } from "../types";
 import { isValidAddress, specificCheck } from "../logic";
 import { MyCoinSpecificError } from "./errors";
 
@@ -305,7 +306,7 @@ export default getTransactionStatus;
 
 ### Dealing with Logic and Errors
 
-As seen in the previous section, `getTransactionStatus` deals with errors in a Transaction, because of a wrong user input not meeting the coin logic.
+As seen in the previous section, `getTransactionStatus` deals with errors in a <Glossary word="Transaction"></Glossary>, because of a wrong user input not meeting the coin logic.
 Those are user-dependent errors handled in the UI for each input displayed, and are expected to happen from time to time - we are not throwing them.
 
 But some errors can occur in a different context, and not be caused by user. Try as much as possible to handle all failing cases and throw coin-specific errors (if not generic error already exist), that you may define in an `errors.ts` file (for reusablity).
@@ -316,7 +317,7 @@ But some errors can occur in a different context, and not be caused by user. Try
 import { createCustomErrorClass } from "@ledgerhq/errors";
 
 /**
- * MyCoin error thrown on a specifc check done on a transaction amount
+ * MyCoin error thrown on a specifc check done on a <Glossary word="transaction"></Glossary> amount
  */
 export const MyCoinSpecificError = createCustomErrorClass(
   "MyCoinSpecificError"
@@ -352,7 +353,7 @@ export const isValidAddress = (address: string): boolean => {
 };
 
 /**
- * Returns true if transaction amount is less than MAX AMOUNT and > 0
+ * Returns true if <Glossary word="transaction"></Glossary> amount is less than MAX AMOUNT and > 0
  *
  * @param {BigNumber} amount
  */
@@ -361,14 +362,14 @@ export const specificCheck = (amount: BigNumber): boolean => {
 };
 
 /**
- * Returns nonce for an account
+ * Returns <Glossary word="nonce"></Glossary> for an account
  *
  * @param {Account} a
  */
 export const getNonce = (a: Account): number => {
   const lastPendingOp = a.pendingOperations[0];
 
-  const nonce = Math.max(
+  const <Glossary word="nonce"></Glossary> = Math.max(
     a.myCoinResources?.nonce || 0,
     lastPendingOp && typeof lastPendingOp.transactionSequenceNumber === "number"
       ? lastPendingOp.transactionSequenceNumber + 1
@@ -381,14 +382,14 @@ export const getNonce = (a: Account): number => {
 
 ### Building and Signing transaction
 
-The `Transaction` object is not exactly the transaction in the shape of the blockchain's protocol (which is generally serialized into a blob of bytes). So for convenience, you may implement a `buildTransaction` method to serialized it using <i>MyCoin</i> SDK, that could be reused for instance for estimating fees through the API.
+The `Transaction` object is not exactly the <Glossary word="transaction"></Glossary> in the shape of the blockchain's protocol (which is generally serialized into a blob of bytes). So for convenience, you may implement a `buildTransaction` method to serialized it using <i>MyCoin</i> <Glossary word="SDK"></Glossary>, that could be reused for instance for estimating fees through the <Glossary word="API"></Glossary>.
 
 `libs/coin-modules/coin-mycoin/src/bridge/buildTransaction.ts`:
 
 ```ts copy
 import type { Account } from "@ledgerhq/types-live";
 
-import type { Transaction } from "./types";
+import type { <Glossary word="Transaction"></Glossary> } from "./types";
 import { getNonce } from "./logic";
 
 const getTransactionParams = (a: Account, t: Transaction) => {
@@ -421,11 +422,11 @@ const getTransactionParams = (a: Account, t: Transaction) => {
 export const buildTransaction = async (a: Account, t: Transaction) => {
   const address = a.freshAddress;
   const params = getTransactionParams(a, t);
-  const nonce = getNonce(a);
+  const <Glossary word="nonce"></Glossary> = getNonce(a);
 
   const unsigned = {
     address,
-    nonce,
+    <Glossary word="nonce"></Glossary>,
     params,
   };
 
@@ -434,7 +435,7 @@ export const buildTransaction = async (a: Account, t: Transaction) => {
 };
 ```
 
-This `buildTransaction` function would return an unsigned transaction blob that would be signed with the <i>MyCoin</i> App on device.
+This `buildTransaction` function would return an unsigned <Glossary word="transaction"></Glossary> blob that would be signed with the <i>MyCoin</i> App on device.
 
 However, the signOperation function (example below), in charge to this signature process, will not have a direct access to this <i>MyCoin</i>.
 Instead, you will need to use a `SignerContext` (more details in [setup chapter TODO](./TBD)).
@@ -448,19 +449,19 @@ import { encodeOperationId } from "@ledgerhq/coin-framework/operation";
 import { FeeNotLoaded } from "@ledgerhq/errors";
 import type { Account, Operation, SignOperationEvent } from "@ledgerhq/types-live";
 
-import type { Transaction } from "../types";
+import type { <Glossary word="Transaction"></Glossary> } from "../types";
 
 import { buildTransaction } from "./buildTransaction";
 import { getNonce } from "./logic";
 
 /**
- * Sign Transaction with Ledger hardware
+ * Sign <Glossary word="Transaction"></Glossary> with Ledger hardware
  */
 export const buildSignOperation =
   (
     signerContext: SignerContext<MyCoinSigner>,
   ): AccountBridge<Transaction, MyCoinAccount>["signOperation"] =>
-  ({ account, deviceId, transaction }): Observable<SignOperationEvent> =>
+  ({ account, deviceId, <Glossary word="transaction"></Glossary> }): Observable<SignOperationEvent> =>
     new Observable(o => {
       async function main() {
         o.next({
@@ -487,8 +488,8 @@ export const buildSignOperation =
 
         const operation = buildOptimisticOperation(
           account,
-          transaction,
-          transaction.fees ?? BigNumber(0)
+          <Glossary word="transaction"></Glossary>,
+          <Glossary word="transaction"></Glossary>.fees ?? BigNumber(0)
         );
 
         o.next({
@@ -511,26 +512,26 @@ export const buildSignOperation =
 The `signOperation` function returns an Observable that will notify its subscriber when the user grated the signature.
 It must notify it with the signedOperation, with `signature` (generally contains the whole blob to be broadcasted) and `operation`.
 
-This operation is an optimistic version of the `Operation` that would be displayed in the account history as a "Pending Operation" if the broadcast succeed. This pending operation is important to give feedback to the user, but may also be required for calculate the nonce (if relevant).
+This operation is an optimistic version of the `Operation` that would be displayed in the account history as a "Pending Operation" if the broadcast succeed. This pending operation is important to give feedback to the user, but may also be required for calculate the <Glossary word="nonce"></Glossary> (if relevant).
 
 ### Front-end helpers
 
-Live Common is mainly dedicated to be used by Ledger Live front-ends (Desktop and Mobile), so it also contains utilities for react and displaying crypto-specific data.
+Live Common is mainly dedicated to be used by <Glossary word="Ledger Live"></Glossary> front-ends (Desktop and Mobile), so it also contains utilities for react and displaying crypto-specific data.
 
 #### Device transaction fields
 
-When signing a transaction, the user is shown on his device all the parameters of this transaction through multiple screen, that he must check towards the value he entered, and compare with what Ledger Live is presenting.
+When signing a <Glossary word="transaction"></Glossary>, the user is shown on his device all the parameters of this <Glossary word="transaction"></Glossary> through multiple screen, that he must check towards the value he entered, and compare with what <Glossary word="Ledger Live"></Glossary> is presenting.
 
-The list of all displayed fields on device are provided by the `getDeviceTransactionConfig` function, which must return all transaction fields for a given transaction.
+The list of all displayed fields on device are provided by the `getDeviceTransactionConfig` function, which must return all <Glossary word="transaction"></Glossary> fields for a given <Glossary word="transaction"></Glossary>.
 
 `libs/coin-modules/coin-mycoin/src/bridge/deviceTransactionConfig.ts`:
 ```ts copy
 import type { AccountLike, Account, TransactionStatus } from "@ledgerhq/types-live";
-import type { Transaction } from "./types";
+import type { <Glossary word="Transaction"></Glossary> } from "./types";
 import type { DeviceTransactionField } from "../../transaction";
 
 function getDeviceTransactionConfig({
-  transaction,
+  <Glossary word="transaction"></Glossary>,
   status: { estimatedFees },
 }: {
   account: AccountLike;
@@ -572,7 +573,7 @@ export default getDeviceTransactionConfig;
 ```
 
 <Callout type="warning" emoji="⚠️">
-  Since a not-well-informed user could be tricked to sign transaction with wrong recipients, we never show the <code>destination</code> fields in Ledger Live applications, in order for users to get used to always verify it externally.
+  Since a not-well-informed user could be tricked to sign <Glossary word="transaction"></Glossary> with wrong recipients, we never show the <code>destination</code> fields in <Glossary word="Ledger Live"></Glossary> applications, in order for users to get used to always verify it externally.
 </Callout>
 
 <Callout>
@@ -581,7 +582,7 @@ export default getDeviceTransactionConfig;
 
 ### Broadcast
 
-Once the transaction is signed, it must be broadcasted to MyCoin network. This is pretty easy if you correctly wrapped your API.
+Once the <Glossary word="transaction"></Glossary> is signed, it must be broadcasted to MyCoin network. This is pretty easy if you correctly wrapped your <Glossary word="API"></Glossary>.
 
 `libs/coin-modules/coin-mycoin/src/bridge/broadcast.ts`
 
@@ -609,7 +610,7 @@ export default broadcast;
 ```
 
 This function must return the optimistic operation, patched with the `hash` generally provided by the network.
-Once the operation is synced from <i>MyCoin</i> API, the AccountBridge will remove this optimistic operation from the `pendingOperations`.
+Once the operation is synced from <i>MyCoin</i> <Glossary word="API"></Glossary>, the AccountBridge will remove this optimistic operation from the `pendingOperations`.
 
 <Callout>
   When there are some pending operations, synchronization will occur every minutes.
@@ -617,7 +618,7 @@ Once the operation is synced from <i>MyCoin</i> API, the AccountBridge will remo
 
 ### Estimate Max Spendable
 
-The maximum spendable amount is the total balance in an account that is available to send in a transaction. This amount is specific to <i>MyCoin</i>, so you will need to provide this value depending on the transaction the user want to send.
+The maximum spendable amount is the total balance in an account that is available to send in a <Glossary word="transaction"></Glossary>. This amount is specific to <i>MyCoin</i>, so you will need to provide this value depending on the <Glossary word="transaction"></Glossary> the user want to send.
 
 See this [support article about Maximum Spendable Amount](https://support.ledger.com/hc/en-us/articles/360012960679-Maximum-spendable-amount).
 
@@ -629,7 +630,7 @@ import { BigNumber } from "bignumber.js";
 import { getMainAccount } from "@ledgerhq/coin-framework/account/index";
 import type { AccountLike, Account } from "@ledgerhq/types-live";
 
-import type { Transaction } from "../types";
+import type { <Glossary word="Transaction"></Glossary> } from "../types";
 
 import { createTransaction } from "./transaction";
 import getEstimatedFees from "./getFeesForTransaction";
@@ -642,11 +643,11 @@ import getEstimatedFees from "./getFeesForTransaction";
 export const estimateMaxSpendable = async ({
   account,
   parentAccount,
-  transaction,
+  <Glossary word="transaction"></Glossary>,
 }: {
   account: AccountLike,
   parentAccount?: Account,
-  transaction?: Transaction,
+  transaction?: <Glossary word="Transaction"></Glossary>,
 }): Promise<BigNumber> => {
   const a = getMainAccount(account, parentAccount);
   const t = {
@@ -666,7 +667,7 @@ export const estimateMaxSpendable = async ({
 </Callout>
 
 Here, we only return the spendableBalance, but without the fees. Since Fee estimation can be used elsewhere (like in the `prepareTransaction`), you can put it's logic in a dedicated `getFeesForTransaction.ts` file.
-Here is an example for a fee fetched from network from an unsigned transaction (a bit like Polkadot), but you can also have specific calculation, with fee-per-byte value provided by the blockchain.
+Here is an example for a fee fetched from network from an unsigned <Glossary word="transaction"></Glossary> (a bit like Polkadot), but you can also have specific calculation, with fee-per-byte value provided by the <Glossary word="blockchain"></Glossary>.
 
 `libs/coin-modules/coin-mycoin/src/bridge/getFeesForTransaction.ts`:
 
@@ -674,13 +675,13 @@ Here is an example for a fee fetched from network from an unsigned transaction (
 import { BigNumber } from "bignumber.js";
 
 import type { Account } from "@ledgerhq/types-live";
-import type { Transaction } from "../types";
+import type { <Glossary word="Transaction"></Glossary> } from "../types";
 import { getFees } from "../network";
 
 import { buildTransaction } from "./buildTransaction";
 
 /**
- * Fetch the transaction fees for a transaction
+ * Fetch the <Glossary word="transaction"></Glossary> fees for a transaction
  *
  * @param {Account} a
  * @param {Transaction} t
@@ -690,7 +691,7 @@ export const getEstimatedFees = async ({
   t,
 }: {
   a: Account,
-  t: Transaction,
+  t: <Glossary word="Transaction"></Glossary>,
 }): Promise<BigNumber> => {
   const unsigned = await buildTransaction(a, t);
   const fees = await getFees(unsigned);
@@ -701,14 +702,14 @@ export const getEstimatedFees = async ({
 
 ### Testing send with CLI
 
-Before being able to test a `send` operation with CLI you will need to bind arguments and infer a transaction from it.
-Since we defined a "mode" field in the transaction, this will be the only argument that will be necessary to test a send.
+Before being able to test a `send` operation with <Glossary word="CLI"></Glossary> you will need to bind arguments and infer a <Glossary word="transaction"></Glossary> from it.
+Since we defined a "mode" field in the <Glossary word="transaction"></Glossary>, this will be the only argument that will be necessary to test a send.
 
 `libs/coin-modules/coin-mycoin/src/test/cli.ts`:
 
 ```ts copy
 import flatMap from "lodash/flatMap";
-import type { Transaction, AccountLike } from "@ledgerhq/types-live";
+import type { <Glossary word="Transaction"></Glossary>, AccountLike } from "@ledgerhq/types-live";
 
 const options = [
   {
@@ -719,10 +720,10 @@ const options = [
 ];
 
 function inferTransactions(
-  transactions: Array<{ account: AccountLike, transaction: Transaction }>,
+  transactions: Array<{ account: AccountLike, transaction: <Glossary word="Transaction"></Glossary> }>,
   opts: Object
 ): Transaction[] {
-  return flatMap(transactions, ({ transaction, account }) => {
+  return flatMap(transactions, ({ <Glossary word="transaction"></Glossary>, account }) => {
     if (!transaction.family !== "mycoin") {
       throw new Error("transaction is not of type mycoin");
     }
@@ -745,7 +746,7 @@ export default {
 };
 ```
 
-Of course if <i>MyCoin</i> has more complex transactions, you can add many arguments to CLI. You can also define you own cli commands for any specific data you would like to fetch.
+Of course if <i>MyCoin</i> has more complex transactions, you can add many arguments to <Glossary word="CLI"></Glossary>. You can also define you own <Glossary word="cli"></Glossary> commands for any specific data you would like to fetch.
 See [Polkadot CLI commands](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/coin-polkadot/src/cli-transaction.ts).
 
 Now you can try a `getTransactionStatus` or a `send`:

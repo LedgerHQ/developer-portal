@@ -3,6 +3,9 @@ title: Ledger Live Desktop and Mobile
 description: Adding your currency in Ledger Live Desktop and Mobile.
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
+
+
 # 7 - Ledger Live Desktop and Mobile
 
 1. Fork [github.com/LedgerHQ/ledger-live](https://github.com/LedgerHQ/ledger-live)
@@ -12,7 +15,7 @@ description: Adding your currency in Ledger Live Desktop and Mobile.
 
 Ledger Live Common is the repo where all the common logic and setup (between desktop and mobile) is done.
 
-Even if CoinModules are made with Ledger Live as first class citizen user, it is not the only Ledger product that relies on.
+Even if CoinModules are made with <Glossary word="Ledger Live"></Glossary> as first class citizen user, it is not the only Ledger product that relies on.
 Therefore, some setup is required to allow LLD and LLM to use your CoinModule.
 
 For a dedicated CoinModule (i.e. MyCoin), all those setup files will be in `libs/ledger-live-common/src/families/mycoin` directory.
@@ -29,7 +32,7 @@ import {
   MyCoinAccount,
   TransactionStatus,
   createBridges,
-  type Transaction,
+  type <Glossary word="Transaction"></Glossary>,
 } from "@ledgerhq/coin-mycoin";
 import { getCryptoCurrencyById } from "@ledgerhq/cryptoassets/currencies";
 import Transport from "@ledgerhq/hw-transport";

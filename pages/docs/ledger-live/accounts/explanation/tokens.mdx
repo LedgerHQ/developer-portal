@@ -3,14 +3,15 @@ title: How Ledger Live manages token
 description:
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from 'nextra/components'
 
 
 # How Ledger Live manages token
 
-In Ledger Live, there is a main account, and there are sub-accounts. 
+In <Glossary word="Ledger Live"></Glossary>, there is a main account, and there are sub-accounts. 
 
-The main account is where Ledger Live does the main currency transactions.
+The main account is where <Glossary word="Ledger Live"></Glossary> does the main currency transactions.
 
 There is a sub-account for each token. Sub-accounts can be either "token accounts" or "child accounts", the primary difference being that token accounts share the same address as their parent account, while child accounts have their own address.
 
@@ -19,9 +20,9 @@ These account types are defined in the code in [account.ts](https://github.com/L
 Token operations are defined both as operations in the sub-accounts, and as sub-operations in the parent account operations, as defined in [operation.ts](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/ledgerjs/packages/types-live/src/operation.ts)
 
 
-Similarly to transferring native assets, transferring tokens requires the end-user to confirm the transaction details on the Ledger devices’ screens. Such verification is a security requirement and must be made available before the application is released by Ledger. Expected information to verify are (at least) : the amount transferred, the token name and/or ticker, the recipient address.
+Similarly to transferring native assets, transferring tokens requires the end-user to confirm the <Glossary word="transaction"></Glossary> details on the Ledger devices’ screens. Such verification is a security requirement and must be made available before the application is released by Ledger. Expected information to verify are (at least) : the amount transferred, the token name and/or <Glossary word="ticker"></Glossary>, the recipient address.
 
-Different tokens imply multiple names, multiple tickers, multiple identifiers and, sometimes, different magnitudes (or decimals). As an example, BAT and USDT tokens are both ERC20 tokens on the Ethereum network and have each their own set of characteristics :
+Different tokens imply multiple names, multiple tickers, multiple identifiers and, sometimes, different magnitudes (or decimals). As an example, BAT and USDT tokens are both ERC20 tokens on the <Glossary word="Ethereum"></Glossary> network and have each their own set of characteristics :
 
 |     BAT       |     USDT     |
 |---------------|--------------|
@@ -29,8 +30,8 @@ Different tokens imply multiple names, multiple tickers, multiple identifiers an
 
 <Callout type="warning" emoji="⚠️">
     <ul>
-        <li><b>The smart contract address is important</b> as this information will allow the Ethereum or Algorand embedded application to correctly determine the token being transferred and its characteristics.</li>
-        <li><b>The decimals information is important</b> as an error in its value will result in the wrong amount being displayed on the Ledger screen. A user may approve a transaction to transfer 10 USDT, when in reality, they are approving a transaction for 1000 USDT.</li>
+        <li><b>The smart contract address is important</b> as this information will allow the <Glossary word="Ethereum"></Glossary> or Algorand embedded application to correctly determine the token being transferred and its characteristics.</li>
+        <li><b>The decimals information is important</b> as an error in its value will result in the wrong amount being displayed on the Ledger screen. A user may approve a <Glossary word="transaction"></Glossary> to transfer 10 USDT, when in reality, they are approving a <Glossary word="transaction"></Glossary> for 1000 USDT.</li>
     </ul>
 </Callout>
 

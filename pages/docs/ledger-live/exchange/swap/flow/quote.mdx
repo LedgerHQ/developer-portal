@@ -1,3 +1,5 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 # Quote display and user preferences
 
 ## Input
@@ -6,16 +8,16 @@ To chose a swap service, the user selects:
 
 1. A source cryptocurrency and a source [account](../glossary)
 2. An amount from the source account to swap
-3. The destination cryptocurrency and the destination account
+3. The destination <Glossary word="cryptocurrency"></Glossary> and the destination account
 
 ## Output
 
-According to the input amount, the partner's API is called to get a quote and check several conditions:
+According to the input amount, the partner's <Glossary word="API"></Glossary> is called to get a quote and check several conditions:
 - Region  (AVAILABLE / NOT AVAILABLE) 
 - Token (AVAILABLE / NOT AVAILABLE) 
 - Amount (TOO LOW / TOO HIGH)
 
-If all of the above conditions are validated, the partners are displayed in Ledger Live with the following information. Between several CEX offers, `amountFrom` and network fee being the same, quotes are sorted by `amount to`, the first "best value" quote being the one offering the greatest `Receiving amount`: 
+If all of the above conditions are validated, the partners are displayed in <Glossary word="Ledger Live"></Glossary> with the following information. Between several CEX offers, `amountFrom` and network fee being the same, quotes are sorted by `amount to`, the first "best value" quote being the one offering the greatest `Receiving amount`: 
 1. Network fees to send crypto to partners  - payinNetworkFees
 2. Partner quote
 	- **a.** Partner image
@@ -33,7 +35,7 @@ If all of the above conditions are validated, the partners are displayed in Ledg
 				<li>- Ledger fee : fee to be paid to Ledger</li>
 				<li>- Partner fee: fee taken by the partner</li>
 			</ul>
-			Fees for sending the transaction payinNetworkFees (from Ledger to the partner) are not included in the displayed quote
+			Fees for sending the <Glossary word="transaction"></Glossary> payinNetworkFees (from Ledger to the partner) are not included in the displayed quote
 		</ul>
 	- **g.** time out = 5s. partner must reply in less that 5s, otherwise the quote is not displayed in the quote results. The user needs to trigger a quote again, or wait for timeout
 

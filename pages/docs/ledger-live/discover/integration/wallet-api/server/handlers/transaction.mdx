@@ -1,13 +1,15 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 ## overview
 
-The Transaction handlers allows the server to interact with user transactions.
-It enables the server to let the user sign a transaction and also allows the server to sign and broadcast a transaction through Ledger Live.
+The <Glossary word="Transaction"></Glossary> handlers allows the server to interact with user transactions.
+It enables the server to let the user sign a <Glossary word="transaction"></Glossary> and also allows the server to sign and broadcast a <Glossary word="transaction"></Glossary> through <Glossary word="Ledger Live"></Glossary>.
 
 ## request handlers:
 
 ### "transaction.sign" - Sign Transaction
 
-Let the user sign a transaction without broadcasting it. This is useful if you want to sign a transaction for later use.
+Let the user sign a <Glossary word="transaction"></Glossary> without broadcasting it. This is useful if you want to sign a <Glossary word="transaction"></Glossary> for later use.
 
 | parameter (in req.params) | required? | note                                                                                                                                               |
 | ------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -21,11 +23,11 @@ Let the user sign a transaction without broadcasting it. This is useful if you w
 | ------------------ | ---- |
 | _transaction.sign_ |      |
 
-- **Returns**: A promise that resolves with the raw signed transaction as a Buffer.
+- **Returns**: A promise that resolves with the raw signed <Glossary word="transaction"></Glossary> as a Buffer.
 
 ### "transaction.signAndBroadcast" - Sign and Broadcast Transaction
 
-Let the user sign a transaction and broadcast it to the network.
+Let the user sign a <Glossary word="transaction"></Glossary> and broadcast it to the network.
 
 | parameter (in req.params) | required? | note                                                                                                                                               |
 | ------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -38,4 +40,4 @@ Let the user sign a transaction and broadcast it to the network.
 | ------------------------------ | ---- |
 | _transaction.signAndBroadcast_ |      |
 
-- **Returns**: A promise that resolves with the transaction hash as a string.
+- **Returns**: A promise that resolves with the <Glossary word="transaction"></Glossary> hash as a string.

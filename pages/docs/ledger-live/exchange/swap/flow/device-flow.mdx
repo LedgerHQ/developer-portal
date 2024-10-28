@@ -1,3 +1,5 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 # Device transaction approval 
 
 **Input**:  The user clicks on the “swap” button. 
@@ -8,11 +10,11 @@ This payload contains the informations for the swap to be performed including:
 - **Payin_address**: the partner address to receive payment
 - **Refund_address**: the client address to receive back the payment funds in case the provider is not able to execute the swap for some unpredictable reason
 - **Payout_address**: the client address to receive the money resulting from a successful swap
-- **Currency_from**: set to value of payloadCurrencyFrom from the /swap API request
-- **Currency_to**: set to value of payloadCurrencyTo from the /swap API request
+- **Currency_from**: set to value of payloadCurrencyFrom from the /swap <Glossary word="API"></Glossary> request
+- **Currency_to**: set to value of payloadCurrencyTo from the /swap <Glossary word="API"></Glossary> request
 - **Amount_to_provider**: the amount of currency_from that the provider expects to receive from the client
 - **Amount_to_wallet**: the amount of currency_to that the provider agrees to send to the client in exchange from amount_to_provider. This amount must also include the network fees that the provider will pay to send the crypto to the user.
-- **Device_transaction_id**: the swap transaction nonce provided by the client at initialization (must be set to value of nonce from the API request)
+- **Device_transaction_id**: the swap <Glossary word="transaction"></Glossary> <Glossary word="nonce"></Glossary> provided by the client at initialization (must be set to value of <Glossary word="nonce"></Glossary> from the <Glossary word="API"></Glossary> request)
 
 More detail [here](../integration/providers-backend/#payload--signature).
 
@@ -23,7 +25,7 @@ More detail [here](../integration/providers-backend/#payload--signature).
 2. The user is asked then to open the app exchange on their Ledger device
 3. The user is redirected to the Confirmation drawer with information sent from the partner payload
 4. The user checks if the information displayed on the Ledger device is the same as in the drawer
-5. The user approves the transaction on his Ledger device. Transactions are broadcasted on the  blockchain. 
+5. The user approves the <Glossary word="transaction"></Glossary> on his Ledger device. Transactions are broadcasted on the  <Glossary word="blockchain"></Glossary>. 
 6. The partner receives the amount and performs the swap
 
 

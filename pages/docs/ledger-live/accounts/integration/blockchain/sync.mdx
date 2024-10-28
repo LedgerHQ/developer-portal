@@ -3,6 +3,7 @@ title: "Add accounts: full sync"
 description: AccountBridge offers a generic abstraction to synchronize accounts and perform transactions. It is designed for the end user frontend interface and is agnostic of the way it runs, has multiple implementations and does not know how the data is even stored.
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from 'nextra/components'
 
 # 5 - Add accounts: full sync
@@ -55,8 +56,8 @@ const getAccountShape: GetAccountShape = async (info) => {
     derivationMode,
   });
 
-  // get the current account balance state depending your api implementation
-  const { blockHeight, balance, additionalBalance, nonce } = await getAccount(
+  // get the current account balance state depending your <Glossary word="api"></Glossary> implementation
+  const { blockHeight, balance, additionalBalance, <Glossary word="nonce"></Glossary> } = await getAccount(
     address
   );
 
@@ -71,7 +72,7 @@ const getAccountShape: GetAccountShape = async (info) => {
     operationsCount: operations.length,
     blockHeight,
     myCoinResources: {
-      nonce,
+      <Glossary word="nonce"></Glossary>,
       additionalBalance,
     },
   };
@@ -88,19 +89,19 @@ export const sync = makeSync({ getAccountShape, postSync });
 
 The `scanAccounts` function performs the derivation of addresses for a given `currency` and `deviceId`, and returns an Observable that will notify every `Account` that it discovered.
 
-With the `makeScanAccounts` helper, you only have to pass a `getAccountShape` function to execute the generic scan that Ledger Live use with the correct derivation modes for <i>MyCoin</i>, and it will determine when to stop (generally as soon as an empty account was found).
+With the `makeScanAccounts` helper, you only have to pass a `getAccountShape` function to execute the generic scan that <Glossary word="Ledger Live"></Glossary> use with the correct derivation modes for <i>MyCoin</i>, and it will determine when to stop (generally as soon as an empty account was found).
 
-The `sync` function performs one "Account synchronisation" which consists of refreshing all fields of a (previously created) Account from your api.
+The `sync` function performs one "Account synchronisation" which consists of refreshing all fields of a (previously created) Account from your <Glossary word="api"></Glossary>.
 
 It is executed every 2 minutes if everything works as expected, but if it fails, a retry strategy will be executed with an increasing delay (to avoid burdening a failing API).
 
 Under the hood of the `makeSync` helper, the returned value is an Observable of an updater function (Account=>Account), which is a pattern having some advantages:
 
 - it avoids race conditions
-- the updater is called in a reducer, and allows to produce an immutable state by applying the update to the latest account instance (with reconciliation on Ledger Live Desktop)
+- the updater is called in a reducer, and allows to produce an immutable state by applying the update to the latest account instance (with reconciliation on <Glossary word="Ledger Live"></Glossary> Desktop)
 - it's an observable, so we can interrupt it when/if multiple updates occurs
 
-In some cases, you might need to write a `postSync` patch to add update logic after sync (<i>before the reconciliation that occurs on Ledger Live Desktop</i>).
+In some cases, you might need to write a `postSync` patch to add update logic after sync (<i>before the reconciliation that occurs on <Glossary word="Ledger Live"></Glossary> Desktop</i>).
 If this `postSync` function is complex (eg, more than 200 lines of code), you should split it in a `libs/coin-modules/coin-mycoin/src/bridge/postSyncPatch.ts` file.
 
 ## Currency Bridge
@@ -113,9 +114,9 @@ The `makeScanAccounts` helper will automatically execute the default address der
 
 ### Preload currency data (optional)
 
-Before creating or using a currency bridge (e.g. scanning accounts, or every 2 minutes for synchronization), Ledger Live will try to preload some currency data (e.g. tokens, delegators, etc) required for ledger-live-common feature to correctly work.
+Before creating or using a currency bridge (e.g. scanning accounts, or every 2 minutes for synchronization), <Glossary word="Ledger Live"></Glossary> will try to preload some currency data (e.g. tokens, delegators, etc) required for ledger-live-common feature to correctly work.
 
-This preloaded data will be stored in a persisted cache for future use, for Ledger Live to still work if temporarily offline, and speed up startup, depending on `getPreloadStrategy` (`preloadMaxAge` determines the data expiration that will trigger a refresh).
+This preloaded data will be stored in a persisted cache for future use, for <Glossary word="Ledger Live"></Glossary> to still work if temporarily offline, and speed up startup, depending on `getPreloadStrategy` (`preloadMaxAge` determines the data expiration that will trigger a refresh).
 
 This cache contains the JSON serialized response from `preload` which is then hydrated through `hydrate` (which needs deserialization), directly after preload, or after a boot.
 
@@ -208,7 +209,7 @@ import {
   InvalidAddress,
   FeeTooHigh,
 } from "@ledgerhq/errors";
-import type { Transaction } from "../types";
+import type { <Glossary word="Transaction"></Glossary> } from "../types";
 import type { AccountBridge, CurrencyBridge } from "@ledgerhq/types-live";
 import {
   scanAccounts,
@@ -222,7 +223,7 @@ import { makeAccountBridgeReceive } from "../../../bridge/mockHelpers";
 
 const receive = makeAccountBridgeReceive();
 
-const createTransaction = (): Transaction => ({
+const createTransaction = (): <Glossary word="Transaction"></Glossary> => ({
   family: "mycoin",
   mode: "send",
   amount: BigNumber(0),
@@ -235,7 +236,7 @@ const updateTransaction = (t, patch) => ({ ...t, ...patch });
 
 const prepareTransaction = async (a, t) => t;
 
-const estimateMaxSpendable = ({ account, parentAccount, transaction }) => {
+const estimateMaxSpendable = ({ account, parentAccount, <Glossary word="transaction"></Glossary> }) => {
   const mainAccount = getMainAccount(account, parentAccount);
   const estimatedFees = transaction?.fees || BigNumber(5000);
   return Promise.resolve(
@@ -304,7 +305,7 @@ export default { currencyBridge, accountBridge };
 
 ## Split your code
 
-You can now start to implement the bridge for <i>MyCoin</i>. It may need some changes back and forth between the types, your api wrapper, and the different files.
+You can now start to implement the bridge for <i>MyCoin</i>. It may need some changes back and forth between the types, your <Glossary word="api"></Glossary> wrapper, and the different files.
 
 The skeleton of `libs/coin-modules/coin-mycoin/src/bridge/index.ts` should look something like this:
 
@@ -320,7 +321,7 @@ import { SignerContext } from "@ledgerhq/coin-framework/signer";
 import type { AccountBridge, CurrencyBridge } from "@ledgerhq/types-live";
 import myCoinConfig, { type MyCoinConfig } from "../config";
 import signerGetAddress from "../signer";
-import { MyCoinAccount, MyCoinSigner, TransactionStatus, type Transaction } from "../types";
+import { MyCoinAccount, MyCoinSigner, TransactionStatus, type <Glossary word="Transaction"></Glossary> } from "../types";
 import { broadcast } from "./broadcast";
 import { createTransaction } from "./createTransaction";
 import { estimateMaxSpendable } from "./estimateMaxSpendable";

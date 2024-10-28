@@ -6,6 +6,7 @@ description: In this section, we will guide you through the creation of a web ap
 import { Callout } from 'nextra/components'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
+import Glossary from '/components/features/tooltip-glossary'
 import Image from 'next/image'
 
 
@@ -13,7 +14,7 @@ import Image from 'next/image'
 
 ## Introduction
 
-In this section, we will guide you through the creation of a web application. This application will connect to your Nano and will display the “test“ message to be signed with an Ethereum account using the personal sign message functionality introduced by EIP-191.
+In this section, we will guide you through the creation of a web application. This application will connect to your Nano and will display the “test“ message to be signed with an <Glossary word="Ethereum"></Glossary> account using the personal sign message functionality introduced by EIP-191.
 
 Web USB and Web HID applications are implemented with `@ledgerhq/hw-transport-webusb` and `@ledgerhq/hw-transport-webhid` respectively.
 
@@ -24,7 +25,7 @@ This tutorial will let you sign a message with your private key in order to veri
 ## Tutorial Prerequisites
 
 - Ensure you have gone through the [prerequisites](../getting-started#prerequisites). 
-- Install or update your Ethereum Embedded App to the version 1.9.19 or later.
+- Install or update your <Glossary word="Ethereum"></Glossary> <Glossary word="Embedded App"></Glossary> to the version 1.9.19 or later.
 
 ## Coding
 
@@ -107,7 +108,7 @@ import Eth from "@ledgerhq/hw-app-eth";
 import TransportWebHID from "@ledgerhq/hw-transport-webhid";
 
 //Display the header in the div which has the ID "main"
-const initial = "<h1>Connect your Nano and open the Ethereum app. Click on “Hash my message”</h1>";
+const initial = "<h1>Connect your Nano and open the <Glossary word="Ethereum"></Glossary> app. Click on “Hash my message”</h1>";
 const $main = document.getElementById("main");
 $main.innerHTML = initial;
 
@@ -261,7 +262,7 @@ Now the application is up and running. Open the browser and go to `localhost:123
 
 ### Plug your Nano
 
-Before clicking on the “Hash my message”, connect your Nano to the USB port, unlock it and run the ethereum application. Then, click on “Hash my message”.
+Before clicking on the “Hash my message”, connect your Nano to the USB port, unlock it and run the <Glossary word="ethereum"></Glossary> application. Then, click on “Hash my message”.
 
 ### Go to your Nano
 
@@ -272,7 +273,7 @@ When you click on the “Hash my message”, a popup message will be prompt invi
   <img src="/device-interaction/sign-message-01.png" alt="Hash Message"/>
 </div>
 
-Click the right button to see the content of the message that you are going to sign with your Ethereum address:
+Click the right button to see the content of the message that you are going to sign with your <Glossary word="Ethereum"></Glossary> address:
 
 <br/>
 <div className="center">
@@ -295,7 +296,7 @@ Click the right button to the next screens to sign the “test” message or dec
 
 Once signed, the webapp will display:
 - The signed message (“hash”)
-- The Ethereum address used to sign the message
+- The <Glossary word="Ethereum"></Glossary> address used to sign the message
 
 
 
@@ -310,7 +311,7 @@ const { ethers } = require("ethers");
 ethers.verifyMessage("test", "0xefb42c22baa0143b322e93b24b0903a0ef47a64b716fbb77debbea55a93dec3e4417aff7dce845723240916c6e34cf17c674828b3addfb0afad966334df5b6311b");
 ```
 
-2. Run your code, it should now display the Ethereum address linked to the signed message (the run can take a bit of time):
+2. Run your code, it should now display the <Glossary word="Ethereum"></Glossary> address linked to the signed message (the run can take a bit of time):
 
 <Zoom>
   <img

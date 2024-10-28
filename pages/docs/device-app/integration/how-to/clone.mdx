@@ -2,27 +2,29 @@
 title: Clone Applications
 description: Follow this process for your application is your project is a Ethereum clone using all other paths than the 44/60 path.
 ---
+
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout, Cards } from 'nextra/components'
 
 # Clone Applications
 
 ### What is a clone?
 
-A variant, or clone, device app is developed when all the logic for signing transactions can be contained in the parent coin Device Application.
+A variant, or clone, <Glossary word="device app"></Glossary> is developed when all the logic for signing transactions can be contained in the parent coin <Glossary word="Device Application"></Glossary>.
 
-As for any Device Application, you must follow our guidelines to comply with Ledger publication requirements.
+As for any <Glossary word="Device Application"></Glossary>, you must follow our guidelines to comply with Ledger publication requirements.
 
-On this page you will find the information for Bitcoin and Ethereum clones.
+On this page you will find the information for Bitcoin and <Glossary word="Ethereum"></Glossary> clones.
 
 ## Bitcoin clones
 
 If you want to create a new bitcoin clone, instead of forking the boilerplate app you should fork [app-bitcoin-clone-boilerplate](https://github.com/LedgerHQ/app-bitcoin-clone-boilerplate).
 
-If your Bitcoin clone was included in the Bitcoin Device App and you need to update it, you should
+If your Bitcoin clone was included in the Bitcoin <Glossary word="Device App"></Glossary> and you need to update it, you should
 create a new application by forking [app-bitcoin-clone-boilerplate](https://github.com/LedgerHQ/app-bitcoin-clone-boilerplate).
 
 You can then add your icon, customize the makefile, update the README, add your tests, make sure
-your CI is green and you should be good to go !
+your <Glossary word="CI"></Glossary> is green and you should be good to go !
 
 Note that all APDU handlers have been defined with `WEAK` attribute, so they can be overwritten if your app requires you to do so.
 
@@ -68,7 +70,7 @@ Click "Add Your Network +" on [the Chainlist homepage](https://chainlist.org/) a
 
 #### 4. Open a pull request
 
-When your application is ready, open a pull request on the Ethereum application repository.
+When your application is ready, open a pull request on the <Glossary word="Ethereum"></Glossary> application repository.
 
 Please get in touch with our team on the [Ledger's Discord server](https://developers.ledger.com/discord/) to get your PR reviewed.
 
@@ -77,7 +79,7 @@ Please get in touch with our team on the [Ledger's Discord server](https://devel
 Follow this process if your chain uses another path than 44/60.
 
 <Callout type="warning" emoji="⚠️">
-  If your chain does not use the `44/60` path, you won't be able to use Metamask with your device app.
+  If your chain does not use the `44/60` path, you won't be able to use Metamask with your <Glossary word="device app"></Glossary>.
 </Callout>
 
 #### Start here
@@ -106,7 +108,7 @@ APPNAME = "WaltonChain"
 ```
 
 <Callout type="error" emoji="🚨">
-    It is necessary to choose a Derivation Path and a Chain ID specific to your network to prevent the risk of replay attack (Introduced by EIP155) that can happen when using the same Derivation Path ( m/44'/60'/0') and Chain ID as Ethereum. This could expose your users to loss of funds.<br/>
+    It is necessary to choose a Derivation Path and a Chain ID specific to your network to prevent the risk of replay attack (Introduced by EIP155) that can happen when using the same Derivation Path ( m/44'/60'/0') and Chain ID as <Glossary word="Ethereum"></Glossary>. This could expose your users to loss of funds.<br/>
     You can either use the same Derivation Path but define a new chain ID (make sure this is not used by another network) or use slip44/BIP44 standard to reserve a dedicated coin type that will allow you to define a new derivation path.
 </Callout>
 
@@ -127,7 +129,7 @@ Open a PR to add your network [in this file](https://github.com/satoshilabs/slip
 
 #### 5. Open a pull request
 
-When your application is ready, open a pull request on the Ethereum application repository.
+When your application is ready, open a pull request on the <Glossary word="Ethereum"></Glossary> application repository.
 
 Please get in touch with our team on the [Ledger's Discord server](https://developers.ledger.com/discord/) to get your PR reviewed.
 

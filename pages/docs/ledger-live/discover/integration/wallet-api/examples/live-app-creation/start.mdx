@@ -1,12 +1,13 @@
+import Glossary from '/components/features/tooltip-glossary'
 import { FileTree } from 'nextra/components'
 
 # Building a Live App: A Step-by-Step Tutorial
 
 ### 1. Introduction
-A Live App is a decentralized application (dApp) that interacts with Ledger Live, a software application used for managing crypto assets on Ledger hardware wallets. By creating a Live App, developers can provide users with seamless interactions with blockchain-based applications directly through Ledger Live. This tutorial will guide you through the process of building a Live App from scratch, utilizing the Ledger Services Kit Client to facilitate interactions with the Ledger Live environment.
+A <Glossary word="Live App"></Glossary> is a decentralized application (dApp) that interacts with <Glossary word="Ledger Live"></Glossary>, a software application used for managing <Glossary word="crypto assets"></Glossary> on Ledger hardware wallets. By creating a <Glossary word="Live App"></Glossary>, developers can provide users with seamless interactions with blockchain-based applications directly through <Glossary word="Ledger Live"></Glossary>. This tutorial will guide you through the process of building a <Glossary word="Live App"></Glossary> from scratch, utilizing the Ledger Services Kit Client to facilitate interactions with the <Glossary word="Ledger Live"></Glossary> environment.
 
 ### 2. Setting up the Development Environment
-Before you begin building your Live App, we'll set up your development environment. This setup includes installing necessary tools and libraries that will assist in building, testing, and deploying your Live App.
+Before you begin building your <Glossary word="Live App"></Glossary>, we'll set up your development environment. This setup includes installing necessary tools and libraries that will assist in building, testing, and deploying your <Glossary word="Live App"></Glossary>.
 
 #### Scaffold a Next.js app
 First, scaffold a new Next.js app using the following command:
@@ -29,7 +30,7 @@ Install the Ledger Services Kit simulator for a mock environment to ease the dev
 npm install @ledgerhq/wallet-api-simulator
 ```
 
-The simulator provides a mock environment with predefined responses for different Services Kit actions, allowing you to test your Live App without interacting with the real Ledger Live application.
+The simulator provides a mock environment with predefined responses for different Services Kit actions, allowing you to test your <Glossary word="Live App"></Glossary> without interacting with the real <Glossary word="Ledger Live"></Glossary> application.
 
 ### 3. Creating the Project Structure
 Now organize your project with a clear and manageable architecture. Here's a simple project structure to start with:
@@ -85,4 +86,4 @@ interacting with the Ledger Services Kit.
 
 - tsconfig.json: This is your TypeScript configuration file if you're using TypeScript.
 
-Now that your development environment is set up, and you have a basic project structure in place, you are ready to start building your Live App. In the next section, we'll delve into configuring the Ledger Services Kit to establish a connection with Ledger Live.
+Now that your development environment is set up, and you have a basic project structure in place, you are ready to start building your <Glossary word="Live App"></Glossary>. In the next section, we'll delve into configuring the Ledger Services Kit to establish a connection with <Glossary word="Ledger Live"></Glossary>.

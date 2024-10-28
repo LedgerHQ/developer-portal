@@ -1,7 +1,9 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 ## overview
 
 The Exchange handlers facilitates various exchange operations such as starting the exchange process,
-completing swap, sell, and fund transactions using Ledger Live.
+completing swap, sell, and fund transactions using <Glossary word="Ledger Live"></Glossary>.
 
 ## request handlers:
 
@@ -9,7 +11,7 @@ completing swap, sell, and fund transactions using Ledger Live.
 
 {/* TODO: document this one better */}
 
-Start the exchange process by generating a nonce on Ledger device. This method is typically called before completing the exchange process.
+Start the exchange process by generating a <Glossary word="nonce"></Glossary> on Ledger device. This method is typically called before completing the exchange process.
 
 | parameter (in req.params) | required? | note                                       |
 | ------------------------- | --------- | ------------------------------------------ |
@@ -45,4 +47,4 @@ Complete an exchange process (swap, sell, or fund) by passing the exchange conte
 | ------------------- | ---- |
 | _exchange.complete_ |      |
 
-- **Returns**: A promise that resolves with an object containing the `transactionHash` of the broadcasted transaction.
+- **Returns**: A promise that resolves with an object containing the `transactionHash` of the broadcasted <Glossary word="transaction"></Glossary>.

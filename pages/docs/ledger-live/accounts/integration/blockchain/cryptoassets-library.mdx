@@ -3,6 +3,7 @@ title: Cryptoassets Library
 description: The @ledgerhq/cryptoassets package contains all definitions of cryptoassets that could be useful to Ledger Live.
 ---
 
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from 'nextra/components'
 
 # 1 - Cryptoassets Library
@@ -19,8 +20,8 @@ All types can be found in [@ledgerhq/cryptoassets/src/types.ts](https://github.c
 Essentially all currencies share this common ground:
 
 - `name: string`: the display name of a currency. For instance `"Bitcoin"` or `"Euro"`.
-- `ticker: string`: the ticker name in exchanges and used for rates (for instance BTC or EUR).
-- `countervalueTicker?: string`: an alias for the ticker (or alternative ticker)
+- `ticker: string`: the <Glossary word="ticker"></Glossary> name in exchanges and used for rates (for instance BTC or EUR).
+- `countervalueTicker?: string`: an alias for the <Glossary word="ticker"></Glossary> (or alternative ticker)
 - `units: Unit[]`: all available `Unit` of the currency (see below what is a Unit). by convention, [0] is the default and has the "highest" magnitude.
 - `disableCountervalue?: boolean`: if available, this field expresses that we should assume there is not valid counter value for this coin. (because either we can't trade it or it's not available enough to assume enabling its value)
 - `symbol?: string`: if available, it's a short symbol for the coin. <i>In practice it's currently not used and might be dropped.</i>
@@ -77,7 +78,7 @@ Here is an example of Bitcoin units:
 
 The field `showAllDigits` is generally unset for all cryptocurrencies and set for fiat currencies to true (but there are exceptions). It forces a unit to display all digits even if it's all zeros.
 
-We don't want showAllDigits for currencies because they generally have a lot of magnitudes, for instance, Ethereum has 18 which would turn `ETH 42.100000000000000000`. Instead, we want `ETH 42.1`.
+We don't want showAllDigits for currencies because they generally have a lot of magnitudes, for instance, <Glossary word="Ethereum"></Glossary> has 18 which would turn `ETH 42.100000000000000000`. Instead, we want `ETH 42.1`.
 
 At the opposite, it is commonly wanted that for popular fiats like EUR we will always display `EUR 42.10` and never `EUR 42.1`.
 
@@ -115,7 +116,7 @@ type CryptoCurrency = CurrencyCommon & {
     P2PKH: number,
     P2SH: number
   },
-  // should be defined for ethereum family
+  // should be defined for <Glossary word="ethereum"></Glossary> family
   ethereumLikeInfo?: {
     chainId: number
   },
@@ -132,11 +133,11 @@ type CryptoCurrency = CurrencyCommon & {
 
 ### ExplorerView
 
-You can define one or many explorers with urls, which will be used for external links in Ledger Live.
+You can define one or many explorers with urls, which will be used for external links in <Glossary word="Ledger Live"></Glossary>.
 
 ```js copy
 type ExplorerView = {
-  // url for transaction with $hash param
+  // url for <Glossary word="transaction"></Glossary> with $hash param
   tx?: string,
   // url for address with $address param
   address?: string,
@@ -146,12 +147,12 @@ type ExplorerView = {
 ```
 
 <Callout>
-  Find a reliable explorer. If you find more than one explorer, list them from most to less popular. Ledger Live will likely use the first explorer as default.
+  Find a reliable explorer. If you find more than one explorer, list them from most to less popular. <Glossary word="Ledger Live"></Glossary> will likely use the first explorer as default.
 </Callout>
 
 ### TokenCurrency specific fields
 
-Tokens are also available through the cryptoassets package. ERC20, TRC10 and TRC20 tokens are automatically maintained on a regular basis. But if your blockchain supports tokens and you would like to add them, feel free to contact us.
+Tokens are also available through the cryptoassets package. ERC20, TRC10 and TRC20 tokens are automatically maintained on a regular basis. But if your <Glossary word="blockchain"></Glossary> supports tokens and you would like to add them, feel free to contact us.
 
 ```js copy
 type TokenCurrency = CurrencyCommon & {
@@ -161,7 +162,7 @@ type TokenCurrency = CurrencyCommon & {
   contractAddress: string,
   // the currency it belongs to. e.g. 'ethereum'
   parentCurrency: CryptoCurrency,
-  // the type of token in the blockchain it belongs. e.g. 'erc20'
+  // the type of token in the <Glossary word="blockchain"></Glossary> it belongs. e.g. 'erc20'
   tokenType: string
 };
 ```
@@ -177,7 +178,7 @@ Ensure that before integrating your coin to Ledger Live, your coin is well defin
    id: "mycoin",
    coinType: 8008, // The slip-0044 coin type if registered
    name: "MyCoin",
-   managerAppName: "MyCoin", // name of the embedded app in manager case-sensitive
+   managerAppName: "MyCoin", // name of the <Glossary word="embedded app"></Glossary> in manager case-sensitive
    ticker: "MYC",
    countervalueTicker: "MYC", // depending on the counter value api
    scheme: "mycoin",

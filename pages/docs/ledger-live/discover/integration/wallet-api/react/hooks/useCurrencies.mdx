@@ -1,3 +1,5 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 # Using the `useCurrencies` Hook
 
 In this section, we will be looking at how to use the `useCurrencies` hook to retrieve a list of available cryptocurrencies and tokens. This method is essential when you need to get information on the various currencies supported by Ledger Services Kit.
@@ -16,7 +18,7 @@ As of the latest data, the `useCurrencies` hook returns an array with up to 7501
 
 You might not want to render all elements on the UI simultaneously, as it could affect the performance. Instead, you can implement pagination, virtualisation or selectively display the data based on user input.
 
-In addition, you can filter the currencies accessible by setting the `"currencies"` property inside your manifest. See the families subsection for more information about currencies filtering.
+In addition, you can filter the currencies accessible by setting the `"currencies"` property inside your <Glossary word="manifest"></Glossary>. See the families subsection for more information about currencies filtering.
 
 ### Sample Code
 
@@ -88,17 +90,17 @@ Here is an example of a partial response from the `useCurrencies` hook:
 ]
 ```
 
-Each object in the array represents a cryptocurrency or token and contains the following properties:
+Each object in the array represents a <Glossary word="cryptocurrency"></Glossary> or token and contains the following properties:
 
-- `type`: Specifies whether the currency is a base cryptocurrency like Bitcoin or Ethereum (`CryptoCurrency`) or a token like an ERC20 token (`TokenCurrency`).
+- `type`: Specifies whether the currency is a base <Glossary word="cryptocurrency"></Glossary> like Bitcoin or <Glossary word="Ethereum"></Glossary> (`CryptoCurrency`) or a token like an ERC20 token (`TokenCurrency`).
 
 - `id`: A unique identifier for the currency.
 
-- `ticker`: The ticker symbol of the currency.
+- `ticker`: The <Glossary word="ticker"></Glossary> symbol of the currency.
 
 - `name`: The full name of the currency.
 
-- `family`: The blockchain family the currency belongs to, such as `bitcoin` or `ethereum`.
+- `family`: The <Glossary word="blockchain"></Glossary> family the currency belongs to, such as `bitcoin` or `ethereum`.
 
 - `color`: A color code usually associated with the currency for branding.
 
@@ -110,7 +112,7 @@ For tokens (`TokenCurrency`), there are additional properties:
 
 - `contract`: The smart contract address for the token.
 
-- `parent`: Specifies the parent blockchain of the token.
+- `parent`: Specifies the parent <Glossary word="blockchain"></Glossary> of the token.
 
-Keep in mind that the actual response from the `useCurrencies` hook might be extensive, especially if you set the `"currencies" `property of your manifest to `"*"`.
+Keep in mind that the actual response from the `useCurrencies` hook might be extensive, especially if you set the `"currencies" `property of your <Glossary word="manifest"></Glossary> to `"*"`.
 

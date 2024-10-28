@@ -1,8 +1,9 @@
+import Glossary from '/components/features/tooltip-glossary'
 import { Callout } from "nextra/components";
 
 ### 4. **Configuring the Ledger Services Kit**
 
-To interact with Ledger Live, you'll need to configure the Ledger Services Kit. The first step is to install the necessary packages, and then set up the appropriate configuration through a transport layer named "Transport". This transport layer will enable communication with the Ledger Services Kit.
+To interact with <Glossary word="Ledger Live"></Glossary>, you'll need to configure the Ledger Services Kit. The first step is to install the necessary packages, and then set up the appropriate configuration through a transport layer named "Transport". This transport layer will enable communication with the Ledger Services Kit.
 
 - **Installing Packages**:
   Install the necessary packages using npm:
@@ -66,7 +67,7 @@ With this setup, your entire application can access the Ledger Services Kit and 
 
 ### 5. **Setting Up The Simulator**
 
-During the development and testing phases, the Ledger Services Kit simulator can help you develop without requiring to run Ledger Live in parallel.
+During the development and testing phases, the Ledger Services Kit simulator can help you develop without requiring to run <Glossary word="Ledger Live"></Glossary> in parallel.
 You can modify your `TransportProvider.tsx` file to use the `getSimulatorTransport` function provided by the simulator library.
 
 ```jsx

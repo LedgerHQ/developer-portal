@@ -1,3 +1,4 @@
+import Glossary from '/components/features/tooltip-glossary'
 import { Tabs } from "nextra/components";
 import { Callout } from "nextra/components";
 import Zoom from "react-medium-image-zoom";
@@ -11,7 +12,7 @@ As explained in the [Buy Integration](../buy) section, you need to modify your L
 
 Your LiveApp must:
 
-- Respond to specific LiveApp URLs to adapt to the flow inside Ledger Live.
+- Respond to specific LiveApp URLs to adapt to the flow inside <Glossary word="Ledger Live"></Glossary>.
 - Follow specific flow/UX requirements:
 
 <Zoom>
@@ -20,10 +21,10 @@ Your LiveApp must:
 
 ## LiveApp URL
 
-The LiveApp needs to respond to a URL with certain parameters. LiveApp URLs are used to open your LiveApp with the quote values that the user has already entered in Ledger Live.
+The LiveApp needs to respond to a URL with certain parameters. LiveApp URLs are used to open your LiveApp with the quote values that the user has already entered in <Glossary word="Ledger Live"></Glossary>.
 
 - `accountAddress`: Destination address to deposit the crypto.
-- `cryptoCurrency`: The cryptocurrency that the user wants to buy. It will contain the providerId value to identify the crypto.
+- `cryptoCurrency`: The <Glossary word="cryptocurrency"></Glossary> that the user wants to buy. It will contain the providerId value to identify the crypto.
 - `fiatCurrency`: The fiat currency that the user wants to spend.
 - `fiatAmount`: The fiat amount that the user wants to spend.
 - `cryptoAmount`: The crypto amount that the user wants to buy.
@@ -31,8 +32,8 @@ The LiveApp needs to respond to a URL with certain parameters. LiveApp URLs are 
 - `paymentMethod`: The preferred payment method of the user.
 - `bankResidency` (optional): The bank residency of the user.
 - `buySessionid`: ID used by Ledger to track transactions and their completion statuses.
-- `language`: The language preference of the user set in Ledger Live.
-- `theme`: The theme preference of the user set in Ledger Live.
+- `language`: The language preference of the user set in <Glossary word="Ledger Live"></Glossary>.
+- `theme`: The theme preference of the user set in <Glossary word="Ledger Live"></Glossary>.
 - `platform`: The platform used by the user (mobile/desktop).
 
 **Example**:

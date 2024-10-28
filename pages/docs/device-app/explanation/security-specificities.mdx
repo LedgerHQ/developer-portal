@@ -1,10 +1,12 @@
+import Glossary from '/components/features/tooltip-glossary'
+
 ## Security concerns
 
 This part describes possibly insecure patterns found in specific cryptocurrencies, and how to handle them.
 
 ### Be Wary of Untrusted Input
 
-Some cryptocurrencies do not have *explicit* fee encoded in the transaction. In such cases, the app cannot rely on the fee value sent from the host. Instead, it should receive previous UTxOs and check their output amounts. Note that this usually needs to be done in a separate step due to memory constraints. Check the BTC app design for this.
+Some cryptocurrencies do not have *explicit* fee encoded in the <Glossary word="transaction"></Glossary>. In such cases, the app cannot rely on the fee value sent from the host. Instead, it should receive previous UTxOs and check their output amounts. Note that this usually needs to be done in a separate step due to memory constraints. Check the BTC app design for this.
 
 ### Properly protect data you wish to cache on the host computer
 
