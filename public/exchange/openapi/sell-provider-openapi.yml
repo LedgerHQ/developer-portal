@@ -29,7 +29,7 @@ paths:
                   - fiat: GBP
                 cryptoCurrencyCapabilities:
                   - id: BTC
-                  - network: bitcoin
+                    network: bitcoin
                     minAmount: 0.01
                     maxAmount: 0.5
                 countriesCapabilities:
