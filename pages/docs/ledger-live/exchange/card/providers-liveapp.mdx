@@ -27,7 +27,7 @@ This method will need you to provide the following parameters:
 * `fromAccountId`: User's Ledger account id.
 * `fromAmount`: Amount that will be sold.
 * `toFiat`: Fiat currency that the user wants to be paid with using provider id.
-* `rate`: The rate of the fund.
+* `rate`: The crypto/fiat rate.
 
 ```js copy
   exchangeSDK.sell({
@@ -35,7 +35,7 @@ This method will need you to provide the following parameters:
   fromAccountId: "97f06be9-6fb2-5da3-be71-4e762ed6e115",// Ledger Live uuid4 account (can be a BTC account)
   fromAmount: new BigNumber(1),
   toFiat: "EUR", // provider fiat id
-  rate: 90000, // crypto/fiat rate [BTC/EUR]
+  rate: 66564, // crypto/fiat rate [BTC/EUR]
   type: "card"
   });
 ```
