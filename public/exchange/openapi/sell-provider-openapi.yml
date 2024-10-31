@@ -12,6 +12,7 @@ paths:
             ### Sell Provider Capabilities
             - "fiatCurrencyCapabilities.[].fiat": fiat currency supported at the ISO-4217 standard,
             - cryptoCurrencyCapabilities.[].id: The provider id of the currency, this id will be used to call quote endpoint and in the widget url query parameter,
+            - cryptoCurrencyCapabilities.[].network: The network of the cryptocurrency, this is used to match the provider cryptocurrency ID with the ledger ID,
             - cryptoCurrencyCapabilities.[].minAmount: Minimum amount of crypto the user can sell
             - cryptoCurrencyCapabilities.[].maxAmount: Maximum amount of crypto the user can sell
             - "countriesCapabilities.[].country": available at the Alpha-2 standard (ISO3166),
@@ -28,6 +29,7 @@ paths:
                   - fiat: GBP
                 cryptoCurrencyCapabilities:
                   - id: BTC
+                  - network: bitcoin
                     minAmount: 0.01
                     maxAmount: 0.5
                 countriesCapabilities:
@@ -118,20 +120,6 @@ paths:
           schema:
             type: string
           example: 0.3
-        - name: country
-          in: query
-          description: Country of the user at the Alpha-2 standard (ISO3166).
-          required: true
-          schema:
-            type: string
-          example: FR
-        - name: walletAddress
-          in: query
-          description: User's wallet address where he holds the cryptocurreny he wants to sell.
-          required: true
-          schema:
-            type: string
-          example: '0x000000000000000000000000000000'
       responses:
         '200':
           description: |
