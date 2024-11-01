@@ -14,7 +14,7 @@ Your LiveApp must:
 
 ## Ledger Exchange Services Kit
 
-To learn how to create (or embed if already existing) your user interface for the sell, please follow the [Discover documentation](../../discover).
+To learn how to create (or embed if already existing) your user interface for the sell, please follow the [Discover documentation](../../discover/getting-started).
 
 Your LiveApp will interact with Ledger Live, through the [ExchangeSDK](https://github.com/LedgerHQ/exchange-sdk), with the corresponding method.
 
@@ -48,18 +48,18 @@ The LiveApp needs to respond to a URL with some parameters. LiveApp URLs are use
 The LiveApp URL format is already fixed and will depend on the information you provided inside your [LiveApp manifest](../../../../docs/discover/wallet-api/appendix/manifest) (ex: `ledgerlive://discover/sellprovidername`).
 
 
-  * `account-id`: User’s selected account id, where the crypto he wants to sell is stored.
-  * `crypto-currency`: The crypto currency that the user wants to sell. It will contain the providerId value to identify the crypto.
-  * `fiat-currency`: The fiat currency that the user wants to be paid with.
-  * `crypto-amount`: The crypto amount that the user wants to sell.
-  * `payment-method`: The preferred payment method for the user.
+  * `accountId`: User’s selected account id, where the crypto he wants to sell is stored.
+  * `cryptoCurrency`: The crypto currency that the user wants to sell. It will contain the providerId value to identify the crypto.
+  * `fiatCurrency`: The fiat currency that the user wants to be paid with.
+  * `cryptoAmount`: The crypto amount that the user wants to sell.
+  * `paymentMethod`: The preferred payment method for the user.
   * `mode`: `buy` or `sell`. In this case always sell. Required you share the same base widget url for both usages.
-  * `bank-residency`: The bank residency of the user.
-  * `ledger-transaction-id`: id used by ledger to track transactions and their completion statuses.
+  * `bankResidency`: The bank residency of the user.
+  * `ledgerTransactionId`: id used by ledger to track transactions and their completion statuses.
 
 __Example__:
 ```
-https://sell.provider.widget.com?[account-id]=ua11-…&[crypto-currency]=BTC&[fiat-currency]=EUR&[crypto-amount]=0.04
+https://sell.provider.widget.com?[accountId]=ua11-…&[cryptoCurrency]=BTC&[fiatCurrency]=EUR&[cryptoAmount]=0.04
 ```
 
 <Callout type="info" emoji="👉">
