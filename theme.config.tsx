@@ -38,47 +38,42 @@ const config: DocsThemeConfig = {
         );
     }
   },
-  head: () => {
-    const { asPath, defaultLocale, locale } = useRouter()
-    const { frontMatter } = useConfig()
-    const meta = {
-      image: "homepage/hero-background.webp",
-    };
-    const url =
-      'https://developers.ledger.com' +
-      (defaultLocale === locale ? asPath : `/${locale}${asPath}`)
+  head: function Head() {
+    const { asPath } = useRouter()
+    const config = useConfig()
+
+    const pageTitle = config.frontMatter.title || config.title
+
+    const siteTitle = "Ledger Developer Portal"
+    const title = pageTitle ? `${pageTitle} - ${siteTitle}` : siteTitle
+    
+    const url = `https://developers.ledger.com${asPath}`
+    const description = 
+      "All the tools and documentation," +
+      "to integrate with Ledger"
  
     return (
       <>
-        <script type="text/javascript" src="https://cdn.cookielaw.org/consent/5ff3ecce-44bd-4ef3-b746-ec81546bf82a/OtAutoBlock.js" ></script>
-          <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charSet="UTF-8" data-domain-script="5ff3ecce-44bd-4ef3-b746-ec81546bf82a" ></script>
-          <script type="text/javascript">
-          function OptanonWrapper() { }
-        </script>
-        <meta name="google-site-verification" content="fJHVlVHjffhnC-lrehFc-z5GMiBSUO-EiDITGfjky_w" />
+        <title>{title}</title>
+        <meta name="robots" content="index,follow" />
+        <meta name="description" content={description} />
+
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:site_name" content={siteTitle} />
+        <meta property="og:description" content={description} />
         <meta property="og:url" content={url} />
-        <meta property="og:image" content={meta.image} />
-        <meta property="og:title" content={frontMatter.title || 'Developers'} />
-        <meta
-          property="og:description"
-          content={frontMatter.description || 'Integrate your project with Ledger'}
+        <meta property="og:image" content="/homepage/bg-interaction.jpg" />
+        <meta property="og:locale" content="en_US" />
+
+        <link
+          rel="canonical"
+          href="https://developers.ledger.com"
         />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </>
     )
   },
-  // useNextSeoProps() {
-  //   const { asPath } = useRouter()
-  //   if (asPath !== '/') {
-  //     return {
-  //       titleTemplate: '%s – Ledger Developer Portal'
-  //     }
-  //   }
-  //   else {
-  //     return {
-  //       titleTemplate: 'Ledger Developer Portal'
-  //     }
-  //   }
-  // },
   color: { 
     hue: 35
   },
