@@ -5,5 +5,6 @@ export default {
     },
     quickstart: 'Quickstart guide',
     journeys: 'Explore dev journeys',
-    community: 'Community'
+    community: 'Community',
+    contribution: 'Contributing to the documentation'
 }
