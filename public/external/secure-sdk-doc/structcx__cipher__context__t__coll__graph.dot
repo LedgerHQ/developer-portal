@@ -1,0 +1,14 @@
+digraph "cx_cipher_context_t"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="cx_cipher_context_t",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" cipher_info" ];
+  Node2 [label="cx_cipher_info_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structcx__cipher__info__t.html",tooltip=" "];
+  Node3 -> Node2 [dir="back",color="darkorchid3",style="dashed",label=" base" ];
+  Node3 [label="cx_cipher_base_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structcx__cipher__base__t.html",tooltip=" "];
+  Node4 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" cipher_key" ];
+  Node4 [label="cipher_key_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structcipher__key__t.html",tooltip=" "];
+}

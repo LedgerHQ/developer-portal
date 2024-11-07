@@ -1,0 +1,16 @@
+digraph "lib_standard_app/buffer.h"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="lib_standard_app/buffer.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="lib_standard_app/buffer.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$buffer_8c.html",tooltip=" "];
+  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="lib_standard_app/io.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$io_8h.html",tooltip=" "];
+  Node3 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="lib_standard_app/io.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$io_8c.html",tooltip=" "];
+  Node3 -> Node5 [dir="back",color="steelblue1",style="solid"];
+  Node5 [label="lib_standard_app/main.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$main_8c.html",tooltip=" "];
+}

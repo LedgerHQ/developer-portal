@@ -1,0 +1,10 @@
+digraph "lib_stusb_impl/u2f_impl.h"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="lib_stusb_impl/u2f\l_impl.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="usbd_hid_impl.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$usbd__hid__impl_8h.html",tooltip=" "];
+}

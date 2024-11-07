@@ -1,4 +1,5 @@
 export default {  
+	'secure-sdk-doc': 'Secure SDK doc',
 	framework: 'Development framework',
 	tools:'Developing tools overview',
 	'app-permissions': 'App permissions',

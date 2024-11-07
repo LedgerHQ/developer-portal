@@ -1,0 +1,23 @@
+digraph "USBD_HID"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir=LR;
+  Node2 [label="STM32_USB_DEVICE_LIBRARY",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$group__STM32__USB__DEVICE__LIBRARY.html",tooltip=" "];
+  Node1 [label="USBD_HID",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="usbd core module"];
+  Node4 [label="USBD_HID_Private_Defines",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$group__USBD__HID__Private__Defines.html",tooltip=" "];
+  Node6 [label="USBD_HID_Private_Function\lPrototypes",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$group__USBD__HID__Private__FunctionPrototypes.html",tooltip=" "];
+  Node8 [label="USBD_HID_Private_Functions",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$group__USBD__HID__Private__Functions.html",tooltip=" "];
+  Node5 [label="USBD_HID_Private_Macros",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$group__USBD__HID__Private__Macros.html",tooltip=" "];
+  Node3 [label="USBD_HID_Private_TypesDefinitions",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$group__USBD__HID__Private__TypesDefinitions.html",tooltip=" "];
+  Node7 [label="USBD_HID_Private_Variables",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$group__USBD__HID__Private__Variables.html",tooltip=" "];
+  Node2->Node1 [shape=plaintext, dir="back", style="solid"];
+  Node1->Node3 [shape=plaintext, dir="back", style="solid"];
+  Node1->Node4 [shape=plaintext, dir="back", style="solid"];
+  Node1->Node5 [shape=plaintext, dir="back", style="solid"];
+  Node1->Node6 [shape=plaintext, dir="back", style="solid"];
+  Node1->Node7 [shape=plaintext, dir="back", style="solid"];
+  Node1->Node8 [shape=plaintext, dir="back", style="solid"];
+}

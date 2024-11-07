@@ -1,0 +1,14 @@
+digraph "ReviewContext_s"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="ReviewContext_s",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" onNav" ];
+  Node2 [label="nbgl_stepDesc_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__stepDesc__s.html",tooltip="Structure containing all specific information when creating a NBGL step."];
+  Node3 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" tagValueList" ];
+  Node3 [label="nbgl_layoutTagValueList_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__layoutTagValueList__t.html",tooltip="This structure contains a list of [tag,value] pairs."];
+  Node4 -> Node3 [dir="back",color="darkorchid3",style="dashed",label=" callback\npairs" ];
+  Node4 [label="nbgl_layoutTagValue_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__layoutTagValue__t.html",tooltip="This structure contains a [tag,value] pair."];
+}

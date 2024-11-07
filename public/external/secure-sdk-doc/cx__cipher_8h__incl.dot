@@ -1,0 +1,27 @@
+digraph "lib_cxng/src/cx_cipher.h"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="lib_cxng/src/cx_cipher.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="lcx_cipher.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$lcx__cipher_8h.html",tooltip="API for block ciphers."];
+  Node2 -> Node3 [color="steelblue1",style="solid"];
+  Node3 [label="cx_errors.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node2 -> Node4 [color="steelblue1",style="solid"];
+  Node4 [label="lcx_wrappers.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$lcx__wrappers_8h.html",tooltip=" "];
+  Node4 -> Node5 [color="steelblue1",style="solid"];
+  Node5 [label="exceptions.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node4 -> Node6 [color="steelblue1",style="solid"];
+  Node6 [label="os_helpers.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node2 -> Node7 [color="steelblue1",style="solid"];
+  Node7 [label="lcx_common.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$lcx__common_8h.html",tooltip="Cryptography flags."];
+  Node7 -> Node8 [color="steelblue1",style="solid"];
+  Node8 [label="stdint.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node7 -> Node9 [color="steelblue1",style="solid"];
+  Node9 [label="stddef.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node2 -> Node10 [color="steelblue1",style="solid"];
+  Node10 [label="lcx_aes.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$lcx__aes_8h.html",tooltip="AES (Advanced Encryption Standard)."];
+  Node2 -> Node9 [color="steelblue1",style="solid"];
+}

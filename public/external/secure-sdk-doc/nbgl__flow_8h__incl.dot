@@ -1,0 +1,44 @@
+digraph "lib_nbgl/include/nbgl_flow.h"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="lib_nbgl/include/nbgl\l_flow.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Flow construction API of NBGL."];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="nbgl_step.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$nbgl__step_8h.html",tooltip="Step construction API of NBGL."];
+  Node2 -> Node3 [color="steelblue1",style="solid"];
+  Node3 [label="nbgl_layout.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$nbgl__layout_8h.html",tooltip="API of the Advanced BOLOS Graphical Library, for predefined layouts."];
+  Node3 -> Node4 [color="steelblue1",style="solid"];
+  Node4 [label="nbgl_obj.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$nbgl__obj_8h.html",tooltip="API to draw all basic graphic objects."];
+  Node4 -> Node5 [color="steelblue1",style="solid"];
+  Node5 [label="nbgl_types.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$nbgl__types_8h.html",tooltip="common types for Graphical Library"];
+  Node5 -> Node6 [color="steelblue1",style="solid"];
+  Node6 [label="stddef.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node5 -> Node7 [color="steelblue1",style="solid"];
+  Node7 [label="stdint.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node5 -> Node8 [color="steelblue1",style="solid"];
+  Node8 [label="stdbool.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node5 -> Node9 [color="steelblue1",style="solid"];
+  Node9 [label="bolos_target.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node4 -> Node10 [color="steelblue1",style="solid"];
+  Node10 [label="nbgl_fonts.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$nbgl__fonts_8h.html",tooltip=" "];
+  Node10 -> Node5 [color="steelblue1",style="solid"];
+  Node4 -> Node11 [color="steelblue1",style="solid"];
+  Node11 [label="ux_loc.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node3 -> Node12 [color="steelblue1",style="solid"];
+  Node12 [label="nbgl_screen.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$nbgl__screen_8h.html",tooltip="API to manage screens."];
+  Node12 -> Node5 [color="steelblue1",style="solid"];
+  Node12 -> Node4 [color="steelblue1",style="solid"];
+  Node3 -> Node5 [color="steelblue1",style="solid"];
+  Node3 -> Node13 [color="steelblue1",style="solid"];
+  Node13 [label="nbgl_content.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$nbgl__content_8h.html",tooltip="common content for Graphical Library"];
+  Node13 -> Node7 [color="steelblue1",style="solid"];
+  Node13 -> Node8 [color="steelblue1",style="solid"];
+  Node13 -> Node5 [color="steelblue1",style="solid"];
+  Node13 -> Node4 [color="steelblue1",style="solid"];
+  Node2 -> Node4 [color="steelblue1",style="solid"];
+  Node2 -> Node5 [color="steelblue1",style="solid"];
+  Node1 -> Node4 [color="steelblue1",style="solid"];
+  Node1 -> Node5 [color="steelblue1",style="solid"];
+}
