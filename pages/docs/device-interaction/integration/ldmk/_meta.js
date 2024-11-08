@@ -1,8 +1,4 @@
 export default {
-  docs: "Ledger Device Management Kits",
-  explanations: "Explanations",
-  beginners: "Beginner's guide",
-  integration_walkthroughs: "Integration Walkthrough",
-  migrations: "Migrations",
-  references: "References (TSDoc)",
+  build_custom_command: "Build a custom command",
+  how_to_use_a_signer: "Use a signer"
 };

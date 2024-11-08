@@ -1,4 +1,5 @@
-export default {  
-	'U2F-deprecated': "Why is U2F deprecated?",
-	'architecture-diagram': "Architecture diagrams"
-}
+export default {
+  introduction: "Why the Device Management Kit?",
+  ledgerjs: "Differences with LedgerJS",
+  "architecture-diagram": "LedgerJS architecture diagrams"
+};

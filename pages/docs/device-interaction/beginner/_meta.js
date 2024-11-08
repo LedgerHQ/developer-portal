@@ -1,7 +1,6 @@
-export default {  
-	'transfer-eth': "Transfer of Ethers between accounts",
-	'transfer-sol': "Transfer of Sol between accounts",
-	'smart-contract': "Call a Smart Contract",
-	'personal-message': "Sign a personnal message",
-	'cosmos-app': "Interact with the Cosmos app"
-}
+export default {
+  init_dmk: "Initialize Device Management Kit",
+  discover_and_connect: "Discover and connect",
+  exchange_data: "Exchange data with the device",
+  'ledger-js': "LedgerJS Transport"
+};
