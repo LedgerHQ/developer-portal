@@ -7,5 +7,6 @@ export default {
     beginner: "Beginner's guides",
     integration: "Integration walkthroughs",
     references: "References",
-    explanation: "Explanation"
+    explanation: "Explanation",
+    ledgerjs: "LedgerJS: Soon deprecated"
 }

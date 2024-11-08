@@ -1,5 +1,7 @@
 export default {
-	identifiers: "USB identifiers",
+	dmk: "Device Management Kit",
+	signers: "Signers",
+	'ts-docs': "TS Docs",
 	logos: "Ledger logos"
 
 }
