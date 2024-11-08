@@ -27,14 +27,14 @@ export const Journeys = () => {
             <div className="text-heading-6 md:text-heading-5 tracking-tight-3 font-semibold w-full">Ledger Live</div>
 
             <JourneyCard 
-              title="Ledger Services Kit"
+              title="Blockchain integration"
               description="Add the possibility to handle your Blockchain's accounts directly in Ledger Live" 
               type="blockchain"
               className="w-full md:w-[48.5%]"
             />
             <JourneyCard 
               title="Ledger Services Kit"
-              description="Extend the reach of your DApp by integrating it in Ledger Live" 
+              description="Extend the reach of your dApp by integrating it in Ledger Live" 
               type="live-app"
               className="w-full md:w-[48.5%]"
             />
