@@ -9,6 +9,14 @@ import { Footer } from "./components/Homepage/Footer"
 
 
 const config: DocsThemeConfig = {
+  banner: {
+    key: 'Developer Kits',
+    content: (
+      <a href="https://developers.ledger.com/docs/news" target="_blank">
+        🎉 New developers kits released. Read more →
+      </a>
+    )
+  },
   project: {
     link: 'https://github.com/LedgerHQ/developer-portal',
   },
