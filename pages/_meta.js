@@ -14,7 +14,12 @@ export default {
   docs: {
     type: 'menu',
     title: 'Documentation',
-    items: {
+    items: { 
+      'news': {
+        type: 'page',
+        title: "What's new?",
+        href: '/docs/news'
+      },
       'device-app': {
         title: 'Device App',
         href: '/docs/device-app/getting-started'

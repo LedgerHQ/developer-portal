@@ -3,6 +3,10 @@ export default {
         type: 'page',
         title: 'Dev tracks'
       },
+  'news': {
+        type: 'page',
+        title: "What's new?"
+      },
   'device-app': {
         type: 'page',
         title: 'Device App'
