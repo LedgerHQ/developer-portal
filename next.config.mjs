@@ -351,6 +351,12 @@ export default withNextra({
       destination:
         "/docs/clear-signing/getting-started",
       permanent: false,
+    },
+    {
+      source: "/clear-signing",
+      destination:
+        "/docs/clear-signing/getting-started",
+      permanent: false,
     }
   ],
 });
