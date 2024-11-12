@@ -2,39 +2,39 @@
 
 html {
 /* page base colors */
---page-background-color: white;
---page-foreground-color: black;
---page-link-color: #3D578C;
---page-visited-link-color: #4665A2;
+--page-background-color: #111111;
+--page-foreground-color: #E1E2E3;
+--page-link-color: #E58501;
+--page-visited-link-color: #E58501;
 
 /* index */
---index-odd-item-bg-color: #F8F9FC;
---index-even-item-bg-color: white;
+--index-odd-item-bg-color: #000000;
+--index-even-item-bg-color: #343434;
 --index-header-color: black;
 --index-separator-color: #A0A0A0;
 
 /* header */
---header-background-color: #F9FAFC;
+--header-background-color: #111111;
 --header-separator-color: #C4CFE5;
---header-gradient-image: url('nav_h.png');
---group-header-separator-color: #879ECB;
---group-header-color: #354C7B;
+/*--header-gradient-image: url('nav_h.png');*/
+--group-header-separator-color: #F8F9FC;
+--group-header-color: white;
 --inherit-header-color: gray;
 
---footer-foreground-color: #2A3D61;
+/*--footer-foreground-color: #2A3D61;*/
 --footer-logo-width: 104px;
 --citation-label-color: #334975;
 --glow-color: cyan;
 
---title-background-color: white;
---title-separator-color: #5373B4;
---directory-separator-color: #9CAFD4;
---separator-color: #4A6AAA;
+--title-background-color: #111111;
+--title-separator-color: #C4CFE5;
+--directory-separator-color: #C4CFE5;
+/*--separator-color: #4A6AAA;*/
 
 --blockquote-background-color: #F7F8FB;
---blockquote-border-color: #9CAFD4;
+--blockquote-border-color: #C4CFE5;
 
---scrollbar-thumb-color: #9CAFD4;
+--scrollbar-thumb-color: #C4CFE5;
 --scrollbar-background-color: #F9FAFC;
 
 --icon-background-color: #728DC1;
@@ -42,20 +42,20 @@ html {
 --icon-doc-image: url('doc.png');
 
 /* brief member declaration list */
---memdecl-background-color: #F9FAFC;
+--memdecl-background-color: black;
 --memdecl-separator-color: #DEE4F0;
 --memdecl-foreground-color: #555;
 --memdecl-template-color: #4665A2;
 
 /* detailed member list */
---memdef-border-color: #A8B8D9;
---memdef-title-background-color: #E2E8F2;
---memdef-title-gradient-image: url('nav_f.png');
+--memdef-border-color: grey;
+--memdef-title-background-color: black;
+/*--memdef-title-gradient-image: url('nav_f.png');*/
 --memdef-proto-background-color: #DFE5F1;
 --memdef-proto-text-color: #253555;
---memdef-proto-text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
---memdef-doc-background-color: white;
---memdef-param-name-color: #602020;
+/*--memdef-proto-text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);*/
+--memdef-doc-background-color: #111111;
+--memdef-param-name-color: #111111;
 --memdef-template-color: #4665A2;
 
 /* tables */
@@ -70,27 +70,27 @@ html {
 --label-foreground-color: white;
 
 /** navigation bar/tree/menu */
---nav-background-color: #F9FAFC;
---nav-foreground-color: #364D7C;
---nav-gradient-image: url('tab_b.png');
+--nav-background-color: #111111;
+--nav-foreground-color: #E58501;
+/**--nav-gradient-image: url('tab_b.png');
 --nav-gradient-hover-image: url('tab_h.png');
 --nav-gradient-active-image: url('tab_a.png');
 --nav-gradient-active-image-parent: url("../tab_a.png");
 --nav-separator-image: url('tab_s.png');
---nav-breadcrumb-image: url('bc_s.png');
+--nav-breadcrumb-image: url('bc_s.png');*/
 --nav-breadcrumb-border-color: #C2CDE4;
---nav-splitbar-image: url('splitbar.png');
+/**--nav-splitbar-image: url('splitbar.png');*/
 --nav-font-size-level1: 13px;
 --nav-font-size-level2: 10px;
 --nav-font-size-level3: 9px;
---nav-text-normal-color: #283A5D;
---nav-text-hover-color: white;
---nav-text-active-color: white;
---nav-text-normal-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
+--nav-text-normal-color: #E1E2E3;
+--nav-text-hover-color: #E1E2E3;
+--nav-text-active-color: #E58501;
+/**--nav-text-normal-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
 --nav-text-hover-shadow: 0px 1px 1px rgba(0, 0, 0, 1.0);
---nav-text-active-shadow: 0px 1px 1px rgba(0, 0, 0, 1.0);
+--nav-text-active-shadow: 0px 1px 1px rgba(0, 0, 0, 1.0);*/
 --nav-menu-button-color: #364D7C;
---nav-menu-background-color: white;
+--nav-menu-background-color: #111111;
 --nav-menu-foreground-color: #555555;
 --nav-menu-toggle-color: rgba(255, 255, 255, 0.5);
 --nav-arrow-color: #9CAFD4;
@@ -112,8 +112,8 @@ html {
 --search-filter-border-color: #90A5CE;
 --search-filter-highlight-text-color: white;
 --search-filter-highlight-bg-color: #3D578C;
---search-results-foreground-color: #425E97;
---search-results-background-color: #EEF1F7;
+--search-results-foreground-color: black;
+--search-results-background-color: white;
 --search-results-border-color: black;
 --search-box-shadow: inset 0.5px 0.5px 3px 0px #555;
 
@@ -150,14 +150,14 @@ html {
 --tooltip-shadow: 1px 1px 7px gray;
 
 /** font-family */
---font-family-normal: Roboto,sans-serif;
+--font-family-normal: HMAlphaMono,sans-serif;
 --font-family-monospace: monospace,fixed;
---font-family-nav: 'Lucida Grande',Geneva,Helvetica,Arial,sans-serif;
---font-family-title: Tahoma,Arial,sans-serif;
---font-family-toc: Verdana,'DejaVu Sans',Geneva,sans-serif;
---font-family-search: Arial,Verdana,sans-serif;
---font-family-icon: Arial,Helvetica;
---font-family-tooltip: Roboto,sans-serif;
+--font-family-nav: InterRegular,Geneva,Helvetica,Arial,sans-serif;
+--font-family-title: InterRegular,Arial,sans-serif;
+--font-family-toc: InterRegular,'DejaVu Sans',Geneva,sans-serif;
+--font-family-search: InterRegular,Verdana,sans-serif;
+--font-family-icon: InterRegular,Helvetica;
+--font-family-tooltip: InterRegular,sans-serif;
 
 }
 
@@ -167,7 +167,7 @@ html {
 
 /* page base colors */
 --page-background-color: black;
---page-foreground-color: #C9D1D9;
+--page-foreground-color: #E1E2E3;
 --page-link-color: #90A5CE;
 --page-visited-link-color: #A3B4D7;
 
@@ -206,14 +206,14 @@ html {
 --icon-doc-image: url('docd.png');
 
 /* brief member declaration list */
---memdecl-background-color: #0B101A;
+--memdecl-background-color: black;
 --memdecl-separator-color: #2C3F65;
 --memdecl-foreground-color: #BBB;
 --memdecl-template-color: #7C95C6;
 
 /* detailed member list */
 --memdef-border-color: #233250;
---memdef-title-background-color: #1B2840;
+--memdef-title-background-color: white;
 --memdef-title-gradient-image: url('nav_fd.png');
 --memdef-proto-background-color: #19243A;
 --memdef-proto-text-color: #9DB0D4;
@@ -933,8 +933,8 @@ table.memberdecls {
 	border-top-right-radius: 4px;
 	border-top-left-radius: 4px;
 	margin-bottom: -1px;
-	background-image: var(--memdef-title-gradient-image);
-	background-repeat: repeat-x;
+	/*background-image: var(--memdef-title-gradient-image);
+	background-repeat: repeat-x;*/
 	background-color: var(--memdef-title-background-color);
 	line-height: 1.25;
 	font-weight: 300;
@@ -1350,7 +1350,7 @@ table.fieldtable {
 	top: 0px;
 	left: 10px;
 	height: 36px;
-	background-image: var(--nav-gradient-image);
+	/*background-image: var(--nav-gradient-image);*/
 	z-index: 101;
 	overflow: hidden;
 	font-size: 13px;
@@ -1359,8 +1359,8 @@ table.fieldtable {
 .navpath ul
 {
 	font-size: 11px;
-	background-image: var(--nav-gradient-image);
-	background-repeat:repeat-x;
+	/*background-image: var(--nav-gradient-image);
+	background-repeat:repeat-x;*/
 	background-position: 0 -5px;
 	height:30px;
 	line-height:30px;
