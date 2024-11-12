@@ -161,7 +161,7 @@ export default withNextra({
       permanent: true,
     },
     {
-      source: "/docs/device-app/deliver/:slug*",
+      source: "/docs/device-app/deliver/deliverables/:slug*",
       destination: "/docs/device-app/submission-process/deliverables/:slug*",
       permanent: true,
     },
@@ -183,6 +183,12 @@ export default withNextra({
     },
     {
       source: "/docs/device-app/develop/:slug*",
+      destination:
+        "/docs/device-app/getting-started",
+      permanent: true,
+    },
+    {
+      source: "/docs/device-app/architecture/:slug*",
       destination:
         "/docs/device-app/getting-started",
       permanent: true,
@@ -210,6 +216,11 @@ export default withNextra({
     {
       source: "/docs/connectivity/ledgerJS/:slug*",
       destination: "/docs/device-interaction/getting-started",
+      permanent: true,
+    },
+    {
+      source: "/docs/device-interaction/integration/ldmk",
+      destination: "/docs/device-interaction/beginner/init_dmk",
       permanent: true,
     },
     {
@@ -269,6 +280,12 @@ export default withNextra({
       permanent: true,
     },
     {
+      source: "/docs/tokens/:slug*",
+      destination:
+        "/docs/ledger-live/accounts/integration/tokens/evm-chains-tokens",
+      permanent: true,
+    },
+    {
       source: "/docs/exchange/swap/glossary",
       destination: "/docs/exchange/glossary",
       permanent: true,
@@ -317,5 +334,23 @@ export default withNextra({
         "/docs/ledger-live/discover/integration/wallet-api/introduction",
       permanent: false,
     },
+    {
+      source: "/docs/dev-journey/:slug*",
+      destination:
+        "/docs/dev-tracks/quickstart",
+      permanent: false,
+    },
+    {
+      source: "/docs/sections",
+      destination:
+        "/docs/dev-tracks/quickstart",
+      permanent: false,
+    },
+    {
+      source: "/docs/clear-signing",
+      destination:
+        "/docs/clear-signing/getting-started",
+      permanent: false,
+    }
   ],
 });
