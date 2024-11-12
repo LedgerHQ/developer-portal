@@ -213,6 +213,11 @@ export default withNextra({
       permanent: true,
     },
     {
+      source: "/docs/device-interaction/integration/ldmk",
+      destination: "/docs/device-interaction/beginner/init_dmk",
+      permanent: true,
+    },
+    {
       source: "/discover",
       destination: "/docs/ledger-live/discover/getting-started",
       permanent: true,
