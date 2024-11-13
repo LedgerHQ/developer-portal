@@ -49,11 +49,12 @@ URL parameters:
 - `network`: the blockchain (network) where the action takes place.
 - `language`: the language preference of the user set in Ledger Live.
 - `theme`: the theme preference of the user set in Ledger Live.
+- `fix_parameters`: when set to `true`, restrict users from changing the network, coins, and connected address within your LiveApp frontend.
 
 **Example**:
 
 ```
-https://earn.provider.widget.com?[accountAddress]=0x…&[cryptoCurrency]=ETH&[network]=arbitrum&[action]=unstake&[language]=en&[theme]=dark
+https://earn.provider.widget.com?[accountAddress]=0x…&[cryptoCurrency]=ETH&[network]=arbitrum&[action]=unstake&[language]=en&[theme]=dark&[fix_parameters]=true
 ```
 
 Ensure your app recognizes these parameters and routes users directly to the relevant screens. If a parameter is missing or invalid, provide appropriate fallbacks, such as redirecting to a default home or dashboard screen.
