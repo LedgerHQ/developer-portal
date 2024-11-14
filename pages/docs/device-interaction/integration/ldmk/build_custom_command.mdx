@@ -1,12 +1,18 @@
+import { Callout } from "nextra/components";
+
 # Build a Custom Command
 
-You can build your own command simply by extending the `Command` class and implementing the `getApdu` and `parseResponse` methods.
+## Method
 
-Then you can use the `sendCommand` method to send it to a connected device.
+To build your own command:
+1. Extend the `Command` class and implement the `getApdu` and `parseResponse` methods
+2. Use the the `sendCommand` method to send it to a connected device
 
-This is strongly recommended over direct usage of `sendApdu`.
+<Callout type="info" emoji="ℹ️">
+This is strongly recommended over direct usage of `sendApdu`.  Note : Explain why.
+</Callout>
 
-Check the existing commands for a variety of examples.
+### Examples
 
 ```typescript
 export class MyCustomCommand
