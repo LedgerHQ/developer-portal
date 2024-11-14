@@ -36,6 +36,30 @@ The Ledger team will review and validate your LiveApp’s user flow and ensure c
 If a token (wether it is liquid or not) representing the staking position is issued to users, please inform Ledger of the token's name and address.
 </Callout>
 
+## URL parameters for direct navigation
+
+To ensure users are directed to the correct LiveApp page for specific actions (such as staking/unstaking) triggered from Ledger Live, your LiveApp must implement URL parameters to support direct navigation.
+
+When Ledger Live calls your LiveApp using these URLs, users should be seamlessly redirected to the appropriate screen based on the specified parameters. Each parameter should correspond to a particular action, enabling smooth and targeted in-app transitions.
+
+URL parameters:
+- `action`: specifies the action to be performed, either `stake` or `unstake`.
+- `accountAddress`: the address of the user executing the action.
+- `accountId`: the ID of the user's account in Ledger Live.
+- `cryptoCurrency`: the crypto asset involved in the action.
+- `network`: the blockchain (network) where the action takes place.
+- `language`: the language preference of the user set in Ledger Live.
+- `theme`: the theme preference of the user set in Ledger Live.
+- `fix_parameters`: when set to `true`, restrict users from changing the network, coins, and connected address within your LiveApp frontend.
+
+**Example**:
+
+```
+https://earn.provider.widget.com?[accountAddress]=0x…&[cryptoCurrency]=ETH&[network]=arbitrum&[action]=unstake&[language]=en&[theme]=dark&[fix_parameters]=true
+```
+
+Ensure your app recognizes these parameters and routes users directly to the relevant screens. If a parameter is missing or invalid, provide appropriate fallbacks, such as redirecting to a default home or dashboard screen.
+
 ## Manifest update
 
 In some cases, your LiveApp might interact with third-party smart contracts that you don't own and are already clear signed. If that is the case, you must update your manifest to specify this dependency. 
