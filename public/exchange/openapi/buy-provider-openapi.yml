@@ -14,7 +14,7 @@ paths:
             - "fiatCurrencyCapabilities.[].minAmount": minimum amount in fiat the user can buy crypto,
             - "fiatCurrencyCapabilities.[].maxAmount ": minimum amount in fiat the user can buy crypto,
             - "countryCapabilities.[].country": available at the Alpha-2 standard (ISO3166),
-            - "countryCapabilities.[].paymentMethods.[].name": Available payment method, valid values : card, pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay, maestro, googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank, bank, gbpbank, eps, ideal, revolut
+            - "countryCapabilities.[].paymentMethods.[].name": Available payment method, valid values : card, pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay, googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank, bank, gbpbank, eps, ideal, revolut
           content:
             application/json:
               schema:
@@ -79,7 +79,7 @@ paths:
           in: query
           description: 'Payment method, valid values : card,
          pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay,
-         maestro, googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,
+         googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,
          bank, gbpbank, eps, ideal, revolut.'
           required: true
           schema:
@@ -161,7 +161,7 @@ paths:
           in: query
           description: 'Payment method, valid values : card,
          pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay,
-         maestro, googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,
+         googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,
          bank, gbpbank, eps, ideal, revolut.'
           required: true
           schema:
@@ -287,7 +287,7 @@ components:
        \ standard (ISO3166),\n- \"coutriesCapabilities.[].paymentMethods.[].name\"\
        : Available payment method, valid values : card, pix,\
        \ mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay,\
-       \ maestro, googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,\
+       \ googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,\
        \ bank, gbpbank, eps, ideal, revolut\n- \"countriesCapabilities.[].paymentMethods.[].successRate\"\
        : percentage of success of the transaction.\n"
     Coin:
