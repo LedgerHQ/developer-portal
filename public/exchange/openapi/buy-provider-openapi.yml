@@ -14,7 +14,7 @@ paths:
             - "fiatCurrencyCapabilities.[].minAmount": minimum amount in fiat the user can buy crypto,
             - "fiatCurrencyCapabilities.[].maxAmount ": minimum amount in fiat the user can buy crypto,
             - "countryCapabilities.[].country": available at the Alpha-2 standard (ISO3166),
-            - "countryCapabilities.[].paymentMethods.[].name": Available payment method, valid values : visa, mastercard, creditcard, pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay, maestro, googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank, bank, gbpbank, eps, ideal, revolut
+            - "countryCapabilities.[].paymentMethods.[].name": Available payment method, valid values : card, pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay, maestro, googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank, bank, gbpbank, eps, ideal, revolut
           content:
             application/json:
               schema:
@@ -35,17 +35,17 @@ paths:
                     paymentMethods:
                       - name: paypal
                       - name: pix
-                      - name: visa
+                      - name: card
                   - country: US
                     paymentMethods:
                       - name: paypal
                       - name: pix
-                      - name: visa
+                      - name: card
                   - country: GB
                     paymentMethods:
                       - name: paypal
                       - name: pix
-                      - name: visa
+                      - name: card
         default:
           description: Error sent by the provider
           content:
@@ -77,7 +77,7 @@ paths:
           example: bitcoin
         - name: payment-method
           in: query
-          description: 'Payment method, valid values : visa, mastercard, creditcard,
+          description: 'Payment method, valid values : card,
          pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay,
          maestro, googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,
          bank, gbpbank, eps, ideal, revolut.'
@@ -159,7 +159,7 @@ paths:
           example: bitcoin
         - name: payment-method
           in: query
-          description: 'Payment method, valid values : visa, mastercard, creditcard,
+          description: 'Payment method, valid values : card,
          pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay,
          maestro, googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,
          bank, gbpbank, eps, ideal, revolut.'
@@ -285,7 +285,7 @@ components:
        \ be at the ledgerId format (see ledger_tokens.json and ledger_coins.json\
        \ files),\n- \"coutriesCapabilities.[].country\": available at the Alpha-2\
        \ standard (ISO3166),\n- \"coutriesCapabilities.[].paymentMethods.[].name\"\
-       : Available payment method, valid values : visa, mastercard, creditcard, pix,\
+       : Available payment method, valid values : card, pix,\
        \ mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay,\
        \ maestro, googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,\
        \ bank, gbpbank, eps, ideal, revolut\n- \"countriesCapabilities.[].paymentMethods.[].successRate\"\
@@ -303,7 +303,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BuyPaymentMethod'
-    CreditCard:
+    Card:
       type: object
     CryptoCurrencies:
       required:
@@ -357,10 +357,6 @@ components:
       type: object
     Ideal:
       type: object
-    Maestro:
-      type: object
-    Mastercard:
-      type: object
     Mobikwik:
       type: object
     Other:
@@ -374,7 +370,7 @@ components:
         - $ref: '#/components/schemas/Astropay'
         - $ref: '#/components/schemas/BanContact'
         - $ref: '#/components/schemas/Bank'
-        - $ref: '#/components/schemas/CreditCard'
+        - $ref: '#/components/schemas/Card'
         - $ref: '#/components/schemas/EasyBank'
         - $ref: '#/components/schemas/Easypay'
         - $ref: '#/components/schemas/Eps'
@@ -383,8 +379,6 @@ components:
         - $ref: '#/components/schemas/Giropay'
         - $ref: '#/components/schemas/GooglePay'
         - $ref: '#/components/schemas/Ideal'
-        - $ref: '#/components/schemas/Maestro'
-        - $ref: '#/components/schemas/Mastercard'
         - $ref: '#/components/schemas/Mobikwik'
         - $ref: '#/components/schemas/Other'
         - $ref: '#/components/schemas/PayPal'
@@ -394,7 +388,6 @@ components:
         - $ref: '#/components/schemas/Sofort'
         - $ref: '#/components/schemas/UPIBankTransfer'
         - $ref: '#/components/schemas/Unknown'
-        - $ref: '#/components/schemas/Visa'
     Pix:
       type: object
     ProviderQuoteResponse:
@@ -441,8 +434,6 @@ components:
       properties:
         message:
           type: string
-    Visa:
-      type: object
     RampRedirectUrl:
       type: object
       description: Redirect URL to Ramp UI widget
