@@ -9,7 +9,7 @@ export default {
   'dev-tracks': {
     type: 'page',
     title: 'Dev Tracks',
-    href: '/docs/dev-tracks/quickstart'
+    href: '/dev-tracks/quickstart'
   },
   docs: {
     type: 'menu',

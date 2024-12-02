@@ -8,8 +8,13 @@ const withNextra = nextra({
 export default withNextra({
   redirects: () => [
     {
+      source: "/docs/dev-tracks/:slug*",
+      destination: "/dev-tracks/:slug*",
+      permanent: true,
+    },
+    {
       source: "/dev-tracks",
-      destination: "/docs/dev-tracks/quickstart",
+      destination: "/dev-tracks/quickstart",
       permanent: true,
     },
     {
