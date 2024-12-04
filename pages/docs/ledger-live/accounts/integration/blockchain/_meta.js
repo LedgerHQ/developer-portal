@@ -6,7 +6,7 @@ export default {
   sync: "5 - Add accounts: full sync",
   send: "6 - Send",
   'desktop-mobile': "7 - Ledger Live Desktop and Mobile",
-  'ledger-live-kit': "8 - Ledger Services Kit",
+  'ledger-services-kit': "8 - Ledger Services Kit",
   'create-module': "X - Create Coin Module",
   'design-guidelines': "Design guidelines",
   tests: "Tests",
