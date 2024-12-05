@@ -1,6 +1,6 @@
 # Ledger Developer Portal
 
-This repository contains the documentations for third-party developers wishing to develop Ledger Embedded Applications and to integrate Coins, Tokens or dApp to Ledger Live.
+This repository contains the documentations for third-party developers wishing to develop Ledger Embedded Applications and to integrate Coins, Tokens or dApps to Ledger Live.
 
 The compiled version of this repository is [developers.ledger.com](https://developers.ledger.com/).
 
