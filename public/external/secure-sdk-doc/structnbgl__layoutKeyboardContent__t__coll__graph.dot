@@ -1,0 +1,12 @@
+digraph "nbgl_layoutKeyboardContent_t"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="nbgl_layoutKeyboardContent_t",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="This structure contains info to build a keyboard content (controls that are linked to keyboard)"];
+  Node2 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" suggestionButtons" ];
+  Node2 [label="nbgl_layoutSuggestionButtons_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__layoutSuggestionButtons__t.html",tooltip="This structure contains info to build suggestion buttons."];
+  Node3 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" confirmationButton" ];
+  Node3 [label="nbgl_layoutConfirmationButton_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__layoutConfirmationButton__t.html",tooltip="This structure contains info to build a confirmation button."];
+}

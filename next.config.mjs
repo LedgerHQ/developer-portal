@@ -199,6 +199,12 @@ export default withNextra({
       permanent: true,
     },
     {
+      source: "/docs/device-app/integration/design-guidelines/stax-flex/graphic-lib",
+      destination:
+        "/docs/device-app/references/device-api-lib",
+      permanent: true,
+    },
+    {
       source: "/docs/transport/:slug*",
       destination: "/docs/device-interaction/getting-started",
       permanent: true,

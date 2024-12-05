@@ -1,0 +1,10 @@
+digraph "lib_cxng/include/lcx_rsa.h"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="lib_cxng/include/lcx\l_rsa.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="RSA algorithm."];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="lib_cxng/include/libcxng.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$libcxng_8h.html",tooltip="Include cryptography files."];
+}

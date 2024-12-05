@@ -1,0 +1,44 @@
+digraph "nbgl_pageContent_s"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="nbgl_pageContent_s",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="This structure contains data to build a page in multi-pages mode (nbgl_pageDrawGenericContent)"];
+  Node2 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" centeredInfo" ];
+  Node2 [label="nbgl_contentCenteredInfo_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__contentCenteredInfo__t.html",tooltip="This structure contains info to build a centered (vertically and horizontally) area,..."];
+  Node3 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" extendedCenter" ];
+  Node3 [label="nbgl_contentExtendedCenter_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__contentExtendedCenter__t.html",tooltip="This structure contains data to build a EXTENDED_CENTER content."];
+  Node4 -> Node3 [dir="back",color="darkorchid3",style="dashed",label=" contentCenter" ];
+  Node4 [label="nbgl_contentCenter_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__contentCenter__t.html",tooltip="This structure contains info to build a centered (vertically and horizontally) area,..."];
+  Node5 -> Node3 [dir="back",color="darkorchid3",style="dashed",label=" tipBox" ];
+  Node5 [label="nbgl_contentTipBox_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__contentTipBox__t.html",tooltip="This structure contains data to build a tip-box, on top of a footer, on bottom of a content center."];
+  Node6 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" infoLongPress" ];
+  Node6 [label="nbgl_contentInfoLongPress_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__contentInfoLongPress__t.html",tooltip="This structure contains data to build a centered info + long press button content."];
+  Node7 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" infoButton" ];
+  Node7 [label="nbgl_contentInfoButton_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__contentInfoButton__t.html",tooltip="This structure contains data to build a centered info + simple black button content."];
+  Node8 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" tagValueList" ];
+  Node8 [label="nbgl_contentTagValueList_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__contentTagValueList__t.html",tooltip="This structure contains a list of [tag,value] pairs."];
+  Node9 -> Node8 [dir="back",color="darkorchid3",style="dashed",label=" callback\npairs" ];
+  Node9 [label="nbgl_contentTagValue_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__contentTagValue__t.html",tooltip="This structure contains a [tag,value] pair."];
+  Node10 -> Node9 [dir="back",color="darkorchid3",style="dashed",label=" extension" ];
+  Node10 [label="nbgl_contentValueExt_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__contentValueExt__t.html",tooltip="This structure contains additions to a tag/value pair, to be able to build a screen to display these ..."];
+  Node11 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" tagValueDetails" ];
+  Node11 [label="nbgl_contentTagValueDetails_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__contentTagValueDetails__t.html",tooltip="This structure contains a [item,value] pair and info about \"details\" button."];
+  Node8 -> Node11 [dir="back",color="darkorchid3",style="dashed",label=" tagValueList" ];
+  Node12 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" tagValueConfirm" ];
+  Node12 [label="nbgl_contentTagValueConfirm_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__contentTagValueConfirm__t.html",tooltip="This structure contains [item,value] pair(s) and info about a potential \"details\" button,..."];
+  Node8 -> Node12 [dir="back",color="darkorchid3",style="dashed",label=" tagValueList" ];
+  Node13 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" switchesList" ];
+  Node13 [label="nbgl_pageSwitchesList_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__pageSwitchesList__s.html",tooltip="This structure contains data to build a SWITCHES_LIST content."];
+  Node14 -> Node13 [dir="back",color="darkorchid3",style="dashed",label=" switches" ];
+  Node14 [label="nbgl_contentSwitch_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__contentSwitch__t.html",tooltip="This structure contains info to build a switch (on the right) with a description (on the left),..."];
+  Node15 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" infosList" ];
+  Node15 [label="nbgl_contentInfoList_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__contentInfoList__t.html",tooltip="This structure contains data to build a INFOS_LIST content."];
+  Node10 -> Node15 [dir="back",color="darkorchid3",style="dashed",label=" infoExtensions" ];
+  Node16 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" choicesList" ];
+  Node16 [label="nbgl_contentRadioChoice_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__contentRadioChoice__t.html",tooltip="This structure contains a list of names to build a list of radio buttons (on the right part of screen..."];
+  Node17 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" barsList" ];
+  Node17 [label="nbgl_contentBarsList_t",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__contentBarsList__t.html",tooltip="This structure contains data to build a BARS_LIST content."];
+}

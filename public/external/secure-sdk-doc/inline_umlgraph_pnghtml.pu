@@ -1,0 +1,42 @@
+@startuml inline_umlgraph_1.png
+title Graphic objects types hierarchy
+
+abstract nbgl_obj_t
+nbgl_obj_t <|-- nbgl_container_t
+nbgl_obj_t <|-- nbgl_text_area_t
+nbgl_obj_t <|-- nbgl_button_t
+nbgl_obj_t <|-- nbgl_switch_t
+nbgl_obj_t <|-- nbgl_progress_bar_t
+nbgl_obj_t <|-- nbgl_page_indicator_t
+nbgl_obj_t <|-- nbgl_image_t
+@enduml
+@startuml inline_umlgraph_2.png
+title Graphic objects composition
+
+SCREEN o-- OBJECTS
+SCREEN o-- CONTAINER
+CONTAINER o-- OBJECTS
+@enduml
+@startuml inline_umlgraph_3.png
+state FINGER_OFF {
+  state TOUCHED #FFFF77
+  state LONG_TOUCHED #FFFF77
+  state RELEASED #FFFF77
+  state OUT_OF_TOUCH #FFFF77
+}
+
+[*] --> FINGER_OFF
+FINGER_OFF: the finger is not on the object
+
+state FINGER_ON {
+  state TOUCHING #FFFF77
+}
+FINGER_ON: the finger is on the object
+
+FINGER_OFF -> TOUCHING : finger pressed \non the object
+TOUCHING -> TOUCHING :finger still pressed on \nthe object 100ms later
+TOUCHING -up-> TOUCHED : finger released \nafter SHORT_PRESSED
+TOUCHING -up-> LONG_TOUCHED : finger released \nafter LONG_PRESSED
+TOUCHING -up-> RELEASED: finger released
+TOUCHING -up-> OUT_OF_TOUCH: finger moved \nout of object
+@enduml

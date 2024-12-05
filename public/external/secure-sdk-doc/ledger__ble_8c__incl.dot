@@ -1,0 +1,38 @@
+digraph "lib_blewbxx_impl/src/ledger_ble.c"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="lib_blewbxx_impl/src\l/ledger_ble.c",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="os.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node3 [color="steelblue1",style="solid"];
+  Node3 [label="os_settings.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node4 [color="steelblue1",style="solid"];
+  Node4 [label="os_io_seproxyhal.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node5 [color="steelblue1",style="solid"];
+  Node5 [label="ble_hci_le.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node6 [color="steelblue1",style="solid"];
+  Node6 [label="ble_hal_aci.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node7 [color="steelblue1",style="solid"];
+  Node7 [label="ble_gap_aci.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node8 [color="steelblue1",style="solid"];
+  Node8 [label="ble_l2cap_aci.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node9 [color="steelblue1",style="solid"];
+  Node9 [label="ble_gatt_aci.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node10 [color="steelblue1",style="solid"];
+  Node10 [label="ble_legacy.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node11 [color="steelblue1",style="solid"];
+  Node11 [label="lcx_rng.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$lcx__rng_8h.html",tooltip="Random Number Generation."];
+  Node1 -> Node12 [color="steelblue1",style="solid"];
+  Node12 [label="ledger_protocol.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node13 [color="steelblue1",style="solid"];
+  Node13 [label="ledger_ble.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$ledger__ble_8h.html",tooltip=" "];
+  Node13 -> Node14 [color="steelblue1",style="solid"];
+  Node14 [label="stdint.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node13 -> Node15 [color="steelblue1",style="solid"];
+  Node15 [label="os_id.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node13 -> Node16 [color="steelblue1",style="solid"];
+  Node16 [label="lcx_crc.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$lcx__crc_8h.html",tooltip="CRC (Cyclic Redundancy Check)."];
+}

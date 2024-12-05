@@ -1,0 +1,22 @@
+digraph "lib_cxng/src/cx_utils.c"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="lib_cxng/src/cx_utils.c",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="cx_utils.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$cx__utils_8h.html",tooltip=" "];
+  Node2 -> Node3 [color="steelblue1",style="solid"];
+  Node3 [label="lcx_common.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$lcx__common_8h.html",tooltip="Cryptography flags."];
+  Node3 -> Node4 [color="steelblue1",style="solid"];
+  Node4 [label="stdint.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node3 -> Node5 [color="steelblue1",style="solid"];
+  Node5 [label="stddef.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node2 -> Node6 [color="steelblue1",style="solid"];
+  Node6 [label="errors.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node2 -> Node7 [color="steelblue1",style="solid"];
+  Node7 [label="exceptions.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node2 -> Node5 [color="steelblue1",style="solid"];
+  Node2 -> Node4 [color="steelblue1",style="solid"];
+}

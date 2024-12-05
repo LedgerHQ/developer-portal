@@ -1,0 +1,15 @@
+digraph "libargs_s"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="libargs_s",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" check_address" ];
+  Node2 [label="check_address_parameters_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structcheck__address__parameters__s.html",tooltip=" "];
+  Node3 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" create_transaction" ];
+  Node3 [label="create_transaction\l_parameters_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structcreate__transaction__parameters__s.html",tooltip=" "];
+  Node4 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" get_printable_amount" ];
+  Node4 [label="get_printable_amount\l_parameters_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structget__printable__amount__parameters__s.html",tooltip=" "];
+}

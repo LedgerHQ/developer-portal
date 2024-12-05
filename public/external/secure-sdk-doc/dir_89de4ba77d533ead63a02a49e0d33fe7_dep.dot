@@ -1,0 +1,12 @@
+digraph "lib_stusb_impl/doc"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_43d46591ae519a25212fe5b6787e9c75 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="lib_stusb_impl", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_43d46591ae519a25212fe5b6787e9c75.html",tooltip=""]
+  dir_89de4ba77d533ead63a02a49e0d33fe7 [label="doc", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_89de4ba77d533ead63a02a49e0d33fe7.html",tooltip=""];
+  }
+}

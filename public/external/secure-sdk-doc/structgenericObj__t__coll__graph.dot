@@ -1,0 +1,50 @@
+digraph "genericObj_t"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="genericObj_t",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" obj" ];
+  Node2 [label="nbgl_obj_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__obj__s.html",tooltip="Common structure for all graphical objects."];
+  Node3 -> Node2 [dir="back",color="darkorchid3",style="dashed",label=" area" ];
+  Node3 [label="nbgl_area_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__area__s.html",tooltip="Represents a rectangle area of the screen."];
+  Node2 -> Node2 [dir="back",color="darkorchid3",style="dashed",label=" alignTo\nparent" ];
+  Node4 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" textAreaObj" ];
+  Node4 [label="nbgl_text_area_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__text__area__s.html",tooltip="struct to represent a text area (TEXT_AREA type)"];
+  Node2 -> Node4 [dir="back",color="darkorchid3",style="dashed",label=" obj" ];
+  Node5 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" progressBarObj" ];
+  Node5 [label="nbgl_progress_bar_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__progress__bar__s.html",tooltip="struct to represent a progress bar (PROGRESS_BAR type)"];
+  Node2 -> Node5 [dir="back",color="darkorchid3",style="dashed",label=" obj" ];
+  Node6 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" containerObj" ];
+  Node6 [label="nbgl_container_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__container__s.html",tooltip="struct to represent a container (CONTAINER type)"];
+  Node2 -> Node6 [dir="back",color="darkorchid3",style="dashed",label=" children\nobj" ];
+  Node7 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" imageObj" ];
+  Node7 [label="nbgl_image_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__image__s.html",tooltip="struct to represent an image (IMAGE type)"];
+  Node2 -> Node7 [dir="back",color="darkorchid3",style="dashed",label=" obj" ];
+  Node8 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" radioObj" ];
+  Node8 [label="nbgl_radio_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__radio__s.html",tooltip="struct to represent a radio button (RADIO_BUTTON type)"];
+  Node2 -> Node8 [dir="back",color="darkorchid3",style="dashed",label=" obj" ];
+  Node9 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" switchObj" ];
+  Node9 [label="nbgl_switch_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__switch__s.html",tooltip="struct to represent a switch (size is fixed) (SWITCH type)"];
+  Node2 -> Node9 [dir="back",color="darkorchid3",style="dashed",label=" obj" ];
+  Node10 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" buttonObj" ];
+  Node10 [label="nbgl_button_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__button__s.html",tooltip="struct to represent a button (BUTTON type) that can contain a text and/or an icon"];
+  Node2 -> Node10 [dir="back",color="darkorchid3",style="dashed",label=" obj" ];
+  Node11 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" navBarObj" ];
+  Node11 [label="nbgl_navigation_bar_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__navigation__bar__s.html",tooltip="struct to represent a navigation bar (PAGE_INDICATOR type) There can be up to 5 page indicators,..."];
+  Node2 -> Node11 [dir="back",color="darkorchid3",style="dashed",label=" obj" ];
+  Node12 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" lineObj" ];
+  Node12 [label="nbgl_line_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__line__s.html",tooltip="struct to represent a vertical or horizontal line"];
+  Node2 -> Node12 [dir="back",color="darkorchid3",style="dashed",label=" obj" ];
+  Node13 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" spinnerObj" ];
+  Node13 [label="nbgl_spinner_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__spinner__s.html",tooltip="struct to represent a \"spinner\", represented by the Ledger corners, in gray, with one of the corners ..."];
+  Node2 -> Node13 [dir="back",color="darkorchid3",style="dashed",label=" obj" ];
+  Node14 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" keyboardObj" ];
+  Node14 [label="nbgl_keyboard_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__keyboard__s.html",tooltip="struct to represent a keyboard (KEYBOARD type)"];
+  Node2 -> Node14 [dir="back",color="darkorchid3",style="dashed",label=" obj" ];
+  Node15 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" keypadObj" ];
+  Node15 [label="nbgl_keypad_s",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structnbgl__keypad__s.html",tooltip="struct to represent a keypad (KEYPAD type)"];
+  Node2 -> Node15 [dir="back",color="darkorchid3",style="dashed",label=" obj" ];
+}

@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['dark_5fgray_0',['DARK_GRAY',['../nbgl__types_8h.html#a0a8ef1b5e1941b7257e545cc33405ff1a656c37aed4a972689007d4c9ce88f425',1,'nbgl_types.h']]],
+  ['data_1',['data',['../structcommand__t.html#ae96e210e6ca48af0664f0cd4bf19e4e5',1,'command_t']]],
+  ['debug_5fwait_5fdisplayed_2',['debug_wait_displayed',['../ux__legacy_8c.html#ab0a06af3cc345526bec260fcdab3d506',1,'ux_legacy.c']]],
+  ['dec_5ffunc_3',['dec_func',['../structcx__cipher__base__t.html#a3d6564e72d2979a4d8d68fc1ffd87053',1,'cx_cipher_base_t']]],
+  ['deprecated_20list_4',['Deprecated List',['../deprecated.html',1,'']]],
+  ['description_5',['description',['../structnbgl__contentCenter__t.html#a1908111efeebaaa84962496207967781',1,'nbgl_contentCenter_t']]],
+  ['destination_5faddress_6',['destination_address',['../structcreate__transaction__parameters__s.html#a8019df5402d0abcfd7155d99f4593ba1',1,'create_transaction_parameters_s']]],
+  ['destination_5faddress_5fextra_5fid_7',['destination_address_extra_id',['../structcreate__transaction__parameters__s.html#a49513ff8c5bd3b0f9e28987f3e69d7bf',1,'create_transaction_parameters_s']]],
+  ['detailsbuttonicon_8',['detailsButtonIcon',['../structnbgl__contentTagValueDetails__t.html#a721b1cc9a1ebd012367c4e35835d254d',1,'nbgl_contentTagValueDetails_t::detailsButtonIcon()'],['../structnbgl__contentTagValueConfirm__t.html#ace3d086fb542f41893f9ee9381fc4869',1,'nbgl_contentTagValueConfirm_t::detailsButtonIcon()']]],
+  ['detailsbuttontext_9',['detailsButtonText',['../structnbgl__contentTagValueDetails__t.html#a8cfe3900f6763243bc353d1d9c93c67c',1,'nbgl_contentTagValueDetails_t::detailsButtonText()'],['../structnbgl__contentTagValueConfirm__t.html#a861cf55885415db99e52c8882a57ed79',1,'nbgl_contentTagValueConfirm_t::detailsButtonText()']]],
+  ['detailsbuttontoken_10',['detailsButtonToken',['../structnbgl__contentTagValueDetails__t.html#a7f2ecdcffa41cbbc6931bb508c4690fa',1,'nbgl_contentTagValueDetails_t::detailsButtonToken()'],['../structnbgl__contentTagValueConfirm__t.html#a3b21b4e7d9fb5cf2e4f9c4775107ca40',1,'nbgl_contentTagValueConfirm_t::detailsButtonToken()']]],
+  ['device_5ffs_11',['DEVICE_FS',['../group__USBD__CONF__Exported__Defines.html#ga609db9b232fa154e9b1c86bcdd17e97c',1,'usbd_conf.h']]],
+  ['device_5fname_12',['device_name',['../structledger__ble__data__t.html#ad2a72f2403547e5d3a4b9b3233b5bde5',1,'ledger_ble_data_t']]],
+  ['device_5fname_5flength_13',['device_name_length',['../structledger__ble__data__t.html#ad3cdbbb297c307eac85c4d97a015c3fa',1,'ledger_ble_data_t']]],
+  ['digit_5ficon_14',['DIGIT_ICON',['../nbgl__layout__keypad_8c.html#a661cfc6c7c0eb9948b15a691b110a9eb',1,'nbgl_layout_keypad.c']]],
+  ['digit_5foffset_5fy_15',['DIGIT_OFFSET_Y',['../nbgl__obj__keypad_8c.html#a9f04197ffd10fce19495d7ea3c0dd865',1,'nbgl_obj_keypad.c']]],
+  ['digitindexes_16',['digitIndexes',['../structnbgl__keypad__s.html#acffdb7ec8716055b6a0d4923d79656e6',1,'nbgl_keypad_s']]],
+  ['digits_5fswitch_5fkey_5findex_17',['DIGITS_SWITCH_KEY_INDEX',['../nbgl__obj_8h.html#a748bf01c5392e285be14f86b6a8a3f6f',1,'nbgl_obj.h']]],
+  ['direction_18',['direction',['../structnbgl__layoutNavigation__t.html#a214dcdf6f75e7c4859969d4edaf16f2a',1,'nbgl_layoutNavigation_t::direction()'],['../structnbgl__line__s.html#a09d4c73f9500e6f29f07c041099e64b8',1,'nbgl_line_s::direction()']]],
+  ['doubletext_19',['doubleText',['../structnbgl__layoutFooter__t.html#ae9906f79f168eae0693d9972154fcc65',1,'nbgl_layoutFooter_t']]],
+  ['draw_5ffunction_5ft_20',['draw_function_t',['../nbgl__obj_8c.html#a6a1227f0b134cb3d2bdd036f4b67f50b',1,'nbgl_obj.c']]],
+  ['draw_5flogger_21',['DRAW_LOGGER',['../nbgl__debug_8h.html#adc29c2ff13d900c2f185ee95427fb06caafd23e6baab3e2bec15a53a0297ba019',1,'nbgl_debug.h']]]
+];

@@ -1,0 +1,35 @@
+digraph "lib_standard_app/buffer.c"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="lib_standard_app/buffer.c",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="steelblue1",style="solid"];
+  Node2 [label="stdint.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node3 [color="steelblue1",style="solid"];
+  Node3 [label="stddef.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node4 [color="steelblue1",style="solid"];
+  Node4 [label="stdbool.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node5 [color="steelblue1",style="solid"];
+  Node5 [label="string.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node6 [color="steelblue1",style="solid"];
+  Node6 [label="buffer.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$buffer_8h.html",tooltip=" "];
+  Node6 -> Node2 [color="steelblue1",style="solid"];
+  Node6 -> Node3 [color="steelblue1",style="solid"];
+  Node6 -> Node4 [color="steelblue1",style="solid"];
+  Node1 -> Node7 [color="steelblue1",style="solid"];
+  Node7 [label="read.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$read_8h.html",tooltip=" "];
+  Node7 -> Node2 [color="steelblue1",style="solid"];
+  Node7 -> Node3 [color="steelblue1",style="solid"];
+  Node1 -> Node8 [color="steelblue1",style="solid"];
+  Node8 [label="varint.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$varint_8h.html",tooltip=" "];
+  Node8 -> Node2 [color="steelblue1",style="solid"];
+  Node8 -> Node3 [color="steelblue1",style="solid"];
+  Node8 -> Node4 [color="steelblue1",style="solid"];
+  Node1 -> Node9 [color="steelblue1",style="solid"];
+  Node9 [label="bip32.h",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$bip32_8h.html",tooltip=" "];
+  Node9 -> Node3 [color="steelblue1",style="solid"];
+  Node9 -> Node2 [color="steelblue1",style="solid"];
+  Node9 -> Node4 [color="steelblue1",style="solid"];
+}
