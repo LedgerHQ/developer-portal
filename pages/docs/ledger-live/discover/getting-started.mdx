@@ -9,28 +9,33 @@ description: If you want to embed your web app into Ledger's Live's Market place
 
 The integration of an app in the Discover section of Ledger is done on an invitation only basis.
 
-## Pathways to integration: dAppBrowser vs. Ledger Services Kit
+If you are not already in contact with one of our teams and want to introduce your project, fill in [this form](https://docs.google.com/forms/d/e/1FAIpQLSd2e4BAfuZJOUYKhqcxMvMGNY12ShZ-UG5Lu0Se8AIVdlu2lA/viewform) and contact us at discover@ledger.fr.
 
-There are two options when it comes to integrating into Ledger Live
+## Development steps
 
-- **The dAppBrowser (EVM Only for now)**
+### 1. Prerequisites
 
-This one is only available to EVM based dApps for now. By crafting a manifest, directing it to the dAppBrowser, and incorporating the Iframe Provider in their app, developers can quickly add their application to Ledger Live.
+Before integrating your dApp in the Discover section, you have to make sure the interactions with Ledger devices is possible. To do so use the Device Management Kit, as explained [in this section](../../device-interaction/getting-started).
 
-- **the Ledger Services Kit**
+### 2. dAppBrowser and Ledger Services kit / Manifest
+
+There are two options when it comes to integrating into Ledger Live and the are detailed in this section.
+
+#### **The dAppBrowser (EVM Only)**
+
+Using the dAppBrowser consists of:
+	- [updating your dApp](./integration/dapp-browser/dapp-customisation)
+	- [creating and loading a manifest](./integration/dapp-browser/manifest), directing it to the dAppBrowser
+
+#### **the Ledger Services Kit (for other protocols)**
 
 The Ledger Services Kit pathway is more code-intensive, requiring a deeper engagement from developers. However, it grants a more granular control over the core wallet features within Ledger Live. A thorough understanding of the Ledger Services Kit can be gleaned from the official documentation.  
 
+### 3. Clear signing (EVM only)
 
-<div style={{width: "100%"}} className="center">
-	<div style={{position: "relative", paddingBottom: "56.25%", paddingTop: 0, height: 0}}>
-		<iframe title="Live App Structure" frameBorder="0" style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}} src="https://view.genial.ly/65241621e3a92300127e47e8" type="text/html" allowscriptaccess="always" allowFullScreen={true} scrolling="yes" allownetworking="all"></iframe> 
-	</div> 
-</div>
+The next step is to ensure your dApps users will be able to clear sign their transaction. For more information about clear signing read [this setion](../../clear-signing/getting-started).
 
-The path you chose is yours to decide, we'll provide you guidelines for both roads in the how-to guides.
-
-## Tools
+## Quick links to the tutorials and tools
 
 Follow [these steps](./references/developer-mode) to learn how to use the Developer mode and [these steps](./beginner/live-app) to create a manifest.
 
