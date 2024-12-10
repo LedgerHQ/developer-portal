@@ -105,9 +105,9 @@ paths:
           example: EUR
         - name: payment-method
           in: query
-          description: 'Payment method, valid values : visa, mastercard, creditcard,
+          description: 'Payment method, valid values : card,
          pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay,
-         maestro, googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,
+         googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,
          bank, gbpbank, eps, ideal, other.'
           required: true
           schema:
