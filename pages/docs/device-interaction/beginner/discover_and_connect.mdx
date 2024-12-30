@@ -1,40 +1,79 @@
+import { Callout } from "nextra/components";
+
 # Connecting to a Device
 
-There are two steps to connecting to a device:
+## Overview
 
-- **Discovery**: `sdk.startDiscovering()`
-  - Returns an observable which will emit a new `DiscoveredDevice` for every scanned device.
-  - The `DiscoveredDevice` objects contain information about the device model.
-  - Use one of these values to connect to a given discovered device.
-- **Connection**: `sdk.connect({ deviceId: device.id })`
-  - Returns a Promise resolving in a device session identifier `DeviceSessionId`.
-  - **Keep this device session identifier to further interact with the device.**
-  - Then, `sdk.getConnectedDevice({ sessionId })` returns the `ConnectedDevice`, which contains information about the device model and its name.
+In this tutorial, you'll learn how to connect to a Ledger device using the Device Management Kit (DMK). We will cover the device discovery and connection process, and how to manage your device session effectively.
+
+## Prerequisites
+
+Ensure you have:
+
+- A device running Ledger firmware.
+- The DMK properly set up, as described in the [Setup guide](./init_dmk).
+
+## Step-by-Step Guide
+
+### Step 1: Discover Devices
+
+Begin by discovering available Ledger devices. Use the `sdk.startDiscovering()` method, which returns an observable. This observable emits a new `DiscoveredDevice` object for each device found.
 
 ```ts
 sdk.startDiscovering().subscribe({
   next: (device) => {
-    sdk.connect({ deviceId: device.id }).then((sessionId) => {
-      const connectedDevice = sdk.getConnectedDevice({ sessionId });
-    });
+    // Process each discovered device
+    console.log(`Discovered device: ${device.model}`);
   },
   error: (error) => {
-    console.error(error);
+    console.error("Error during device discovery:", error);
   },
 });
 ```
 
-Then once a device is connected:
+<Callout>
+- Each `DiscoveredDevice` contains details about the device model and other identification details.
+- Use these details to select which device to connect to.
+</Callout>
 
-- **Disconnection**: `sdk.disconnect({ sessionId })`
-- **Observe the device session state**: `sdk.getDeviceSessionState({ sessionId })`
-  - This will return an `Observable<DeviceSessionState>` to listen to the known information about the device:
-    - device status:
-      - ready to process a command
-      - busy
-      - locked
-      - disconnected
-    - device name
-    - information on the OS
-    - battery status
-    - currently opened app
+### Step 2: Connect to a Device
+
+After identifying the desired device, initiate a connection using `sdk.connect()`. This method requires the `deviceId` and returns a Promise that resolves with a `DeviceSessionId`.
+
+```ts
+sdk.connect({ deviceId: device.id }).then((sessionId) => {
+  const connectedDevice = sdk.getConnectedDevice({ sessionId });
+  console.log(`Connected to device: ${connectedDevice.name}`);
+});
+```
+
+<Callout type="warning" emoji="⚠️">
+  Device Session Identifier**: Store the `DeviceSessionId` securely, as it is needed for further interactions with the device.
+</Callout>
+
+### Step 3: Interact with the Connected Device
+
+Once connected, you may wish to observe the device session state or eventually disconnect:
+
+- **Observe Session State**: Use `sdk.getDeviceSessionState({ sessionId })` to monitor and react to device state changes. This returns an `Observable<DeviceSessionState>` that informs about the device's name, status (ready to process command, busy, locked or disconnected), information on the OS, battery status, and currently opened app.
+
+```ts
+sdk.getDeviceSessionState({ sessionId }).subscribe({
+  next: (state) => {
+    console.log("Device status:", state.status);
+    console.log("Battery level:", state.battery);
+  }
+});
+```
+
+- **Disconnect From Device**: When you are done, ensure to disconnect using `sdk.disconnect({ sessionId })`.
+
+```ts
+sdk.disconnect({ sessionId }).then(() => {
+  console.log("Device disconnected");
+});
+```
+## Best Practices
+
+- **Session Management**: Maintain the session state to handle connection disruptions or status changes effectively.
+- **Error Handling**: Implement robust error-handling mechanisms at each step to ensure smooth operation.

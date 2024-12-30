@@ -3,48 +3,41 @@ import Image from 'next/image'
 
 # Getting started
 
-In this section of the Developer Portal, you will find the all the documention related to the device management kit and all the signers coming along with it.
+In this section of the Developer Portal, you will find all the documentation related to the device management kit and all the signers coming along with it.
 
 <Callout type="warning" emoji="⚠️">
-  This project is still in early development so we allow ourselves to make
-  breaking changes regarding the usage of the Libraries.
-
-That's why any feedback is relevant for us in order to be able to make it stable as soon as
-possible. Get in touch with us on the [Ledger Discord
-server](https://developers.ledger.com/discord/) to provide your feedbacks.
-
-You can follow the migration guidelines [here](./integration/migration/intro)
-
+  This project is currently in the early stages of development. We may introduce breaking changes to the Libraries.
+  
+  Your feedback is invaluable and will help us stabilize the project. Please reach out to us on the [Ledger Discord server](https://developers.ledger.com/discord/) to share your thoughts. 
+  
+  Follow our [migration guidelines](./integration/migration/intro) for seamless updates.
 </Callout>
 
-The Device Management Kit will replace the LedgerJS Transport libraries in the future. For any new project, we recommend you use the new Device Management Kit.
+The Device Management Kit is set to supersede the LedgerJS Transport libraries. We recommend using the new DMK for all new projects. Although you can still access the previous LedgerJS documentation [here](./ledgerjs/info), consider updating your existing integrations.
 
-For existing projects, you can still access the LedgerJS documentation in [this  section](./ledgerjs/info) but we recommend that you consider updating your integration.
+To learn about the differences between LDMK and LedgerJS Transport libraries, see [this documentation](./explanation/ledgerjs).
 
-To understand the differences between the LDMK and LedgerJS Transport libraries, read [this documentation](./explanation/ledgerjs).
-
-The Device Management Kit features are listed [in the References section](./references/dmk).
+Explore the features of the Device Management Kit in the [References section](./references/dmk).
 
 ## Glossary
 
-Throughout all the documentation we will use several acronyms that you can find the following description :
-
+We use the following acronyms throughout the documentation:
 - DMK: Device Management Kit
 - DSK: Device Signer Kit
 
 
 ## Tools and boilerplates
 
-- To play with our transport librairies and get fimiliar with our tools, we recommend you go through our beginners' guides. 
-- To start developing your project go to the integration walkthroughs and pick your platform.
+- To familiarize yourself with our transport libraries and tools, start with our beginner guides.
+- Begin developing your project by visiting the integration walkthroughs and selecting your platform.
 
 ## Libraries
 
-Here you can found a summary of all the libraries that are composing the DMK
+Below is a summary of the libraries included in the DMK:
 
 | Library                | NPM                                                                                                        | Version |
 | ---------------------- | ---------------------------------------------------------------------------------------------------------- | ------- |
-| Device Management Kit  | [@LedgerHQ/device-mangement-kit](https://www.npmjs.com/package/@ledgerhq/device-management-kit)            | 0.4.0   |
+| Device Management Kit  | [@LedgerHQ/device-management-kit](https://www.npmjs.com/package/@ledgerhq/device-management-kit)            | 0.4.0   |
 | Device Signer Ethereum | [@LedgerHQ/device-signer-kit-ethereum](https://www.npmjs.com/package/@ledgerhq/device-signer-kit-ethereum) | 1.0.0   |
 | Context Module         | [@LedgerHQ/context-module](https://www.npmjs.com/package/@ledgerhq/context-module)                         | 1.0.0   |
 
@@ -53,11 +46,11 @@ Here you can found a summary of all the libraries that are composing the DMK
 
 ### Description
 
-This package contains the core of the Device Management Kit. It provides a simple interface to handle Ledger devices and features the Device Management Kit's entry points, classes, types, structures, and models.
+The Device Management Kit package provides a straightforward interface for handling Ledger devices. It includes essential entry points, classes, types, structures, and models.
 
 ### Installation
 
-To install the dmk package, run the following command:
+Install the DMK package with the following command:
 
 ```sh
 npm install @ledgerhq/device-management-kit
@@ -67,9 +60,8 @@ npm install @ledgerhq/device-management-kit
 
 #### Compatibility
 
-This library works in [any browser supporting the WebHID API](https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API#browser_compatibility).
+This library is compatible with [browsers supporting the WebHID API](https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API#browser_compatibility).
 
 #### Pre-requisites
 
-Some of the APIs exposed return objects of type `Observable` from RxJS. Ensure you are familiar with the basics of the Observer pattern and RxJS before using this SDK. You can refer to [RxJS documentation](https://rxjs.dev/guide/overview) for more information.
-
+Some API methods return `Observable` objects from RxJS. Familiarize yourself with the Observer pattern and RxJS basics before using this SDK. Refer to the [RxJS documentation](https://rxjs.dev/guide/overview) for more information.

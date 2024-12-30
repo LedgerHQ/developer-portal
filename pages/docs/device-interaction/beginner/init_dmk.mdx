@@ -1,14 +1,21 @@
 # Setting up the SDK
 
-The core package exposes an SDK builder `DeviceSdkBuilder` which will be used to initialise the SDK with your configuration.
+## Overview
 
-For now it allows you to add one or more custom loggers.
+In this tutorial, you'll learn how to set up the Device Management Kit (DMK) SDK in your application. We'll guide you through initializing the SDK using the `DeviceSdkBuilder` and setting up logging. By the end of this tutorial, you will have a singleton instance of the SDK that will serve as the entry point for all interactions.
 
-In the following example, we add a console logger (`.addLogger(new ConsoleLogger())`). Then we build the SDK with `.build()`.
+## Prerequisites
 
-**The returned object will be the entrypoint for all your interactions with the SDK. You should keep it as a <u>SINGLETON</u>.**
+Before you begin, ensure you have the following:
 
-The SDK should be built only once in your application runtime so keep a reference of this object somewhere.
+- A working development environment with Node.js installed.
+- Access to the DMK package (@ledgerhq/device-management-kit) in your project.
+
+## Step-by-Step Guide
+
+### Step 1: Import Required Components
+
+Start by importing the necessary components from the DMK package. You'll need `ConsoleLogger`, `DeviceSdk`, and `DeviceSdkBuilder`.
 
 ```ts
 import {
@@ -16,8 +23,28 @@ import {
   DeviceSdk,
   DeviceSdkBuilder,
 } from "@ledgerhq/device-management-kit";
+```
 
+### Step 2: Initialize the SDK with Configuration
+
+Use the `DeviceSdkBuilder` to initialize the SDK. You can configure it by adding one or more custom loggers. In this example, we'll add a `ConsoleLogger`.
+
+```ts
+const sdk = new DeviceSdkBuilder()
+  .addLogger(new ConsoleLogger())
+  .build();
+```
+
+### Step 3: Maintain a Singleton Instance
+
+The SDK should be instantiated only once during your application's runtime. It's important to keep the returned `DeviceSdk` object as a singleton. Store the reference globally if possible, so it can be reused across your application.
+
+```ts
 export const sdk = new DeviceSdkBuilder()
   .addLogger(new ConsoleLogger())
   .build();
 ```
+
+## Best Practices
+
+- **Singleton Pattern:** Ensure the SDK instance is maintained as a singleton. This improves efficiency and prevents repeated initializations.
