@@ -30,7 +30,7 @@ const config: DocsThemeConfig = {
       <>
         {/* Your footer code */}
         <Footer />
-        <DocslyClient />
+        {/* Removed the Docsly component: <DocslyClient /> */}
       </>
     ),
   },
