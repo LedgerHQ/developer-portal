@@ -2,15 +2,17 @@ import { Callout } from "nextra/components";
 
 # Use a signer
 
-<Callout type="info" emoji="ℹ️">
-  We will show the usage of the signer with the Ethereum signer. The same logic can be applied to the other signers.
+## Overview
+
+This guide demonstrates how to utilize an Ethereum signer with Ledger devices. The principles outlined apply to other signers as well.
+
+## Prerequisite
+
+<Callout type="warning" emoji="⚠️">
+  The Ethereum signer module is not a standalone package. It requires the [Device Management Kit](https://github.com/LedgerHQ/device-sdk-ts/tree/develop/packages/device-management-kit) as a dependency. Ensure this package is installed in your project before proceeding.
 </Callout>
 
 ## Installation
-
-<Callout type="warning" emoji="⚠️">
-  This module is not standalone; it depends on the [@ledgerhq/device-management-kit](https://github.com/LedgerHQ/device-sdk-ts/tree/develop/packages/device-management-kit) package, so you need to install it first.
-</Callout>
 
 To install the `device-signer-kit-ethereum` package, run the following command:
 
@@ -20,17 +22,33 @@ npm install @ledgerhq/device-signer-kit-ethereum
 
 ## Usage
 
-To initialize an Ethereum signer instance, you need a Ledger Device Management Kit instance and the ID of the session of the connected device. Use the `SignerEthBuilder` along with the [Context Module](https://github.com/LedgerHQ/device-sdk-ts/tree/develop/packages/signer/context-module) by default developed by Ledger:
+To create an instance of the Ethereum signer, you need:
+
+- A configured instance of the Ledger Device Management Kit
+- A session ID from a connected device session
+
+### Example with Default Context Module
+
+The following example illustrates how to initialize an Ethereum signer using the default context module provided by Ledger:
 
 ```typescript
-// Initialize an Ethereum signer instance using default context module
+import { SignerEthBuilder } from "@ledgerhq/device-signer-kit-ethereum";
+
+// Initialize an Ethereum signer instance
 const signerEth = new SignerEthBuilder({ sdk, sessionId }).build();
 ```
 
-You can also configure the context module yourself:
+### Example with Custom Context Module
+
+Alternatively, you can customize the context module to suit your specific needs:
 
 ```typescript
-// Initialize an Ethereum signer instance using customized context module
+import { SignerEthBuilder } from "@ledgerhq/device-signer-kit-ethereum";
+
+// Customize the context module
+const customContextModule = /* your custom context logic */;
+
+// Initialize an Ethereum signer instance with custom context
 const signerEth = new SignerEthBuilder({ sdk, sessionId })
   .withContextModule(customContextModule)
   .build();
@@ -38,6 +56,5 @@ const signerEth = new SignerEthBuilder({ sdk, sessionId })
 
 ## Reference
 
-Find the signers features in the references section:
-- [Ethereum signer](../../references/signers/eth)
-- More signers to come... 
+- [Ethereum Signer Features](../../references/signers/eth). Explore the features and capabilities available for the Ethereum signer.
+- **Upcoming Signers:** Stay tuned for more signers to be added in the future.

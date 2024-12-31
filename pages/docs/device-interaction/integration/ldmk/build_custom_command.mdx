@@ -2,17 +2,17 @@ import { Callout } from "nextra/components";
 
 # Build a Custom Command
 
-## Method
+## Overview
 
-To build your own command:
+To build your a custom command for interacting with a connected Ledger device:
 1. Extend the `Command` class and implement the `getApdu` and `parseResponse` methods
 2. Use the the `sendCommand` method to send it to a connected device
 
-<Callout type="info" emoji="ℹ️">
-This is strongly recommended over direct usage of `sendApdu`.  Note : Explain why.
-</Callout>
+## Why Use Custom Commands?
 
-### Examples
+Custom commands are preferable over the direct use of `sendApdu` because they encapsulate command logic, enhance reusability, and simplify error handling. This method abstracts the complexity of APDU interaction, making your code more maintainable and easier to understand.
+
+## Example: MyCustomCommand Implementation
 
 ```typescript
 export class MyCustomCommand
@@ -74,6 +74,10 @@ export class MyCustomCommand
 }
 ```
 
-## Usage of ApduBuilder
+## Utilizing `ApduBuilder`
 
-## Usage of ApduParser
+The `ApduBuilder` simplifies the construction of APDUs by providing methods to append different types of data. This abstraction allows for clean and organized command structures that can be easily maintained and understood.
+
+## Utilizing `ApduParser`
+
+The `ApduParser` provides methods to deconstruct device responses systematically. It ensures that status words are checked efficiently and handles any parsing logic, leading to cleaner and more robust response processing.
