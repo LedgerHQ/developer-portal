@@ -1,32 +1,34 @@
 # Differences with LedgerJS
 
-Device management kit aims to replace LedgerJS libraries, mainly `hw-app-XXX` and `hw-transport-XXX` libraries
+The Device Management Kit (DMK) is designed to replace the existing LedgerJS libraries, including the `hw-app-XXX` and `hw-transport-XXX` series.
 
-## Current Problems
+## Legacy Challenges
 
-Ledger JS libraries where initially made for **Ledger Live** applications. As Ledger Live is a pretty old project (> 7 years),
-we have inevitably a big technical debt. Moreover time make that some part of the logic are today hard to understand and to maintain.
+The LedgerJS libraries were originally developed to support **Ledger Live** applications. Given that Ledger Live has been evolving for over seven years, the libraries have accumulated technical debt over this extensive period. Consequently, some components of the libraries have grown more complex, making them challenging to maintain and extend.
 
-Some device behavior are not correctly handled by the libraries, for example opening an application on the device will cause unexpected disconnection.
-Another feedback we have learnt from partners (software wallets) is that we have a lack of simplicity in the libraries, it requires low level knowledge to use them (ex: APDU concept).
+A few behaviors in the device libraries do not align perfectly with expected outcomes. For example, the act of opening an application on the device might lead to unanticipated disconnections. 
 
-## Target
+Additionally, feedback from our partners, including software wallet developers, indicates that the libraries could benefit from enhanced simplicity and a reduction in the need for low-level programming knowledge (such as understanding the APDU communication protocol).
 
-LedgerJS was intended for Ledger Live. It was not designed to be used by third party developers.
-With the Device Management Kit we are targeting **third party developers first**.
 
-## Abstract complexity
+## Target Audience
 
-As said above, we wanted to reduce the entry level to interact with Ledger devices.
-So we have tried as much as possible to abstract the complexity of the communication with the device and provide a simple and easy-to-use API.
+While LedgerJS was primarily designed for use with Ledger Live, the Device Management Kit is specifically tailored to prioritize the needs of **third-party developers**.
 
-## Multiple Connected devices
+## Simplifying Interactions
 
-With LedgerJS, it was impossible to be connected at the same time to two devices.
-With DMK, we have made it possible to connect to multiple devices at the same time and interact from one to another.
+Our goal with the DMK is to significantly lower the barrier for developers interacting with Ledger devices. 
+By abstracting much of the underlying complexity, the DMK provides a straightforward and user-friendly API, facilitating easier integration.
 
-## When prefer LedgerJS instead of DMK ?
+## Support for Multiple Devices
 
-As we are still missing some features in DMK, you may still need to use LedgerJS in some cases.
-For example, we are missing signer for some blockchains, so you may still need to use LedgerJS to sign transactions.
-Some solutions are studied at the moment to provide a better compatibility between DMK and LedgerJS.
+LedgerJS restricted simultaneous connections to multiple devices. In contrast, the DMK introduces the ability to connect and interact with multiple devices concurrently, enhancing multi-device management capabilities.
+
+## When to Use LedgerJS Instead of DMK
+
+While the DMK offers advanced features, there are certain scenarios where LedgerJS may still be necessary due to current feature gaps in the DMK. 
+For example, the DMK is still expanding its support for signers specific to certain blockchains. In such cases, continuing to use LedgerJS for transaction signing might be beneficial. 
+We are actively working on solutions to bridge these gaps and improve compatibility between the DMK and LedgerJS.
+
+In summary, the DMK represents a modern solution tailored to current development needs, with a focus on ease of use and expanded functionality. 
+As we continue to enhance its features, we are committed to maintaining compatibility with existing solutions.

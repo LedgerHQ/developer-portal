@@ -31,10 +31,10 @@ The DMK provides multiple methods to interact with Ledger devices.
 ### Sending APDU Commands
 
 <Callout>
-  Direct APDU command usage is generally not recommended for typical use cases. Prefer >using <codeCommand</code> or <code>DeviceAction</code> methods for simplicity and reliability.
+  Direct APDU command usage is generally not recommended for typical use cases. Prefer using <code>Command</code> or <code>DeviceAction</code> methods for simplicity and reliability.
 </Callout>
 
-You can send APDU commands to the device using the `sendApdu` method of the Device Management Kit instance (here `dmk`) instance.
+You can send APDU commands to the device using the `sendApdu` method of the Device Management Kit instance (here `dmk`).
 
 <u>**Parameters**</u>:
 
@@ -66,12 +66,12 @@ await dmk.sendCommand({ sessionId, command });
 Device actions are a set of commands that are executed in a sequence.
 You can use the `executeDeviceAction` method of the `dmk` instance to execute a device action.
 
-It is returning an observable that will emit different states of the action execution.
+It returns an observable that emits different states of the action execution.
 A device action is cancellable, you can cancel it by calling the `cancel` function returned by the `executeDeviceAction` method.
 
 <u>**Parameters**</u>:
 - `sessionId`: *string* - Identifier of the device connection session.
-- `deviceAction`: *DeviceAction* - The`DeviceAction` to be sent to the device.
+- `deviceAction`: *DeviceAction* - The `DeviceAction` to be sent to the device.
 
 ```typescript
 const openAppDeviceAction = new OpenAppDeviceAction({ appName: "Bitcoin" });
