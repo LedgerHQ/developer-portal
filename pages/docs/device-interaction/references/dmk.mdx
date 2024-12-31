@@ -2,57 +2,57 @@ import { Callout } from "nextra/components";
 
 # Device Management Kit
 
-The device management kit is the entry point for all the other libraries related to it.
-As we wanted to make the project modular.
+The Device Management Kit (DMK) serves as the foundational entry point for interfacing with Ledger devices. Designed with modularity in mind, it integrates with various libraries to facilitate device management.
 
 ## Main Features
 
-- Discovering and connecting to Ledger devices via USB, through [WebHID](https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API).
-- Discovering and connecting to Ledger devices via BLE, through [WebBLE](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API).
-- Observing the state of a connected device.
-- Sending custom APDU commands to Ledger devices.
-- Sending a set of pre-defined commands to Ledger devices.
-  - Get OS version
-  - Get app and version
-  - Open app
-  - Close app
-  - Get battery status
-- Execute a flow of commands with **DeviceAction**.
-
-> [!NOTE]  
-> At the moment we do not provide the possibility to distinguish two devices of the same model, via WebHID and to avoid connection to the same device twice.
-
-## Communicate with a Ledger device
-
-The DMK is offering several ways to communicate with a Ledger device.
-
-### Send APDU
+- **Device Discovery and Connection**: 
+  - Connect to Ledger devices via USB using [WebHID](https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API).
+  - Connect via Bluetooth Low Energy (BLE) using [WebBLE](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API).
+- **Device State Observation**: 
+  - Monitor the state of connected Ledger devices.
+- **APDU Command Execution**: 
+  - Send custom Application Protocol Data Units (APDU) commands.
+- **Pre-defined Commands Execution**:
+  - Retrieve OS version, app and version information.
+  - Open or close an app.
+  - Get device battery status.
+- **DeviceAction Execution**: 
+  - Perform sequences of commands as defined by **DeviceAction**.
 
 <Callout type="warning" emoji="⚠️">
-  This method is not recommended for most of the use cases. We recommend using
-  the _Command_ or _DeviceAction_ instead.
+At the moment we do not provide the possibility to distinguish two devices of the same model via WebHID to prevent connecting to the same device twice.
+</Callout>
+
+## Communication with a Ledger device
+
+The DMK provides multiple methods to interact with Ledger devices.
+
+### Sending APDU Commands
+
+<Callout>
+  Direct APDU command usage is generally not recommended for typical use cases. Prefer >using <codeCommand</code> or <code>DeviceAction</code> methods for simplicity and reliability.
 </Callout>
 
 You can send APDU commands to the device using the `sendApdu` method of the Device Management Kit instance (here `dmk`) instance.
 
 <u>**Parameters**</u>:
 
-- `sessionId`: string - The session ID, identifier of the connection with a device.
-- `apdu`: UInt8Array - bytes array of data to be send to the device.
+- `sessionId`: *string* - Identifier of the device connection session.
+- `apdu`: *UInt8Array* - Data bytes array to send to the device.
 
 ```typescript
 await dmk.sendApdu({ sessionId, apdu });
 ```
 
-### Commands
+### Executing Commands
 
 Commands are pre-defined actions that you can send to the device.
-You can use the `sendCommand` method of the `dmk` instance to send a command to the device.
+Use the `sendCommand` method of the `dmk` instance to send a command to the device.
 
 <u>**Parameters**</u>:
-
-- `sessionId`: string - The session ID, which an identifier of the connection with a device.
-- `command`: Command - The command to be sent to the device.
+- `sessionId`: *string* - Identifier of the device connection session.
+- `command`: *Command* - Command to be sent to the device.
 
 ```typescript
 import { OpenAppCommand } from "@ledgerhq/device-management-kit";
@@ -61,7 +61,7 @@ const command = new OpenAppCommand("Bitcoin"); // Open the Bitcoin app
 await dmk.sendCommand({ sessionId, command });
 ```
 
-### Device Actions
+### Executing device Actions
 
 Device actions are a set of commands that are executed in a sequence.
 You can use the `executeDeviceAction` method of the `dmk` instance to execute a device action.
@@ -70,9 +70,8 @@ It is returning an observable that will emit different states of the action exec
 A device action is cancellable, you can cancel it by calling the `cancel` function returned by the `executeDeviceAction` method.
 
 <u>**Parameters**</u>:
-
-- `sessionId`: string - The session ID, which an identifier of the connection with a device.
-- `deviceAction`: DeviceAction - The DeviceAction to be sent to the device.
+- `sessionId`: *string* - Identifier of the device connection session.
+- `deviceAction`: *DeviceAction* - The`DeviceAction` to be sent to the device.
 
 ```typescript
 const openAppDeviceAction = new OpenAppDeviceAction({ appName: "Bitcoin" });
@@ -85,11 +84,9 @@ const { observable, cancel } = await dmk.executeDeviceAction({
 
 ## State Management
 
-For each connected device, we are managing and providing a device state.
-
-The different states are:
+Monitor and manage device states during interaction:
 
 - `connected`: The device is connected.
 - `locked`: The device is locked. User needs to unlock it to perform operations.
-- `busy`: The device is busy, so not reachable.
+- `busy`: The device is busy, hence not reachable.
 - `disconnected`: The device is disconnected.
