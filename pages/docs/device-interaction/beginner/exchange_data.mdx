@@ -57,9 +57,15 @@ if (!CommandUtils.isSuccessResponse(apduResponse)) {
 
 For convenience, pre-defined commands simplify APDU building and response parsing.
 
+<Callout type="warning" emoji="⚠️">
+  Most of the commands will reject with an error if the device is locked. Ensure that the device is unlocked before sending commands. You can check the device session state <code>(sdk.getDeviceSessionState)</code> to know if the device is locked.
+
+  Most of the commands will reject with an error if the response status word is not <code>0x9000</code> (success response from the device).
+</Callout>
+
 ### Open App
 
-Opens the specified app on the device:
+Opens the app with the given name: 
 
 ```ts
 import { OpenAppCommand } from "@ledgerhq/device-management-kit";
@@ -67,6 +73,8 @@ import { OpenAppCommand } from "@ledgerhq/device-management-kit";
 const command = new OpenAppCommand("Bitcoin");
 await sdk.sendCommand({ sessionId, command });
 ```
+
+If the device is unlocked, it does not resolve/reject until the user has confirmed or denied the app opening on the device.
 
 ### Close App
 
@@ -90,6 +98,10 @@ const command = new GetOsVersionCommand();
 const { seVersion, mcuSephVersion, mcuBootloaderVersion } = await sdk.sendCommand({ sessionId, command });
 ```
 
+<Callout>
+  If you want this information you can simply get it from the device session state by observing it with `sdk.getDeviceSessionState({ sessionId })`.
+</Callout>
+
 ### Get App and Version
 
 Retrieves the current app name and version:
@@ -100,22 +112,79 @@ import { GetAppAndVersionCommand } from "@ledgerhq/device-management-kit";
 const command = new GetAppAndVersionCommand();
 const { name, version } = await sdk.sendCommand({ sessionId, command });
 ```
+<Callout>
+  If you want this information you can simply get it from the device session state by observing it with `sdk.getDeviceSessionState({ sessionId })`.
+</Callout>
 
-## Device Actions
+## Sending a Pre-defined flow - Device Actions
 
-Device actions consist of sequences of commands that often require user interaction, such as approving a transaction.
+Device actions define a succession of commands to be sent to the device.
+
+They are useful for actions that require user interaction, like opening an app,
+or approving a transaction.
+
+The result of a device action execution is an observable that will emit different states of the action execution. These states contain information about the current status of the action, some intermediate values like the user action required, and the final result.
 
 ### Open App Device Action
 
 ```ts
-import { OpenAppDeviceAction, OpenAppDAState } from "@ledgerhq/device-management-kit";
+import {
+  OpenAppDeviceAction,
+  OpenAppDAState,
+} from "@ledgerhq/device-management-kit";
 
 const openAppDeviceAction = new OpenAppDeviceAction({ appName: "Bitcoin" });
-const { observable, cancel } = await dmk.executeDeviceAction({ sessionId, openAppDeviceAction });
+
+const { observable, cancel } = await dmk.executeDeviceAction({
+  sessionId,
+  openAppDeviceAction,
+});
 
 observable.subscribe({
-  // Handle different states such as NotStarted, Pending, Completed, and Error
-  next: (state: OpenAppDAState) => { /* Handle states */ }
+  next: (state: OpenAppDAState) => {
+    switch (state.status) {
+      case DeviceActionStatus.NotStarted:
+        console.log("Action not started yet");
+        break;
+      case DeviceActionStatus.Pending:
+        const {
+          intermediateValue: { userActionRequired },
+        } = state;
+        switch (userActionRequired) {
+          case UserActionRequiredType.None:
+            console.log("No user action required");
+            break;
+          case UserActionRequiredType.ConfirmOpenApp:
+            console.log(
+              "The user should confirm the app opening on the device",
+            );
+            break;
+          case UserActionRequiredType.UnlockDevice:
+            console.log("The user should unlock the device");
+            break;
+          default:
+            /**
+             * you should make sure that you handle all the possible user action
+             * required types by displaying them to the user.
+             */
+            throw new Exception("Unhandled user action required");
+            break;
+        }
+        console.log("Action is pending");
+        break;
+      case DeviceActionStatus.Stopped:
+        console.log("Action has been stopped");
+        break;
+      case DeviceActionStatus.Completed:
+        const { output } = state;
+        console.log("Action has been completed", output);
+        break;
+      case DeviceActionStatus.Error:
+        const { error } = state;
+        console.log("An error occurred during the action", error);
+        break;
+    }
+  },
 });
 ```
 
