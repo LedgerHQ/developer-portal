@@ -29,14 +29,16 @@ The integration process ensures a seamless flow of data between Ledger Live, Led
 
 <b>User Interaction:</b> The user selects the cryptocurrency, fiat currency, and the amount they wish to sell.
 
+<b>User Interaction:</b> The user selects their country and preferred payment method (e.g., PayPal, bank transfer).
+
 <b>Validation Process:</b> Ledger Live validates user input.
 Validation is performed using cached data from [/capabilities](https://exchange-integration-sell.redoc.ly/#operation/getCapabilities), ensuring the user's input aligns with provider-supported limitations (e.g., minimum/maximum amounts, supported countries).
 
 If the input is invalid, Ledger Live displays an error message to the user.
 
-### Step 3: Select Provider and Get Quotes
+### Step 3: Get Quotes and Select Provider
 
-<b>User Interaction:</b> The user selects their country and preferred payment method (e.g., PayPal, bank transfer).
+<b>User Interaction:</b> User request quote.
 
 <b>Backend Process:</b> Ledger Backend identifies eligible providers based on the user's input.
 
