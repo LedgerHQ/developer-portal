@@ -42,7 +42,7 @@ sequenceDiagram
 
     %% Step 4: Redirect to Provider Widget
     LedgerLive->>ProviderWidget: Redirect with parameters (LiveApp URL)
-    User->>ProviderWidget: Landing in step transaction in provider widget
+    User->>ProviderWidget: KYC process, if required, and landing in step transaction in provider widget.
     ProviderWidget->>ExchangeSDK: Initiate exchangeSdk
     ProviderWidget->>ExchangeSDK: Call exchangeSdk.sell
 
