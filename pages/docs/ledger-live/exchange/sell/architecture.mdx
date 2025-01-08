@@ -31,9 +31,9 @@ sequenceDiagram
     LedgerLive-->>User: Validate input using cached /capabilities
     User->>LedgerLive: Proceed with valid input
     LedgerLive-->>User: Display countries and payment methods based on /capabilities
-
-    %% Step 3: Select Provider and Get Quotes
     User->>LedgerLive: Select country and payment method
+    
+    %% Step 3: Select Provider and Get Quotes
     LedgerLive->>LedgerBackend: [GET] /offRamp Find eligible providers
     LedgerBackend->>ProviderBackend: [GET] /quotes
     ProviderBackend-->>LedgerBackend: Return quotes
