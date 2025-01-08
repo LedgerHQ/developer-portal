@@ -1,0 +1,138 @@
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
+import { Tabs } from 'nextra/components'
+import { Callout } from 'nextra/components'
+
+# Overview
+The integration process ensures a seamless flow of data between Ledger Live, Ledger Backend, and the provider's systems. Providers are expected to implement specific endpoints and adhere to the following workflow to support the Sell feature in Ledger Live.
+
+## Workflow Diagram
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant LedgerLive as Ledger Live
+    participant LedgerBackend as Ledger Backend
+    participant ProviderBackend as Provider Backend
+    participant ProviderWidget as Provider Widget App
+    participant ExchangeSDK as Exchange SDK
+
+    %% Step 1: Open Sell App
+    User->>LedgerLive: Open Sell App
+    LedgerLive->>LedgerBackend: [GET] /providers
+    LedgerBackend->>ProviderBackend: [GET] /capabilities (Cached)
+    ProviderBackend-->>LedgerBackend: Return capabilities data
+    LedgerBackend->>ProviderBackend: [GET] /crypto-currencies (Cached)
+    ProviderBackend-->>LedgerBackend: Return supported crypto assets
+    LedgerBackend-->>LedgerLive: Return providers list and capabilities
+
+    %% Step 2: User Input and Validation
+    User->>LedgerLive: Select crypto, fiat, amount
+    LedgerLive-->>User: Validate input using cached /capabilities
+    User->>LedgerLive: Proceed with valid input
+    LedgerLive-->>User: Display countries and payment methods based on /capabilities
+    User->>LedgerLive: Select country and payment method
+    
+    %% Step 3: Select Provider and Get Quotes
+    LedgerLive->>LedgerBackend: [GET] /offRamp Find eligible providers
+    LedgerBackend->>ProviderBackend: [GET] /quotes
+    ProviderBackend-->>LedgerBackend: Return quotes
+    LedgerBackend-->>LedgerLive: Return providers and quotes
+    User->>LedgerLive: Choose provider
+
+    %% Step 4: Redirect to Provider Widget
+    LedgerLive->>ProviderWidget: Redirect with parameters (LiveApp URL)
+    User->>ProviderWidget: KYC process, if required, and landing in step transaction in provider widget.
+    ProviderWidget->>ExchangeSDK: Initiate exchangeSdk
+    ProviderWidget->>ExchangeSDK: Call exchangeSdk.sell
+
+    %% Step 5: Initiate Transaction
+    ExchangeSDK->>LedgerLive: Initiate transaction
+    LedgerLive-->>ExchangeSDK: Return nonce
+    ExchangeSDK->>LedgerBackend: [POST] /remit
+    LedgerBackend->>ProviderBackend: [POST] /sell (Request signed payload)
+    ProviderBackend-->>LedgerBackend: Return signed payload
+    LedgerBackend-->>ExchangeSDK: Return signed payload
+    ExchangeSDK-->>LedgerLive: Device transaction approval
+    User->>LedgerLive: Approve transaction on device (approve/reject)
+
+    %% Step 6: Finalizing the Transaction
+    LedgerLive->>ExchangeSDK: Inform transaction rejected or approved. Provides transactionId if approved
+    ExchangeSDK->>ProviderWidget: Transmit transaction info
+    ProviderWidget->>ProviderBackend: Transmit transaction status and init webhooks
+    ProviderBackend->>LedgerBackend: [POST] /webhook - Update transaction status
+
+```
+
+### Step 1: Open Sell App
+
+<b>Action:</b> The user opens the Sell App in Ledger Live.
+
+<b>Ledger Live:</b>
+
+- Fetches capabilities data from the Ledger Backend, which caches responses from the provider's [/capabilities](https://exchange-integration-sell.redoc.ly/#operation/getCapabilities) endpoint.
+
+- Fetches supported cryptocurrencies from the Ledger Backend, which caches responses from the provider's [/crypto-currencies](https://exchange-integration-sell.redoc.ly/#operation/getCryptoCurrencies) endpoint.
+
+### Step 2: User Input and Validation
+
+<b>User Interaction:</b> The user selects the cryptocurrency, fiat currency, and the amount they wish to sell.
+
+<b>User Interaction:</b> The user selects their country and preferred payment method (e.g., PayPal, bank transfer).
+
+<b>Validation Process:</b> Ledger Live validates user input.
+Validation is performed using cached data from [/capabilities](https://exchange-integration-sell.redoc.ly/#operation/getCapabilities), ensuring the user's input aligns with provider-supported limitations (e.g., minimum/maximum amounts, supported countries).
+
+If the input is invalid, Ledger Live displays an error message to the user.
+
+### Step 3: Get Quotes and Select Provider
+
+<b>User Interaction:</b> User request quote.
+
+<b>Backend Process:</b> Ledger Backend identifies eligible providers based on the user's input.
+
+For each eligible provider, the Ledger Backend sends a [GET] [/quotes](https://exchange-integration-sell.redoc.ly/#operation/getQuote) request to the provider backend to retrieve pricing details (e.g., the amount of fiat currency the user will receive after fees).
+
+The provider backend returns quotes, which are aggregated by the Ledger Backend and displayed in Ledger Live.
+
+<b>User Decision:</b> The user selects a provider from the list of quotes.
+
+### Step 4: Redirect to Provider Widget
+
+<b>Action:</b> Once a provider is selected, Ledger Live redirects the user to the provider's widget.
+
+<b>Redirection Details:</b> The redirection includes required parameters as specified in the [LiveApp URL documentation](../sell/providers-liveapp), such as the selected cryptocurrency, fiat currency, amount, and user-specific details.
+
+The user lands on the provider widget to complete the transaction details.
+
+### Step 5: Initiate Transaction
+
+<b>Provider Widget Interaction:</b> The provider widget initializes the transaction by calling the `exchangeSdk.sell` method.
+
+This triggers the Ledger Backend to initiate the transaction.
+
+<b>Backend Process:</b>
+
+Ledger Backend sends a [POST] [/sell](https://exchange-integration-sell.redoc.ly/#operation/postSell) request to the provider backend, requesting a signed payload for the transaction.
+
+The provider backend processes the request and returns the signed payload.
+
+Ledger Backend passes the signed payload to the Exchange SDK.
+
+<b>Device Approval:</b>
+
+The Exchange SDK prompts the Ledger device to approve or reject the transaction.
+
+The user approves or rejects the transaction on their Ledger device.
+
+### Step 6: Finalizing the Transaction
+
+<b>Post-Approval:</b> After the transaction is approved, the exchangeSDK.sell promise notifies the provider widget about the transaction's result, including a transactionId if approved. It is the responsibility of the provider widget to inform the provider's backend of the final transaction status to initiate webhooks if the user has approved the transaction.
+
+If the event the transaction is rejected, the provider is similarly notified.
+
+### Real-Time Updates:
+
+The provider backend sends real-time transaction status updates to the Ledger Backend via a `[POST] /webhook/status` endpoint.
+
+Ledger Backend updates the transaction status in Ledger Live, ensuring the user is notified of the transaction's progress and completion.
