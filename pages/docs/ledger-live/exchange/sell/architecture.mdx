@@ -80,7 +80,7 @@ The user approves or rejects the transaction on their Ledger device.
 
 <b>Post-Approval:</b> After the transaction is approved, the exchangeSDK.sell promise notifies the provider widget about the transaction's result, including a transactionId if approved. It is the responsibility of the provider widget to inform the provider's backend of the final transaction status to initiate webhooks if the user has approved the transaction.
 
-In the event the transaction is rejected, the provider is similarly notified.
+If the event the transaction is rejected, the provider is similarly notified.
 
 ### Real-Time Updates:
 
