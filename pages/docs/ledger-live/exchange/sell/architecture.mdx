@@ -8,12 +8,61 @@ The integration process ensures a seamless flow of data between Ledger Live, Led
 
 ## Workflow Diagram
 
-<Zoom>
-    <img
-      alt="Flow Diagram"
-      src="/exchange/sell-flow-diagram.png"
-    />
-</Zoom>
+```mermaid
+sequenceDiagram
+    participant User
+    participant LedgerLive as Ledger Live
+    participant LedgerBackend as Ledger Backend
+    participant ProviderBackend as Provider Backend
+    participant ProviderWidget as Provider Widget App
+    participant ExchangeSDK as Exchange SDK
+
+    %% Step 1: Open Sell App
+    User->>LedgerLive: Open Sell App
+    LedgerLive->>LedgerBackend: [GET] /providers
+    LedgerBackend->>ProviderBackend: [GET] /capabilities (Cached)
+    ProviderBackend-->>LedgerBackend: Return capabilities data
+    LedgerBackend->>ProviderBackend: [GET] /crypto-currencies (Cached)
+    ProviderBackend-->>LedgerBackend: Return supported crypto assets
+    LedgerBackend-->>LedgerLive: Return providers list and capabilities
+
+    %% Step 2: User Input and Validation
+    User->>LedgerLive: Select crypto, fiat, amount
+    LedgerLive-->>User: Validate input using cached /capabilities
+    User->>LedgerLive: Proceed with valid input
+    LedgerLive-->>User: Display countries and payment methods based on /capabilities
+
+    %% Step 3: Select Provider and Get Quotes
+    User->>LedgerLive: Select country and payment method
+    LedgerLive->>LedgerBackend: [GET] /offRamp Find eligible providers
+    LedgerBackend->>ProviderBackend: [GET] /quotes
+    ProviderBackend-->>LedgerBackend: Return quotes
+    LedgerBackend-->>LedgerLive: Return providers and quotes
+    User->>LedgerLive: Choose provider
+
+    %% Step 4: Redirect to Provider Widget
+    LedgerLive->>ProviderWidget: Redirect with parameters (LiveApp URL)
+    User->>ProviderWidget: Landing in step transaction in provider widget
+    ProviderWidget->>ExchangeSDK: Initiate exchangeSdk
+    ProviderWidget->>ExchangeSDK: Call exchangeSdk.sell
+
+    %% Step 5: Initiate Transaction
+    ExchangeSDK->>LedgerLive: Initiate transaction
+    LedgerLive-->>ExchangeSDK: Return nonce
+    ExchangeSDK->>LedgerBackend: [POST] /remit
+    LedgerBackend->>ProviderBackend: [POST] /sell (Request signed payload)
+    ProviderBackend-->>LedgerBackend: Return signed payload
+    LedgerBackend-->>ExchangeSDK: Return signed payload
+    ExchangeSDK-->>LedgerLive: Device transaction approval
+    User->>LedgerLive: Approve transaction on device (approve/reject)
+
+    %% Step 6: Finalizing the Transaction
+    LedgerLive->>ExchangeSDK: Inform transaction rejected or approved. Provides transactionId if approved
+    ExchangeSDK->>ProviderWidget: Transmit transaction info
+    ProviderWidget->>ProviderBackend: Transmit transaction status and init webhooks
+    ProviderBackend->>LedgerBackend: [POST] /webhook - Update transaction status
+
+```
 
 ### Step 1: Open Sell App
 
