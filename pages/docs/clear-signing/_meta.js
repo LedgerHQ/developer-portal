@@ -1,10 +1,12 @@
 export default {
   '---': {
     title: "Clear Signing",
-    type: 'separator'
+    type: "separator"
   },
-  'getting-started': 'Getting started',
-  erc7730: 'ERC-7730: How to implement clear signing',
-  eip712: 'EIP-712 messages',
-  nft: 'ERC-721, ERC-1155 and ERC-20'
+  "getting-started": "Getting started",
+  erc7730: "dApps implementation with ERC-7730",
+  wallets: "Wallets implementation with the DMK",
+  eip712: "EIP-712 messages",
+  nft: "ERC-721, ERC-1155 and ERC-20",
+  improvements: "Future improvements"
 }

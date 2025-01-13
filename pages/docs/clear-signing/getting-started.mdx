@@ -1,6 +1,5 @@
 import Image from 'next/image'
 
-
 # Enhancing Security through Clear Signing
 
 ## Why does your dApp or Wallet need clear signing?
@@ -9,7 +8,7 @@ Blind signing is a significant vulnerability that scammers exploit to steal fund
 
 <div style={{ paddingTop: "1em", width: "90%" }} className="center">
   <figure>
-    <img src="/blind-signing-risk.png" alt="Blind sign risk" />
+    <Image src="/blind-signing-risk.png" alt="Blind sign risk" width={800} height={600} />
   </figure>
 </div>
 
@@ -17,24 +16,36 @@ At Ledger, we are committed to building a secure Web3 ecosystem. That is why we 
 
 <div style={{ paddingTop: "1em", width: "90%" }} className="center">
   <figure>
-    <img src="/clear-signing-cover.png" alt="Clear signing example" />
+    <Image src="/clear-signing-cover.png" alt="Clear signing example" width={800} height={600} />
   </figure>
 </div>
 
 Using the ABI of the contract and metadata around the different fields, we can format a transaction for human readability. This way, users can verify the transaction before signing it, massively reducing the risk of scams.
 
-## Where to go next?
-
-
 <div style={{ paddingTop: "1em", width: "90%" }} className="center">
   <figure>
-    <img src="/clear-signing/ERC-7730-meme.png" alt="Blind sign risk" />
+    <Image src="/clear-signing/ERC-7730-meme.png" alt="Blind sign risk" width={800} height={600} />
   </figure>
 </div>
 
+## Where to go next?
 
-- If you work on a dApp, checkout [ERC-7730: How to implement clear signing](./erc7730)
-- If you want to allow clear signing of an EIP-712 message, [read this documentation](./eip712)
-- For ERC-721, ERC-1155 and ERC-20 NFTs, follow [this documentation](./nft)
-- For device interaction, upgrade your integration with the [Ledger Device Management Kit](../device-interaction/getting-started) (LDMK)
-- If you use the LedgerJS Ethereum transport library and are not ready for upgrading to the LDMK, make sure to use [the latest version](https://github.com/LedgerHQ/ledger-live/tree/b2163a6eaafd46390d4a14bad8e62fcc10454c05/libs/ledgerjs/packages/hw-app-eth)
+**dApps**
+
+If you work on a dApp, checkout [dApps implementation with ERC-7730](./erc7730)
+
+**Wallets**
+
+If you work on a Wallet, checkout [Wallets implementation with the DMK](./wallets)
+
+**EIP-712 messages**
+
+If you want to allow clear signing of an EIP-712 message, [read this documentation](./eip712)
+
+**ERC-721, ERC-1155 and ERC-20**
+
+For ERC-721, ERC-1155 and ERC-20 NFTs, follow [this documentation](./nft)
+
+**What is the future of Clear Signing with Ledger?**
+
+Want to know how the Clear Signing initiative will evolve? Read [this page](./improvements).

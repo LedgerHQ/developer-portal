@@ -1,110 +1,71 @@
 import { Callout } from "nextra/components";
-import Image from 'next/image'
+import Image from "next/image"
 
-# ERC-7730: How to implement clear signing
+# dApps Clear Signing implementation with ERC-7730
+
+## Overview 
 
 <Callout type="info" emoji="ℹ️">
-
-This implementation is currently for EVM chains only. Stay tuned for other protocols.
-
+  Currently, this implementation is supported for EVM chains only. Stay tuned for updates on other protocols!
 </Callout>
 
-The clear signing standard relies on a registry of smart contract metadata files. These files describe the operations and fields of the smart contract. This page outlines the process for adding your metadata to the registry.
+<Callout type="warning" emoji="⚠️">
+  Some special cases may require the development of an [Ethereum plugin](../device-app/getting-started). The Ledger team will guide you through this process if required.
+</Callout>
 
-## Adding to the registry
+This guide will walk you through the process of implementing clear signing for ERC-7730 on EVM chains. This implementation uses a registry of smart contract metadata files.
 
-1. Fork the official registry
-1. Add a metadata file
-1. Preview your changes
-1. Submit a pull request (PR)
-1. Get approval and merge
+After your changes are merged, the Ledger **generic parser** will integrate them, making them available on Ledger devices such as Ledger Flex and Ledger Stax. The "generic parser" serves as the middle-layer deployed on the Ledger infrastructure to read and parse your JSON files.
 
-### Fork the registry
-
-The official registry is a public repo at [https://github.com/LedgerHQ/clear-signing-erc7730-registry](https://github.com/LedgerHQ/clear-signing-erc7730-registry)
-
-### Add a metadata file
-
-Describe your smart contract data following the ERC-7730 standard:
-
-- See examples in [/registry](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry)
-
-- See JSON schema and file spec in [/specs/erc7730-v1.schema.json](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc7730-v1.schema.json) and [/specs/erc-7730.md](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc-7730.md)
-
-### Preview your changes
-
-Run the web app locally to preview your changes.
-
-See the README in the repo for details: https://github.com/LedgerHQ/clear-signing-erc7730-registry/tree/master/developer-preview#readme
-
-### Submit a pull Request
-
-The [PR requirements](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/README.md) are in the README of the registry.
-
-Automated checks will run and give you feedback on your metadata file.
-
-Approvers on the repo will also review and comment to help your PR through.
-
-Once approved and merged the metadata will join the registry 🎉
-
-### Seeing clear signed operations on Ledger devices
-
-Changes to the registry will be picked up by Ledger's generic parser and ultimately, be made available to Ledger devices.
+This preview example shows how clear signing operations will be displayed:
 
 <div style={{ paddingTop: "1em", width: "90%" }} className="center">
   <figure>
-    <img
-      src="/clear-signing/preview-example-poap.png"
-      alt="Preview example with POAP operation"
+    <Image src="/clear-signing/preview-example-poap.png" 
+    alt="Preview example with POAP operation"
+    width={800} height={600} 
     />
   </figure>
 </div>
 
-The preview tool allows you to see how the data will be displayed on Ledger Flex and Ledger Stax.
+## How to Add Your Metadata to the Registry
 
-<Callout type="info" emoji="💡">
-  If you would like add to the preview modes get in touch – open a PR or create
-  an issue on the repo
+To add your metadata to the registry, follow these steps:
+
+1. Fork the official registry repository.
+2. Add a metadata file describing your smart contract.
+3. Preview your changes locally.
+4. Submit a pull request (PR).
+5. Await approval and merge your changes.
+
+### Step 1: Fork the Official Registry
+
+- The official registry is hosted on GitHub: [ERC-7730 Registry](https://github.com/LedgerHQ/clear-signing-erc7730-registry).
+
+### Step 2: Add a Metadata File
+
+- Describe your smart contract data according to the ERC-7730 standard.
+- Refer to example files available in the [registry directory](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry).
+- Follow the JSON schema and specification in the [specs/erc7730-v1.schema.json](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc7730-v1.schema.json) and [specs/erc-7730.md](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc-7730.md).
+
+### Step 3: Preview Your Changes
+
+- Consult the [developer preview README](https://github.com/LedgerHQ/clear-signing-erc7730-registry/tree/master/developer-preview#readme) for instructions on setting up the preview environment.
+- Run the web application locally to preview your changes.
+
+
+### Step 4: Submit a Pull Request
+
+- Review the [PR requirements](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/README.md) detailed in the README.
+- Automated checks will run to provide feedback on your files.
+- Repo approvers will review your submission and provide comments to assist the process.
+- Once approved, your metadata will be merged into the registry.
+
+**Success!** You have added your metadata to the registry 🎉
+
+## Generic Parser Status
+
+<Callout type="warning" emoji="⚠️">
+  **Generic Parser Not Yet Ready:** Please be aware that the Ledger generic parser is currently undergoing development and is not yet operational. This means that even after your metadata is merged, it won't immediately be available on Ledger devices. We appreciate your patience and will notify you once the parser is fully functional and capable of integrating metadata with Ledger devices.
 </Callout>
 
-### Clear signing on other wallets and devices
-
-At Ledger we are keen for the community to contribute to the registry and for all wallet manufacturers and developers to use the standard. We believe that this will help to improve the security of the ecosystem for everyone and make it easier for more people to use smart contracts.
-
-## Special cases
-
-- For EIP-712 messages follow [this documentation](./eip712)
-- For for ERC-721, ERC-1155 and ERC-20 follow [this documentation](./nft)
-- If applicable, [add your token](../ledger-live/accounts/integration/tokens/evm-chains-tokens) in Ledger Live.
-- Some special cases may require the development of an [Ethereum plugin](../device-app/getting-started). The Ledger team will guide you through this process if required.
-
-## Wallets
-
-All you have to do is use the latest version of the [LedgerJS Ethereum transport library](https://github.com/LedgerHQ/ledger-live/tree/b2163a6eaafd46390d4a14bad8e62fcc10454c05/libs/ledgerjs/packages/hw-app-eth). It has been updated for the new standard. For more information on how to use the LedgerJS libraries read [this documentation](../device-interaction/getting-started).
-
-## Watch the "Request for Comment Session"
-
-To get an insight about our process and plan for the future of clear signing, we recommend you watching the "Request for Comment Session". You can read [the slides](https://www.keepandshare.com/doc13/view.php?id=32202&da=y).
-
-<br />
-
-<iframe
-  width="100%"
-  height="315"
-  src="https://www.youtube-nocookie.com//embed/-O7aX6vUvs8?si=ypUZmsQyyGPYcNn7"
-  title="YouTube video player"
-  frameBorder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowFullScreen
-></iframe>
-
-## What's next?
-
-- Publication of an open source JSON edition tool to write the json description and display the information that the user will see on their devices,
-- Decentralization of the peer review process,
-- Generalization of the JSON standard to the Web3 ecosystem,
-- Extension of this process to other protocols.
-
-Stay tuned for further updates and evolutions on this topic as we continue to improve and expand our security measures, ensuring the highest protection for our users.
-
-Want to know more? Join the conversation on [the Ethereum Magicians Forum](https://ethereum-magicians.org/t/eip-7730-proposal-for-a-clear-signing-standard-format-for-wallets/20403).
