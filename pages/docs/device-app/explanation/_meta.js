@@ -1,6 +1,6 @@
 export default {  
 	'device-app-role': 'What is the role of the device app?',
-	plugin: 'What is a plugin?',
+	plugin: "Ethereum Plugins and Ethereum Clone Apps: What's the Difference?",
 	'architecture-diagram': 'Architecture diagram',
 	'architecture-good-practices': 'Architecture good practices',
 	io: 'Application Structure and I/O',
