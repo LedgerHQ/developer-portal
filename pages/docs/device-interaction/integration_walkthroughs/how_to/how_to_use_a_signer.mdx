@@ -1,16 +1,11 @@
-import { Callout } from "nextra/components";
-
 # Use a signer
 
-<Callout type="info" emoji="ℹ️">
-  We will show the usage of the signer with the Ethereum signer. The same logic can be applied to the other signers.
-</Callout>
+> [Note] We will show the usage of the signer with the Ethereum signer.
+> The same logic can be applied to the other signers.
 
 ## Installation
 
-<Callout type="warning" emoji="⚠️">
-  This module is not standalone; it depends on the [@ledgerhq/device-management-kit](https://github.com/LedgerHQ/device-sdk-ts/tree/develop/packages/device-management-kit) package, so you need to install it first.
-</Callout>
+> **Note:** This module is not standalone; it depends on the [@ledgerhq/device-management-kit](https://github.com/LedgerHQ/device-sdk-ts/tree/develop/packages/device-management-kit) package, so you need to install it first.
 
 To install the `device-signer-kit-ethereum` package, run the following command:
 
@@ -35,9 +30,3 @@ const signerEth = new SignerEthBuilder({ sdk, sessionId })
   .withContextModule(customContextModule)
   .build();
 ```
-
-## Reference
-
-Find the signers features in the references section:
-- [Ethereum signer](../../references/signers/eth)
-- More signers to come... 
