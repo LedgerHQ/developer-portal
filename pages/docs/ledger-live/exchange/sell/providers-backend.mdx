@@ -1,12 +1,11 @@
-import Zoom from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
-import { Tabs } from 'nextra/components'
-import { Callout } from 'nextra/components'
-import BackendIntro from '../../../../../public/exchange/import/backend-intro.mdx'
-import PayloadAndSignature from '../../../../../public/exchange/import/sell-payload-and-signature.mdx'
- import Image from 'next/image'
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
+import { Tabs } from "nextra/components";
+import { Callout } from "nextra/components";
+import BackendIntro from "../../../../../public/exchange/import/backend-intro.mdx";
+import PayloadAndSignature from "../../../../../public/exchange/import/sell-payload-and-signature.mdx";
+import Image from "next/image";
 
- 
 # Backend
 
 <BackendIntro />
@@ -16,34 +15,33 @@ import PayloadAndSignature from '../../../../../public/exchange/import/sell-payl
 In order to communicate with Ledger’s backend, you must provide standardised APIs for Ledger's SELL aggregator services to call.
 
 <Callout type="info" emoji="🔗">
-You will find all the information regarding the SELL endpoints here: https://exchange-integration-sell.redoc.ly/, as well as additional details on some endpoints below.
+  You will find all the information regarding the SELL endpoints here:
+  https://exchange-integration-sell.redoc.ly/, as well as additional details on
+  some endpoints below.
 </Callout>
 
-There are 4 main endpoints needed for the sell:
-    - To get the list of available fiat, country, payment, method and amount: [/capabilities](https://exchange-integration-sell.redoc.ly/#operation/getCapabilities).
-    - To get the list of available crypto-currencies: [/crypto-currencies](https://exchange-integration-sell.redoc.ly/#operation/getCryptoCurrencies).
-    - To get the fiat amount that the user should expect -after all fees are deducted - as a payment for the given crypto amount: [/quotes](https://exchange-integration-sell.redoc.ly/#operation/getQuote).
-    - To create a signed sell binary payload: [/sell](https://exchange-integration-sell.redoc.ly/#operation/postSell).
+There are 4 main endpoints needed for the sell: - To get the list of available fiat, country, payment, method and amount: [/capabilities](https://exchange-integration-sell.redoc.ly/#operation/getCapabilities). - To get the list of available crypto-currencies: [/crypto-currencies](https://exchange-integration-sell.redoc.ly/#operation/getCryptoCurrencies). - To get the fiat amount that the user should expect -after all fees are deducted - as a payment for the given crypto amount: [/quotes](https://exchange-integration-sell.redoc.ly/#operation/getQuote). - To create a signed sell binary payload: [/sell](https://exchange-integration-sell.redoc.ly/#operation/postSell).
 
 <details>
   <summary>Additional Details: POST /sell</summary>
 
-  Example request payload:
-``` json copy
-  {
+Example request payload:
+
+```json copy
+{
   "quoteId": "string",
   "amount": "string",
   "refundAddress": "string",
   "fromCryptoCurrency": "string",
   "toFiatCurrency": "string",
   "payloadCryptoCurrency": "string",
-  "nonce": "number",
-  }
+  "nonce": "number"
+}
 ```
 
 An example response from the your backend to the Ledger backend
 
-  ``` json copy
+```json copy
 {
   "sellId": "SELL-ID-165940",
   "payinAddress": "0xa0b86991c627e936c1d19d4a2e90a2ce3606eb48",
@@ -56,7 +54,7 @@ An example response from the your backend to the Ledger backend
     "signature": "MEUCIBRm4PrdgRw0aBwRepuOGGRmR/YPcCoyKNJ7UDjFO030AiEA/VT0anolum0a3X/9lGPeovZHqzeDG9brcUB4zhYmwbs="
   }
 }
-  ```
+```
 
     Your Protobuf message should have the following structure:
 
@@ -88,6 +86,7 @@ An example response from the your backend to the Ledger backend
     - 2 **ETH** would be `0x1BC16D674EC80000` (or 2000000000000000000). The smallest unit is a **wei** which is `10^-18` **ETH**.
     So multiply 2 **ETH** by `10^18` → `0x1BC16D674EC80000`.
     And `0x1BC16D674EC80000` encoded into a 16 bytes array in big endian is `[0x00, ... 0x00, 0x1B, 0xC1, 0x6D, 0x67, 0x4E, 0xC8, 0x00, 0x00]`.
+
 </details>
 
 ## Real-time Status Updates:
@@ -109,22 +108,20 @@ To ensure effective communication with Ledger's backend, you are required to imp
 
 Additionally, if your backend needs to know the transaction status from our system (e.g., whether the transaction was approved or rejected by the user’s device), we provide an optional endpoint [/transaction/\{sellId\}/status](https://exchange-integration-sell.redoc.ly/#operation/getStatusUpdate)
 
-[//]: # (Info needed to be exchange with the provider, but not out loud publicly)
-[//]: # (**IP address checking** )
-[//]: # (Additionally, we also need a way to know if a user will be able to perform a coin sell given his IP.)
-[//]: # (Our back-end can adapt to how you decide to do this, but we recommend you use a dedicated endpoint. Our back-end will send the user’s IP address to that endpoint, without logging it. In response, your endpoint should tell us if the trade is accepted or rejected.)
-
-
+[//]: # "Info needed to be exchange with the provider, but not out loud publicly"
+[//]: # "**IP address checking** "
+[//]: # "Additionally, we also need a way to know if a user will be able to perform a coin sell given his IP."
+[//]: # "Our back-end can adapt to how you decide to do this, but we recommend you use a dedicated endpoint. Our back-end will send the user’s IP address to that endpoint, without logging it. In response, your endpoint should tell us if the trade is accepted or rejected."
 
 ## Payload & Signature
 
 Here is a little diagram to explain how the `payload` and the `signature` are generated:
 
 <Zoom>
-    <img
-      alt="Payload and Payload Signature generation diagram"
-      src="/exchange/payload-signature-generation-sell.png"
-    />
+  <img
+    alt="Payload and Payload Signature generation diagram"
+    src="/exchange/payload-signature-generation-sell.png"
+  />
 </Zoom>
 
 - `payload`: the trade parameters are assembled in a [protobuf](https://developers.google.com/protocol-buffers) message. Then using the protobuf tools we do a [binary encoding](https://developers.google.com/protocol-buffers/docs/encoding) of the protobuf (Byte Array). Finally, with [base64Url encoding](https://en.wikipedia.org/wiki/Base64) we get the `payload` field.
@@ -132,10 +129,36 @@ Here is a little diagram to explain how the `payload` and the `signature` are ge
 
 If you need help with the signing process, please refer to our code [examples](code-examples.mdx).
 
+### Generate Private/Public Key
+
+1. **Private Key**:
+   Use the following command to generate the private key:
+
+   ```bash
+   openssl ecparam -name secp256k1 -genkey -noout -out sample-priv-key-secp256k1.pem
+   ```
+
+2. **Public Key**:
+   Derive the public key from the private key using the command:
+   ```bash
+   openssl ec -in sample-priv-key-secp256k1.pem -pubout > sample-pub-key-secp256k1.pem
+   ```
+
+### Verify Key Information
+
+To inspect the contents of the private key file:
+
+```bash
+openssl ec -text -in sample-priv-key-secp256k1.pem
+```
+
+Repeat this process for both the **production** and **test** environments to generate two distinct key pairs.
+
 ### Signature usage
 
 - Payload and Signature  
-From the provider to Ledger Live. The payload is a protobuf message containing the trade data. It is generated by the provider and sent to Ledger Live.
+  From the provider to Ledger Live. The payload is a protobuf message containing the trade data. It is generated by the provider and sent to Ledger Live.
+
 ```go copy
 type Payload struct {
   trader_email,
@@ -150,14 +173,16 @@ R, S := Sign(payload, privKey)
 ```
 
 - Validate  
-Exchange app checks and validates the payload (signature and content).
+  Exchange app checks and validates the payload (signature and content).
+
 ```go copy
 // Compare nonce in payload
 Verify((R, S), payload, pubKey)
 ```
 
 - Display  
-Exchange app requests approval to the user by displaying the operation summary on screen. 
+  Exchange app requests approval to the user by displaying the operation summary on screen.
+
 ```c copy
 Validate?
 Send currency_from amount_to_provider
