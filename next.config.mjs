@@ -358,6 +358,18 @@ export default withNextra({
       permanent: false,
     },
     {
+    source: "/docs/clear-signing/eip712",
+    destination:
+      "/docs/clear-signing/erc7730",
+    permanent: false,
+    },
+    {
+    source: "/docs/clear-signing/nft",
+    destination:
+      "/docs/clear-signing/tokens",
+    permanent: false,
+    },
+    {
       source: "/clear-signing",
       destination:
         "/docs/clear-signing/getting-started",
