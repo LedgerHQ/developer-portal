@@ -1,15 +1,17 @@
-import { Tabs } from 'nextra/components'
-import { Callout } from 'nextra/components'
+import { Tabs } from "nextra/components";
+import { Callout } from "nextra/components";
+import Zoom from "react-medium-image-zoom";
+import Image from "next/image";
 
 # Provider's LiveApp
 
 As explained in the [Card Integration](../card) page, you need to modify your LiveApp with some specific adjustments compared to the one found in the Discover section.
 
-Your LiveApp must: 
-  - Use the Ledger's [exchangeSDK](https://github.com/LedgerHQ/exchange-sdk), in addition to the Ledger Services Kit.
-  - Have a modified, slightly more complex, Manifest file.
-  - Follow specific flow/ux requirements.
+Your LiveApp must:
 
+- Use the Ledger's [exchangeSDK](https://github.com/LedgerHQ/exchange-sdk), in addition to the Ledger Services Kit.
+- Have a modified, slightly more complex, Manifest file.
+- Follow specific flow/ux requirements.
 
 ## Ledger Exchange Services Kit
 
@@ -19,44 +21,73 @@ Your LiveApp will interact with Ledger Live, through the [ExchangeSDK](https://g
 
 You will need to set up the SDK with your `providerId` attributed upon request by Ledger.
 
+```js copy
+const exchangeSDK = new ExchangeSDK("yourProviderId");
+```
+
 ### CARD method
 
 This method will need you to provide the following parameters:
 
-* `quoteId`: The id coming from your system.
-* `fromAccountId`: User's Ledger account id.
-* `fromAmount`: Amount that will be sold.
-* `toFiat`: Fiat currency that the user wants to be paid with using provider id.
-* `rate`: The crypto/fiat rate.
+- `quoteId`: The id coming from your system.
+- `fromAccountId`: User's Ledger account id.
+- `fromAmount`: Amount that will be sold.
+- `toFiat`: Fiat currency that the user wants to be paid with using provider id.
+- `rate`: The crypto/fiat rate.
 
 ```js copy
-  exchangeSDK.sell({
+exchangeSDK.sell({
   quoteId: "123abc",
-  fromAccountId: "97f06be9-6fb2-5da3-be71-4e762ed6e115",// Ledger Live uuid4 account (can be a BTC account)
+  fromAccountId: "97f06be9-6fb2-5da3-be71-4e762ed6e115", // Ledger Live uuid4 account (can be a BTC account)
   fromAmount: new BigNumber(1),
   toFiat: "EUR", // provider fiat id
   rate: 66564, // crypto/fiat rate [BTC/EUR]
-  type: "card"
-  });
+  type: "card",
+});
 ```
-
 
 <Callout type="info" emoji="👉">
   Ledger needs to know how to send referral information through the widget.
 </Callout>
 
-
 ## Manifest Permission
+
 Your [LiveApp manifest](../../../../docs/discover/wallet-api/appendix/manifest) should contains at least those permissions request:
+
 ```json copy
 "permissions": [
   "account.list",
   "currency.list",
-  "custom.exchange.start", 
+  "custom.exchange.start",
   "custom.exchange.complete",
+  "custom.exchange.error",
 ]
 ```
 
-{/* <!-- ## Flow/UX requirements -->*/}
+## Key Generation for Production and Test Environments
 
-{/*Please refer to the [Flow Breakdown](../card/flow) section for more information. (should add the proper card flow later)*/}
+To ensure secure communication, you must generate two sets of keys: one for the production environment and one for the test environment. Follow the steps below to generate these keys:
+
+# Testing with the Development Key
+
+After submitting [your keys](/docs/ledger-live/exchange/card/providers-backend#generate-privatepublic-key) to us and once the CAL team has successfully integrated them, you can proceed to test your integration in Ledger Live.
+
+### Steps to Test in Ledger Live
+
+1. Open the **Settings** menu in Ledger Live.
+2. Navigate to the **Developer** tab.
+3. Locate the setting labeled **Exchange in Test Partner Mode**.
+4. Enable this setting to activate the test environment.
+
+<Zoom>
+  <img
+    alt="Payload and Payload Signature generation diagram"
+    src="/exchange/exchange-dev-mode.png"
+  />
+</Zoom>
+
+With this mode enabled, you can verify the functionality of your keys and ensure everything is working as expected in the test environment.
+
+{/* <!-- ## Flow/UX requirements --> */}
+
+{/* Please refer to the [Flow Breakdown](../card/flow) section for more information. (should add the proper card flow later) */}

@@ -1,16 +1,18 @@
-import { Tabs } from 'nextra/components'
-import { Callout } from 'nextra/components'
+import { Tabs } from "nextra/components";
+import { Callout } from "nextra/components";
+import Zoom from "react-medium-image-zoom";
+import Image from "next/image";
 
 # Provider's LiveApp
 
 As explained in the [Sell Integration](../sell) page, you need to modify your LiveApp with some particularities compared to the one that can be found in the Discover section.
 
-Your LiveApp must: 
-  - Use the [Ledger Exchange Services Kit](https://github.com/LedgerHQ/exchange-sdk), in addition to the Ledger Services Kit.
-  - Respond to specific LiveApp URL parameters in order to adapt to the flow inside Ledger Live.
-  - Have a modified, slightly more complex, Manifest file.
-  - Follow specific flow/ux requirements.
+Your LiveApp must:
 
+- Use the [Ledger Exchange Services Kit](https://github.com/LedgerHQ/exchange-sdk), in addition to the Ledger Services Kit.
+- Respond to specific LiveApp URL parameters in order to adapt to the flow inside Ledger Live.
+- Have a modified, slightly more complex, Manifest file.
+- Follow specific flow/ux requirements.
 
 ## Ledger Exchange Services Kit
 
@@ -20,25 +22,29 @@ Your LiveApp will interact with Ledger Live, through the [ExchangeSDK](https://g
 
 You will need to set up the SDK with your `providerId` attributed upon request by Ledger.
 
+```js copy
+const exchangeSDK = new ExchangeSDK("yourProviderId");
+```
+
 ### SELL method
 
 This method will need you to provide the following parameters:
 
-* `quoteId`: The id coming from your system and [forwarded to your LiveApp](./providers-liveapp) as a query parameter.
-* `fromAccountId`: User's Ledger account id, [previously given to the LiveApp](./providers-liveapp) as a query parameter.
-* `fromAmount`: Amount that will be sold.
-* `toFiat`: Fiat currency that the user wants to be paid with using provider id.
-* `rate`: The crypto/fiat rate.
+- `quoteId`: The id coming from your system and [forwarded to your LiveApp](./providers-liveapp) as a query parameter.
+- `fromAccountId`: User's Ledger account id, [previously given to the LiveApp](./providers-liveapp) as a query parameter.
+- `fromAmount`: Amount that will be sold.
+- `toFiat`: Fiat currency that the user wants to be paid with using provider id.
+- `rate`: The crypto/fiat rate.
 
 ```js copy
-  exchangeSDK.sell({
+exchangeSDK.sell({
   quoteId: "123abc",
-  fromAccountId: "97f06be9-6fb2-5da3-be71-4e762ed6e115",// Ledger Live uuid4 account (can be a BTC account)
+  fromAccountId: "97f06be9-6fb2-5da3-be71-4e762ed6e115", // Ledger Live uuid4 account (can be a BTC account)
   fromAmount: new BigNumber(1),
   toFiat: "EUR", // provider fiat id
   rate: 66564, // crypto/fiat rate [BTC/EUR]
-  type: "sell"
-  });
+  type: "sell",
+});
 ```
 
 ## LiveApp URL
@@ -47,18 +53,18 @@ The LiveApp needs to respond to a URL with some parameters. LiveApp URLs are use
 
 The LiveApp URL format is already fixed and will depend on the information you provided inside your [LiveApp manifest](../../../../docs/discover/wallet-api/appendix/manifest) (ex: `ledgerlive://discover/sellprovidername`).
 
+- `accountId`: User’s selected account id, where the crypto he wants to sell is stored.
+- `cryptoCurrency`: The crypto currency that the user wants to sell. It will contain the providerId value to identify the crypto.
+- `network`: The crypto network for the corresponding currency.
+- `fiatCurrency`: The fiat currency that the user wants to be paid with.
+- `cryptoAmount`: The crypto amount that the user wants to sell.
+- `paymentMethod`: The preferred payment method for the user.
+- `mode`: `buy` or `sell`. In this case always sell. Required you share the same base widget url for both usages.
+- `bankResidency`: The bank residency of the user.
+- `ledgerTransactionId`: id used by ledger to track transactions and their completion statuses.
 
-  * `accountId`: User’s selected account id, where the crypto he wants to sell is stored.
-  * `cryptoCurrency`: The crypto currency that the user wants to sell. It will contain the providerId value to identify the crypto.
-  * `network`: The crypto network for the corresponding currency.
-  * `fiatCurrency`: The fiat currency that the user wants to be paid with.
-  * `cryptoAmount`: The crypto amount that the user wants to sell.
-  * `paymentMethod`: The preferred payment method for the user.
-  * `mode`: `buy` or `sell`. In this case always sell. Required you share the same base widget url for both usages.
-  * `bankResidency`: The bank residency of the user.
-  * `ledgerTransactionId`: id used by ledger to track transactions and their completion statuses.
+**Example**:
 
-__Example__:
 ```
 https://sell.provider.widget.com?[accountId]=ua11-…&[cryptoCurrency]=BTC&[fiatCurrency]=EUR&[cryptoAmount]=0.04
 ```
@@ -67,18 +73,44 @@ https://sell.provider.widget.com?[accountId]=ua11-…&[cryptoCurrency]=BTC&[fiat
   Ledger needs to know how to send referral information through the widget.
 </Callout>
 
-
 ## Manifest Permission
+
 Your [LiveApp manifest](../../../../docs/discover/wallet-api/appendix/manifest) should contains at least those permissions request:
+
 ```json copy
 "permissions": [
   "account.list",
   "currency.list",
-  "custom.exchange.start", 
+  "custom.exchange.start",
   "custom.exchange.complete",
+  "custom.exchange.error",
 ]
 ```
 
-{/* <!-- ## Flow/UX requirements -->*/}
+## Key Generation for Production and Test Environments
 
-{/*Please refer to the [Flow Breakdown](../sell/flow) section for more information. (should add the proper sell flow later)*/}
+To ensure secure communication, you must generate two sets of keys: one for the production environment and one for the test environment. Follow the steps below to generate these keys:
+
+# Testing with the Development Key
+
+After submitting [your keys](/docs/ledger-live/exchange/sell/providers-backend#generate-privatepublic-key) to us and once the CAL team has successfully integrated them, you can proceed to test your integration in Ledger Live.
+
+### Steps to Test in Ledger Live
+
+1. Open the **Settings** menu in Ledger Live.
+2. Navigate to the **Developer** tab.
+3. Locate the setting labeled **Exchange in Test Partner Mode**.
+4. Enable this setting to activate the test environment.
+
+<Zoom>
+  <img
+    alt="Payload and Payload Signature generation diagram"
+    src="/exchange/exchange-dev-mode.png"
+  />
+</Zoom>
+
+With this mode enabled, you can verify the functionality of your keys and ensure everything is working as expected in the test environment.
+
+{/* <!-- ## Flow/UX requirements --> */}
+
+{/* Please refer to the [Flow Breakdown](../sell/flow) section for more information. (should add the proper sell flow later) */}
