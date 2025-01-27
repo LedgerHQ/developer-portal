@@ -1,0 +1,36 @@
+# Migration from 0.5.0 to 0.6.0
+
+We made some breaking changes to the Ethereum Signer in 1.2.0 which are detailed below.
+
+## signTransaction
+
+The transaction type has been changed to `Uint8Array` instead of `Transaction` from ethers `v5` or `v6`.
+
+To sign a transaction, you need to serialize it to a `Uint8Array` before calling `signTransaction`.
+
+### From a `string`
+
+You can use the `hexaStringToBuffer` utility from the DeviceManagementKit to convert a hexa string to a `Uint8Array`.
+
+```typescript
+const rawTx = hexaStringToBuffer(tx);
+if (!rawTx) {
+  throw new Error("Invalid transaction format");
+}
+
+signer.signTransaction(derivationPath, rawTx, { domain });
+```
+
+### From a `Transaction` object from ethers `v6`
+
+You can use the `unsignedSerialized` property from the `Transaction` object
+combined with the `hexaStringToBuffer` utility from the DeviceManagementKit to convert a hexa string to a `Uint8Array`.
+
+```typescript
+const rawTx = hexaStringToBuffer(tx.unsignedSerialized);
+if (!rawTx) {
+  throw new Error("Invalid transaction format");
+}
+
+signer.signTransaction(derivationPath, rawTx, { domain });
+```

@@ -1,12 +1,8 @@
 export default {
-    '---': {
-        title: 'Device Interaction',
-        type: 'separator'
-    },
-    'getting-started': "Getting started",
-    beginner: "Beginner's guides",
-    integration: "Integration walkthroughs",
-    references: "References",
-    explanation: "Explanation",
-    ledgerjs: "LedgerJS: Soon deprecated"
-}
+  docs: "Ledger Device Management Kits",
+  explanations: "Explanations",
+  beginners: "Beginner's guide",
+  integration_walkthroughs: "Integration Walkthrough",
+  migrations: "Migrations",
+  references: "References (TSDoc)",
+};

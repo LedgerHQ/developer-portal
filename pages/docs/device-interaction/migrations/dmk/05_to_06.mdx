@@ -1,0 +1,54 @@
+# Migration from 0.5.0 to 0.6.0
+
+We made some breaking changes to the Device Management Kit in 0.6 which are detailed below.
+
+## Transports
+
+The transports implementation have been moved to their own packages.
+
+- `@ledgerhq/device-transport-kit-web-hid`
+- `@ledgerhq/device-transport-kit-web-ble`
+
+To use a transport, you need to install the corresponding package and inject it in the DeviceManagementKit.
+
+**0.5**
+
+Transports were built-in the DeviceManagementKit.
+
+```typescript
+import {
+  DeviceManagementKitBuilder,
+  ConsoleLogger,
+} from "@ledgerhq/device-management-kit";
+
+const dmk = new DeviceManagementKitBuilder()
+  .addLogger(new ConsoleLogger())
+  .build();
+```
+
+**0.6**
+
+In 0.6, you need to manually inject the transport you want to use.
+
+```typescript
+import {
+  DeviceManagementKitBuilder,
+  ConsoleLogger,
+} from "@ledgerhq/device-management-kit";
+import { webHidTransportFactory } from "@ledgerhq/device-transport-kit-web-hid";
+
+const dmk = new DeviceManagementKitBuilder()
+  .addLogger(new ConsoleLogger())
+  .addTransport(webHidTransportFactory)
+  .build();
+```
+
+```diff
+import { DeviceManagementKitBuilder, ConsoleLogger } from "@ledgerhq/device-management-kit";
++ import { webHidTransportFactory } from "@ledgerhq/device-transport-kit-web-hid";
+
+const dmk = new DeviceManagementKitBuilder()
+  .addLogger(new ConsoleLogger())
++ .addTransport(webHidTransportFactory)
+  .build();
+```
