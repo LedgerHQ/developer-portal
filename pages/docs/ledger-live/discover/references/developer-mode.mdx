@@ -49,6 +49,50 @@ This option will allow you to browse for local files and add a local app using a
 With it you can be autonomous in testing your application.
 You’ll have to load your own manifest to make your application appear in the Discover section.
 
+## Loading manifest on physical device with localhost
+
+To successfully load a manifest on a physical device using localhost, follow the steps below:
+
+### Method 1:
+
+**Step 1: Retrieve Your Local IP Address**
+To access your local IP address, open your terminal and run the following command:
+
+- If you have a UNIX-based development machine, run:
+  ```sh
+  ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}'
+  ```
+- If you have a Windows machine, run:
+  ```sh
+  ipconfig
+  ```
+
+**Step 2: Update the Manifest**
+Locate your manifest file and replace all occurrences of `localhost` with the IP address retrieved in Step 1. This step ensures that your physical device can resolve the correct endpoint when accessing the manifest.
+
+**Step 3: Network Configuration**
+Ensure that both your physical device (e.g., your phone) and your development machine (e.g., your laptop) are connected to the same Wi-Fi network. Note the following:
+
+- Devices must be on the same frequency band. For example, if you have a 2.4 GHz network and a 5 GHz network, both devices must connect to the same frequency.
+
+**Step 4: Load the Manifest**
+With the updated manifest and correct network configuration:
+
+1. Open your physical device's browser or app that loads the manifest.
+2. Navigate to the manifest's URL, replacing `localhost` with the IP address you used in the manifest file.
+
+   **Example:** If your IP address is `192.168.1.10` and the manifest URL was `http://localhost:3000`, update it to `http://192.168.1.10:3000`.
+
+If you encounter issues, verify the devices' network connection and ensure no firewall or router settings are blocking access.
+
+Some tools may cache previous configurations. Restart your development environment or physical device if changes do not take effect immediately.
+
+### Method 2:
+
+1. Use a service such as **NGROK** or **LocalTunnel**.
+2. Obtain a URL from your service of choice.
+3. Replace all occurrences of `localhost` in the manifest file with the obtained URL from the service of your choice.
+4. Load the manifest.
 
 ## Disabling the developer mode
 
