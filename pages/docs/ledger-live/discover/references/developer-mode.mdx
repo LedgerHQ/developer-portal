@@ -43,15 +43,34 @@ This setting will enable opening the platform apps dev tools window, which can b
 
 ![screenshot of the Platform dev tools](/discover/platform_dev_tools.png "Developer tools window")
 
-## Add a local app
+## Adding a Local App to Ledger Live
 
-This option will allow you to browse for local files and add a local app using a local manifest.
-With it you can be autonomous in testing your application.
-You’ll have to load your own manifest to make your application appear in the Discover section.
+You can add a local app to Ledger Live by importing a local manifest file. This allows you to independently test your application before it's officially available. Follow these steps to enable Developer Mode and import your manifest:
 
-## Loading manifest on physical device with localhost
+### 1. Install Ledger Live Desktop
 
-To successfully load a manifest on a physical device using localhost, follow the steps below:
+Ensure that Ledger Live Desktop is installed on your computer. If you haven’t installed it yet, download it from the [official Ledger website](https://www.ledger.com/ledger-live). You will also need a Ledger device (Nano S or X) to access Ledger Live.
+
+### 2. Enable Developer Mode
+
+To enable Developer Mode in Ledger Live, follow the steps described in the section above in this document.
+
+Once activated, a **Developer** section will appear in the settings menu.
+
+### 3. Enable Developer Tools
+
+In the Developer section, turn on **Enable platform dev tools**. This will provide access to developer tools, allowing you to inspect and debug your app.
+
+### 4. Import Your Manifest File
+
+- In the Developer section, locate the **Add a local app** option.
+- Click **Browse** and select the manifest file you created earlier.
+
+After importing, your app will appear in the menu under its designated name.
+
+## Loading manifest on mobile phone with localhost
+
+To successfully load a manifest on a mobile phone using localhost, follow the steps below:
 
 ### Method 1:
 
@@ -68,24 +87,26 @@ To access your local IP address, open your terminal and run the following comman
   ```
 
 **Step 2: Update the Manifest**
-Locate your manifest file and replace all occurrences of `localhost` with the IP address retrieved in Step 1. This step ensures that your physical device can resolve the correct endpoint when accessing the manifest.
+Locate your manifest file and replace all occurrences of `localhost` with the IP address retrieved in Step 1. This step ensures that your mobile phone can resolve the correct endpoint when accessing the manifest.
 
 **Step 3: Network Configuration**
-Ensure that both your physical device (e.g., your phone) and your development machine (e.g., your laptop) are connected to the same Wi-Fi network. Note the following:
+Ensure that both your mobile phone (e.g., your phone) and your development machine (e.g., your laptop) are connected to the same Wi-Fi network. Note the following:
 
 - Devices must be on the same frequency band. For example, if you have a 2.4 GHz network and a 5 GHz network, both devices must connect to the same frequency.
 
 **Step 4: Load the Manifest**
 With the updated manifest and correct network configuration:
 
-1. Open your physical device's browser or app that loads the manifest.
+1. Open your mobile phone's browser or app that loads the manifest.
 2. Navigate to the manifest's URL, replacing `localhost` with the IP address you used in the manifest file.
 
    **Example:** If your IP address is `192.168.1.10` and the manifest URL was `http://localhost:3000`, update it to `http://192.168.1.10:3000`.
+   
+  #### Make sure your `domains` field includes `http://` otherwise the connection will fail 
 
 If you encounter issues, verify the devices' network connection and ensure no firewall or router settings are blocking access.
 
-Some tools may cache previous configurations. Restart your development environment or physical device if changes do not take effect immediately.
+Some tools may cache previous configurations. Restart your development environment or mobile phone if changes do not take effect immediately.
 
 ### Method 2:
 
