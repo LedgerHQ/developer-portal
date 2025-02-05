@@ -2,20 +2,20 @@
 
 There are two steps to connecting to a device:
 
-- **Discovery**: `sdk.startDiscovering()`
+- **Discovery**: `dmk.startDiscovering()`
   - Returns an observable which will emit a new `DiscoveredDevice` for every scanned device.
   - The `DiscoveredDevice` objects contain information about the device model.
   - Use one of these values to connect to a given discovered device.
-- **Connection**: `sdk.connect({ deviceId: device.id })`
+- **Connection**: `dmk.connect({ deviceId: device.id })`
   - Returns a Promise resolving in a device session identifier `DeviceSessionId`.
   - **Keep this device session identifier to further interact with the device.**
-  - Then, `sdk.getConnectedDevice({ sessionId })` returns the `ConnectedDevice`, which contains information about the device model and its name.
+  - Then, `dmk.getConnectedDevice({ sessionId })` returns the `ConnectedDevice`, which contains information about the device model and its name.
 
 ```ts
-sdk.startDiscovering().subscribe({
+dmk.startDiscovering().subscribe({
   next: (device) => {
-    sdk.connect({ deviceId: device.id }).then((sessionId) => {
-      const connectedDevice = sdk.getConnectedDevice({ sessionId });
+    dmk.connect({ deviceId: device.id }).then((sessionId) => {
+      const connectedDevice = dmk.getConnectedDevice({ sessionId });
     });
   },
   error: (error) => {
@@ -26,8 +26,8 @@ sdk.startDiscovering().subscribe({
 
 Then once a device is connected:
 
-- **Disconnection**: `sdk.disconnect({ sessionId })`
-- **Observe the device session state**: `sdk.getDeviceSessionState({ sessionId })`
+- **Disconnection**: `dmk.disconnect({ sessionId })`
+- **Observe the device session state**: `dmk.getDeviceSessionState({ sessionId })`
   - This will return an `Observable<DeviceSessionState>` to listen to the known information about the device:
     - device status:
       - ready to process a command
