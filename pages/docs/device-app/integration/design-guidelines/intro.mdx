@@ -1,14 +1,14 @@
 ---
-title: Designing blockchain applications for Ledger Stax and Ledger Flex
+title: Designing blockchain applications for Ledger devices
 description: 
 ---
 
 import { Callout } from 'nextra/components'
 import KeyTakeaway from '/components/features/key-takeaway';
 
-# Designing blockchain applications for Ledger Stax and Ledger Flex
+# Designing blockchain applications for Ledger devices
 
-These guidelines contain best practices to design a great experience for users of your apps, whether they have a Ledger Stax or a Ledger Flex.
+These guidelines contain best practices to design a great experience for users of your apps.
 
 If you’re developing your app using Ledger’s high-level APIs and standard transaction templates, then it will already conform to these design guidelines.
 
@@ -16,12 +16,11 @@ If you’re developing your app using Ledger’s high-level APIs and standard tr
 
 These guidelines apply to blockchain-related apps that fall into the standard use cases of sending crypto and NFTs, verifying addresses, or signing messages. This is the majority of apps that are available today on Ledger’s app store.
 					
-Apps with more specific needs and interfaces are not covered by these guidelines, however the general principles described here on usability and wording are a great place to start.
+Apps with more specific needs and interfaces are not covered by these guidelines, however the general principles described here on usability and wording are a great place to start. To access the complete library if needed, visit the [NBGL repository](https://github.com/LedgerHQ/ledger-secure-sdk/tree/master/lib_nbgl).
 
+## Ledger Stax, Flex, and Nano devices, what’s different as an app developer?
 
-## Ledger Stax vs. Ledger Flex, what’s different as an app developer?
-
-Whether you start developing your app on Ledger Stax or Ledger Flex, porting it to the other Ledger device will require little to no code change, as both devices use the same APIs and graphical libraries.
+Whether you start developing your app on Ledger Stax, Ledger Flex, Nano S Plus or Nano X, porting it to the other Ledger devices will require little to no code change, as all devices use the same APIs and graphical libraries.
 
 ![Ledger Stax and Ledger Flex UI](/device-app/UI-Guidelines-Intro.png)
 |:--:| 
