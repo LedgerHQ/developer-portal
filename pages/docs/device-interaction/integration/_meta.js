@@ -1,4 +1,4 @@
-export default {  
-	ldmk: "Ledger Device Management Kit",
-	migration: "Migration guides"
-}
+export default {
+  how_to: "How to ...",
+  migrations: "Migrations",
+};

@@ -29,7 +29,7 @@ const apdu = new ApduBuilder(openAppApduArgs)
 
 // ### 2. Sending the APDU
 
-const apduResponse = await sdk.sendApdu({ sessionId, apdu });
+const apduResponse = await dmk.sendApdu({ sessionId, apdu });
 
 // ### 3. Parsing the result
 
@@ -53,7 +53,7 @@ The `sendCommand` method will take care of building the APDU, sending it to the 
 > ## ❗️ Error Responses
 >
 > Most of the commands will reject with an error if the device is locked.
-> Ensure that the device is unlocked before sending commands. You can check the device session state (`sdk.getDeviceSessionState`) to know if the device is locked.
+> Ensure that the device is unlocked before sending commands. You can check the device session state (`dmk.getDeviceSessionState`) to know if the device is locked.
 >
 > Most of the commands will reject with an error if the response status word is not `0x9000` (success response from the device).
 
@@ -66,7 +66,7 @@ import { OpenAppCommand } from "@ledgerhq/device-management-kit";
 
 const command = new OpenAppCommand("Bitcoin"); // Open the Bitcoin app
 
-await sdk.sendCommand({ sessionId, command });
+await dmk.sendCommand({ sessionId, command });
 ```
 
 ### Close App
@@ -78,14 +78,14 @@ import { CloseAppCommand } from "@ledgerhq/device-management-kit";
 
 const command = new CloseAppCommand();
 
-await sdk.sendCommand({ sessionId, command });
+await dmk.sendCommand({ sessionId, command });
 ```
 
 ### Get OS Version
 
 This command will return information about the currently installed OS on the device.
 
-> ℹ️ If you want this information you can simply get it from the device session state by observing it with `sdk.getDeviceSessionState({ sessionId })`.
+> ℹ️ If you want this information you can simply get it from the device session state by observing it with `dmk.getDeviceSessionState({ sessionId })`.
 
 ```ts
 import { GetOsVersionCommand } from "@ledgerhq/device-management-kit";
@@ -93,21 +93,21 @@ import { GetOsVersionCommand } from "@ledgerhq/device-management-kit";
 const command = new GetOsVersionCommand();
 
 const { seVersion, mcuSephVersion, mcuBootloaderVersion } =
-  await sdk.sendCommand({ sessionId, command });
+  await dmk.sendCommand({ sessionId, command });
 ```
 
 ### Get App and Version
 
 This command will return the name and version of the currently running app on the device.
 
-> ℹ️ If you want this information you can simply get it from the device session state by observing it with `sdk.getDeviceSessionState({ sessionId })`.
+> ℹ️ If you want this information you can simply get it from the device session state by observing it with `dmk.getDeviceSessionState({ sessionId })`.
 
 ```ts
 import { GetAppAndVersionCommand } from "@ledgerhq/device-management-kit";
 
 const command = new GetAppAndVersionCommand();
 
-const { name, version } = await sdk.sendCommand({ sessionId, command });
+const { name, version } = await dmk.sendCommand({ sessionId, command });
 ```
 
 ## Sending a Pre-defined flow - Device Actions
