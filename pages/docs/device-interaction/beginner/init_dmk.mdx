@@ -1,23 +1,25 @@
-# Setting up the SDK
+# Setting up the DMK
 
-The core package exposes an SDK builder `DeviceSdkBuilder` which will be used to initialise the SDK with your configuration.
+The core package exposes a builder `DeviceManagementKitBuilder` which will be used to initialise the DMK with your configuration.
 
-For now it allows you to add one or more custom loggers.
+For now it allows you to add one or more custom loggers and transports.
 
-In the following example, we add a console logger (`.addLogger(new ConsoleLogger())`). Then we build the SDK with `.build()`.
+In the following example, we add a console logger (`.addLogger(new ConsoleLogger())`), then the WebHID transport (`.addTransport(webHidTransportFactory)`).
+Then we build the DMK with `.build()`.
 
-**The returned object will be the entrypoint for all your interactions with the SDK. You should keep it as a <u>SINGLETON</u>.**
+**The returned object will be the entrypoint for all your interactions with the DMK. You should keep it as a <u>SINGLETON</u>.**
 
-The SDK should be built only once in your application runtime so keep a reference of this object somewhere.
+The DMK should be built only once in your application runtime so keep a reference of this object somewhere.
 
 ```ts
 import {
   ConsoleLogger,
-  DeviceSdk,
-  DeviceSdkBuilder,
+  DeviceManagementKitBuilder,
 } from "@ledgerhq/device-management-kit";
+import { webHidTransportFactory } from "@ledgerhq/device-transport-kit-web-hid";
 
-export const sdk = new DeviceSdkBuilder()
+export const dmk = new DeviceManagementKitBuilder()
   .addLogger(new ConsoleLogger())
+  .addTransport(webHidTransportFactory)
   .build();
 ```

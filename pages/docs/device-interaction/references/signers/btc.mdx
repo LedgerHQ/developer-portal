@@ -1,3 +1,431 @@
 # Bitcoin Signer Kit
 
-_Coming Soon..._
+This module provides the implementation of the Ledger Bitcoin signer of the Device Management Kit. It enables interaction with the Bitcoin application on a Ledger device including:
+
+- Retrieving the Bitcoin public key using a given address index;
+- Signing a message displayed on a Ledger device;
+- Signing a Bitcoin partially signed transaction (PSBT);
+- Signing a Bitcoin transaction;
+
+## 🔹 Index
+
+1. [How it works](#-how-it-works)
+2. [Installation](#-installation)
+3. [Initialisation](#-initialisation)
+4. [Use Cases](#-use-cases)
+   - [Get Extended Public Key](#use-case-1-get-extended-public-key)
+   - [Sign Message](#use-case-2-sign-message)
+   - [Sign Partially Signed Transaction (PSBT)](#use-case-3-sign-psbt)
+   - [Sign Transaction](#use-case-4-sign-transaction)
+   - [Get Wallet address](#use-case-5-get-wallet-address)
+5. [Observable Behavior](#-observable-behavior)
+6. [Example](#-example)
+
+## 🔹 How it works
+
+The Ledger Bitcoin Signer utilizes the advanced capabilities of the Ledger device to provide secure operations for end users. It takes advantage of the interface provided by the Device Management Kit to establish communication with the Ledger device and execute various operations. The communication with the Ledger device is performed using [APDU](https://en.wikipedia.org/wiki/Smart_card_application_protocol_data_unit)s (Application Protocol Data Units), which are encapsulated within the `Command` object. These commands are then organized into tasks, allowing for the execution of complex operations with one or more APDUs. The tasks are further encapsulated within `DeviceAction` objects to handle different real-world scenarios. Finally, the Signer exposes dedicated and independent use cases that can be directly utilized by end users.
+
+## 🔹 Installation
+
+> **Note:** This module is not standalone; it depends on the [@ledgerhq/device-management-kit](https://github.com/LedgerHQ/device-sdk-ts/tree/develop/packages/device-management-kit) package, so you need to install it first.
+
+To install the `device-signer-kit-bitcoin` package, run the following command:
+
+```sh
+npm install @ledgerhq/device-signer-kit-bitcoin
+```
+
+## 🔹 Initialisation
+
+To initialise a Bitcoin signer instance, you need a Ledger Device Management Kit instance and the ID of the session of the connected device. Use the `SignerBtcBuilder` along with the [Context Module](https://github.com/LedgerHQ/device-sdk-ts/tree/develop/packages/signer/context-module) by default developed by Ledger:
+
+```typescript
+// Initialise a Bitcoin signer instance
+const signerBitcoin = new SignerBtcBuilder({ sdk, sessionId }).build();
+```
+
+## 🔹 Use Cases
+
+The `SignerBtcBuilder.build()` method will return a `SignerBitcoin` instance that exposes 5 dedicated methods, each of which calls an independent use case. Each use case will return an object that contains an observable and a method called `cancel`.
+
+---
+
+### Use Case 1: Get extended public key
+
+This method allows users to retrieve the Bitcoin extended public key based on a given `derivationPath`.
+
+```typescript
+const { observable, cancel } = signerBitcoin.getExtendedPublicKey(
+  derivationPath,
+  options,
+);
+```
+
+#### **Parameters**
+
+- `derivationPath`
+
+  - **Required**
+  - **Type:** `string` (e.g. `"84'/0'/0'"` for a Native SegWit wallet)
+  - The derivation path used for the Bitcoin address. See [here](https://www.ledger.com/blog/understanding-crypto-addresses-and-derivation-paths) for more information.
+
+- `options`
+
+  - Optional
+  - Type: `AddressOptions`
+
+    ```typescript
+    type AddressOptions = {
+      checkOnDevice?: boolean;
+    };
+    ```
+
+  - `checkOnDevice`: An optional boolean indicating whether user confirmation on the device is required (`true`) or not (`false`).
+
+#### **Returns**
+
+- `observable` Emits DeviceActionState updates, including the following details:
+
+```typescript
+type GetAddressCommandResponse = {
+  extendedPublicKey: string;
+};
+```
+
+- `cancel` A function to cancel the action on the Ledger device.
+
+---
+
+### Use Case 2: Sign message
+
+This method allows users to sign a text string that is displayed on Ledger devices.
+
+```typescript
+const { observable, cancel } = signerBitcoin.signMessage(
+  derivationPath,
+  message,
+);
+```
+
+#### **Parameters**
+
+- `derivationPath`
+
+  - **Required**
+  - **Type:** `string` (e.g. `"84'/0'/0'"` for a Native SegWit wallet)
+  - The derivation path used for the Bitcoin address. See [here](https://www.ledger.com/blog/understanding-crypto-addresses-and-derivation-paths) for more information.
+
+- `message`
+
+  - **Required**
+  - **Type:** `string`
+  - The message to be signed, which will be displayed on the Ledger device.
+
+#### **Returns**
+
+- `observable` Emits DeviceActionState updates, including the following details:
+
+```typescript
+type Signature = {
+  r: `0x${string}`; // R component of the signature
+  s: `0x${string}`; // S component of the signature
+  v: number; // Recovery parameter
+};
+```
+
+- `cancel` A function to cancel the action on the Ledger device.
+
+---
+
+### Use Case 3: Sign PSBT
+
+This method allows users to sign a partially signed transaction.
+
+```typescript
+const { observable, cancel } = signerBitcoin.signPsbt(
+  new DefaultWallet(path, descriptorTemplate),
+  psbt,
+);
+```
+
+#### **Parameters**
+
+- `wallet`
+
+  - **Required**
+  - **Type:** `Wallet`
+
+  ```typescript
+  type Wallet = DefaultWallet | RegisteredWallet;
+
+  class DefaultWallet {
+    constructor(
+      // Derivation path without master key representation.
+      // Format example: /44'/0'/0'
+      public derivationPath: string,
+      public template: DefaultDescriptorTemplate,
+    ) {}
+  }
+
+  class RegisteredWallet {
+    constructor(
+      public name: string,
+      public descriptorTemplate: string,
+      public keys: string[],
+      public hmac: Uint8Array,
+    ) {}
+  }
+  ```
+
+- `psbt`
+  - **Required**
+  - **Type:** `string | Psbt`
+  - A base64/hex psbt string or [bitcoin-js Psbt](https://github.com/bitcoinjs/bitcoinjs-lib/blob/151173f05e26a9af7c98d8d1e3f90e97185955f1/ts_src/psbt.ts#L131)
+
+#### **Returns**
+
+- `observable` Emits DeviceActionState updates, including the following details:
+
+```typescript
+type PartialSignature = {
+  inputIndex: number;
+  pubkey: Uint8Array;
+  signature: Uint8Array;
+  tapleafHash?: Uint8Array;
+};
+
+type MusigPubNonce = {
+  inputIndex: number;
+  participantPubkey: Uint8Array;
+  aggregatedPubkey: Uint8Array;
+  tapleafHash: Uint8Array;
+  pubnonce: Uint8Array;
+};
+
+type MusigPartialSignature = {
+  inputIndex: number;
+  participantPubkey: Uint8Array;
+  aggregatedPubkey: Uint8Array;
+  tapleafHash: Uint8Array;
+  partialSignature: Uint8Array;
+};
+
+type PsbtSignature = PartialSignature | MusigPartialSignature | MusigPubNonce;
+```
+
+- `cancel` A function to cancel the action on the Ledger device.
+
+---
+
+### Use Case 4: Sign transaction
+
+This method allows users to sign a Bitcoin transaction.
+
+```typescript
+const { observable, cancel } = signerBitcoin.signTransaction(
+  new DefaultWallet(path, descriptorTemplate),
+  psbt,
+);
+```
+
+#### **Parameters**
+
+- `wallet`
+
+  - **Required**
+  - **Type:** `Wallet`
+
+  ```typescript
+  type Wallet = DefaultWallet | RegisteredWallet;
+
+  class DefaultWallet {
+    constructor(
+      // Derivation path without master key representation.
+      // Format example: /44'/0'/0'
+      public derivationPath: string,
+      public template: DefaultDescriptorTemplate,
+    ) {}
+  }
+
+  class RegisteredWallet {
+    constructor(
+      public name: string,
+      public descriptorTemplate: string,
+      public keys: string[],
+      public hmac: Uint8Array,
+    ) {}
+  }
+  ```
+
+  - `psbt`
+    - **Required**
+    - **Type:** `string | Psbt`
+    - A base64/hex psbt string or [bitcoin-js Psbt](https://github.com/bitcoinjs/bitcoinjs-lib/blob/151173f05e26a9af7c98d8d1e3f90e97185955f1/ts_src/psbt.ts#L131)
+
+#### **Returns**
+
+- `observable` Emits DeviceActionState updates, including the following details:
+
+```typescript
+type TransactionHash = `0x${string}`;
+```
+
+- `cancel` A function to cancel the action on the Ledger device.
+
+### Use Case 5: Get wallet address
+
+This method allows users to get the wallet address linked to a Ledger device.
+
+```typescript
+const { observable, cancel } = signerBitcoin.getWalletAddress(
+  derivationPath,
+  addressIndex,
+  options,
+);
+```
+
+#### **Parameters**
+
+- `derivationPath`
+
+  - **Required**
+  - **Type:** `string` (e.g. `"84'/0'/0'"` for a Native SegWit wallet)
+  - The derivation path used for the Bitcoin address. See [here](https://www.ledger.com/blog/understanding-crypto-addresses-and-derivation-paths) for more information.
+
+- `addressIndex`
+
+  - **Required**
+  - **Type:** `number`
+  - The desired address index on the Ledger device.
+
+- `options`
+
+  - Optional
+  - Type: `WalletAddressOptions`
+
+  ```typescript
+  type WalletAddressOptions = {
+    checkOnDevice?: boolean;
+    change?: boolean;
+  };
+  ```
+
+#### **Returns**
+
+- `observable` Emits DeviceActionState updates, including the following details:
+
+```typescript
+type WalletAddress = {
+  address: string;
+};
+```
+
+- `cancel` A function to cancel the action on the Ledger device.
+
+---
+
+## 🔹 Observable Behavior
+
+Each method returns an [Observable](https://rxjs.dev/guide/observable) emitting updates structured as [`DeviceActionState`](https://github.com/LedgerHQ/device-sdk-ts/blob/develop/packages/device-management-kit/src/api/device-action/model/DeviceActionState.ts). These updates reflect the operation’s progress and status:
+
+- **NotStarted**: The operation hasn’t started.
+- **Pending**: The operation is in progress and may require user interaction.
+- **Stopped**: The operation was canceled or stopped.
+- **Completed**: The operation completed successfully, with results available.
+- **Error**: An error occurred.
+
+**Example Observable Subscription:**
+
+```typescript
+observable.subscribe({
+  next: (state: DeviceActionState) => {
+    switch (state.status) {
+      case DeviceActionStatus.NotStarted: {
+        console.log("The action is not started yet.");
+        break;
+      }
+      case DeviceActionStatus.Pending: {
+        const {
+          intermediateValue: { requiredUserInteraction },
+        } = state;
+        // Access the intermediate value here, explained below
+        console.log(
+          "The action is pending and the intermediate value is: ",
+          intermediateValue,
+        );
+        break;
+      }
+      case DeviceActionStatus.Stopped: {
+        console.log("The action has been stopped.");
+        break;
+      }
+      case DeviceActionStatus.Completed: {
+        const { output } = state;
+        // Access the output of the completed action here
+        console.log("The action has been completed: ", output);
+        break;
+      }
+      case DeviceActionStatus.Error: {
+        const { error } = state;
+        // Access the error here if occurred
+        console.log("An error occurred during the action: ", error);
+        break;
+      }
+    }
+  },
+});
+```
+
+**Intermediate Values in Pending Status:**
+
+When the status is DeviceActionStatus.Pending, the state will include an `intermediateValue` object that provides useful information for interaction:
+
+```typescript
+const { requiredUserInteraction } = intermediateValue;
+
+switch (requiredUserInteraction) {
+  case UserInteractionRequired.VerifyAddress: {
+    // User needs to verify the address displayed on the device
+    console.log("User needs to verify the address displayed on the device.");
+    break;
+  }
+  case UserInteractionRequired.SignTransaction: {
+    // User needs to sign the transaction displayed on the device
+    console.log("User needs to sign the transaction displayed on the device.");
+    break;
+  }
+  case UserInteractionRequired.SignTypedData: {
+    // User needs to sign the typed data displayed on the device
+    console.log("User needs to sign the typed data displayed on the device.");
+    break;
+  }
+  case UserInteractionRequired.SignPersonalMessage: {
+    // User needs to sign the message displayed on the device
+    console.log("User needs to sign the message displayed on the device.");
+    break;
+  }
+  case UserInteractionRequired.None: {
+    // No user action required
+    console.log("No user action needed.");
+    break;
+  }
+  case UserInteractionRequired.UnlockDevice: {
+    // User needs to unlock the device
+    console.log("The user needs to unlock the device.");
+    break;
+  }
+  case UserInteractionRequired.ConfirmOpenApp: {
+    // User needs to confirm on the device to open the app
+    console.log("The user needs to confirm on the device to open the app.");
+    break;
+  }
+  default:
+    // Type guard to ensure all cases are handled
+    const uncaughtUserInteraction: never = requiredUserInteraction;
+    console.error("Unhandled user interaction case:", uncaughtUserInteraction);
+}
+```
+
+## 🔹 Example
+
+We encourage you to explore the Bitcoin Signer by trying it out in our online [sample application](https://app.devicesdk.ledger-test.com/). Experience how it works and see its capabilities in action. Of course, you will need a Ledger device connected.

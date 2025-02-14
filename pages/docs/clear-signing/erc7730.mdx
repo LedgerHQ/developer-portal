@@ -46,16 +46,19 @@ To add your metadata to the registry, follow these steps:
 
 - The official registry is hosted on GitHub: [ERC-7730 Registry](https://github.com/LedgerHQ/clear-signing-erc7730-registry).
 
-### Step 2: Add a Metadata File
+### Step 2: Create a Metadata File
 
-- Describe your smart contract data according to the ERC-7730 standard.
+The Metadata file contains the description of your smart contract data according to the ERC-7730 standard.
+
+- Generate this file with the [ERC7730 Json builder](https://clear-signing-erc7730-builder.vercel.app/). The tool is still in Alpha mode, if you encounter any error, please provide feedback using [this form](https://tally.so/r/mObbWM).
+
+Or, to manually write it:
 - Refer to example files available in the [registry directory](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry).
 - Follow the JSON schema and specification in the [specs/erc7730-v1.schema.json](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc7730-v1.schema.json) and [specs/erc-7730.md](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc-7730.md).
 
 ### Step 3: Preview Your Changes
 
-- Consult the [developer preview README](https://github.com/LedgerHQ/clear-signing-erc7730-registry/tree/master/developer-preview#readme) for instructions on setting up the preview environment.
-- Run the web application locally to preview your changes.
+Preview how the Clear Signing looks on device with the [ERC7730 Json builder](https://clear-signing-erc7730-builder.vercel.app/)
 
 
 ### Step 4: Submit a Pull Request
