@@ -88,7 +88,7 @@ jobs:
     name: Analyse
     strategy:
       matrix:
-        sdk: [ "$NANOS_SDK", "$NANOX_SDK", "$NANOSP_SDK" ]
+        sdk: ["$NANOX_SDK", "$NANOSP_SDK", "$STAX_SDK", "$FLEX_SDK"]
         language: [ 'cpp' ]
     runs-on: ubuntu-latest
     container:
@@ -106,10 +106,12 @@ The action part needs 4 steps:
 ```yaml copy
 steps:
   - name: Clone
-    uses: actions/checkout@v3
+    uses: actions/checkout@v4
+    with:
+      submodules: true
 
   - name: Initialize CodeQL
-    uses: github/codeql-action/init@v2
+    uses: github/codeql-action/init@v3
     with:
       languages: ${{ matrix.language }}
       queries: security-and-quality
@@ -119,7 +121,7 @@ steps:
       make BOLOS_SDK=${{ matrix.sdk }}
 
   - name: Perform CodeQL Analysis
-    uses: github/codeql-action/analyze@v2
+    uses: github/codeql-action/analyze@v3
 ```
 
 Next the results of CodeQL are displayed on your GitHub security view, in the “Code scanning alerts” panel. If CodeQL is configured to run when a pull request (PR) on some branches is made, the results will also be shown in the “Checks” parts of the PR.

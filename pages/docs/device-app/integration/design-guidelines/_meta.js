@@ -1,6 +1,8 @@
-export default {
-	nano: 'Nano devices',
-	'stax-flex': 'Stax and Flex devices',
-	'display-management': 'Display management'
-
+export default {  
+	intro: 'Introduction',
+	home:"App's homepage",
+	'info-settings': 'App info and settings',
+	transactions: 'Signing transactions and messages',
+	address: 'Address verification',
+	advanced: 'Advanced interactions'
 }
