@@ -1,17 +1,17 @@
 ---
-title: React Native Bluetooth on iOS (Nano X only) 
+title: React Native Bluetooth on iOS (Nano X only)
 description: In this section, you will see how to create a React Native application using the @ledgerhq/react-native-hw-transport-ble.
 ---
 
-import { Callout } from 'nextra/components'
-import Zoom from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
-import Image from 'next/image'
-
+import { Callout } from "nextra/components";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
+import Image from "next/image";
 
 # React Native Bluetooth on iOS (Nano X only)
 
 ## Introduction
+
 In this section, you will see how to create a React Native application using the [@ledgerhq/react-native-hw-transport-ble](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-web-ble).
 For this project some general prerequisites are mandatory and you can find them [here](../../getting-started#prerequisites).
 
@@ -21,15 +21,18 @@ Then you can now go through the prerequisite for iOS development below.
 
 ### Environnement
 
-Make sure you go through:   
+Make sure you go through:
+
 1. the [Development Prerequisites](../../getting-started#prerequisites).
 1. the [Mobile Environment Setup](./environment-setup).
 
 ## App Coding
+
 Now that we have set up the prerequisites, you can now create the application.
 In this integration, we will use the ethereum application.
 
 ### App setup
+
 First, open a terminal and create a new project. For this tutorial the project will be named “myiOSBTApp”.
 
 Run:
@@ -46,6 +49,7 @@ cd myiOSBTApp
 ### Files
 
 Run:
+
 ```console copy
 mkdir src
 touch polyfill.js
@@ -71,10 +75,10 @@ Then import the polyfill in "index.js" as shown below:
  * @format
  */
 
-import "./polyfill";    //import this
-import {AppRegistry} from 'react-native';
-import App from './src/App';    //modify this import
-import {name as appName} from './app.json';
+import "./polyfill"; //import this
+import { AppRegistry } from "react-native";
+import App from "./src/App"; //modify this import
+import { name as appName } from "./app.json";
 
 AppRegistry.registerComponent(appName, () => App);
 ```
@@ -95,10 +99,10 @@ import TransportBLE from "@ledgerhq/react-native-hw-transport-ble";
 
 class App extends Component {
   state = {
-    transport: null
+    transport: null,
   };
 
-  onSelectDevice = async device => {
+  onSelectDevice = async (device) => {
     const transport = await TransportBLE.open(device);
     transport.on("disconnect", () => {
       // Intentionally for the sake of simplicity we use a transport local state
@@ -129,12 +133,12 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 
 class DeviceItem extends Component {
   state = {
-    pending: false
+    pending: false,
   };
   onPress = async () => {
     this.setState({ pending: true });
@@ -172,12 +176,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   deviceName: {
     fontSize: 20,
-    fontWeight: "bold"
-  }
+    fontWeight: "bold",
+  },
 });
 ```
 
@@ -349,12 +353,12 @@ import AppEth from "@ledgerhq/hw-app-eth";
 import TransportBLE from "@ledgerhq/react-native-hw-transport-ble";
 import QRCode from "react-native-qrcode-svg";
 
-const delay = ms => new Promise(success => setTimeout(success, ms));
+const delay = (ms) => new Promise((success) => setTimeout(success, ms));
 
 class ShowAddressScreen extends Component {
   state = {
     error: null,
-    address: null
+    address: null,
   };
 
   async componentDidMount() {
@@ -370,7 +374,7 @@ class ShowAddressScreen extends Component {
     this.unmounted = true;
   }
 
-  fetchAddress = async verify => {
+  fetchAddress = async (verify) => {
     const { transport } = this.props;
     try {
       const eth = new AppEth(transport);
@@ -421,38 +425,39 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   error: {
     color: "#c00",
-    fontSize: 16
+    fontSize: 16,
   },
   loading: {
     color: "#999",
-    fontSize: 16
+    fontSize: 16,
   },
   title: {
     fontSize: 22,
-    marginBottom: 16
+    marginBottom: 16,
   },
   address: {
     marginTop: 16,
     color: "#555",
-    fontSize: 14
-  }
+    fontSize: 14,
+  },
 });
 ```
 
 Your folder will look like this.
 
 ![Folder of the Application](/device-interaction/folder-rn-ble.png)
-*Fig. 3: Folder of the Application*
+_Fig. 3: Folder of the Application_
 
 ### Dependencies
 
 #### Installation
 
 Run:
+
 ```console copy
 npm install --save react-native-qrcode-svg
 npm install --save react-native-svg
@@ -464,18 +469,18 @@ npm install --save buffer
 npm install --save @ledgerhq/hw-app-eth
 ```
 
-| Package | What it does |
-|---------|------------------|
-| [react-native-qrcode-svg](https://www.npmjs.com/package/react-native-qrcode-svg) | It allows you to create a QR code. |
-|[react-native-svg](https://www.npmjs.com/package/react-native-svg) | It is a mandatory package to use **react-native-qrcode-svg** |
-|[rxjs](https://www.npmjs.com/package/rxjs) | It is a rewrite of "Reactive-Extensions/RxJS" and is the latest production-ready version of RxJS. |
-|[@ledgerhq/hw-transport-web-ble](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-web-ble) | It provides you with all the methods to interact with your Ledger Nano X with a Bluetooth connexion. |
-| [react-native-ble-plx](https://www.npmjs.com/package/react-native-ble-plx) | It scans the bluetooth devices. |
-|[buffer](https://www.npmjs.com/package/buffer) | The goal is to provide an API that is 100% identical to node's Buffer API. |
-| [hw-app-eth](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-eth) | It helps you ask your Ledger device to access the ethereum address. |
-
+| Package                                                                                                                            | What it does                                                                                         |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| [react-native-qrcode-svg](https://www.npmjs.com/package/react-native-qrcode-svg)                                                   | It allows you to create a QR code.                                                                   |
+| [react-native-svg](https://www.npmjs.com/package/react-native-svg)                                                                 | It is a mandatory package to use **react-native-qrcode-svg**                                         |
+| [rxjs](https://www.npmjs.com/package/rxjs)                                                                                         | It is a rewrite of "Reactive-Extensions/RxJS" and is the latest production-ready version of RxJS.    |
+| [@ledgerhq/hw-transport-web-ble](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-web-ble) | It provides you with all the methods to interact with your Ledger Nano X with a Bluetooth connexion. |
+| [react-native-ble-plx](https://www.npmjs.com/package/react-native-ble-plx)                                                         | It scans the bluetooth devices.                                                                      |
+| [buffer](https://www.npmjs.com/package/buffer)                                                                                     | The goal is to provide an API that is 100% identical to node's Buffer API.                           |
+| [hw-app-eth](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-eth)                               | It helps you ask your Ledger device to access the ethereum address.                                  |
 
 #### package.json
+
 Now that the dependencies are installed you can find them in the “package.js”.
 This is how your “package.json” has to look like.
 
@@ -522,6 +527,7 @@ This is how your “package.json” has to look like.
 #### Pod Installation
 
 Then the pod has to be installed in the "ios" folder:
+
 ```console copy
 cd ios/
 pod install
@@ -529,16 +535,17 @@ pod update
 ```
 
 #### Enable Bluetooth
+
 Launch Xcode and open the ios folder in the "myiOSBTApp" folder to add the "NSBluetoothAlwaysUsageDescription" key to the "info.plist".
 
 ![Open a Project on Xcode](/device-interaction/Xcode.png)
-*Fig. 4: Open a Project on Xcode*
+_Fig. 4: Open a Project on Xcode_
 
 ![Choose the Project](/device-interaction/Xcode-project.png)
-*Fig. 5: Choose the Project*
+_Fig. 5: Choose the Project_
 
 ![Add NSBluetoothAlwaysUsageDescription in info.plist](/device-interaction/infoplist.png)
-*Fig. 6: Add NSBluetoothAlwaysUsageDescription in info.plist*
+_Fig. 6: Add NSBluetoothAlwaysUsageDescription in info.plist_
 
 You can now test the application you have built.
 
@@ -546,205 +553,278 @@ You can now test the application you have built.
 
 App testing is done on your smartphone because the Xcode emulator cannot use Bluetooth or USB connexions.
 
-
 <Callout>
-  Please refer to the information for [iOS Emulator limitation](https://developer.apple.com/forums/thread/14983).
+  Please refer to the information for [iOS Emulator
+  limitation](https://developer.apple.com/forums/thread/14983).
 </Callout>
 
 ### Build the App
+
 To build your application on your Apple device you have to connect Xcode to an Apple account as shown below.
 
 ![Connect Xcode to an Apple Account](/device-interaction/Xcode-signing-capabilities.png)
-*Fig. 7: Connect Xcode to an Apple Account*
+_Fig. 7: Connect Xcode to an Apple Account_
 
 Then connect your Apple device to your computer to build the application directly on the Apple device.
 If all goes well the device name will be displayed on the top of the Xcode window, all you have to do is click on the triangle icon on the top left corner to build the app on your Apple device.
 
 ![Build the Application](/device-interaction/Xcode-build.png)
-*Fig. 8: Build the Application*
+_Fig. 8: Build the Application_
 
 ### Trusting the Apple Development
+
 To accept the installation of the application.
 You have to trust the "Apple development" on your device. Follow the steps below.
 
-<br/>
+<br />
 <div className="center">
   <Zoom>
-    <img src="/device-interaction/iphone-settings-1.png" alt="Iphone Settings 1"/>
+    <img
+      src="/device-interaction/iphone-settings-1.png"
+      alt="Iphone Settings 1"
+    />
   </Zoom>
 </div>
 
-<br/>
+<br />
 <div className="center">
   <Zoom>
-    <img src="/device-interaction/iphone-settings-2.png" alt="Iphone Settings 2"/>
+    <img
+      src="/device-interaction/iphone-settings-2.png"
+      alt="Iphone Settings 2"
+    />
   </Zoom>
 </div>
 
-<br/>
+<br />
 <div className="center">
   <Zoom>
-    <img src="/device-interaction/iphone-settings-3.png" alt="Iphone Settings 3"/>
+    <img
+      src="/device-interaction/iphone-settings-3.png"
+      alt="Iphone Settings 3"
+    />
   </Zoom>
 </div>
 
-<br/>
+<br />
 <div className="center">
   <Zoom>
-    <img src="/device-interaction/iphone-settings-4.png" alt="Iphone Settings 4"/>
+    <img
+      src="/device-interaction/iphone-settings-4.png"
+      alt="Iphone Settings 4"
+    />
   </Zoom>
 </div>
 
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-      <img src="/device-interaction/iphone-settings-5.png" alt="Iphone Settings 5"/>
+      <img
+        src="/device-interaction/iphone-settings-5.png"
+        alt="Iphone Settings 5"
+      />
     </Zoom>
-    <figcaption><i>Fig. 9: Trusting the Apple Development</i></figcaption>
+    <figcaption>
+      <i>Fig. 9: Trusting the Apple Development</i>
+    </figcaption>
   </figure>
 </div>
 
 You can finally test the application by launching it.
 
 ### Launching the Application
+
 When launching the application it will be displayed as shown below. You must have the Bluetooth and location activated.
 
-<br/>
+<br />
 <div className="center">
   <Zoom>
-    <img src="/device-interaction/iphone-rn-ble1.png" alt="Launching the Application"/>
+    <img
+      src="/device-interaction/iphone-rn-ble1.png"
+      alt="Launching the Application"
+    />
   </Zoom>
 </div>
 
-<br/>
+<br />
 <div className="center">
   <Zoom>
-    <img src="/device-interaction/iphone-rn-ble2.png" alt="Launching the Application"/>
+    <img
+      src="/device-interaction/iphone-rn-ble2.png"
+      alt="Launching the Application"
+    />
   </Zoom>
 </div>
 
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-    <img src="/device-interaction/iphone-rn-ble3.png" alt="Launching the Application"/>
+      <img
+        src="/device-interaction/iphone-rn-ble3.png"
+        alt="Launching the Application"
+      />
     </Zoom>
-    <figcaption><i>Fig. 10: Launching the Application</i></figcaption>
+    <figcaption>
+      <i>Fig. 10: Launching the Application</i>
+    </figcaption>
   </figure>
 </div>
 
 ### Pairing the Ledger Nano X
+
 To pair your Ledger Nano X you must unlock it.
 
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-    <img src="/device-interaction/ledgerCodePin.jpg" alt="Nano Code Pin"/>
+      <img src="/device-interaction/ledgerCodePin.jpg" alt="Nano Code Pin" />
     </Zoom>
-    <figcaption><i>Fig. 11: Nano Code Pin</i></figcaption>
+    <figcaption>
+      <i>Fig. 11: Nano Code Pin</i>
+    </figcaption>
   </figure>
 </div>
 
-
 Pair the Ledger Nano X to your Apple device.
 
-<br/>
+<br />
 <div className="center">
   <Zoom>
-    <img src="/device-interaction/iphone-rn-ble4.png" alt="Pairing the Ledger Nano"/>
+    <img
+      src="/device-interaction/iphone-rn-ble4.png"
+      alt="Pairing the Ledger Nano"
+    />
   </Zoom>
 </div>
 
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-    <img src="/device-interaction/iphone-rn-ble5.png" alt="Pairing the Ledger Nano"/>
+      <img
+        src="/device-interaction/iphone-rn-ble5.png"
+        alt="Pairing the Ledger Nano"
+      />
     </Zoom>
-    <figcaption><i>Fig. 12: Pairing the Ledger Nano X</i></figcaption>
+    <figcaption>
+      <i>Fig. 12: Pairing the Ledger Nano X</i>
+    </figcaption>
   </figure>
 </div>
 
 ### Pairing and Launching the Ethereum App on the Nano X
+
 The pairing code displayed on your Ledger Nano X needs to be confirmed.
 
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-    <img src="/device-interaction/ledgerPairing.jpg" alt="Confirm the pairing"/>
+      <img
+        src="/device-interaction/ledgerPairing.jpg"
+        alt="Confirm the pairing"
+      />
     </Zoom>
-    <figcaption><i>Fig. 13: Confirm the pairing</i></figcaption>
+    <figcaption>
+      <i>Fig. 13: Confirm the pairing</i>
+    </figcaption>
   </figure>
 </div>
 
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-    <img src="/device-interaction/ledgerEth.jpg" alt="Embedded Application"/>
+      <img src="/device-interaction/ledgerEth.jpg" alt="Embedded Application" />
     </Zoom>
-    <figcaption><i>Fig. 14: Embedded Application</i></figcaption>
+    <figcaption>
+      <i>Fig. 14: Embedded Application</i>
+    </figcaption>
   </figure>
 </div>
 
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-    <img src="/device-interaction/ledgerReady.jpg" alt="Nano Run Application"/>
+      <img
+        src="/device-interaction/ledgerReady.jpg"
+        alt="Nano Run Application"
+      />
     </Zoom>
-    <figcaption><i>Fig. 15: Nano Run Application</i></figcaption>
+    <figcaption>
+      <i>Fig. 15: Nano Run Application</i>
+    </figcaption>
   </figure>
 </div>
 
 Now that the pairing is done, the Nano X is ready with the ethereum application.
 If all goes well you must see the address of your ethereum account displayed.
 
-
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-    <img src="/device-interaction/iphone-rn-ble6.png" alt="Address Account Displayed on Smartphone"/>
+      <img
+        src="/device-interaction/iphone-rn-ble6.png"
+        alt="Address Account Displayed on Smartphone"
+      />
     </Zoom>
-    <figcaption><i>Fig. 16: Address Account Displayed on Smartphone</i></figcaption>
+    <figcaption>
+      <i>Fig. 16: Address Account Displayed on Smartphone</i>
+    </figcaption>
   </figure>
 </div>
 
 ### Verify the Address
+
 For security purposes, we display on your Nano X the same ethereum address for you to confirm.
 
-
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-    <img src="/device-interaction/ledgerVerify.jpg" alt="Nano Verify Screen"/>
+      <img
+        src="/device-interaction/ledgerVerify.jpg"
+        alt="Nano Verify Screen"
+      />
     </Zoom>
-    <figcaption><i>Fig. 17: Nano Verify Screen</i></figcaption>
+    <figcaption>
+      <i>Fig. 17: Nano Verify Screen</i>
+    </figcaption>
   </figure>
 </div>
 
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-    <img src="/device-interaction/ledgerAddress.jpg" alt="Nano Verify Address Screen"/>
+      <img
+        src="/device-interaction/ledgerAddress.jpg"
+        alt="Nano Verify Address Screen"
+      />
     </Zoom>
-    <figcaption><i>Fig. 18: Nano Verify Address Screen</i></figcaption>
+    <figcaption>
+      <i>Fig. 18: Nano Verify Address Screen</i>
+    </figcaption>
   </figure>
 </div>
 
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-    <img src="/device-interaction/ledgerApprove.jpg" alt="Embedded Approve Screen"/>
+      <img
+        src="/device-interaction/ledgerApprove.jpg"
+        alt="Embedded Approve Screen"
+      />
     </Zoom>
-    <figcaption><i>Fig. 19: Embedded Approve Screen</i></figcaption>
+    <figcaption>
+      <i>Fig. 19: Embedded Approve Screen</i>
+    </figcaption>
   </figure>
 </div>
 

@@ -3,16 +3,15 @@ title: React Native Bluetooth on Android (Nano X only)
 description: In this section you will see how to create a React Native application using the @ledgerhq/react-native-hw-transport-ble.
 ---
 
-import { Callout } from 'nextra/components'
-import Zoom from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
-import Image from 'next/image'
-
-
+import { Callout } from "nextra/components";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
+import Image from "next/image";
 
 # React Native Bluetooth on Android (Nano X only)
 
 ## Introduction
+
 In this section you will see how to create a React Native application using the [@ledgerhq/react-native-hw-transport-ble](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/react-native-hw-transport-ble).
 For this project some general prerequisites are mandatory and you can find them [here](../../getting-started#prerequisites).
 
@@ -20,13 +19,15 @@ Then you can now go through the prerequisite for Android development below.
 
 ## One-time setup
 
-###  Environnement
+### Environnement
 
-Make sure you go through:   
+Make sure you go through:
+
 1. the [Development Prerequisites](../../getting-started#prerequisites).
 1. the [Mobile Environment Setup](./environment-setup).
 
 ### Environnement variables
+
 If you are using bash, put the environment variable into the bash_profile as below:
 
 ```console copy
@@ -94,10 +95,10 @@ Then import the "polyfill.js" in "index.js" as shown below:
  * @format
  */
 
-import "./polyfill";    //import this
-import {AppRegistry} from 'react-native';
-import App from './src/App';    //modify this import
-import {name as appName} from './app.json';
+import "./polyfill"; //import this
+import { AppRegistry } from "react-native";
+import App from "./src/App"; //modify this import
+import { name as appName } from "./app.json";
 
 AppRegistry.registerComponent(appName, () => App);
 ```
@@ -118,10 +119,10 @@ import TransportBLE from "@ledgerhq/react-native-hw-transport-ble";
 
 class App extends Component {
   state = {
-    transport: null
+    transport: null,
   };
 
-  onSelectDevice = async device => {
+  onSelectDevice = async (device) => {
     const transport = await TransportBLE.open(device);
     transport.on("disconnect", () => {
       // Intentionally for the sake of simplicity we use a transport local state
@@ -152,12 +153,12 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 
 class DeviceItem extends Component {
   state = {
-    pending: false
+    pending: false,
   };
   onPress = async () => {
     this.setState({ pending: true });
@@ -195,12 +196,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   deviceName: {
     fontSize: 20,
-    fontWeight: "bold"
-  }
+    fontWeight: "bold",
+  },
 });
 ```
 
@@ -372,12 +373,12 @@ import AppEth from "@ledgerhq/hw-app-eth";
 import TransportBLE from "@ledgerhq/react-native-hw-transport-ble";
 import QRCode from "react-native-qrcode-svg";
 
-const delay = ms => new Promise(success => setTimeout(success, ms));
+const delay = (ms) => new Promise((success) => setTimeout(success, ms));
 
 class ShowAddressScreen extends Component {
   state = {
     error: null,
-    address: null
+    address: null,
   };
 
   async componentDidMount() {
@@ -393,7 +394,7 @@ class ShowAddressScreen extends Component {
     this.unmounted = true;
   }
 
-  fetchAddress = async verify => {
+  fetchAddress = async (verify) => {
     const { transport } = this.props;
     try {
       const eth = new AppEth(transport);
@@ -444,38 +445,39 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   error: {
     color: "#c00",
-    fontSize: 16
+    fontSize: 16,
   },
   loading: {
     color: "#999",
-    fontSize: 16
+    fontSize: 16,
   },
   title: {
     fontSize: 22,
-    marginBottom: 16
+    marginBottom: 16,
   },
   address: {
     marginTop: 16,
     color: "#555",
-    fontSize: 14
-  }
+    fontSize: 14,
+  },
 });
 ```
 
-The folder will contain these files:  
+The folder will contain these files:
 
 ![Folder of the Application](/device-interaction/folder-rn-ble.png)
-*Fig. 4: Folder of the Application*
+_Fig. 4: Folder of the Application_
 
 ### Dependencies
 
 #### Installation
 
 Run:
+
 ```console copy
 npm install --save react-native-qrcode-svg
 npm install --save react-native-svg
@@ -486,18 +488,19 @@ npx react-native link react-native-ble-plx
 npm install --save buffer
 npm install --save @ledgerhq/hw-app-eth
 ```
-| Package | What it does |
-|---------|------------------|
-| [react-native-qrcode-svg](https://www.npmjs.com/package/react-native-qrcode-svg) | It allows you to create a QR code. |
-|[react-native-svg](https://www.npmjs.com/package/react-native-svg) | It is a mandatory package to use **react-native-qrcode-svg** |
-|[rxjs](https://www.npmjs.com/package/rxjs) | It is a rewrite of "Reactive-Extensions/RxJS" and is the latest production-ready version of RxJS. |
-|[@ledgerhq/hw-transport-web-ble](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-web-ble) | It provides you with all the methods to interact with your Ledger Nano X with a Bluetooth connexion. |
-| [react-native-ble-plx](https://www.npmjs.com/package/react-native-ble-plx) | It scans the bluetooth devices. |
-|[buffer](https://www.npmjs.com/package/buffer) | The goal is to provide an API that is 100% identical to node's Buffer API. |
-| [hw-app-eth](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-eth) | It helps you ask your Ledger device to access the ethereum address. |
 
+| Package                                                                                                                            | What it does                                                                                         |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| [react-native-qrcode-svg](https://www.npmjs.com/package/react-native-qrcode-svg)                                                   | It allows you to create a QR code.                                                                   |
+| [react-native-svg](https://www.npmjs.com/package/react-native-svg)                                                                 | It is a mandatory package to use **react-native-qrcode-svg**                                         |
+| [rxjs](https://www.npmjs.com/package/rxjs)                                                                                         | It is a rewrite of "Reactive-Extensions/RxJS" and is the latest production-ready version of RxJS.    |
+| [@ledgerhq/hw-transport-web-ble](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-web-ble) | It provides you with all the methods to interact with your Ledger Nano X with a Bluetooth connexion. |
+| [react-native-ble-plx](https://www.npmjs.com/package/react-native-ble-plx)                                                         | It scans the bluetooth devices.                                                                      |
+| [buffer](https://www.npmjs.com/package/buffer)                                                                                     | The goal is to provide an API that is 100% identical to node's Buffer API.                           |
+| [hw-app-eth](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-eth)                               | It helps you ask your Ledger device to access the ethereum address.                                  |
 
 #### package.json
+
 Now that the dependencies are installed you can find them in the “package.js”.
 This is how your “package.json” has to look like.
 
@@ -540,12 +543,13 @@ This is how your “package.json” has to look like.
 }
 
 ```
+
 #### Build.gradle Modification
 
 In “build.gradle”, in the "android" folder change `minSdkVersion = 21` to `minSdkVersion = 24`.
 
 ![Build.gradle Modify the minSdkVersion](/device-interaction/change-minSDK.png)
-*Fig. 5: Build.gradle Modify the minSdkVersion*
+_Fig. 5: Build.gradle Modify the minSdkVersion_
 
 You can now test the application you have built.
 
@@ -553,221 +557,305 @@ You can now test the application you have built.
 
 App testing is done on your smartphone because the Android Studio emulator cannot use Bluetooth or USB connexions.
 
-
 <Callout emoji="📖">
   Please refer to the information for [Android Emulator Limitation](https://stackoverflow.com/questions/22604305/how-to-use-android-emulator-for-testing-bluetooth-application).
 
 </Callout>
 
 ### Enable Developer Settings
-To integrate an application on your Android smartphone you have to enable the developer role.
-To do that go to  Settings > About Phone > Build Number, and tap 7 times on build number to enable the developer settings.
 
-Then go to Settings > System > Advanced > Developer Options and enable the  "USB debugging" as well as "Install via USB"
+To integrate an application on your Android smartphone you have to enable the developer role.
+To do that go to Settings > About Phone > Build Number, and tap 7 times on build number to enable the developer settings.
+
+Then go to Settings > System > Advanced > Developer Options and enable the "USB debugging" as well as "Install via USB"
 
 Connect your phone to your computer, and run the command below to check your device is connected:
+
 ```console copy
 adb devices
 ```
+
 If all goes well, the list of devices is displayed as shown below:
 
-<br/>
+<br />
 <div className="center">
   <figure>
-    <img src="/device-interaction/adb-devices.png" alt="Device Connected On The Machine"/>
-    <figcaption><i>Fig. 6: Device Connected On The Machine</i></figcaption>
+    <img
+      src="/device-interaction/adb-devices.png"
+      alt="Device Connected On The Machine"
+    />
+    <figcaption>
+      <i>Fig. 6: Device Connected On The Machine</i>
+    </figcaption>
   </figure>
 </div>
 
 <Callout emoji="📖">
-  For more information about enabling the developer settings on your android device go to [android studio docs](https://developer.android.com/studio/debug/dev-options).
+  For more information about enabling the developer settings on your android
+  device go to [android studio
+  docs](https://developer.android.com/studio/debug/dev-options).
 </Callout>
 
 ### Start the Development Server
+
 You can now open a terminal, go to the "myAndroidBTApp" folder, and start the server by running:
+
 ```console copy
 npm start
 ```
+
 ### Install the App on Device
+
 Keep the terminal where "metro" is running open and open a new terminal.
 In this new terminal go to your app folder:
+
 ```console copy
 cd myAndroidBTApp
 ```
 
-Run the command  below to install the application on your android device. It assumes your smartphone is connected and your device is recognized by the command `adb devices` as mentioned in the [Previous Step](#enable-developer-settings).
+Run the command below to install the application on your android device. It assumes your smartphone is connected and your device is recognized by the command `adb devices` as mentioned in the [Previous Step](#enable-developer-settings).
+
 ```console copy
 npm run android
 ```
 
 A window will pop up on your android device to install the application. Click on "Yes" to install it and run it.
 
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-      <img src="/device-interaction/mobile-install-app.jpg" alt="Mobile Application Installation"/>
+      <img
+        src="/device-interaction/mobile-install-app.jpg"
+        alt="Mobile Application Installation"
+      />
     </Zoom>
-    <figcaption><i>Fig. 7: Mobile Application Installation</i></figcaption>
+    <figcaption>
+      <i>Fig. 7: Mobile Application Installation</i>
+    </figcaption>
   </figure>
 </div>
 
 ### Launching the App
+
 When launching the application it will be displayed as the image below. You must have the Bluetooth and location activated.
 
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-      <img src="/device-interaction/android-rn-ble.jpg" alt="Application Displayed on Smartphone"/>
+      <img
+        src="/device-interaction/android-rn-ble.jpg"
+        alt="Application Displayed on Smartphone"
+      />
     </Zoom>
-    <figcaption><i>Fig. 8: Application Displayed on Smartphone</i></figcaption>
+    <figcaption>
+      <i>Fig. 8: Application Displayed on Smartphone</i>
+    </figcaption>
   </figure>
 </div>
 
 If this is not what you see, you may get:
 
-<br/>
+<br />
 <div className="center">
   <Zoom>
-    <img src="/device-interaction/android-ble-error.jpg" alt="Bluetooth Not Authorized"/>
+    <img
+      src="/device-interaction/android-ble-error.jpg"
+      alt="Bluetooth Not Authorized"
+    />
   </Zoom>
 </div>
 
-<br/>
+<br />
 <div className="center">
   <Zoom>
-    <img src="/device-interaction/android-settings-1.jpg" alt="App Settings 1"/>
+    <img
+      src="/device-interaction/android-settings-1.jpg"
+      alt="App Settings 1"
+    />
   </Zoom>
 </div>
 
-<br/>
+<br />
 <div className="center">
   <Zoom>
-    <img src="/device-interaction/android-settings-2.jpg" alt="App Settings 2"/>
+    <img
+      src="/device-interaction/android-settings-2.jpg"
+      alt="App Settings 2"
+    />
   </Zoom>
 </div>
 
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-      <img src="/device-interaction/android-settings-3.jpg" alt="App Settings 3"/>
+      <img
+        src="/device-interaction/android-settings-3.jpg"
+        alt="App Settings 3"
+      />
     </Zoom>
-    <figcaption><i>Fig. 9: Authorize the Bluetooth</i></figcaption>
+    <figcaption>
+      <i>Fig. 9: Authorize the Bluetooth</i>
+    </figcaption>
   </figure>
 </div>
 
 <Callout>
-  For more information about enabling the Bluetooth settings on your android device go to the troubleshooting tab.
+  For more information about enabling the Bluetooth settings on your android
+  device go to the troubleshooting tab.
 </Callout>
 
-
 ### Pairing the Ledger Nano X
+
 To pair your Ledger Nano X, unlock it.
 
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-      <img src="/device-interaction/ledgerCodePin.jpg" alt="Nano Code Pin"/>
+      <img src="/device-interaction/ledgerCodePin.jpg" alt="Nano Code Pin" />
     </Zoom>
-    <figcaption><i>Fig. 10: Nano Code Pin</i></figcaption>
+    <figcaption>
+      <i>Fig. 10: Nano Code Pin</i>
+    </figcaption>
   </figure>
 </div>
 
 Now try to pair the Ledger Nano X to your android smartphone.
 
-<br/>
+<br />
 <div className="center">
   <Zoom>
-    <img src="/device-interaction/android-rn-ble-list.jpg" alt="Pairing the Ledger Nano X"/>
+    <img
+      src="/device-interaction/android-rn-ble-list.jpg"
+      alt="Pairing the Ledger Nano X"
+    />
   </Zoom>
 </div>
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-      <img src="/device-interaction/android-rn-pairing.jpg" alt="Pairing the Ledger Nano X"/>
+      <img
+        src="/device-interaction/android-rn-pairing.jpg"
+        alt="Pairing the Ledger Nano X"
+      />
     </Zoom>
-    <figcaption><i>Fig. 11: Pairing the Ledger Nano X</i></figcaption>
+    <figcaption>
+      <i>Fig. 11: Pairing the Ledger Nano X</i>
+    </figcaption>
   </figure>
 </div>
 
 ### Pairing and Launching the Ethereum App on Nano X
+
 When pairing, the pairing code will be displayed on your Ledger Nano X to confirm.
 
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-      <img src="/device-interaction/ledgerPairing.jpg" alt="Confirm the pairing"/>
+      <img
+        src="/device-interaction/ledgerPairing.jpg"
+        alt="Confirm the pairing"
+      />
     </Zoom>
-    <figcaption><i>Fig. 12: Confirm the pairing</i></figcaption>
+    <figcaption>
+      <i>Fig. 12: Confirm the pairing</i>
+    </figcaption>
   </figure>
 </div>
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-      <img src="/device-interaction/ledgerEth.jpg" alt="Ethereum Application"/>
+      <img src="/device-interaction/ledgerEth.jpg" alt="Ethereum Application" />
     </Zoom>
-    <figcaption><i>Fig. 13: Ethereum Application</i></figcaption>
+    <figcaption>
+      <i>Fig. 13: Ethereum Application</i>
+    </figcaption>
   </figure>
 </div>
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-      <img src="/device-interaction/ledgerReady.jpg" alt="Nano Run Application"/>
+      <img
+        src="/device-interaction/ledgerReady.jpg"
+        alt="Nano Run Application"
+      />
     </Zoom>
-    <figcaption><i>Fig. 14: Nano Run Application</i></figcaption>
+    <figcaption>
+      <i>Fig. 14: Nano Run Application</i>
+    </figcaption>
   </figure>
 </div>
 
 Now that the pairing is complete, the Nano X is ready with the ethereum application.
 If all goes well you see the address of your ethereum account displayed.
 
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-      <img src="/device-interaction/android-rn-ble-address.jpg" alt="Address Account Displayed on Smartphone"/>
+      <img
+        src="/device-interaction/android-rn-ble-address.jpg"
+        alt="Address Account Displayed on Smartphone"
+      />
     </Zoom>
-    <figcaption><i>Fig. 15: Address Account Displayed on Smartphone</i></figcaption>
+    <figcaption>
+      <i>Fig. 15: Address Account Displayed on Smartphone</i>
+    </figcaption>
   </figure>
 </div>
 
 ### Verify the Address
+
 For security purposes, we display on your Nano X the same ethereum address for you to confirm.
 
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-      <img src="/device-interaction/ledgerVerify.jpg" alt="Nano Verify Screen"/>
+      <img
+        src="/device-interaction/ledgerVerify.jpg"
+        alt="Nano Verify Screen"
+      />
     </Zoom>
-    <figcaption><i>Fig. 16: Nano Verify Screen</i></figcaption>
+    <figcaption>
+      <i>Fig. 16: Nano Verify Screen</i>
+    </figcaption>
   </figure>
 </div>
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-      <img src="/device-interaction/ledgerAddress.jpg" alt="Nano Verify Address Screen"/>
+      <img
+        src="/device-interaction/ledgerAddress.jpg"
+        alt="Nano Verify Address Screen"
+      />
     </Zoom>
-    <figcaption><i>Fig. 17: Nano Verify Address Screen</i></figcaption>
+    <figcaption>
+      <i>Fig. 17: Nano Verify Address Screen</i>
+    </figcaption>
   </figure>
 </div>
-<br/>
+<br />
 <div className="center">
   <figure>
     <Zoom>
-      <img src="/device-interaction/ledgerApprove.jpg" alt="Device Approve Screen"/>
+      <img
+        src="/device-interaction/ledgerApprove.jpg"
+        alt="Device Approve Screen"
+      />
     </Zoom>
-    <figcaption><i>Fig. 18: Device Approve Screen</i></figcaption>
+    <figcaption>
+      <i>Fig. 18: Device Approve Screen</i>
+    </figcaption>
   </figure>
 </div>
-
 
 Congratulations you have successfully built your first Android Bluetooth application connected to your Ledger!

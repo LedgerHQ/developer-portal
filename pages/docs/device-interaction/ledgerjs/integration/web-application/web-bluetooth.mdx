@@ -3,22 +3,23 @@ title: Web Bluetooth
 description: In this section, we will guide you through the creation of an application. This application will connect to your Ledger Nano X to display the address of your account (eg. bitcoin account, ethereum account).
 ---
 
-import { Callout } from 'nextra/components'
-import Image from 'next/image'
-
+import { Callout } from "nextra/components";
+import Image from "next/image";
 
 # Web Bluetooth
 
 ## Introduction
+
 In this section, we will guide you through the creation of an application.  
-This application will connect to your Ledger Nano X to display the address of your account (eg. bitcoin account, ethereum account). 
+This application will connect to your Ledger Nano X to display the address of your account (eg. bitcoin account, ethereum account).
 
 <Callout type="warning" emoji="⚠️">
 **This walkthrough will only work with a Ledger Nano X**.  
-The Ledger Nano S and S Plus do not have `Bluetooth` connection. 
+The Ledger Nano S and S Plus do not have `Bluetooth` connection.
 
 Please be aware that the Bluetooth implementation is only supported by a few browsers. <br/>
 You can check if [your browser supports](https://caniuse.com/web-bluetooth) connections via Web Bluetooth.
+
 </Callout>
 
 ## One-time setup
@@ -40,7 +41,9 @@ From your `Github folder` or favourite `examples folder`, run:
 ```console copy
 npx create-next-app@latest examples-web-bluetooth
 ```
+
 You will prompted a series of questions, answer as indicated below:
+
 ```console copy
 Would you like to use TypeScript? No
 Would you like to use ESLint? No
@@ -51,14 +54,15 @@ Would you like to customize the default import alias (@/*)? No
 ```
 
 Navigate to your app’s directory:
+
 ```console copy
 cd examples-web-bluetooth
 ```
 
-Open the folder in an editor. The folder will contain these files:  
+Open the folder in an editor. The folder will contain these files:
 
 ![Folder of the Application](/device-interaction/folderWebBle.png)
-*Fig. 1: Folder of the Application*
+_Fig. 1: Folder of the Application_
 
 ### Files
 
@@ -77,6 +81,7 @@ export default function Home() {
   );
 }
 ```
+
 #### \_app.js
 
 In pages/\_app.js replace the existing coe with the following:
@@ -86,15 +91,14 @@ import React, { Component } from "react";
 import eip55 from "eip55";
 import BluetoothTransport from "@ledgerhq/hw-transport-web-ble";
 import AppEth from "@ledgerhq/hw-app-eth";
-import styles from '../styles/Home.module.css';
+import styles from "../styles/Home.module.css";
 import QRCode from "qrcode";
 
-
-const delay = ms => new Promise(success => setTimeout(success, ms));
+const delay = (ms) => new Promise((success) => setTimeout(success, ms));
 
 class DeviceSelectionScreen extends Component {
   state = {
-    devices: []
+    devices: [],
   };
 
   createBLE = async () => {
@@ -117,7 +121,7 @@ class DeviceSelectionScreen extends Component {
 class ShowAddressScreen extends Component {
   state = {
     error: null,
-    address: null
+    address: null,
   };
 
   async componentDidMount() {
@@ -134,7 +138,7 @@ class ShowAddressScreen extends Component {
     this.unmounted = true;
   }
 
-  fetchAddress = async verify => {
+  fetchAddress = async (verify) => {
     const { transport } = this.props;
     try {
       const eth = new AppEth(transport);
@@ -154,14 +158,13 @@ class ShowAddressScreen extends Component {
 
   async generateQRCode() {
     try {
-      const response = await QRCode.toCanvas(this.state.address)
-      document.getElementById("qrcode").appendChild(response)
+      const response = await QRCode.toCanvas(this.state.address);
+      document.getElementById("qrcode").appendChild(response);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
-  
   render() {
     const { address, error } = this.state;
 
@@ -192,10 +195,10 @@ class ShowAddressScreen extends Component {
 
 class App extends Component {
   state = {
-    transport: null
+    transport: null,
   };
 
-  onSelectDevice = transport => {
+  onSelectDevice = (transport) => {
     window.ledgerTransport = transport;
     transport.on("disconnect", () => {
       this.setState({ transport: null });
@@ -220,7 +223,6 @@ class App extends Component {
 export default App;
 ```
 
-
 #### Home.module.css
 
 In Styles/Home.module.css replace the existing code with the following:
@@ -233,9 +235,9 @@ In Styles/Home.module.css replace the existing code with the following:
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -273,7 +275,7 @@ In Styles/Home.module.css replace the existing code with the following:
 
 #### Modify next.config.js
 
- Remove `reactStrictMode: true,`
+Remove `reactStrictMode: true,`
 
 ```
 /** @type {import('next').NextConfig} */
@@ -281,7 +283,6 @@ const nextConfig = {}
 
 module.exports = nextConfig
 ```
-
 
 ### Dependencies
 
@@ -295,13 +296,13 @@ npm install --save @ledgerhq/hw-transport-web-ble
 npm install --save eip55
 ```
 
-| Package | What does it do? |
-|---------|------------------|
-|[@ledgerhq/hw-app-eth](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-eth) | It will help you ask your Nano to access the ethereum address. |
-|[@ledgerhq/hw-transport-web-ble](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-web-ble) | It provides you with all the methods to interact with your Ledger Nano X with a Bluetooth connexion. |
-|[eip55](https://www.npmjs.com/package/eip55) | An EIP55 compatible address encoding library.|
+| Package                                                                                                                            | What does it do?                                                                                     |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| [@ledgerhq/hw-app-eth](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-eth)                     | It will help you ask your Nano to access the ethereum address.                                       |
+| [@ledgerhq/hw-transport-web-ble](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-web-ble) | It provides you with all the methods to interact with your Ledger Nano X with a Bluetooth connexion. |
+| [eip55](https://www.npmjs.com/package/eip55)                                                                                       | An EIP55 compatible address encoding library.                                                        |
 
-#### Package.json 
+#### Package.json
 
 Now that the dependencies are installed you can find them in the “package.js”.
 
@@ -309,6 +310,7 @@ Now that the dependencies are installed you can find them in the “package.js�
 1. Check Contents
 
 ##### Modify Scripts
+
 ```javascript copy
   "scripts": {
     "dev": "next dev",
@@ -317,7 +319,7 @@ Now that the dependencies are installed you can find them in the “package.js�
   },
 ```
 
-##### Check your “package.json” looks like this:  
+##### Check your “package.json” looks like this:
 
 ```javascript copy
 {
@@ -340,17 +342,16 @@ Now that the dependencies are installed you can find them in the “package.js�
   }
 }
 ```
+
 ## App Launch
 
 ### Enable Bluetooth
 
-Make sure the Bluetooth feature of your Nano is enabled.  To check, see [here](https://support.ledger.com/hc/en-us/articles/360019115193-Access-Control-Center?docs=true).
+Make sure the Bluetooth feature of your Nano is enabled. To check, see [here](https://support.ledger.com/hc/en-us/articles/360019115193-Access-Control-Center?docs=true).
 
 <Callout type="warning" emoji="⚠️">
-  If it was not enabled, you need to: 
-  1. enable it 
-  2. power OFF your Nano 
-  3. and power it back ON.
+  If it was not enabled, you need to: 1. enable it 2. power OFF your Nano 3. and
+  power it back ON.
 </Callout>
 
 ### Start de Development Server
@@ -363,82 +364,104 @@ npm run dev
 ```
 
 <Callout type="warning" emoji="⚠️">
-  Not all browsers support Bluetooth. <br/>
+  Not all browsers support Bluetooth. <br />
   Please look at the [browser support page](https://caniuse.com/web-bluetooth).
 </Callout>
 
 Now the application is up and running. Open the browser and go to `localhost:3000`, it will display :
 
 ![Application Running on Browser](/device-interaction/webBle1.png)
-*Fig. 2: Application Running on Browser*  
+_Fig. 2: Application Running on Browser_
 
 ### Launch Ethereum App
+
 Before clicking on the button, unlock it and run the Ethereum application.
 The steps are described below.
 
-<br/>
+<br />
 <div className="center">
   <figure>
-    <img src=":connectivity/ledgerCodePin.jpg" alt="Nano Enter Code Pin"/>
-    <figcaption><i>Fig. 4: Nano Enter Code Pin</i></figcaption>
+    <img src=":connectivity/ledgerCodePin.jpg" alt="Nano Enter Code Pin" />
+    <figcaption>
+      <i>Fig. 4: Nano Enter Code Pin</i>
+    </figcaption>
   </figure>
 </div>
-<br/>
+<br />
 <div className="center">
   <figure>
-    <img src="/device-interaction/ledgerEth.jpg" alt="Embedded Application"/>
-    <figcaption><i>Fig. 5: Embedded Application</i></figcaption>
+    <img src="/device-interaction/ledgerEth.jpg" alt="Embedded Application" />
+    <figcaption>
+      <i>Fig. 5: Embedded Application</i>
+    </figcaption>
   </figure>
 </div>
-<br/>
+<br />
 <div className="center">
   <figure>
-    <img src="/device-interaction/ledgerReady.jpg" alt="Embedded App is Running"/>
-    <figcaption><i>Fig. 6: The App is running</i></figcaption>
+    <img
+      src="/device-interaction/ledgerReady.jpg"
+      alt="Embedded App is Running"
+    />
+    <figcaption>
+      <i>Fig. 6: The App is running</i>
+    </figcaption>
   </figure>
 </div>
 
 ### Connect Your Nano to the Application
+
 Now you can click on the button and a popup will be prompt. Choose your Ledger Nano X and click connexion
 
 ![Connect the Nano with Bluetooth](/device-interaction/webBle2.png)
-*Fig. 7: Connect the Nano with Bluetooth*
+_Fig. 7: Connect the Nano with Bluetooth_
 
 Then another popup will be prompt to ask you to confirm the pairing
 
 ![Request of Pairing](/device-interaction/webBle3.png)
-*Fig. 8: Request of Pairing*
+_Fig. 8: Request of Pairing_
 
 Finally, if all goes well the address must be displayed with the QR code
 
 ![Address Account Displayed](/device-interaction/webBle4.png)
-*Fig. 9: Address Account Displayed*
+_Fig. 9: Address Account Displayed_
 
 ### Verify the Address on Nano
 
 For security reasons, the address will also be displayed on your Ledger Nano X to verify and confirm the address.
 
-<br/>
+<br />
 <div className="center">
   <figure>
-    <img src="/device-interaction/ledgerVerify.jpg" alt="Nano Verify Screen"/>
-    <figcaption><i>Fig. 10: Nano Verify Screen</i></figcaption>
+    <img src="/device-interaction/ledgerVerify.jpg" alt="Nano Verify Screen" />
+    <figcaption>
+      <i>Fig. 10: Nano Verify Screen</i>
+    </figcaption>
   </figure>
 </div>
-<br/>
+<br />
 <div className="center">
   <figure>
-    <img src="/device-interaction/ledgerAddress.jpg" alt="Nano Verify Address Screen"/>
-    <figcaption><i>Fig. 11: Nano Verify Address Screen</i></figcaption>
+    <img
+      src="/device-interaction/ledgerAddress.jpg"
+      alt="Nano Verify Address Screen"
+    />
+    <figcaption>
+      <i>Fig. 11: Nano Verify Address Screen</i>
+    </figcaption>
   </figure>
 </div>
-<br/>
+<br />
 <div className="center">
   <figure>
-    <img src="/device-interaction/ledgerApprove.jpg" alt="Embedded Approve Screen"/>
-    <figcaption><i>Fig. 12: Embedded Approve Screen</i></figcaption>
+    <img
+      src="/device-interaction/ledgerApprove.jpg"
+      alt="Embedded Approve Screen"
+    />
+    <figcaption>
+      <i>Fig. 12: Embedded Approve Screen</i>
+    </figcaption>
   </figure>
 </div>
-
 
 Congratulations you have successfully built your first application connected to your Ledger Nano X!

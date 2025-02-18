@@ -3,18 +3,19 @@ title: Web USB/HID
 description: In this section, we will guide you through the creation of a web application. This application will connect to your Nano to display the address of a Bitcoin account. If you want it for Ethereum you can easily modify it.
 ---
 
-import Image from 'next/image'
-import { Callout } from 'nextra/components'
+import Image from "next/image";
+import { Callout } from "nextra/components";
 
 # Web USB/HID
 
 ## Introduction
+
 In this section, we will guide you through the creation of a web application.  
 The instructions for Web USB and Web HID are very similar, with only a few lines to comment out, so this is a combined walkthrough.  
-This application will connect to your Nano to display the address of a Bitcoin account. 
+This application will connect to your Nano to display the address of a Bitcoin account.
 You can easily modify the code, if you want it for Ethereum.
 
-Reference note: the packages referenced here are     
+Reference note: the packages referenced here are  
  Web USB: [@ledgerhq/hw-transport-webusb](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-webusb)  
  Web HID: [@ledgerhq/hw-transport-webhid](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-webhid).
 
@@ -51,45 +52,43 @@ touch src/index.html
 touch src/main.js
 ```
 
-The folder will contain these files:  
+The folder will contain these files:
 
 ![Folder USB and HID](/device-interaction/folderUsbHid.png)
-*Fig. 1: File structure*
+_Fig. 1: File structure_
 
 ### Files
+
 Open the folder example-web-hid-usb in an code editor.
 
 #### index.html
-In index.html copy-paste the following code :
 
+In index.html copy-paste the following code :
 
 ```html copy
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <title>My First Embedded App</title>
     <script type="module" src="main.js"></script>
   </head>
-  <body id="main">
-
-  </body>
+  <body id="main"></body>
 </html>
 ```
-
 
 #### main.js
 
 In main.js copy-paste the following code:
 
 <Callout type="warning" emoji="⚠️">
-  Comment out or remove the `import` package you don't need <br/>
-  (`@ledgerhq/hw-transport-webusb` or `@ledgerhq/hw-transport-webhid`) <br/>
+  Comment out or remove the `import` package you don't need <br />
+  (`@ledgerhq/hw-transport-webusb` or `@ledgerhq/hw-transport-webhid`) <br />
   and the `const transport` you don't use.
 </Callout>
 
 ```javascript copy
-import 'core-js/actual';
+import "core-js/actual";
 import { listen } from "@ledgerhq/logs";
 import AppBtc from "@ledgerhq/hw-app-btc";
 
@@ -99,14 +98,14 @@ import TransportWebUSB from "@ledgerhq/hw-transport-webusb";
 import TransportWebHID from "@ledgerhq/hw-transport-webhid";
 
 //Display the header in the div which has the ID "main"
-const initial = "<h1>Connect your Nano and open the Bitcoin app. Click anywhere to start...</h1>";
+const initial =
+  "<h1>Connect your Nano and open the Bitcoin app. Click anywhere to start...</h1>";
 const $main = document.getElementById("main");
 $main.innerHTML = initial;
 
 document.body.addEventListener("click", async () => {
   $main.innerHTML = initial;
   try {
-
     // Keep if you chose the USB protocol
     const transport = await TransportWebUSB.create();
 
@@ -114,13 +113,13 @@ document.body.addEventListener("click", async () => {
     const transport = await TransportWebHID.create();
 
     //listen to the events which are sent by the Ledger packages in order to debug the app
-    listen(log => console.log(log))
+    listen((log) => console.log(log));
 
     //When the Ledger device connected it is trying to display the bitcoin address
     const appBtc = new AppBtc({ transport, currency: "bitcoin" });
     const { bitcoinAddress } = await appBtc.getWalletPublicKey(
       "44'/0'/0'/0/0",
-      { verify: false, format: "legacy"}
+      { verify: false, format: "legacy" },
     );
 
     //Display your bitcoin address on the screen
@@ -130,9 +129,11 @@ document.body.addEventListener("click", async () => {
     $main.appendChild(h2);
 
     //Display the address on the Ledger device and ask to verify the address
-    await appBtc.getWalletPublicKey("44'/0'/0'/0/0", {format:"legacy", verify: true});
+    await appBtc.getWalletPublicKey("44'/0'/0'/0/0", {
+      format: "legacy",
+      verify: true,
+    });
   } catch (e) {
-
     //Catch any error thrown and displays it on the screen
     const $err = document.createElement("code");
     $err.style.color = "#f66";
@@ -141,7 +142,8 @@ document.body.addEventListener("click", async () => {
   }
 });
 ```
-### Dependencies 
+
+### Dependencies
 
 #### Installation
 
@@ -154,34 +156,35 @@ npm install --save-dev parcel
 npm install --save @ledgerhq/hw-app-btc
 ```
 
-| Package | What does it do? |
-|---------|------------------|
-|[core-js](https://www.npmjs.com/package/core-js) | Modular standard library for JavaScript. |
-|[@ledgerhq/logs](https://www.npmjs.com/package/@ledgerhq/logs) | It provides you the log of all the errors from your connection with your Nano that may appear when developing. |
-|[parcel](https://parceljs.org/) | It is a build tool that will help you package your application to run it in the browser. |
-|[@ledgerhq/hw-app-btc](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-btc) | It will help you ask your Nano to access the Bitcoin address. |
+| Package                                                                                                        | What does it do?                                                                                               |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| [core-js](https://www.npmjs.com/package/core-js)                                                               | Modular standard library for JavaScript.                                                                       |
+| [@ledgerhq/logs](https://www.npmjs.com/package/@ledgerhq/logs)                                                 | It provides you the log of all the errors from your connection with your Nano that may appear when developing. |
+| [parcel](https://parceljs.org/)                                                                                | It is a build tool that will help you package your application to run it in the browser.                       |
+| [@ledgerhq/hw-app-btc](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-app-btc) | It will help you ask your Nano to access the Bitcoin address.                                                  |
 
 #### Install the Transport HID or USB package
 
 Then depending on your choice install one of the corresponding packages:
-- Install the Ledger package [@ledgerhq/hw-transport-webhid](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-webhid) which provide you with all the methods to interact with your Nano with an HID connection:
-    ```console copy
-    npm install --save @ledgerhq/hw-transport-webhid
-    ```
-- Install the Ledger package [@ledgerhq/hw-transport-webusb](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-webusb) which provide you with all the methods to interact with your Nano with a USB connection:
-    ```console copy
-    npm install --save @ledgerhq/hw-transport-webusb
-    ``` 
 
+- Install the Ledger package [@ledgerhq/hw-transport-webhid](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-webhid) which provide you with all the methods to interact with your Nano with an HID connection:
+  ```console copy
+  npm install --save @ledgerhq/hw-transport-webhid
+  ```
+- Install the Ledger package [@ledgerhq/hw-transport-webusb](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/hw-transport-webusb) which provide you with all the methods to interact with your Nano with a USB connection:
+  ```console copy
+  npm install --save @ledgerhq/hw-transport-webusb
+  ```
 
 #### Package.json
 
 Modify `"main": "index.js"` to `"source": "src/index.html"`.
 
 And ensure you have this line in your package.json:
+
 ```javascript copy
   "scripts": {
-    "build": "parcel build", 
+    "build": "parcel build",
     "start": "parcel"
   },
 ```
@@ -197,8 +200,9 @@ Add this at the end of the script:
 Your "package.json" should look like this:
 
 <Callout type="warning" emoji="⚠️">
-  In the `dependencies` section of package.json, comment out or remove the line you don't need <br/>
-  (`@ledgerhq/hw-transport-webusb` or `@ledgerhq/hw-transport-webhid`) <br/>
+  In the `dependencies` section of package.json, comment out or remove the line
+  you don't need <br />
+  (`@ledgerhq/hw-transport-webusb` or `@ledgerhq/hw-transport-webhid`) <br />
   Do not copy-paste as is, without removing the other line.
 </Callout>
 
@@ -247,7 +251,7 @@ npm run start
 Now the application is up and running. Open the browser and go to `localhost:1234`, it will display :
 
 ![Application running on browser](/device-interaction/webapp1.png)
-*Fig. 3: Application Running on Browser*
+_Fig. 3: Application Running on Browser_
 
 Before clicking on the text connect your Nano to the USB port, unlock it and run the bitcoin application. The steps are described below.
 
@@ -255,22 +259,34 @@ Before clicking on the text connect your Nano to the USB port, unlock it and run
 
 <div className="center">
   <figure>
-    <img src="/device-interaction/ledgerCodePin.jpg" alt="Nano Enter Code Pin"/>
-    <figcaption><i>Fig. 4: Enter Pin</i></figcaption>
+    <img
+      src="/device-interaction/ledgerCodePin.jpg"
+      alt="Nano Enter Code Pin"
+    />
+    <figcaption>
+      <i>Fig. 4: Enter Pin</i>
+    </figcaption>
   </figure>
 </div>
-<br/>
+<br />
 <div className="center">
   <figure>
-    <img src="/device-interaction/ledgerBtc.jpg" alt="Select Bictoin"/>
-    <figcaption><i>Fig. 5: Select Bictoin</i></figcaption>
+    <img src="/device-interaction/ledgerBtc.jpg" alt="Select Bictoin" />
+    <figcaption>
+      <i>Fig. 5: Select Bictoin</i>
+    </figcaption>
   </figure>
 </div>
-<br/>
+<br />
 <div className="center">
   <figure>
-    <img src="/device-interaction/ledgerReady.jpg" alt="Embedded Run Application"/>
-    <figcaption><i>Fig. 6: Embedded Run Application</i></figcaption>
+    <img
+      src="/device-interaction/ledgerReady.jpg"
+      alt="Embedded Run Application"
+    />
+    <figcaption>
+      <i>Fig. 6: Embedded Run Application</i>
+    </figcaption>
   </figure>
 </div>
 
@@ -279,7 +295,7 @@ Before clicking on the text connect your Nano to the USB port, unlock it and run
 Now you can click on the text and a popup will be prompt. Choose your Nano and click connect:
 
 ![Connect your Nano](/device-interaction/webapp2.png)
-*Fig. 7: Connect your Nano*
+_Fig. 7: Connect your Nano_
 
 ### 5. Check displayed address
 
@@ -287,19 +303,20 @@ The App gets the Bitcoin address and displays it.
 Check that the address displayed on the App is the same as the one displayed on the Ledger device.
 
 ![Address Account Displayed](/device-interaction/webapp3.png)
-*Fig. 8: Address Account Displayed*
+_Fig. 8: Address Account Displayed_
 
 Congratulations, you have successfully built your first application connected to a Nano!
 
 <Callout type="info" emoji="ℹ️">
-  Note that if your finalize the operation on your Nano by accepting or rejecting, the corresponding message appears on your web application.
+  Note that if your finalize the operation on your Nano by accepting or
+  rejecting, the corresponding message appears on your web application.
 </Callout>
 
 ## App Coding (Android Chrome)
 
 Android chrome supports HID and USB.  
 For smartphones, only Android supports web applications.  
-For Android, only Chrome  supports web application.  
+For Android, only Chrome supports web application.
 
 ### package.json
 
@@ -307,8 +324,9 @@ To test your application on android, a little change has to be made.
 Add the `--https` flag in your `"start"` script
 
 <Callout type="warning" emoji="⚠️">
-  In the `dependencies` section of package.json, comment out or remove the line you don't need <br/>
-  (`@ledgerhq/hw-transport-webusb` or `@ledgerhq/hw-transport-webhid`) <br/>
+  In the `dependencies` section of package.json, comment out or remove the line
+  you don't need <br />
+  (`@ledgerhq/hw-transport-webusb` or `@ledgerhq/hw-transport-webhid`) <br />
   Do not copy-paste as is, without removing the other line.
 </Callout>
 
@@ -320,7 +338,7 @@ Add the `--https` flag in your `"start"` script
   "source": "src/index.html",
   "dependencies": {
     "@ledgerhq/hw-app-btc": "^6.12.1",
-    "@ledgerhq/hw-transport-webhid": "^6.11.2", 
+    "@ledgerhq/hw-transport-webhid": "^6.11.2",
     "@ledgerhq/hw-transport-webusb": "^6.11.2",
     "@ledgerhq/logs": "^6.10.0",
     "core-js": "^3.20.2"
@@ -330,7 +348,7 @@ Add the `--https` flag in your `"start"` script
   },
   "scripts": {
     "build": "parcel build",
-    "start": "parcel --https" 
+    "start": "parcel --https"
   },
   "author": "",
   "license": "ISC"
