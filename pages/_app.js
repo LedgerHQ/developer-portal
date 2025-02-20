@@ -1,6 +1,8 @@
 import '../style/styles.css'
 import Script from "next/script";
 import { SessionProvider } from "next-auth/react"
+import DocsBotAI from '../components/features/DocsBotAI'
+
 
 export default function MyApp({
   Component,
@@ -14,6 +16,8 @@ return (
   <SessionProvider session={session}>
     <Component {...pageProps} />
   </SessionProvider>
+  <DocsBotAI />
+
 
   {/* Google Tag Manager Header */}
   {" "}
