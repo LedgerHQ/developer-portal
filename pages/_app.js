@@ -2,6 +2,7 @@ import '../style/styles.css'
 import Script from "next/script";
 import { SessionProvider } from "next-auth/react"
 
+
 export default function MyApp({
   Component,
   pageProps: { session, ...pageProps },
@@ -14,6 +15,7 @@ return (
   <SessionProvider session={session}>
     <Component {...pageProps} />
   </SessionProvider>
+
 
   {/* Google Tag Manager Header */}
   {" "}

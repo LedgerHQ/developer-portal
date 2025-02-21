@@ -1,0 +1,59 @@
+import Image from "next/image"
+import { Callout } from "nextra/components";
+
+# ERC-7730 JSON Builder
+
+You can use the [ERC7730 JSON builder](https://get-clear-signed.ledger.com/) to easily create a compliant JSON file and visualize how the clear signing will like on a device.
+It will create a ERC-7730 compliant JSON file that you can submit [following this process](./process). In this page, we take Aave as an example.
+
+<Callout type="info" emoji="ℹ️">
+  The tool is still in Alpha mode, if you encounter any error, please provide feedback using [this form](https://tally.so/r/mObbWM).
+</Callout>
+
+## 1. Fill in the smart contract address or available
+
+<div style={{ paddingTop: "1em", width: "90%" }} className="center">
+  <figure>
+    <Image src="/clear-signing/contract-address.png" 
+    alt=""
+    width={800} height={600} 
+    />
+  </figure>
+</div>
+
+## 2. Fill in the metadata
+
+This first step is to fill the form with the smart contract Owner, Legal name, and URL.
+
+<div style={{ paddingTop: "1em", width: "90%" }} className="center">
+  <figure>
+    <Image src="/clear-signing/metadata.png" 
+    alt=""
+    width={800} height={600} 
+    />
+  </figure>
+</div>
+
+## 2. Add information about the operations that will be clear signed
+
+<div style={{ paddingTop: "1em", width: "90%" }} className="center">
+  <figure>
+    <Image src="/clear-signing/operations.png" 
+    alt=""
+    width={800} height={600} 
+    />
+  </figure>
+</div>
+
+## 3. Copy the JSON file 
+
+On the third page, click on the "submit" button to copy the generated JSON.
+
+<div style={{ paddingTop: "1em", width: "90%" }} className="center">
+  <figure>
+    <Image src="/clear-signing/copy-json.png" 
+    alt=""
+    width={800} height={600} 
+    />
+  </figure>
+</div>
