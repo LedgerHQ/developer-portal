@@ -16,7 +16,6 @@ return (
   <SessionProvider session={session}>
     <Component {...pageProps} />
   </SessionProvider>
-  <DocsBotAI />
 
 
   {/* Google Tag Manager Header */}
