@@ -21,9 +21,7 @@ A common use of the APPLICATION_FLAG_BOLOS_SETTINGS is for using BLE channel on 
 
 ```makefile copy
 ifeq ($(TARGET_NAME), TARGET_NANOX)
-APP_LOAD_PARAMS=--appFlags 0x200  # APPLICATION_FLAG_BOLOS_SETTINGS
-else
-APP_LOAD_PARAMS=--appFlags 0x000
+HAVE_APPLICATION_FLAG_BOLOS_SETTINGS = 1
 endif
 ```
 
@@ -48,7 +46,7 @@ Restricting the derivation path can be done by setting the `--path` property in 
 For example, if your application derives keys on the hardened path 44'/60', specify in your Makefile:
 
 ``` makefile copy
-APP_LOAD_PARAMS += --path "44'/60'"
+PATH_APP_LOAD_PARAMS += "44'/60'"
 ```
 
 Derivation can also be restricted to a specific curve using the `--curve` property. Supported curves are `secp256k1`, `secp256r1`, `ed25519` and `bls12381g1`.
@@ -56,7 +54,7 @@ Derivation can also be restricted to a specific curve using the `--curve` proper
 Several curves and paths can be configured at the same time. For example, if your app must derive keys on paths 44'/535348', 13' and 17', on curves Ed25519 and prime256r1, the Makefile should contain:
 
 ``` makefile copy
-APP_LOAD_PARAMS=--curve ed25519 --curve prime256r1 --path "44'/535348'" --path "13'" --path "17'"
+CURVE_APP_LOAD_PARAMS += ed25519 prime256r1
 ```
 
 Rationale: Setting prefixes is crucial, as it limits the amount of damage an attacker can cause if they manage to compromise an application. If a vulnerability is exploited on a poorly written or backdoored application, an attacker should not be able to exploit it to extract private keys from other apps, such as Bitcoin or Ethereum keys.

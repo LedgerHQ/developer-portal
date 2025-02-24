@@ -31,6 +31,7 @@ It includes the following capabilities:
 - Execute functional tests
 - Open a terminal in your Docker container
 - Update the development environment
+- Execute the [Guideline Enforcer](../integration/requirements/development#workflows)
 
 <Callout emoji="📖">
     The extension can be found [here](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools),
@@ -103,8 +104,9 @@ In Ledger app development, it is necessary to enter your PIN code each time you 
         Private key: 6c1f1df852255e113b23c2e977d6b5c3ea2aaf411f05a5fdab87a3e8f44468ee
         ```
 
-2. Enter in recovery mode on your Ledger Nano S Plus. Do this by unplugging it then holding down the left button while plugging it in again. A menu appears and includes the `recovery mode` option. Enter your pin and continue.
-
+2. Enter in recovery mode on your Ledger device. 
+    - Nano S Plus: Do this by unplugging it then holding down the left button while plugging it in again. A menu appears and includes the `recovery mode` option. Enter your pin and continue.
+    - Stax and Flex: Do this by unplugging it then holding the power button. A menu appears and includes the `recovery mode` option. Enter your pin and continue.
 3. Load your public key onto the Ledger Nano S Plus. Paste the public key generated at step 1 after `--public`. You may need to adjust the `--targetId` constant to match your device. Find the right targetId for your device [here](https://gist.github.com/TamtamHero/b7651ffe6f1e485e3886bf4aba673348). Notice that we must include a `--name` parameter containing the name of the custom certificate (any string will do):
 
         python3 -m ledgerblue.setupCustomCA --targetId 0x31100004 --public yourPublicKey --name dev
@@ -123,7 +125,9 @@ In Ledger app development, it is necessary to enter your PIN code each time you 
 
 **Uninstalling a custom CA is very quick:**
 
-1. Enter in recovery mode on your Ledger Nano S Plus: unplug the device and then plug it back while holding down the left button.A menu appears and includes the `recovery mode` option. Enter your pin and continue.
+1. Enter in recovery mode on your Ledger device. 
+    - Nano S Plus: Do this by unplugging it then holding down the left button while plugging it in again. A menu appears and includes the `recovery mode` option. Enter your pin and continue.
+    - Stax and Flex: Do this by unplugging it then holding the power button. A menu appears and includes the `recovery mode` option. Enter your pin and continue.
 
 2.  Type this command in your terminal:
         ``` bash copy
