@@ -4,7 +4,10 @@ description:
 ---
 
 import { Callout } from 'nextra/components'
-import KeyTakeaway from '/components/features/key-takeaway';
+import KeyTakeaway from '/components/features/key-takeaway'
+import Image from 'next/image'
+import Zoom from 'react-medium-image-zoom'
+
 
 # Designing blockchain applications for Ledger devices
 
@@ -26,21 +29,8 @@ Whether you start developing your app on Ledger Stax, Ledger Flex, Nano S Plus o
 |:--:| 
 | *The same app code scales to both Ledger Stax and Ledger Flex UI, including interaction and navigation changes.* |
 
+![Ledger Stax and Ledger Flex UI](/device-app/nano-bitcoin-transaction.png)
+|:--:| 
+| *On Ledger Nano S Plus and Nano X, it can result in multiple screens if needed.* |
+
 Your app’s UI will be automatically adapted to the device model you target when building your app, dynamically adjusting the size, elements, and number of pages. This works best if you use the high-level API endpoints known as “use cases”. 
-
-Throughout these guidelines, the API endpoints will be linked within “API” sections like this:
-
-<Callout emoji="💻">
-	<b>API</b><br/>
-  	<code>foo()</code><br/>
-  	Description of the function and <a href="https://ledgerhq.github.io/ledger-secure-sdk/nbgl_app_use_case.html">link to technical documentation</a>.
-</Callout>
-
-These guidelines use screenshots and examples from both Ledger Stax and Ledger Flex. This is for variety only, as there are no functional differences between the two devices from an app developer’s perspective.
-
-
-## Key takeways
-
-<KeyTakeaway>
-	At the end of each chapter, a “Key takeaways” section recaps the important guidelines to follow. 
-</KeyTakeaway>
