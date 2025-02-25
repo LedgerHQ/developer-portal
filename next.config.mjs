@@ -9,7 +9,11 @@ export default withNextra({
   redirects: () => [
     {
       source: "/docs/erc7730",
-      destination: "/docs/erc7730/process",
+      destination: "/docs/clear-signing/erc7730/process",
+      permanent: true,
+    },   {
+      source: "/docs/clear-signing/erc7730",
+      destination: "/docs/clear-signing/erc7730/process",
       permanent: true,
     },
     {
