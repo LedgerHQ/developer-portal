@@ -73,7 +73,9 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/StakeView'
+                  oneOf:
+                    - $ref: '#/components/schemas/FigmentStakeView'
+                    - $ref: '#/components/schemas/StakeView'
         '400':
           description: Bad request
           content:
@@ -166,7 +168,7 @@ components:
       title: CommissionView
       description: The commission type
       type: string
-      enum: [Gross, Net]
+      enum: [Net]
     CosmosDetailsView:
       title: CosmosDetailsView
       type: object
@@ -203,9 +205,9 @@ components:
           format: date-time
     DetailsView:
       oneOf:
+      - $ref: '#/components/schemas/EthDeFiDetailsView'
       - $ref: '#/components/schemas/AdaDetailsView'
       - $ref: '#/components/schemas/CosmosDetailsView'
-      - $ref: '#/components/schemas/EthDeFiDetailsView'
       - $ref: '#/components/schemas/EthNativeDetailsView'
       - $ref: '#/components/schemas/InjectiveDetailsView'
       - $ref: '#/components/schemas/KilnEthereumPoolingDetailsView'
@@ -527,6 +529,11 @@ components:
       oneOf:
       - $ref: '#/components/schemas/Success'
       - $ref: '#/components/schemas/Failure'
+    FigmentStakeView:
+        title: FigmentStakeView
+        oneOf:
+        - $ref: '#/components/schemas/FigmentStakeViewSuccess'
+        - $ref: '#/components/schemas/Failure'
     StatusView:
       title: StatusView
       type: string
@@ -587,6 +594,229 @@ components:
         interest:
           $ref: '#/components/schemas/InterestView'
           description: The interest information
+    FigmentStakeViewSuccess:
+      title: Success
+      type: object
+      required:
+        - protocol_name
+        - currency
+        - interest
+        - status
+        - commission
+        - rewards
+        - details
+      properties:
+        protocol_name:
+          description: The name of the protocol
+          type: string
+        currency:
+          description: The currency of the staked asset in Ledger's crypto currency
+            ID
+          type: string
+        interest:
+          $ref: '#/components/schemas/FigmentInterestView'
+          description: The interest rate
+        logo:
+          $ref: '#/components/schemas/Uri'
+          description: The logo of the protocol
+        since:
+          description: The date when the stake was created
+          type: string
+          format: date-time
+        staked_balance:
+          description: The staked balance
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusView'
+        commission:
+          $ref: '#/components/schemas/CommissionView'
+        rewards:
+          $ref: '#/components/schemas/FigmentRewardsView'
+        details:
+          $ref: '#/components/schemas/DetailsView'
+      examples:
+        example1:
+          value:
+            id:
+              network: "ethereum"
+              address: "[user wallet address]"
+            stake:
+              protocol_name: "figment"
+              currency: "Ledger LBTC ID"
+              interest:
+                type: "APY"
+                value: "0"
+              logo: "https://path-to-logo"
+              since: "2024-06-07T13:11:23Z"
+              staked_balance: "1"
+              status: "activated"
+              commission: "net"
+              rewards:
+                -  total: "89102191421829"
+                   last24H: "0"
+                   last7D: "0"
+                   last30D: "0"
+                   lastYear: "0"
+                   rewardName: "LombardPoints"
+                   interestRate: "0"
+                   pointsValueInCurrency: "0"
+                   type: "RewardsPointsView"
+                -  total: "89102191421829"
+                   last24H: "0"
+                   last7D: "0"
+                   last30D: "0"
+                   lastYear: "0"
+                   rewardName: "BabylonPoints"
+                   interestRate: "0"
+                   pointsValueInCurrency: "0"
+                   type: "RewardsPointsView"
+                -  total: "89102191421829"
+                   last24H: "0"
+                   last7D: "0"
+                   last30D: "0"
+                   lastYear: "0"
+                   rewardName: "LBTC Rewards"
+                   currency: "Ledger LBTC ID"
+                   interestRate: "x"
+                   type: "RewardsView"
+
+    FigmentRewardsView:
+      title: FigmentRewardsView
+      type: array
+      items:
+        - $ref: '#/components/schemas/RewardsPointsView'
+        - $ref: '#/components/schemas/RewardsPointsView'
+        - $ref: '#/components/schemas/RewardsTokensView'
+      example:
+        rewards:
+          - total: "89102191421829"
+            last24H: "0"
+            last7D: "0"
+            last30D: "0"
+            lastYear: "0"
+            rewardName: "LombardPoints"
+            interestRate: "0"
+            pointsValueInCurrency: "0"
+            type: "RewardsPointsView"
+          - total: "89102191421829"
+            last24H: "0"
+            last7D: "0"
+            last30D: "0"
+            lastYear: "0"
+            rewardName: "BabylonPoints"
+            interestRate: "0"
+            pointsValueInCurrency: "0"
+            type: "RewardsPointsView"
+          - total: "89102191421829"
+            last24H: "0"
+            last7D: "0"
+            last30D: "0"
+            lastYear: "0"
+            rewardName: "LBTC Rewards"
+            currency: "Ledger LBTC ID"
+            interestRate: "0"
+            type: "RewardsTokenView"
+
+    RewardsPointsView:
+      title: RewardsPointsView
+      type: object
+      required:
+        - total
+        - last24H
+        - last7D
+        - last30D
+        - lastYear
+        - rewardName
+        - interestRate
+        - pointsValueInCurrency
+        - type
+      properties:
+        total:
+          description: Total rewards earned
+          type: string
+        last24H:
+          description: Rewards earned in the last 24 hours
+          type: string
+        last7D:
+          description: Rewards earned in the last 7 days
+          type: string
+        last30D:
+          description: Rewards earned in the last 30 days
+          type: string
+        lastYear:
+          description: Rewards earned in the last year
+          type: string
+        rewardName:
+          description: The name of the reward
+          type: string
+        interestRate:
+          description: The interest rate
+          type: string
+        pointsValueInCurrency:
+          description: The value of the reward in the currency
+          type: string
+        type:
+          description: The type of the reward view
+          type: string
+          enum: [RewardsPointsView]
+
+    RewardsTokensView:
+      title: RewardsView
+      type: object
+      required:
+        - total
+        - last24H
+        - last7D
+        - last30D
+        - lastYear
+        - rewardName
+        - interestRate
+        - currency
+        - type
+      properties:
+        total:
+          description: Total rewards earned
+          type: string
+        last24H:
+          description: Rewards earned in the last 24 hours
+          type: string
+        last7D:
+          description: Rewards earned in the last 7 days
+          type: string
+        last30D:
+          description: Rewards earned in the last 30 days
+          type: string
+        lastYear:
+          description: Rewards earned in the last year
+          type: string
+        rewardName:
+          description: The name of the reward
+          type: string
+        interestRate:
+          description: The interest rate
+          type: string
+        currency:
+          description: The currency of the reward
+          type: string
+        type:
+          description: The type of the reward view
+          type: string
+          enum: [RewardsTokenView]
+
+    FigmentInterestView:
+        title: FigmentInterestView
+        type: object
+        required:
+            - type
+            - value
+        properties:
+          type:
+            description: The type of interest - APY or APR
+            type: string
+          value:
+            description: The interest rate
+            type: string
+
     TezosDetailsView:
       title: TezosDetailsView
       type: object
