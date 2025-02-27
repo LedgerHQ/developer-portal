@@ -3,11 +3,10 @@ title: Sign a personal message
 description: In this section, we will guide you through the creation of a web application. This application will connect to your Nano and will display the “test“ message to be signed with an Ethereum account using the personal sign message functionality introduced by EIP-191.
 ---
 
-import { Callout } from 'nextra/components'
-import Zoom from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
-import Image from 'next/image'
-
+import { Callout } from "nextra/components";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
+import Image from "next/image";
 
 # Sign a personal message
 
@@ -19,11 +18,11 @@ Web USB and Web HID applications are implemented with `@ledgerhq/hw-transport-we
 
 ## Use case
 
-This tutorial will let you sign a message with your private key in order to verify and prove that you’re the owner of the address. 
+This tutorial will let you sign a message with your private key in order to verify and prove that you’re the owner of the address.
 
 ## Tutorial Prerequisites
 
-- Ensure you have gone through the [prerequisites](../getting-started#prerequisites). 
+- Ensure you have gone through the [prerequisites](../getting-started#prerequisites).
 - Install or update your Ethereum Embedded App to the version 1.9.19 or later.
 
 ## Coding
@@ -39,13 +38,11 @@ mkdir example-sign-personal-message
 cd example-sign-personal-message
 ```
 
-
 Initialize the project by running:
 
 ```bash copy
 npm init
 ```
-
 
 Answer the questions displayed or by default press enter. There is no incidence on the execution.
 
@@ -61,7 +58,6 @@ The folder will contain these files:
 
 ![Folder USB and HID](/device-interaction/folderUsbHid.png)
 
-
 ### Coding
 
 Open the folder example-sign-personal-message in a code editor.
@@ -73,31 +69,32 @@ In index.html copy and paste the following code:
 ```html copy
 <!doctype html>
 <html lang="en">
- <head>
-   <meta charset="utf-8"/>
-   <title>My First Embedded App</title>
-   <script type="module" src="main.js"></script>
- </head>
- <body>
-   <div id="main">
-
-   </div>
-   <button id="hashMessage">Hash my message</button>
- </body>
+  <head>
+    <meta charset="utf-8" />
+    <title>My First Embedded App</title>
+    <script type="module" src="main.js"></script>
+  </head>
+  <body>
+    <div id="main"></div>
+    <button id="hashMessage">Hash my message</button>
+  </body>
 </html>
 ```
 
-
-#### main.js	
+#### main.js
 
 In main.js copy and paste the following code:
 
 <Callout type="warning" emoji="⚠️">
-  Comment out or remove the Transport package you are not using (<code>@ledgerhq/hw-transport-webusb</code> or <code>@ledgerhq/hw-transport-webhid</code>) and the corresponding <code>const</code>. In the example, we use webusb. Webhid is already commented in line 8 and line 23.
+  Comment out or remove the Transport package you are not using (
+  <code>@ledgerhq/hw-transport-webusb</code> or{" "}
+  <code>@ledgerhq/hw-transport-webhid</code>) and the corresponding{" "}
+  <code>const</code>. In the example, we use webusb. Webhid is already commented
+  in line 8 and line 23.
 </Callout>
 
 ```js copy
-import 'core-js/actual';
+import "core-js/actual";
 import { listen } from "@ledgerhq/logs";
 import Eth from "@ledgerhq/hw-app-eth";
 
@@ -107,57 +104,58 @@ import Eth from "@ledgerhq/hw-app-eth";
 import TransportWebHID from "@ledgerhq/hw-transport-webhid";
 
 //Display the header in the div which has the ID "main"
-const initial = "<h1>Connect your Nano and open the Ethereum app. Click on “Hash my message”</h1>";
+const initial =
+  "<h1>Connect your Nano and open the Ethereum app. Click on “Hash my message”</h1>";
 const $main = document.getElementById("main");
 $main.innerHTML = initial;
 
 document.querySelector("#hashMessage").addEventListener("click", async () => {
- $main.innerHTML = initial;
- try {
+  $main.innerHTML = initial;
+  try {
+    //trying to connect to your Ledger device with USB protocol
+    // const transport = await TransportWebUSB.create();
 
-   //trying to connect to your Ledger device with USB protocol
-   // const transport = await TransportWebUSB.create();
+    //trying to connect to your Ledger device with HID protocol
+    const transport = await TransportWebHID.create();
 
-   //trying to connect to your Ledger device with HID protocol
-   const transport = await TransportWebHID.create();
+    //listen to the events which are sent by the Ledger packages in order to debug the app
+    listen((log) => console.log(log));
 
-   //listen to the events which are sent by the Ledger packages in order to debug the app
-   listen(log => console.log(log))
+    //When the Ledger device connected it is trying to display the bitcoin address
+    const eth = new Eth(transport);
+    const signature = await eth.signPersonalMessage(
+      "44'/60'/0'/0/0",
+      Buffer.from("test").toString("hex"),
+    );
+    const signedHash =
+      "0x" + signature.r + signature.s + signature.v.toString(16);
 
-   //When the Ledger device connected it is trying to display the bitcoin address
-   const eth = new Eth(transport);
-   const signature = await eth.signPersonalMessage("44'/60'/0'/0/0", Buffer.from("test").toString("hex"));
-   const signedHash = "0x" + signature.r + signature.s + signature.v.toString(16);
+    //Display your bitcoin address on the screen
+    const h2 = document.createElement("h2");
+    h2.textContent = signedHash;
+    $main.innerHTML = "<h1>Your signed message:</h1>";
+    $main.appendChild(h2);
 
-   //Display your bitcoin address on the screen
-   const h2 = document.createElement("h2");
-   h2.textContent = signedHash;
-   $main.innerHTML = "<h1>Your signed message:</h1>";
-   $main.appendChild(h2);
-
-   //Display the address on the Ledger device and ask to verify the address
-   const { address } = await eth.getAddress("44'/60'/0'/0/0");
-   const add = document.createElement("div");
-   add.textContent = address
-   $main.appendChild(add);
- } catch (e) {
-
-   //Catch any error thrown and displays it on the screen
-   const $err = document.createElement("code");
-   $err.style.color = "#f66";
-   $err.textContent = String(e.message || e);
-   $main.appendChild($err);
- }
+    //Display the address on the Ledger device and ask to verify the address
+    const { address } = await eth.getAddress("44'/60'/0'/0/0");
+    const add = document.createElement("div");
+    add.textContent = address;
+    $main.appendChild(add);
+  } catch (e) {
+    //Catch any error thrown and displays it on the screen
+    const $err = document.createElement("code");
+    $err.style.color = "#f66";
+    $err.textContent = String(e.message || e);
+    $main.appendChild($err);
+  }
 });
 ```
-
-
 
 ## Dependencies Installation
 
 ### Install the packages
 
-Run: 
+Run:
 
 ```bash copy
 npm install --save core-js
@@ -172,13 +170,13 @@ npm install --save-dev stream-browserify
 
 ### Install the Transport HID or USB package
 
-Then depending on your choice install one of the corresponding packages: 
+Then depending on your choice install one of the corresponding packages:
+
 - Install the Ledger package `@ledgerhq/hw-transport-webhid` which provide you with all the methods to interact with your Nano with an HID connection (make sure that you use the 6.27.1 version):
-`npm install --save @ledgerhq/hw-transport-webhid@6.27.1`
+  `npm install --save @ledgerhq/hw-transport-webhid@6.27.1`
 
 - Install the Ledger package `@ledgerhq/hw-transport-webusb` which provide you with all the methods to interact with your Nano with a USB connection (make sure that you use the 6.27.1 version):
-`npm install --save @ledgerhq/hw-transport-webusb@6.27.1`
-
+  `npm install --save @ledgerhq/hw-transport-webusb@6.27.1`
 
 ### Package.json
 
@@ -194,6 +192,7 @@ Ensure you have this line in your `package.json`:
 ```
 
 And:
+
 ```json copy
 
   "alias": {
@@ -242,8 +241,6 @@ Your `package.json` should look like this:
 }
 ```
 
-
-
 ## Usage
 
 ### Start the development server
@@ -254,10 +251,9 @@ Now that the Setup is finished, the app has to be built to be displayed. Start t
 npm run start
 ```
 
-Now the application is up and running. Open the browser and go to `localhost:1234`, it will display: 
+Now the application is up and running. Open the browser and go to `localhost:1234`, it will display:
 
 ![Hash Message](/device-interaction/hash-message.png)
-
 
 ### Plug your Nano
 
@@ -267,37 +263,35 @@ Before clicking on the “Hash my message”, connect your Nano to the USB port,
 
 When you click on the “Hash my message”, a popup message will be prompt inviting you to sign a message.
 
-<br/>
+<br />
 <div className="center">
-  <img src="/device-interaction/sign-message-01.png" alt="Hash Message"/>
+  <img src="/device-interaction/sign-message-01.png" alt="Hash Message" />
 </div>
 
 Click the right button to see the content of the message that you are going to sign with your Ethereum address:
 
-<br/>
+<br />
 <div className="center">
-  <img src="/device-interaction/sign-message-02.png" alt="Hash Message"/>
+  <img src="/device-interaction/sign-message-02.png" alt="Hash Message" />
 </div>
-
 
 ### Sign the message
 
 Click the right button to the next screens to sign the “test” message or decline it:
 
-<br/>
+<br />
 <div className="center">
-  <img src="/device-interaction/sign-message-03.png" alt="Hash Message"/>
+  <img src="/device-interaction/sign-message-03.png" alt="Hash Message" />
 </div>
-<br/>
+<br />
 <div className="center">
-  <img src="/device-interaction/sign-message-04.png" alt="Hash Message"/>
+  <img src="/device-interaction/sign-message-04.png" alt="Hash Message" />
 </div>
 
 Once signed, the webapp will display:
+
 - The signed message (“hash”)
 - The Ethereum address used to sign the message
-
-
 
 ### Verify on runkit.com
 
@@ -307,14 +301,14 @@ You can verify that you are the one who signed the message by signing in on [run
 
 ```js copy
 const { ethers } = require("ethers");
-ethers.verifyMessage("test", "0xefb42c22baa0143b322e93b24b0903a0ef47a64b716fbb77debbea55a93dec3e4417aff7dce845723240916c6e34cf17c674828b3addfb0afad966334df5b6311b");
+ethers.verifyMessage(
+  "test",
+  "0xefb42c22baa0143b322e93b24b0903a0ef47a64b716fbb77debbea55a93dec3e4417aff7dce845723240916c6e34cf17c674828b3addfb0afad966334df5b6311b",
+);
 ```
 
 2. Run your code, it should now display the Ethereum address linked to the signed message (the run can take a bit of time):
 
 <Zoom>
-  <img
-    alt="Runkit"
-    src="/device-interaction/runkit-verification.png"
-  />
+  <img alt="Runkit" src="/device-interaction/runkit-verification.png" />
 </Zoom>
