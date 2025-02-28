@@ -73,9 +73,63 @@ paths:
               schema:
                 type: array
                 items:
-                  oneOf:
-                    - $ref: '#/components/schemas/FigmentStakeView'
-                    - $ref: '#/components/schemas/StakeView'
+                  type: object
+                  properties:
+                    id:
+                      $ref: '#/components/schemas/WalletView'
+                    stake:
+                      $ref: '#/components/schemas/StakeView'
+                    type:
+                      description: The type of the stake
+                      type: string
+
+                example:
+                  - id:
+                      network: "ethereum"
+                      address: "0x1D1479C185d32EB90533a08b36B3CFa5F84A0E6B"
+                    stake:
+                      protocol_name: "figment"
+                      currency: "ethereum/erc20/lombard_staked_bitcoin"
+                      interest:
+                        type: "APY"
+                        value: "0"
+                      logo: "https://path-to-logo"
+                      since: "2024-06-07T13:11:23Z"
+                      staked_balance: "1"
+                      status: "activated"
+                      commission: "net"
+                      rewards:
+                        - total: "89102191421829"
+                          last24H: "0"
+                          last7D: "0"
+                          last30D: "0"
+                          lastYear: "0"
+                          rewardName: "LombardPoints"
+                          interestRate: "0"
+                          pointsValueInCurrency: "0"
+                          type: "RewardsPointsView"
+                        - total: "89102191421829"
+                          last24H: "0"
+                          last7D: "0"
+                          last30D: "0"
+                          lastYear: "0"
+                          rewardName: "BabylonPoints"
+                          interestRate: "0"
+                          pointsValueInCurrency: "0"
+                          type: "RewardsPointsView"
+                        - total: "89102191421829"
+                          last24H: "0"
+                          last7D: "0"
+                          last30D: "0"
+                          lastYear: "0"
+                          rewardName: "LBTC Rewards"
+                          currency: "ethereum/erc20/lombard_staked_bitcoin"
+                          interestRate: "4.5"
+                          type: "RewardsView"
+                      details:
+                        contractAddress: "0xae7ab96520de3a18e5e111b5eaab095312d7fe84"
+                        type: "EthDeFiDetailsView"
+                    type: "FigmentBTCPointsView"
         '400':
           description: Bad request
           content:
@@ -223,6 +277,11 @@ components:
       properties:
         contractAddress:
           type: string
+        type:
+          type: string
+      example:
+        contractAddress: '0x4dac23030b3ce359681fb7c00426f989a84e5298'
+        type: 'EthDefiDetailsView'
     EthNativeDetailsView:
       title: EthNativeDetailsView
       type: object
@@ -331,23 +390,6 @@ components:
         updated_at:
           type: string
           format: date-time
-    InterestView:
-      title: InterestView
-      type: object
-      required:
-      - type
-      - value
-      - currency
-      properties:
-        type:
-          description: The type of interest - APY or APR
-          type: string
-        value:
-          description: The interest rate
-          type: string
-        currency:
-          description: The currency of the interest
-          type: string
     InvalidRequest:
       title: InvalidRequest
       type: object
@@ -439,10 +481,6 @@ components:
         updated_at:
           type: string
           format: date-time
-    RewardsView:
-      oneOf:
-      - $ref: '#/components/schemas/RewardsViewSuccess'
-      - $ref: '#/components/schemas/RewardsViewError'
 
     RewardsViewError:
       title: RewardsViewError
@@ -457,31 +495,6 @@ components:
           format: int32
         reason:
           description: Error message
-          type: string
-    RewardsViewSuccess:
-      title: RewardsViewSuccess
-      type: object
-      required:
-      - total
-      - last24H
-      - last7D
-      - last30D
-      - lastYear
-      properties:
-        total:
-          description: Total rewards earned
-          type: string
-        last24H:
-          description: Rewards earned in the last 24 hours
-          type: string
-        last7D:
-          description: Rewards earned in the last 7 days
-          type: string
-        last30D:
-          description: Rewards earned in the last 30 days
-          type: string
-        lastYear:
-          description: Rewards earned in the last year
           type: string
     ServerError:
       title: ServerError
@@ -525,14 +538,9 @@ components:
           type: string
           format: date-time
     StakeView:
-      title: StakeView
-      oneOf:
-      - $ref: '#/components/schemas/Success'
-      - $ref: '#/components/schemas/Failure'
-    FigmentStakeView:
-        title: FigmentStakeView
+        title: StakeView
         oneOf:
-        - $ref: '#/components/schemas/FigmentStakeViewSuccess'
+        - $ref: '#/components/schemas/StakeViewSuccess'
         - $ref: '#/components/schemas/Failure'
     StatusView:
       title: StatusView
@@ -594,7 +602,7 @@ components:
         interest:
           $ref: '#/components/schemas/InterestView'
           description: The interest information
-    FigmentStakeViewSuccess:
+    StakeViewSuccess:
       title: Success
       type: object
       required:
@@ -614,11 +622,11 @@ components:
             ID
           type: string
         interest:
-          $ref: '#/components/schemas/FigmentInterestView'
+          $ref: '#/components/schemas/InterestView'
           description: The interest rate
         logo:
           $ref: '#/components/schemas/Uri'
-          description: The logo of the protocol
+          description: The logo of the protocol (path to logo in .svg format)
         since:
           description: The date when the stake was created
           type: string
@@ -631,91 +639,18 @@ components:
         commission:
           $ref: '#/components/schemas/CommissionView'
         rewards:
-          $ref: '#/components/schemas/FigmentRewardsView'
+          $ref: '#/components/schemas/RewardsView'
         details:
           $ref: '#/components/schemas/DetailsView'
-      examples:
-        example1:
-          value:
-            id:
-              network: "ethereum"
-              address: "[user wallet address]"
-            stake:
-              protocol_name: "figment"
-              currency: "Ledger LBTC ID"
-              interest:
-                type: "APY"
-                value: "0"
-              logo: "https://path-to-logo"
-              since: "2024-06-07T13:11:23Z"
-              staked_balance: "1"
-              status: "activated"
-              commission: "net"
-              rewards:
-                -  total: "89102191421829"
-                   last24H: "0"
-                   last7D: "0"
-                   last30D: "0"
-                   lastYear: "0"
-                   rewardName: "LombardPoints"
-                   interestRate: "0"
-                   pointsValueInCurrency: "0"
-                   type: "RewardsPointsView"
-                -  total: "89102191421829"
-                   last24H: "0"
-                   last7D: "0"
-                   last30D: "0"
-                   lastYear: "0"
-                   rewardName: "BabylonPoints"
-                   interestRate: "0"
-                   pointsValueInCurrency: "0"
-                   type: "RewardsPointsView"
-                -  total: "89102191421829"
-                   last24H: "0"
-                   last7D: "0"
-                   last30D: "0"
-                   lastYear: "0"
-                   rewardName: "LBTC Rewards"
-                   currency: "Ledger LBTC ID"
-                   interestRate: "x"
-                   type: "RewardsView"
 
-    FigmentRewardsView:
-      title: FigmentRewardsView
+    RewardsView:
+      title: RewardsView
       type: array
       items:
-        - $ref: '#/components/schemas/RewardsPointsView'
-        - $ref: '#/components/schemas/RewardsPointsView'
-        - $ref: '#/components/schemas/RewardsTokensView'
-      example:
-        rewards:
-          - total: "89102191421829"
-            last24H: "0"
-            last7D: "0"
-            last30D: "0"
-            lastYear: "0"
-            rewardName: "LombardPoints"
-            interestRate: "0"
-            pointsValueInCurrency: "0"
-            type: "RewardsPointsView"
-          - total: "89102191421829"
-            last24H: "0"
-            last7D: "0"
-            last30D: "0"
-            lastYear: "0"
-            rewardName: "BabylonPoints"
-            interestRate: "0"
-            pointsValueInCurrency: "0"
-            type: "RewardsPointsView"
-          - total: "89102191421829"
-            last24H: "0"
-            last7D: "0"
-            last30D: "0"
-            lastYear: "0"
-            rewardName: "LBTC Rewards"
-            currency: "Ledger LBTC ID"
-            interestRate: "0"
-            type: "RewardsTokenView"
+        oneOf:
+          - $ref: '#/components/schemas/RewardsPointsView'
+          - $ref: '#/components/schemas/RewardsTokensView'
+          - $ref: '#/components/schemas/RewardsViewError'
 
     RewardsPointsView:
       title: RewardsPointsView
@@ -761,7 +696,7 @@ components:
           enum: [RewardsPointsView]
 
     RewardsTokensView:
-      title: RewardsView
+      title: RewardsTokenView
       type: object
       required:
         - total
@@ -803,8 +738,8 @@ components:
           type: string
           enum: [RewardsTokenView]
 
-    FigmentInterestView:
-        title: FigmentInterestView
+    InterestView:
+        title: InterestView
         type: object
         required:
             - type
@@ -876,3 +811,17 @@ components:
     Uri:
       title: Uri
       type: string
+
+    WalletView:
+        title: WalletView
+        type: object
+        required:
+        - network
+        - address
+        properties:
+            network:
+              description: Network name
+              type: string
+            address:
+              description: User wallet address
+              type: string
