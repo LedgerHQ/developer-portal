@@ -166,6 +166,13 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/GrowResponse'
+                example:
+                  - network: ethereum
+                    interest:
+                        type: "APY"
+                        value: "5.3"
+                        currency: "ethereum/erc20/staked_aave_balance_pool_token"
+
         '401':
           description: Unauthorized
           content:
