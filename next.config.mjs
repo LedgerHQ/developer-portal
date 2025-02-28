@@ -288,6 +288,12 @@ export default withNextra({
       permanent: true,
     },
     {
+      source: "/docs/token/eip712-messages",
+      destination:
+        "/docs/clear-signing/erc7730/eip712-messages",
+      permanent: false,
+    },
+    {
       source: "/docs/token/:slug*",
       destination:
         "/docs/ledger-live/accounts/integration/tokens/evm-chains-tokens",
