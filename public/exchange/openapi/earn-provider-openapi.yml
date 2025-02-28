@@ -3,63 +3,55 @@ info:
   title: Earn Provider Server
   version: '1.0'
 paths:
-  /v0/network/{network}/address/{address}/stakes:
-    get:
+  /v0/stakes:
+    post:
       description: Get details about a user's staking position based on the provided
         address and network.
-      operationId: getV0NetworkAddressStakes
-      parameters:
-      - name: network
-        in: path
+      operationId: postV0NetworkAddressStakes
+      requestBody:
         required: true
-        schema:
-          type: string
-          enum:
-          - ethereum
-          - cosmos
-          - solana
-          - cardano
-          - tezos
-          - near
-          - osmo
-          - injective
-        examples:
-          Injective:
-            value: injective
-          Cardano:
-            value: cardano
-          Tezos:
-            value: tezos
-          Ethereum:
-            value: ethereum
-          Solana:
-            value: solana
-          Near:
-            value: near
-          Cosmos:
-            value: cosmos
-          Osmosis:
-            value: osmo
-      - name: address
-        in: path
-        required: true
-        schema:
-          type: string
-        examples:
-          Cardano:
-            value: addr1qxpdw2zxxhu0xgkav63765ns3yzfxg4vcdn3es3t8re6eedp0eejr90mjuma3wwhwt5967nyl5k2r79yfh9x8r0rvlas5e0gxq
-          Near:
-            value: 790083d225bf1ee9fbf5b0fc7efb7eaa05e23c4a565edb113b54e2af446563d1
-          Osmosis:
-            value: osmo1k8yj59yfnslcfjkcqja67lg0g5r6syk4m7addl
-          Cosmos:
-            value: cosmos1rm28f4qg5jhw9cd32qm3j30qwnkf2qq5kt9hsr
-          Solana:
-            value: 2S4wKimi4PHKjdTYdzqN5HcEcNBM4Hv9db9QWKaZCxEr
-          Tezos:
-            value: KT1Pk5qgduGPsE5qVocTwgZssBJ96ph2ryiL
-          Ethereum:
-            value: '0x4dac23030b3ce359681fb7c00426f989a84e5298'
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  network:
+                    type: string
+                    enum:
+                      - ethereum
+                      - cosmos
+                      - solana
+                      - cardano
+                      - tezos
+                      - near
+                      - osmo
+                      - injective
+                  address:
+                    type: string
+                required:
+                  - network
+                  - address
+            examples:
+              example1:
+                value:
+                  - network: ethereum
+                    address: "0x2fcaAe5AC5Db3edC647e0001cdD1e65DcD1b6727"
+                  - network: cardano
+                    address: "addr1qxpdw2zxxhu0xgkav63765ns3yzfxg4vcdn3es3t8re6eedp0eejr90mjuma3wwhwt5967nyl5k2r79yfh9x8r0rvlas5e0gxq"
+                  - network: cosmos
+                    address: "cosmos1rm28f4qg5jhw9cd32qm3j30qwnkf2qq5kt9hsr"
+                  - network: osmosis
+                    address: "osmo1k8yj59yfnslcfjkcqja67lg0g5r6syk4m7addl"
+                  - network: solana
+                    address: "2S4wKimi4PHKjdTYdzqN5HcEcNBM4Hv9db9QWKaZCxEr"
+                  - network: tezos
+                    address: "KT1Pk5qgduGPsE5qVocTwgZssBJ96ph2ryiL"
+                  - network: near
+                    address: "790083d225bf1ee9fbf5b0fc7efb7eaa05e23c4a565edb113b54e2af446563d1"
+                  - network: injective
+                    address: "inj1quyul2xyhc2vwksdyv9z6uq9j9rt6fjtugqzdj"
       responses:
         '200':
           description: ''
@@ -79,9 +71,6 @@ paths:
                       $ref: '#/components/schemas/WalletView'
                     stake:
                       $ref: '#/components/schemas/StakeView'
-                    type:
-                      description: The type of the stake
-                      type: string
 
                 example:
                   - id:
@@ -97,7 +86,7 @@ paths:
                       since: "2024-06-07T13:11:23Z"
                       staked_balance: "1"
                       status: "activated"
-                      commission: "net"
+                      commission: "Net"
                       rewards:
                         - total: "89102191421829"
                           last24H: "0"
@@ -118,10 +107,10 @@ paths:
                           pointsValueInCurrency: "0"
                           type: "RewardsPointsView"
                         - total: "89102191421829"
-                          last24H: "0"
-                          last7D: "0"
-                          last30D: "0"
-                          lastYear: "0"
+                          last24H: "133010301"
+                          last7D: "230414144"
+                          last30D: "3423424242"
+                          lastYear: "6623724242"
                           rewardName: "LBTC Rewards"
                           currency: "ethereum/erc20/lombard_staked_bitcoin"
                           interestRate: "4.5"
@@ -129,7 +118,6 @@ paths:
                       details:
                         contractAddress: "0xae7ab96520de3a18e5e111b5eaab095312d7fe84"
                         type: "EthDeFiDetailsView"
-                    type: "FigmentBTCPointsView"
         '400':
           description: Bad request
           content:
@@ -579,7 +567,7 @@ components:
           type: string
           format: date-time
         staked_balance:
-          description: The staked balance
+          description: The staked balance in lowest unit of the currency. (e.g in wei for Ethereum)
           type: string
         status:
           $ref: '#/components/schemas/StatusView'
@@ -600,7 +588,7 @@ components:
           description: The network name
           type: string
         interest:
-          $ref: '#/components/schemas/InterestView'
+          $ref: '#/components/schemas/ProtocolInterestView'
           description: The interest information
     StakeViewSuccess:
       title: Success
@@ -648,8 +636,8 @@ components:
       type: array
       items:
         oneOf:
-          - $ref: '#/components/schemas/RewardsPointsView'
           - $ref: '#/components/schemas/RewardsTokensView'
+          - $ref: '#/components/schemas/RewardsPointsView'
           - $ref: '#/components/schemas/RewardsViewError'
 
     RewardsPointsView:
@@ -685,10 +673,10 @@ components:
           description: The name of the reward
           type: string
         interestRate:
-          description: The interest rate
+          description: The interest rate if it exists else 0.
           type: string
         pointsValueInCurrency:
-          description: The value of the reward in the currency
+          description: The value of the reward in the currency if it exists else 0.
           type: string
         type:
           description: The type of the reward view
@@ -728,10 +716,10 @@ components:
           description: The name of the reward
           type: string
         interestRate:
-          description: The interest rate
+          description: The Net APY interest rate
           type: string
         currency:
-          description: The currency of the reward
+          description: Ledger crypto currency ID
           type: string
         type:
           description: The type of the reward view
@@ -746,11 +734,29 @@ components:
             - value
         properties:
           type:
-            description: The type of interest - APY or APR
+            description: The type of interest - APY
             type: string
           value:
-            description: The interest rate
+            description: The Net APY interest rate. Interest user is getting from their staking position. Not the protocol's APY.
             type: string
+
+    ProtocolInterestView:
+      title: InterestView
+      type: object
+      required:
+        - type
+        - value
+        - currency
+      properties:
+        type:
+          description: The type of interest - APY
+          type: string
+        value:
+          description: The protocol's Net APY interest rate.
+          type: string
+        currency:
+          description: Ledger crypto currency ID
+          type: string
 
     TezosDetailsView:
       title: TezosDetailsView
