@@ -13,7 +13,7 @@ To display such information, Ledger Live's backend needs to communicate with you
 
 For each account used for staking, the Earn section in Ledger Live provides users with the following information:
 - **The staked amount**: total staked assets in the account.
-- **The rewards %**: can be APY or APR, depending on the assets and the blockchain.
+- **The rewards %**: Should always return NET APY (Annual Percentage Yield).
 - **Rewards earned**: total reward earned to date. Includes any rewards that were claimed.
 
 These information must be accessible through your API.
@@ -27,4 +27,6 @@ In addition, Ledger also needs to know:
 
 - The base url of the API,
 - Any backend authentication information needed to use the api (token in header…),
-- Any API limits that are in place
+- Refresh rate. Positions and rewards should be reflected as soon as they are available on chain
+- Rate limit. Specify the rate limit of your API. Desired rate limit: unlimited.
+- Provide error codes for what qualifies as up (e.g 200, 404, etc) and down (e.g 500 or timeout).
