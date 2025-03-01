@@ -1,19 +1,19 @@
 # EIP-712 messages
 
-## What to do to clear-sign EIP-712 messages for your DApp?
+## How to clear-sign EIP-712 messages for your dApp?
 
-It is possible to clear-sign EIP-712 messages with a Ledger device. The clear-signing is possible on the contracts that are whitelisted in the [Ledger Dapps asset repository](https://github.com/LedgerHQ/ledger-asset-dapps). 
+It is possible to clear-sign EIP-712 messages for a Ledger device. The clear-signing is possible on contracts that are whitelisted in the [Ledger dApps asset repository](https://github.com/LedgerHQ/ledger-asset-dapps). 
 
 To add your contract to the list, you need to open a PR on this repository (see [Contributing](https://github.com/LedgerHQ/ledger-asset-dapps/blob/main/CONTRIBUTING.md)).
 
-On the Ledger DApps asset repository, we will need to input the contract address and the relevant fields that should be displayed to the users (on the device).
+On the Ledger dApps asset repository, we will need to input the contract address and the relevant fields that should be displayed to the users (on the device).
 
-[Here is an example of PR](https://github.com/LedgerHQ/ledger-asset-dapps/pull/78/files).
+[Here is an example of a PR](https://github.com/LedgerHQ/ledger-asset-dapps/pull/78/files).
 
 
 ## How does it work?
 
-When interacting with a contract, the Ethereum app will be able to retrieve the list of fields to display and segregate them from all the ones it has parsed.
+When interacting with a contract, the Ethereum app will retrieve the list of fields to display and segregate them from the ones it has parsed.
 
 For this simple input data:
 
@@ -63,7 +63,7 @@ For this simple input data:
 }
 ``` 
 
-A filter for it would look like this :
+A filter for it would look like this:
 
 ```json copy
 {
@@ -80,7 +80,7 @@ A filter for it would look like this :
 }
 ```
 
-- In the first layer we find the different contracts by their addresses.
+- In the first layer we find the different contracts by their address.
 - In the second layer we find the different identifiers in each contract.
 
 
