@@ -3,55 +3,34 @@ info:
   title: Earn Provider Server
   version: '1.0'
 paths:
-  /v0/stakes:
-    post:
+  /v0/{network}/stakes:
+    get:
       description: Get details about a user's staking position based on the provided
-        address and network.
-      operationId: postV0NetworkAddressStakes
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                type: object
-                properties:
-                  network:
-                    type: string
-                    enum:
-                      - ethereum
-                      - cosmos
-                      - solana
-                      - cardano
-                      - tezos
-                      - near
-                      - osmo
-                      - injective
-                  address:
-                    type: string
-                required:
-                  - network
-                  - address
-            examples:
-              example1:
-                value:
-                  - network: ethereum
-                    address: "0x2fcaAe5AC5Db3edC647e0001cdD1e65DcD1b6727"
-                  - network: cardano
-                    address: "addr1qxpdw2zxxhu0xgkav63765ns3yzfxg4vcdn3es3t8re6eedp0eejr90mjuma3wwhwt5967nyl5k2r79yfh9x8r0rvlas5e0gxq"
-                  - network: cosmos
-                    address: "cosmos1rm28f4qg5jhw9cd32qm3j30qwnkf2qq5kt9hsr"
-                  - network: osmosis
-                    address: "osmo1k8yj59yfnslcfjkcqja67lg0g5r6syk4m7addl"
-                  - network: solana
-                    address: "2S4wKimi4PHKjdTYdzqN5HcEcNBM4Hv9db9QWKaZCxEr"
-                  - network: tezos
-                    address: "KT1Pk5qgduGPsE5qVocTwgZssBJ96ph2ryiL"
-                  - network: near
-                    address: "790083d225bf1ee9fbf5b0fc7efb7eaa05e23c4a565edb113b54e2af446563d1"
-                  - network: injective
-                    address: "inj1quyul2xyhc2vwksdyv9z6uq9j9rt6fjtugqzdj"
+        network and stake addresses.
+      operationId: getV0NetworkStakes
+      parameters:
+        - name: network
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - ethereum
+              - cosmos
+              - solana
+              - cardano
+              - tezos
+              - near
+              - osmo
+              - injective
+            example: ethereum
+        - name: stake_addresses
+          in: query
+          required: true
+          schema:
+            type: string
+            description: Comma-separated list of stake addresses
+            example: "0x1D1479C185d32EB90533a08b36B3CFa5F84A0E6B%2C0x95222290dd7278aa3ddd389cc1e1d165cc4bafe5"
       responses:
         '200':
           description: ''
