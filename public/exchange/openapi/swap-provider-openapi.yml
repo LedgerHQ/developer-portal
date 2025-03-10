@@ -37,10 +37,45 @@ paths:
     get:
       operationId: getPairs
       description: Return a list of supported pairs.
+      parameters:
+        - name: X-Page
+          in: header
+          description: The page number for pagination (default is 1).
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: X-Page-Size
+          in: header
+          description: The number of pairs to return per page (default is 10, maximum is 100).
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 10
       responses:
         "200":
           description: Array of supported swap pairs.
           x-summary: OK
+          headers:
+            X-Total-Items:
+              description: The total number of available pairs.
+              schema:
+                type: integer
+            X-Total-Pages:
+              description: The total number of pages available.
+              schema:
+                type: integer
+            X-Current-Page:
+              description: The current page number.
+              schema:
+                type: integer
+            X-Page-Size:
+              description: The number of pairs per page.
+              schema:
+                type: integer
           content:
             application/json:
               schema:
