@@ -290,7 +290,13 @@ export default withNextra({
     {
       source: "/docs/token/eip712-messages",
       destination:
-        "/docs/clear-signing/eip712-messages",
+        "/docs/clear-signing/erc7730/eip712-messages",
+      permanent: false,
+    },
+    {
+      source: "/docs/clear-signing/eip712-messages",
+      destination:
+        "/docs/clear-signing/erc7730/eip712-messages",
       permanent: false,
     },
     {
@@ -375,7 +381,7 @@ export default withNextra({
     {
     source: "/docs/clear-signing/eip712",
     destination:
-      "/docs/clear-signing/erc7730",
+      "/docs/clear-signing/erc7730/process",
     permanent: false,
     },
     {

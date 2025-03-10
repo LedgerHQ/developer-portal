@@ -1,0 +1,103 @@
+# JSON structure for EIP-712 messages clear signing
+
+## 1. Create the JSON file
+
+When interacting with a contract, the Ethereum app will retrieve the list of fields to display and segregate them from the ones it has parsed.
+
+### Example
+
+For this simple input data:
+
+```json copy
+{
+	"domain": {
+		"chainId": 5,
+		"name": "Obscure contract name",
+		"verifyingContract": "0x41a5d506423e27a67a733454cd597b7fcb65c4d8",
+		"version": "1"
+	},
+	"message": {
+		"contents": "Hello, guys!",
+		"from": {
+			"name": "Alice",
+			"wallets": "0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826"
+		},
+		"to": [
+			{
+				"name": "Bob",
+				"wallets": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB"
+			},
+			{
+				"name": "Charlie",
+				"wallets": "0x28c6c06298d514db089934071355e5743bf21d60"
+			}
+		]
+	},
+	"primaryType": "Mail",
+	"types": {
+		"EIP712Domain": [
+			{ "name": "name", "type": "string" },
+			{ "name": "version", "type": "string" },
+			{ "name": "chainId", "type": "uint256" },
+			{ "name": "verifyingContract", "type": "address" }
+		],
+		"Mail": [
+			{ "name": "from", "type": "Person" },
+			{ "name": "to", "type": "Person[]" },
+			{ "name": "contents", "type": "string" }
+		],
+		"Person": [
+			{ "name": "name", "type": "string" },
+			{ "name": "wallets", "type": "address" }
+		]
+	}
+}
+``` 
+
+A filter for it would look like this:
+
+```json copy
+{
+	"0x41a5d506423e27a67a733454cd597b7fcb65c4d8": {
+		"0b1da74afa6dd11245e6bdec1357b737cd7c6c0a": {
+			"name": "Mail example",
+			"fields": {
+				"contents": "Message",
+				"from.name": "Sender",
+				"to.[].name": "Recipient"
+			}
+		}
+	}
+}
+```
+
+### Explanation of the Filter Structure
+
+- First Layer: Contains the different contracts identified by their address.
+- Second Layer: Contains different identifiers for each contract.
+	- An identifier is the SHA-224 sum of the value (stripped of all spaces and newlines) of all the types in the input JSON:
+	```json
+	{
+		"EIP712Domain": [
+			{ "name": "name", "type": "string" },
+			{ "name": "version", "type": "string" },
+			{ "name": "chainId", "type": "uint256" },
+			{ "name": "verifyingContract", "type": "address" }
+		],
+		"Mail": [
+			{ "name": "from", "type": "Person" },
+			{ "name": "to", "type": "Person[]" },
+			{ "name": "contents", "type": "string" }
+		],
+		"Person": [
+			{ "name": "name", "type": "string" },
+			{ "name": "wallets", "type": "address" }
+		]
+	}
+	```
+- Third Layer: Contains the name of the contract. This is an easier and more readable name than the one present in the input JSON.
+- Fourth Layer: Contains a list of JSON paths along with the desired title in the UI for all fields matching the given path.
+
+## 2. Submit your file
+
+Follow [this process](./process#step-2-fork-the-official-registry-and-open-a-pull-request) to submit your file
