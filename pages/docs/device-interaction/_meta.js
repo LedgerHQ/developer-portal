@@ -10,4 +10,3 @@ export default {
   explanation: "Explanation",
   ledgerjs: "LedgerJS: Soon deprecated",
 };
-
