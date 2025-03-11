@@ -1,0 +1,15 @@
+# Migration from 0.6.1 to 0.6.2
+
+We made some breaking changes to the Device Management Kit in 0.6.2 which are detailed below.
+
+## Api changes
+
+- `listenToKnownDevices` has been replaced by `listenToAvailableDevices`.
+- `toggleDeviceSessionRefresher` has been replaced by `disableDeviceSessionRefresher`.
+
+## Impacts
+
+Must be used along with the following transports:
+
+- `@ledgerhq/device-transport-kit-web-hid`: `>= 1.1.0`
+- `@ledgerhq/device-transport-kit-web-ble`: `>= 1.1.0`
