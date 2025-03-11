@@ -6,7 +6,21 @@ paths:
   /currencies:
     get:
       operationId: getCryptoCurrencies
-      description: Return a list of supported currencies.
+      description: Return a paginated list of supported currencies.
+      parameters: 
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+          example: 10
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "xxxxxxxx" 
       responses:
         "200":
           description: |
@@ -21,22 +35,45 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/CryptoCurrencies"
-              example:
-                - id: BTC
-                  type: coin
-                  blockchain: bitcoin
-                - id: USDC
-                  type: token
-                  blockchain: ethereum
-                  chainId: 1
-                  contract: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+                type: object
+                properties:
+                  currencies:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/CryptoCurrencies"
+                  next_cursor:
+                    type: string
+                    nullable: true
+                    description: Cursor to fetch the next page of results (null if no more results).
+                example:
+                  currencies:
+                    - id: BTC
+                      type: coin
+                      blockchain: bitcoin
+                    - id: USDC
+                      type: token
+                      blockchain: ethereum
+                      chainId: 1
+                      contract: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+                  next_cursor: "xxxxxxxx"
   /pairs:
     get:
       operationId: getPairs
-      description: Return a list of supported pairs.
+      description: Return a paginated list of supported pairs.
+      parameters: 
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+          example: 10
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "xxxxxxxx"
       responses:
         "200":
           description: Array of supported swap pairs.
@@ -44,24 +81,33 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Pair"
+                type: object
+                properties:
+                  pairs:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Pair"
+                  next_cursor:
+                    type: string
+                    nullable: true
+                    description: Cursor to fetch the next page of results (null if no more results).
               example:
-                - from: btc
-                  to: bat
-                  tradeMethod:
-                    - fixed
-                    - float
-                  minSwapAmount: "1"
-                  maxSwapAmount: "20"
-                - from: bat
-                  to: btc
-                  tradeMethod:
-                    - fixed
-                    - float
-                  minSwapAmount: "5"
-                  maxSwapAmount: "10"
+                pairs:
+                  - from: btc
+                    to: bat
+                    tradeMethod:
+                      - fixed
+                      - float
+                    minSwapAmount: "0.00001"
+                    maxSwapAmount: "20"
+                  - from: bat
+                    to: btc
+                    tradeMethod:
+                      - fixed
+                      - float
+                    minSwapAmount: "5"
+                    maxSwapAmount: "10"
+                next_cursor: "xxxxxxxx"
   /quote:
     post:
       operationId: postQuote
