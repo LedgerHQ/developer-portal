@@ -2,101 +2,107 @@
 
 ## 1. Create the JSON file
 
-When interacting with a contract, the Ethereum app will retrieve the list of fields to display and segregate them from the ones it has parsed.
+### How-to
 
-### Example
+1. Begin by using [this template](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/templates/template-eip712.json) to create your JSON file. It provides the basic structure required to clear sign EIP-712 messages.
+2. Under the `"context"` and `"EIP712"` key, provide the necessary EIP-712 information:
+	- `"deployments"`: List the chain IDs and contract addresses where the contract is deployed.
+	- `"domain"`: Define the domain properties such as `name`, `chainId`, and `verifyingContract`.
+	- `"schemas"`: List the primary type and the associated types used in the message.
+3. Under the `"metadata"` key, specify the metadata such as the owner of the contract.
+4. Under the `"display"` key, define how the message fields should be displayed:
+	- `"formats"`: Specify the intent and list the fields with their paths, labels, and formats.
+	- `"excluded"`: List any fields that should be excluded from the display.
 
-For this simple input data:
+### Example 
 
-```json copy
+Below is an example JSON file for OpenSea:
+
+```json
 {
-	"domain": {
-		"chainId": 5,
-		"name": "Obscure contract name",
-		"verifyingContract": "0x41a5d506423e27a67a733454cd597b7fcb65c4d8",
-		"version": "1"
-	},
-	"message": {
-		"contents": "Hello, guys!",
-		"from": {
-			"name": "Alice",
-			"wallets": "0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826"
-		},
-		"to": [
-			{
-				"name": "Bob",
-				"wallets": "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB"
-			},
-			{
-				"name": "Charlie",
-				"wallets": "0x28c6c06298d514db089934071355e5743bf21d60"
-			}
-		]
-	},
-	"primaryType": "Mail",
-	"types": {
-		"EIP712Domain": [
-			{ "name": "name", "type": "string" },
-			{ "name": "version", "type": "string" },
-			{ "name": "chainId", "type": "uint256" },
-			{ "name": "verifyingContract", "type": "address" }
-		],
-		"Mail": [
-			{ "name": "from", "type": "Person" },
-			{ "name": "to", "type": "Person[]" },
-			{ "name": "contents", "type": "string" }
-		],
-		"Person": [
-			{ "name": "name", "type": "string" },
-			{ "name": "wallets", "type": "address" }
-		]
-	}
-}
-``` 
-
-A filter for it would look like this:
-
-```json copy
-{
-	"0x41a5d506423e27a67a733454cd597b7fcb65c4d8": {
-		"0b1da74afa6dd11245e6bdec1357b737cd7c6c0a": {
-			"name": "Mail example",
-			"fields": {
-				"contents": "Message",
-				"from.name": "Sender",
-				"to.[].name": "Recipient"
-			}
-		}
-	}
+  "$schema": "../../specs/erc7730-v1.schema.json",
+  "context": {
+    "eip712": {
+      "deployments": [{ "chainId": 1, "address": "0x7f268357a8c2552623316e2562d90e642bb538e5" }],
+      "domain": { "name": "OpenSea", "chainId": 1, "verifyingContract": "0x7f268357a8c2552623316e2562d90e642bb538e5" },
+      "schemas": [
+        {
+          "primaryType": "Order",
+          "types": {
+            "EIP712Domain": [
+              { "name": "name", "type": "string" },
+              { "name": "version", "type": "string" },
+              { "name": "chainId", "type": "uint256" },
+              { "name": "verifyingContract", "type": "address" }
+            ],
+            "Order": [
+              { "name": "exchange", "type": "address" },
+              { "name": "maker", "type": "address" },
+              { "name": "taker", "type": "address" },
+              { "name": "makerRelayerFee", "type": "uint256" },
+              { "name": "takerRelayerFee", "type": "uint256" },
+              { "name": "makerProtocolFee", "type": "uint256" },
+              { "name": "takerProtocolFee", "type": "uint256" },
+              { "name": "feeRecipient", "type": "address" },
+              { "name": "feeMethod", "type": "uint8" },
+              { "name": "side", "type": "uint8" },
+              { "name": "saleKind", "type": "uint8" },
+              { "name": "target", "type": "address" },
+              { "name": "howToCall", "type": "uint8" },
+              { "name": "calldata", "type": "bytes" },
+              { "name": "replacementPattern", "type": "bytes" },
+              { "name": "staticTarget", "type": "address" },
+              { "name": "staticExtradata", "type": "bytes" },
+              { "name": "paymentToken", "type": "address" },
+              { "name": "basePrice", "type": "uint256" },
+              { "name": "extra", "type": "uint256" },
+              { "name": "listingTime", "type": "uint256" },
+              { "name": "expirationTime", "type": "uint256" },
+              { "name": "salt", "type": "uint256" },
+              { "name": "nonce", "type": "uint256" }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "metadata": { "owner": "Wyvern Exchange Contract" },
+  "display": {
+    "formats": {
+      "Order": {
+        "intent": "OpenSea Listing",
+        "fields": [
+          { "path": "exchange", "label": "Contract address", "format": "raw" },
+          { "path": "basePrice", "label": "Price", "format": "raw" },
+          { "path": "expirationTime", "label": "Offer expiration", "format": "raw" }
+        ],
+        "excluded": [
+          "side",
+          "extra",
+          "saleKind",
+          "staticTarget",
+          "target",
+          "howToCall",
+          "makerRelayerFee",
+          "feeMethod",
+          "replacementPattern",
+          "takerRelayerFee",
+          "taker",
+          "listingTime",
+          "staticExtradata",
+          "makerProtocolFee",
+          "takerProtocolFee",
+          "paymentToken",
+          "calldata",
+          "salt",
+          "feeRecipient",
+          "maker"
+        ]
+      }
+    }
+  }
 }
 ```
-
-### Explanation of the Filter Structure
-
-- First Layer: Contains the different contracts identified by their address.
-- Second Layer: Contains different identifiers for each contract.
-	- An identifier is the SHA-224 sum of the value (stripped of all spaces and newlines) of all the types in the input JSON:
-	```json
-	{
-		"EIP712Domain": [
-			{ "name": "name", "type": "string" },
-			{ "name": "version", "type": "string" },
-			{ "name": "chainId", "type": "uint256" },
-			{ "name": "verifyingContract", "type": "address" }
-		],
-		"Mail": [
-			{ "name": "from", "type": "Person" },
-			{ "name": "to", "type": "Person[]" },
-			{ "name": "contents", "type": "string" }
-		],
-		"Person": [
-			{ "name": "name", "type": "string" },
-			{ "name": "wallets", "type": "address" }
-		]
-	}
-	```
-- Third Layer: Contains the name of the contract. This is an easier and more readable name than the one present in the input JSON.
-- Fourth Layer: Contains a list of JSON paths along with the desired title in the UI for all fields matching the given path.
 
 ## 2. Submit your file
 
