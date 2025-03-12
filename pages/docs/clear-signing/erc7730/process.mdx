@@ -13,25 +13,13 @@ import Image from "next/image"
   Some special cases may require the development of an [Ethereum plugin](../device-app/getting-started). The Ledger team will guide you through this process if required.
 </Callout>
 
-This guide will walk you through the process of implementing clear signing for ERC-7730 on EVM chains. This implementation uses a registry of smart contract metadata files.
-
-After your changes are merged, the Ledger **generic parser** will integrate them, making them available on Ledger devices such as Ledger Flex and Ledger Stax. The "generic parser" serves as the middle-layer deployed on the Ledger infrastructure to read and parse your JSON files.
-
-This preview example shows how clear signing operations will be displayed:
-
-<div style={{ paddingTop: "1em", width: "90%" }} className="center">
-  <figure>
-    <Image src="/clear-signing/preview-example-poap.png" 
-    alt="Preview example with POAP operation"
-    width={800} height={600} 
-    />
-  </figure>
-</div>
-
 ## How to Add Your Metadata to the Registry
 
+This guide will walk you through the process of implementing clear signing for ERC-7730 on EVM chains. This implementation uses a registry of smart contract and EIP-712 metadata files.
 
-### Step 1: Create a Metadata File and preview on device 
+### Step 1: Create a Metadata File 
+
+#### Smart contracts
 
 The Metadata file contains the description of your smart contract data according to the ERC-7730 standard.
 
@@ -41,6 +29,9 @@ To manually write the JSON:
 - Refer to example files available in the [registry directory](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry).
 - Follow the JSON schema and specification in the [specs/erc7730-v1.schema.json](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc7730-v1.schema.json) and [specs/erc-7730.md](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc-7730.md).
 
+#### EIP-712 messages
+
+For EIP-712 follow [this documentation](./eip712-messages) to create the JSON file.
 
 ### Step 2: Fork the Official Registry and open a Pull Request
 
@@ -53,9 +44,24 @@ The official registry is hosted on GitHub: [ERC-7730 Registry](https://github.co
 
 **Success!** You have added your metadata to the registry 🎉
 
+This preview example shows how clear signing operations will be displayed:
+
+<div style={{ paddingTop: "1em", width: "90%" }} className="center">
+  <figure>
+    <Image src="/clear-signing/preview-example-poap.png" 
+    alt="Preview example with POAP operation"
+    width={800} height={600} 
+    />
+  </figure>
+</div>
+
 ## Generic Parser Status
 
+The generic parser integrate the changes made to the repository, making them available on Ledger devices such as Ledger Flex and Ledger Stax. The "generic parser" serves as the middle-layer deployed on the Ledger infrastructure to read and parse your JSON files.
+
+It's used for smart contract metadata parsing only. EIP-712 JSON are interpreted directly by the Ethereum device application.
+
 <Callout type="warning" emoji="⚠️">
-  **Generic Parser Not Yet Ready:** Please be aware that the Ledger generic parser is currently undergoing development and is not yet operational. This means that even after your metadata is merged, it won't immediately be available on Ledger devices. We appreciate your patience and will notify you once the parser is fully functional and capable of integrating metadata with Ledger devices.
+  **Generic Parser Not Yet Ready:** Please be aware that the Ledger generic parser is currently undergoing development and is not yet operational. This means that even after your smart contract metadata is merged, it won't immediately be available on Ledger devices. We appreciate your patience and will notify you once the parser is fully functional and capable of integrating metadata with Ledger devices.
 </Callout>
 
