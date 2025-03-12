@@ -553,7 +553,7 @@ components:
           type: string
           format: date-time
         staked_balance:
-          description: The staked balance in lowest unit of the currency. (e.g in wei for Ethereum)
+          description: The staked balance, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
         status:
           $ref: '#/components/schemas/StatusView'
@@ -606,7 +606,7 @@ components:
           type: string
           format: date-time
         staked_balance:
-          description: The staked balance
+          description: The staked balance, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
         status:
           $ref: '#/components/schemas/StatusView'
@@ -641,19 +641,19 @@ components:
         - type
       properties:
         total:
-          description: Total rewards earned
+          description: Total rewards earned, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
         last24H:
-          description: Rewards earned in the last 24 hours
+          description: Rewards earned in the last 24 hours, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
         last7D:
-          description: Rewards earned in the last 7 days
+          description: Rewards earned in the last 7 days, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
         last30D:
-          description: Rewards earned in the last 30 days
+          description: Rewards earned in the last 30 days, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
         lastYear:
-          description: Rewards earned in the last year
+          description: Rewards earned in the last year, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
         rewardName:
           description: The name of the reward
@@ -684,19 +684,19 @@ components:
         - type
       properties:
         total:
-          description: Total rewards earned
+          description: Total rewards earned, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
         last24H:
-          description: Rewards earned in the last 24 hours
+          description: Rewards earned in the last 24 hours, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
         last7D:
-          description: Rewards earned in the last 7 days
+          description: Rewards earned in the last 7 days, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
         last30D:
-          description: Rewards earned in the last 30 days
+          description: Rewards earned in the last 30 days, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
         lastYear:
-          description: Rewards earned in the last year
+          description: Rewards earned in the last year, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
         rewardName:
           description: The name of the reward
