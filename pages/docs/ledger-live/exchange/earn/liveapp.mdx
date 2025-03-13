@@ -43,7 +43,7 @@ To ensure users are directed to the correct LiveApp page for specific actions (s
 When Ledger Live calls your LiveApp using these URLs, users should be seamlessly redirected to the appropriate screen based on the specified parameters. Each parameter should correspond to a particular action, enabling smooth and targeted in-app transitions.
 
 URL parameters:
-- `action`: specifies the action to be performed, either `stake` or `unstake`.
+- `action`: specifies the action to be performed, either `stake`, `unstake`, `manage` or `claim_rewards`.
 - `accountAddress`: the address of the user executing the action.
 - `accountId`: the ID of the user's account in Ledger Live.
 - `cryptoCurrency`: the crypto asset involved in the action.
@@ -51,6 +51,7 @@ URL parameters:
 - `language`: the language preference of the user set in Ledger Live.
 - `theme`: the theme preference of the user set in Ledger Live.
 - `fix_parameters`: when set to `true`, restrict users from changing the network, coins, and connected address within your LiveApp frontend.
+- `validator_address`: if needed, the validator address related to the `action`. For example, claiming rewards (`action=claim_rewards`) from a specific validator.
 
 **Example**:
 
