@@ -8,26 +8,30 @@ The following sections details how those permissions are granted. It is crucial 
 
 ### Application flags
 
-Priviledges or permissions of an application are defined within its Makefile through the `--appFlags` parameter.
-This bitfield is documented [here](https://github.com/LedgerHQ/ledger-secure-sdk/blob/master/include/appflags.h).
+Priviledges or permissions of an application are defined within its Makefile.
 
 Most notable flags are:
 
-- `APPLICATION_FLAG_BOLOS_SETTINGS (0x200)` : the application can read and modify system parameters such as the device's name.
-- `APPLICATION_FLAG_GLOBAL_PIN (0x40)` : the application can request a user PIN verification or query the number of tries left before the device erases its own memory.
-- `APPLICATION_FLAG_LIBRARY (0x800)` : the application behaves (or rather can also behave) as a library and exports functions that can be reached from other applications.
+- `HAVE_APPLICATION_FLAG_BOLOS_SETTINGS` : the application can read and modify system parameters such as the device's name.
+- `HAVE_APPLICATION_FLAG_GLOBAL_PIN` : the application can request a user PIN verification or query the number of tries left before the device erases its own memory.
+- `HAVE_APPLICATION_FLAG_LIBRARY` : the application behaves (or rather can also behave) as a library and exports functions that can be reached from other applications.
 
-A common use of the APPLICATION_FLAG_BOLOS_SETTINGS is for using BLE channel on Nano X. The Nano S and Nano S Plus do not have such a channel however. Which means the Makefile has to treat the `--appFlags` separately for each device type, like so:
+A common use of the `HAVE_APPLICATION_FLAG_BOLOS_SETTINGS` is for using BLE channel on Nano X, Flex and Stax:
 
 ```makefile copy
-ifeq ($(TARGET_NAME), TARGET_NANOX)
-HAVE_APPLICATION_FLAG_BOLOS_SETTINGS = 1
+ifeq ($(ENABLE_BLUETOOTH), 1)
+ifeq ($(TARGET_NAME),$(filter $(TARGET_NAME),TARGET_NANOX TARGET_STAX TARGET_FLEX))
+    HAVE_APPLICATION_FLAG_BOLOS_SETTINGS = 1
+    DEFINES += HAVE_BLE BLE_COMMAND_TIMEOUT_MS=2000 HAVE_BLE_APDU
+    DEFINES += BLE_SEGMENT_SIZE=32
+    SDK_SOURCE_PATH += lib_blewbxx lib_blewbxx_impl
+endif
 endif
 ```
 
 Other flags are in general not used at all.
 
-Any use of a flag other than APPLICATION_FLAG_BOLOS_SETTINGS must be justified in the Makefile otherwise Ledger will not sign the application.
+Any use of a flag other than HAVE_APPLICATION_FLAG_BOLOS_SETTINGS must be justified in the Makefile otherwise Ledger will not sign the application.
 
 ### Restrict Apps to Coin-Specific BIP32 Prefix
 
