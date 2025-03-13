@@ -128,7 +128,7 @@ const config: DocsThemeConfig = {
       </span>
     </>
   ),
-  // Remove the faviconGlyph property
+
   navbar: {
     extraContent: <AuthButton />,
   },
