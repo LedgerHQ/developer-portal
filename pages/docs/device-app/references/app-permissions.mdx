@@ -45,7 +45,7 @@ Next, all coins must follow the logic defined in [BIP-0044](https://github.com/b
   Ledger will not sign apps whose BIP32 prefixes have not been properly set.
 </Callout>
 
-Restricting the derivation path can be done by setting the `--path` property in the app Makefile.
+Restricting the derivation path can be done by setting the `PATH_APP_LOAD_PARAMS` property in the app Makefile.
 
 For example, if your application derives keys on the hardened path 44'/60', specify in your Makefile:
 
@@ -53,7 +53,7 @@ For example, if your application derives keys on the hardened path 44'/60', spec
 PATH_APP_LOAD_PARAMS += "44'/60'"
 ```
 
-Derivation can also be restricted to a specific curve using the `--curve` property. Supported curves are `secp256k1`, `secp256r1`, `ed25519` and `bls12381g1`.
+Derivation can also be restricted to a specific curve using the `CURVE_APP_LOAD_PARAMS` property. Supported curves are `secp256k1`, `secp256r1`, `ed25519` and `bls12381g1`.
 
 Several curves and paths can be configured at the same time. For example, if your app must derive keys on paths 44'/535348', 13' and 17', on curves Ed25519 and prime256r1, the Makefile should contain:
 
