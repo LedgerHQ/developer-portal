@@ -147,6 +147,7 @@ paths:
                   $ref: '#/components/schemas/GrowResponse'
                 example:
                   - network: ethereum
+                    deposit_token: ethereum/erc20/staked_aave_balance_pool_token
                     interest:
                         type: "APY"
                         value: "5.3"
@@ -568,10 +569,14 @@ components:
       type: object
       required:
       - network
+      - deposit_token
       - interest
       properties:
         network:
           description: The network name
+          type: string
+        deposit_token:
+          description: The deposit token
           type: string
         interest:
           $ref: '#/components/schemas/ProtocolInterestView'
