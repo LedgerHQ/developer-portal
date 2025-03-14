@@ -71,31 +71,31 @@ paths:
                           last24H: "0"
                           last7D: "0"
                           last30D: "0"
-                          lastYear: "0"
-                          rewardName: "LombardPoints"
-                          interestRate: "0"
-                          pointsValueInCurrency: "0"
+                          last_year: "0"
+                          reward_name: "LombardPoints"
+                          interest_rate: "0"
+                          points_value_in_currency: "0"
                           type: "RewardsPointsView"
                         - total: "89102191421829"
                           last24H: "0"
                           last7D: "0"
                           last30D: "0"
-                          lastYear: "0"
-                          rewardName: "BabylonPoints"
-                          interestRate: "0"
-                          pointsValueInCurrency: "0"
+                          last_year: "0"
+                          reward_name: "BabylonPoints"
+                          interest_rate: "0"
+                          points_value_in_currency: "0"
                           type: "RewardsPointsView"
                         - total: "89102191421829"
                           last24H: "133010301"
                           last7D: "230414144"
                           last30D: "3423424242"
-                          lastYear: "6623724242"
-                          rewardName: "LBTC Rewards"
+                          last_year: "6623724242"
+                          reward_name: "LBTC Rewards"
                           currency: "ethereum/erc20/lombard_staked_bitcoin"
-                          interestRate: "4.5"
+                          interest_rate: "4.5"
                           type: "RewardsView"
                       details:
-                        contractAddress: "0xae7ab96520de3a18e5e111b5eaab095312d7fe84"
+                        contract_address: "0xae7ab96520de3a18e5e111b5eaab095312d7fe84"
                         type: "EthDeFiDetailsView"
         '400':
           description: Bad request
@@ -147,6 +147,7 @@ paths:
                   $ref: '#/components/schemas/GrowResponse'
                 example:
                   - network: ethereum
+                    deposit_token: ethereum/erc20/staked_aave_balance_pool_token
                     interest:
                         type: "APY"
                         value: "5.3"
@@ -247,14 +248,14 @@ components:
       title: EthDeFiDetailsView
       type: object
       required:
-      - contractAddress
+      - contract_address
       properties:
-        contractAddress:
+        contract_address:
           type: string
         type:
           type: string
       example:
-        contractAddress: '0x4dac23030b3ce359681fb7c00426f989a84e5298'
+        contract_address: '0x4dac23030b3ce359681fb7c00426f989a84e5298'
         type: 'EthDefiDetailsView'
     EthNativeDetailsView:
       title: EthNativeDetailsView
@@ -568,10 +569,14 @@ components:
       type: object
       required:
       - network
+      - deposit_token
       - interest
       properties:
         network:
           description: The network name
+          type: string
+        deposit_token:
+          description: The deposit token
           type: string
         interest:
           $ref: '#/components/schemas/ProtocolInterestView'
@@ -634,10 +639,10 @@ components:
         - last24H
         - last7D
         - last30D
-        - lastYear
-        - rewardName
-        - interestRate
-        - pointsValueInCurrency
+        - last_year
+        - reward_name
+        - interest_rate
+        - points_value_in_currency
         - type
       properties:
         total:
@@ -652,16 +657,16 @@ components:
         last30D:
           description: Rewards earned in the last 30 days, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
-        lastYear:
+        last_year:
           description: Rewards earned in the last year, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
-        rewardName:
+        reward_name:
           description: The name of the reward
           type: string
-        interestRate:
+        interest_rate:
           description: The interest rate if it exists else 0.
           type: string
-        pointsValueInCurrency:
+        points_value_in_currency:
           description: The value of the reward in the currency if it exists else 0.
           type: string
         type:
@@ -677,9 +682,9 @@ components:
         - last24H
         - last7D
         - last30D
-        - lastYear
-        - rewardName
-        - interestRate
+        - last_year
+        - reward_name
+        - interest_rate
         - currency
         - type
       properties:
@@ -695,13 +700,13 @@ components:
         last30D:
           description: Rewards earned in the last 30 days, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
-        lastYear:
+        last_year:
           description: Rewards earned in the last year, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
-        rewardName:
+        reward_name:
           description: The name of the reward
           type: string
-        interestRate:
+        interest_rate:
           description: The Net APY interest rate
           type: string
         currency:
