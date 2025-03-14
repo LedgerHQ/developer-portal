@@ -16,7 +16,7 @@
     - `feature/` or `feat/`: For creating new features.
 	- `fix/`: For addressing code bugs.
 
-- Add ticket numbers: If your project uses an issue tracking system like Jira or GitHub issues, incorporate the issue token into the branch name for easier tracking. 
+- Add ticket numbers: If your project uses an issue tracking system like Jira or GitHub issues, incorporate the issue token into the branch name for easier tracking. If there is no ticket number, use `no-issue`.
 
 Example: `feature/PROJ-123-footer-links`
 
