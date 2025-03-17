@@ -68,27 +68,27 @@ paths:
                       commission: "Net"
                       rewards:
                         - total: "89102191421829"
-                          last24H: "0"
-                          last7D: "0"
-                          last30D: "0"
+                          last_day: "0"
+                          last_week: "0"
+                          last_month: "0"
                           last_year: "0"
                           reward_name: "LombardPoints"
                           interest_rate: "0"
                           points_value_in_currency: "0"
                           type: "RewardsPointsView"
                         - total: "89102191421829"
-                          last24H: "0"
-                          last7D: "0"
-                          last30D: "0"
+                          last_day: "0"
+                          last_week: "0"
+                          last_month: "0"
                           last_year: "0"
                           reward_name: "BabylonPoints"
                           interest_rate: "0"
                           points_value_in_currency: "0"
                           type: "RewardsPointsView"
                         - total: "89102191421829"
-                          last24H: "133010301"
-                          last7D: "230414144"
-                          last30D: "3423424242"
+                          last_day: "133010301"
+                          last_week: "230414144"
+                          last_month: "3423424242"
                           last_year: "6623724242"
                           reward_name: "LBTC Rewards"
                           currency: "ethereum/erc20/lombard_staked_bitcoin"
@@ -636,9 +636,9 @@ components:
       type: object
       required:
         - total
-        - last24H
-        - last7D
-        - last30D
+        - last_day
+        - last_week
+        - last_month
         - last_year
         - reward_name
         - interest_rate
@@ -648,13 +648,13 @@ components:
         total:
           description: Total rewards earned, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
-        last24H:
+        last_day:
           description: Rewards earned in the last 24 hours, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
-        last7D:
+        last_week:
           description: Rewards earned in the last 7 days, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
-        last30D:
+        last_month:
           description: Rewards earned in the last 30 days, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
         last_year:
@@ -679,9 +679,9 @@ components:
       type: object
       required:
         - total
-        - last24H
-        - last7D
-        - last30D
+        - last_day
+        - last_week
+        - last_month
         - last_year
         - reward_name
         - interest_rate
@@ -691,13 +691,13 @@ components:
         total:
           description: Total rewards earned, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
-        last24H:
+        last_day:
           description: Rewards earned in the last 24 hours, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
-        last7D:
+        last_week:
           description: Rewards earned in the last 7 days, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
-        last30D:
+        last_month:
           description: Rewards earned in the last 30 days, denominated in the smallest unit of the currency (e.g., wei for ETH).
           type: string
         last_year:
