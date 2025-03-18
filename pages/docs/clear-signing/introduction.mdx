@@ -1,0 +1,34 @@
+import Image from 'next/image'
+import { Callout } from "nextra/components";
+
+# Enhancing Security through Clear Signing
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/YdhWAONAGj0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+## Why does your dApp or Wallet need clear signing?
+
+Blind signing is a significant vulnerability that scammers exploit to steal funds from unsuspecting users. If the only information given to the user is the transaction hash, it is challenging for users to verify the accuracy and authenticity of the transaction before signing, because it is unreadable.
+
+<div style={{ paddingTop: "1em", width: "90%" }} className="center">
+  <figure>
+    <Image src="/blind-signing-risk.png" alt="Blind sign risk" width={800} height={600} />
+  </figure>
+</div>
+
+At Ledger, we are committed to building a secure Web3 ecosystem. That is why we have introduced clear signing standards and tools to address this issue. These tools provide user-readable and understandable data, making it easier for users to identify potential risks and verify transactions accurately.
+
+<div style={{ paddingTop: "1em", width: "90%" }} className="center">
+  <figure>
+    <Image src="/clear-signing-cover.png" alt="Clear signing example" width={800} height={600} />
+  </figure>
+</div>
+
+Using the ABI of the contract and metadata around the different fields, we can format a transaction for human readability. This way, users can verify the transaction before signing it, massively reducing the risk of scams.
+
+<div style={{ paddingTop: "1em", width: "90%" }} className="center">
+  <figure>
+    <Image src="/clear-signing/ERC-7730-meme.png" alt="Blind sign risk" width={800} height={600} />
+  </figure>
+</div>
+

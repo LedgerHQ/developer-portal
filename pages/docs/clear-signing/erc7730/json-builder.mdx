@@ -1,16 +1,20 @@
 import Image from "next/image"
 import { Callout } from "nextra/components";
 
-# ERC-7730 JSON Builder for Smart contract clear signing
+# ERC-7730 JSON Builder for Smart contracts
 
-You can use the [ERC7730 JSON builder](https://get-clear-signed.ledger.com/) to easily create a compliant JSON file and visualize how the clear signing will like on a device.
-It will create a ERC-7730 compliant JSON file that you can submit [following this process](./process). In this page, we take Aave as an example.
+### 1. Open the Builder
+
+The Metadata file contains the description of your smart contract data according to the ERC-7730 standard.
+
+- Generate this file with the [ERC7730 JSON builder](./json-builder). The JSON builder also provide screenshots of your clear signing operation on device.
 
 <Callout type="info" emoji="ℹ️">
-  The tool is still in Alpha mode, if you encounter any error, please provide feedback using [this form](https://tally.so/r/mObbWM).
+  In the example below, we have used an Aave contract.  
 </Callout>
 
-## 1. Fill in the smart contract address or available
+
+### 2. Fill in the smart contract address or available
 
 <div style={{ paddingTop: "1em", width: "90%" }} className="center">
   <figure>
@@ -21,7 +25,7 @@ It will create a ERC-7730 compliant JSON file that you can submit [following thi
   </figure>
 </div>
 
-## 2. Fill in the metadata
+### 3. Fill in the metadata
 
 This first step is to fill the form with the smart contract Owner, Legal name, and URL.
 
@@ -34,7 +38,7 @@ This first step is to fill the form with the smart contract Owner, Legal name, a
   </figure>
 </div>
 
-## 2. Add information about the operations that will be clear signed
+### 4. Add information about the operations that will be clear signed
 
 <div style={{ paddingTop: "1em", width: "90%" }} className="center">
   <figure>
@@ -45,7 +49,7 @@ This first step is to fill the form with the smart contract Owner, Legal name, a
   </figure>
 </div>
 
-## 3. Copy the JSON file 
+### 5. Copy the JSON file 
 
 On the third page, click on the "submit" button to copy the generated JSON.
 
@@ -58,6 +62,24 @@ On the third page, click on the "submit" button to copy the generated JSON.
   </figure>
 </div>
 
-## 4. Submit your file
+### 6. Submit your file
 
-Follow [this process](./process#step-2-fork-the-official-registry-and-open-a-pull-request) to submit your file
+Submit your file on the official registry is hosted on GitHub: [ERC-7730 Registry](https://github.com/LedgerHQ/clear-signing-erc7730-registry).
+
+- Review the [PR requirements](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/README.md) detailed in the README.
+- Automated checks will run to provide feedback on your files.
+- Repo approvers will review your submission and provide comments to assist the process.
+- Once approved, your metadata will be merged into the registry.
+
+**Success!** You have added your metadata to the registry 🎉
+
+This preview example shows how clear signing operations will be displayed:
+
+<div style={{ paddingTop: "1em", width: "90%" }} className="center">
+  <figure>
+    <Image src="/clear-signing/preview-example-poap.png" 
+    alt="Preview example with POAP operation"
+    width={800} height={600} 
+    />
+  </figure>
+</div>
