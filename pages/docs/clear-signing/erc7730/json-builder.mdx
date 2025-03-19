@@ -1,20 +1,19 @@
 import Image from "next/image"
 import { Callout } from "nextra/components";
 
-# ERC-7730 JSON Builder for Smart contracts
+# JSON Builder
 
 ### 1. Open the Builder
 
-The Metadata file contains the description of your smart contract data according to the ERC-7730 standard.
-
-- Generate this file with the [ERC7730 JSON builder](./json-builder). The JSON builder also provide screenshots of your clear signing operation on device.
+The Metadata file describes your smart contract data according to the ERC-7730 standard.  
+The JSON Builder also displays screenshots of your clear signing operation on the device as you go along.  
 
 <Callout type="info" emoji="ℹ️">
-  In the example below, we have used an Aave contract.  
+  In the example below, we used an Aave contract.  
 </Callout>
 
 
-### 2. Fill in the smart contract address or available
+### 2. Fill in the smart contract address or available ABI
 
 <div style={{ paddingTop: "1em", width: "90%" }} className="center">
   <figure>
@@ -38,7 +37,7 @@ This first step is to fill the form with the smart contract Owner, Legal name, a
   </figure>
 </div>
 
-### 4. Add information about the operations that will be clear signed
+### 4. Add information about the operations to be clear signed
 
 <div style={{ paddingTop: "1em", width: "90%" }} className="center">
   <figure>
@@ -64,12 +63,12 @@ On the third page, click on the "submit" button to copy the generated JSON.
 
 ### 6. Submit your file
 
-Submit your file on the official registry is hosted on GitHub: [ERC-7730 Registry](https://github.com/LedgerHQ/clear-signing-erc7730-registry).
+Submit your file on the official registry hosted on GitHub: [ERC-7730 Registry](https://github.com/LedgerHQ/clear-signing-erc7730-registry).
 
-- Review the [PR requirements](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/README.md) detailed in the README.
-- Automated checks will run to provide feedback on your files.
+- Review the [PR requirements](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/README.md) detailed in the README file.
+- Automated checks will run and provide feedback on your files.
 - Repo approvers will review your submission and provide comments to assist the process.
-- Once approved, your metadata will be merged into the registry.
+- Once approved, your metadata will be merged in the registry.
 
 **Success!** You have added your metadata to the registry 🎉
 
@@ -83,3 +82,4 @@ This preview example shows how clear signing operations will be displayed:
     />
   </figure>
 </div>
+

@@ -1,7 +1,12 @@
 import Image from 'next/image'
 import { Callout } from "nextra/components";
 
-# What to Clear Sign?
+# What can be Clear Signed?
+
+## Scope of ERC-7730
+
+The objective of ERC-7730 is to establish a standardized method for clear signing contracts and messages on EVM chains, by offering metadata formatting that complements ABIs and message types.  
+Anything included in the scope of ERC-7730 can be clear signed.  
 
 ### Smart Contract dApps
 
@@ -35,11 +40,12 @@ Want to know how the Clear Signing initiative will evolve? Read [this page](./im
 
 ## Generic Parser Status
 
-The generic parser integrate the changes made to the repository, making them available on Ledger devices such as Ledger Flex and Ledger Stax. The "generic parser" serves as the middle-layer deployed on the Ledger infrastructure to read and parse your JSON files.
+The generic parser integrates the changes made to the repository, making them available on Ledger devices such as Ledger Flex and Ledger Stax. The “generic parser” serves as the middle layer deployed on the Ledger infrastructure to read and parse your JSON files.  
 
-It's used for smart contract metadata parsing only. EIP-712 JSON are interpreted directly by the Ethereum device application.
+It’s used only for smart contract metadata parsing. EIP-712 JSON files are interpreted directly by the Ethereum device application.  
 
 <Callout type="warning" emoji="⚠️">
   **Generic Parser Not Yet Ready:** Please be aware that the Ledger generic parser is currently undergoing development and is not yet operational. This means that even after your smart contract metadata is merged, it won't immediately be available on Ledger devices. We appreciate your patience and will notify you once the parser is fully functional and capable of integrating metadata with Ledger devices.
 </Callout>
+
 

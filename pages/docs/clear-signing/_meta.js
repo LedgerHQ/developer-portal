@@ -4,7 +4,7 @@ export default {
     type: "separator"
   },
   "introduction": "What is it?",
-  "getting-started": "Where to start?",
+  "getting-started": "Things you can Clear Sign",
   erc7730: "dApp Smart Contracts",
   "eip712-messages": "EIP-712 messages",
   wallets: "Wallets implementation with the Ethereum Signer Kit",
