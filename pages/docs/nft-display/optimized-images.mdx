@@ -1,23 +1,27 @@
 ---
 title: Optimized images
-description: This series of articles are for NFT dApp developers and NFT creators who want to allow their audience to showcase their NFTs on the Ledger Stax device.
+description: This series of articles are for NFT dApp developers and NFT creators who want to allow their audience to showcase their NFTs on Ledger devices.
 ---
 
 import Image from 'next/image'
-
+import { Callout } from 'nextra/components'
 
 # Optimized images
 
-This series of articles are for NFT dApp developers and NFT creators who want to allow their audience to showcase their NFTs on the Ledger Stax device.
+This series of articles are for NFT dApp developers and NFT creators who want to allow their audience to showcase their NFTs on Ledger Stax and Ledger Flex devices.
 
-## Ledger Stax Lock Screen
+<Callout type="warning" emoji="⚠️">
+  The Ledger Stax Metadata tool is no longer available. For new NFTs, we recommend using Manifold Studio. For existing NFTs with mutable metadata, you can update the metadata manually. For NFTs with immutable metadata, updates are not currently possible.
+</Callout>
 
-The Lock screen is the first thing users see when they pick up their Ledger Stax. The Lock Screen can be customized by choosing an image from the NFT gallery or from the user’s smartphone. 
+## Ledger Device Lock Screen
 
-The Ledger screen has specific requirements which need to be considered: 
+The Lock screen is the first thing users see when they pick up their Ledger Stax and Ledger Flex devices. The Lock Screen can be customized by choosing an image from the NFT gallery or from the user's smartphone. 
+
+The Ledger screens have specific requirements which need to be considered: 
 
 - **Dimension**: The screen's resolution is 672px (height) by 400px (width). For an optimal display of the NFT on Ledger Stax, make sure the NFT image height is 1.68x the width and the minimum width is 400px (ex: 840px * 500px).
-- **Color profile**: The Ledger Stax screen supports up to 16 levels of gray (4-bit grayscale). 
+- **Color profile**: The Ledger Stax and Ledger Flex screens support up to 16 levels of gray (4-bit grayscale). 
 
 <div className="center">
 	<figure>
@@ -26,39 +30,40 @@ The Ledger screen has specific requirements which need to be considered:
 	</figure>
 </div>
 
-Ledger Live will give the NFT owner an option to crop the image for their NFT and the color will be converted to 4-bit grayscale, but in a lot of instances it won’t look ideal. 
+Ledger Live will give the NFT owner an option to crop the image for their NFT and the color will be converted to 4-bit grayscale, but in a lot of instances it won't look ideal. 
 
-As a creator, you can provide a dedicated secondary image that will only be used for displaying on Ledger Stax’s lock screen. [As an example](https://metadata.ledger.com/ledger-market-pass-genesis-edition/tokens/1), for the [ Ledger ] Market Pass - Genesis Edition NFT, you can see below the primary image against the secondary image that has been designed for Ledger Stax. 
+As a creator, you can provide a dedicated secondary image that will only be used for displaying on Ledger Stax and Ledger Flex devices' lock screen. [As an example](https://metadata.ledger.com/ledger-market-pass-genesis-edition/tokens/1), for the [ Ledger ] Market Pass - Genesis Edition NFT, you can see below the primary image against the secondary image that has been designed for Ledger devices. 
 
 Primary Image                      |  Secondary Image
 :---------------------------------:|:-------------------------------------:
 ![Primary Image](/nft-display/metadata-02.png) |  ![Secondary Image](/nft-display/metadata-03.png)
 
-
 ## Use Dithermark To Convert Your Image
 
-Converting your image to black and white is not enough. To ensure that your final output will look great on Ledger Stax, you can use Dithermark, a free tool, to apply the same dithering algorithm and color profile that your image will be converted to for display on Ledger Stax. 
+Converting your image to black and white is not enough. To ensure that your final output will look great on Ledger Stax and Ledger Flex devices, you can use Dithermark, a free tool, to apply the same dithering algorithm and color profile that your image will be converted to for display on Ledger devices. 
 
-Here’s how to use it:
-1. Make sure your image aspect ratio matches that of Ledger Stax
+Here's how to use it:
+1. Make sure your image aspect ratio matches that of your target Ledger device (Stax or Flex)
 2. Go to [app.dithermark.com](https://app.dithermark.com/) and upload your image 
 3. On the Color Dither tab, make the following selections:
 	- a. Algorithm: Floyd-Steinberg
 	- b. Color comparison: RGB
 	- c. Color palette: Monochrome
 	- d. Color count: 16
-4. Go to the Export tab and click “Save”
+4. Go to the Export tab and click "Save"
 
-Your image is now ready to be added to your NFT’s metadata!
+Your image is now ready to be added to your NFT's metadata!
 
-## Introducing the Ledger Stax metadata
+## Adding Ledger Device Metadata to Your NFTs
 
-In order to showcase NFTs on Ledger Stax (with the dedicated secondary image), we’ve created a new schema for metadata ledger_stax_image that points to the location of the file where the Ledger Stax image is stored.
+To add Ledger device metadata to your NFTs, you have two options:
 
-The metadata schema is open to all. As a dApp developer, you can create a flow where end-users will upload an image for Ledger Stax which will then trigger the metadata update.
+1. For new NFTs: Use [Manifold Studio](./manifold-studio) to create your NFTs with Ledger Stax and Ledger Flex device metadata built-in
+2. For existing NFTs with mutable metadata: [Update the metadata manually](./update-metadata)
 
-To update your NFT metadata, you have two options:
+<Callout type="warning" emoji="⚠️">
+  For NFTs with immutable metadata, updates are not currently possible. We recommend using Manifold Studio for new NFTs to ensure Ledger device compatibility from the start.
+</Callout>
 
-1. Use the Ledger Stax Metadata tool (for non-technical users and advanced users with immutable metadata); [read our how-to article next](./metadata-tool/)
-2. Update your metadata manually (for advanced users with mutable metadata); [read the technical details](./update-metadata/)
+The metadata schema is open to all. As a dApp developer, you can create a flow where end-users will upload an image for Ledger Stax and Ledger Flex devices which will then trigger the metadata update.
 
