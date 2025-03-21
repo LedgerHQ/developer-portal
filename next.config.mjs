@@ -9,13 +9,13 @@ const withNextra = nextra({
 const deviceAppRedirects = [
   // Multiple paths to device-app/getting-started consolidated
   {
-    source: "/(?:docs\\/nano-app|docs\\/embedded-app|docs\\/device-app(?:\\/introduction)?)/:slug*",
+    source: "/:path(docs\\/nano-app|docs\\/embedded-app|docs\\/device-app\\/introduction?|docs\\/device-app)/:slug*",
     destination: "/docs/device-app/getting-started",
     permanent: true,
   },
   // Architecture and develop catch-all redirects
   {
-    source: "/docs/device-app/(?:develop|architecture)/:slug*",
+    source: "/docs/device-app/:path(develop|architecture)/:slug*",
     destination: "/docs/device-app/getting-started",
     permanent: true,
     has: [
@@ -28,7 +28,7 @@ const deviceAppRedirects = [
   },
   // Plugin related redirects consolidated
   {
-    source: "/(?:docs\\/plugin|docs\\/device-app\\/develop\\/code\\/plugin)/:slug*",
+    source: "/:path(docs\\/plugin|docs\\/device-app\\/develop\\/code\\/plugin)/:slug*",
     destination: "/docs/device-app/develop/code/plugin",
     permanent: true,
   },
@@ -75,7 +75,7 @@ const deviceAppRedirects = [
   },
   // UI flows consolidated
   {
-    source: "/docs/device-app/develop/ui/flows/:type(?:display-management-flow|advanced-display-management)",
+    source: "/docs/device-app/develop/ui/flows/:type(display-management-flow|advanced-display-management)",
     destination: "/docs/device-app/integration/design-guidelines/display-management/:type",
     permanent: true,
   },
@@ -126,7 +126,7 @@ const deviceAppRedirects = [
 const deviceInteractionRedirects = [
   // All device interaction paths consolidated
   {
-    source: "/docs/(?:transport|connect|dapp-connect-kit|connectivity\\/connect-kit|connectivity\\/ledgerJS)/:slug*",
+    source: "/docs/:path(transport|connect|dapp-connect-kit|connectivity\\/connect-kit|connectivity\\/ledgerJS)/:slug*",
     destination: "/docs/device-interaction/getting-started",
     permanent: true,
   },
@@ -141,13 +141,13 @@ const deviceInteractionRedirects = [
 const ledgerLiveRedirects = [
   // All ledger live discover paths consolidated
   {
-    source: "/(?:discover|docs\\/discover|docs\\/live-app|docs\\/dapp|docs\\/non-dapp|APIs)/:slug*",
+    source: "/:path(discover|docs\\/discover|docs\\/live-app|docs\\/dapp|docs\\/non-dapp|APIs)/:slug*",
     destination: "/docs/ledger-live/discover/getting-started",
     permanent: true,
   },
   // All blockchain/coin paths consolidated
   {
-    source: "/docs/(?:coin|blockchain)/:slug*",
+    source: "/docs/:path(coin|blockchain)/:slug*",
     destination: "/docs/ledger-live/accounts/getting-started",
     permanent: true,
   },
@@ -167,7 +167,12 @@ const ledgerLiveRedirects = [
 const tokenRedirects = [
   // All token paths consolidated
   {
-    source: "/docs/tokens?/:slug*",
+    source: "/docs/token/:slug*",
+    destination: "/docs/ledger-live/accounts/integration/tokens/evm-chains-tokens",
+    permanent: true,
+  },
+  {
+    source: "/docs/tokens/:slug*",
     destination: "/docs/ledger-live/accounts/integration/tokens/evm-chains-tokens",
     permanent: true,
   },
@@ -223,13 +228,13 @@ const nftDisplayRedirects = [
 const clearSigningRedirects = [
   // ERC7730 redirects consolidated
   {
-    source: "/docs/(?:erc7730|clear-signing\\/erc7730)",
+    source: "/docs/:path(erc7730|clear-signing\\/erc7730)",
     destination: "/docs/clear-signing/erc7730/process",
     permanent: true,
   },
   // EIP712 messages redirects consolidated
   {
-    source: "/docs/(?:token\\/eip712-messages|clear-signing\\/eip712-messages)",
+    source: "/docs/:path(token\\/eip712-messages|clear-signing\\/eip712-messages)",
     destination: "/docs/clear-signing/erc7730/eip712-messages",
     permanent: true,
   },
@@ -245,7 +250,12 @@ const clearSigningRedirects = [
   },
   // Clear-signing paths consolidated
   {
-    source: "/(?:docs\\/)?clear-signing",
+    source: "/docs/clear-signing",
+    destination: "/docs/clear-signing/getting-started",
+    permanent: true,
+  },
+  {
+    source: "/clear-signing",
     destination: "/docs/clear-signing/getting-started",
     permanent: true,
   },
@@ -265,13 +275,13 @@ const miscRedirects = [
   },
   // Discord related redirects consolidated
   {
-    source: "/(?:discord|discord-pro|contact)",
+    source: "/:path(discord|discord-pro|contact)",
     destination: "https://discord.gg/Ledger",
     permanent: true,
   },
   // Dev tracks/sections redirects consolidated
   {
-    source: "/docs/(?:section|dev-journey|sections)",
+    source: "/docs/:path(section|dev-journey|sections)",
     destination: "/docs/dev-tracks/quickstart",
     permanent: true,
   },
