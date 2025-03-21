@@ -143,8 +143,8 @@ Here is a little diagram to explain how the `payload` and the `signature` are ge
     />
 </Zoom>
 
-- `payload`: the trade parameters are assembled in a [protobuf](https://developers.google.com/protocol-buffers) message. Then using the protobuf tools we do a [binary encoding](https://developers.google.com/protocol-buffers/docs/encoding) of the protobuf (Byte Array). Finally, with [base64Url encoding](https://en.wikipedia.org/wiki/Base64) we get the `payload` field.
-- `signature`: From the binary encoding of the previous [protobuf](https://developers.google.com/protocol-buffers) (Byte Array), we sign it with [ES256](https://ldapwiki.com/wiki/Wiki.jsp?page=ES256) and the provider's private key to get a Signature Byte Array. Finally, with [base64Url encoding](https://en.wikipedia.org/wiki/Base64) we get the `signature` field ([more details](#jws-signature)).
+- `payload`: the trade parameters are assembled in a [protobuf](https://developers.google.com/protocol-buffers) message. This message is [binary encoded](https://developers.google.com/protocol-buffers/docs/encoding) to produce a Byte Array. This Byte Array is then [base64Url encoded](https://en.wikipedia.org/wiki/Base64), resulting `payload` field.
+- `signature`: The payload is signed using [ES256](https://ldapwiki.com/wiki/Wiki.jsp?page=ES256) provider's private key, generating a Byte Array. This Signature Byte Array is then [base64Url encoded](https://en.wikipedia.org/wiki/Base64), producing the Signature field. ([more details](#jws-signature)).
 
 ### Signature usage
 
