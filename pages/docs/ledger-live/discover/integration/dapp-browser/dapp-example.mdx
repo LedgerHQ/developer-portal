@@ -1,0 +1,312 @@
+# Wallet Connection App Documentation
+
+## Overview
+
+This application is a React-based web interface that allows users to connect their Ethereum wallets. It supports multiple wallet providers, including MetaMask, WalletConnect, Safe, and injected wallets. The app is built using React with TypeScript and leverages the Wagmi library for Ethereum wallet connections.
+
+## Project Structure
+
+The application follows this structure:
+
+```
+connect-wallet-example/
+├── src/
+│   ├── components/
+│   │   ├── Account.tsx
+│   │   ├── Connect.tsx
+│   │   └── ConnectWallet.tsx
+│   ├── App.tsx
+│   ├── index.tsx
+│   ├── wagmi.tsx
+│   └── index.css
+├── package.json
+└── tsconfig.json
+```
+
+## Dependencies
+
+The application relies on these dependencies:
+
+- **React & React DOM**: UI framework
+- **Wagmi**: Ethereum wallet connection hooks
+- **Viem**: Low-level Ethereum interface
+- **TanStack React Query**: Data fetching and caching
+- **TypeScript**: Type safety
+- **Vite**: Build tool and development server
+
+## Package Management
+
+The project uses **pnpm** as its package manager.
+
+## Configuration
+
+### Wagmi Configuration
+
+The application configures Wagmi in the `wagmi.ts` file:
+
+```typescript
+import { http, createConfig } from "wagmi";
+import { base, mainnet, optimism } from "wagmi/chains";
+import { injected, metaMask, safe, walletConnect } from "wagmi/connectors";
+
+const projectId = "3fbb6bba6f1de962d911bb5b5c9dba88";
+
+export const config = createConfig({
+  chains: [mainnet, optimism, base],
+  connectors: [injected(), walletConnect({ projectId }), metaMask(), safe()],
+  transports: {
+    [mainnet.id]: http(),
+    [optimism.id]: http(),
+    [base.id]: http(),
+  },
+});
+```
+
+This configuration:
+
+- Supports Ethereum Mainnet, Optimism, and Base chains
+- Enables wallet connections via injected providers, WalletConnect, MetaMask, and Safe
+- Configures HTTP transport for each chain
+
+**Note:** The `projectId` is used for WalletConnect integration.
+
+## Components
+
+### App Component
+
+The main App component sets up the Wagmi provider and React Query:
+
+```typescript
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { WagmiProvider } from "wagmi";
+
+import { ConnectWallet } from "./components/ConnectWallet";
+import { config } from "./wagmi";
+
+const queryClient = new QueryClient();
+
+export default function App() {
+  return (
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <ConnectWallet />
+      </QueryClientProvider>
+    </WagmiProvider>
+  );
+}
+```
+
+### ConnectWallet Component
+
+This component conditionally renders either the Connect or Account component based on the connection status:
+
+```typescript
+import { useAccount } from "wagmi";
+
+import { Account } from "./Account";
+import { Connect } from "./Connect";
+
+export function ConnectWallet() {
+  const { isConnected } = useAccount();
+  return (
+    <div className="container">{isConnected ? <Account /> : <Connect />}</div>
+  );
+}
+```
+
+### Connect Component
+
+Displays buttons for all available wallet connectors:
+
+```typescript
+import * as React from "react";
+import { Connector, useChainId, useConnect } from "wagmi";
+
+export function Connect() {
+  const chainId = useChainId();
+  const { connectors, connect } = useConnect();
+
+  return (
+    <div className="buttons">
+      {connectors.map((connector) => (
+        <ConnectorButton
+          key={connector.uid}
+          connector={connector}
+          onClick={() => connect({ connector, chainId })}
+        />
+      ))}
+    </div>
+  );
+}
+
+function ConnectorButton({
+  connector,
+  onClick,
+}: {
+  connector: Connector;
+  onClick: () => void;
+}) {
+  const [ready, setReady] = React.useState(false);
+  React.useEffect(() => {
+    (async () => {
+      const provider = await connector.getProvider();
+      setReady(!!provider);
+    })();
+  }, [connector, setReady]);
+
+  return (
+    <button
+      className="button"
+      disabled={!ready}
+      onClick={onClick}
+      type="button"
+    >
+      {connector.name}
+    </button>
+  );
+}
+```
+
+### Account Component
+
+Displays connected account information and a disconnect button:
+
+```typescript
+import { useAccount, useDisconnect, useEnsAvatar, useEnsName } from "wagmi";
+
+export function Account() {
+  const { address, connector } = useAccount();
+  const { disconnect } = useDisconnect();
+  const { data: ensName } = useEnsName({ address });
+  const { data: ensAvatar } = useEnsAvatar({ name: ensName! });
+
+  const formattedAddress = formatAddress(address);
+
+  return (
+    <div className="row">
+      <div className="inline">
+        {ensAvatar ? (
+          <img alt="ENS Avatar" className="avatar" src={ensAvatar} />
+        ) : (
+          <div className="avatar" />
+        )}
+        <div className="stack">
+          {address && (
+            <div className="text">
+              {ensName ? `${ensName} (${formattedAddress})` : formattedAddress}
+            </div>
+          )}
+          <div className="subtext">
+            Connected to {connector?.name} Connector
+          </div>
+        </div>
+      </div>
+      <button className="button" onClick={() => disconnect()} type="button">
+        Disconnect
+      </button>
+    </div>
+  );
+}
+
+function formatAddress(address?: string) {
+  if (!address) return null;
+  return `${address.slice(0, 6)}…${address.slice(38, 42)}`;
+}
+```
+
+## User Flow
+
+1. **Initial State**: User is presented with wallet connection options
+2. **Wallet Selection**: User clicks on their preferred wallet provider
+3. **Wallet Connection**: The wallet provider's interface opens, allowing the user to connect
+4. **Connected State**: Once connected, the UI switches to show account information
+5. **Disconnection**: User can disconnect by clicking the "Disconnect" button
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js
+- pnpm
+
+### Installation
+
+1. Set up the files as shown in the project structure
+2. Install dependencies:
+
+   ```bash
+   pnpm install
+   ```
+
+3. Run the development server:
+
+   ```bash
+   pnpm dev
+   ```
+
+4. Open your browser to the URL shown in the terminal (typically http://localhost:5173)
+
+## Using in Ledger Live
+
+1. Set up the files as shown in the project structure
+2. Install dependencies:
+
+   ```bash
+   pnpm install
+   ```
+
+3. Run the development server:
+
+   ```bash
+   pnpm dev
+   ```
+
+4. Create a manifest file
+
+### Manifest file example
+
+```json
+{
+  "$schema": "https://live-app-catalog.ledger.com/schema.json",
+  "id": "WagmiExample",
+  "name": "Wagmi Example",
+  "private": false,
+  "url": "http://localhost:5173/",
+  "dapp": {
+    "provider": "evm",
+    "nanoApp": "Ethereum",
+    "networks": [
+      {
+        "currency": "ethereum",
+        "chainID": 1,
+        "nodeURL": "https://eth-dapps.api.live.ledger.com"
+      },
+      {
+        "currency": "ethereum_holesky",
+        "chainID": 17000,
+        "nodeURL": "https://ethereum-holesky-rpc.publicnode.com"
+      }
+    ]
+  },
+  "homepageUrl": "http://localhost:5173/",
+  "platforms": ["ios", "android", "desktop"],
+  "apiVersion": "^2.0.0",
+  "manifestVersion": "2",
+  "branch": "stable",
+  "categories": ["staking", "defi"],
+  "currencies": ["ethereum", "ethereum_holesky"],
+  "content": {
+    "shortDescription": {
+      "en": "Desc"
+    },
+    "description": {
+      "en": "Desc"
+    }
+  },
+  "permissions": [],
+  "domains": ["http://", "https://"],
+  "visibility": "complete"
+}
+```
+
+5. Go to Ledger Live, Settings, Developer, Add a Local app and add your manifest
