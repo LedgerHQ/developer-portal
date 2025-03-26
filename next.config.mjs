@@ -376,5 +376,11 @@ export default withNextra({
       destination: "/docs/ledger-live/exchange/:slug*",
       permanent: true,
     },
+    // NFT Display redirects
+    {
+      source: "/docs/nft/:slug*",
+      destination: "/docs/nft-display/optimized-images",
+      permanent: true,
+    },
   ],
 });
