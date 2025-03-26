@@ -378,7 +378,7 @@ export default withNextra({
     },
     // NFT Display redirects
     {
-      source: "/docs/nft/image-requirements",
+      source: "/docs/nft/:slug*",
       destination: "/docs/nft-display/optimized-images",
       permanent: true,
     },
