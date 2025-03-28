@@ -1,40 +1,273 @@
 # Connecting to a Device
 
-There are two steps to connecting to a device:
+In this guide, you'll learn how to discover and connect to hardware devices using the Device Management Kit (DMK). By the end, you'll be able to scan for nearby devices, establish connections, and monitor their status.
+
+## What you'll learn
+
+- How to discover available devices
+- How to establish a connection with a specific device
+- How to monitor device status and session state
+- How to properly disconnect from a device
+
+## Prerequisites
+
+Before starting this tutorial, make sure you have initialized the DMK instance and imported it in your project. If you haven't done so, please refer to the [Initializing the DMK](/docs/beginner/init_dmk) tutorial.
+
+> 💡 **Hands-on Workshop:** If you prefer to learn through practical exercises, check out our [Device Management Kit Workshop](https://github.com/LedgerHQ/device-management-kit-ts-workshop). This workshop provides a complete React project with step-by-step instructions to implement device discovery, connection, and data exchange features using the DMK.
+
+## Step 1: Initialize device discovery
+
+Let's start the discovery process:
 
 - **Discovery**: `dmk.startDiscovering()`
   - Returns an observable which will emit a new `DiscoveredDevice` for every scanned device.
   - The `DiscoveredDevice` objects contain information about the device model.
   - Use one of these values to connect to a given discovered device.
-- **Connection**: `dmk.connect({ deviceId: device.id })`
-  - Returns a Promise resolving in a device session identifier `DeviceSessionId`.
-  - **Keep this device session identifier to further interact with the device.**
-  - Then, `dmk.getConnectedDevice({ sessionId })` returns the `ConnectedDevice`, which contains information about the device model and its name.
+- **Connection**:
 
 ```ts
-dmk.startDiscovering().subscribe({
+dmk.connect({
+  deviceId: device.id,
+  {
+    isRefresherDisabled: boolean;
+    pollingInterval?: number;
+  }
+})
+```
+
+- Returns a Promise resolving in a device session identifier `DeviceSessionId`.
+- **Keep this device session identifier to further interact with the device.**
+- Then, `dmk.getConnectedDevice({ sessionId })` returns the `ConnectedDevice`, which contains information about the device model and its name.
+
+```ts
+// Start discovering devices
+const discoverySubscription = dmk.startDiscovering({}).subscribe({
   next: (device) => {
-    dmk.connect({ deviceId: device.id }).then((sessionId) => {
+    dmk
+    .connect({
+      deviceId: device.id,
+      { isRefresherDisabled: true }
+    })
+    .then((sessionId) => {
       const connectedDevice = dmk.getConnectedDevice({ sessionId });
     });
   },
   error: (error) => {
-    console.error(error);
+    console.error("Discovery error:", error);
   },
 });
+
+// When you're done discovering, don't forget to unsubscribe to free up resources
+// discoverySubscription.unsubscribe();
 ```
 
-Then once a device is connected:
+The `startDiscovering()` method returns an Observable that emits a `DiscoveredDevice` object each time a new device is found.
 
-- **Disconnection**: `dmk.disconnect({ sessionId })`
-- **Observe the device session state**: `dmk.getDeviceSessionState({ sessionId })`
-  - This will return an `Observable<DeviceSessionState>` to listen to the known information about the device:
-    - device status:
-      - ready to process a command
-      - busy
-      - locked
-      - disconnected
-    - device name
-    - information on the OS
-    - battery status
-    - currently opened app
+## Step 2: Connect to a discovered device
+
+Once you've discovered a device you want to use, you can connect to it by passing the device object:
+
+```ts
+async function connectToDevice(device) {
+  try {
+    // Connect to the device by passing the full device object
+    const sessionId = await dmk.connect({ device });
+    console.log(`Connected! Session ID: ${sessionId}`);
+
+    // Get information about the connected device
+    const connectedDevice = dmk.getConnectedDevice({ sessionId });
+    console.log(`Device name: ${connectedDevice.name}`);
+    console.log(`Device model: ${connectedDevice.modelId}`);
+
+    return sessionId;
+  } catch (error) {
+    console.error("Connection failed:", error);
+  }
+}
+```
+
+The connection process returns a `sessionId` which you'll need for all further interactions with the device.
+
+## Step 3: Monitor the device session state
+
+After connecting, you can monitor the device's state to stay updated on its status, battery level, and other information:
+
+```ts
+function monitorDeviceState(sessionId) {
+  const stateSubscription = dmk.getDeviceSessionState({ sessionId }).subscribe({
+    next: (state) => {
+      // The state object contains all the current information about the device
+      console.log(`Device status: ${state.deviceStatus}`);
+      // Device status can be:
+      // - LOCKED: device is waiting for the user to enter their PIN
+      // - BUSY: device is processing a command
+      // - CONNECTED: device is connected and available
+      // - NOT_CONNECTED: device is disconnected
+
+      // Battery information might not always be available
+      if (state.batteryStatus) {
+        console.log(`Battery level: ${state.batteryStatus.level}%`);
+      }
+
+      // Information about the current running app
+      if (state.currentApp) {
+        console.log(`Current app: ${state.currentApp.name}`);
+        console.log(`App version: ${state.currentApp.version}`);
+      }
+
+      // Basic device information is always available
+      console.log(`Device model: ${state.deviceModelId}`);
+    },
+    error: (error) => {
+      console.error("State monitoring error:", error);
+    },
+  });
+
+  return stateSubscription;
+}
+```
+
+## Step 4: Disconnect from the device
+
+When you're finished using the device, always disconnect properly:
+
+```ts
+async function disconnectDevice(sessionId) {
+  try {
+    await dmk.disconnect({ sessionId });
+    console.log("Device disconnected successfully");
+  } catch (error) {
+    console.error("Disconnection error:", error);
+  }
+}
+```
+
+## Complete example
+
+Here's a complete example that combines all the steps:
+
+```ts
+import { DeviceStatus } from "@ledgerhq/device-management-kit";
+
+// Global variables to store subscriptions and session info
+let discoverySubscription;
+let stateSubscription;
+let currentSessionId;
+
+function startDiscoveryAndConnect() {
+  // Clear any previous discovery
+  if (discoverySubscription) {
+    discoverySubscription.unsubscribe();
+  }
+
+  console.log("Starting device discovery...");
+
+  // Start discovering - this will scan for any connected devices
+  discoverySubscription = dmk.startDiscovering({}).subscribe({
+    next: async (device) => {
+      console.log(
+        `Found device: ${device.id}, model: ${device.deviceModel.model}`,
+      );
+
+      // Connect to the first device we find
+      try {
+        // Pass the full device object, not just the ID
+        currentSessionId = await dmk.connect({ device });
+        console.log(`Connected! Session ID: ${currentSessionId}`);
+
+        // Stop discovering once we connect
+        discoverySubscription.unsubscribe();
+
+        // Get device information
+        const connectedDevice = dmk.getConnectedDevice({
+          sessionId: currentSessionId,
+        });
+        console.log(`Device name: ${connectedDevice.name}`);
+        console.log(`Device model: ${connectedDevice.modelId}`);
+
+        // Start monitoring device state
+        stateSubscription = monitorDeviceState(currentSessionId);
+      } catch (error) {
+        console.error("Connection failed:", error);
+      }
+    },
+    error: (error) => {
+      console.error("Discovery error:", error);
+    },
+  });
+}
+
+function monitorDeviceState(sessionId) {
+  return dmk.getDeviceSessionState({ sessionId }).subscribe({
+    next: (state) => {
+      console.log(`Device status: ${state.deviceStatus}`);
+
+      // Check for specific status conditions
+      if (state.deviceStatus === DeviceStatus.LOCKED) {
+        console.log("Device is locked - please enter your PIN");
+      }
+
+      // Show battery level if available
+      if (state.batteryStatus) {
+        console.log(`Battery level: ${state.batteryStatus.level}%`);
+      }
+
+      // Show app information if available
+      if (state.currentApp) {
+        console.log(`Current app: ${state.currentApp.name}`);
+        console.log(`App version: ${state.currentApp.version}`);
+      }
+
+      // Basic device model info
+      console.log(`Device model: ${state.deviceModelId}`);
+    },
+    error: (error) => {
+      console.error("State monitoring error:", error);
+    },
+  });
+}
+
+// Always clean up resources when done
+async function cleanup() {
+  // Unsubscribe from all observables
+  if (discoverySubscription) {
+    discoverySubscription.unsubscribe();
+  }
+
+  if (stateSubscription) {
+    stateSubscription.unsubscribe();
+  }
+
+  // Disconnect from device if connected
+  if (currentSessionId) {
+    try {
+      await dmk.disconnect({ sessionId: currentSessionId });
+      console.log("Device disconnected successfully");
+      currentSessionId = null;
+    } catch (error) {
+      console.error("Disconnection error:", error);
+    }
+  }
+}
+
+// Example usage:
+// startDiscoveryAndConnect();
+// ...later when done...
+// cleanup();
+```
+
+> Important: Always remember to unsubscribe from observables and disconnect from devices when you're done. This helps manage resources and prevents potential issues with device connections.
+
+## What you've learned
+
+Congratulations! You've now learned how to:
+
+- Discover available hardware devices
+- Connect to a specific device using the device object from discovery
+- Retrieve information about a connected device
+- Monitor device state in real-time
+- Properly disconnect from a device when finished
+
+With these skills, you're ready to start building applications that interact with hardware devices using the DMK.
+
+> 📚 **Next Steps:** To build a complete working example with these concepts, check out our [Device Management Kit Workshop](https://github.com/LedgerHQ/device-management-kit-ts-workshop), which guides you through creating a React application that integrates with Ledger devices.
