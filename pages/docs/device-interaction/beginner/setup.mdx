@@ -1,23 +1,38 @@
 # Setup
 
-## Description
+## What is the DMK?
 
-This package contains the core of the Device Management Kit. It provides a simple interface to handle Ledger devices and features the Device Management Kit's entry points, classes, types, structures, and models.
+This package contains the core of the Device Management Kit (DMK). It provides a simple interface to handle Ledger devices and features the Device Management Kit's entry points, classes, types, structures, and models.
 
 ## Installation
 
-To install the dmk package, run the following command:
+Add the DMK to your project with this command:
 
 ```sh
 npm install @ledgerhq/device-management-kit
 ```
 
-## Usage
+## Browser Compatibility
 
-### Compatibility
+This library is compatible with any browser that supports the [WebHID API](https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API#browser_compatibility).
 
-This library works in [any browser supporting the WebHID API](https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API#browser_compatibility).
+## Understanding RxJS: A Quick Primer
 
-### Pre-requisites
+The DMK uses [RxJS](https://rxjs.dev/) to handle asynchronous operations. If you're new to RxJS, here's what you need to know:
 
-Some of the APIs exposed return objects of type `Observable` from RxJS. Ensure you are familiar with the basics of the Observer pattern and RxJS before using the DMK. You can refer to [RxJS documentation](https://rxjs.dev/guide/overview) for more information.
+1. **Observables**: Most DMK functions return "Observables" instead of Promises
+2. **Subscription**: You need to "subscribe" to an Observable to get its data
+
+Basic example:
+
+```ts
+dmk.someFunction().subscribe({
+  next: (data) => console.log("Data received:", data),
+  error: (error) => console.error("Error:", error),
+  complete: () => console.log("Operation completed"),
+});
+```
+
+## What's Next?
+
+Now that you have the DMK installed, proceed to the next guide to learn how to initialize it in your application.
