@@ -69,7 +69,7 @@ const config: DocsThemeConfig = {
         <meta property="og:image" content="/homepage/bg-interaction.jpg" />
         <meta property="og:locale" content="en_US" />
 
-        <link rel="canonical" href="https://developers.ledger.com" />
+        <link rel="canonical" href={url} />
 
         <link rel="icon" href="/favicons/favicon.ico" sizes="any" />
         <link
