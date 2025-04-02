@@ -1,50 +1,51 @@
 import Image from 'next/image'
+import { Callout } from "nextra/components";
 
-# Enhancing Security through Clear Signing
+# What can be Clear Signed?
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/YdhWAONAGj0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+## Scope of ERC-7730
 
+The objective of ERC-7730 is to establish a standardized method for clear signing contracts and messages on EVM chains, by offering metadata formatting that complements ABIs and message types.  
+Anything included in the scope of ERC-7730 can be clear signed.  
 
-## Why does your dApp or Wallet need clear signing?
+### Smart Contract dApps
 
-Blind signing is a significant vulnerability that scammers exploit to steal funds from unsuspecting users. If the only information given to the user is the transaction hash, it is challenging for users to verify the accuracy and authenticity of the transaction before signing, because it is unreadable.
+If you work on a dApp, checkout [dApps implementation with ERC-7730](./erc7730/process), describing the automated and manual processes.  
 
-<div style={{ paddingTop: "1em", width: "90%" }} className="center">
-  <figure>
-    <Image src="/blind-signing-risk.png" alt="Blind sign risk" width={800} height={600} />
-  </figure>
-</div>
+### EIP-712 messages
 
-At Ledger, we are committed to building a secure Web3 ecosystem. That is why we have introduced clear signing standards and tools to address this issue. These tools provide user-readable and understandable data, making it easier for users to identify potential risks and verify transactions accurately.
+If you have EIP-712 messages,  checkout [JSON structure for EIP-712 messages](./eip712-messages)
 
-<div style={{ paddingTop: "1em", width: "90%" }} className="center">
-  <figure>
-    <Image src="/clear-signing-cover.png" alt="Clear signing example" width={800} height={600} />
-  </figure>
-</div>
-
-Using the ABI of the contract and metadata around the different fields, we can format a transaction for human readability. This way, users can verify the transaction before signing it, massively reducing the risk of scams.
-
-<div style={{ paddingTop: "1em", width: "90%" }} className="center">
-  <figure>
-    <Image src="/clear-signing/ERC-7730-meme.png" alt="Blind sign risk" width={800} height={600} />
-  </figure>
-</div>
-
-## Where to go next?
-
-**dApps**
-
-If you work on a dApp, checkout [dApps implementation with ERC-7730](./erc7730/process)
-
-**Wallets**
+### Wallets
 
 If you work on a Wallet, checkout [Wallets implementation with the DMK and the DSK](./wallets)
 
-**ERC-721, ERC-1155 and ERC-20**
+### ERC-721, ERC-1155 and ERC-20
 
 For ERC-721, ERC-1155 and ERC-20 tokens, follow [this documentation](./tokens)
 
-**What is the future of Clear Signing with Ledger?**
+### What is the future of Clear Signing with Ledger?
 
 Want to know how the Clear Signing initiative will evolve? Read [this page](./improvements).
+
+## Notes 
+
+<Callout type="info" emoji="ℹ️">
+  Currently, this implementation is supported for EVM chains only. Stay tuned for updates on other protocols!
+</Callout>
+
+<Callout type="warning" emoji="⚠️">
+  Some special cases may require the development of an [Ethereum plugin](../device-app/getting-started). The Ledger team will guide you through this process if required.
+</Callout>
+
+## Generic Parser Status
+
+The generic parser integrates the changes made to the repository, making them available on Ledger devices such as Ledger Flex and Ledger Stax. The “generic parser” serves as the middle layer deployed on the Ledger infrastructure to read and parse your JSON files.  
+
+It’s used only for smart contract metadata parsing. EIP-712 JSON files are interpreted directly by the Ethereum device application.  
+
+<Callout type="warning" emoji="⚠️">
+  **Generic Parser Not Yet Ready:** Please be aware that the Ledger generic parser is currently undergoing development and is not yet operational. This means that even after your smart contract metadata is merged, it won't immediately be available on Ledger devices. We appreciate your patience and will notify you once the parser is fully functional and capable of integrating metadata with Ledger devices.
+</Callout>
+
+
