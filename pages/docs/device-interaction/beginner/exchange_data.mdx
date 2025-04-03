@@ -1,10 +1,27 @@
 # Exchange data with the device
 
-## Sending an APDU
+In this guide, you'll learn how to send commands to a connected Ledger device and process the responses using the Device Management Kit (DMK). By the end, you'll understand multiple ways to communicate with your hardware device.
 
-Once you have a connected device, you can send it APDU commands.
+## What you'll learn
 
-> ℹ️ It is recommended to use the [pre-defined commands](#sending-a-pre-defined-command) when possible, or [build your own command](#building-a-new-command), to avoid dealing with the APDU directly. It will make your code more reusable.
+- How to send low-level APDU commands to a device
+- How to use pre-defined commands for common operations
+- How to work with device actions for complex flows
+- How to handle user interactions during device communication
+
+## Prerequisites
+
+Before starting this tutorial, make sure you've completed:
+
+- [Setting up your environment](/docs/beginner/setup)
+- [Initializing the DMK](/docs/beginner/init_dmk)
+- [Connecting to a Device](/docs/beginner/discover_and_connect)
+
+You should have a working DMK instance and a connected device with a valid `sessionId`.
+
+## Step 1: Sending an APDU command
+
+APDU (Application Protocol Data Unit) commands are the low-level protocol used to communicate with Ledger devices. While it's generally recommended to use higher-level abstractions, understanding APDUs can be helpful for advanced use cases.
 
 ```ts
 import {
@@ -12,9 +29,6 @@ import {
   ApduParser,
   CommandUtils,
 } from "@ledgerhq/device-management-kit";
-
-// ### 1. Building the APDU
-// Use `ApduBuilder` to easily build the APDU and add data to its data field.
 
 // Build the APDU to open the Bitcoin app
 const openAppApduArgs = {
@@ -27,14 +41,13 @@ const apdu = new ApduBuilder(openAppApduArgs)
   .addAsciiStringToData("Bitcoin")
   .build();
 
-// ### 2. Sending the APDU
-
+// Send the APDU to the device
 const apduResponse = await dmk.sendApdu({ sessionId, apdu });
 
-// ### 3. Parsing the result
-
+// Parse the result
 const parser = new ApduParser(apduResponse);
 
+// Check if the command was successful
 if (!CommandUtils.isSuccessResponse(apduResponse)) {
   throw new Error(
     `Unexpected status word: ${parser.encodeToHexaString(
@@ -44,96 +57,98 @@ if (!CommandUtils.isSuccessResponse(apduResponse)) {
 }
 ```
 
-## Sending a Pre-defined Command
+## Step 2: Using pre-defined commands
 
-There are some pre-defined commands that you can send to a connected device.
+For most common operations, the DMK provides pre-defined commands that are easier to use and maintain. The `sendCommand` method handles building the APDU, sending it to the device, and parsing the response.
 
-The `sendCommand` method will take care of building the APDU, sending it to the device and returning the parsed response.
-
-> ## ❗️ Error Responses
+> ## ❗️ Error Handling
 >
-> Most of the commands will reject with an error if the device is locked.
-> Ensure that the device is unlocked before sending commands. You can check the device session state (`dmk.getDeviceSessionState`) to know if the device is locked.
+> Most commands will reject with an error if:
 >
-> Most of the commands will reject with an error if the response status word is not `0x9000` (success response from the device).
+> - The device is locked - check the device session state with `dmk.getDeviceSessionState({ sessionId })` first
+> - The response status word is not `0x9000` (success)
 
-### Open App
-
-This command will open the app with the given name. If the device is unlocked, it will not resolve/reject until the user has confirmed or denied the app opening on the device.
+### Opening an app
 
 ```ts
 import { OpenAppCommand } from "@ledgerhq/device-management-kit";
 
-const command = new OpenAppCommand("Bitcoin"); // Open the Bitcoin app
+// Create the command to open the Bitcoin app
+const command = new OpenAppCommand("Bitcoin");
 
+// Send the command and wait for the user to confirm on the device
 await dmk.sendCommand({ sessionId, command });
 ```
 
-### Close App
-
-This command will close the currently opened app.
+### Closing an app
 
 ```ts
 import { CloseAppCommand } from "@ledgerhq/device-management-kit";
 
+// Create the command to close the current app
 const command = new CloseAppCommand();
 
+// Send the command
 await dmk.sendCommand({ sessionId, command });
 ```
 
-### Get OS Version
-
-This command will return information about the currently installed OS on the device.
-
-> ℹ️ If you want this information you can simply get it from the device session state by observing it with `dmk.getDeviceSessionState({ sessionId })`.
+### Getting OS information
 
 ```ts
 import { GetOsVersionCommand } from "@ledgerhq/device-management-kit";
 
+// Create the command to get OS version information
 const command = new GetOsVersionCommand();
 
+// Send the command and get the response
 const { seVersion, mcuSephVersion, mcuBootloaderVersion } =
   await dmk.sendCommand({ sessionId, command });
+
+console.log(`OS Version: ${seVersion}`);
 ```
 
-### Get App and Version
+> ℹ️ Tip: This information is also available in the device session state, which you can access with `dmk.getDeviceSessionState({ sessionId })`.
 
-This command will return the name and version of the currently running app on the device.
-
-> ℹ️ If you want this information you can simply get it from the device session state by observing it with `dmk.getDeviceSessionState({ sessionId })`.
+### Getting app information
 
 ```ts
 import { GetAppAndVersionCommand } from "@ledgerhq/device-management-kit";
 
+// Create the command to get app information
 const command = new GetAppAndVersionCommand();
 
+// Send the command and get the response
 const { name, version } = await dmk.sendCommand({ sessionId, command });
+
+console.log(`Running app: ${name} v${version}`);
 ```
 
-## Sending a Pre-defined flow - Device Actions
+## Step 3: Working with Device Actions
 
-Device actions define a succession of commands to be sent to the device.
+Device actions define a sequence of commands to be sent to the device. They're useful for complex operations that require user interaction, like opening an app and performing operations within it.
 
-They are useful for actions that require user interaction, like opening an app,
-or approving a transaction.
+Device actions return an observable that emits different states during execution, allowing your application to respond to intermediate steps.
 
-The result of a device action execution is an observable that will emit different states of the action execution. These states contain information about the current status of the action, some intermediate values like the user action required, and the final result.
-
-### Open App Device Action
+### Opening an app with a Device Action
 
 ```ts
 import {
   OpenAppDeviceAction,
   OpenAppDAState,
+  DeviceActionStatus,
+  UserActionRequiredType,
 } from "@ledgerhq/device-management-kit";
 
+// Create the device action
 const openAppDeviceAction = new OpenAppDeviceAction({ appName: "Bitcoin" });
 
+// Execute the device action
 const { observable, cancel } = await dmk.executeDeviceAction({
   sessionId,
-  openAppDeviceAction,
+  deviceAction: openAppDeviceAction,
 });
 
+// Subscribe to state changes
 observable.subscribe({
   next: (state: OpenAppDAState) => {
     switch (state.status) {
@@ -157,31 +172,46 @@ observable.subscribe({
             console.log("The user should unlock the device");
             break;
           default:
-            /**
-             * you should make sure that you handle all the possible user action
-             * required types by displaying them to the user.
-             */
-            throw new Exception("Unhandled user action required");
-            break;
+            // Always handle all possible user actions
+            throw new Error("Unhandled user action required");
         }
-        console.log("Action is pending");
         break;
       case DeviceActionStatus.Stopped:
-        console.log("Action has been stopped");
+        console.log("Action has been cancelled");
         break;
       case DeviceActionStatus.Completed:
         const { output } = state;
-        console.log("Action has been completed", output);
+        console.log("App opened successfully", output);
         break;
       case DeviceActionStatus.Error:
         const { error } = state;
-        console.log("An error occurred during the action", error);
+        console.error("An error occurred during the action", error);
         break;
     }
   },
+  error: (error) => {
+    console.error("Subscription error:", error);
+  },
+  complete: () => {
+    console.log("Device action complete");
+  },
 });
+
+// If you need to cancel the action
+// cancel();
 ```
 
-### Example in React
+## What you've learned
 
-Check [the sample app](https://github.com/LedgerHQ/device-sdk-ts/tree/develop/apps/sample) for an advanced example showcasing all possible usages of the Device Management Kit in a React app.
+In this tutorial, you've learned how to:
+
+- Send low-level APDU commands to a Ledger device
+- Use pre-defined commands for common operations
+- Work with device actions for complex flows
+- Handle user interactions during device communication
+
+## Next steps
+
+- Check out the [sample app](https://github.com/LedgerHQ/device-sdk-ts/tree/develop/apps/sample) a comprehensive demonstration of the Device Management Kit's capabilities in a React application.
+- Learn how to [build custom commands](/docs/references/commands) for specific applications
+- Explore how to [handle errors](/docs/references/error-handling) during device communication

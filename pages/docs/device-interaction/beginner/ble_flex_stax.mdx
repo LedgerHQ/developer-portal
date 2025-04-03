@@ -1,0 +1,51 @@
+# Add BLE and USB support for Flex and Stax
+
+## DMK
+
+### Prerequisites
+
+Device Management Kit: v0.4.0 (and later)
+
+### Implementation
+
+```typescript
+import { DeviceManagementKitBuilder } from "@ledgerhq/device-management-kit";
+import {
+  webBleTransportFactory,
+  WebUsbTransportFactory,
+} from "@ledgerhq/device-transport-kit-web";
+
+const dmk = new DeviceManagementKitBuilder()
+  .addTransport(webBleTransportFactory)
+  .addTransport(WebUsbTransportFactory)
+  .build();
+```
+
+Find more information [here](../integration/how_to/transports).
+
+## LedgerJS
+
+### Prerequisites
+
+LedgerJS transport libraries: v8.3.0 (and later)
+
+### Implementation
+
+```typescript
+import TransportBLE from "@ledgerhq/hw-transport-web-ble";
+import TransportUSB from "@ledgerhq/hw-transport-web-usb";
+
+// Example of connecting to a device via BLE
+const transportBLE = await TransportBLE.create();
+const ethAppBLE = new AppEth(transportBLE);
+
+// Example of connecting to a device via USB
+const transportUSB = await TransportUSB.create();
+const ethAppUSB = new AppEth(transportUSB);
+```
+
+Find more information [here](../ledgerjs/info).
+
+## Custom Integration
+
+Use the identifiers for devices and transport [as describred in the reference section](../references/identifiers).

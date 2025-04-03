@@ -1,5 +1,5 @@
 ---
-title: Update mutable metadata (in-depth guide)
+title: Update mutable metadata manually
 description: This guide will walk you through step-by-step instructions on how to update the JSON Metadata files of your NFTs to include the location (URL) of the Ledger Stax optimized image.
 ---
 
@@ -9,21 +9,17 @@ import 'react-medium-image-zoom/dist/styles.css'
 import Image from 'next/image'
 
 
-# Update mutable metadata (in-depth guide)
+# Update mutable metadata manually
 
 This guide will walk you through step-by-step instructions on how to update the JSON Metadata files of your NFTs to include the location (URL) of the Ledger Stax optimized image.
-
-<Callout type="info" emoji="ℹ️">
-	<ul>
-		<li>- If your NFT's metadata are immutable (non-editable), check out <a href='./metadata-tool'>this page</a>.</li>
-		<li>- Make sure that the dedicated secondary image of your NFT meets <a href='./image-requirements'>the Ledger Stax’s image requirements</a>.</li>
-	</ul>
-</Callout>
-
 
 This guide consists of two parts:
 1. Add the `ledger_stax_image` metadata to your JSON file.
 2. Upload the JSON file on your storage service (centralized or decentralized). 
+
+<Callout type="info" emoji="ℹ️">
+	Make sure that the dedicated secondary image of your NFT meets <a href='./image-requirements'>the Ledger Stax’s image requirements</a>.
+</Callout>
 
 
 ## 1. The <i>ledger_stax_image</i> Metadata

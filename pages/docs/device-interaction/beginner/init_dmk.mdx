@@ -1,15 +1,26 @@
-# Setting up the DMK
+# Initializing and Configuring the DMK
 
-The core package exposes a builder `DeviceManagementKitBuilder` which will be used to initialise the DMK with your configuration.
+In this guide, you'll learn how to initialize and configure the Device Management Kit (DMK) for your application. By the end, you'll have a working DMK instance that's ready to interface with hardware devices.
 
-For now it allows you to add one or more custom loggers and transports.
+## What you'll learn
 
-In the following example, we add a console logger (`.addLogger(new ConsoleLogger())`), then the WebHID transport (`.addTransport(webHidTransportFactory)`).
-Then we build the DMK with `.build()`.
+- How to set up the DMK in your project
+- How to configure loggers and transports
+- How to maintain the DMK instance as a singleton
 
-**The returned object will be the entrypoint for all your interactions with the DMK. You should keep it as a <u>SINGLETON</u>.**
+## Step 1: Install the required packages
 
-The DMK should be built only once in your application runtime so keep a reference of this object somewhere.
+First, you'll need to install the Device Management Kit and related packages:
+
+```bash
+npm install @ledgerhq/device-management-kit @ledgerhq/device-transport-kit-web-hid
+```
+
+## Step 2: Create the DMK configuration
+
+> Important: Make sure the DMK instance is properly initialized with at least one transport. The transport is what enables communication with the device. Without it, none of the data exchange commands in this example will work.
+
+In this example, to initialize the DMK, we'll create a new file called `dmk.ts`:
 
 ```ts
 import {
@@ -18,8 +29,39 @@ import {
 } from "@ledgerhq/device-management-kit";
 import { webHidTransportFactory } from "@ledgerhq/device-transport-kit-web-hid";
 
+// Initialize the DMK with a console logger and WebHID transport
 export const dmk = new DeviceManagementKitBuilder()
   .addLogger(new ConsoleLogger())
-  .addTransport(webHidTransportFactory)
+  .addTransport(webHidTransportFactory) // Transport is required!
   .build();
 ```
+
+This code sets up the DMK with:
+
+- A console logger that will output information to your browser's console
+- The WebHID transport, which allows communication with hardware devices via the browser's WebHID API
+
+## Step 3: Use the DMK instance
+
+Import the DMK instance in any file where you need to interact with devices:
+
+```ts
+import { dmk } from "./dmk";
+
+// Now you can use the DMK for device operations
+async function connectToDevice() {
+  const devices = await dmk.listDevices();
+  console.log("Available devices:", devices);
+}
+```
+
+> Important: The DMK should be initialized only once in your application. Always import the same instance rather than creating multiple instances.
+
+## What you've learned
+
+Congratulations! You've now:
+
+- Set up a working DMK instance
+- Configured it with a logger and transport
+- Learned how to maintain it as a singleton
+- Know how to import and use it in your application

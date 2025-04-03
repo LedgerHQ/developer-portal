@@ -1,8 +1,4 @@
 export default {
-  'dev-tracks': {
-        type: 'page',
-        title: 'Dev tracks'
-      },
   'news': {
         type: 'page',
         title: "What's new?"
