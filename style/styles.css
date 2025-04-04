@@ -182,3 +182,72 @@ code {
 .tagText {
   @apply text-p-tag font-semibold uppercase;
 }
+
+/* DocsBotAI Custom Styling */
+#docsbotai-root {
+  /* Variables de base */
+  --docsbot-primary-color: #FF5300 !important; /* Ledger orange color */
+  --docsbot-secondary-color: #111111 !important;
+  
+  /* Variables spécifiques au mode sombre */
+  --docsbot-dark-background: #1A1A1A !important;
+  --docsbot-dark-foreground: #FFFFFF !important;
+  --docsbot-dark-input-background: #222222 !important;
+  --docsbot-dark-message-background: #2A2A2A !important;
+  --docsbot-dark-border-color: #333333 !important;
+  
+  /* Force le mode sombre */
+  --docsbot-chat-background: var(--docsbot-dark-background) !important;
+  --docsbot-chat-foreground: var(--docsbot-dark-foreground) !important;
+  --docsbot-chat-input-background: var(--docsbot-dark-input-background) !important;
+
+  /* Force les couleurs du texte en mode sombre */
+  color-scheme: dark !important;
+}
+
+/* Style du conteneur principal en mode sombre */
+.docsbot-chat-container {
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  background-color: var(--docsbot-dark-background) !important;
+  color: var(--docsbot-dark-foreground) !important;
+}
+
+/* Style des messages du bot en mode sombre */
+.docsbot-chat-message-bot {
+  background-color: var(--docsbot-dark-message-background) !important;
+  border-radius: 8px !important;
+  color: var(--docsbot-dark-foreground) !important;
+}
+
+/* Style du conteneur de saisie en mode sombre */
+.docsbot-chat-input-container {
+  background-color: var(--docsbot-dark-input-background) !important;
+  border-color: var(--docsbot-dark-border-color) !important;
+  border-radius: 8px !important;
+}
+
+/* Style de la zone de saisie en mode sombre */
+.docsbot-chat-input {
+  color: var(--docsbot-dark-foreground) !important;
+  background-color: var(--docsbot-dark-input-background) !important;
+}
+
+/* Style du bouton d'envoi */
+.docsbot-chat-send-button {
+  background-color: #FF5300 !important;
+  border-radius: 8px !important;
+  color: #FFFFFF !important;
+}
+
+/* En-tête du chat en mode sombre */
+.docsbot-chat-header {
+  background-color: var(--docsbot-dark-background) !important;
+  color: var(--docsbot-dark-foreground) !important;
+}
+
+/* Ajustez les marges et le padding pour mieux s'intégrer à votre design */
+#docsbot-widget-embed {
+  padding: 0 !important;
+  margin: 0 auto !important;
+}
