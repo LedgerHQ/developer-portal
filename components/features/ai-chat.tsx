@@ -1,6 +1,16 @@
-    import Head from 'next/head'
+import Head from 'next/head'
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+
+// Ajout des types pour DocsBotAI
+declare global {
+  interface Window {
+    DocsBotAI: {
+      init: (config: any) => Promise<any>;
+      mount: (config: any) => Promise<any>;
+    } | Record<string, any>;
+  }
+}
 
 const ChatPage = () => {
   const router = useRouter();
@@ -9,18 +19,43 @@ const ChatPage = () => {
     const { query } = router.query;
 
     if (typeof window !== 'undefined') {
-
+      // Initialisation de DocsBotAI
       window.DocsBotAI = window.DocsBotAI || {};
-      window.DocsBotAI.init = function (e) {
-        return new Promise((t, r) => {
+      window.DocsBotAI.init = function (e: any): Promise<void> {
+        return new Promise<void>((t, r) => {
           var n = document.createElement("script");
-          n.type = "text/javascript", n.async = !0, n.src = "https://widget.docsbot.ai/chat.js";
-          let o = document.getElementsByTagName("script")[0]; o.parentNode.insertBefore(n, o), n.addEventListener("load", () => {
-            let n; Promise.all([new Promise((t, r) => { window.DocsBotAI.mount(Object.assign({}, e)).then(t).catch(r) }), (n = function e(t) { return new Promise(e => { if (document.querySelector(t)) return e(document.querySelector(t)); let r = new MutationObserver(n => { if (document.querySelector(t)) return e(document.querySelector(t)), r.disconnect() }); r.observe(document.body, { childList: !0, subtree: !0 }) }) })("#docsbotai-root"),]).then(() => t()).catch(r) }), n.addEventListener("error", e => { r(e.message) })
-        })
+          n.type = "text/javascript";
+          n.async = true;
+          n.src = "https://widget.docsbot.ai/chat.js";
+          let o = document.getElementsByTagName("script")[0];
+          if (o.parentNode) {
+            o.parentNode.insertBefore(n, o);
+          }
+          n.addEventListener("load", () => {
+            Promise.all([
+              new Promise<void>((t, r) => { 
+                window.DocsBotAI.mount(Object.assign({}, e)).then(t).catch(r) 
+              }), 
+              function e(t: string): Promise<Element | null> { 
+                return new Promise<Element | null>(e => { 
+                  if (document.querySelector(t)) return e(document.querySelector(t)); 
+                  let r = new MutationObserver(n => { 
+                    if (document.querySelector(t)) {
+                      e(document.querySelector(t));
+                      r.disconnect();
+                    }
+                  }); 
+                  r.observe(document.body, { childList: true, subtree: true });
+                });
+              }("#docsbotai-root")
+            ]).then(() => t()).catch(r);
+          });
+          n.addEventListener("error", (e) => { r(e.message); });
+        });
       };
 
-      DocsBotAI.init({
+      // Initialisation avec votre CSS personnalisé qui fonctionne
+      window.DocsBotAI.init({
         id: 'y6yhkqNYg3oA2868fs0k/2c8nTqVZnzyql7x9pFCC',
         options: {
           color: "#d4a0ff",
@@ -68,8 +103,9 @@ const ChatPage = () => {
       }).then(() => {
         console.log("DocsBot loaded");
         if (query) {
-          const input = document.querySelector('.docsbot-chat-input'); 
-          if (input) {
+          // Cast explicite pour éviter les erreurs TypeScript
+          const input = document.querySelector('.docsbot-chat-input') as HTMLInputElement; 
+          if (input && typeof query === 'string') {
             input.value = query;
           }
         }
