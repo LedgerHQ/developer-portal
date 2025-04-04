@@ -6,6 +6,11 @@ export default {
       layout: 'raw'
     }
   },
+  'chat': {
+    type: 'page',
+    title: 'AI Assistant',
+    href: '/chat'
+  },
   'dev-tracks': {
     type: 'page',
     title: 'Dev Tracks',
@@ -35,11 +40,6 @@ export default {
       'clear-signing': {
         title: 'Clear Signing',
         href: '/docs/clear-signing/getting-started'
-      },
-      'chat': {
-        type: 'page',
-        title: "AI Chat",
-        href: '/docs/chat'
       }
     }
   }

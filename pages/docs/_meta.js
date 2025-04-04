@@ -22,9 +22,5 @@ export default {
   'nft-display': {
       type: 'page',
       title: 'NFT display'
-      },
-    'chat': {
-      type: 'page',
-      title: "AI Chat"
       }
 }

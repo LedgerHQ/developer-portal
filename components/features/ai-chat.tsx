@@ -1,4 +1,4 @@
-import Head from 'next/head'
+    import Head from 'next/head'
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
@@ -23,7 +23,47 @@ const ChatPage = () => {
       DocsBotAI.init({
         id: 'y6yhkqNYg3oA2868fs0k/2c8nTqVZnzyql7x9pFCC',
         options: {
+          color: "#d4a0ff",
           hideHeader: true,
+          customCSS: `
+          .docsbot-chat-inner-container {
+            background-color:black !important;
+            border: none !important;
+            border-radius: 15px;
+          }
+          .docsbot-chat-btn-send{
+            background-color: black !important;
+          }
+          .docsbot-chat-btn-send:disabled {
+            opacity: 1 !important;
+          }
+          .docsbot-chat-btn-send {
+            padding-left: 12.5px !important;
+          }
+          .docsbot-user-chat-message {
+            font-weight: 600 !important;
+            background-color: black; 
+            color: white;
+            border: 1px solid rgb(197, 206, 214);
+          }
+          .docsbot-chat-header button {
+            color: white !important;
+          }
+          .docsbot-chat-bot-message a {
+            font-weight: 600 !important;
+          }
+          .docsbot-chat-bot-message {
+            background-color: black !important;
+            color: white !important;
+            border: 1px solid #d4a0ff;
+          }
+          .docsbot-chat-container {
+            font-family: inherit !important;
+          }
+          .docsbot-chat-input {
+            background-color: black
+          }
+        `,
         },
       }).then(() => {
         console.log("DocsBot loaded");
