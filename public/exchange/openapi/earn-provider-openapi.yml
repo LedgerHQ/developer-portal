@@ -1,9 +1,9 @@
 openapi: 3.1.0
 info:
   title: Earn Provider Server
-  version: '1.0'
+  version: '1.1.0'
 paths:
-  /v0/{network}/stakes:
+  /v1/{network}/stakes:
     get:
       description: Get details about a user's staking position based on the provided
         network and stake addresses.
@@ -93,7 +93,7 @@ paths:
                           reward_name: "LBTC Rewards"
                           currency: "ethereum/erc20/lombard_staked_bitcoin"
                           interest_rate: "4.5"
-                          type: "RewardsView"
+                          type: "RewardsTokenView"
                       details:
                         contract_address: "0xae7ab96520de3a18e5e111b5eaab095312d7fe84"
                         type: "EthDeFiDetailsView"
@@ -127,7 +127,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServerError'
-  /v0/grow:
+  /v1/grow:
     get:
       description: Get interest rates for all available networks
       operationId: getV0Grow
