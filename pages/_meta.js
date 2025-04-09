@@ -6,6 +6,11 @@ export default {
       layout: 'raw'
     }
   },
+  'chat': {
+    type: 'page',
+    title: 'AI Assistant',
+    href: '/chat'
+  },
   'dev-tracks': {
     type: 'page',
     title: 'Dev Tracks',
