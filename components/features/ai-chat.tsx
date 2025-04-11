@@ -58,6 +58,7 @@ const ChatPage = () => {
       window.DocsBotAI.init({
         id: 'y6yhkqNYg3oA2868fs0k/2c8nTqVZnzyql7x9pFCC',
         options: {
+          botIcon: "/icons/stax-smiley.png",
           color: "#d4a0ff",
           hideHeader: true,
           customCSS: `
