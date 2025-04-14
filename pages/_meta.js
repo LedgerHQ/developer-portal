@@ -39,7 +39,7 @@ export default {
       },
       'clear-signing': {
         title: 'Clear Signing',
-        href: '/docs/clear-signing/getting-started'
+        href: '/docs/clear-signing/introduction'
       }
     }
   }
