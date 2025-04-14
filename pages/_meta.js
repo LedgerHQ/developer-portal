@@ -6,10 +6,10 @@ export default {
       layout: 'raw'
     }
   },
-  'chat': {
+  'robin': {
     type: 'page',
-    title: 'AI Assistant',
-    href: '/chat'
+    title: 'Robin AI',
+    href: '/robin'
   },
   'dev-tracks': {
     type: 'page',
