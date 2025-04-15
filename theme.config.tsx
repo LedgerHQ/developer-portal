@@ -68,6 +68,16 @@ const config: DocsThemeConfig = {
         />
         <script type="text/javascript" dangerouslySetInnerHTML={{ __html: 'function OptanonWrapper() { }' }} />
         {/* OneTrust Cookies Consent Notice end for developers.ledger.com */}
+
+        {/* OneTrust Cookies Consent Notice start for developers.ledger.com */}
+        <script 
+          src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  
+          type="text/javascript" 
+          charSet="UTF-8" 
+          data-domain-script="01951e62-1715-7295-9348-db82fa9a7d1f" >
+        </script>
+        <script type="text/javascript"> function OptanonWrapper() { }</script>
+        {/* OneTrust Cookies Consent Notice end for developers.ledger.com */}
         
         <title>{title}</title>
         <meta name="robots" content="index,follow" />
