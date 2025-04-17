@@ -1,20 +1,17 @@
 import '../style/styles.css'
 import Script from "next/script";
-import { SessionProvider } from "next-auth/react"
 
 
 export default function MyApp({
   Component,
-  pageProps: { session, ...pageProps },
+  pageProps,
   }) {
 const GTM_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID;
 
 return (
 
 <>
-  <SessionProvider session={session}>
-    <Component {...pageProps} />
-  </SessionProvider>
+  <Component {...pageProps} />
 
 
   {/* Google Tag Manager Header */}
