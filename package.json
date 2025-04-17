@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/shuding/nextra-docs-template#readme",
   "dependencies": {
-    "@docsly/react": "^1.9.1",
     "@next/third-parties": "^14.2.15",
     "clsx": "^2.1.1",
     "next": "^15.2.3",
