@@ -3,7 +3,6 @@ import { DocsThemeConfig } from "nextra-theme-docs";
 import { useRouter } from "next/router";
 import { useConfig } from "nextra-theme-docs";
 import { Copy } from "./components/features/copy-page-url";
-import DocslyClient from "./components/DocslyClient";
 import { Footer } from "./components/Homepage/Footer";
 
 const config: DocsThemeConfig = {
@@ -28,7 +27,6 @@ const config: DocsThemeConfig = {
       <>
         {/* Your footer code */}
         <Footer />
-        {/* Removed the Docsly component: <DocslyClient /> */}
       </>
     ),
   },
