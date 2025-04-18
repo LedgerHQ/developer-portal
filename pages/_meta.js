@@ -38,8 +38,8 @@ export default {
         href: '/docs/ledger-live/introduction'
       },
       'clear-signing': {
-        title: 'Clear Signing',
-        href: '/docs/clear-signing/introduction'
+        title: 'Clear Signing New',
+        href: '/docs/clear-signing/understanding/what-is-it'
       }
     }
   }
