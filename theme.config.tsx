@@ -55,17 +55,6 @@ const config: DocsThemeConfig = {
 
     return (
       <>
-
-        {/* OneTrust Cookies Consent Notice start for developers.ledger.com */}
-        <script 
-          src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" 
-          type="text/javascript" 
-          charSet="UTF-8" 
-          data-domain-script="01951e62-1715-7295-9348-db82fa9a7d1f-test" 
-        />
-        <script type="text/javascript" dangerouslySetInnerHTML={{ __html: 'function OptanonWrapper() { }' }} />
-        {/* OneTrust Cookies Consent Notice end for developers.ledger.com */}
-
         {/* OneTrust Cookies Consent Notice start for developers.ledger.com */}
         <script 
           src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  
