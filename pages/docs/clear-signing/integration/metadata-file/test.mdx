@@ -1,0 +1,24 @@
+# Test the file validity
+
+Before submitting your metadata to the registry or deploying your implementation, use this testing tool to ensure your metadata file complies with the ERC-7730 standard.
+
+## JSON schema validator
+
+Use the schema validator to check your metadata files for compliance with the ERC-7730 standard:
+
+```js
+import Ajv from 'ajv';
+import schema from '@ledgerhq/clear-signing-schemas';
+
+const ajv = new Ajv();
+const validate = ajv.compile(schema);
+
+function validateMetadata(metadata) {
+  const valid = validate(metadata);
+  if (!valid) {
+    console.error('Validation errors:', validate.errors);
+    return false;
+  }
+  return true;
+}
+```
