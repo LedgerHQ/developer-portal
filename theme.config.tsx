@@ -10,7 +10,7 @@ const config: DocsThemeConfig = {
     key: "Developer Kits",
     content: (
       <a href="https://developers.ledger.com/docs/news" target="_blank">
-        🎉 New developers kits released. Read more →
+        📰 Ledger is transitioning away from the Ledger Nano S. Read more →
       </a>
     ),
   },
