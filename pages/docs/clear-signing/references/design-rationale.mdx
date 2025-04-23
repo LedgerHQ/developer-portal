@@ -1,0 +1,19 @@
+# Design Rationale
+
+The ERC-7730 standard was designed with several key considerations that influenced its structure and approach.
+
+## Human Readability Focus
+
+A primary goal of ERC-7730 is to balance developer usability with end-user benefits:
+
+- The specification format is designed to be directly readable by developers
+- JSON was chosen as a familiar, widely-supported format to lower the entry barrier
+- The standard aims to make metadata file creation worth the effort by ensuring wide wallet support
+
+## Hardware Wallet Limitations
+
+The specification was significantly influenced by the constraints of hardware wallets:
+- **Flattened Field Structure**: Complex UI constructs like layouts and grouping were left optional to accommodate limited hardware wallet displays
+- **"Flattening" Approach**: The recommended approach for handling complex message structures is to flatten the field list, which works better on hardware wallets
+- **Recursive Formatters**: Some formatters that require recursive processing (like calldata) may have limitations, especially on hardware wallets
+

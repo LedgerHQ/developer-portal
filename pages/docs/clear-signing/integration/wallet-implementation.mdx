@@ -1,0 +1,21 @@
+import { Callout } from 'nextra/components'
+
+# Wallet implementation
+
+As a wallet provider, implementing Clear Signing involves integrating with Ledger's SDK to fetch and display human-readable transaction information. This guide outlines the implementation approach based on your wallet's current state.
+
+## Implementation Approaches
+
+### Modern Approach: Device Management Kit and Device Signer Kit
+
+To incorporate Clear Signing into your wallet, use the Device Managament Kit and the Device Signer Kit (LDMK). This kit supersedes the LedgerJS transport libraries, enabling straightforward device interaction coding within your wallet and offering built-in Clear Signing support.
+
+### Legacy Approach: Using LedgerJS
+
+If your application currently uses the LedgerJS Ethereum transport library, we recommend upgrading to the LDMK for improved functionality.
+
+However, if you’re not prepared to transition to the LDMK, ensure you are using the latest LedgerJS version to maintain compatibility and security.
+
+<Callout type="warning" emoji="⚠️">
+    The LedgerJS approach is being maintained for backward compatibility, but Ledger strongly recommends migrating to the DMK/DSK approach for complete Clear Signing support and future compatibility. New features may only be available in the DMK/DSK implementation.
+</Callout>

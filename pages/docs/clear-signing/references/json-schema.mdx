@@ -1,0 +1,40 @@
+# JSON Schema
+
+The ERC-7730 standard defines a JSON schema that metadata files must follow. This schema ensures consistency and proper functionality across the ecosystem.
+
+## Schema Validation
+
+To validate your metadata files against the schema, use a JSON schema validator:
+
+```javascript
+import Ajv from 'ajv';
+import schema from '@ledgerhq/clear-signing-schemas';
+
+const ajv = new Ajv();
+const validate = ajv.compile(schema);
+
+function validateMetadata(metadata) {
+  const valid = validate(metadata);
+  if (!valid) {
+    console.error('Validation errors:', validate.errors);
+    return false;
+  }
+  return true;
+}
+```
+
+## Schema Types
+
+The schema defines several types with specific validation rules:
+
+- **Context**: Information about the schema version and type
+- **Metadata**: Information about the contract or protocol
+- **Deployments**: Chain IDs and addresses where the contract is deployed
+- **Methods**: Function selectors, names, and parameters
+- **Display**: Instructions for how to display parameters to users
+
+For EIP-712 messages, additional types are defined:
+- **Domain**: EIP-712 domain information 
+- **Schemas**: Type definitions for structured data
+
+You can find the complete schema at [erc7730-v1.schema.json](https://eips.ethereum.org/assets/eip-7730/erc7730-v1.schema.json).

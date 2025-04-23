@@ -1,0 +1,191 @@
+# Display Format 
+
+The display format system in ERC-7730 defines how transaction parameters are presented to users. This reference covers all available format types and their options.
+
+## Format Types Overview
+
+| Format Type |        Description          |              Common Use Cases             | 
+| ----------- | --------------------------- | ----------------------------------------- |
+| `address`   | Ethereum address format     | Recipients, contract addresses, approvals |
+| `amount`    | Numeric value with decimals | Quantities, non-token amounts             |
+| `token`     | Token amount with symbol    | Token transfers, approvals, swaps         |
+| `string`    | Text display                | Names, descriptions, metadata             |
+| `boolean`   | True/false values           | Toggles, approvals, settings              |
+| `datetime`  | Date and time               | Timestamps, deadlines, expirations        |
+| `nft`       | NFT identifiers	            | NFT transfers, approvals, minting         |
+| `percent`   | Percentage values           | Fees, slippage, interest rates            |
+
+## Format Type Details
+
+### `address` Format
+
+Displays Ethereum addresses with checksumming and optional ENS resolution.
+
+```JSON
+{
+  "path": "params.0",
+  "label": "Recipient",
+  "format": {
+    "type": "address",
+    "ens": true,      // Optional: Whether to use ENS (default: true)
+    "truncate": true  // Optional: Whether to truncate (default: true)
+  }
+}
+```
+
+#### AddressName Advanced Options
+
+When using the `addressName` variant, you can control name resolution with these parameters:
+
+| Parameter | Description | Example |
+| --------- | ----------- | ------- |
+| `types`   | Array of expected address types. Wallets should verify these types when possible. |  `["eoa", "contract"]`|
+| `sources` | Array of acceptable name resolution sources.                                      |  `["ens", "local"]`   |
+| `senderAddress`| Address(es) that should be labeled as the sender if they match.              | `"0x1234..."` or `["0x1234...", "0x5678..."]`|
+
+```JSON
+{
+  "path": "params.0",
+  "label": "Recipient",
+  "format": {
+    "type": "addressName",
+    "types": ["eoa", "contract"],
+    "sources": ["ens"],
+    "senderAddress": "0x1234567890123456789012345678901234567890"
+  }
+}
+```
+
+#### Address Types and Sources
+
+When specifying `types` and `sources`, use values from these references:
+
+| Address Type |  Description |
+| ------------ | ------------ |
+| `wallet`     | Address is an account controlled by the wallet |
+| `eoa`        | Address is an Externally Owned Account         |
+| `contract`   | Address is a well-known smart contract         |
+| `token`      | Address is a well-known ERC-20 token           |
+| `collection` | Address is a well-known NFT collection         |
+
+| Source Type |  Description |
+| ------------ | ------------ |
+| `local`      | Address may be replaced with a local name trusted by user |
+| `ens`        | Address may be replaced with an associated ENS domain     |
+
+
+### `amount` Format
+
+Displays numeric values with appropriate decimals and symbol.
+
+```JSON
+{
+  "path": "params.1",
+  "label": "Amount",
+  "format": {
+    "type": "amount",
+    "decimals": 18,      // Optional: Number of decimals (default: 18)
+    "symbol": "ETH",     // Optional: Symbol (default: "ETH")
+    "address": "0x..."   // Optional: Token contract address
+  }
+}
+```
+
+### `token` Format
+
+Displays token amounts with appropriate symbol and decimals.
+
+```JSON
+{
+  "path": "params.1",
+  "label": "Amount",
+  "format": {
+    "type": "token",
+    "decimals": 18,      // Optional: Token decimals (default: 18)
+    "symbol": "ETH",     // Optional: Token symbol
+    "address": "0x..."   // Optional: Token contract address
+  }
+}
+```
+
+### `string` Format
+
+Displays text values.
+
+```JSON
+{
+  "path": "params.2",
+  "label": "Description",
+  "format": {
+    "type": "string"
+  }
+}
+```
+
+### `boolean` Format
+
+Displays true/false values.
+
+```JSON
+{
+  "path": "params.3",
+  "label": "Approval Status",
+  "format": {
+    "type": "boolean"
+  }
+}
+```
+### `datetime` Format
+
+Displays Unix timestamps as formatted dates and times.
+
+```JSON
+{
+  "path": "params.4",
+  "label": "Expires",
+  "format": {
+    "type": "datetime",
+    "relative": true    // Optional: Show relative time (default: false)
+  }
+}
+```
+
+## Conditional Display
+
+You can use conditional display rules to change how parameters are displayed based on their values:
+
+```JSON
+{
+    "intent": [
+      {
+        "condition": {
+          "param": "amount",
+          "op": "gt",
+          "value": "1000000000000000000"
+        },
+      "value": "LARGE TRANSFER: {amount} to {to}"
+    },
+    {
+      "value": "Transfer {amount} to {to}"
+    }
+  ]
+}
+```
+
+## Parameter References
+
+You can reference other parameters within display formats using the `{paramName}` syntax:
+
+```JSON
+{
+  "path": "params.1",
+  "label": "Amount",
+        "format": {
+          "type": "token",
+    "address": "{params.0}",  // Reference to another parameter
+          "decimals": 18
+  }
+}
+```
+
+For complete format reference, see the [JSON Schema](https://eips.ethereum.org/assets/eip-7730/erc7730-v1.schema.json).

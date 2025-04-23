@@ -1,0 +1,115 @@
+# ERC-7730 Standard
+
+The ERC-7730 standard forms the foundation of Clear Signing, providing a consistent framework for implementing human-readable transaction signing across the Ethereum ecosystem.
+
+## Standard Overview
+
+ERC-7730 establishes the specifications for:
+
+- Metadata JSON file structure and required fields
+- Display format definitions and templating system
+- Registry interaction protocols
+- Wallet implementation guidelines
+
+## Key Components
+
+### Context Object
+
+Provides metadata about the schema itself and binding context information that determines if the metadata file applies to a specific transaction:
+
+```JSON
+{
+  "context": {
+    "schema": "https://eips.ethereum.org/assets/eip-7730/erc7730-v1.schema.json",
+    "version": "1.0.0"
+  }
+}
+```
+### Metadata Object
+
+Contains information about the contract or protocol:
+
+```JSON
+{
+  "metadata": {
+    "owner": "My dApp",
+    "legalName": "My Company, Inc.",
+    "url": "https://mydapp.com"
+  }
+}
+```
+
+### Contract Object
+
+Defines the contract deployments and methods:
+
+```JSON
+{
+  "contract": {
+    "deployments": [
+      {
+        "chainId": "1",
+        "address": "0xabcdef1234567890abcdef1234567890abcdef12"
+      }
+    ],
+    "methods": [
+      {
+        "selector": "0xa9059cbb",
+        "name": "transfer",
+        "params": [
+          {"name": "to", "type": "address"},
+          {"name": "amount", "type": "uint256"}
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Display Object
+
+Specifies how methods and parameters should be displayed:
+
+```JSON
+{
+  "display": {
+    "formats": [
+      {
+        "intent": "Transfer {amount} to {to}",
+        "fields": [
+          {"path": "params.0", "label": "Recipient", "format": "address"},
+          {"path": "params.1", "label": "Amount", "format": "token"}
+        ]
+      }
+    ]
+  }
+}
+```
+
+### EIP-712 Extensions
+
+For EIP-712 structured data signing, the standard includes additional fields:
+
+```JSON
+
+{
+  "EIP712": {
+    "deployments": [{ "chainId": "1", "address": "0x..." }],
+    "domain": { "name": "Example", "chainId": "1", "verifyingContract": "0x..." },
+    "schemas": [
+      {
+        "primaryType": "Order",
+        "types": {
+          "Order": [
+            { "name": "maker", "type": "address" },
+            { "name": "amount", "type": "uint256" }
+          ]
+        }
+      }
+    ]
+  }
+}
+````
+
+For the complete specification, refer to the [ERC-7730 ](https://eips.ethereum.org/EIPS/eip-7730) page.
+
