@@ -21,7 +21,7 @@ The display format system in ERC-7730 defines how transaction parameters are pre
 
 Displays Ethereum addresses with checksumming and optional ENS resolution.
 
-```JSON
+```json
 {
   "path": "params.0",
   "label": "Recipient",
@@ -43,7 +43,7 @@ When using the `addressName` variant, you can control name resolution with these
 | `sources` | Array of acceptable name resolution sources.                                      |  `["ens", "local"]`   |
 | `senderAddress`| Address(es) that should be labeled as the sender if they match.              | `"0x1234..."` or `["0x1234...", "0x5678..."]`|
 
-```JSON
+```json
 {
   "path": "params.0",
   "label": "Recipient",
@@ -78,7 +78,7 @@ When specifying `types` and `sources`, use values from these references:
 
 Displays numeric values with appropriate decimals and symbol.
 
-```JSON
+```json
 {
   "path": "params.1",
   "label": "Amount",
@@ -95,7 +95,7 @@ Displays numeric values with appropriate decimals and symbol.
 
 Displays token amounts with appropriate symbol and decimals.
 
-```JSON
+```json
 {
   "path": "params.1",
   "label": "Amount",
@@ -112,7 +112,7 @@ Displays token amounts with appropriate symbol and decimals.
 
 Displays text values.
 
-```JSON
+```json
 {
   "path": "params.2",
   "label": "Description",
@@ -126,7 +126,7 @@ Displays text values.
 
 Displays true/false values.
 
-```JSON
+```json
 {
   "path": "params.3",
   "label": "Approval Status",
@@ -139,7 +139,7 @@ Displays true/false values.
 
 Displays Unix timestamps as formatted dates and times.
 
-```JSON
+```json
 {
   "path": "params.4",
   "label": "Expires",
@@ -154,7 +154,7 @@ Displays Unix timestamps as formatted dates and times.
 
 You can use conditional display rules to change how parameters are displayed based on their values:
 
-```JSON
+```json
 {
     "intent": [
       {
@@ -176,7 +176,7 @@ You can use conditional display rules to change how parameters are displayed bas
 
 You can reference other parameters within display formats using the `{paramName}` syntax:
 
-```JSON
+```json
 {
   "path": "params.1",
   "label": "Amount",

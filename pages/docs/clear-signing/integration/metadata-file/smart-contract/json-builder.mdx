@@ -1,0 +1,38 @@
+# ERC-7730 Json Builder Guide
+
+The [ERC-7730 JSON Builder](https://get-clear-signed.ledger.com/) provides a user-friendly interface for creating metadata files without manually writing JSON.
+
+## Step-by-Step Guide
+
+1. **Visit the Tool**: Go to the[ ERC-7730 Json Builder](https://get-clear-signed.ledger.com/)
+2. **Enter Contract Details**: Provide your smart contract address and select the chain
+3. **Add Metadata**: Enter your dApp information, including name and URL
+4. **Define Functions**: Select which functions you want to create metadata for
+5. **Configure Display**: Define how each function and its parameters should be displayed
+6. **Preview**: Test how your metadata will appear on a Ledger device
+7. **Export*: Download the generated JSON file
+
+## Preview example
+
+Here's how Clear Signing might appear on a Ledger device:
+
+<figure>
+    <img
+      alt="Clear Signed transaction on a Ledger Stax screen"
+      src="/clear-signing/preview-example-poap.png"
+    />
+    <figcaption style={{ textAlign: 'center' }}>
+      <i>Clear Signing shows readable transaction details for better verification</i>
+    </figcaption>
+</figure>
+
+
+
+## Next steps
+
+After creating your metadata file:
+
+1. **If** your contract is complex and needs adjusting, modify it following [the manual creation documentation](./manual-creation)
+2. **If** you want to add clear signing for an EIP-712 message, read the [EIP-712 message metadata file documentation](../EIP712-message)
+3. Validate it [using the Json schema validator](../test)
+4. Submit it to the [Clear Signing Registry](../submission)
