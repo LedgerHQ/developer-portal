@@ -19,7 +19,7 @@ export const Footer = () => {
                   fill
                 />
               </Link>
-              <div className="text-p-caption text-grey-600">Copyright © Ledger SAS. All rights reserved. Ledger, Ledger Nano S, Ledger Vault, Ledger OS are registered trademarks of Ledger SAS</div>
+              <div className="text-p-caption text-grey-600">Copyright © Ledger SAS. All rights reserved. Ledger, Ledger Stax, Ledger Nano S, Ledger Vault, Bolos are trademarks owned by Ledger SAS</div>
             </div>
             <div className="flex-col md:flex-row w-full gap-4 place-content-between hidden md:flex">
               {
