@@ -1,19 +1,65 @@
-# Design Rationale
+---
+title: Design Rationale Reference
+description: Technical reference for design decisions behind the ERC-7730 standard
+---
 
-The ERC-7730 standard was designed with several key considerations that influenced its structure and approach.
+# Design Rationale Reference
 
-## Human Readability Focus
+This reference document catalogs the key design decisions and technical constraints that shaped the ERC-7730 standard.
 
-A primary goal of ERC-7730 is to balance developer usability with end-user benefits:
+## Core Design Principles
 
-- The specification format is designed to be directly readable by developers
-- JSON was chosen as a familiar, widely-supported format to lower the entry barrier
-- The standard aims to make metadata file creation worth the effort by ensuring wide wallet support
+| Principle | Description |
+|-----------|-------------|
+| Human Readability | Balancing developer ergonomics with end-user comprehension |
+| Hardware Wallet Support | Accommodating the technical limitations of secure hardware devices |
+| Developer Adoption | Reducing barriers to implementation for wallet and dApp developers |
 
-## Hardware Wallet Limitations
+## Human Readability Considerations
 
-The specification was significantly influenced by the constraints of hardware wallets:
-- **Flattened Field Structure**: Complex UI constructs like layouts and grouping were left optional to accommodate limited hardware wallet displays
-- **"Flattening" Approach**: The recommended approach for handling complex message structures is to flatten the field list, which works better on hardware wallets
-- **Recursive Formatters**: Some formatters that require recursive processing (like calldata) may have limitations, especially on hardware wallets
+The standard prioritizes human readability through several specific design choices:
+
+### Developer-Friendly Specification Format
+- The specification uses a syntax and structure designed for direct readability by developers
+- Implementation patterns are documented alongside the specification to provide context
+
+### JSON as Data Format
+- JSON was selected as the primary data interchange format due to:
+  - Widespread familiarity among developers
+  - Extensive library support across programming languages
+  - Native parsing capabilities in most development environments
+  - Human-readable structure for debugging and implementation
+
+### Adoption Incentives
+- The standard incorporates incentives for metadata file creation:
+  - Promises of wide wallet support for compliant implementations
+  - Improved user experience as a direct result of implementation effort
+
+## Hardware Wallet Design Constraints
+
+Technical limitations of hardware wallets significantly influenced the specification:
+
+### Display Limitations
+| Constraint | Design Response |
+|------------|-----------------|
+| Limited screen size | Flattened field structure |
+| UI rendering capabilities | Optional complex constructs (layouts/grouping) |
+| Memory constraints | Optimized data structures |
+
+### Field Structure Decisions
+
+#### Flattened Field Structure
+- Complex UI constructs like layouts and grouping were made optional
+- Primary data fields prioritized for constrained displays
+- Progressive enhancement pattern for more capable wallets
+
+#### Message Structure Flattening
+- Complex nested structures are discouraged
+- Recommended approach converts nested objects to flattened field lists
+- Improves display compatibility across hardware wallet types
+
+#### Recursive Processing Limitations
+- Formatters requiring recursive processing (e.g., calldata) have documented limitations
+- Alternative patterns provided for hardware wallet implementations
+- Graceful degradation paths for complex data structures
 

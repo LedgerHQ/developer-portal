@@ -8,42 +8,19 @@ To make your Clear Signing metadata available to all compatible wallets, you nee
 
 Before submission, create your metadata file following the ERC-7730 standard. You can use the JSON Builder or create it manually.
 
-### Step 2: Fork the registry repository
+### Step 2: Clone the registry repository
 
-1. Go to the [Clear Signing Registry](https://github.com/LedgerHQ/clear-signing-erc7730-registry) on GitHub
-2. Click the "Fork" button in the top-right corner
-3. Clone your forked repository to your local machine
+Clone the [Clear Signing Registry](https://github.com/LedgerHQ/clear-signing-erc7730-registry) on GitHub.
 
 ### Step 3: Add your metadata file
 
-1. Add your file to the `registry/{dapp-name}/` directory, where `{dapp-name}` is the name of your dApp or project (e.g., `registry/aave/` for Aave)
-Name your file according to the contract purpose or functionality: `{name}.json` (e.g., `calldata-lpv2.json` for Aave's Lending Pool v2)
+- Name your file according to the contract purpose or functionality: `{name}.json` (e.g., `calldata-lpv2.json` for Aave's Lending Pool v2)
+- Add your file to the `registry/{dapp-name}/` directory, where `{dapp-name}` is the name of your dApp or project (e.g., `registry/aave/` for Aave)
 
 ### Step 4: Create a Pull request
 
-1. Commit your changes to your forked repository
-2. Push the changes to GitHub
-3. Go to your forked repository on GitHub and click "Contribute" to create a pull request
-4. Fill in the pull request template with information about your submission
+Open a pull request following the information in the [repository read me](https://github.com/LedgerHQ/clear-signing-erc7730-registry).
 
 ### Step 5 : Review process
 
-1. Automated checks will run to validate your metadata file
-2. Reviewers will examine your submission and may request changes
-3. Once approved, your metadata will be merged into the registry
-
-## Curation process
-
-1. Community Curation: Initial review in the public repository to verify format and basic correctness
-2. Wallet-Specific Curation: Additional verification by wallet providers before including in their trusted repository
-
-
-## Security Checklist for Submissions
-
-Before submitting your metadata, verify that:
-
-- ✅ Context constraints are specific to your contract and deployments
-- ✅ Display formats accurately represent transaction behavior
-- ✅ High-risk operations include appropriate warnings
-- ✅ No critical parameters are hidden or excluded
-- ✅ Intent statements clearly indicate transaction purpose
+Automated checks will run to validate your metadata file and reviewers will examine your submission. Once approved, your metadata will be merged into the registry
