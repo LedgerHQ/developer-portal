@@ -2,14 +2,6 @@ import { Callout } from 'nextra/components'
 
 # Implementation Overview
 
-### Prerequisites
-
-- You have a dApp with smart contracts and/or EIP-712 structured messages
-- You have a GitHub account for submitting to the registry
-- You're familiar with JSON formatting 
-
-### What you will achieve
-
 By following this guide, you'll create and submit metadata files that allow users to see clear, human-readable information when signing transactions or messages from your dApp on a Ledger device.
 
 <Callout type="warning" emoji="⚠️">
@@ -33,73 +25,26 @@ By following this guide, you'll create and submit metadata files that allow user
 
 ### Option A: Create Smart Contract Metadata
 
-1. Choose your creation method:
-    - Recommended: Use the ERC-7730 JSON Builder for a guided experience
-    - Alternative: Create files manually following the Smart Contract Metadata guidelines
-2. Include these essential components:
-    - Contract information (name, address, chain ID)
-    - Method definitions with parameter descriptions
-    - Display formats for showing parameters to users
+    - Recommended: [Use the ERC-7730 JSON Builder](./json-builder) for a guided experience
+    - Alternative: Create the file manually following the [Smart Contract Metadata guidelines](./manual-creation)
 
 ### Option B: Create EIP-712 Metadata
 
-1. Create your metadata file manually using the EIP-712 template
-2. Include these essential components:
-    - Domain information (name, version, chain ID, verifying contract)
-    - Type definitions for all structured data types
-    - Display formats for showing structured data to users
+Create your metadata file manually [using the EIP-712 template](./EIP712-message)
 
 ### Option C: Create Both Types (if needed)
 
 Follow both Option A and Option B to create separate metadata files for each purpose.
 
-## Task 3: Apply Metadata Best Practices
+## Task 3: Test the validity of the file
 
-### For Display Fields
+Use the JSON schema validator to check that your metadata file complies with the ERC-7730 standard before submission.
 
-- Write clear intent statements: Use "Transfer `{amount}` to `{recipient}`" instead of "Execute transfer"
-- Prioritize critical information: Put recipients and amounts first in your display list
-- Choose appropriate formats: Use the right format for each parameter type (address, token, etc.)
-- Include warnings: Add clear warnings for high-risk operations like unlimited approvals
-
-### For Parameter Labels
-
-- Use plain language: Avoid technical terms that users might not understand
-- Be concise: Keep labels short and to the point
-- Be consistent: Use the same terminology across related operations
+[Learn how to test your metadata file →](./test)
 
 ## Task 4: Submit to the Registry
 
-1. Fork the repository
-    - Go to the Clear Signing Registry on GitHub
-    - Click the "Fork" button in the top-right corner
-    - Clone your forked repository to your local machine
-2. Add your file(s):
-    - Place your file(s) in the `registry/{dapp-name}/` directory, where `{dapp-name}` is your project name
-    - Name your file(s) according to the contract purpose: `{name}.json`
-3. Create a pull request:
-    - Commit and push your changes to your fork
-    - Go to your fork on GitHub and click "Contribute" to create a pull request
-    - Fill in the pull request template with details about your submission
+Submit your validated metadata file to the [Clear Signing Registry](https://github.com/LedgerHQ/clear-signing-erc7730-registry) for inclusion in the ecosystem.
 
-## Task 5: Verify and Test
+[Follow the submission process →](./submission)
 
-1. Wait for approval: Your submission will go through automated checks and manual review
-2. Address any feedback: Make requested changes if reviewers suggest improvements
-3. Test with a Ledger device: Once approved, test your implementation to verify proper display
-
-## Troubleshooting
-
-| Issue | Solution |
-| ----- | -------- |
-| JSON validation errors | Use a JSON validator to check your syntax before submission |
-| Missing required fields | Compare with the templates to ensure all required fields are included |
-| PR reviewers request changes | Address all comments and push updates to your fork |
-| Complex smart contract not displaying properly | Some complex contracts with unusual patterns may require a dedicated plugin (device app) instead of metadata files. Contact Ledger to discuss this possibility. |
-
-## Next Steps
-
-For detailed guidance on specific metadata types, refer to:
-- Smart Contract Metadata - Detailed guidance on smart contract metadata
-- EIP-712 Message Metadata - Detailed guidance on EIP-712 metadata
-- Submit the file to the registry - How to submit your metadata to the public registry

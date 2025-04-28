@@ -4,9 +4,9 @@ Clear Signing functions through a collaborative ecosystem approach that involves
 
 ## The Clear Signing process
 
-1. **Metadata Creation**: Developers create JSON files describing smart contract functions
-2. **Submit the file to the registry**: Metadata is submitted to the Clear Signing Registry through a GitHub pull request
-3. **Validation**: Wallets validate metadata against constraints before displaying
+1. **Metadata Creation**: Developers create Json files describing smart contract functions
+2. **Submit the file to the registry**: The Json is submitted to the Clear Signing Registry through a GitHub pull request
+3. **Validation**: Ledger validates the Json file
 4. **Wallet Integration**: Wallets fetch the metadata when users need to sign transactions
 5. **Enhanced Display**: Instead of showing raw transaction data, wallets present clear, understandable information about what the user is signing
 
@@ -14,7 +14,7 @@ Clear Signing functions through a collaborative ecosystem approach that involves
 
 ### 1. Metadata Files
 
-JSON files that follow the ERC-7730 standard and contain:
+Json files that follow the ERC-7730 standard and contain:
 
 - Contract information (name, address, chain ID)
 - Method definitions with readable parameter descriptions
@@ -30,7 +30,7 @@ The [Clear Signing Registry](https://github.com/LedgerHQ/clear-signing-erc7730-r
 
 ### 3. Generic Parser
 
-The Generic Parser (currently in development) is a system that:
+The Generic Parser is a system that:
 
 - Interprets JSON metadata files at runtime
 - Decodes transaction data using contract ABIs
@@ -38,9 +38,4 @@ The Generic Parser (currently in development) is a system that:
 
 ### 4. Wallet Integration
 
-Wallet providers integrate Clear Signing through:
-
-- The Device Management Kit (DMK) for desktop applications
-- The Device Signer Kit (DSK) for mobile and web wallets
-- Legacy integration through updated LedgerJS libraries
-
+Wallet providers integrate Clear Signing through the Device Management Kit (DMK) and the Device Signer Kit (DSK).
