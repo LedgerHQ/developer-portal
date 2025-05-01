@@ -1,0 +1,277 @@
+# Display Format 
+
+The display format system in ERC-7730 defines how transaction parameters are presented to users. This reference documents all available format types, their parameters, and usage patterns.
+
+## Overview
+
+Display formats transform raw blockchain data into human-readable information. Each format applies specific conversions and formatting rules to make transaction data comprehensible when displayed on wallet screens.
+
+## Format Types Reference
+
+| Format Type      | Description                          | Common Use Cases                          | Required Parameters  | Optional Parameters |
+| ---------------- | ------------------------------------ | ----------------------------------------- | -------------------- | ------------------- |
+| `raw`            | Raw integer display                  | Simple values, generic integers           | None                 | None                |
+| `amount`         | Native cryptocurrency value          | ETH transfers, gas limits                 | None                 | None                |
+| `tokenAmount`    | Token amount with symbol             | Token transfers, approvals, allowances    | `tokenPath` or `token` | `threshold`, `message`, `nativeCurrencyAddress` |
+| `nftName`        | NFT identifier with collection       | NFT transfers, approvals, minting         | `collectionPath` or `collection` | None      |
+| `date`           | Date and time display                | Timestamps, deadlines, expirations        | `encoding`           | None                |
+| `duration`       | Time duration in HH:MM:ss            | Timeouts, lock periods, waiting times     | None                 | None                |
+
+## Field Format Structure
+
+Each field format in an ERC-7730 metadata file follows this JSON structure:
+
+```json
+{
+  "path": "field.path",       // Path to the value in the transaction data
+  "label": "User-friendly label",  // Text label shown to the user
+  "format": "formatName",     // One of the format types listed above
+  "params": {
+    // Format-specific parameters (if required)
+  }
+}
+```
+
+## Format Type Specifications
+
+### `raw` Format
+
+Displays integers in their natural, localized representation without conversion.
+
+#### Parameters
+None required.
+
+#### Example Format Definition
+```json
+{
+  "path": "value",
+  "label": "Amount",
+  "format": "raw"
+}
+```
+
+#### Display Output Examples
+- Input value: `1000` → Displayed as: `1000`
+- Input value: `42` → Displayed as: `42`
+
+### `amount` Format
+
+Displays a value in native cryptocurrency (like ETH), converting from wei to a human-readable amount and adding the appropriate ticker.
+
+#### Parameters
+None required.
+
+#### Example Format Definition
+```json
+{
+  "path": "value",
+  "label": "Payment",
+  "format": "amount"
+}
+```
+
+#### Display Output Examples
+- Input value: `0x2c1c986f1c48000` (hexadecimal) → Displayed as: `0.19866144 ETH`
+- Input value: `1000000000000000000` (decimal) → Displayed as: `1 ETH`
+
+### `tokenAmount` Format
+
+Displays a value as a token amount, converting using token decimals and appending the token ticker.
+
+#### Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `tokenPath` | String | Yes* | Path to the token address in the data structure |
+| `token` | String | Yes* | Direct token address (use if `tokenPath` not available) |
+| `threshold` | String | No | Value above which to show special message |
+| `message` | String | No | Message to show when value exceeds threshold |
+| `nativeCurrencyAddress` | Array | No | Addresses to treat as native currency |
+
+*Either `tokenPath` or `token` is required
+
+#### Example Format Definition - Using Path Reference
+```json
+{
+  "path": "amount",
+  "label": "Token amount",
+  "format": "tokenAmount",
+  "params": {
+    "tokenPath": "token",               // Path to token address
+    "threshold": "0xFFFFFFFF",          // Optional: Value above which to show special message
+    "message": "Unlimited",             // Optional: Message to show above threshold
+    "nativeCurrencyAddress": [          // Optional: Addresses to treat as native currency
+      "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+    ]
+  }
+}
+```
+
+#### Example Format Definition - Using Direct Token Address
+```json
+{
+  "path": "amount",
+  "label": "DAI amount",
+  "format": "tokenAmount",
+  "params": {
+    "token": "0x6B175474E89094C44Da98b954EedeAC495271d0F"  // DAI token address
+  }
+}
+```
+
+#### Display Output Examples
+- Input value: `1000000` with token DAI (6 decimals) → Displayed as: `1 DAI`
+- Input value: `0xFFFFFFFF` with threshold `0xFFFFFFFF` → Displayed as: `Unlimited DAI`
+- Input value: `2000000000000000` with native currency address → Displayed as: `0.002 ETH`
+
+### `nftName` Format
+
+Displays a value as a specific NFT in a collection, showing both collection name and token ID.
+
+#### Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `collectionPath` | String | Yes* | Path to the collection address in the data structure |
+| `collection` | String | Yes* | Direct collection address (use if `collectionPath` not available) |
+
+*Either `collectionPath` or `collection` is required
+
+#### Example Format Definition - Using Path Reference
+```json
+{
+  "path": "tokenId",
+  "label": "NFT",
+  "format": "nftName",
+  "params": {
+    "collectionPath": "collection"  // Path to collection address
+  }
+}
+```
+
+#### Example Format Definition - Using Direct Collection Address
+```json
+{
+  "path": "tokenId",
+  "label": "BAYC NFT",
+  "format": "nftName",
+  "params": {
+    "collection": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D"  // BAYC address
+  }
+}
+```
+
+#### Display Output Examples
+- Input value: `1036`, collection = BoredApeYachtClub → Displayed as: `Collection Name: BoredApeYachtClub` `Token ID: 1036` 
+
+### `date` Format
+
+Displays an integer as a date and time, using the specified encoding method.
+
+#### Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `encoding` | String | Yes | Either "timestamp" (Unix timestamp) or "blockheight" (Ethereum block number) |
+
+#### Example Format Definition
+```json
+{
+  "path": "expiration",
+  "label": "Expires",
+  "format": "date",
+  "params": {
+    "encoding": "timestamp"  // Options: "timestamp" or "blockheight"
+  }
+}
+```
+
+#### Display Output Examples
+- Input value: `1709191632`, encoding = "timestamp" → Displayed as: `2024-02-29T08:27:12`
+- Input value: `19332140`, encoding = "blockheight" → Displayed as: `2024-02-29T09:00:35`
+
+### `duration` Format
+
+Displays an integer as a time duration in seconds, formatted in hours, minutes, and seconds.
+
+#### Parameters
+None required.
+
+#### Example Format Definition
+```json
+{
+  "path": "lockTime",
+  "label": "Lock period",
+  "format": "duration"
+}
+```
+
+#### Display Output Examples
+- Input value: `3600` → Displayed as: `01:00:00` (1 hour)
+- Input value: `86400` → Displayed as: `24:00:00` (1 day)
+
+## Special Data References
+
+### Container Structure Values
+
+ERC-7730 provides special references to access transaction container information.
+
+#### EVM Transaction Container
+
+| Value reference | Description | Example |
+|-----------------|-------------|---------|
+| `@.from` | Transaction sender address | `0x1234...5678` |
+| `@.value` | Native currency value of the transaction | `0.1 ETH` |
+| `@.to` | Destination address (target contract) | `0xabcd...ef01` |
+
+#### EIP-712 Container
+
+| Value reference | Description | Example |
+|-----------------|-------------|---------|
+| `@.from` | Message signer address | `0x1234...5678` |
+| `@.value` | Usually 0 for EIP-712 messages | `0 ETH` |
+| `@.to` | Verifying contract address, when known | `0xabcd...ef01` |
+
+## Array Handling
+
+ERC-7730 provides special syntax for handling array elements in transaction data.
+
+### Accessing Specific Array Elements
+
+Use array indices in the path to access specific elements:
+
+```json
+{
+  "path": "pools.[-1]",   // Last element of the pools array
+  "label": "Last pool",
+  "format": "raw"
+}
+```
+
+### Formatting All Array Elements
+
+Use the `[]` notation to apply formats to all elements in an array:
+
+```json
+{
+  "path": "details.[]",   // All elements of the details array
+  "fields": [
+    {
+      "path": "amount",
+      "label": "Amount allowance",
+      "format": "tokenAmount",
+      "params": {
+        "tokenPath": "token"
+      }
+    },
+    {
+      "path": "expiration",
+      "label": "Approval expires",
+      "format": "date",
+      "params": {
+        "encoding": "timestamp"
+      }
+    }
+  ]
+}
+```

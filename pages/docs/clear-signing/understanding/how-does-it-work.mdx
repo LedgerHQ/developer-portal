@@ -1,0 +1,41 @@
+# How does Clear Signing work?
+
+Clear Signing functions through a collaborative ecosystem approach that involves dApp developers, wallet providers, and the registry system.
+
+## The Clear Signing process
+
+1. **Metadata Creation**: Developers create Json files describing smart contract functions
+2. **Submit the file to the registry**: The Json is submitted to the Clear Signing Registry through a GitHub pull request
+3. **Validation**: Ledger validates the Json file
+4. **Wallet Integration**: Wallets fetch the metadata when users need to sign transactions
+5. **Enhanced Display**: Instead of showing raw transaction data, wallets present clear, understandable information about what the user is signing
+
+## Key components
+
+### A. Metadata Files
+
+Json files that follow the ERC-7730 standard and contain:
+
+- Contract information (name, address, chain ID)
+- Method definitions with readable parameter descriptions
+- Display instructions for formatting parameters
+
+### B. Registry System
+
+The [Clear Signing Registry](https://github.com/LedgerHQ/clear-signing-erc7730-registry) is a GitHub repository that:
+
+- Hosts metadata files for smart contracts and EIP-712 messages
+- Provides a submission and review process
+- Makes metadata accessible to all wallet implementations
+
+### C. Generic Parser
+
+The Generic Parser is a system that:
+
+- Interprets JSON metadata files at runtime
+- Decodes transaction data using contract ABIs
+- Formats the data according to display instructions
+
+### D. Wallet Integration
+
+Wallet providers integrate Clear Signing through the Device Management Kit (DMK) and the Device Signer Kit (DSK).

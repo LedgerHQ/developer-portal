@@ -1,0 +1,71 @@
+# EIP-712 message metadata
+
+EIP-712 messages allow dApps to request signatures for structured data. Clear Signing for EIP-712 enhances security by displaying the structured data in a human-readable format before signing.
+
+## Creating EIP-712 Metadata
+
+For EIP-712 structured data signing, you'll need to create specialized metadata that includes:
+
+- Domain information (name, version, chain ID, verifying contract)
+- Type definitions for all structured data types
+- Display formats for showing structured data to users
+
+```json
+{
+  "$schema": "../../specs/erc7730-v1.schema.json",
+  "context": {
+    "eip712": {
+      "deployments": [
+        {
+          "chainId": 1,
+          "address": "0x7f268357a8c2552623316e2562d90e642bb538e5"
+        }
+      ],
+      "domain": {
+        "name": "OpenSea",
+        "chainId": 1,
+        "verifyingContract": "0x7f268357a8c2552623316e2562d90e642bb538e5"
+      },
+      "schemas": [
+        {
+          "primaryType": "Order",
+          "types": {
+            "Order": [
+              { "name": "exchange", "type": "address" },
+              { "name": "maker", "type": "address" },
+              { "name": "basePrice", "type": "uint256" },
+              { "name": "expirationTime", "type": "uint256" }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "owner": "OpenSea"
+  },
+  "display": {
+    "formats": {
+      "Order": {
+        "intent": "OpenSea Listing",
+        "fields": [
+          { "path": "basePrice", "label": "Price", "format": "tokenAmount" },
+          { "path": "expirationTime", "label": "Expires", "format": "datetime" }
+        ]
+      }
+    }
+  }
+}
+```
+
+For detailed instructions on creating EIP-712 metadata, [refer to the template](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/templates/template-eip712.json).
+
+## Key Differences from Smart Contracts
+
+EIP-712 structured data signing differs from smart contract signing in several ways:
+
+- **Message Structure**: Describes structured typed data rather than contract function calls
+- **Direct Rendering**: EIP-712 messages are rendered directly by the Ethereum app without requiring the Generic Parser
+- **Domain Information**: Requires additional domain information to properly identify the message source
+
+

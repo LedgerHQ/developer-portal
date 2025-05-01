@@ -1,0 +1,96 @@
+import Image from 'next/image'
+
+# What is Clear Signing?
+
+Clear Signing is a technology that transforms blockchain transaction signing from unreadable raw data into human-readable information, allowing users to verify exactly what they're approving before signing a transaction or message.
+
+When using traditional blockchain wallets, users are often presented with cryptic hexadecimal strings or hashes when signing transactions. This opacity creates significant security risks, as users cannot verify what they're actually authorizing. Clear Signing solves this fundamental problem by decoding transaction data and presenting it in a format that anyone can understand.
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube-nocookie.com/embed/YdhWAONAGj0"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>
+
+## Blind Signing vs. Clear Signing
+
+|                  Blind Signing                |                      Clear Signing                      |
+| --------------------------------------------- | ------------------------------------------------------- |
+| Shows only transaction hashes or encoded data |  Shows formatted transaction details in plain language  |
+| User cannot verify transaction content        | User can verify recipient, amount, and function details |
+| High risk of scams and phishing attacks       | Reduced risk through transparency                       |
+| Poor user experience	                        | Improved user confidence and understanding              | 
+
+<figure>
+    <img
+      alt="Undecypherable hash on a Ledger Stax screen"
+      src="/clear-signing/blind-signing-risk.png"
+    />
+    <figcaption style={{ textAlign: 'center' }}>
+      <i>Blind signing only shows transaction hashes, making it impossible to verify details</i>
+    </figcaption>
+</figure>
+
+With Clear Signing, Ledger devices use the smart contract ABI (Application Binary Interface) and metadata to decode and display transaction information in a human-readable format. This empowers users to understand and verify what they're signing.
+
+<figure>
+    <img
+      alt="Clear Signed transaction on a Ledger Stax screen"
+      src="/clear-signing-cover.png"
+    />
+    <figcaption style={{ textAlign: 'center' }}>
+      <i>Clear Signing shows readable transaction details for better verification</i>
+    </figcaption>
+</figure>
+
+## Clear Signing in practice
+
+Let's look at some real-world examples to understand how Clear Signing transforms the user experience:
+
+### Example 1: Token swap
+
+| Blind Signing Display | Clear Signing Display |
+| --------------------- | --------------------- |
+| ```0x23b872dd000000000000000000000000...``` | <b>Swap 0.5 ETH for ~1,250 USDC</b> <br /> Maximum slippage: 0.5% <br /> Exchange fee: 0.3% |
+
+### Example 2: NFT purchase
+
+| Blind Signing Display | Clear Signing Display |
+| --------------------- | --------------------- |
+| ```0x42842e0e00000000000000000000000...``` | <b>Buy NFT "CryptoPunk #3457"</b> <br />Price: 2.5 ETH<br /> Seller: 0x1234...abc  <br/> Marketplace fee: 0.075 ETH|
+
+
+### Example 3: Lending Protocol Interaction
+
+| Blind Signing Display | Clear Signing Display |
+| --------------------- | --------------------- |
+| ```0xf2b9fdb800000000000000000000000...``` | <b>Supply 100 USDC as collateral</b> <br />Platform: Aave v3<br />Enables borrowing against this asset|
+
+
+## How Clear Signing prevents scams
+
+Many blockchain scams rely on users authorizing malicious transactions without understanding what they're signing. Clear Signing mitigates these attacks by exposing key transaction details:
+
+- **Fake token approvals**: Clear Signing shows the exact token and amount being approved
+- **Phishing transactions**: Users can verify recipient addresses and token amounts
+- **Malicious contract executions**: Function names and parameters are displayed clearly
+- **Signature replay attacks**: Users can see if they're signing a message that could be used elsewhere
+
+## ERC-7730: The Standard Behind Clear Signing
+
+Clear Signing is built on [ERC-7730](https://eips.ethereum.org/EIPS/eip-7730), an Ethereum Improvement Proposal that establishes a standard format for human-readable transaction signing. This standard ensures consistent implementation across different wallets and applications, creating a more secure ecosystem for all users.
+
+The ERC-7730 standard defines:
+
+- The format and structure of metadata files
+- How parameters should be displayed to users
+- Requirements for secure metadata validation
+- Registry management and security practices
+
+By adhering to this standard, developers can create metadata that works consistently across all compatible wallets.
+
+

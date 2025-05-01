@@ -1,0 +1,50 @@
+import { Callout } from 'nextra/components'
+
+# Implementation Overview
+
+By following this guide, you'll create and submit metadata files that allow users to see clear, human-readable information when signing transactions or messages from your dApp on a Ledger device.
+
+<Callout type="warning" emoji="⚠️">
+    Currently, Clear Signing implementation is supported for EVM chains only. Support for other protocols is in development.
+</Callout>
+
+
+## Task 1: Determine Which Metadata Files You Need
+
+| Your Use Case | Required Metadata | Tools Available |
+| ------------- | ----------------- | --------------- |
+| <b>Smart Contract Transactions</b> <br/> Users interact with your smart contract functions | [Smart Contract metadata](./smart-contract) | <ul><li>✅ ERC-7730 JSON Builder</li><li>✅ Manual creation</li></ul>|
+| <b>EIP-712 Structured Data</b> <br/> Users sign structured messages from your dApp | [EIP-712 metadata](./EIP712-message) | <ul><li>❌ JSON Builder not supported</li><li>✅ Manual creation with template</li></ul>|
+| <b>Both Transaction Types</b> <br/> Users interact with contracts and sign structured data | Both metadata types in separate files | Mixed approach needed |
+
+<Callout type="info" emoji="ℹ️">
+    Regardless of which type of metadata file you create, the submission process to the registry is the same. All metadata files are submitted to the same repository.
+</Callout>
+
+## Task 2: Create Your Metadata Files
+
+### Option A: Create Smart Contract Metadata
+
+    - Recommended: [Use the ERC-7730 JSON Builder](./json-builder) for a guided experience
+    - Alternative: Create the file manually following the [Smart Contract Metadata guidelines](./manual-creation)
+
+### Option B: Create EIP-712 Metadata
+
+Create your metadata file manually [using the EIP-712 template](./EIP712-message)
+
+### Option C: Create Both Types (if needed)
+
+Follow both Option A and Option B to create separate metadata files for each purpose.
+
+## Task 3: Test the validity of the file
+
+Use the JSON schema validator to check that your metadata file complies with the ERC-7730 standard before submission.
+
+[Learn how to test your metadata file →](./test)
+
+## Task 4: Submit to the Registry
+
+Submit your validated metadata file to the [Clear Signing Registry](https://github.com/LedgerHQ/clear-signing-erc7730-registry) for inclusion in the ecosystem.
+
+[Follow the submission process →](./submission)
+
