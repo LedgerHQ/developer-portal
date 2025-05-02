@@ -6,11 +6,6 @@ export default {
       layout: 'raw'
     }
   },
-  'robin': {
-    type: 'page',
-    title: 'Robin AI',
-    href: '/robin'
-  },
   'dev-tracks': {
     type: 'page',
     title: 'Dev Tracks',
