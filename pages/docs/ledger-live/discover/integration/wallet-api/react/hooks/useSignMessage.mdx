@@ -40,7 +40,7 @@ function App() {
 
   const handleSignMessage = async () => {
     if (account) {
-      const signedMessage = await signMessage(account.id, "Hello, Ledger!");
+      const signedMessage = await signMessage(account.id,  Buffer.from("Hello, Ledger!"));
       setResponse(signedMessage);
     }
   };
