@@ -39,10 +39,9 @@ function App() {
   }, [requestAccount]);
 
   const handleSignMessage = async () => {
-    if (account) {
-      const signedMessage = await signMessage(account.id,  Buffer.from("Hello, Ledger!"));
-      setResponse(signedMessage);
-    }
+    if (!account) return;
+    const signedMessage = await signMessage(account.id,  Buffer.from("Hello, Ledger!"));
+    setResponse(signedMessage);
   };
 
   return (
