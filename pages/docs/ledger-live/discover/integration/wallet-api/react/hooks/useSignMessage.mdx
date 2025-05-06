@@ -30,8 +30,7 @@ import {
 
 function App() {
   const { requestAccount, account } = useRequestAccount();
-  const { signMessage } = useSignMessage();
-  const [response, setResponse] = useState(null);
+  const { signMessage, signature } = useSignMessage();
 
   // Prompt the user to select an account on component mount
   useEffect(() => {
@@ -39,10 +38,8 @@ function App() {
   }, [requestAccount]);
 
   const handleSignMessage = async () => {
-    if (account) {
-      const signedMessage = await signMessage(account.id, "Hello, Ledger!");
-      setResponse(signedMessage);
-    }
+    if (!account) return;
+    await signMessage(account.id,  Buffer.from("Hello, Ledger!"));
   };
 
   return (
@@ -50,10 +47,10 @@ function App() {
       <h1>Test Live App - Services Kit</h1>
       <div className="card">
         <button onClick={handleSignMessage}>Sign Message</button>
-        {response && (
+        {signature && (
           <div>
             <h3>Signed Message:</h3>
-            <p>{response}</p>
+            <p>{signature}</p>
           </div>
         )}
       </div>
