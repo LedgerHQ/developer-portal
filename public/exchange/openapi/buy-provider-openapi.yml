@@ -196,7 +196,7 @@ paths:
             type: string
         - in: query
           name: deeplinkUrl
-          description: deeplink to Ledger Live. Example: ledgerlive://buy
+          description: deeplink to Ledger Live. Example, ledgerlive://buy
           required: true
           schema:
             type: string
