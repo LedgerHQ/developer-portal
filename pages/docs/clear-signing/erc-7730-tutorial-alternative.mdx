@@ -1,0 +1,800 @@
+import Image from 'next/image'
+import { Callout } from "nextra/components";
+
+# Tutorial: How to write a ERC-7730 JSON file (alt)
+
+<Callout type="info" emoji="ℹ️">
+    Use cases to manually write your file instead of using the [Json Builder tool](https://get-clear-signed.ledger.com/): 
+    - To properly manage a set of contrats or messages.
+    - To be able to upgrade your file if the contracts evolves. In the tool, you cannot load and existing file to modify it yet.
+    - To use complex features, such as include mechanisms or constants, and have a cleaner file overall.
+    - To display a transaction field that is not in the ABI, such as `value`, `from` or `to`.
+</Callout>
+
+## Introduction
+
+In this tutorial, we are going to manually write a JSON file to implement clear signing for the transfer function of Tether USDT contract. By following this tutorial, you will learn how to manually edit an ERC-7730 JSON for more specific use cases, including multi versions smart contracts or EIP-712 messages.
+
+This is the main structure of our file:
+
+```json
+{
+    "$schema": "https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc7730-v1.schema.json",
+
+    "context": {
+        ...
+    }, 
+
+    "metadata": {
+        ...
+    },
+
+    "display": {
+        ...
+    }
+}
+```
+
+There are three main sections: `“context”`, `“metadata”` and `“display”`. We will deep dive into each of those sections to learn what their goal is, how to write them, and finally, how you can go further for more complex use cases.  
+
+<Callout type="info" emoji="ℹ️">
+    Basically, the main idea of each sections is: 
+    - `“context”`: Provides binding context information for this file. Where should this file be applied?
+    - `“metadata”`: Provides the contract/message metadata that can be displayed to the user. What will the user be able to see?
+    - `“display”`: Provides info on how to format each fields of a function/message. How and when will the user be able to see those fields?
+</Callout>
+
+<details>
+  <summary>For EIP-712 messages</summary>
+
+    There are many similarities between smart contract and EIP-712, so this tutorial will also help you understand how you can clear sign EIP-712 messages. 
+    However, in order to highlight the few differences, we will be referring to the following example from [1inch](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/eip712-1inch-limit-order.json) to clear sign the `“OrderStructure”` message: 
+
+    ```json    
+    {
+    "$schema": "../../specs/erc7730-v1.schema.json",
+
+    "context": {
+        ...
+    },
+
+    "metadata": {
+        ...
+    },
+
+    "display": {
+        ...
+    }
+    }
+    ```
+
+</details>
+
+### Path Reference
+
+Before getting started, we need to talk briefly about the path system. 
+
+In addition to the [json path](https://www.rfc-editor.org/rfc/rfc9535) specification, you can use three additional roots to support description of paths over multiple files in a single common notation.
+
+The root node identifier indicates which document or data location this path references, according to the following table:
+
+| Root   |  Refers to  |  Value location  |
+|--------------------|-------------------|-------------------|
+| # | Path applies to the structured data schema (ABI path for contracts, path in the message types itself for EIP-712). It is the default path if no root is specified   | Values can be found in the serialized representation of the structured data   |
+| $ | Path applies to the current file describing the structured data formatting, after merging with includes   | Values can be found in the merged file itself   |
+| @ | Path applies to the container of the structured data to be signed for smart contract. For EIP-712, @.to verifying contract.  @.chainid   | Values can be found in the serialized container to sign, and are uniquely defined per container in the Reference section   |
+
+In combination of those root node identifer, for paths referring to structured data fields, if a field has a variable length primitive type (like `bytes` or `string` in solidity), a slice selector can be added to the path, to refer to the specific set of bytes indicated by the slice: `[xx:]`
+
+Examples:
+- `#.params.amountIn` or `params.amountIn` refers to parameter `amountIn` in top-level structure params as defined in the ABI.
+- `$.display.definitions.minReceiveAmount` refers to a common definition reused across fields formatting definition.
+- `@.value` refers to the enclosing transaction native currency amount.
+- `#.params.path.[-20:]` refers to the last 20 bytes of the path byte array.
+
+Detailed info [here in our spec](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc-7730.md#path-references). 
+
+Now we are good to go, let’s get started. 
+
+
+## 1. Context section 
+
+First you need to write the `“context”` section. 
+
+<Callout type="info" emoji="ℹ️">
+    The goal of the `“context”` section is to provide binding context information for this file. It indicates whether the ERC-7730 file is valid for this data, according to 2 main constraints: the deployment field and the ABI specification.
+</Callout>
+
+In this example, the context section indicates that the ERC-7730 file should only be applied to the USDT smart contract whose deployment addresses are provided and only if they match the reference ABI.
+
+```json
+    "context": {
+        "$id": "Tether USD",
+        "contract" : {
+            "abi": "https://api.etherscan.io/api?module=contract&action=getabi&address=0xdac17f958d2ee523a2206206994597c13d831ec7",
+            "deployments": [ 
+                {
+                    "chainId": 1,
+                    "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+                },
+                {
+                    "chainId": 137,
+                    "address": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F"
+                },
+                {
+                    "chainId": 42161,
+                    "address": "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9"
+                }
+            ]
+        }
+    },
+```
+
+<details>
+  <summary>For EIP-712 messages</summary>
+
+    Same mechanic, but with some minor differences: 
+    -  We need to specify that this file is for EIP-712 messages first.
+    - The `deployments` field will list all the verifying contracts that will check this EIP-712
+    - Instead of the ABI specification, we will use `schemas` and `domain` to describe the structure of our EIP-712 message(s) and match names with versions. 
+
+    Here is the example of the `context` section from [1inch](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/eip712-1inch-limit-order.json). We will dig into the details below. 
+
+
+    ```json
+    "context": {
+        "eip712": {
+        "deployments": [
+            { "chainId": 1, "address": "0x119c71d3bbac22029622cbaec24854d3d32d2828" },
+            { "chainId": 10, "address": "0x11431a89893025d2a48dca4eddc396f8c8117187" },
+            { "chainId": 56, "address": "0x1e38eff998df9d3669e32f4ff400031385bf6362" },
+            { "chainId": 137, "address": "0x94bc2a1c732bcad7343b25af48385fe76e08734f" },
+            { "chainId": 42161, "address": "0x7f069df72b7a39bce9806e3afaf579e54d8cf2b9" }
+        ],
+        "domain": { "name": "Permit2" },
+        "schemas": [
+            {
+            "primaryType": "OrderStructure",
+            "types": {
+                "EIP712Domain": [
+                { "name": "name", "type": "string" },
+                { "name": "version", "type": "string" },
+                { "name": "chainId", "type": "uint256" },
+                { "name": "verifyingContract", "type": "address" }
+                ],
+                "OrderStructure": [
+                { "name": "salt", "type": "uint256" },
+                { "name": "maker", "type": "address" },
+                { "name": "receiver", "type": "address" },
+                { "name": "makerAsset", "type": "address" },
+                { "name": "takerAsset", "type": "address" },
+                { "name": "makingAmount", "type": "uint256" },
+                { "name": "takingAmount", "type": "uint256" },
+                { "name": "makerTraits", "type": "uint256" }
+                ]
+            }
+            },
+    ```
+
+</details>
+
+
+### a. ABI specification 
+
+You have two ways of specifying the ABI: 
+- You can use an url pointing at the ABI (like we did in this example)
+- You can copy/paste the entire ABI ([etherscan solidity compiler](https://etherscan.io/address/0xdac17f958d2ee523a2206206994597c13d831ec7#code)). You don’t necessarily need to paste the entire ABI, you can keep only the functions that you want to clear sign, and remove for instance the events and read functions.
+ 
+<Callout type="info" emoji="ℹ️">
+    The ABI is used to define unique path references to fields being formatted in the `display.formats` section, so the ABI is mandatory for all contracts clear-signed.
+</Callout>
+
+<details>
+  <summary>For EIP-712 messages</summary>
+
+    Like we said, instead of the ABI, we will use `schemas` and `domain` to describe the structure of our EIP-712 message(s) and match names with versions. 
+
+    The` domain` constraint is a json object with simple key-value pairs, describing a set of values that the EIP-712 Domain of the message MUST match.
+
+    An EIP-712 `domain` is a free-form list of keys, but those are very common to include:
+    - `name`: the name of the message verifier
+    - `version`: the version of the message
+    - `chainID`: an [EIP-155](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/eip-155.md) identifier of the chain the message is bound to
+    - `verifyingContract`: the address the message is bound to.
+
+    Note that `chainId` and `verifyingContract` can also be bound to their values thanks to the `eip712.deployments` constraint, in a more flexible way (supporting multiple deployment values).
+
+</details>
+
+### b. Deployment field
+
+Under the `"deployments"` field, you need to specify where exactly the clear signing file will be applied, by adding the chain id and deployment addresses: 
+- `chainId`: an EIP-155 identifier of the chain where the described contract is deployed (you can find it here: [https://chainlist.org/](https://chainlist.org/))
+- `address`: the address of the deployed contract on the specified` chainId` chain.
+
+<details>
+    <summary>For EIP-712 messages</summary>
+
+    The `deployments` field will list all the smart contract deployments that will check this EIP-712
+
+    A deployment option is an object with:
+    - `chainId`: an EIP-155 identifier of the chain the described contract is deployed on.
+    - `address`: the address of the deployed contract on specified `chainId` chain.
+
+</details>
+
+
+## 2. Metadata section
+
+Now let’s start the `"metadata"` section. 
+
+<Callout type="info" emoji="ℹ️">
+    The goal of the `"metadata"` section is to provide the metadata that can be displayed to the user when interacting with the contract/message defined in this file. 
+</Callout>
+
+This section is typically used to:
+- Provide displayable information about the recipient of the contract call / message
+- Provide displayable values of enumeration or encoded id parameters, typically smart contract / message specific
+- Provide common constants used by the various formats defined in the file
+
+In this example, the metadata section contains only the recipient information, in the form of a displayable name (`owner` key) and additional information (`info` key) that MAY be used by wallets to provide details about the recipient.
+
+```json
+    "metadata": {
+        "owner": "Tether",
+        "info": {
+            "legalName": "Tether Limited",
+            "url": "https://tether.to/",
+            "deploymentDate": "2017-11-28T12:41:21Z"  
+        }
+    },
+```
+
+<details>
+    <summary>For EIP-712 messages</summary>
+
+    We define what we want to display regarding the target of our EIP-712 message. In our previous example from 1inch: 
+
+    ```json
+    "metadata": { 
+        "owner": "1inch Limit Order Protocol" 
+    },
+    ```
+
+    For EIP-712 messages, `owner` is the verifying contract.
+
+</details>
+
+### a. Minimum: Owner & info
+
+The most basic version is the one from this example, which only specifies Owner & Info. This info will be displayed on the screen when interacting with the contract. 
+
+<div style={{ paddingTop: "1em", width: "90%" }} className="center">
+  <figure>
+    <Image src="/clear-signing/clear-signing-tuto-01.png" alt="Blind sign risk" width={400} height={300} />
+  </figure>
+</div>
+
+### b. Advanced
+
+You can go further with the metadata section. 
+
+- Using `enums`:
+
+You can define `enums` to convert values using referenced constant enumeration values. It is useful to replace specific parameters values with human-readable ones. Take a look at the following example in the [Aave json file](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/aave/calldata-lpv3.json) from the registry: 
+
+```json
+  "metadata": {
+    "owner": "Aave",
+    "info": { "url": "https://aave.com", "legalName": "Aave DAO", "deploymentDate": "2024-10-09T21:46:47Z" },
+    "enums": { "interestRateMode": { "1": "stable", "2": "variable" } },
+    "constants": { "max": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" }
+  },
+  "display": {
+   …
+            "format": "enum",
+            "label": "Interest rate mode",
+            "params": { "$ref": "$.metadata.enums.interestRateMode" }
+          },
+```
+
+Basically, the result is that if the value returned by `interestRateMode` is `1`, the hardware wallet will display the text `“stable”`, and if it’s `2`, it will display `“variable”`. By specifying the enum one time in the metadata section, you can refer to it easily wherever you want in the rest of the file. 
+
+<div style={{ paddingTop: "1em", width: "90%" }} className="center">
+  <figure>
+    <Image src="/clear-signing/clear-signing-tuto-enums.png" alt="Blind sign risk" width={400} height={300} />
+  </figure>
+</div>
+
+- Using `constants`:
+
+A constant can be defined in the metadata, and then be referenced in the rest of the file. This is mostly to keep your file as clean as possible, and avoid repeating longer strings, like addresses for instance. Take a look at the following example in the [Paraswap json file](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/paraswap/calldata-AugustusSwapper-v5.json) from the registry: 
+
+```json
+  "metadata": {
+    "owner": "Paraswap",
+    "info": { "url": "https://www.paraswap.io/", "legalName": "ParaSwap", "deploymentDate": "2021-08-18T12:42:05Z" },
+    "constants": { "addressAsEth": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE" }
+  },
+  "display": {
+    "definitions": {
+      "sendAmount": {
+        "label": "Amount to Send",
+        "format": "tokenAmount",
+        "params": { "tokenPath": "fromToken", "nativeCurrencyAddress": "$.metadata.constants.addressAsEth" }
+      },
+      "minReceiveAmount": {
+        "label": "Minimum to Receive",
+        "format": "tokenAmount",
+        "params": { "tokenPath": "toToken", "nativeCurrencyAddress": "$.metadata.constants.addressAsEth" }
+      },
+```
+
+As you can see, in the metadata section we define the constant `"constants": { "addressAsEth": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE" }`. Thanks to this, in the rest of the file we can just call that constant with `"$.metadata.constants.addressAsEth"` instead of having to rewrite the address every time.
+
+
+- Using tickers:
+
+Instead of getting the default ticker from etherscan, you can specify it yourself. This is very situational, and in most cases the ticker from etherscan will be enough, but it's good to know in some cases. 
+
+```json
+"metadata": {
+        "owner": "Tether",
+        "info": {
+            "legalName": "Tether Limited",
+            "url": "https://tether.to/",
+            "deploymentDate": "2017-11-28T12:41:21Z"  
+        },
+        "token": {
+            "ticker": "USDT",
+            "name": "Tether USD",
+            "decimals": 6
+        }
+    },
+```
+
+
+You can find more examples of metadata usage: 
+- [Here](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc-7730.md#metadata-section) in our spec. 
+- In [1inch integration](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/eip712-AggregationRouterV6.json).
+
+
+## Display section
+
+Finally, let's go over the `“display”` section.
+
+<Callout type="info" emoji="ℹ️">
+    The goal of the `“display”` section is to tell the wallet how to format each field of targeted contract calls. These definitions are contained under the `formats` key.
+</Callout>
+
+In this example, the function being described is identified by its solidity signature `transfer(address _to,uint256 _value)`. This is the signature used to compute the function selector `0xa9059cbb`.
+- The  `"intent"` key contains a human-readable string that wallets SHOULD display to explain to the user the intent of the function call.
+- The `"fields"` key contains all the parameters that CAN be displayed, and the way to format them.
+- The `"required"` key indicates which parameters wallets SHOULD display.
+- The `"excluded"` key indicates which parameters are intentionally left out (none in this example).
+
+```json
+    "display": {
+        "formats": {
+            "transfer(address _to,uint256 _value)": {
+                "intent": "Send",
+                "fields": [
+                    {
+                        "path": "_to",
+                        "label": "To",
+                        "format": "addressOrName"
+                    },
+                    {
+                        "path": "_value",
+                        "label": "Amount",
+                        "format": "tokenAmount",
+                        "params": {
+                            "tokenPath": "@.to"
+                        }
+                    }
+                ],
+                "required": ["_to", "_value"],
+                "excluded": []
+            }
+        }
+    }
+```
+
+In this example, the `_to` parameter and the `_value` SHOULD both be displayed, one as an address replaceable by a trusted name (ENS or others), the other as an amount formatted using metadata of the target ERC-20 contract (USDT).
+
+
+<details>
+    <summary> Details for EIP-712 messages</summary>
+
+    Same mechanic, we specify what message(s) we want to clear sign. 
+
+    Note that we can clear sign multiple messages in the same file, depending on what we previously defined in the `"context"` section.
+
+    In our example, we only clear sign the message `"OrderStructure"`. 
+
+    ```json
+    "display": {
+        "formats": {
+        "OrderStructure": {
+            "intent": "1inch Order",
+            "fields": [
+            { "path": "maker", "label": "From", "format": "raw" },
+            { "path": "makingAmount", "label": "Send", "format": "tokenAmount", "params": { "tokenPath": "makerAsset" } },
+            { "path": "takingAmount", "label": "Receive minimum", "format": "tokenAmount", "params": { "tokenPath": "takerAsset" } },
+            { "path": "receiver", "label": "To", "format": "raw" }
+            ],
+            "excluded": ["salt", "makerTraits", "interactions", "allowedSender", "offsets"]
+            "required": ["maker", "makingAmount", "takingAmount", "receiver"]
+        }
+        }
+    }
+    ```
+
+</details>
+
+Let’s dive into how you can write this `"display"` section yourself.
+
+
+### a. Identify each function that you want to clear sign
+
+First you need to identify each function that you want to clear sign.
+
+There are 3 ways to identify each function:
+- Source code declaration,
+- Solidity signature ([solidity function selector](https://docs.soliditylang.org/en/latest/abi-spec.html#function-selector)),
+- “Onchcain” representation, or function selector.
+
+Using any of these forms guarantees unicity in the context of the contract.
+
+- In our example, this is done with the source code declaration `transfer(address _to,uint256 _value).`
+- The Solidity signature would be `transfer(address,uint256)`.
+- The Function selector would be `0xa9059cbb`.
+
+```json
+    "display": {
+        "formats": {
+            "transfer(address _to,uint256 _value)": {
+                ...
+                }
+```
+
+<details>
+    <summary> Details for EIP-712 messages</summary>
+
+    To identify which EIP-712 message we are describing, we just need to specify the type as mentioned in primaryType, in the `"context"` section. In our example, we just write
+    ```json
+    "display": {
+        "formats": {
+        "OrderStructure": {
+            ...
+            }
+    ```
+
+</details>
+
+
+### b. Intent
+
+Then you need to provide a human readable string that should display to the user instead of the function name, explaining the intent of the function he is calling.
+
+In our example:  `"intent": "Send",`.
+You will get this result on your hardware wallet:
+
+<div style={{ paddingTop: "1em", width: "90%" }} className="center">
+  <figure>
+    <Image src="/clear-signing/clear-signing-tuto-02.png" alt="Blind sign risk" width={400} height={300} />
+  </figure>
+</div>
+
+<details>
+    <summary> Details for EIP-712 messages</summary>
+
+    Same idea. Here, instead of `"OrderStructure"`, we want to display `"1inch Order"` to the user:
+    ```jsons
+        "intent": "1inch Order",
+    ```
+
+</details>
+
+
+### c. Fields
+
+Now we need to define the formatting of all the fields inside our Send function. 
+
+The `"fields"` key contains all the parameters that CAN be displayed, and the way to format them.
+In our example we define two parameters: `_to` and `_value`, that will be labeled as `To` and `Amount`, and whose format will be `addressOrName` and `tokenAmount`.
+
+```json
+"fields": [
+        {
+            "path": "_to",
+            "label": "To",
+            "format": "addressOrName"
+        },
+        {
+            "path": "_value",
+            "label": "Amount",
+            "format": "tokenAmount",
+            "params": {
+                "tokenPath": "@.to"
+            }
+        }
+            ],
+```
+
+<div style={{ paddingTop: "1em", width: "90%" }} className="center">
+  <figure>
+    <Image src="/clear-signing/clear-signing-tuto-03.png" alt="Blind sign risk" width={800} height={600} />
+  </figure>
+</div>
+
+- `"path"`: the parameter `(_to)`
+- `"Label"`: the field name that will be displayed (`To`)
+- `"Format"`: the field format (`addressName`)
+
+In terms of `"format"`, here are the main options available for your other use cases:
+- `amount`: display amount in native currency
+- `tokenAmount`: display amount in token
+- `addressName`: display recipient address, or trusted name if one is found
+- `Date`: display int as a date, using specified encoding
+
+More information about formats and the list of all available formats [here in our spec](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc-7730.md#field-formats).
+
+
+<details>
+    <summary> Details for EIP-712 messages</summary>
+
+    Same idea, we describe the formatting of all the different fields (`maker`, `makingAmount`, `takingAmount` and `receiver`) that can be displayed in the EIP-712 message. 
+
+    ```json
+    "fields": [
+            { "path": "maker", "label": "From", "format": "raw" },
+            { "path": "makingAmount", "label": "Send", "format": "tokenAmount", "params": { "tokenPath": "makerAsset" } },
+            { "path": "takingAmount", "label": "Receive minimum", "format": "tokenAmount", "params": { "tokenPath": "takerAsset" } },
+            { "path": "receiver", "label": "To", "format": "raw" }
+            ],
+    ```
+
+</details>
+
+
+### d. Required/Exclued/Optional
+
+After defining all the parameters (`"path"`) that CAN be displayed, and how they will be displayed (`"label"` and `"format"`), we need to specify which parameters should or shouldn't be displayed.
+
+- The `"required"` key indicates which parameters wallets SHOULD display.
+- The `"excluded"` key indicates which parameters are intentionally left out (none in this example).
+- If none of the above, the parameter is optional. 
+
+<Callout type="info" emoji="ℹ️">
+  About the excluded field: When you upload your file, the registry will check every function. If one parameter is not specified **and is not** labeled as `"excluded"`, it will generate an error. 
+</Callout>
+
+**Success!** You have written a basic json file to clear sign the transfer function for Tether USDT! 🎉
+
+The last section contains advanced features and subtilities to go further.
+
+
+## 4. Advanced
+
+This section will explain how you can go further with some advanced functions. 
+
+
+### a. Include mechanism 
+
+Smart contracts and EIP-712 messages are often re-using common interfaces or types that share similar display formatting. This specification supports a basic inclusion mechanism that enables sharing files describing specific interfaces or types.
+
+The `includes` top-level key is a URL pointing to an ERC-7730 file that MUST follow this specification.
+
+A wallet using an ERC-7730 file including another file SHOULD merge those files into a single reference file. When merging, conflicts between common unique keys are resolved by prioritizing the including file. 
+
+- More info [here](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc-7730.md#organizing-files) in our spec.
+- Example [here](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/calldata-AggregationRouterV6-zksync.json) in the registry (1inch).
+
+```json
+{
+  "$schema": "../../specs/erc7730-v1.schema.json",
+  "includes": "common-AggregationRouterV6.json",
+  "context": {
+    "$id": "AggregationRouterV6",
+    "contract": {
+      "abi": "https://api.etherscan.io/api?module=contract&action=getabi&address=0x111111125421cA6dc452d289314280a0f8842A65",
+      "deployments": [{ "chainId": 324, "address": "0x6fd4383cB451173D5f9304F041C7BCBf27d561fF" }]
+    }
+  }
+}
+```
+
+
+### b. More complex types
+
+A solidity function call can contain structures. The parameters themselves can be complex types, and the way we represent paths in those complex types is a little bit specific. 
+
+We can use complex paths and types in order to pick a **specific value** that we want to clear sign.
+
+Have a look at this example of the format section in a [1inch json file](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/common-AggregationRouterV6.json):
+
+```json
+    "formats": {
+      "swap(address executor, (address srcToken, address dstToken, address srcReceiver, address dstReceiver, uint256 amount, uint256 minReturnAmount, uint256 flags) desc, bytes data)": {
+        "$id": "swap",
+        "intent": "Swap",
+        "fields": [
+          { "path": "desc.amount", "$ref": "$.display.definitions.sendAmount", "params": { "tokenPath": "desc.srcToken" } },
+          {
+            "path": "desc.minReturnAmount",
+            "$ref": "$.display.definitions.minReceiveAmount",
+            "params": { "tokenPath": "desc.dstToken" }
+          },
+          { "path": "desc.dstReceiver", "$ref": "$.display.definitions.beneficiary" }
+        ],
+        "required": ["desc.amount", "desc.minReturnAmount", "desc.dstReceiver"],
+        "excluded": ["executor", "desc.srcReceiver", "desc.flags", "data"]
+      },
+```
+
+As you can see, some complex types are directly included in the swap function call: 
+```json
+"swap(address executor, (address srcToken, address dstToken, address srcReceiver, address dstReceiver, uint256 amount, uint256 minReturnAmount, uint256 flags) desc, bytes data)"
+```
+
+Let’s have a look at this path in the “fields” section: 
+```json
+{ "path": "desc.amount", "$ref": "$.display.definitions.sendAmount", "params": { "tokenPath": "desc.srcToken" } },
+```
+
+- `desc.amount`: refers to the value of the field `amount` from the structure `desc`, that has been defined above (in our case, `uint256`):
+```json
+"swap(address executor, (address srcToken, address dstToken, address srcReceiver, address dstReceiver, uint256 amount, uint256 minReturnAmount, uint256 flags) desc, bytes data)"
+```
+<Callout type="info" emoji="ℹ️">
+  The names we use in those paths (like `"path": "desc.minReturnAmount")` must match the ones from the ABI. 
+</Callout>
+
+This is how we can use complex paths and types to select a very specific value from the ABI, that we want to clear sign. 
+
+
+## Conclusion
+
+**Congratulations!** You have written a basic json file to clear sign the transfer function for Tether USDT, and even learned some advanced features and tricks along the way. 🎉
+
+<details>
+  <summary>Here is the final result for our smart contract example: </summary> 
+
+    ```json
+    {
+        "$schema": "https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc7730-v1.schema.json",
+
+        "context": {
+            "$id": "Tether USD",
+            "contract" : {
+                "abi": "https://api.etherscan.io/api?module=contract&action=getabi&address=0xdac17f958d2ee523a2206206994597c13d831ec7",
+                "deployments": [ 
+                    {
+                        "chainId": 1,
+                        "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+                    },
+                    {
+                        "chainId": 137,
+                        "address": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F"
+                    },
+                    {
+                        "chainId": 42161,
+                        "address": "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9"
+                    }
+                ]
+            }
+        }, 
+
+        "metadata": {
+            "owner": "Tether",
+            "info": {
+                "legalName": "Tether Limited",
+                "url": "https://tether.to/",
+                "deploymentDate": "2017-11-28T12:41:21Z"  
+            }
+        },
+
+        "display": {
+            "formats": {
+                "transfer(address _to,uint256 _value)": {
+                    "intent": "Send",
+                    "fields": [
+                        {
+                            "path": "_to",
+                            "label": "To",
+                            "format": "addressOrName"
+                        },
+                        {
+                            "path": "_value",
+                            "label": "Amount",
+                            "format": "tokenAmount",
+                            "params": {
+                                "tokenPath": "@.to"
+                            }
+                        }
+                    ],
+                    "required": ["_to", "_value"],
+                    "excluded": []
+                }
+            }
+        }
+    }
+    ```
+
+</details>
+
+
+<details>
+  <summary>And here is the final result for our EIP-712 message example: </summary> 
+
+    ```json    
+    {
+    "$schema": "../../specs/erc7730-v1.schema.json",
+    "context": {
+        "eip712": {
+        "deployments": [
+            { "chainId": 1, "address": "0x119c71d3bbac22029622cbaec24854d3d32d2828" },
+            { "chainId": 10, "address": "0x11431a89893025d2a48dca4eddc396f8c8117187" },
+            { "chainId": 56, "address": "0x1e38eff998df9d3669e32f4ff400031385bf6362" },
+            { "chainId": 137, "address": "0x94bc2a1c732bcad7343b25af48385fe76e08734f" },
+            { "chainId": 42161, "address": "0x7f069df72b7a39bce9806e3afaf579e54d8cf2b9" }
+        ],
+        "domain": { "name": "Permit2" },
+        "schemas": [
+            {
+            "primaryType": "OrderStructure",
+            "types": {
+                "EIP712Domain": [
+                { "name": "name", "type": "string" },
+                { "name": "version", "type": "string" },
+                { "name": "chainId", "type": "uint256" },
+                { "name": "verifyingContract", "type": "address" }
+                ],
+                "OrderStructure": [
+                { "name": "salt", "type": "uint256" },
+                { "name": "maker", "type": "address" },
+                { "name": "receiver", "type": "address" },
+                { "name": "makerAsset", "type": "address" },
+                { "name": "takerAsset", "type": "address" },
+                { "name": "makingAmount", "type": "uint256" },
+                { "name": "takingAmount", "type": "uint256" },
+                { "name": "makerTraits", "type": "uint256" }
+                ]
+            }
+            },
+        ]
+        }
+    },
+    "metadata": { "owner": "1inch Limit Order Protocol" },
+    "display": {
+        "formats": {
+        "OrderStructure": {
+            "intent": "1inch Order",
+            "fields": [
+            { "path": "maker", "label": "From", "format": "raw" },
+            { "path": "makingAmount", "label": "Send", "format": "tokenAmount", "params": { "tokenPath": "makerAsset" } },
+            { "path": "takingAmount", "label": "Receive minimum", "format": "tokenAmount", "params": { "tokenPath": "takerAsset" } },
+            { "path": "receiver", "label": "To", "format": "raw" }
+            ],
+            "excluded": ["salt", "makerTraits", "interactions", "allowedSender", "offsets"]
+            "required": ["maker", "makingAmount", "takingAmount", "receiver"]
+        }
+        }
+    }
+    }
+    ```
+
+</details>
+
+Here are some useful links to help you during the writing process: 
+- [Registry](https://github.com/LedgerHQ/clear-signing-erc7730-registry/tree/master/registry) with lot of real integrations examples.
+- The [Clear Signing ERC 7730](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc-7730.md) specification.
+- The [Json Builder tool](https://get-clear-signed.ledger.com/) 
+
+**Next steps**: 
+- Test your integration.
+- Submit your pull request to the registry. 
+
+
+

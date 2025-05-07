@@ -9,5 +9,5 @@ export default {
   "eip712-messages": "EIP-712 messages",
   wallets: "Wallets implementation with the Ethereum Signer Kit",
   tokens: "ERC-721, ERC-1155 and ERC-20 tokens",
-  improvements: "Future improvements"
+  improvements: "Future improvements",
 }
