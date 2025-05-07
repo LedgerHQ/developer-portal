@@ -13,7 +13,7 @@ By following this guide, you'll create and submit metadata files that allow user
 
 | Your Use Case | Required Metadata | Tools Available |
 | ------------- | ----------------- | --------------- |
-| <b>Smart Contract Transactions</b> <br/> Users interact with your smart contract functions | [Smart Contract metadata](./smart-contract) | <ul><li>✅ ERC-7730 JSON Builder</li><li>✅ Manual creation</li></ul>|
+| <b>Smart Contract Transactions</b> <br/> Users interact with your smart contract functions | [Smart Contract metadata](./smart-contract/json-builder) | <ul><li>✅ ERC-7730 JSON Builder</li><li>✅ Manual creation</li></ul>|
 | <b>EIP-712 Structured Data</b> <br/> Users sign structured messages from your dApp | [EIP-712 metadata](./EIP712-message) | <ul><li>❌ JSON Builder not supported</li><li>✅ Manual creation with template</li></ul>|
 | <b>Both Transaction Types</b> <br/> Users interact with contracts and sign structured data | Both metadata types in separate files | Mixed approach needed |
 
@@ -25,12 +25,12 @@ By following this guide, you'll create and submit metadata files that allow user
 
 ### Option A: Create Smart Contract Metadata
 
-    - Recommended: [Use the ERC-7730 JSON Builder](./json-builder) for a guided experience
-    - Alternative: Create the file manually following the [Smart Contract Metadata guidelines](./manual-creation)
+    - Recommended: Use the ERC-7730 [JSON Builder](https://get-clear-signed.ledger.com/). Its [Guide](./smart-contract/json-builder) is here
+    - Alternative: Create the file manually following the [Smart Contract Metadata guidelines](./smart-contract/manual-creation)
 
 ### Option B: Create EIP-712 Metadata
 
-Create your metadata file manually [using the EIP-712 template](./EIP712-message)
+Create your metadata file manually [using the EIP-712 Standard](./EIP712-message)
 
 ### Option C: Create Both Types (if needed)
 
