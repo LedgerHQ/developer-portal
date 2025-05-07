@@ -1,0 +1,97 @@
+import Image from 'next/image'
+import { Callout } from "nextra/components";
+
+# Tutorial: How to write a ERC-7730 JSON file (split)
+
+<Callout type="info" emoji="ℹ️">
+    Use cases to manually write your file instead of using the [Json Builder tool](https://get-clear-signed.ledger.com/): 
+    - To properly manage a set of contrats or messages.
+    - To be able to upgrade your file if the contracts evolves. In the tool, you cannot load and existing file to modify it yet.
+    - To use complex features, such as include mechanisms or constants, and have a cleaner file overall.
+    - To display a transaction field that is not in the ABI, such as `value`, `from` or `to`.
+</Callout>
+
+# Introduction
+
+In this tutorial, we are going to manually write a JSON file to implement clear signing for the transfer function of Tether USDT contract. By following this tutorial, you will learn how to manually edit an ERC-7730 JSON for more specific use cases, including multi versions smart contracts or EIP-712 messages.
+
+This is the main structure of our file:
+
+```json
+{
+    "$schema": "https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc7730-v1.schema.json",
+
+    "context": {
+        ...
+    }, 
+
+    "metadata": {
+        ...
+    },
+
+    "display": {
+        ...
+    }
+}
+```
+
+There are three main sections: `“context”`, `“metadata”` and `“display”`. We will deep dive into each of those sections to learn what their goal is, how to write them, and finally, how you can go further for more complex use cases.  
+
+<Callout type="info" emoji="ℹ️">
+    Basically, the main idea of each sections is: 
+    - `“context”`: Provides binding context information for this file. Where should this file be applied?
+    - `“metadata”`: Provides the contract/message metadata that can be displayed to the user. What will the user be able to see?
+    - `“display”`: Provides info on how to format each fields of a function/message. How and when will the user be able to see those fields?
+</Callout>
+
+<details>
+  <summary>For EIP-712 messages</summary>
+
+    There are many similarities between smart contract and EIP-712, so this tutorial will also help you understand how you can clear sign EIP-712 messages. 
+    However, in order to highlight the few differences, we will be referring to the following example from [1inch](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/eip712-1inch-limit-order.json) to clear sign the `“OrderStructure”` message: 
+
+    ```json    
+    {
+    "$schema": "../../specs/erc7730-v1.schema.json",
+
+    "context": {
+        ...
+    },
+
+    "metadata": {
+        ...
+    },
+
+    "display": {
+        ...
+    }
+    }
+    ```
+
+</details>
+
+## Path Reference
+
+Before getting started, we need to talk briefly about the path system. 
+
+In addition to the [json path](https://www.rfc-editor.org/rfc/rfc9535) specification, you can use three additional roots to support description of paths over multiple files in a single common notation.
+
+The root node identifier indicates which document or data location this path references, according to the following table:
+
+| Root   |  Refers to  |  Value location  |
+|--------------------|-------------------|-------------------|
+| # | Path applies to the structured data schema (ABI path for contracts, path in the message types itself for EIP-712). It is the default path if no root is specified   | Values can be found in the serialized representation of the structured data   |
+| $ | Path applies to the current file describing the structured data formatting, after merging with includes   | Values can be found in the merged file itself   |
+| @ | Path applies to the container of the structured data to be signed for smart contract. For EIP-712, @.to verifying contract.  @.chainid   | Values can be found in the serialized container to sign, and are uniquely defined per container in the Reference section   |
+
+In combination of those root node identifer, for paths referring to structured data fields, if a field has a variable length primitive type (like `bytes` or `string` in solidity), a slice selector can be added to the path, to refer to the specific set of bytes indicated by the slice: `[xx:]`
+
+Examples:
+- `#.params.amountIn` or `params.amountIn` refers to parameter `amountIn` in top-level structure params as defined in the ABI.
+- `$.display.definitions.minReceiveAmount` refers to a common definition reused across fields formatting definition.
+- `@.value` refers to the enclosing transaction native currency amount.
+- `#.params.path.[-20:]` refers to the last 20 bytes of the path byte array.
+
+Detailed info [here in our spec](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc-7730.md#path-references). 
+
+Now we are good to go, let’s get started. 

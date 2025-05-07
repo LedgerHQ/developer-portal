@@ -1,0 +1,81 @@
+import Image from 'next/image'
+import { Callout } from "nextra/components";
+
+# 4. Advanced
+
+This section will explain how you can go further with some advanced functions. 
+
+
+## Include mechanism 
+
+Smart contracts and EIP-712 messages are often re-using common interfaces or types that share similar display formatting. This specification supports a basic inclusion mechanism that enables sharing files describing specific interfaces or types.
+
+The `includes` top-level key is a URL pointing to an ERC-7730 file that MUST follow this specification.
+
+A wallet using an ERC-7730 file including another file SHOULD merge those files into a single reference file. When merging, conflicts between common unique keys are resolved by prioritizing the including file. 
+
+- More info [here](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc-7730.md#organizing-files) in our spec.
+- Example [here](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/calldata-AggregationRouterV6-zksync.json) in the registry (1inch).
+
+```json
+{
+  "$schema": "../../specs/erc7730-v1.schema.json",
+  "includes": "common-AggregationRouterV6.json",
+  "context": {
+    "$id": "AggregationRouterV6",
+    "contract": {
+      "abi": "https://api.etherscan.io/api?module=contract&action=getabi&address=0x111111125421cA6dc452d289314280a0f8842A65",
+      "deployments": [{ "chainId": 324, "address": "0x6fd4383cB451173D5f9304F041C7BCBf27d561fF" }]
+    }
+  }
+}
+```
+
+
+## More complex types
+
+A solidity function call can contain structures. The parameters themselves can be complex types, and the way we represent paths in those complex types is a little bit specific. 
+
+We can use complex paths and types in order to pick a **specific value** that we want to clear sign.
+
+Have a look at this example of the format section in a [1inch json file](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/common-AggregationRouterV6.json):
+
+```json
+    "formats": {
+      "swap(address executor, (address srcToken, address dstToken, address srcReceiver, address dstReceiver, uint256 amount, uint256 minReturnAmount, uint256 flags) desc, bytes data)": {
+        "$id": "swap",
+        "intent": "Swap",
+        "fields": [
+          { "path": "desc.amount", "$ref": "$.display.definitions.sendAmount", "params": { "tokenPath": "desc.srcToken" } },
+          {
+            "path": "desc.minReturnAmount",
+            "$ref": "$.display.definitions.minReceiveAmount",
+            "params": { "tokenPath": "desc.dstToken" }
+          },
+          { "path": "desc.dstReceiver", "$ref": "$.display.definitions.beneficiary" }
+        ],
+        "required": ["desc.amount", "desc.minReturnAmount", "desc.dstReceiver"],
+        "excluded": ["executor", "desc.srcReceiver", "desc.flags", "data"]
+      },
+```
+
+As you can see, some complex types are directly included in the swap function call: 
+```json
+"swap(address executor, (address srcToken, address dstToken, address srcReceiver, address dstReceiver, uint256 amount, uint256 minReturnAmount, uint256 flags) desc, bytes data)"
+```
+
+Let’s have a look at this path in the “fields” section: 
+```json
+{ "path": "desc.amount", "$ref": "$.display.definitions.sendAmount", "params": { "tokenPath": "desc.srcToken" } },
+```
+
+- `desc.amount`: refers to the value of the field `amount` from the structure `desc`, that has been defined above (in our case, `uint256`):
+```json
+"swap(address executor, (address srcToken, address dstToken, address srcReceiver, address dstReceiver, uint256 amount, uint256 minReturnAmount, uint256 flags) desc, bytes data)"
+```
+<Callout type="info" emoji="ℹ️">
+  The names we use in those paths (like `"path": "desc.minReturnAmount")` must match the ones from the ABI. 
+</Callout>
+
+This is how we can use complex paths and types to select a very specific value from the ABI, that we want to clear sign. 
+
