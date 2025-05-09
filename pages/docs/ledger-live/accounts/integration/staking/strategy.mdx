@@ -1,0 +1,23 @@
+---
+title: Strategy
+description: How to implement staking.
+---
+
+import { Callout } from "nextra/components";
+
+# Implementation strategy
+
+We can divide this feature in following steps :
+
+- [Synchronizing current staking information](./metadata-sync)
+- [Showing to the user those informations](./account)
+- [Fetching validator list so the user can delegate to them](./validators)
+- [Crafting right transactions](./crafting)
+- [Implementing staking actions in modals - flows](./flows)
+- [Managing more tx types in history](./history)
+
+<Callout type="warning" emoji="⚠️">
+  There is sadly no coin-framework ready way to handle staking currently, so it
+  relies on UI modularization for now (eg. overriding / implementing custom
+  components)
+</Callout>

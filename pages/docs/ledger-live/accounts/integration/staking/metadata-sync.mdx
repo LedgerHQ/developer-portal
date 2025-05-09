@@ -1,0 +1,42 @@
+# Account sync
+
+As this feature isn’t supported everywhere, we are going to extend account metadata like this :
+
+```ts copy
+export type MyBlockchainResources = {
+  delegations: MyBlockchainDelegation[];
+  unbondings: MyBlockchainUnbonding[];
+  delegatedBalance: BigNumber;
+  pendingRewardsBalance: BigNumber;
+  unbondingBalance: BigNumber;
+};
+```
+
+This is what will act as a cache of account staking informations
+
+As every account related sync, it is done in the sync method of the account bridge. It’s the same as a standard send/receive integration, except we fetch addition staking data, and return additional resources:
+
+```ts copy
+return {
+   ...
+   myBlockchainResources: {
+   delegations,
+   unbondings,
+   delegatedBalance,
+   pendingRewardsBalance,
+   unbondingBalance,
+   },
+ };
+```
+
+Those informations need to be serialized when saving app cache
+
+We need to update those bridge methods:
+
+- `assignFromAccountRaw`
+
+- `assignToAccountRaw`
+
+They are required when we start using specific additional account resources (here, myBlockchainResources)
+
+[Example](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/coin-modules/coin-cosmos/src/serialization.ts#L13)

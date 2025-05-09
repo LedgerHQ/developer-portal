@@ -1,0 +1,50 @@
+---
+title: "Alpaca"
+---
+
+import { Callout } from "nextra/components";
+
+# Alpaca API update for staking
+
+### craftTransaction
+
+Support Stake and Unstake intent
+
+<Callout type="info" emoji="🧪">
+  Integration test requirement:
+  <br />- Stake intent => crafted tx with corresponding amount
+  <br />- Unstake intent => crafted tx with corresponding amount
+</Callout>
+
+### estimateFees
+
+Support staking intents
+
+<Callout type="info" emoji="🧪">
+  Integration test requirement (for each intent : stake, unstake, ...):
+  <br />- Fee estimation => No error, fees higher than 0
+</Callout>
+
+### getBalance
+
+Return delegations
+
+<Callout type="info" emoji="🧪">
+  Integration test requirement:
+  <br />- Account not delegated => empty array
+  <br /> - Account with staking => delegations check
+</Callout>
+
+### listOperations
+
+Support of staking operations:
+
+- Stake
+- Unstake
+- ClaimReward
+  ...
+
+<Callout type="info" emoji="🧪">
+  Integration test requirement (for each intent type):
+  <br /> - operation metadata : amount, ...
+</Callout>

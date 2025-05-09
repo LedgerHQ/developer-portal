@@ -1,0 +1,9 @@
+# Implementation strategy
+
+Configuring and enabling the token integration for a specific coin requires action on three key layers:
+
+- [Device App](./device-app)
+- [Ledger Live](./ledger-live)
+- [Crypto Assets List](./cal)
+
+Development should start on the Ledger Live side by requesting CAL update and Adding accounts which will unlock Send implementation that can be made in parallel on LedgerLive and Device App side.
