@@ -1,0 +1,46 @@
+---
+title: "Alpaca"
+---
+
+import { Callout } from "nextra/components";
+
+# Alpaca API update for tokens
+
+### craftTransaction
+
+Update craftTransaction so we can support token intents
+
+<Callout type="info" emoji="🧪">
+  Integration test requirement (for each token type):
+  <br />- Send token => crafted tx with corresponding amount
+  <br />- Send max token => crafted tx with max amount
+</Callout>
+
+### estimateFees
+
+<Callout type="info" emoji="🧪">
+  Integration test requirement (for each token type):
+  <br />- Send tx fee estimation => No error, fees higher than 0
+</Callout>
+
+### getBalance
+
+Return balance of each token type
+
+<Callout type="info" emoji="🧪">
+  Integration test requirement (for each token type):
+  <br />- Token not in account => value at 0 expected
+  <br /> - Account with balance => value higher than 0 expected
+</Callout>
+
+### listOperations
+
+Returns operations on address related account. One operation is a movement of funds, so one blockchain transaction can trigger multiple operations (tracked via operationIndex)
+
+We need to return alpaca operations that will then be mapped into Live operations
+
+<Callout type="info" emoji="🧪">
+  Integration test requirement (for each token type):
+  <br /> - IN operation metadata
+  <br /> - OUT operation metadata
+</Callout>
