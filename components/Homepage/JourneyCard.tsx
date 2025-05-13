@@ -25,7 +25,7 @@ export const JourneyCard: FC<JourneyCardProps> = ({title, description, type, cla
   const handleClick = () => {
     switch (type) {
       case "clear-signing":
-        router.push("/docs/clear-signing/getting-started")
+        router.push("/docs/clear-signing/understanding/what-is-it")
         break;
       case "device":
         router.push("/docs/device-app/getting-started")

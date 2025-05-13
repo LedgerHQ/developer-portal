@@ -40,12 +40,12 @@ export default withNextra({
     },
     {
       source: "/clear-signing",
-      destination: "/docs/clear-signing/getting-started",
+      destination: "/docs/clear-signing/understanding/what-is-it",
       permanent: true,
     },
     {
       source: "/clear-signing/",
-      destination: "/docs/clear-signing/getting-started",
+      destination: "/docs/clear-signing/understanding/what-is-it",
       permanent: true,
     },
     {
@@ -109,7 +109,7 @@ export default withNextra({
     },
     {
       source: "/docs/clear-signing",
-      destination: "/docs/clear-signing/getting-started",
+      destination: "/docs/clear-signing/understanding/what-is-it",
       permanent: true,
     },
     {
