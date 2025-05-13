@@ -19,7 +19,7 @@ As we wanted to make the project modular.
   - Get battery status
 - Execute a flow of commands with **DeviceAction**.
 
-> [!NOTE]  
+> [!NOTE]
 > At the moment we do not provide the possibility to distinguish two devices of the same model, via WebHID and to avoid connection to the same device twice.
 
 ## Communicate with a Ledger device
@@ -53,12 +53,18 @@ You can use the `sendCommand` method of the `dmk` instance to send a command to 
 
 - `sessionId`: string - The session ID, which an identifier of the connection with a device.
 - `command`: Command - The command to be sent to the device.
+- `abortTimeout`: number - (optional) The timeout to abort the command (in milliseconds).
 
 ```typescript
 import { OpenAppCommand } from "@ledgerhq/device-management-kit";
 
 const command = new OpenAppCommand("Bitcoin"); // Open the Bitcoin app
 await dmk.sendCommand({ sessionId, command });
+
+// You can also send the command with a timeout to abort the command if it takes too long (in milliseconds)
+await dmk.sendCommand({ sessionId, command, abortTimeout: 10000 });
+
+// If the command times out, sendCommand will throw a SendApduTimeoutError
 ```
 
 ### Device Actions
