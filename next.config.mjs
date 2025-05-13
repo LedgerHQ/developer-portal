@@ -44,7 +44,7 @@ export default withNextra({
       permanent: true,
     },
     {
-      source: "/clear-signing/",
+      source: "/docs/clear-signing/getting-started",
       destination: "/docs/clear-signing/understanding/what-is-it",
       permanent: true,
     },
