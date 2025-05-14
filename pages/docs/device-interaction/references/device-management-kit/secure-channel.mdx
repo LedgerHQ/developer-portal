@@ -1,0 +1,334 @@
+# Secure Channel
+
+The secure connection is established between the connected device and Ledger HSM backend service via WebSocket. The following device actions will be executed with the secure connection.
+
+1. **Genuine Check Device Action**: Verifies the genuineness of the connected device.
+2. **List Installed Apps Device Action**: Lists all installed applications on the device.
+3. **Install App Device Action**: Installs a specified application on the device by name.
+4. **Uninstall App Device Action**: Uninstalls a specified application from the device name.
+
+All device actions below may require a specific user interaction(`AllowSecureConnection`) during execution. However, this interaction is only requested **once per device reboot**.
+
+## 🔹 Index
+
+1. [Genuine Check Device Action](#genuine-check-device-action)
+2. [List Installed Apps Device Action](#list-installed-apps-device-action)
+3. [Install App Device Action](#install-app-device-action)
+4. [Uninstall App Device Action](#uninstall-app-device-action)
+
+## 🔹 Device Actions
+
+### Genuine Check Device Action
+
+This device action checks the genuineness of the connected device. It returns `true` if the device is genuine, and `false` otherwise. This step is typically performed first to ensure the device's integrity before executing other operations.
+
+#### **Input**
+
+- `unlockTimeout`
+  - Optional
+  - Type: `number`
+  - The maximum waiting time for the user to unlock the device
+
+#### **Output**
+
+- `isGenuine`
+  - **Type**: `boolean`
+  - The result indicates whether the device is genuine
+
+#### **Intermediate Value**
+
+- `requiredUserInteraction`
+  - **Type**: `UserInteractionRequired`
+  - The user interactions that are required during the execution of the device action.
+
+```typescript
+import {
+  GenuineCheckDeviceAction,
+  GenuineCheckDAState,
+  DeviceActionStatus,
+  UserInteractionRequired,
+} from "@ledgerhq/device-management-kit";
+
+const deviceAction = new GenuineCheckDeviceAction({
+  input: { unlockTimeout: 60000 },
+});
+
+const { observable, cancel } = await dmk.executeDeviceAction({
+  deviceAction,
+});
+
+observable.subscribe({
+  next: (state: GenuineCheckDAState) => {
+    switch (state.status) {
+      case DeviceActionStatus.Pending:
+        const {
+          intermediateValue: { requiredUserInteraction },
+        } = state;
+        switch (requiredUserInteraction) {
+          case UserInteractionRequired.None:
+            console.log("No user action required");
+            break;
+          case UserInteractionRequired.AllowSecureConnection:
+            console.log(
+              "User should allow the secure connection on the device",
+            );
+            break;
+          case UserInteractionRequired.UnlockDevice:
+            console.log("User should unlock the device");
+            break;
+          default:
+            throw new Error("Unknown user interaction required");
+        }
+        break;
+      case DeviceActionStatus.Completed:
+        const { output } = state;
+        console.log("Device action completed", output);
+        break;
+      case DeviceActionStatus.Error:
+        const { error } = state;
+        console.log("Error occurred during the execution", error);
+        break;
+    }
+  },
+});
+```
+
+### List Installed Apps Device Action
+
+This device action retrieves a list of all applications currently installed on the connected device. It will **not** request the `AllowListApps` user permission to execute.
+
+#### **Input**
+
+- `unlockTimeout`
+  - Optional
+  - Type: `number`
+  - The maximum waiting time for the user to unlock the device.
+
+#### **Output**
+
+- `installedApps`
+  - **Type**: `Array<InstalledApp>`
+  - All installed apps on the connected device.
+
+#### **Intermediate Value**
+
+- `requiredUserInteraction`
+  - **Type**: `UserInteractionRequired`
+  - The user interactions that are required during the execution of the device action.
+
+```typescript
+import {
+  DeviceActionStatus,
+  UserInteractionRequired,
+  ListInstalledAppsDeviceAction,
+  ListInstalledAppsDAState,
+} from "@ledgerhq/device-management-kit";
+
+const deviceAction = new ListInstalledAppsDeviceAction({
+  input: { unlockTimeout: 60000 },
+});
+
+const { observable, cancel } = await dmk.executeDeviceAction({
+  deviceAction,
+});
+
+observable.subscribe({
+  next: (state: ListInstalledAppsDAState) => {
+    switch (state.status) {
+      case DeviceActionStatus.Pending:
+        const {
+          intermediateValue: { requiredUserInteraction },
+        } = state;
+        switch (requiredUserInteraction) {
+          case UserInteractionRequired.None:
+            console.log("No user action required");
+            break;
+          case UserInteractionRequired.AllowSecureConnection:
+            console.log(
+              "User should allow the secure connection on the device",
+            );
+            break;
+          case UserInteractionRequired.UnlockDevice:
+            console.log("User should unlock the device");
+            break;
+          default:
+            throw new Error("Unknown user interaction required");
+        }
+        break;
+      case DeviceActionStatus.Completed:
+        const { output } = state;
+        console.log("Device action completed", output);
+        break;
+      case DeviceActionStatus.Error:
+        const { error } = state;
+        console.log("Error occurred during the execution", error);
+        break;
+    }
+  },
+});
+```
+
+### Install App Device Action
+
+This device action installs an application on the device by its name. The progress of the installation can be accessed through the `progress` field in the intermediate value.
+
+#### **Input**
+
+- `appName`
+  - **Required**
+  - **Type**: `string` (e.g.,`Solana`)
+  - The name of the application to install.
+- `unlockTimeout`
+  - Optional
+  - Type: `number`
+  - The maximum waiting time for the user to unlock the device.
+
+#### **Output**
+
+- There is no output for this device action.
+
+#### **Intermediate Value**
+
+- `requiredUserInteraction`
+
+  - **Type**: `UserInteractionRequired`
+  - The user interactions that are required during the execution of the device action.
+
+- `progress`
+  - **Type**: `number`
+  - The progress of the installation.
+
+```typescript
+import {
+  DeviceActionStatus,
+  UserInteractionRequired,
+  InstallAppDAState,
+  InstallAppDeviceAction,
+} from "@ledgerhq/device-management-kit";
+
+const deviceAction = new InstallAppDeviceAction({
+  input: { unlockTimeout: 60000, appName: "Solana" },
+});
+
+const { observable, cancel } = await dmk.executeDeviceAction({
+  deviceAction,
+});
+
+observable.subscribe({
+  next: (state: InstallAppDAState) => {
+    switch (state.status) {
+      case DeviceActionStatus.Pending:
+        const {
+          intermediateValue: { requiredUserInteraction, progress },
+        } = state;
+        switch (requiredUserInteraction) {
+          case UserInteractionRequired.None:
+            console.log(
+              `Installing app progress ${progress}, no user action required`,
+            );
+            break;
+          case UserInteractionRequired.AllowSecureConnection:
+            console.log(
+              "User should allow the secure connection on the device",
+            );
+            break;
+          case UserInteractionRequired.UnlockDevice:
+            console.log("User should unlock the device");
+            break;
+          default:
+            throw new Error("Unknown user interaction required");
+        }
+        break;
+      case DeviceActionStatus.Completed:
+        const { output } = state;
+        console.log("Device action completed", output);
+        break;
+      case DeviceActionStatus.Error:
+        const { error } = state;
+        console.log("Error occurred during the execution", error);
+        break;
+    }
+  },
+});
+```
+
+### Uninstall App Device Action
+
+This device action uninstalls an application by its name. If the specified application is not installed on the device, the action will complete immediately without any changes.
+
+#### **Input**
+
+- `appName`
+  - **Required**
+  - **Type**: `string` (e.g.,`Solana`)
+  - The name of the application to uninstall.
+- `unlockTimeout`
+  - Optional
+  - Type: `number`
+  - The maximum waiting time for the user to unlock the device.
+
+#### **Output**
+
+- There is no output for this device action.
+
+#### **Intermediate Value**
+
+- `requiredUserInteraction`
+  - **Type**: `UserInteractionRequired`
+  - The user interactions that are required during the execution of the device action.
+
+```typescript
+import {
+  DeviceActionStatus,
+  UserInteractionRequired,
+  UninstallAppDAState,
+  UninstallAppDeviceAction,
+} from "@ledgerhq/device-management-kit";
+
+const deviceAction = new UninstallAppDeviceAction({
+  input: { unlockTimeout: 60000, appName: "Solana" },
+});
+
+const { observable, cancel } = await dmk.executeDeviceAction({
+  deviceAction,
+});
+
+observable.subscribe({
+  next: (state: UninstallAppDAState) => {
+    switch (state.status) {
+      case DeviceActionStatus.Pending:
+        const {
+          intermediateValue: { requiredUserInteraction },
+        } = state;
+        switch (requiredUserInteraction) {
+          case UserInteractionRequired.None:
+            console.log(`Uninstalling ongoing, no user action required`);
+            break;
+          case UserInteractionRequired.AllowSecureConnection:
+            console.log(
+              "User should allow the secure connection on the device",
+            );
+            break;
+          case UserInteractionRequired.UnlockDevice:
+            console.log("User should unlock the device");
+            break;
+          default:
+            throw new Error("Unknown user interaction required");
+        }
+        break;
+      case DeviceActionStatus.Completed:
+        const { output } = state;
+        console.log("Device action completed", output);
+        break;
+      case DeviceActionStatus.Error:
+        const { error } = state;
+        console.log("Error occurred during the execution", error);
+        break;
+    }
+  },
+});
+```
+
+## 🔹 Example
+
+We encourage you to explore these device actions by trying them out in our online [sample application](https://app.devicesdk.ledger-test.com/). Experience how they work and see its capabilities in action. Of course, you will need a Ledger device connected.

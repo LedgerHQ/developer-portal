@@ -1,0 +1,29 @@
+# Migration from 1.3.3 to 1.4.0
+
+We made some breaking changes to the Ethereum Signer in 1.4.0 which are detailed below.
+
+## ContextModuleBuilder
+
+The `ContextModuleBuilder` now has a new optional `originToken` parameter that is required by the default loaders to work.
+
+You can use the `SignerEthBuilder` with the default loaders by passing the `originToken` parameter.
+
+```typescript
+const signer = new SignerEthBuilder({
+  dmk,
+  sessionId,
+  originToken: "origin-token", // replace with your origin token
+}).build();
+```
+
+If you are using the `ContextModuleBuilder` to build your context module, you need to pass the `originToken` parameter.
+
+```typescript
+const contextModule = new ContextModuleBuilder({
+  originToken: "origin-token", // replace with your origin token
+}).build();
+
+const signer = new SignerEthBuilder({ dmk, sessionId })
+  .withContextModule(contextModule)
+  .build();
+```

@@ -26,8 +26,15 @@ To initialize an Ethereum signer instance, you need a Ledger Device Management K
 
 ```typescript
 // Initialize an Ethereum signer instance using default context module
-const signerEth = new SignerEthBuilder({ dmk, sessionId }).build();
+const signerEth = new SignerEthBuilder({
+  dmk,
+  sessionId,
+  originToken: "origin-token",
+}).build();
 ```
+
+> **Note:** The `originToken` parameter is required by the default context module to work.
+> Token should be delivered by Ledger, otherwise the Transactions Checks will not be available.
 
 You can also configure the context module yourself:
 

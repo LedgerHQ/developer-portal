@@ -5,10 +5,12 @@ Depending on the environment and usecase, you can choose the transport that best
 
 ## Available transports
 
-| Transport                                                                      | Description                                                                                |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| [WebHid](https://www.npmjs.com/package/@ledgerhq/device-transport-kit-web-hid) | The WebHID transport uses the Web HID API (usb) to communicate with a Ledger device.       |
-| [WebBle](https://www.npmjs.com/package/@ledgerhq/device-transport-kit-web-ble) | The WebBLE transport uses the Web BLE API (bluetooth) to communicate with a Ledger device. |
+| Transport                                                                              | Description                                                                                                   |
+| -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| [WebHid](https://www.npmjs.com/package/@ledgerhq/device-transport-kit-web-hid)         | The WebHID transport uses the Web HID API (usb) to communicate with a Ledger device.                          |
+| [WebBle](https://www.npmjs.com/package/@ledgerhq/device-transport-kit-web-ble)         | The WebBLE transport uses the Web BLE API (bluetooth) to communicate with a Ledger device.                    |
+| [RNBle](https://www.npmjs.com/package/@ledgerhq/device-transport-kit-react-native-ble) | The React Native BLE transport uses the react-native-ble-plx (bluetooth) to communicate with a Ledger device. |
+| [Speculos](https://www.npmjs.com/package/@ledgerhq/device-transport-kit-speculos)      | The Speculos transport is used to communicate with the speculos device simulator.                             |
 
 ## How to use a transport
 
@@ -47,5 +49,16 @@ const dmk = new DeviceManagementKitBuilder()
       apduReceiverServiceFactory,
     );
   })
+  .build();
+```
+
+## How to use the Speculos transport
+
+The Speculos transport is used to communicate with the speculos device simulator.
+The factory function accepts a `speculosUrl` parameter that is the url of the speculos server.
+
+```typescript
+const dmk = new DeviceManagementKitBuilder()
+  .addTransport(speculosTransportFactory("http://localhost:5000"))
   .build();
 ```
