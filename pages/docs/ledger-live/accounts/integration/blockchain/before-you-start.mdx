@@ -1,0 +1,43 @@
+# Before you start
+
+Ensure you cloned all the necessary repositories involved in the blockchain implementation :
+
+| GitHub repository                                      | Description                                 |
+| ------------------------------------------------------ | ------------------------------------------- |
+| [Ledger Live](https://github.com/LedgerHQ/ledger-live) | Software Wallet on Desktop, Mobile and CLI. |
+
+## Ledger Live monorepo
+
+The <b>LedgerHQ/ledger-live</b> repository is structured as a monorepo. A monorepo is a single repository that stores multiple projects or components, which in this case, are the various parts that make up Ledger Live.
+
+The team currently uses turborepo and split the project in main categories :
+
+- <b>apps</b> : ledger live desktop, ledger live mobile, ledger live cli
+- <b>libs</b>: common code between apps and standalone js libraries
+- <b>tools</b> : github actions, utils, …
+
+<b>Device apps</b> are applications that you can find directly on your Ledger device
+(small icons installed with the app manager).
+
+They are are in charge of <b>seed derivation and signing</b>.These are available in other repositories; in the monorepo, we handle only the hardware communication libraries associated with them.
+
+## Ledger Live libraries
+
+The monorepo libs folder contains:
+
+- ledger-live-common: common code between apps eg. coin-module initialization and signer definition, react common code, …
+- coin-framework: types and utils necessary for blockchain integration
+- coin-modules: blockchain libraries, configurable and with signer injection
+- ledgerjs : types, nano apps communication libraries, currency metadata
+
+<br />
+<b>
+  Blockchain integration is implemented in a coin-module, configured in
+  live-common, and used by apps through a generic interface named “Bridges”.
+</b>
+
+In live-common, we inject signer-related code, present in ledgerjs, to the coin-module.
+
+Blockchains sometimes have a common interface / a common way to deal with them (EVM, cosmos-sdk, parity polkadot sdk, …), and use the same device app, that’s why we talk about blockchain families.
+
+Ledger devices signer libraries are either directly in the repository or imported from partners. Their name usually start with hw-app prefix (ex: hw-app-btc on npmjs, source code).
