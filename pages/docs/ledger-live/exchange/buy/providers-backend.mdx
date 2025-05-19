@@ -23,7 +23,15 @@ There are 3 main endpoints needed for the buy:
     - To get the list of available crypto-currencies: [/crypto-currencies](https://exchange-integration-buy.redoc.ly/#operation/getCrypto-currencies).
     - To get the crypto amount that the user should expect -after all fees are deducted - as a payment for the given fiat amount: [/quotes](https://exchange-integration-buy.redoc.ly/#operation/getQuote).  
 
+### Ledger IDs mapping
+To comply with our integration policies, the LedgerId format must be used (by your `/crypto-currencies` endpoint) and accepted (by your `/quote` endpoint and widgetURL) to accurately identify tokens and coins. 
 
+You can refer to [this API](https://crypto-assets-service.api.ledger.com/v1/currencies?output=id,name,ticker,contract_address,blockchain_name) to obtain ledger IDs. You can use the `search` parameter to find a specific coin or token. For instance, to search for USDT, you can use this [request](https://crypto-assets-service.api.ledger-test.com/v1/currencies?output=id,ticker,symbol,network&search=USDT).
+
+For example, let's say your support AAVE on Ethereum mainnet. The LedgerID for AAVE on Ethereum is `ethereum/erc20/aave` (as we can see [here](https://crypto-assets-service.api.ledger-test.com/v1/currencies?output=id,ticker,symbol,network&search=AAVE)). This means:
+- Your `/crypto-currencies` endpoint should include `ethereum/erc20/aave` in its response (along with the other coins/tokens you support), so we know that you support AAVE on Ethereum.
+- Your `/quote` endpoint must accept `ethereum/erc20/aave` as a value for the `to` parameter.
+- Your widgetURL must accept `ethereum/erc20/aave` as a value for the `to` parameter.
 
 
 [//]: # (Info needed to be exchange with the provider, but not out loud publicly)
