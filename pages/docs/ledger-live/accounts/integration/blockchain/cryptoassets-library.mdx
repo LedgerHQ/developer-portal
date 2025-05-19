@@ -3,11 +3,11 @@ title: Cryptoassets Library
 description: The @ledgerhq/cryptoassets package contains all definitions of cryptoassets that could be useful to Ledger Live.
 ---
 
-import { Callout } from 'nextra/components'
+import { Callout } from "nextra/components";
 
-# 1 - Cryptoassets Library
+# 1 - Currency
 
-The [@ledgerhq/cryptoassets](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/cryptoassets) package contains all definitions of cryptoassets that could be useful to Ledger Live.
+[@ledgerhq/cryptoassets](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/ledgerjs/packages/cryptoassets) contains all definitions of cryptoassets that could be useful to Ledger Live.
 
 Ledger Live deals with different kinds of currencies and assets: fiat currencies, cryptocurrencies, and tokens.
 They all share similar concepts but have specifics, which are defined as a Currency model.
@@ -25,7 +25,6 @@ Essentially all currencies share this common ground:
 - `disableCountervalue?: boolean`: if available, this field expresses that we should assume there is not valid counter value for this coin. (because either we can't trade it or it's not available enough to assume enabling its value)
 - `symbol?: string`: if available, it's a short symbol for the coin. <i>In practice it's currently not used and might be dropped.</i>
 
-
 ### Unit
 
 ```js copy
@@ -37,7 +36,7 @@ type Unit = {
   // number of digits after the '.' in context of this unit.
   magnitude: number,
   // should it always print all digits even if they are 0 (usually: true for fiats, false for cryptos)
-  showAllDigits?: boolean
+  showAllDigits?: boolean,
 };
 ```
 
@@ -55,23 +54,23 @@ Here is an example of Bitcoin units:
   {
     name: "bitcoin",
     code: "BTC",
-    magnitude: 8
+    magnitude: 8,
   },
   {
     name: "mBTC",
     code: "mBTC",
-    magnitude: 5
+    magnitude: 5,
   },
   {
     name: "bit",
     code: "bit",
-    magnitude: 2
+    magnitude: 2,
   },
   {
     name: "satoshi",
     code: "sat",
-    magnitude: 0
-  }
+    magnitude: 0,
+  },
 ];
 ```
 
@@ -113,21 +112,25 @@ type CryptoCurrency = CurrencyCommon & {
   // should be defined for bitcoin family
   bitcoinLikeInfo?: {
     P2PKH: number,
-    P2SH: number
+    P2SH: number,
   },
   // should be defined for ethereum family
   ethereumLikeInfo?: {
-    chainId: number
+    chainId: number,
   },
   explorerViews: ExplorerView[],
   terminated?: {
-    link: string
-  }
+    link: string,
+  },
 };
 ```
 
 <Callout>
-  CoinType is generally found in <a href='https://github.com/satoshilabs/slips/blob/master/slip-0044.md'>github.com/satoshilabs/slips/blob/master/slip-0044.md</a>, although unicity is not quaranteed across networks (testnets, etc...).
+  CoinType is generally found in{" "}
+  <a href="https://github.com/satoshilabs/slips/blob/master/slip-0044.md">
+    github.com/satoshilabs/slips/blob/master/slip-0044.md
+  </a>
+  , although unicity is not quaranteed across networks (testnets, etc...).
 </Callout>
 
 ### ExplorerView
@@ -141,12 +144,14 @@ type ExplorerView = {
   // url for address with $address param
   address?: string,
   // url for a token with $contractAddress and $address params
-  token?: string
+  token?: string,
 };
 ```
 
 <Callout>
-  Find a reliable explorer. If you find more than one explorer, list them from most to less popular. Ledger Live will likely use the first explorer as default.
+  Find a reliable explorer. If you find more than one explorer, list them from
+  most to less popular. Ledger Live will likely use the first explorer as
+  default.
 </Callout>
 
 ### TokenCurrency specific fields
@@ -162,14 +167,13 @@ type TokenCurrency = CurrencyCommon & {
   // the currency it belongs to. e.g. 'ethereum'
   parentCurrency: CryptoCurrency,
   // the type of token in the blockchain it belongs. e.g. 'erc20'
-  tokenType: string
+  tokenType: string,
 };
 ```
 
 ## Adding MyCoin
 
 Ensure that before integrating your coin to Ledger Live, your coin is well defined in [`@ledgerhq/cryptoassets/src/currencies.js`](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/ledgerjs/packages/cryptoassets/src/currencies.ts)
-
 
 ```js copy
  mycoin: {

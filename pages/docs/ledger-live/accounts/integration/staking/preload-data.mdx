@@ -1,0 +1,5 @@
+# Preload
+
+We choose to load validator list in the preload method of the bridge, as validator informations will then be used in delegation infos (usually it includes a link between address and name, commission , etc)
+
+[Example](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/coin-modules/coin-cosmos/src/bridge/preload.ts#L19)
