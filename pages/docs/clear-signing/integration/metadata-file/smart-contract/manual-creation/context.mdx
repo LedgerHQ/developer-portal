@@ -1,0 +1,128 @@
+import Image from 'next/image'
+import { Callout } from "nextra/components";
+
+# 1. Context section 
+
+First you need to write the `“context”` section. 
+
+<Callout type="info" emoji="ℹ️">
+    The goal of the `“context”` section is to provide binding context information for this file. It indicates whether the ERC-7730 file is valid for this data, according to 2 main constraints: the deployment field and the ABI specification.
+</Callout>
+
+In this example, the context section indicates that the ERC-7730 file should only be applied to the USDT smart contract whose deployment addresses are provided and only if they match the reference ABI.
+
+```json
+    "context": {
+        "$id": "Tether USD",
+        "contract" : {
+            "abi": "https://api.etherscan.io/api?module=contract&action=getabi&address=0xdac17f958d2ee523a2206206994597c13d831ec7",
+            "deployments": [ 
+                {
+                    "chainId": 1,
+                    "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+                },
+                {
+                    "chainId": 137,
+                    "address": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F"
+                },
+                {
+                    "chainId": 42161,
+                    "address": "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9"
+                }
+            ]
+        }
+    },
+```
+
+<details>
+  <summary>For EIP-712 messages</summary>
+
+    Same mechanic, but with some minor differences: 
+    -  We need to specify that this file is for EIP-712 messages first.
+    - The `deployments` field will list all the verifying contracts that will check this EIP-712
+    - Instead of the ABI specification, we will use `schemas` and `domain` to describe the structure of our EIP-712 message(s) and match names with versions. 
+
+    Here is the example of the `context` section from [1inch](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/eip712-1inch-limit-order.json). We will dig into the details below. 
+
+
+    ```json
+    "context": {
+        "eip712": {
+        "deployments": [
+            { "chainId": 1, "address": "0x119c71d3bbac22029622cbaec24854d3d32d2828" },
+            { "chainId": 10, "address": "0x11431a89893025d2a48dca4eddc396f8c8117187" },
+            { "chainId": 56, "address": "0x1e38eff998df9d3669e32f4ff400031385bf6362" },
+            { "chainId": 137, "address": "0x94bc2a1c732bcad7343b25af48385fe76e08734f" },
+            { "chainId": 42161, "address": "0x7f069df72b7a39bce9806e3afaf579e54d8cf2b9" }
+        ],
+        "domain": { "name": "Permit2" },
+        "schemas": [
+            {
+            "primaryType": "OrderStructure",
+            "types": {
+                "EIP712Domain": [
+                { "name": "name", "type": "string" },
+                { "name": "version", "type": "string" },
+                { "name": "chainId", "type": "uint256" },
+                { "name": "verifyingContract", "type": "address" }
+                ],
+                "OrderStructure": [
+                { "name": "salt", "type": "uint256" },
+                { "name": "maker", "type": "address" },
+                { "name": "receiver", "type": "address" },
+                { "name": "makerAsset", "type": "address" },
+                { "name": "takerAsset", "type": "address" },
+                { "name": "makingAmount", "type": "uint256" },
+                { "name": "takingAmount", "type": "uint256" },
+                { "name": "makerTraits", "type": "uint256" }
+                ]
+            }
+            },
+    ```
+
+</details>
+
+
+## a. ABI specification 
+
+You have two ways of specifying the ABI: 
+- You can use an url pointing at the ABI (like we did in this example)
+- You can copy/paste the entire ABI ([etherscan solidity compiler](https://etherscan.io/address/0xdac17f958d2ee523a2206206994597c13d831ec7#code)). You don’t necessarily need to paste the entire ABI, you can keep only the functions that you want to clear sign, and remove for instance the events and read functions.
+ 
+<Callout type="info" emoji="ℹ️">
+    The ABI is used to define unique path references to fields being formatted in the `display.formats` section, so the ABI is mandatory for all contracts clear-signed.
+</Callout>
+
+<details>
+  <summary>For EIP-712 messages</summary>
+
+    Like we said, instead of the ABI, we will use `schemas` and `domain` to describe the structure of our EIP-712 message(s) and match names with versions. 
+
+    The` domain` constraint is a json object with simple key-value pairs, describing a set of values that the EIP-712 Domain of the message MUST match.
+
+    An EIP-712 `domain` is a free-form list of keys, but those are very common to include:
+    - `name`: the name of the message verifier
+    - `version`: the version of the message
+    - `chainID`: an [EIP-155](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/eip-155.md) identifier of the chain the message is bound to
+    - `verifyingContract`: the address the message is bound to.
+
+    Note that `chainId` and `verifyingContract` can also be bound to their values thanks to the `eip712.deployments` constraint, in a more flexible way (supporting multiple deployment values).
+
+</details>
+
+## b. Deployment field
+
+Under the `"deployments"` field, you need to specify where exactly the clear signing file will be applied, by adding the chain id and deployment addresses: 
+- `chainId`: an EIP-155 identifier of the chain where the described contract is deployed (you can find it here: [https://chainlist.org/](https://chainlist.org/))
+- `address`: the address of the deployed contract on the specified` chainId` chain.
+
+<details>
+    <summary>For EIP-712 messages</summary>
+
+    The `deployments` field will list all the smart contract deployments that will check this EIP-712
+
+    A deployment option is an object with:
+    - `chainId`: an EIP-155 identifier of the chain the described contract is deployed on.
+    - `address`: the address of the deployed contract on specified `chainId` chain.
+
+</details>

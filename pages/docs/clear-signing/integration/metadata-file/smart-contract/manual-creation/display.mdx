@@ -1,0 +1,218 @@
+import Image from 'next/image'
+import { Callout } from "nextra/components";
+
+# 3. Display section
+
+Finally, let's go over the `“display”` section.
+
+<Callout type="info" emoji="ℹ️">
+    The goal of the `“display”` section is to tell the wallet how to format each field of targeted contract calls. These definitions are contained under the `formats` key.
+</Callout>
+
+In this example, the function being described is identified by its solidity signature `transfer(address _to,uint256 _value)`. This is the signature used to compute the function selector `0xa9059cbb`.
+- The  `"intent"` key contains a human-readable string that wallets SHOULD display to explain to the user the intent of the function call.
+- The `"fields"` key contains all the parameters that CAN be displayed, and the way to format them.
+- The `"required"` key indicates which parameters wallets SHOULD display.
+- The `"excluded"` key indicates which parameters are intentionally left out (none in this example).
+
+```json
+    "display": {
+        "formats": {
+            "transfer(address _to,uint256 _value)": {
+                "intent": "Send",
+                "fields": [
+                    {
+                        "path": "_to",
+                        "label": "To",
+                        "format": "addressOrName"
+                    },
+                    {
+                        "path": "_value",
+                        "label": "Amount",
+                        "format": "tokenAmount",
+                        "params": {
+                            "tokenPath": "@.to"
+                        }
+                    }
+                ],
+                "required": ["_to", "_value"],
+                "excluded": []
+            }
+        }
+    }
+```
+
+In this example, the `_to` parameter and the `_value` SHOULD both be displayed, one as an address replaceable by a trusted name (ENS or others), the other as an amount formatted using metadata of the target ERC-20 contract (USDT).
+
+
+<details>
+    <summary> Details for EIP-712 messages</summary>
+
+    Same mechanic, we specify what message(s) we want to clear sign. 
+
+    Note that we can clear sign multiple messages in the same file, depending on what we previously defined in the `"context"` section.
+
+    In our example, we only clear sign the message `"OrderStructure"`. 
+
+    ```json
+    "display": {
+        "formats": {
+        "OrderStructure": {
+            "intent": "1inch Order",
+            "fields": [
+            { "path": "maker", "label": "From", "format": "raw" },
+            { "path": "makingAmount", "label": "Send", "format": "tokenAmount", "params": { "tokenPath": "makerAsset" } },
+            { "path": "takingAmount", "label": "Receive minimum", "format": "tokenAmount", "params": { "tokenPath": "takerAsset" } },
+            { "path": "receiver", "label": "To", "format": "raw" }
+            ],
+            "excluded": ["salt", "makerTraits", "interactions", "allowedSender", "offsets"]
+            "required": ["maker", "makingAmount", "takingAmount", "receiver"]
+        }
+        }
+    }
+    ```
+
+</details>
+
+Let’s dive into how you can write this `"display"` section yourself.
+
+
+## 1. Identify each function that you want to clear sign
+
+First you need to identify each function that you want to clear sign.
+
+There are 3 ways to identify each function:
+- Source code declaration,
+- Solidity signature ([solidity function selector](https://docs.soliditylang.org/en/latest/abi-spec.html#function-selector)),
+- “Onchcain” representation, or function selector.
+
+Using any of these forms guarantees unicity in the context of the contract.
+
+- In our example, this is done with the source code declaration `transfer(address _to,uint256 _value).`
+- The Solidity signature would be `transfer(address,uint256)`.
+- The Function selector would be `0xa9059cbb`.
+
+```json
+    "display": {
+        "formats": {
+            "transfer(address _to,uint256 _value)": {
+                ...
+                }
+```
+
+<details>
+    <summary> Details for EIP-712 messages</summary>
+
+    To identify which EIP-712 message we are describing, we just need to specify the type as mentioned in primaryType, in the `"context"` section. In our example, we just write
+    ```json
+    "display": {
+        "formats": {
+        "OrderStructure": {
+            ...
+            }
+    ```
+
+</details>
+
+
+## 2. Intent
+
+Then you need to provide a human readable string that should display to the user instead of the function name, explaining the intent of the function he is calling.
+
+In our example:  `"intent": "Send",`.
+You will get this result on your hardware wallet:
+
+<div style={{ paddingTop: "1em", width: "90%" }} className="center">
+  <figure>
+    <Image src="/clear-signing/clear-signing-tuto-02.png" alt="Blind sign risk" width={400} height={300} />
+  </figure>
+</div>
+
+<details>
+    <summary> Details for EIP-712 messages</summary>
+
+    Same idea. Here, instead of `"OrderStructure"`, we want to display `"1inch Order"` to the user:
+    ```jsons
+        "intent": "1inch Order",
+    ```
+
+</details>
+
+
+## 3. Fields
+
+Now we need to define the formatting of all the fields inside our Send function. 
+
+The `"fields"` key contains all the parameters that CAN be displayed, and the way to format them.
+In our example we define two parameters: `_to` and `_value`, that will be labeled as `To` and `Amount`, and whose format will be `addressOrName` and `tokenAmount`.
+
+```json
+"fields": [
+        {
+            "path": "_to",
+            "label": "To",
+            "format": "addressOrName"
+        },
+        {
+            "path": "_value",
+            "label": "Amount",
+            "format": "tokenAmount",
+            "params": {
+                "tokenPath": "@.to"
+            }
+        }
+            ],
+```
+
+<div style={{ paddingTop: "1em", width: "90%" }} className="center">
+  <figure>
+    <Image src="/clear-signing/clear-signing-tuto-03.png" alt="Blind sign risk" width={800} height={600} />
+  </figure>
+</div>
+
+- `"path"`: the parameter `(_to)`
+- `"Label"`: the field name that will be displayed (`To`)
+- `"Format"`: the field format (`addressName`)
+
+In terms of `"format"`, here are the main options available for your other use cases:
+- `amount`: display amount in native currency
+- `tokenAmount`: display amount in token
+- `addressName`: display recipient address, or trusted name if one is found
+- `Date`: display int as a date, using specified encoding
+
+More information about formats and the list of all available formats [here in our spec](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc-7730.md#field-formats).
+
+
+<details>
+    <summary> Details for EIP-712 messages</summary>
+
+    Same idea, we describe the formatting of all the different fields (`maker`, `makingAmount`, `takingAmount` and `receiver`) that can be displayed in the EIP-712 message. 
+
+    ```json
+    "fields": [
+            { "path": "maker", "label": "From", "format": "raw" },
+            { "path": "makingAmount", "label": "Send", "format": "tokenAmount", "params": { "tokenPath": "makerAsset" } },
+            { "path": "takingAmount", "label": "Receive minimum", "format": "tokenAmount", "params": { "tokenPath": "takerAsset" } },
+            { "path": "receiver", "label": "To", "format": "raw" }
+            ],
+    ```
+
+</details>
+
+
+## 4. Required/Exclued/Optional
+
+After defining all the parameters (`"path"`) that CAN be displayed, and how they will be displayed (`"label"` and `"format"`), we need to specify which parameters should or shouldn't be displayed.
+
+- The `"required"` key indicates which parameters wallets SHOULD display.
+- The `"excluded"` key indicates which parameters are intentionally left out (none in this example).
+- If none of the above, the parameter is optional. 
+
+<Callout type="info" emoji="ℹ️">
+  About the excluded field: When you upload your file, the registry will check every function. If one parameter is not specified **and is not** labeled as `"excluded"`, it will generate an error. 
+</Callout>
+
+
+
+The last section contains advanced features and subtilities to go further.
+

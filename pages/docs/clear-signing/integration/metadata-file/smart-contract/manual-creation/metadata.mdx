@@ -1,0 +1,137 @@
+import Image from 'next/image'
+import { Callout } from "nextra/components";
+
+# 2. Metadata section
+
+Now let’s start the `"metadata"` section. 
+
+<Callout type="info" emoji="ℹ️">
+    The goal of the `"metadata"` section is to provide the metadata that can be displayed to the user when interacting with the contract/message defined in this file. 
+</Callout>
+
+This section is typically used to:
+- Provide displayable information about the recipient of the contract call / message
+- Provide displayable values of enumeration or encoded id parameters, typically smart contract / message specific
+- Provide common constants used by the various formats defined in the file
+
+In this example, the metadata section contains only the recipient information, in the form of a displayable name (`owner` key) and additional information (`info` key) that MAY be used by wallets to provide details about the recipient.
+
+```json
+    "metadata": {
+        "owner": "Tether",
+        "info": {
+            "legalName": "Tether Limited",
+            "url": "https://tether.to/",
+            "deploymentDate": "2017-11-28T12:41:21Z"  
+        }
+    },
+```
+
+<details>
+    <summary>For EIP-712 messages</summary>
+
+    We define what we want to display regarding the target of our EIP-712 message. In our previous example from 1inch: 
+
+    ```json
+    "metadata": { 
+        "owner": "1inch Limit Order Protocol" 
+    },
+    ```
+
+    For EIP-712 messages, `owner` is the verifying contract.
+
+</details>
+
+## a. Minimum: Owner & info
+
+The most basic version is the one from this example, which only specifies Owner & Info. This info will be displayed on the screen when interacting with the contract. 
+
+<div style={{ paddingTop: "1em", width: "90%" }} className="center">
+  <figure>
+    <Image src="/clear-signing/clear-signing-tuto-01.png" alt="Blind sign risk" width={400} height={300} />
+  </figure>
+</div>
+
+## b. Advanced
+
+You can go further with the metadata section. 
+
+### Using `enums`
+
+You can define `enums` to convert values using referenced constant enumeration values. It is useful to replace specific parameters values with human-readable ones. Take a look at the following example in the [Aave json file](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/aave/calldata-lpv3.json) from the registry: 
+
+```json
+  "metadata": {
+    "owner": "Aave",
+    "info": { "url": "https://aave.com", "legalName": "Aave DAO", "deploymentDate": "2024-10-09T21:46:47Z" },
+    "enums": { "interestRateMode": { "1": "stable", "2": "variable" } },
+    "constants": { "max": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" }
+  },
+  "display": {
+   …
+            "format": "enum",
+            "label": "Interest rate mode",
+            "params": { "$ref": "$.metadata.enums.interestRateMode" }
+          },
+```
+
+Basically, the result is that if the value returned by `interestRateMode` is `1`, the hardware wallet will display the text `“stable”`, and if it’s `2`, it will display `“variable”`. By specifying the enum one time in the metadata section, you can refer to it easily wherever you want in the rest of the file. 
+
+<div style={{ paddingTop: "1em", width: "90%" }} className="center">
+  <figure>
+    <Image src="/clear-signing/clear-signing-tuto-enums.png" alt="Blind sign risk" width={400} height={300} />
+  </figure>
+</div>
+
+### Using `constants`
+
+A constant can be defined in the metadata, and then be referenced in the rest of the file. This is mostly to keep your file as clean as possible, and avoid repeating longer strings, like addresses for instance. Take a look at the following example in the [Paraswap json file](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/paraswap/calldata-AugustusSwapper-v5.json) from the registry: 
+
+```json
+  "metadata": {
+    "owner": "Paraswap",
+    "info": { "url": "https://www.paraswap.io/", "legalName": "ParaSwap", "deploymentDate": "2021-08-18T12:42:05Z" },
+    "constants": { "addressAsEth": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE" }
+  },
+  "display": {
+    "definitions": {
+      "sendAmount": {
+        "label": "Amount to Send",
+        "format": "tokenAmount",
+        "params": { "tokenPath": "fromToken", "nativeCurrencyAddress": "$.metadata.constants.addressAsEth" }
+      },
+      "minReceiveAmount": {
+        "label": "Minimum to Receive",
+        "format": "tokenAmount",
+        "params": { "tokenPath": "toToken", "nativeCurrencyAddress": "$.metadata.constants.addressAsEth" }
+      },
+```
+
+As you can see, in the metadata section we define the constant `"constants": { "addressAsEth": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE" }`. Thanks to this, in the rest of the file we can just call that constant with `"$.metadata.constants.addressAsEth"` instead of having to rewrite the address every time.
+
+
+### Using tickers
+
+Instead of getting the default ticker from etherscan, you can specify it yourself. This is very situational, and in most cases the ticker from etherscan will be enough, but it's good to know in some cases. 
+
+```json
+"metadata": {
+        "owner": "Tether",
+        "info": {
+            "legalName": "Tether Limited",
+            "url": "https://tether.to/",
+            "deploymentDate": "2017-11-28T12:41:21Z"  
+        },
+        "token": {
+            "ticker": "USDT",
+            "name": "Tether USD",
+            "decimals": 6
+        }
+    },
+```
+
+
+You can find more examples of metadata usage: 
+- [Here](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc-7730.md#metadata-section) in our spec. 
+- In [1inch integration](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/eip712-AggregationRouterV6.json).
+
