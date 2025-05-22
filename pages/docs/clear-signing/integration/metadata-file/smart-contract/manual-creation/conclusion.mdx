@@ -1,0 +1,147 @@
+import Image from 'next/image'
+import { Callout } from "nextra/components";
+
+# Conclusion
+
+**Congratulations!** You have written a basic json file to clear sign the transfer function for Tether USDT, and even learned some advanced features and tricks along the way. 🎉
+
+<details>
+  <summary>Here is the final result for our smart contract example: </summary> 
+
+    ```json
+    {
+        "$schema": "https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc7730-v1.schema.json",
+
+        "context": {
+            "$id": "Tether USD",
+            "contract" : {
+                "abi": "https://api.etherscan.io/api?module=contract&action=getabi&address=0xdac17f958d2ee523a2206206994597c13d831ec7",
+                "deployments": [ 
+                    {
+                        "chainId": 1,
+                        "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+                    },
+                    {
+                        "chainId": 137,
+                        "address": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F"
+                    },
+                    {
+                        "chainId": 42161,
+                        "address": "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9"
+                    }
+                ]
+            }
+        }, 
+
+        "metadata": {
+            "owner": "Tether",
+            "info": {
+                "legalName": "Tether Limited",
+                "url": "https://tether.to/",
+                "deploymentDate": "2017-11-28T12:41:21Z"  
+            }
+        },
+
+        "display": {
+            "formats": {
+                "transfer(address _to,uint256 _value)": {
+                    "intent": "Send",
+                    "fields": [
+                        {
+                            "path": "_to",
+                            "label": "To",
+                            "format": "addressOrName"
+                        },
+                        {
+                            "path": "_value",
+                            "label": "Amount",
+                            "format": "tokenAmount",
+                            "params": {
+                                "tokenPath": "@.to"
+                            }
+                        }
+                    ],
+                    "required": ["_to", "_value"],
+                    "excluded": []
+                }
+            }
+        }
+    }
+    ```
+
+</details>
+
+
+<details>
+  <summary>And here is the final result for our EIP-712 message example: </summary> 
+
+    ```json    
+    {
+    "$schema": "../../specs/erc7730-v1.schema.json",
+    "context": {
+        "eip712": {
+        "deployments": [
+            { "chainId": 1, "address": "0x119c71d3bbac22029622cbaec24854d3d32d2828" },
+            { "chainId": 10, "address": "0x11431a89893025d2a48dca4eddc396f8c8117187" },
+            { "chainId": 56, "address": "0x1e38eff998df9d3669e32f4ff400031385bf6362" },
+            { "chainId": 137, "address": "0x94bc2a1c732bcad7343b25af48385fe76e08734f" },
+            { "chainId": 42161, "address": "0x7f069df72b7a39bce9806e3afaf579e54d8cf2b9" }
+        ],
+        "domain": { "name": "Permit2" },
+        "schemas": [
+            {
+            "primaryType": "OrderStructure",
+            "types": {
+                "EIP712Domain": [
+                { "name": "name", "type": "string" },
+                { "name": "version", "type": "string" },
+                { "name": "chainId", "type": "uint256" },
+                { "name": "verifyingContract", "type": "address" }
+                ],
+                "OrderStructure": [
+                { "name": "salt", "type": "uint256" },
+                { "name": "maker", "type": "address" },
+                { "name": "receiver", "type": "address" },
+                { "name": "makerAsset", "type": "address" },
+                { "name": "takerAsset", "type": "address" },
+                { "name": "makingAmount", "type": "uint256" },
+                { "name": "takingAmount", "type": "uint256" },
+                { "name": "makerTraits", "type": "uint256" }
+                ]
+            }
+            },
+        ]
+        }
+    },
+    "metadata": { "owner": "1inch Limit Order Protocol" },
+    "display": {
+        "formats": {
+        "OrderStructure": {
+            "intent": "1inch Order",
+            "fields": [
+            { "path": "maker", "label": "From", "format": "raw" },
+            { "path": "makingAmount", "label": "Send", "format": "tokenAmount", "params": { "tokenPath": "makerAsset" } },
+            { "path": "takingAmount", "label": "Receive minimum", "format": "tokenAmount", "params": { "tokenPath": "takerAsset" } },
+            { "path": "receiver", "label": "To", "format": "raw" }
+            ],
+            "excluded": ["salt", "makerTraits", "interactions", "allowedSender", "offsets"]
+            "required": ["maker", "makingAmount", "takingAmount", "receiver"]
+        }
+        }
+    }
+    }
+    ```
+
+</details>
+
+Here are some useful links to help you during the writing process: 
+- [Registry](https://github.com/LedgerHQ/clear-signing-erc7730-registry/tree/master/registry) with lot of real integrations examples.
+- The [Clear Signing ERC 7730](https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/specs/erc-7730.md) specification.
+- The [Json Builder tool](https://get-clear-signed.ledger.com/) 
+
+## Next steps
+
+- Test your integration.
+- Submit your pull request to the registry. 
+
+
