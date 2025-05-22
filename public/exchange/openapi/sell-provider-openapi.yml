@@ -487,6 +487,8 @@ components:
           description: Quote expiration timestamp
     Sepa:
       type: object
+    Card:
+      type: object
     Googlepay:
       type: object
     Applepay:
@@ -598,7 +600,7 @@ components:
           description: Value for the `device_transaction_id_ng` field in the protobuf payload, in hex format of the byte array nonce received by the user.
         slippage:
           type: string
-          description: Value between 0 to 1 (0.1 => 10%). Maximum difference between the quoted amount and the final amount received, as a ratio. If exceeded, user consent is required or a refund is made.\
+          description: Value between 0 to 1 (0.1 => 10%). Maximum difference between the quoted amount and the final amount received, as a ratio. If exceeded, user consent is required or a refund is made.
 
     SellResponse:
       required:
