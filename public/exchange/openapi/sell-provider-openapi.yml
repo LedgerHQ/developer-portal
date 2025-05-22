@@ -11,12 +11,11 @@ paths:
           description: |
             ### Sell Provider Capabilities
             - "fiatCurrencyCapabilities.[].fiat": fiat currency supported at the ISO-4217 standard,
-            - cryptoCurrencyCapabilities.[].id: The provider id of the currency, this id will be used to call quote endpoint and in the widget url query parameter,
-            - cryptoCurrencyCapabilities.[].network: The network of the cryptocurrency, this is used to match the provider cryptocurrency ID with the ledger ID,
+            - cryptoCurrencyCapabilities.[].id: The LedgerId of the crypto currency. This ID will be used to call quote endpoint and in the widget URL query parameter,
             - cryptoCurrencyCapabilities.[].minAmount: Minimum amount of crypto the user can sell
             - cryptoCurrencyCapabilities.[].maxAmount: Maximum amount of crypto the user can sell
             - "countriesCapabilities.[].country": available at the Alpha-2 standard (ISO3166),
-            - "countriesCapabilities.[].paymentMethods.[].name": Available payment method, valid values : visa, mastercard, creditcard, sepa, bank, other
+            - "countriesCapabilities.[].paymentMethods.[].name": Available payment method, valid values : card, googlepay, applepay, paypal, cryptocom, sepa, ach, instantach, fasterpayments, easybank, bank, cashapp, venmo, pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay, eps, ideal, other, revolut, p2p, interac, payid, spei, imps, gcash, ovo, shopeepay, grabpay, linkaja, maya, pse, dana, qris
           x-summary: OK
           content:
             application/json:
@@ -28,10 +27,12 @@ paths:
                   - fiat: USD
                   - fiat: GBP
                 cryptoCurrencyCapabilities:
-                  - id: BTC
-                    network: bitcoin
+                  - id: bitcoin
                     minAmount: 0.01
                     maxAmount: 0.5
+                  - id: ethereum
+                    minAmount: 0.001
+                    maxAmount: 10
                 countriesCapabilities:
                   - country: FR
                     paymentMethods:
@@ -40,7 +41,7 @@ paths:
                           - fiat: EUR
                             minAmount: 30
                             maxAmount: 3000
-                      - name: visa
+                      - name: card
                         minMaxRestrictions:
                            - fiat: EUR
                              minAmount: 10
@@ -52,7 +53,7 @@ paths:
                           - fiat: USD
                             minAmount: 30
                             maxAmount: 3000
-                      - name: visa
+                      - name: card
                         minMaxRestrictions:
                           - fiat: USD
                             minAmount: 10
@@ -64,7 +65,7 @@ paths:
                           - fiat: GBP
                             minAmount: 10
                             maxAmount: 3000
-                      - name: visa
+                      - name: card
                         minMaxRestrictions:
                           - fiat: GBP
                             minAmount: 30
@@ -84,15 +85,8 @@ paths:
       parameters:
         - name: from
           in: query
-          description: Crypto currency at the provider format.
+          description: Crypto currency ID using the LedgerId format.
           required: true
-          schema:
-            type: string
-          example: bitcoin
-        - name: network
-          in: query
-          description: Crypto currency network
-          required: false
           schema:
             type: string
           example: bitcoin
@@ -105,10 +99,7 @@ paths:
           example: EUR
         - name: payment-method
           in: query
-          description: 'Payment method, valid values : card,
-         pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay,
-         googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,
-         bank, gbpbank, eps, ideal, other.'
+          description: 'Payment method, valid values: card, googlepay, applepay, paypal, cryptocom, sepa, ach, instantach, fasterpayments, easybank, bank, cashapp, venmo, pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay, eps, ideal, other, revolut, p2p, interac, payid, spei, imps, gcash, ovo, shopeepay, grabpay, linkaja, maya, pse, dana, qris'
           required: true
           schema:
             type: string
@@ -163,27 +154,20 @@ paths:
         '200':
           description: |
             ### Available crypto currencies
-            - "id" : your unique identifier of the currency
-            - "type" : possible values : coin, token
-            - "blockchain" : ledger's blockchain_name of the blockchain as listed in https://crypto-assets-service.api.ledger.com/v1/coins?output=blockchain_name,chain_id, for evm networks this field may be omitted when chainId is defined.
-            - "chainId" : for EVMs only, chain id of the blockchain, 1 for ethereum, 137 for polygon... See https://chainlist.org/
-            - "contract" : mapped only if type is token, the contract address of the token.
-            blockchain OR chainId should be defined. If chainId is defined, blockchain field is ignored.
+            Return a list of crypto currencies supported by the Sell provider. Must be an array of IDs using the LedgerId format. More details are available on the [Ledger Developer Portal](https://developers.ledger.com/docs/ledger-live/exchange/sell/providers-backend#ledger-ids-mapping).
           x-summary: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CryptoCurrencies'
+                  type: string
               example:
-                - id: BTC
-                  type: coin
-                  blockchain: bitcoin
-                - id: USDC
-                  type: token
-                  chainId: 1
-                  contract: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+                - "bitcoin"
+                - "solana"
+                - "ethereum"
+                - "ethereum/erc20/aave"
+                - "solana/spl/epjfwdd5aufqssqem2qn1xzybapc8g4weggkzwytdt1v"
         default:
           description: Error sent by the provider
           content:
@@ -378,13 +362,11 @@ components:
             $ref: '#/components/schemas/CryptoCurrencyCapability'
       description: |
         - "fiatCurrencyCapabilities.[].fiat": fiat currency supported at the ISO-4217 standard,
-        - cryptoCurrencyCapabilities.[].id: The provider id of the currency, this id will be used to call quote endpoint and in the widget url query parameter,
+        - cryptoCurrencyCapabilities.[].id: The Ledger ID of the currency. This id will be used to call quote endpoint and in the widget URL query parameter,
         - cryptoCurrencyCapabilities.[].minAmount: Minimum amount of crypto the user can sell
         - cryptoCurrencyCapabilities.[].maxAmount: Maximum amount of crypto the user can sell
         - "countriesCapabilities.[].country": available at the Alpha-2 standard (ISO3166),
-        - "countriesCapabilities.[].paymentMethods.[].name": Available payment method, valid values : visa, mastercard, creditcard, sepa, bank, other
-    Coin:
-      type: object
+        - "countriesCapabilities.[].paymentMethods.[].name": Available payment method, valid values : card, sepa, bank, other
     CountryCapability:
       required:
         - country
@@ -398,25 +380,6 @@ components:
             $ref: '#/components/schemas/SellPaymentMethod'
     CreditCard:
       type: object
-    CryptoCurrencies:
-      required:
-        - id
-        - type
-        - blockchain
-        - chainId
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          $ref: '#/components/schemas/CryptoCurrencyType'
-        blockchain:
-          type: string
-        chainId:
-          type: integer
-          format: int32
-        contract:
-          type: string
     CryptoCurrencyCapability:
       required:
         - id
@@ -426,16 +389,10 @@ components:
       properties:
         id:
           type: string
-        network:
-          type: string
         minAmount:
           type: number
         maxAmount:
           type: number
-    CryptoCurrencyType:
-      oneOf:
-        - $ref: '#/components/schemas/Coin'
-        - $ref: '#/components/schemas/Token'
     FiatCurrencyCapability:
       required:
         - fiat
@@ -460,19 +417,49 @@ components:
         maxAmount:
           type: string
           description: Maximum supported amount of this currency
-    Mastercard:
-      type: object
     Other:
       type: object
     PaymentMethod:
       oneOf:
-        - $ref: '#/components/schemas/Bank'
-        - $ref: '#/components/schemas/CreditCard'
-        - $ref: '#/components/schemas/Mastercard'
-        - $ref: '#/components/schemas/Other'
-        - $ref: '#/components/schemas/Sepa'
-        - $ref: '#/components/schemas/Unknown'
-        - $ref: '#/components/schemas/Visa'
+        - $ref: '#/components/schemas/card'
+        - $ref: '#/components/schemas/googlepay'
+        - $ref: '#/components/schemas/applepay'
+        - $ref: '#/components/schemas/paypal'
+        - $ref: '#/components/schemas/cryptocom'
+        - $ref: '#/components/schemas/sepa'
+        - $ref: '#/components/schemas/ach'
+        - $ref: '#/components/schemas/instantach'
+        - $ref: '#/components/schemas/fasterpayments'
+        - $ref: '#/components/schemas/easybank'
+        - $ref: '#/components/schemas/bank'
+        - $ref: '#/components/schemas/cashapp'
+        - $ref: '#/components/schemas/venmo'
+        - $ref: '#/components/schemas/pix'
+        - $ref: '#/components/schemas/mobikwik'
+        - $ref: '#/components/schemas/easypay'
+        - $ref: '#/components/schemas/astropay'
+        - $ref: '#/components/schemas/upibanktransfer'
+        - $ref: '#/components/schemas/sofort'
+        - $ref: '#/components/schemas/bancontact'
+        - $ref: '#/components/schemas/giropay'
+        - $ref: '#/components/schemas/eps'
+        - $ref: '#/components/schemas/ideal'
+        - $ref: '#/components/schemas/other'
+        - $ref: '#/components/schemas/revolut'
+        - $ref: '#/components/schemas/p2p'
+        - $ref: '#/components/schemas/interac'
+        - $ref: '#/components/schemas/payid'
+        - $ref: '#/components/schemas/spei'
+        - $ref: '#/components/schemas/imps'
+        - $ref: '#/components/schemas/gcash'
+        - $ref: '#/components/schemas/ovo'
+        - $ref: '#/components/schemas/shopeepay'
+        - $ref: '#/components/schemas/grabpay'
+        - $ref: '#/components/schemas/linkaja'
+        - $ref: '#/components/schemas/maya'
+        - $ref: '#/components/schemas/pse'
+        - $ref: '#/components/schemas/dana'
+        - $ref: '#/components/schemas/qris'
     QuoteResponse:
       required:
         - quoteId
@@ -502,7 +489,75 @@ components:
           description: Quote expiration timestamp
     Sepa:
       type: object
-    Token:
+    Googlepay:
+      type: object
+    Applepay:
+      type: object
+    Paypal:
+      type: object
+    Cryptocom:
+      type: object
+    Ach:
+      type: object
+    Instantach:
+      type: object
+    Fasterpayments:
+      type: object
+    Easybank:
+      type: object
+    Cashapp:
+      type: object
+    Venmo:
+      type: object
+    Pix:
+      type: object
+    Mobikwik:
+      type: object
+    Easypay:
+      type: object
+    Astropay:
+      type: object
+    Upibanktransfer:
+      type: object
+    Sofort:
+      type: object
+    Bancontact:
+      type: object
+    Giropay:
+      type: object
+    Eps:
+      type: object
+    Ideal:
+      type: object
+    Revolut:
+      type: object
+    P2p:
+      type: object
+    Interac:
+      type: object
+    Payid:
+      type: object
+    Spei:
+      type: object
+    Imps:
+      type: object
+    Gcash:
+      type: object
+    Ovo:
+      type: object
+    Shopeepay:
+      type: object
+    Grabpay:
+      type: object
+    Linkaja:
+      type: object
+    Maya:
+      type: object
+    Pse:
+      type: object
+    Dana:
+      type: object
+    Qris:
       type: object
     Unknown:
       required:
@@ -511,9 +566,6 @@ components:
       properties:
         message:
           type: string
-    Visa:
-      type: object
-
     SellRequest:
       required:
         - quoteId
