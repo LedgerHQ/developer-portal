@@ -16,10 +16,6 @@ On this page you will find the information for Bitcoin and Ethereum clones.
 
 ## Bitcoin clones
 
-Depending on your use case, the process will vary.
-
-### A - Standard Bitcoin clone
-
 If you want to create a new bitcoin clone without new features, instead of forking the boilerplate app you should fork [app-bitcoin-clone-boilerplate](https://github.com/LedgerHQ/app-bitcoin-clone-boilerplate).
 
 If your Bitcoin clone was included in the Bitcoin Device App and you need to update it, you should
@@ -30,11 +26,11 @@ your CI is green and you should be good to go !
 
 Note that all APDU handlers have been defined with `WEAK` attribute, so they can be overwritten if your app requires you to do so.
 
-### B - Bitcoin extension clone
+## Bitcoin Smart Contracts and Layer 2s
 
 If you want to implement smart contracts or layer 2 solutions on Bitcoin, instead of forking the boilerplate app you should fork [app-btcext-boilerplate](https://github.com/LedgerHQ/app-btcext-boilerplate).
 
-Once forked, you can add your icon, customize the makefile and hooks, update the README, and include your tests. Ensure your CI passes successfully, and you'll be ready to proceed!
+Once forked, you can add your icon, customize the makefile and hooks, implement your own validation logic and UX, update the README, and include your tests. Ensure your CI passes successfully, and you'll be ready to proceed!
 
 
 ## Ethereum clones
