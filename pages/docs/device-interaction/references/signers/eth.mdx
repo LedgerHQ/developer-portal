@@ -267,6 +267,59 @@ type Signature = {
 
 - `cancel` A function to cancel the action on the Ledger device.
 
+### Use Case 5: Sign Delegation Authorization (EIP-7702)
+
+This method enables users to sign a delegation authorization message following the [EIP-7702](https://eips.ethereum.org/EIPS/eip-7702) specification.
+
+```typescript
+const { observable, cancel } = signerEth.signDelegationAuthorization(
+  derivationPath,
+  chainId,
+  contractAddress,
+  nonce,
+);
+```
+
+#### **Parameters**
+
+- `derivationPath`
+
+  - **Required**
+  - **Type:** `string` (e.g., `"44'/60'/0'/0/0"`)
+  - The derivation path used by the Ethereum message. See [here](https://www.ledger.com/blog/understanding-crypto-addresses-and-derivation-paths) for more information.
+
+- `chainId`
+
+  - **Required**
+  - **Type:** `number`
+  - The chain ID of the Ethereum network.
+
+- `contractAddress`
+
+  - **Required**
+  - **Type:** `string`
+  - The address of the contract to be authorized.
+
+- `nonce`
+
+  - **Required**
+  - **Type:** `number`
+  - The nonce of the transaction.
+
+#### **Returns**
+
+- `observable` Emits DeviceActionState updates, including the following details:
+
+```typescript
+type Signature = {
+  r: `0x${string}`; // R component of the signature
+  s: `0x${string}`; // S component of the signature
+  v: number; // Recovery parameter
+};
+```
+
+- `cancel` A function to cancel the action on the Ledger device.
+
 ## 🔹 Observable Behavior
 
 Each method returns an [Observable](https://rxjs.dev/guide/observable) emitting updates structured as [`DeviceActionState`](https://github.com/LedgerHQ/device-sdk-ts/blob/develop/packages/device-management-kit/src/api/device-action/model/DeviceActionState.ts). These updates reflect the operation’s progress and status:
