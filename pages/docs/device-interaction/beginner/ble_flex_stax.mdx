@@ -11,11 +11,11 @@ Device Management Kit: v0.4.0 (and later)
 ```typescript
 import { DeviceManagementKitBuilder } from "@ledgerhq/device-management-kit";
 import { webBleTransportFactory } from "@ledgerhq/device-transport-kit-web-ble";
-import { webUsbTransportFactory } from "@ledgerhq/device-transport-kit-web-hid";
+import { webHidTransportFactory } from "@ledgerhq/device-transport-kit-web-hid";
 
 const dmk = new DeviceManagementKitBuilder()
   .addTransport(webBleTransportFactory)
-  .addTransport(webUsbTransportFactory)
+  .addTransport(webHidTransportFactory)
   .build();
 ```
 
