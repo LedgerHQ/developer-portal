@@ -12,7 +12,7 @@ import Image from "next/image";
 
 ## Endpoints needed for Sell
 
-In order to communicate with Ledger’s backend, you must provide standardised APIs for Ledger's SELL aggregator services to call.
+In order to communicate with Ledger’s backend, you must provide standardised APIs for Ledger's Sell aggregator services to call.
 
 <Callout type="info" emoji="🔗">
   You will find all the information regarding the SELL endpoints here:
@@ -20,7 +20,11 @@ In order to communicate with Ledger’s backend, you must provide standardised A
   some endpoints below.
 </Callout>
 
-There are 4 main endpoints needed for the sell: - To get the list of available fiat, country, payment, method and amount: [/capabilities](https://exchange-integration-sell.redoc.ly/#operation/getCapabilities). - To get the list of available crypto-currencies: [/crypto-currencies](https://exchange-integration-sell.redoc.ly/#operation/getCryptoCurrencies). - To get the fiat amount that the user should expect -after all fees are deducted - as a payment for the given crypto amount: [/quotes](https://exchange-integration-sell.redoc.ly/#operation/getQuote). - To create a signed sell binary payload: [/sell](https://exchange-integration-sell.redoc.ly/#operation/postSell).
+There are 4 main endpoints needed for the Sell integration: 
+- To get the list of available fiat, country, payment, method and amount: [/capabilities](https://exchange-integration-sell.redoc.ly/#operation/getCapabilities). 
+- To get the list of available crypto-currencies: [/crypto-currencies](https://exchange-integration-sell.redoc.ly/#operation/getCryptoCurrencies). 
+- To get the fiat amount that the user should expect -after all fees are deducted - as a payment for the given crypto amount: [/quotes](https://exchange-integration-sell.redoc.ly/#operation/getQuote). 
+- To create a signed sell binary payload: [/sell](https://exchange-integration-sell.redoc.ly/#operation/postSell).
 
 <details>
   <summary>Additional Details: POST /sell</summary>
@@ -89,6 +93,17 @@ An example response from the your backend to the Ledger backend
 
 </details>
 
+### Ledger IDs mapping
+To comply with our integration policies, the LedgerId format must be used (by your `/crypto-currencies` and `/capabilities` endpoints) and accepted (by your `/quote` endpoint and widgetURL) to accurately identify tokens and coins. 
+
+You can refer to [this API](https://crypto-assets-service.api.ledger.com/v1/currencies?output=id,name,ticker,contract_address,blockchain_name) to obtain Ledger IDs. You can use the `search` parameter to find a specific coin or token. For instance, to search for USDT, you can use this [request](https://crypto-assets-service.api.ledger.com/v1/currencies?output=id,name,ticker,contract_address,blockchain_name&search=USDT).
+
+Example: let's say your support AAVE on Ethereum mainnet. The LedgerID for AAVE on Ethereum is `ethereum/erc20/aave` (as we can see [here](https://crypto-assets-service.api.ledger.com/v1/currencies?output=id,name,ticker,contract_address,blockchain_name&search=AAVE)). This means:
+- Your `/crypto-currencies` endpoint must include `ethereum/erc20/aave` in its response (along with the other coins/tokens you support), so we know that you support AAVE on Ethereum.
+- Your `/capabilities` endpoint must include `ethereum/erc20/aave` in its response (along with the other coins/tokens you support).
+- Your `/quote` endpoint must accept `ethereum/erc20/aave` as a value for the `from` parameter.
+- Your widgetURL must accept `ethereum/erc20/aave` as a value for the `from` parameter.
+
 ## Real-time Status Updates:
 
 To ensure effective communication with Ledger's backend, you are required to implement a webhook [/transaction/\{sellId\}/status](https://exchange-integration-sell.redoc.ly/#operation/statusUpdate) update mechanism. This should notify Ledger real-time whenever there is a change in the status of a transaction. Ledger will provide partners with the necessary webhook URL or address to which the status updates should be sent.
@@ -107,6 +122,10 @@ To ensure effective communication with Ledger's backend, you are required to imp
 </details>
 
 Additionally, if your backend needs to know the transaction status from our system (e.g., whether the transaction was approved or rejected by the user’s device), we provide an optional endpoint [/transaction/\{sellId\}/status](https://exchange-integration-sell.redoc.ly/#operation/getStatusUpdate)
+
+<Callout type="info" emoji="👉">
+Webhooks must be sent only **after** your Front-End has called the Sell method of the Exchange SDK. Sending a webhook beforehand will result in an error 404 (transaction not found), as the Sell ID included the webhook payload won't be recognized by Ledger at that point.
+</Callout>
 
 [//]: # "Info needed to be exchange with the provider, but not out loud publicly"
 [//]: # "**IP address checking** "

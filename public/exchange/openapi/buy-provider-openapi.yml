@@ -14,7 +14,8 @@ paths:
             - "fiatCurrencyCapabilities.[].minAmount": minimum amount in fiat the user can buy crypto,
             - "fiatCurrencyCapabilities.[].maxAmount ": minimum amount in fiat the user can buy crypto,
             - "countryCapabilities.[].country": available at the Alpha-2 standard (ISO3166),
-            - "countryCapabilities.[].paymentMethods.[].name": Available payment method, valid values : card, pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay, googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank, bank, gbpbank, eps, ideal, revolut
+            - "countryCapabilities.[].paymentMethods.[].name": Available payment method, valid values : card, googlepay, applepay, paypal, cryptocom, sepa, ach, instantach, fasterpayments, easybank, bank, cashapp, venmo, pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay, eps, ideal, other, revolut, p2p, interac, payid, spei, imps, gcash, ovo, shopeepay, grabpay, linkaja, maya, pse, dana, qris
+          x-summary: OK
           content:
             application/json:
               schema:
@@ -70,21 +71,18 @@ paths:
           example: EUR
         - name: to
           in: query
-          description: Crypto currency id of the provider.
+          description: Crypto currency ID using the LedgerId format.
           required: true
           schema:
             type: string
           example: bitcoin
         - name: payment-method
           in: query
-          description: 'Payment method, valid values : card,
-         pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay,
-         googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,
-         bank, gbpbank, eps, ideal, revolut.'
+          description: 'Payment method, valid values : card, googlepay, applepay, paypal, cryptocom, sepa, ach, instantach, fasterpayments, easybank, bank, cashapp, venmo, pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay, eps, ideal, other, revolut, p2p, interac, payid, spei, imps, gcash, ovo, shopeepay, grabpay, linkaja, maya, pse, dana, qris.'
           required: true
           schema:
             type: string
-          example: PayPal
+          example: paypal
         - name: amount
           in: query
           description: Fiat amount to buy.
@@ -109,9 +107,10 @@ paths:
       responses:
         '200':
           description: "### Quote information about the the buy. \n- \"from\": fiat\
-           \ currency of the buy,\n- \"to\": crypto currency of the buy,\n- \"amount\"\
+           \ currency of the buy,\n- \"to\": crypto currency ID of the buy, using the LedgerId format,\n- \"amount\"\
            : fiat amount,\n- \"cryptoAmount\": crypto amount the user will have,\
            \ must include all the fees.\n"
+          x-summary: OK
           content:
             application/json:
               schema:
@@ -139,7 +138,7 @@ paths:
   /buy:
     get:
       summary: Retrieve a redirect URL
-      description: Retrieve a redirect URL to the Ramp UI widget for provided buy parameters. Use it to redirect the customer to Revolut Ramp to make the purchase.
+      description: Returns the URL of the on-ramp widget, including the specified buy parameters, to which the user will be redirected.
       security:
         - ApiKeyAuth: []
       parameters:
@@ -152,21 +151,18 @@ paths:
           example: EUR
         - name: to
           in: query
-          description: Crypto currency id of the provider.
+          description: Crypto currency ID using the LedgerId format.
           required: true
           schema:
             type: string
           example: bitcoin
         - name: payment-method
           in: query
-          description: 'Payment method, valid values : card,
-         pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay,
-         googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,
-         bank, gbpbank, eps, ideal, revolut.'
+          description: 'Payment method, valid values: card, googlepay, applepay, paypal, cryptocom, sepa, ach, instantach, fasterpayments, easybank, bank, cashapp, venmo, pix, mobikwik, easypay, astropay, upibanktransfer, sofort, bancontact, giropay, eps, ideal, other, revolut, p2p, interac, payid, spei, imps, gcash, ovo, shopeepay, grabpay, linkaja, maya, pse, dana, qris'
           required: true
           schema:
             type: string
-          example: PayPal
+          example: paypal
         - name: amount
           in: query
           description: Fiat amount to buy.
@@ -196,10 +192,11 @@ paths:
             type: string
         - in: query
           name: deeplinkUrl
-          description: deeplink to Ledger Live. Example, ledgerlive://buy
+          description: deeplink to Ledger Live.
           required: true
           schema:
             type: string
+          example: ledgerlive://buy
       responses:
         '200':
           description: OK
@@ -218,27 +215,22 @@ paths:
       operationId: getCrypto-currencies
       responses:
         '200':
-          description: "\n### Available crypto currencies\n- \"id\" : the provider id of the currency,\n\
-           - \"type\" : possible values : coin, token,\n- \"blockchain\" : ledger\
-           \ id of the blockchain in ledger_coins.json,\n- \"chainId\" : chain id\
-           \ of the blockchain, \n- \"contract\" : mapped only if type is token,\
-           \ the contract address of the token.\n"
+          description: |
+            ### Available crypto currencies
+            Return a list of crypto currencies supported by the Buy provider. Must be an array of IDs using the LedgerId format. More details are available on the [Ledger Developer Portal](https://developers.ledger.com/docs/ledger-live/exchange/sell/providers-backend#ledger-ids-mapping).
+          x-summary: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CryptoCurrencies'
+                  type: string
               example:
-                - id: BTC
-                  type: coin
-                  blockchain: bitcoin
-                  chainId: 1
-                - id: USDC
-                  type: token
-                  blockchain: ethereum
-                  chainId: 1
-                  contract: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+                - "bitcoin"
+                - "solana"
+                - "ethereum"
+                - "ethereum/erc20/aave"
+                - "solana/spl/epjfwdd5aufqssqem2qn1xzybapc8g4weggkzwytdt1v"
         default:
           description: Error sent by the provider
           content:
@@ -296,8 +288,6 @@ components:
        \ googlepay, applepay, paypal, sepa, ach, fasterpayments, easybank,\
        \ bank, gbpbank, eps, ideal, revolut\n- \"countriesCapabilities.[].paymentMethods.[].successRate\"\
        : percentage of success of the transaction.\n"
-    Coin:
-      type: object
     CountryCapability:
       required:
         - country
@@ -311,29 +301,6 @@ components:
             $ref: '#/components/schemas/BuyPaymentMethod'
     Card:
       type: object
-    CryptoCurrencies:
-      required:
-        - id
-        - type
-        - blockchain
-        - chainId
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          $ref: '#/components/schemas/CryptoCurrencyType'
-        blockchain:
-          type: string
-        chainId:
-          type: integer
-          format: int32
-        contract:
-          type: string
-    CryptoCurrencyType:
-      oneOf:
-        - $ref: '#/components/schemas/Coin'
-        - $ref: '#/components/schemas/Token'
     EasyBank:
       type: object
     Easypay:
@@ -371,29 +338,45 @@ components:
       type: object
     PaymentMethod:
       oneOf:
-        - $ref: '#/components/schemas/Ach'
-        - $ref: '#/components/schemas/ApplePay'
-        - $ref: '#/components/schemas/Astropay'
-        - $ref: '#/components/schemas/BanContact'
-        - $ref: '#/components/schemas/Bank'
         - $ref: '#/components/schemas/Card'
-        - $ref: '#/components/schemas/EasyBank'
-        - $ref: '#/components/schemas/Easypay'
-        - $ref: '#/components/schemas/Eps'
-        - $ref: '#/components/schemas/FasterPayments'
-        - $ref: '#/components/schemas/GbpBank'
-        - $ref: '#/components/schemas/Giropay'
-        - $ref: '#/components/schemas/GooglePay'
-        - $ref: '#/components/schemas/Ideal'
-        - $ref: '#/components/schemas/Mobikwik'
-        - $ref: '#/components/schemas/Other'
-        - $ref: '#/components/schemas/PayPal'
-        - $ref: '#/components/schemas/Pix'
-        - $ref: '#/components/schemas/Revolut'
+        - $ref: '#/components/schemas/Googlepay'
+        - $ref: '#/components/schemas/Applepay'
+        - $ref: '#/components/schemas/Paypal'
+        - $ref: '#/components/schemas/Cryptocom'
         - $ref: '#/components/schemas/Sepa'
+        - $ref: '#/components/schemas/Ach'
+        - $ref: '#/components/schemas/Instantach'
+        - $ref: '#/components/schemas/Fasterpayments'
+        - $ref: '#/components/schemas/Easybank'
+        - $ref: '#/components/schemas/Bank'
+        - $ref: '#/components/schemas/Cashapp'
+        - $ref: '#/components/schemas/Venmo'
+        - $ref: '#/components/schemas/Pix'
+        - $ref: '#/components/schemas/Mobikwik'
+        - $ref: '#/components/schemas/Easypay'
+        - $ref: '#/components/schemas/Astropay'
+        - $ref: '#/components/schemas/Upibanktransfer'
         - $ref: '#/components/schemas/Sofort'
-        - $ref: '#/components/schemas/UPIBankTransfer'
-        - $ref: '#/components/schemas/Unknown'
+        - $ref: '#/components/schemas/Bancontact'
+        - $ref: '#/components/schemas/Giropay'
+        - $ref: '#/components/schemas/Eps'
+        - $ref: '#/components/schemas/Ideal'
+        - $ref: '#/components/schemas/Other'
+        - $ref: '#/components/schemas/Revolut'
+        - $ref: '#/components/schemas/P2p'
+        - $ref: '#/components/schemas/Interac'
+        - $ref: '#/components/schemas/Payid'
+        - $ref: '#/components/schemas/Spei'
+        - $ref: '#/components/schemas/Imps'
+        - $ref: '#/components/schemas/Gcash'
+        - $ref: '#/components/schemas/Ovo'
+        - $ref: '#/components/schemas/Shopeepay'
+        - $ref: '#/components/schemas/Grabpay'
+        - $ref: '#/components/schemas/Linkaja'
+        - $ref: '#/components/schemas/Maya'
+        - $ref: '#/components/schemas/Pse'
+        - $ref: '#/components/schemas/Dana'
+        - $ref: '#/components/schemas/Qris'
     Pix:
       type: object
     ProviderQuoteResponse:
@@ -429,9 +412,57 @@ components:
       type: object
     Sofort:
       type: object
-    Token:
-      type: object
     UPIBankTransfer:
+      type: object
+    Googlepay:
+      type: object
+    Applepay:
+      type: object
+    Paypal:
+      type: object
+    Cryptocom:
+      type: object
+    Instantach:
+      type: object
+    Fasterpayments:
+      type: object
+    Easybank:
+      type: object
+    Cashapp:
+      type: object
+    Venmo:
+      type: object
+    Upibanktransfer:
+      type: object
+    Bancontact:
+      type: object
+    P2p:
+      type: object
+    Interac:
+      type: object
+    Payid:
+      type: object
+    Spei:
+      type: object
+    Imps:
+      type: object
+    Gcash:
+      type: object
+    Ovo:
+      type: object
+    Shopeepay:
+      type: object
+    Grabpay:
+      type: object
+    Linkaja:
+      type: object
+    Maya:
+      type: object
+    Pse:
+      type: object
+    Dana:
+      type: object
+    Qris:
       type: object
     Unknown:
       required:
