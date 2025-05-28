@@ -217,7 +217,7 @@ paths:
         '200':
           description: |
             ### Available crypto currencies
-            Return a list of crypto currencies supported by the Buy provider. Must be an array of IDs using the LedgerId format. More details are available on the [Ledger Developer Portal](https://developers.ledger.com/docs/ledger-live/exchange/sell/providers-backend#ledger-ids-mapping).
+            Return a list of crypto currencies supported by the Buy provider. Must be an array of IDs using the LedgerId format. More details are available on the [Ledger Developer Portal](https://developers.ledger.com/docs/ledger-live/exchange/buy/providers-backend#ledger-ids-mapping).
           x-summary: OK
           content:
             application/json:
