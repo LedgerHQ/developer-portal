@@ -6,7 +6,10 @@ paths:
   /currencies:
     get:
       operationId: getCryptoCurrencies
-      description: Return a paginated list of supported currencies.
+      description: |
+        Return a paginated list of supported currencies.
+
+        ⚠️ Please keep the currencies list static in the `/currencies` endpoint, unless you want to disable an asset for a longtime.
       parameters: 
         - name: limit
           in: query
@@ -59,7 +62,12 @@ paths:
   /pairs:
     get:
       operationId: getPairs
-      description: Return a paginated list of supported pairs.
+      description: |
+        Return a paginated list of supported pairs.
+
+         ⚠️ If you are frequently disabling pairs,
+          please keep the currencies list static in the `/currencies` endpoint,
+          and only update pairs when necessary.
       parameters: 
         - name: limit
           in: query
