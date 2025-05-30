@@ -236,11 +236,11 @@ paths:
           example: FR
         - in: query
           name: customParameters
-          description: Used to include additional key-value parameters in the widget URL.
+          description: Used to include additional URL-encoded key-value parameters in the widget URL.
           required: false
           schema:
             type: string
-          example: widgetid=247312&ledgerlive=true
+          example: widgetid%3D247312%26ledgerlive%3Dtrue
         - in: query
           name: ledgerTransactionId
           description: Ledger Live transaction ID. Used by Ledger to track transactions and their completion statuses.
@@ -254,7 +254,7 @@ paths:
           required: false
           schema:
             type: string
-          example: ledgerlive://sell
+          example: ledgerlive://buy
       responses:
         '200':
           description: OK
