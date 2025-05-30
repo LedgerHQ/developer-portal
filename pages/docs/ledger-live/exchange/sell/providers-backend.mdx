@@ -24,6 +24,7 @@ There are 4 main endpoints needed for the Sell integration:
 - To get the list of available fiat, country, payment, method and amount: [/capabilities](https://exchange-integration-sell.redoc.ly/#operation/getCapabilities). 
 - To get the list of available crypto-currencies: [/crypto-currencies](https://exchange-integration-sell.redoc.ly/#operation/getCryptoCurrencies). 
 - To get the fiat amount that the user should expect -after all fees are deducted - as a payment for the given crypto amount: [/quotes](https://exchange-integration-sell.redoc.ly/#operation/getQuote). 
+- To get the URL of the off-ramp widget to which the user will be redirected. [/sell-redirect](https://exchange-integration-sell.redoc.ly/#operation/sell-redirect). 
 - To create a signed sell binary payload: [/sell](https://exchange-integration-sell.redoc.ly/#operation/postSell).
 
 <details>

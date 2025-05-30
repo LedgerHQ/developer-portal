@@ -177,6 +177,97 @@ paths:
               example:
                 code: 42
                 message: Server isn't able to handle the request because of whatever.
+  /sell-redirect:
+    get:
+      operationId: sell-redirect
+      summary: Retrieve a redirect URL
+      description: Returns the URL of the off-ramp widget, including the specified Sell parameters, to which the user will be redirected.
+      security:
+        - defaultApiKey: [ ]
+      parameters:
+        - name: accountId
+          in: query
+          description: User’s selected account id, where the crypto he wants to sell is stored.
+          required: true
+          schema:
+            type: string
+          example: d7e79746-e40c-5fab-9012-3c0bc04e8a13
+        - name: cryptoCurrency
+          in: query
+          description: The crypto currency that the user wants to sell. It will contain the [LedgerID](https://developers.ledger.com/docs/ledger-live/exchange/sell/providers-backend#ledger-ids-mapping) value to identify the crypto.
+          required: true
+          schema:
+            type: string
+          example: bitcoin
+        - name: fiatCurrency
+          in: query
+          description: The FIAT currency that the user wants to be paid with.
+          required: true
+          schema:
+            type: string
+          example: EUR
+        - name: cryptoAmount
+          in: query
+          description: The crypto amount that the user wants to sell.
+          required: true
+          schema:
+            type: string
+          example: 0.001
+        - name: paymentMethod
+          in: query
+          description: The payment method selected by the user.
+          required: true
+          schema:
+            type: string
+          example: card
+        - name: mode
+          in: query
+          description: In this case always `sell`.
+          required: true
+          schema:
+            type: string
+          example: sell
+        - in: query
+          name: bankResidency
+          description: User's Country Code (ALPHA-2).
+          required: true
+          schema:
+            type: string
+          example: FR
+        - in: query
+          name: customParameters
+          description: Used to include additional URL-encoded key-value parameters in the widget URL.
+          required: false
+          schema:
+            type: string
+          example: widgetid%3D247312%26ledgerlive%3Dtrue
+        - in: query
+          name: ledgerTransactionId
+          description: Ledger Live transaction ID. Used by Ledger to track transactions and their completion statuses.
+          required: false
+          schema:
+            type: string
+          example: 9649d677-f201-45b2-8130-0317065743de
+        - in: query
+          name: deeplinkUrl
+          description: Deeplink URL to Ledger Live.
+          required: false
+          schema:
+            type: string
+          example: ledgerlive://buy
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RampRedirectUrl'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                type: string
   /sell:
     post:
       operationId: postSell
@@ -415,6 +506,18 @@ components:
         maxAmount:
           type: string
           description: Maximum supported amount of this currency
+    RampRedirectUrl:
+      type: object
+      description: Redirect URL to Ramp UI widget
+      required:
+        - rampRedirectUrl
+      properties:
+        rampRedirectUrl:
+          type: string
+          format: uri
+          description: The URL of the off-ramp widget, including the specified Sell parameters, to which the user will be redirected.
+      example:
+        rampRedirectUrl: "https://widget.crypto-partner.com/?product=SELL&cryptoAmount=20&fiatCurrency=EUR&network=polygon&paymentMethod=credit_debit_card&cryptoCurrencyCode=USDC&countryCode=GB&partnerOrderId=test-order-id&partnerCustomerId=12342"
     Other:
       type: object
     PaymentMethod:

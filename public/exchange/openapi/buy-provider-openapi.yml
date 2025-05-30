@@ -192,7 +192,7 @@ paths:
             type: string
         - in: query
           name: deeplinkUrl
-          description: deeplink to Ledger Live.
+          description: Deeplink URL to Ledger Live.
           required: true
           schema:
             type: string
@@ -480,9 +480,9 @@ components:
         rampRedirectUrl:
           type: string
           format: uri
-          description: The URL to Revolut Ramp to which to redirect the customer for the purchase
+          description: The URL of the on-ramp widget, including the specified Buy parameters, to which the user will be redirected.
       example:
-        rampRedirectUrl: "https://ramp.revolut.com?fiatCurrency=GBP&amount=12345&cryptoCurrency=ETH&walletAddress=0x96e2B7Bf479f84e7A0a94f0620290B7D3E08f5EF&countryCode=GB&partnerId=a01798bc-7f0b-14ed-a12b-0e3fac1209ad&externalOrderId=2d1769bc-7aab-92ed-a10b-0232ac12090d&disableFiatAmount=true&disableCryptoCurrency=true&disableWalletAddress=true&disableCountryCode=true&skipWalletAddress=true&partnerRedirectUrl=https%3A%2F%2Fcrypto.partner.com%2Forder%3ForderId%3D2d1769bc-7aab-92ed-a10b-0232ac12090d"
+        rampRedirectUrl: "https://widget.crypto-partner.com?fiatCurrency=GBP&amount=12345&cryptoCurrency=ETH&walletAddress=0x96e2B7Bf479f84e7A0a94f0620290B7D3E08f5EF&countryCode=GB&partnerId=a01798bc-7f0b-14ed-a12b-0e3fac1209ad&externalOrderId=2d1769bc-7aab-92ed-a10b-0232ac12090d&disableFiatAmount=true&disableCryptoCurrency=true&disableWalletAddress=true&disableCountryCode=true&skipWalletAddress=true&partnerRedirectUrl=https%3A%2F%2Fcrypto.partner.com%2Forder%3ForderId%3D2d1769bc-7aab-92ed-a10b-0232ac12090d"
     Order:
       type: object
       description: Fiat to crypto exchange order
