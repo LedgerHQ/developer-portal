@@ -179,8 +179,9 @@ paths:
                 message: Server isn't able to handle the request because of whatever.
   /sell-redirect:
     get:
+      operationId: sell-redirect
       summary: Retrieve a redirect URL
-      description: Returns the URL of the off-ramp widget, including the specified sell parameters, to which the user will be redirected.
+      description: Returns the URL of the off-ramp widget, including the specified Sell parameters, to which the user will be redirected.
       security:
         - defaultApiKey: [ ]
       parameters:
@@ -210,7 +211,7 @@ paths:
           description: The crypto amount that the user wants to sell.
           required: true
           schema:
-            type: integer
+            type: string
           example: 0.001
         - name: paymentMethod
           in: query
@@ -514,7 +515,7 @@ components:
         rampRedirectUrl:
           type: string
           format: uri
-          description: The URL to Revolut Ramp to which to redirect the customer for the purchase
+          description: The URL of the off-ramp widget, including the specified Sell parameters, to which the user will be redirected.
       example:
         rampRedirectUrl: "https://widget.crypto-partner.com/?product=SELL&cryptoAmount=20&fiatCurrency=EUR&network=polygon&paymentMethod=credit_debit_card&cryptoCurrencyCode=USDC&countryCode=GB&partnerOrderId=test-order-id&partnerCustomerId=12342"
     Other:
