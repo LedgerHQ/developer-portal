@@ -1,0 +1,31 @@
+# Exchange SDK
+
+### Update dependency versions
+
+Open `lib/package.json` and update `@ledgerhq/wallet-api-client` and `@ledgerhq/wallet-api-exchange-module` version that support the new coin.
+
+<b>Note</b>: `@ledgerhq/wallet-api-exchange-module` has nightly releases, you
+might need to use it in order to proceed with swap tests, given that a proper
+version of the package is released only with every release of ledger-live.
+
+<b>Note 2</b>: don’t forget to update the `peerDependencies` in `package.json`.
+
+---
+
+```sh copy
+pnpm update @ledgerhq/wallet-api-client-client@latest
+```
+
+```sh copy
+pnpm update @ledgerhq/wallet-api-exchange-module@latest
+```
+
+### Add “new-coin” to transaction strategy
+
+Open `lib/src/wallet-api.ts` and add the “new-coin” transaction method to the transaction strategy object.
+
+### Release a new version of ExchangeSDK
+
+Once PR is merged into main, you can ask for a Release.
+
+Once the new version of exchange-sdk is available on [npm](https://www.npmjs.com/package/@ledgerhq/exchange-sdk?activeTab=versions), it can be updated in the SwapLiveApp.

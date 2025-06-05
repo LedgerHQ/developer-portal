@@ -1,0 +1,122 @@
+# Wallet API
+
+Repository : [https://github.com/LedgerHQ/wallet-api](https://github.com/LedgerHQ/wallet-api)
+
+## 1 - Create data model
+
+First, you need to go to folder packages/core/src/families and create a sub-folder for the new coin data model: `packages/core/src/families/coin/`
+
+Inside this sub-folder, you need to create the following modules:
+
+| Module        | Description                                                   |
+| ------------- | ------------------------------------------------------------- |
+| serializer.ts | Where the serialize and deserialize transaction methods live. |
+| types.ts      | Coin transaction and raw transaction type definitions.        |
+| validation.ts | Coin validation schemas.                                      |
+
+## 2 - Add coin to core package
+
+After you create the data model, you need to import to the core package.
+
+- Add new coin to FAMILIES enum => `packages/core/src/families/common.ts`
+
+```ts copy
+export const FAMILIES = [
+  "algorand",
+  "aptos",
+  ...,
+  "<coin>"
+  ...,
+  ];
+```
+
+- Serialization methods => `packages/core/src/families/serializer.ts`
+
+Import serialization methods
+
+```ts copy
+import {
+  deserialize<Coin>Transaction,
+  serialize<Coin>Transaction,
+} from "./<coin>/serializer";
+```
+
+Add case to serializeTransaction function:
+
+```ts copy
+case "<coin>":
+      return serialize<coin>Transaction(transaction);
+```
+
+Add case to deserializeTransaction function:
+
+```ts copy
+case "<coin>":
+      return return deserialize<coin>Transaction(rawTransaction);
+```
+
+- Types support => `packages/core/src/families/types.ts`
+
+Import transaction type:
+
+```ts copy
+import type { <coin>Transaction } from "./<coin>/types";
+```
+
+Add to transaction type:
+
+```ts copy
+<coin>Transaction;
+```
+
+- Schemas => `packages/core/src/families/validation.ts`
+
+Import schema:
+
+```ts copy
+import { schemaRaw<coin>Transaction } from "./<coin>/validation";
+```
+
+Add entry to const schemaRawTransaction:
+
+```ts copy
+schemaRaw < Coin > Transaction;
+```
+
+- Export type module => `packages/core/src/families/index.ts`
+
+```ts copy
+export * from "./<coin>/types";
+```
+
+- Add coin information to the document => `spec/core/types.md`
+
+- Add coin to the list of supported crypto currencies => `README.md`
+
+## 3 - Bump package version
+
+After applying all the changes, don’t forget to update the changeset, so a new version can be released. It should be a minor change.
+
+```sh copy
+pnpm changeset
+```
+
+## 4 - Ensure test coverage
+
+Test coverage must be covered for serializers. You can add your test into the following file:
+
+`packages/core/tests/serializers.spec.ts`
+
+[Example PR](https://github.com/LedgerHQ/wallet-api/pull/430/files)
+
+## 5 - Pull request
+
+Create a pull request and ping us for review and validation.
+
+After the first pull request has been merged to main branch, a new pull request should be created automatically with the new release with the name Version Packages (e.g.: Version Packages by github-actions[bot]).
+
+Ledger developers will approve and merge.
+
+## Examples
+
+- [Aptos](https://github.com/LedgerHQ/wallet-api/pull/428)
