@@ -11,17 +11,19 @@ import PayloadAndSignature from '../../../../../public/exchange/import/payload-a
 
 ## Endpoints needed for Buy
 
-In order to communicate with Ledger’s backend, you must provide standardised APIs for Ledger's BUY aggregator services to call.
+In order to communicate with Ledger’s backend, you must provide standardised APIs for Ledger's Buy aggregator services to call.
 
 <Callout type="info" emoji="🔗">
-You will find all the information regarding the BUY endpoints here: https://exchange-integration-buy.redoc.ly/.
+You will find all the information regarding the Buy endpoints here: https://exchange-integration-buy.redoc.ly/.
 </Callout>
 
 
-There are 3 main endpoints needed for the buy:
+There are 4 endpoints needed for the Buy integration:
     - To get the list of available fiat, country, payment, method and amount: [/capabilities](https://exchange-integration-buy.redoc.ly/#operation/getCapabilities).
     - To get the list of available crypto-currencies: [/crypto-currencies](https://exchange-integration-buy.redoc.ly/#operation/getCrypto-currencies).
-    - To get the crypto amount that the user should expect -after all fees are deducted - as a payment for the given fiat amount: [/quotes](https://exchange-integration-buy.redoc.ly/#operation/getQuote).  
+    - To get the crypto amount that the user should expect -after all fees are deducted - as a payment for the given fiat amount: [/quotes](https://exchange-integration-buy.redoc.ly/#operation/getQuote).
+    - To get the URL of the on-ramp widget to which the user will be redirected. [/buy-redirect](https://exchange-integration-buy.redoc.ly/#operation/buy-redirect).
+
 
 ### Ledger IDs mapping
 To comply with our integration policies, the LedgerId format must be used (by your `/crypto-currencies` endpoint) and accepted (by your `/quote` endpoint and widgetURL) to accurately identify tokens and coins. 

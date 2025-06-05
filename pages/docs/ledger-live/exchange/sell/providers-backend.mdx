@@ -15,12 +15,12 @@ import Image from "next/image";
 In order to communicate with Ledger’s backend, you must provide standardised APIs for Ledger's Sell aggregator services to call.
 
 <Callout type="info" emoji="🔗">
-  You will find all the information regarding the SELL endpoints here:
+  You will find all the information regarding the Sell endpoints here:
   https://exchange-integration-sell.redoc.ly/, as well as additional details on
   some endpoints below.
 </Callout>
 
-There are 4 main endpoints needed for the Sell integration: 
+There are 5 endpoints needed for the Sell integration: 
 - To get the list of available fiat, country, payment, method and amount: [/capabilities](https://exchange-integration-sell.redoc.ly/#operation/getCapabilities). 
 - To get the list of available crypto-currencies: [/crypto-currencies](https://exchange-integration-sell.redoc.ly/#operation/getCryptoCurrencies). 
 - To get the fiat amount that the user should expect -after all fees are deducted - as a payment for the given crypto amount: [/quotes](https://exchange-integration-sell.redoc.ly/#operation/getQuote). 
