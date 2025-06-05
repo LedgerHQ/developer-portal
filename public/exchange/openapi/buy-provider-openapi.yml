@@ -135,8 +135,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProviderServerError'
-  /buy:
+  /buy-redirect:
     get:
+      operationId: buy-redirect
       summary: Retrieve a redirect URL
       description: Returns the URL of the on-ramp widget, including the specified buy parameters, to which the user will be redirected.
       security:
@@ -185,15 +186,16 @@ paths:
             type: string
           example: '0x000000000000000000000000000000'
         - in: query
-          name: orderId
-          description: Identifier of the order
+          name: ledgerTransactionId
+          description: Ledger Live transaction ID. Used by Ledger to track transactions and their completion statuses.
           required: true
           schema:
             type: string
+          example: 9649d677-f201-45b2-8130-0317065743de
         - in: query
           name: deeplinkUrl
           description: Deeplink URL to Ledger Live.
-          required: true
+          required: false
           schema:
             type: string
           example: ledgerlive://buy
