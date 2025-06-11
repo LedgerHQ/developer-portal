@@ -1,0 +1,32 @@
+# Implementation strategy
+
+## Update cryptoassets
+
+[First, we need to add your currency](./cryptoassets-library), this is where we tell Ledger Live :
+
+- The name of the currency
+- Which nano app is needed for this currency
+- Which blockchain family handles the currency
+- Transaction explorer links
+- Units / Tickers (ex: satoshi vs btc magnitude)
+- Derivation info (derivation path parts : coin type, ...)
+- Color of the chain
+
+## Device app library
+
+We'll implement a [library to abstract the communication layer with the device app](./js-bindings), through javascript methods instead of using transport directly.
+
+## Initiate coin-module using boilerplate
+
+Coin-module abstract the same way blockchain specific logic in Ledger Live, you can use our [boilerplate](https://github.com/LedgerHQ/ledger-live/tree/develop/libs/coin-modules/coin-module-boilerplate)
+
+## Instantiate coin-module in ledger-live-common
+
+Once coin module is ready and tested through unit and integration tests, we can instantiate it in ledger-live-common with the signer via two steps:
+
+- [Light sync](./light-sync)
+- [Full sync](./full-sync)
+
+## Implement Alpaca API
+
+Finally, once your integration works well, we can make it [compatible with Ledger enterprise solution](./alpaca)

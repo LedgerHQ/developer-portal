@@ -1,0 +1,39 @@
+# Swap Live App
+
+## Update wallet-api and exchange-sdk dependency
+
+```sh copy
+pnpm update @ledgerhq/wallet-api-client@latest
+```
+
+```sh copy
+pnpm update @ledgerhq/wallet-api-exchange-module@latest
+```
+
+```sh copy
+pnpm update @ledgerhq/wallet-api-simulator@latest
+```
+
+```sh copy
+pnpm update @ledgerhq/exchange-sdk@latest
+```
+
+````sh copy
+pnpm up -riL "@ledgerhq/wallet-api-*"
+```sh copy
+
+## Add incompatibility with nano S
+
+Add your currency in `apps/live-app/src/components/IncompatibilityInfo/IncompatibilityInfo.tsx`:
+
+```ts copy
+const INCOMPATIBLE_CURRENCIES = [
+  "ton",
+  "cardano",
+  "cosmos",
+  "near",
+  "aptos",
+  ...,
+  "my_new_coin",
+];
+````

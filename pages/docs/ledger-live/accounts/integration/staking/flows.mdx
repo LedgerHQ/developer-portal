@@ -1,0 +1,21 @@
+# Transactions
+
+Now that account can sync and show delegations, we need to allow the user to broadcast staking operations.
+
+## Crafting
+
+## Flows
+
+We need to edit AccountHeaderManageActions.ts to add a “Stake” button, in order to open a modal where the user can choose what staking action he wants to do.
+
+You might need to override stakePrograms feature flag to show the button
+
+Then it’s product decision, either we do a big panel with different actions :
+
+This modal will then trigger different flows for each action:
+
+Or we deduce a list of user actions based on user account state (if he has already staked, he probably wants to undelegate or claim rewards, if account is fresh, he probably wants to stake for the first time, etc.. )
+
+Based on info from the user typed in these modals, we can build the corresponding operation in signOperation
+
+Example : signOp, prepareTransaction

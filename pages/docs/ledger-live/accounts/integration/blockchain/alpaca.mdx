@@ -1,0 +1,105 @@
+---
+title: "Alpaca"
+---
+
+import { Callout } from "nextra/components";
+
+# Alpaca API
+
+## Why ?
+
+We want to use our coin modules across all services at ledger. Ledger enterprise solution uses another interface named “Lama”
+
+## How ?
+
+Since we want to share coin-module’s code between platforms, we implemented a standard api that is not yet used in LedgerLive (still uses bridge) might be used in the future.
+
+We have a service called Alpaca that embed all coin-modules compatible
+
+For now, we make sure that both standard api and bridge use the same common code located in logic folder (could be named common” or “shared”)
+
+## Coin module repository architecture
+
+A coin module source code (src folder) is usually split like this :
+
+- api: exposed alpaca api that we will treat in this document
+- bridge: exposed ledger live api that we treat in “LL Blockchain integration” part
+- logic: common logic that is shared between bridge and alpaca api interface
+- network: coin module network dependencies and their model adapters, ideally we want an api abstraction layer
+- tests: it is where we store test-related files for the bot and coin-tester tool
+- types
+- signer: signer-related utils, if the usual SignerContext interface is not enough and requires an additional layer
+
+## Interface
+
+The interface is defined in coin-framework repository : [ledger-live/libs/coin-framework/src/api/types.ts](https://github.com/LedgerHQ/ledger-live/blob/develop/libs/coin-framework/src/api/types.ts)
+
+The goal is to implement it in your context, and share code between bridge implementation and alpaca context (“logic” part on diagram)
+
+## Standard API methods
+
+(Exact method signature can be found on the repo)
+
+### broadcast
+
+Diffuse the user transaction (raw tx, hence string type) to the network via the node
+
+### combine
+
+Combines the provided signature with its associated transaction (in network raw format). This function returns the signed transaction in its raw format
+
+### craftTransaction
+
+Crafts the user intent into a real raw transaction that is encoded, this is where we will translate what the user want into the real transaction
+
+If user provides fees, it needs to override locally estimated fees
+
+<Callout type="info" emoji="🧪">
+  Integration test requirement:
+  <br />- Send tx => crafted tx with corresponding amount
+  <br />- Send max tx => crafted tx with max amount
+</Callout>
+
+### estimateFees
+
+Return an estimation of what user intent will cost on the network
+
+<Callout type="info" emoji="🧪">
+  Integration test requirement:
+  <br />- Send tx fee estimation => No error, fees higher than 0
+</Callout>
+
+### getBalance
+
+Returns all assets linked to the user (native, tokens, …)
+
+<Callout type="info" emoji="🧪">
+  Integration test requirement:
+  <br />- Pristine account => value at 0 expected
+  <br /> - Account with balance => value higher than 0 expected
+</Callout>
+
+### lastBlock
+
+Return last block information (hash, time, height, …)
+
+<Callout type="info" emoji="🧪">
+  Integration test requirement:
+  <br />- height => value higher than 0 expected
+  <br /> - hash => value matching right length
+  <br /> - time => value is a valid date
+</Callout>
+
+### listOperations
+
+Returns operations on address related account. One operation is a movement of funds, so one blockchain transaction can trigger multiple operations (tracked via operationIndex)
+
+We need to return alpaca operations that will then be mapped into Live operations
+
+<Callout type="info" emoji="🧪">
+  Integration test requirement:
+  <br />- list operations on a pristine account => empty array expected
+  <br /> - list operation on a standard account => atleast X operations (length
+  defined at test creation)
+  <br /> - check metadata of each kind of tx => IN, OUT, ...
+</Callout>

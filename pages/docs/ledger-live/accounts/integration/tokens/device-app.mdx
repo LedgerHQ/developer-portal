@@ -1,0 +1,98 @@
+---
+title: Device app
+description: How to implement staking.
+---
+
+import { Callout } from "nextra/components";
+
+# Tokens device app support
+
+The changes required to implement token support on the device app are straightforward and similar to the existing send feature implementation.
+
+To support token transactions on the device, two main updates are required:
+
+- Add Clear signing and CAL Support:
+  Integrate the CAL (Crypto Asset List) into the device app to ensure access to trusted token metadata.
+
+- Support New Transaction Payloads:
+  Update the app to parse and sign new token-related transaction payloads.
+
+## Implementation notes
+
+The exact changes depend on the existing app implementation, but generally include:
+
+- Parsing new transaction formats (that were added during implementation of send tokens on the LedgerLive side)
+
+- Hardcoding the CAL list directly into the device app
+
+- Updating UI screens to support new function types
+
+- Generating updated snapshots for token transaction flows
+
+- Adding tests to validate signing of new token transaction types
+
+## Clear signing and CAL support
+
+Clear Signing is the feature that allows Ledger Live to show and verify on your device which token the user is sending (and not just showing a transaction to a smart contract)
+
+1. In order to make clear signing work, maintain a hardcoded list of supported tokens (CAL list), each including:
+
+- The contract address
+
+- The ticker
+
+2. After parsing the transaction, extract the token’s contract address to check if the token is known in the CAL list, and use it to look up the ticker.
+
+3. Update the transaction display so the amount is shown with the token ticker, providing clear context to the user.
+
+<Callout type="warning" emoji="⚠️">
+  Ensure the currency used for fees remains unchanged, this should refer to the
+  main coin, not the token.
+</Callout>
+
+Example (from app-aptos):
+
+<br />
+<div style={{ display: "flex", gap: "16px" }}>
+  <img src="/device-app/device-app-tx-type.png" style={{ width: "300px" }} />
+  <img src="/device-app/device-app-to.webp" style={{ width: "300px" }} />
+</div>
+
+<Callout type="info" emoji="ℹ️">
+Best Practices: First and last screen should describe the same action.
+
+- intent screens should always be: “Review transaction to X"
+
+- signature screens should be : "Sign transaction to X?”
+
+Example:
+
+<br />
+<div style={{ display: "flex", gap: "16px" }}>
+  <img src="/device-app/device-app-review.png" style={{ width: "300px" }} />
+  <img src="/device-app/device-app-sign.png" style={{ width: "300px" }} />
+</div>
+
+</Callout>
+
+## Deployment process
+
+### 1. Create the PR
+
+- The CI must be green — this includes build, tests, and rule enforcement.
+- PRs should always target the develop branch (used for testing), not the master branch (used for production).
+- If the PR modifies the binary, the app version must be bumped.
+- The PR must be cross-reviewed within the team.
+- Request a security audit from the firmware team.
+
+<Callout type="warning" emoji="⚠️">
+  At this stage, do not merge the PR into develop.
+</Callout>
+
+### 2. Post-Validation and Deployment
+
+- Request the firmware team to create a deployment ticket, providing the related PR link.
+- The embedded app team performs final checks and merges the PR into the develop branch.
+- The app is deployed to test providers.
+- Perform final functional tests.
+- Once validated, the embedded app team moves the app to production and merges develop into master.

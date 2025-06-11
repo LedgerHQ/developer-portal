@@ -1,4 +1,6 @@
-export default {  
-	tokens: "Tokens",
-	blockchain: "Blockchain"
-}
+export default {
+  blockchain: "Blockchain",
+  swap: "Swap",
+  tokens: "Tokens",
+  staking: "Staking",
+};
